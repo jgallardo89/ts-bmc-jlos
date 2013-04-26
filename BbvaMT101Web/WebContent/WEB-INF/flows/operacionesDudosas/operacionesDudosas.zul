@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?page title="Operaciones Dudosas" contentType="text/html;charset=UTF-8"?>
+<?meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7"?>
+<?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
+<zk>
+	<window border="0" width="100%" height="70%"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('mx.com.bbva.mt101.ui.commons.viewmodel.operacionesdudosas.OperacionesDudosasController')"
+		id="operacionesDudosasWindows">		
+		<include src="../../pages/styles.zul" />
+		<div sclass="BODY" height="100%">
+			<radiogroup id="radiosToEdit"></radiogroup>
+			<groupbox>
+				<caption sclass="pageTitle"
+					label="Consultas > Monitoreo MT101 CashMX > Ops. Dudosas"></caption>
+				<portallayout maximizedMode="whole" id="portalLayoutOpeDud"
+					width="100%">
+					<portalchildren style="padding: 5px" width="100%">
+						<panel width="100%" sclass="sectionPanelTitle" id="datosOpeDud"
+							title="Datos Operaciones Dudosas" collapsible="true"
+							style="margin-bottom:10px" border="normal">
+							<caption sclass="sectionPanelTitle" label="Información de la Operación"></caption>
+							<panelchildren>
+								<grid width="100%" style="border:0" oddRowSclass="row2">
+									<columns>
+										<column width="20%" />
+										<column width="20%" />
+										<column width="12%" />
+										<column width="35%" />
+									</columns>
+									<rows>
+										<row sclass="row2" width="100%">
+											<div align="right">
+												<label width="100%" sclass="labelFill" value="Folio Aceptación:"></label>
+											</div>
+											<textbox sclass="textboxUpperCase" value="@load(vm.srtFolioAceptacion)"
+												maxlength="15" id="folioAcpetacion" width="90%"></textbox>
+											<div align="right">
+												<label width="100%" sclass="labelFill" value="Estatus Operación:"></label>
+											</div>
+											<textbox sclass="textboxUpperCase" value="@load(vm.srtEstatusOperacion)"
+												maxlength="7" id="estatusOperacion" width="90%"></textbox>
+										</row>
+										<row width="100%">
+											<cell colspan="1">
+												<div align="right">
+													<label width="100%" sclass="labelFill" value="Descripción Estatus:"></label>
+												</div>
+											</cell>
+											<cell colspan="3">
+												<textbox sclass="textboxUpperCase" value="@load(vm.strDescripcionEstatus)"
+													maxlength="50" id="descripcionEstatus" width="95%"></textbox>
+											</cell>
+										</row>
+									</rows>
+								</grid>
+								<div align="center" width="100%">
+									<button sclass="button" label="Actualizar" onClick="@command('actualizarStatus')" id="actualizarOpeDudBtn"></button>
+									<button sclass="button" label="Reprocesar" onClick="@command('reprocesarOperacion')" id="reprocesarOpeDudBtn"></button>
+									<button sclass="button" label="Limpiar" onClick="@command('limpiarDatos')" id="limpiarDatosBtn"></button>
+								</div>
+							</panelchildren>
+						</panel>
+					</portalchildren>
+					<portalchildren width="100%" style="padding: 5px">
+						<panel sclass="sectionPanelTitle" width="100%" id="gridOpeDud"
+							title="Resultados Operaciones Dudosas" collapsible="true"
+							style="margin-bottom:10px">
+							<caption sclass="sectionPanelTitle" label="Lista de Operaciones"></caption>
+							<panelchildren>
+								<grid id="operacionesDudosasGrid" mold="paging"
+									model="@load(vm.operacionesDudosas)" pagingPosition="both"
+									pageSize="5" vflex="true" >
+									<auxhead>
+										<auxheader hflex="0" align="center" colspan="1">
+											<image  src="/img/refresh.png" width="16px" height="16px" onClick="@command('establecerFiltro')"></image>
+										</auxheader>
+										<auxheader hflex="0" align="center" colspan="7">
+										</auxheader>
+									</auxhead>
+									<columns sizable="true" menupopup="auto">
+										<column hflex="0" align="center" image="/img/pencil-small.png"
+											width="3.5%" sort="false" ></column>
+										<column hflex="1" label="Fecha Proceso" style="text-wrap: normal;"
+											width="10%" sort="auto(fhProceso)"></column>
+										<column hflex="1" label="Folio" width="10%"
+											sort="auto(cdRepteMt101)"></column>
+										<column hflex="1" label="Refer" width="10%" sort="auto(nbCampo20)"></column>
+										<column hflex="1" label="Clave Operación" width="10%"
+											sort="auto(nbTpOperacion)"></column>
+										<column hflex="1" label="Cuenta Cargo" width="10%"
+											sort="auto(nbCampo50aOcl1)"></column>
+										<column hflex="1" label="Cuenta Abono" width="10%"
+											sort="auto(nbCampo59al1)"></column>
+										<column hflex="1" label="Importe" width="5%"
+											sort="auto(imCampo32bMonto)"></column>
+									</columns>
+									<template name="model">
+										<row>
+											<radio radiogroup="radiosToEdit"
+												onCheck="@command('getOperacionDudosa',referenciaOperacion=each)"></radio>											
+											<label hflex="1" value="@load(each.fhProceso) @converter('formatedDate', format='dd/MM/yyyy')"></label>
+											<label hflex="1" value="@load(each.consecutivo)"></label>
+											<label hflex="1" value="@load(each.nbCampo20)"></label>
+											<label hflex="1" value="@load(each.nbTpOperacion)"></label>
+											<label hflex="1" value="@load(each.nbCampo50aOcl1)"></label>
+											<label hflex="1" value="@load(each.nbCampo59al1)"></label>
+											<label hflex="1" value="@load(each.imCampo32bMonto)"></label>
+										</row>
+									</template>
+									<foot>
+										<footer span="8">											
+												<div align="right">											
+													<label value="Cantidad Registros: "></label>																			
+													<label value="@load(vm.cantidadRegistros)"></label>
+												</div>																							
+										</footer>
+									</foot>
+								</grid>
+							</panelchildren>
+						</panel>
+					</portalchildren>
+				</portallayout>
+			</groupbox>
+			<intbox visible="false" id="cdRepteMt101" value="@load(vm.intCdRepteMt101)"/>
+			<textbox visible="false" id="referencia" value="@load(vm.strReferencia)"/>			
+		</div>
+		<zscript>
+		</zscript>
+	</window>
+</zk>
+

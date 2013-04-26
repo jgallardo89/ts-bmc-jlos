@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:webflow="http://www.springframework.org/schema/webflow-config"
+	xmlns:zksp="http://www.zkoss.org/2008/zkspring/webflow"
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/beans  
+	http://www.springframework.org/schema/beans/spring-beans-3.1.xsd 
+    http://www.springframework.org/schema/webflow-config 
+    http://www.springframework.org/schema/webflow-config/spring-webflow-config-2.3.xsd  
+    http://www.zkoss.org/2008/zkspring/webflow 
+	http://www.zkoss.org/2008/zkspring/webflow/zkspring-webflow.xsd">
+
+	<!-- Executes flows: the central entry point into the Spring Web Flow system -->
+	<webflow:flow-executor id="flowExecutor">
+		<webflow:flow-execution-listeners>
+			<webflow:listener ref="securityFlowExecutionListener" />
+		</webflow:flow-execution-listeners>
+	</webflow:flow-executor>
+
+
+	<!-- The registry of executable flow definitions -->
+	<webflow:flow-registry id="flowRegistry"
+		flow-builder-services="zkFlowBuilderServices">
+		<webflow:flow-location id="clientesAAA"
+			path="/WEB-INF/flows/clientesAAA/clientesAAA.xml" />
+		<webflow:flow-location id="operacionesDudosas"
+			path="/WEB-INF/flows/operacionesDudosas/operacionesDudosas.xml" />
+		<webflow:flow-location id="operacionesDuplicadas"
+			path="/WEB-INF/flows/operacionesDuplicadas/operacionesDuplicadas.xml" />  <!-- AKFG -->
+		<webflow:flow-location id="monitorCash"
+			path="/WEB-INF/flows/monitorCash/monitorCash.xml" />								 <!-- AKFG -->
+		<webflow:flow-location id="monitorCashOps"
+			path="/WEB-INF/flows/monitorCashOps/monitorCashOps.xml" />								 <!-- AKFG -->
+		<webflow:flow-location id="reporteServicio"
+			path="/WEB-INF/flows/reporteServicio/reporteServicio.xml" />
+	</webflow:flow-registry>
+
+
+	<!-- <webflow:flow-builder-services id="zkFlowBuilderServices" view-factory-creator="zkViewFactoryCreator" 
+		conversion-service="zkConversionService" expression-parser="zkExpressionParser"/> 
+		<bean id="zkExpressionParser" class="org.zkoss.spring.webflow.expression.el.ZkExpressionParser"/> 
+		<bean id="zkConversionService" class="org.zkoss.spring.binding.convert.service.ZkConversionService" 
+		/> <bean id="zkFlowViewFactoryCreator" class="org.zkoss.spring.webflow.engine.builder.ZkFlowViewFactoryCreator"> 
+		<property name="viewResolvers" ref="flowViewResolver" /> </bean> -->
+
+
+	<!-- Installs a listener to apply Spring Security authorities -->
+	<bean id="securityFlowExecutionListener"
+		class="org.springframework.webflow.security.SecurityFlowExecutionListener" />
+
+	<!-- Configures the ZK Spring Web Flow integration -->
+	<zksp:flow-controller id="flowController"
+		flow-executor="flowExecutor" />
+	<zksp:flow-builder-services id="zkFlowBuilderServices" />
+
+</beans>

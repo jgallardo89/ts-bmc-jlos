@@ -1,0 +1,349 @@
+3
+@CHARSET "ISO-8859-1";
+/*
+@Description:	
+		Estilo para definir, letra y colores generales,
+		en el cuerpo de la pagina
+*/
+BODY {
+	MARGIN-TOP: 0px;
+	SCROLLBAR-FACE-COLOR: #e1ebf4;
+	MARGIN-LEFT: 0px;
+	SCROLLBAR-ARROW-COLOR: #000066;
+	font-family: arial;
+	font-size: 12px;
+	color: black;
+	background-color: #fff;
+}
+
+/******************************/
+label {
+	color: green;
+	display: inline;
+	font-weight: normal;
+	background-color: rgb(229, 245, 240);
+}
+/******************************/
+
+/*
+@Description:	
+		Color de los  links
+*/
+a {
+	color: #08c;
+}
+/*
+@Description:	
+		Decoracion los links
+*/
+a:link,a:visited,a:active {
+	text-decoration: none;
+}
+/*
+@Description:	
+		Fuente, tamaño, ancho y tranformacion a capital de los botones
+		ejemplo value="login" = Login
+*/
+.button {
+	FONT-SIZE: 8pt;
+	FONT-FAMILY: Arial;
+	width: 100px;
+	text-transform: capitalize;
+}
+
+.button1 {
+	FONT-SIZE: 8pt;
+	FONT-FAMILY: Arial;
+	width: 80px;
+	text-transform: capitalize;
+}
+
+.larButton {
+	FONT-SIZE: 8pt;
+	FONT-FAMILY: Arial;
+	width: 120px;
+	text-transform: capitalize;
+}
+
+/*
+@Description:	
+		Define una linea naranja, la cual es la que se muestra, al pasar el raton
+		por encima de los registros de la tabla de datos
+*/
+.hover {
+	color: black;
+	background-color: red !important;
+}
+/*
+@Description:	
+		Define el color de la alternacion de colores para los diferentes
+		registros de la tabla de datos..
+		una fila la pinta blanca y la otra verde muy claro
+*/
+.row2 {
+	background-color: rgb(229, 245, 240);
+}
+
+.row1 {
+	background-color: #FFFFFF;
+	color: black;
+}
+
+/*Estilo para la fila seleccionada*/
+.select {
+	color: black;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+	filter: alpha(opacity =     50);
+	opacity: .5;
+	border-bottom: rgb(255, 101, 31) medium;
+	background-color: rgb(254, 218, 96) !important;
+}
+/*bullet*/
+.bullet {
+	list-style-type: square;
+}
+
+/*Estilo para la fila seleccionada*/
+.select2 {
+	color: black;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+	filter: alpha(opacity =     50);
+	opacity: .5;
+	border-bottom: rgb(255, 101, 31) medium;
+	background-color: rgb(204, 236, 255) !important;
+	font-size: 9pt;
+	font-family: arial;
+	font-weight: normal;
+	COLOR: #000000;
+}
+
+/*
+@Description:	
+		Estilo del titulo de cada JSP O HTML a usar...
+		Rodealo con un div de esta clase...
+		<div class='pageTitle'>Title</div>
+*/
+.pageTitle {
+	font-size: 12pt;
+	font-family: arial;
+	font-weight: bolder;
+	COLOR: #055A78;
+	background-color: rgb(255, 255, 255);
+	position: relative;
+}
+
+.content {
+	font-size: 9pt;
+	font-family: arial;
+	font-weight: normal;
+	COLOR: #000000;
+	background-color: rgb(255, 255, 255);
+	position: relative;
+}
+
+/*
+@Description:	
+		define el estilo de subtitulos dentro de una misma pagina Web
+*/
+.sectionTitle {
+	font-size: 10pt;
+	font-family: arial;
+	font-weight: bolder;
+	COLOR: #055A78;
+	background-color: rgb(255, 255, 255);
+	position: relative;
+}
+/*
+@Description:	
+		Alinea al centro, todas las celdas de tu tabla
+		solo debes rodear tu tabla con un div de esta clase 
+*/
+div.gridBox {
+	text-align: center;
+}
+/*
+@Description:	
+		Color del fondo que se esta ocupando con su respectivo filtro
+		a un 85% 
+*/
+.fondo {
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=85)";
+	filter: alpha(opacity =     85);
+	opacity: .85;
+	background-color: #9ac2e5;
+}
+/*
+@Description:	
+		Estilo de la cabecera de una tabla que contenga datos datos.
+*/
+table.tableXP th {
+	border-left: 0px solid white;
+	border-right: 1px solid gray;
+	height: 20px;
+	font-family: arial;
+	font-size: 12px;
+	letter-spacing: 1px;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=85)";
+	filter: alpha(opacity =     85);
+	opacity: .85;
+	background-color: #9ac2e5;
+	background-image: url('../imgs/header_bg_60.gif');
+	font-weight: bolder;
+	-moz-user-select: none;
+	-moz-user-select: -moz-none;
+	color: #055A78;
+}
+
+table.tableXP1 th {
+	font-family: arial;
+	font-size: 12px;
+	filter: alpha(opacity =     75);
+	background-color: #9ac2e5;
+	background: #9ac2e5;
+}
+
+/*Border generales para las tablas que contendran datos*/
+table.tableXP {
+	border-left: 1px solid #9ac2e5;
+	border-top: 1px solid #9ac2e5;
+	border-right: 1px solid #9ac2e5;
+	border-bottom: 1px solid #9ac2e5;
+	margin-top: 0px;
+}
+
+/*Border generales para las tablas que contendran datos*/
+table.tableXP1 {
+	background: #F2F2F2;
+}
+
+/*Estilo general para las celdas de las tablas de datos */
+table.tableXP td {
+	border-left: 0px solid #9ac2e5;
+	border-top: 0px solid #9ac2e5;
+	border-right: 0px solid #9ac2e5;
+	border-bottom: 0px solid #9ac2e5;
+	padding: 1px;
+	vertical-align: middle;
+	font-family: arial;
+	font-size: 11px;
+	color: black;
+	text-align: left;
+}
+
+table.tableXP1 td {
+	vertical-align: middle;
+	font-family: arial;
+	font-size: 11px;
+	color: black;
+	text-align: left;
+}
+
+/*Estilo para no mostrar  variables mientras spry renderiza sus datos. y no se vean los links */
+.SpryHiddenRegion {
+	visibility: hidden;
+}
+
+/*
+@Description:	
+		tableForm es la forma general de una tabla dentro de la pagina principal 
+*/
+.tableForm td {
+	font-family: arial;
+	font-size: 12px;
+	color: #055A78;
+}
+
+/*
+@Description:	
+		Estilo para cualquier mensaje de error que se quiera mostrar dentro de una pagina web. 
+*/
+.messageErr {
+	FONT-SIZE: 10pt;
+	COLOR: red;
+	FONT-FAMILY: arial;
+}
+
+/*
+@Description:	
+		Estilo para marcar leyendas de que alguna operacion dentro de la pagina Web ha sido exitosa. 
+*/
+.messageGood {
+	FONT-SIZE: 10pt;
+	COLOR: green;
+	FONT-FAMILY: Arial
+}
+
+/*
+@Description:	
+		Estilo para enlaces de la página de Home 
+*/
+.EnlaceHome {
+	font-family: arial;
+	font-size: 12px;
+	color: #055A78;
+}
+
+/*
+*/
+.estiloFilaPadre {
+	font-family: arial;
+	font-size: 11px;
+	background-color: #DEF0F2;
+}
+
+.estiloFilaHija {
+	font-family: arial;
+	font-size: 11px;
+	background-color: #EDF8FA;
+}
+
+.currentDay {
+	background-color: #FEAA01;
+}
+
+.currentDay a {
+	background-color: #FEAA01;
+}
+
+.currentDay a span {
+	font-weight: bold;
+}
+
+.confirmationPanel1 {
+	z-index: 1001;
+	width: 260px;
+	height: 100px;
+	text-align: center;
+	margin-top: 20Px;
+	color: #055A78;
+	font-size: font-size:   13;
+}
+
+.stylePerfilRow1 {
+	font-family: arial;
+	font-size: 11px;
+	background-color: #DEF0F2;
+}
+
+.stylePerfilRow2 {
+	font-family: arial;
+	font-size: 11px;
+	background-color: #EDF8FA;
+}
+
+.iceSelOneMnu-dis,.iceSelMnyLb-dis,.iceSelMnyMnu-dis,.iceSelOneLb-dis {
+	border: medium none;
+	color: #FFFFFF;
+	cursor: default;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 0.95em;
+	padding: 2px;
+}
+
+/*
+	@Description: class para mostrar cursor tipo "hand" tanto en IE como en Netscape
+*/
+.cursor_mano {
+	cursor: hand;
+	cursor: pointer;
+}

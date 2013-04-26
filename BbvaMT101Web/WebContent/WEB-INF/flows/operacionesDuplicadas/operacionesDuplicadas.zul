@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?page title="Operaciones Dudosas" contentType="text/html;charset=UTF-8"?>
+<?meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7"?>
+<?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
+<zk>
+	<window border="0" width="100%" height="70%"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('mx.com.bbva.mt101.ui.commons.viewmodel.operacionesduplicadas.OperacionesDuplicadasController')"
+		id="operacionesDuplicadasWindows">	
+		<include src="../../pages/styles.zul" />
+		<div sclass="BODY" height="100%">
+			<radiogroup id="radiosToEdit"></radiogroup>
+			<groupbox>
+				<portallayout maximizedMode="whole" id="portalLayoutOpeDud"
+					width="100%">
+					<portalchildren style="padding: 5px" width="100%">
+						<panel width="100%" sclass="sectionPanelTitle" id="datosOpeDup"
+							title="Datos Operaciones Duplicadas" collapsible="true"
+							style="margin-bottom:10px" border="normal">
+							<caption sclass="sectionPanelTitle" label="Actualizar Operación"></caption>
+							<panelchildren>
+								<grid width="100%" style="border:0" oddRowSclass="row2">
+									<columns>
+										<column width="20%" />
+										<column width="30%" />
+									</columns>
+									<rows>
+										<row sclass="row2" width="100%">
+											<div align="right">
+												<label width="100%" sclass="labelFill" value="Referencia:"></label>
+											</div>
+											<textbox readonly="true" maxlength="50" id="referencia"
+												value="@load(vm.intReferencia)" width="90%"></textbox>
+										</row>
+									</rows>
+								</grid>
+								<div align="center" width="100%">
+									<button sclass="button" label="Cancelar" onClick="@command('cancelarOperacionDucplicada')" id="cancelarOpeDupBtn"></button>
+									<button sclass="button" label="Reprocesar" onClick="@command('reprocesarOperacion')" id="reprocesarOpeDupBtn"></button>
+								</div>
+							</panelchildren>
+						</panel>
+					</portalchildren>
+					<portalchildren width="100%" style="padding: 5px">
+						<panel sclass="sectionPanelTitle" width="100%" id="gridOpeDup"
+							title="Resultados Operaciones Duplicadas" collapsible="true"
+							style="margin-bottom:10px">
+							<caption sclass="sectionPanelTitle" label="Lista de Operaciones"></caption>
+							<panelchildren>
+								<grid id="operacionesDuplicadasGrid" mold="paging"
+									model="@load(vm.operacionesDuplicadas)" pagingPosition="both"
+									pageSize="5" vflex="true">
+									<auxhead>
+										<auxheader hflex="0" align="center" colspan="1">
+											<image  src="/img/refresh.png" width="16px" height="16px" onClick="@command('obtenOperacionesPorCriterio')"></image>
+										</auxheader>
+										<auxheader hflex="0" align="center" colspan="6">
+										</auxheader>
+									</auxhead>
+									<columns sizable="true" menupopup="auto">
+										<column hflex="0" align="center" image="/img/pencil-small.png"
+											width="3.5%"></column>
+										<column hflex="1" label="Fecha Proceso" style="text-wrap: normal;"
+											width="10%" sort="auto(fhProceso)"></column>
+										<column hflex="1" label="Refer" width="10%" sort="auto(nbCampo20)"></column>
+										<column hflex="1" label="Clave Operación" width="10%"
+											sort="auto(nbTpOperacion)"></column>
+										<column hflex="1" label="Cuenta Cargo" width="10%"
+											sort="auto(nbCampo50aOcl1)"></column>
+										<column hflex="1" label="Cuenta Abono" width="10%"
+											sort="auto(nbCampo59al1)"></column>
+										<column hflex="1" label="Importe" width="5%"
+											sort="auto(imCampo32bMonto)"></column>
+									</columns>
+									<template name="model">
+										<row>
+											<radio radiogroup="radiosToEdit"
+												onCheck="@command('getOperacionDuplicada',referenciaOperacion=each)"></radio>
+											<label hflex="1" value="@load(each.fhProceso) @converter('formatedDate', format='dd/MM/yyyy')"></label>
+											<label hflex="1" value="@load(each.nbCampo20)"></label>
+											<label hflex="1" value="@load(each.nbTpOperacion)"></label>
+											<label hflex="1" value="@load(each.nbCampo50aOcl1)"></label>
+											<label hflex="1" value="@load(each.nbCampo59al1)"></label>
+											<label hflex="1" value="@load(each.imCampo32bMonto)"></label>
+										</row>
+									</template>
+									<foot>
+										<footer span="7">											
+												<div align="right">											
+													<label value="Cantidad Registros: "></label>																			
+													<label value="@load(vm.cantidadRegistros)"></label>
+												</div>																							
+										</footer>
+									</foot>
+								</grid>
+							</panelchildren>
+						</panel>
+					</portalchildren>
+				</portallayout>
+			</groupbox>
+			<intbox visible="false" id="cdRepteMt101" value="@load(vm.intCdRepteMt101)"></intbox>
+			<textbox visible="false" id="strReferencia" value="@load(vm.strReferencia)"/>
+		</div>
+	</window>
+</zk>

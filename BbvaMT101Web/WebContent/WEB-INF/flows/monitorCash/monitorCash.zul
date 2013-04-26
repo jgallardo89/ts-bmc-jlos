@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?page title="Monitor Cash" contentType="text/html;charset=UTF-8"?>
+<?meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7"?>
+<?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
+<zk>
+	<window border="0" width="100%" height="100%"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('mx.com.bbva.mt101.ui.commons.viewmodel.monitorcash.MonitorCashController')"
+		id="monitorCashWindows">		
+		<include src="../../pages/styles.zul" />
+		<div sclass="BODY" height="100%">		
+			<groupbox>
+				<caption sclass="pageTitle"
+					label="Consultas > Monitoreo MT101 CashMX > Monitor Cash Reset" />
+				<portallayout maximizedMode="whole" id="portalLayoutOpeDud"
+					width="100%">
+					<portalchildren style="padding: 5px" width="100%">
+						<panel width="100%" sclass="sectionPanelTitle" id="datosOpeDup"
+							title="Datos Monitor Cash" collapsible="true" style="margin-bottom:10px"
+							border="normal">
+							<caption sclass="sectionPanelTitle" label="Consultar Operación"></caption>
+							<panelchildren>
+								<grid width="100%" style="border:0" oddRowSclass="row2">
+									<columns>
+										<column width="20%" />
+										<column width="20%" />
+										<column width="20%" />
+										<column width="20%" />
+										<column width="20%" />
+									</columns>
+									<rows>
+										<row sclass="row2">
+											<div align="right">
+												<label width="100%" sclass="labelFill" value="Comentario Reenvio:"></label>
+											</div>
+											<textbox sclass="textboxUpperCase" maxlength="10"
+												id="comentarioReenvio" value="@load(vm.strComentarioReenvio)" width="90%"></textbox>
+											<div align="right">
+												<label width="100%" sclass="labelFill" value="Hora:"></label>
+												<datebox readonly="true" onCreate="self.value = new Date()" format="HH:mm ss" buttonVisible="false"></datebox>
+											</div>
+											<combobox sclass="textboxUpperCase" readonly="true" onChange="selectedValueArchivos()"
+												id="archivosReenvio" width="100%" model="@load(vm.listaArchivosParaReenviar)" autodrop="true">		
+												<template name="model">										
+													<comboitem  value="@load(each.cdEnvCash)" label="@load(each.nbArchivoCw)" />
+												</template>																								
+											</combobox>											
+											<div align="right">
+												<button sclass="button" label="Reenviar" id="reenviarArchivoBtn" onClick="@command('reenviarArchivo')"></button>
+											</div>
+										</row>
+										<row sclass="row2">
+											<div align="right">
+												<label width="100%" sclass="labelFill" value="Ops Dudosas:"></label>
+											</div>
+											<intbox maxlength="3" value="@load(vm.opsDudodas)" readonly="true" id="opsDudosas" width="90%"></intbox>
+											<div align="right">
+												<label width="100%" sclass="labelFill" value="PDM:"></label>
+											</div>
+											<intbox maxlength="3" value="@load(vm.opsDuplicadas)" readonly="true" id="pdm" width="100%"></intbox>
+											<div align="right">
+												<button sclass="button" label="Lote Sig" id="loteSigOpeDudBtn" onClick="@command('loteSiguiente')"></button>
+											</div>
+										</row>
+									</rows>
+								</grid>								
+							</panelchildren>
+						</panel>
+					</portalchildren>
+					<portalchildren width="100%" style="padding: 5px">
+						<panel sclass="sectionPanelTitle" width="100%" id="panelArchivos"
+							title="Resultados Archivos por Recibir Acuse" collapsible="true"
+							style="margin-bottom:10px">
+							<caption sclass="sectionPanelTitle" label="Lista de Archivos"></caption>
+							<panelchildren>
+								<grid width="99.7%" style="border:1"
+									model="@load(vm.listaArchivos)">
+									<auxhead style="border:1">
+										<auxheader hflex="0" align="center" colspan="1">
+											<image  src="/img/refresh.png" width="16px" height="16px" onClick="@command('obtenListaArchivos')"></image>
+										</auxheader>
+										<auxheader colspan="1">
+										</auxheader>
+										<auxheader colspan="2" align="center" label="Envío">
+										</auxheader>
+										<auxheader colspan="2" align="center" label="Último Envío">
+										</auxheader>
+										<auxheader colspan="2" align="center" label="Regreso Cash">
+										</auxheader>
+										<auxheader colspan="2">
+										</auxheader>
+									</auxhead>
+									<columns>										
+										<column hflex="1" label="Archivo" sort="auto(nbArchivoCw)"></column>
+										<column hflex="1" label="Lote" sort="auto(nuLote)"></column>
+										<column hflex="1" label="Fecha Hora" sort="auto(fhProceso)"></column>
+										<column hflex="1" label="Regs" sort="auto(toRegistrosEnvio)"></column>
+										<column hflex="0" label="No" sort="auto(ctNumReenvio)"
+											width="5%"></column>
+										<column hflex="1" label="Fecha Hora" sort="auto(fhUltimoReenv)"></column>
+										<column hflex="1" label="Fecha Hora" sort="auto(fhRegresoCash)"></column>
+										<column hflex="1" label="Regs" sort="auto(toRegistrosReg)"></column>
+										<column hflex="1" label="Reg. Procesado" sort="auto(cdRegresoCash)"></column>
+										<column hflex="0" width="7%" label="Detalle"></column>
+									</columns>
+									<template name="model">
+										<row>											
+											<label hflex="1" value="@load(each.nbArchivoCw)"></label>
+											<label hflex="1" value="@load(each.nuLote)"></label>
+											<label hflex="1" value="@load(each.fhProceso) @converter('formatedDate', format='dd/MM/yyyy')"/>											
+											<label hflex="1" value="@load(each.toRegistrosEnvio)"></label>
+											<label hflex="1" value="@load(each.ctNumReenvio)"></label>											
+											<label hflex="1" value="@load(each.fhUltimoReenv) @converter('formatedDate', format='dd/MM/yyyy')"/>
+											<label hflex="1" value="@load(each.fhRegresoCash) @converter('formatedDate', format='dd/MM/yyyy')"/>											
+											<label hflex="1" value="@load(each.toRegistrosReg)"></label>
+											<label hflex="1" value="@load(each.cdRegresoCash)"></label>
+											<cell>
+												<div align="center">
+													<image src="/img/list.png" onClick="@command('getArchivo',idArchivo=each)">														
+													</image>
+												</div>
+											</cell>
+										</row>
+									</template>
+									<foot>
+										<footer span="9">											
+												<div align="right">											
+													<label value="Cantidad Registros: "></label>																			
+													<label value="@load(vm.cantidadRegistros)"></label>
+												</div>																							
+										</footer>
+									</foot>
+								</grid>
+							</panelchildren>
+						</panel>
+					</portalchildren>
+					<portalchildren>
+						<panel width="100%" sclass="sectionPanelTitle"
+							title="Datos Operaciones" collapsible="true" style="margin-bottom:10px"
+							border="normal">
+							<caption label="Información Operación"/>
+							<panelchildren>							
+								<grid width="100%" style="border:0" oddRowSclass="row2">
+									<columns>
+										<column width="20%" />
+										<column width="20%" />
+										<column width="20%" />
+										<column width="20%" />
+										<column width="20%" />
+									</columns>
+									<rows>										
+										<row sclass="row2">
+											<div align="right">
+												<label width="100%" sclass="labelFill" value="Ops. Enviadas:"></label>
+											</div>
+											<intbox maxlength="3" value="@load(vm.opsEnviadas)" readonly="true" id="opsEnviadas" width="90%"></intbox>
+											<div align="right">
+												<label width="100%" sclass="labelFill" value="Ops. Recibidas:"></label>
+											</div>
+											<intbox maxlength="3" value="@load(vm.opsRecibidas)" readonly="true" id="opsRecibidas" width="100%"></intbox>											
+										</row>
+										<row sclass="row2">
+											<div align="right">
+												<label width="100%" sclass="labelFill" value="Ops. a Futuro:"></label>
+											</div>
+											<intbox maxlength="3" value="@load(vm.opsFuturo)" readonly="true" id="opsFuturo" width="90%"></intbox>
+											<div align="right">
+												<label width="100%" sclass="labelFill" value="Ops. Pendiente de Envío:"></label>
+											</div>
+											<intbox maxlength="3" value="@load(vm.opsPenEnv)" readonly="true" id="opsPenEnv" width="100%"></intbox>											
+										</row>
+									</rows>									
+								</grid>
+							</panelchildren>
+						</panel>
+					</portalchildren>
+				</portallayout>				
+			</groupbox>
+			<intbox visible="false" id="cdEnvCash" value="@load(vm.intCdEnvCash)"></intbox>
+		</div>
+		<zscript>
+			public void selectedValueArchivos(){
+				try{
+					cdEnvCash.setValue(new Integer(archivosReenvio.getSelectedItem().getValue().toString()));
+				}catch(Exception ex){
+					cdEnvCash.setValue(null);
+				}
+			}
+			void limpiarCasillas(){
+			alert("El registro se ha guardado con exito.");
+			}
+		</zscript>
+	</window>
+</zk>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+						http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd">
+
+	<!-- Maps request URIs to controllers -->
+	<bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="mappings">
+			<value>
+				/clientesAAA=flowController
+				/operacionesDudosas=flowController
+				/operacionesDuplicadas=flowController   <!-- AKFG -->
+				/monitorCash=flowController  			<!-- AKFG -->
+				/monitorCashOps=flowController  		<!-- AKFG -->
+				/reporteServicio=flowController
+			</value>
+		</property>
+		<property name="defaultHandler">
+			<bean class="org.springframework.web.servlet.mvc.UrlFilenameViewController" />
+		</property>
+	</bean>
+
+	<!-- Maps logical view names to ZK templates (e.g. 'search' to '/WEB-INF/search.zul' -->
+	<bean id="viewResolver"
+		class="org.zkoss.spring.web.servlet.view.ZkResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/" />
+		<property name="suffix" value=".zul" />
+	</bean>
+</beans>

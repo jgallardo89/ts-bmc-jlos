@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
+	<!--bean id="catalogoOperacionBean" class="org.springframework.ejb.access.LocalStatelessSessionProxyFactoryBean"> 
+		<property name="jndiName" value="ejb/CatalogoOperacionBean"/> 
+		<property name="businessInterface"  value="mx.com.bbva.mt101.catalogos.operacion.negocio.ICatalogoOperacion"/> 
+	</bean> 
+	<bean id="reporteServicioController" class="mx.com.bbva.mt101.ui.commons.viewmodel.reporteservicio.ReporteServicioController"> 
+		<property name="catalogoOperacionBean" ref="catalogoOperacionBean"/> 
+	</bean--> 
+	<bean id="catalogoOperacionBean" name="catalogoOperacionBean"
+		class="mx.com.bbva.mt101.catalogos.operacion.logicanegocio.CatalogoOperacionBean">
+	</bean>
+	<bean id="reporteServicioController"
+		class="mx.com.bbva.mt101.ui.commons.viewmodel.reporteservicio.ReporteServicioController">
+		<property name="clientesBean" ref="clientesBean" />
+		<property name="catalogoOperacionBean" ref="catalogoOperacionBean"/>
+		<property name="operacionesBean" ref="operacionesBean" />			
+	</bean>
+	
+
+	<bean id="catalogoMonedaBean" name="catalogoMonedaBean"
+		class="mx.com.bbva.mt101.catalogos.moneda.logicanegocio.CatalogoMonedaBean">
+	</bean>
+	
+	<bean id="catalogoStOpBean" name="catalogoStOpBean"
+		class="mx.com.bbva.mt101.catalogos.stop.logicanegocio.CatalogoStOpBean">
+	</bean>
+
+	<bean id="catalogoIvaBean" name="catalogoIvaBean"
+		class="mx.com.bbva.mt101.catalogos.iva.logicanegocio.CatalogoIvaBean">
+	</bean>
+
+	<bean id="clientesBean" name="clientesBean"
+		class="mx.com.bbva.mt101.clientes.logicanegocio.ClientesBean">
+	</bean>
+
+	<bean id="operacionesBean" name="operacionesBean"
+		class="mx.com.bbva.mt101.operaciones.logicanegocio.OperacionesBean">
+	</bean>
+
+	<bean id="monitorCashBean" name="monitorCashBean"
+		class="mx.com.bbva.mt101.monitorcash.logicanegocio.MonitorCashBean">
+	</bean>	
+	
+	<bean id="procesoLogBean" name="procesoLogBean"
+		class="mx.com.bbva.mt101.audit.logicanegocio.ProcesoLogBean">
+	</bean>
+	
+	<bean id="eventoWebBean" name="eventoWebBean"
+		class="mx.com.bbva.mt101.audit.logicanegocio.EventoWebBean">
+	</bean>
+
+	<bean id="catalogoMonedaController"
+		class="mx.com.bbva.mt101.ui.commons.catalogos.moneda.CatalogoMonedaController">
+		<property name="catalogoMonedaBean" ref="catalogoMonedaBean" />
+	</bean>
+
+	<bean id="catalogoIvaController"
+		class="mx.com.bbva.mt101.ui.commons.catalogos.iva.CatalogoIvaController">
+		<property name="catalogoIvaBean" ref="catalogoIvaBean" />
+	</bean>
+
+	<bean id="contratoController"
+		class="mx.com.bbva.mt101.ui.commons.viewmodel.contrato.ContratoController">
+		<property name="clientesBean" ref="clientesBean" />
+		<property name="operacionesBean" ref="operacionesBean" />
+		<property name="eventoWebBean" ref="eventoWebBean" />
+	</bean>
+
+	<bean id="operacionesDudosasController"
+		class="mx.com.bbva.mt101.ui.commons.viewmodel.operacionesdudosas.OperacionesDudosasController">
+		<property name="operacionesBean" ref="operacionesBean" />
+		<property name="procesoLogBean" ref="procesoLogBean" />
+		<property name="eventoWebBean" ref="eventoWebBean" />
+	</bean>
+
+	<bean id="operacionesDuplicadasController"
+		class="mx.com.bbva.mt101.ui.commons.viewmodel.operacionesduplicadas.OperacionesDuplicadasController">
+		<property name="operacionesBean" ref="operacionesBean" />
+		<property name="procesoLogBean" ref="procesoLogBean" />
+		<property name="eventoWebBean" ref="eventoWebBean" />
+	</bean>
+
+	<bean id="monitorCashController"
+		class="mx.com.bbva.mt101.ui.commons.viewmodel.monitorcash.MonitorCashController">
+		<property name="monitorCashBean" ref="monitorCashBean" />
+		<property name="procesoLogBean" ref="procesoLogBean" />
+		<property name="eventoWebBean" ref="eventoWebBean" />
+		<property name="operacionesBean" ref="operacionesBean" />
+	</bean>
+
+	<bean id="monitorCashOpsController"
+		class="mx.com.bbva.mt101.ui.commons.viewmodel.monitorcashops.MonitorCashOpsController">	
+		<property name="monitorCashBean" ref="monitorCashBean" />		
+		<property name="operacionesBean" ref="operacionesBean" />
+		<property name="catalogoStOpBean" ref="catalogoStOpBean" />
+	</bean>
+	
+</beans>

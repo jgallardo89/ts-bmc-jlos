@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?page title="Monitor Cash Ops" contentType="text/html;charset=UTF-8"?>
+<?meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7"?>
+<?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
+<zk>
+	<window border="0" width="100%" height="100%"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('mx.com.bbva.mt101.ui.commons.viewmodel.monitorcashops.MonitorCashOpsController')"
+		id="monitorCashOpsWindows">			
+		<include src="../../pages/styles.zul" />
+		<div sclass="BODY" height="100%">
+			<groupbox>
+				<portallayout maximizedMode="whole" id="portalLayoutMonitorOps"
+					width="100%">
+					<portalchildren style="padding: 5px" width="100%">
+						<panel width="100%" sclass="sectionPanelTitle" id="datosOpeDup"
+							title="Monitor Cash Ops" collapsible="true" style="margin-bottom:10px"
+							border="normal">
+							<caption sclass="sectionPanelTitle" label="Consultar Operación"></caption>
+							<panelchildren>
+								<grid width="100%" style="border:0" oddRowSclass="row2">
+									<columns>
+										<column width="20%" />
+										<column width="20%" />
+										<column width="20%" />
+										<column width="20%" />
+										<column width="20%" />
+									</columns>
+									<rows>
+										<row sclass="row2">
+											<div align="right">
+												<label width="100%" sclass="labelFill" value="Consulta de Registros"></label>
+											</div>
+										</row>
+										<row sclass="row2">
+											<div align="right">
+												<label width="100%" sclass="labelFill"
+													value="Fecha Proceso Inicio (DD-MM-AAAA):"></label>
+											</div>
+											<datebox sclass="textboxUpperCase" maxlength="10"
+												id="fecProcesoInicio" format="dd-MM-yyyy" value="@load(vm.dateFecProcesoInicio)"
+												width="90%"></datebox>
+											<div align="right">
+												<label width="100%" sclass="labelFill" value="Lote:"></label>
+											</div>											
+											<combobox value="@load(vm.strLote)"
+												autodrop="true" id="lotesArchivos" width="90%">
+												<comboitem value="${each.nuLote}" label="${each.nuLote}"
+													forEach="${monitorCashOpsController.lotes}" />
+											</combobox>
+										</row>
+										<row sclass="row2">
+											<div align="right">
+												<label width="100%" sclass="labelFill"
+													value="Fecha Proceso Fin(DD-MM-AAAA):"></label>
+											</div>
+											<datebox sclass="textboxUpperCase" maxlength="10"
+												id="fecProcesoFin" format="dd-MM-yyyy" value="@load(vm.dateFecProcesoFin)"
+												width="90%"></datebox>
+											<div align="right">
+												<label width="100%" sclass="labelFill" value="Estatus:"></label>
+											</div>											
+											<combobox value="@load(vm.strEstatus)"
+												autodrop="true" id="estatusCbx" width="90%"
+												onChange="selectedValueEstatus()">
+												<comboitem value="${each.cdStEnvioMt101}" label="${each. nbStEnvioMt101}"
+													forEach="${monitorCashOpsController.estatusOperaciones}" />
+											</combobox>
+										</row>
+										<row sclass="row2">
+											<div align="right">
+												<label width="100%" sclass="labelFill"
+													value="Campo 20:"></label>
+											</div>
+											<textbox sclass="textboxUpperCase" maxlength="16"
+												id="campo20" value="@load(vm.strCampo20)"
+												width="90%"></textbox>
+											<div align="right">
+												<label width="100%" sclass="labelFill" value="Importe 32B:"></label>
+											</div>
+											<intbox sclass="textboxUpperCase" value="@load(vm.intImporte32b)"
+												maxlength="16" id="importe32b" width="90%"></intbox>
+										</row>
+										<row sclass="row2">
+											<div align="right">
+												<label width="100%" sclass="labelFill"
+													value="Fecha Valor(DD-MM-AAAA):"></label>
+											</div>
+											<datebox sclass="textboxUpperCase" maxlength="10"
+												id="fechaValor" format="dd-MM-yyyy" value="@load(vm.dateFechaValor)"
+												width="90%"></datebox>
+											<div align="right">
+												<label width="100%" sclass="labelFill" value="Campo 50 L1:"></label>
+											</div>
+											<intbox sclass="textboxUpperCase" value="@load(vm.intCampo50L1)"
+												maxlength="18" id="campo50L1" width="90%"></intbox>
+										</row>
+									</rows>
+								</grid>
+								<div align="center">
+									<button  sclass="button" label="Consultar" onClick="@command('obtenOperacionesPorCriterio')" id="consultarOpeBtn"></button>
+								</div>								
+							</panelchildren>
+						</panel>
+					</portalchildren>
+					<portalchildren width="100%" style="padding: 5px">
+						<panel sclass="sectionPanelTitle" width="100%" id="gridOpeDud"
+							title="Resultados Operaciones" collapsible="true"
+							style="margin-bottom:10px">
+							<caption sclass="sectionPanelTitle" label="Lista de Operaciones"></caption>
+							<panelchildren>
+								<div width="100%" height="100%" style="overflow: auto;">
+									<grid hflex="min" id="monitorOpsGrid" mold="paging"
+										model="@load(vm.operacionesPorCriterio)" pagingPosition="both"
+										pageSize="5" vflex="true">
+										<columns sizable="true" menupopup="auto">
+											<column hflex="0" label="N" style="text-wrap: normal;"
+												sort="auto(fila)"></column>
+											<column hflex="0" label="BIC Origen" sort="auto(cdBicOrigen)"></column>
+											<column hflex="0" label="Campo 20" sort="auto(nbCampo20)"></column>
+											<column hflex="0" label="Campo 21" sort="auto(nbCampo21)"></column>
+											<column hflex="0" label="Fecha Valor" sort="auto(fhCampo30)"></column>
+											<column hflex="0" label="Fecha Proceso" sort="auto(fhProcesoA)"></column>
+											<column hflex="0" label="Status de Operación" sort="auto(nbStEnvioMt101)"></column>
+											<column hflex="0" label="Campo 32 Divisa" sort="auto(cdCampo32bMnda)"></column>
+											<column hflex="0" label="Campo 32 Monto" sort="auto(imCampo32bMonto)"></column>
+											<column hflex="0" label="Campo 50 Línea 1" sort="auto(nbCampo50aOcL1)"></column>
+											<column hflex="0" label="Campo 50 Línea 2" sort="auto(nbCampo50aOcL2)"></column>
+											<column hflex="0" label="Campo 50 Línea 3" sort="auto(nbCampo50aOcL3)"></column>
+											<column hflex="0" label="Campo 59" sort="auto(nbCampo59aL1)"></column>
+											<column hflex="0" label="Campo 57" sort="auto(nbCampo57aL1)"></column>
+											<column hflex="0" label="Campo 70" sort="auto(nbCampo70L1)"></column>
+											<column hflex="0" label="Status Recepción CW" sort="auto(nbDescStCw)"></column>
+
+											<column hflex="0" label="Fecha de Recepción del Mensaje"
+												sort="auto(fhProcesoRepte)"></column>
+											<column hflex="0" label="Archivo Cash" sort="auto(nbArchCash)"></column>
+										</columns>
+										<template name="model">
+											<row>
+												<label hflex="0" value="@load(each.fila)"></label>
+												<label hflex="0" value="@load(each.cdBicOrigen)"></label>
+												<label hflex="0" value="@load(each.nbCampo20)"></label>
+												<label hflex="0" value="@load(each.nbCampo21)"></label>
+												<label hflex="0" value="@load(each.fhCampo30)"></label>
+												<label hflex="0" value="@load(each.fhProcesoA)"></label>
+												<label hflex="0" value="@load(each.nbStEnvioMt101)"></label>
+												<label hflex="0" value="@load(each.cdCampo32bMnda)"></label>
+												<label hflex="0" value="@load(each.imCampo32bMonto)"></label>
+												<label hflex="0" value="@load(each.nbCampo50aOcl1)"></label>
+												<label hflex="0" value="@load(each.nbCampo50aOcL2)"></label>
+												<label hflex="0" value="@load(each.nbCampo50aOcL3)"></label>
+												<label hflex="0" value="@load(each.nbCampo59al1)"></label>
+												<label hflex="0" value="@load(each.nbCampo57aL1)"></label>
+												<label hflex="0" value="@load(each.nbCampo70L1)"></label>
+												<label hflex="0" value="@load(each.nbDescStCw)"></label>
+												<label hflex="0" value="@load(each.fhProcesoRepte)"></label>
+												<label hflex="0" value="@load(each.nbArchCash)"></label>
+											</row>
+										</template>
+										<foot>
+										<footer span="7">											
+												<div align="right">											
+													<label value="Cantidad Registros: "></label>																			
+													<label value="@load(vm.cantidadRegistros)"></label>
+												</div>																							
+										</footer>
+									</foot>
+									</grid>																										
+								</div>
+								<div align="center">		
+									<button id="closeBtn" visible="@load(!vm.sreenModal)" onClick="@command('showModal')" sclass="button" label="Cerrar"/>
+								</div>							
+							</panelchildren>							
+						</panel>
+					</portalchildren>
+				</portallayout>
+			</groupbox>
+			<intbox value="@load(vm.intEstatusId)" id="estatus" visible="false"></intbox>
+		</div>
+		<zscript>
+			public void selectedValueEstatus(){
+				try{
+					estatus.setValue(new Integer(estatusCbx.getSelectedItem().getValue().toString()));
+				}catch(Exception ex){
+					estatus.setValue(null);
+				}
+			}					
+		</zscript>
+	</window>
+</zk>
