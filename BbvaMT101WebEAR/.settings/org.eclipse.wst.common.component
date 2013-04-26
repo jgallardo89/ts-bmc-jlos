@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-modules id="moduleCoreId" project-version="1.5.0">
+	<wb-module deploy-name="BbvaMT101WebEAR">
+		<wb-resource deploy-path="/" source-path="/" tag="defaultRootSource"/>
+		<dependent-module archiveName="BbvaMT101Web.war" deploy-path="/" handle="module:/resource/BbvaMT101Web/BbvaMT101Web">
+			<dependent-object>Module_1362448050287</dependent-object>
+			<dependency-type>uses</dependency-type>
+		</dependent-module>
+		<dependent-module archiveName="MonitorWebSwift.war" deploy-path="/" handle="module:/resource/MonitorBasic/MonitorBasic">
+			<dependent-object>Module_1362448050289</dependent-object>
+			<dependency-type>uses</dependency-type>
+		</dependent-module>
+        <dependent-module archiveName="BbvaMT101Ejb.jar" deploy-path="/" handle="module:/resource/BbvaMT101Ejb/BbvaMT101Ejb">
+            <dependent-object>Module_1364701465181</dependent-object>
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="log4j-1.2.17.jar" deploy-path="/lib" handle="module:/classpath/lib/BbvaMT101Web/WebContent/WEB-INF/lib/log4j-1.2.17.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="mybatis-3.1.1.jar" deploy-path="/lib" handle="module:/classpath/lib/BbvaMT101Web/WebContent/WEB-INF/lib/mybatis-3.1.1.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+	</wb-module>
+</project-modules>

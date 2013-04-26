@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<application xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/application_5.xsd"
+	version="5">
+	<display-name>BbvaMT101WebEAR</display-name>
+	<module id="Module_1362448050289">
+		<web>
+			<web-uri>MonitorWebSwift.war</web-uri>
+			<context-root>MonitorWebSwift</context-root>
+		</web>
+	</module>
+	<module id="Module_1362448050287">
+		<web>
+			<web-uri>BbvaMT101Web.war</web-uri>
+			<context-root>/mt101</context-root>
+		</web>
+	</module>
+	<module id="Module_1364701465181">
+		<ejb>BbvaMT101Ejb.jar</ejb>
+	</module>
+
+</application>
