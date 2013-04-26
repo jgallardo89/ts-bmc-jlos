@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?page title="Catalogo Mensajes de Notificaciones" contentType="text/html;charset=UTF-8"?>
+<?meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7"?>
+<?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
+<zk>
+	<window border="0" width="100%" height="70%"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('mx.com.bbva.mt101.ui.commons.viewmodel.mensajes.MensajesController')"
+		id="mensajesWindows">
+		<include src="../../pages/styles.zul" />
+		<div sclass="BODY" height="100%">
+			<groupbox height="100%">			
+							
+			</groupbox>
+			<intbox value="@load(vm.strMonedaCbxId)" id="moneda" visible="false"></intbox>
+			<textbox value="@load(vm.strCdContrato)" id="cdContrato" visible="false"></textbox>
+		</div>
+	</window>
+</zk>

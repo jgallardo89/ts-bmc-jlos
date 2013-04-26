@@ -1,0 +1,12 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<zk>
+		<grid style="border:none">
+			<columns>
+				<column width="50%" ></column>
+			</columns>
+			<rows>
+				<row value="JOSÉ LUIS ORTIZ SALAZAR"></row>
+				<row value="ADMINISTRADOR"></row>
+			</rows>
+		</grid>	
+</zk>

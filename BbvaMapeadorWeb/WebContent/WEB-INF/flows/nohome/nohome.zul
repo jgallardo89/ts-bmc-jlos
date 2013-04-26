@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?page title="Consulta Clientes" contentType="text/html;charset=UTF-8"?>
+<?meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7"?>
+<?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
+<zk>	
+   <window>
+   		<div>
+   			<label value="Aqui es necesario tener una pagina de introducción al sistema."></label>
+   		</div>
+   </window>
+</zk>

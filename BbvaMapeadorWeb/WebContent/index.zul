@@ -1,0 +1,13 @@
+<?page title="Auto Generated index.zul"?>
+<zk>
+	<zscript>
+		Iterable  headersNames = execution.getHeaderNames();
+		String headerName;
+		for(Iterator i = headersNames.iterator();i.hasNext();){
+			headerName = i.next();
+        	System.out.println(headerName);
+        	System.out.println(execution.getHeader(headerName));
+     	}		
+		execution.sendRedirect("/app/menu");
+	</zscript>
+</zk>

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?page title="Consulta Clientes" contentType="text/html;charset=UTF-8"?>
+<?meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7"?>
+<?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
+<zk>	
+	<include src="../../pages/styles.zul" />
+    <style>   
+         .breeze .complex-layout, .breeze .complex-layout .z-south,
+        .breeze .complex-layout .z-west { background: #F7F7F7; }
+        .z-borderlayout { background: #FFFFFF } .complex-layout .z-north
+        { background: #FFFFFF ; } img.complex-layout-header-img {
+        padding: 0 10px; } 
+        .complex-layout-header-label { 
+        position:relative; 
+        top: -18px; 
+        padding-left: 800px; 
+        font-size: 14px;
+        color: #0047B6;         
+        } 
+        .complex-layout-header-ax { 
+        position:relative; 
+        top: -22px; 
+        padding-left: 800px; 
+        font-size: 14px;
+        color: #0047B6;         
+        } 
+        .inner-border, .inner-border
+        .z-north, .inner-border .z-west, .inner-border .z-south,
+        .inner-border .z-east { background: #FFFFFF; } .dl-link {
+        text-decoration: none; cursor: pointer; }     
+    </style>
+    
+    <div apply="org.zkoss.bind.BindComposer"
+			viewModel="@id('vm') @init('mx.com.bbva.mapeador.ui.viewmodel.menu.MenuController')"
+			sclass="BODY">
+        <borderlayout sclass="complex-layout" height="810px">
+            <north size="70px" border="0">
+                <div>                   
+                    <image  width="15%" src="/img/logo_comun.png" />                    
+              		<label sclass="complex-layout-header-label" value="José Luis Ortiz Salazar - Administrador" width="60%" />              		             		    	
+              		<div sclass="barraHorizontal" align="right">              			
+              			<a label="Cerrar Sesión" href="https://localhost/pkmslogout.form" ></a>               			
+              		</div>              		              	
+                </div>                 
+            </north>
+            <!-- Sidebar -->           
+            <west width="15%" border="0" flex="true" splittable="true" 
+                margins="0,5,0,0" style="background: #FFFFFF">
+                <vlayout spacing="0" height="100%" style="border:0">                                          
+                    <div height="100%" style="background: #FFFFFF">                    	
+                    	<groupbox id="grpMenu" closable="false" mold='3d' height="100%">						    
+						    <tree id="tree" hflex="1" model="@load(vm.treeModel)">
+						        <treecols>
+						            <treecol hflex="1"/>						            
+						        </treecols>						        
+							    <template name="model">
+							        <treeitem>	
+							        	<treerow>						        							            	
+							             	<treecell>
+							             		<a label="@load(each.data.description)" autag="@load(each.data.url)">
+							             			<attribute name="onClick">
+							             				bodyPage.src=null; 
+							             				bodyPage.src=self.autag;
+							             			</attribute>
+							             		</a>							             			 							             									             									             
+							             	</treecell>				                   								            	
+							        	 </treerow>
+							    	</treeitem>
+							    </template>						    	
+						    </tree>
+						</groupbox>
+                	</div>                                                                   
+                </vlayout>
+            </west>            
+            <!-- Content -->
+            <center>
+                <borderlayout sclass="inner-border" >
+                    <north border="0" height="4%" margins="2,3,0,0">                        
+                    </north>
+                    <center border="0" margins="0,3,3,3">                         
+	                   	<div id="bodyContent" width="100%" height="100%">
+	                   		<iframe id="bodyPage" width="100%" height="100%" src="/app/nohome"></iframe>	                   		
+	                   	</div>                                                   
+                    </center>                    
+                </borderlayout>
+            </center>           
+        </borderlayout>
+        <textbox visible="false" id="menuSelection" value="strMenuSelection"></textbox>
+    </div>
+</zk>

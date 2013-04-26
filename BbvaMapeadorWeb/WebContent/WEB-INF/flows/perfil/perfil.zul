@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?page title="Seguridad" contentType="text/html;charset=UTF-8"?>
+<?meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7"?>
+<?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
+<zk>
+	<window border="0" width="100%" height="70%"
+		apply="org.zkoss.bind.BindComposer" 
+		viewModel="@id('vm') @init('mx.com.bbva.mt101.ui.commons.viewmodel.perfil.PerfilController')"
+		id="perfilWindows">
+		<include src="../../pages/styles.zul" />
+		<div sclass="BODY" height="100%">
+			<groupbox height="100%">
+				<caption sclass="pageTitle" label="Seguridad > Perfil"></caption>		
+					<portallayout maximizedMode="whole" id="portalLayoutPerfil"
+					width="100%" height="100%">
+					 <portalchildren>
+						<panel width="100%" sclass="sectionPanelTitle" id="datosOpeDup"
+							title="Perfil" collapsible="true" style="margin-bottom:10px"
+							border="normal">							
+							<panelchildren>
+								<div align="center">
+									<grid width="100%" style="border:0" oddRowSclass="row2">
+										<columns>
+											<column width="20%" />
+											<column width="25%" />
+											<column width="20%" />
+											<column width="25%" />
+										</columns>
+										<rows>
+											<row sclass="row2">
+												<div align="right">
+													<label width="100%" sclass="labelFill" value="Nombre del Perfil:"></label>
+												</div>
+												<textbox sclass="textboxUpperCase" maxlength="30"
+													id="nombrePerfil" value="@load(vm.strNombrePerfil)" width="70%"></textbox>
+												<div align="right">
+													<label width="100%" sclass="labelFill" value="Descipción del Perfil:"></label>												
+												</div>
+												<textbox sclass="textboxUpperCase" maxlength="300"
+													id="descripcionPerfil" value="@load(vm.strDescripcionPerfil)" width="70%"></textbox>																													
+											</row>
+											<row sclass="row2">												
+												<div align="right">
+													<label width="100%" sclass="labelFill" value="Status:"></label>												
+												</div>
+												<combobox sclass="textboxUpperCase" readonly="true" onChange=""
+													id="status" width="70%" model="@load(vm.strStatus)" autodrop="true">		
+													<template name="model">										
+														<comboitem  value="" label="" />
+													</template>																								
+												</combobox>		
+												<div align="right">
+													<label width="100%" sclass="labelFill" value=""></label>
+												</div>
+												<div align="right">
+													<label width="100%" sclass="labelFill" value=""></label>
+												</div>																													
+											</row>
+											<row sclass="row2">												
+												<div align="right">
+													<label width="100%" sclass="labelFill" value="Pantalla:"></label>												
+												</div>
+												<combobox sclass="textboxUpperCase" readonly="true" onChange=""
+													id="pantalla" width="70%" model="@load(vm.strPantalla)" autodrop="true">		
+													<template name="model">										
+														<comboitem  value="" label="" />
+													</template>																								
+												</combobox>		
+												<div align="right">							
+
+												</div>
+												<div align="right">
+													<label width="100%" sclass="labelFill" value=""></label>
+												</div>																													
+											</row>										
+										</rows>
+									</grid>
+									<grid width="100%" style="border:0" oddRowSclass="row2">
+										<columns>
+											<column width="10%" />
+											<column width="20%" />
+											<column width="20%" />
+											<column width="20%" />
+											<column width="20%" />
+											<column width="10%" />
+										</columns>	
+										<rows>
+											<row sclass="row2">												
+												<div align="center" width="100%">
+													<label width="100%" sclass="labelFill" value=""></label>													
+												</div>	
+												<div align="center" width="100%">
+													<button sclass="button" label="Limpiar" id="limpiarBtn" onClick="@command('reenviarArchivo')" ></button>																										
+												</div>
+												<div align="center" width="100%">
+													<button sclass="button" label="Guardar" id="guardarUsuarioBtn" onClick="@command('reenviarArchivo')"></button>													
+												</div>	
+												<div align="center" width="100%">													
+													<button sclass="button" label="Consultar" id="consultarUsuarioBtn" onClick="@command('reenviarArchivo')"></button>												
+												</div>	
+												<div align="center" width="100%">													
+													<button sclass="button" label="Duplicar" id="duplicarBtn" onClick="@command('reenviarArchivo')"></button>
+												</div>			
+												<div align="center" width="100%">
+													<label width="100%" sclass="labelFill" value=""></label>
+												</div>																										
+											</row>	
+										</rows>							
+									</grid>
+								</div>
+							</panelchildren>										
+						</panel>
+					</portalchildren>
+					<portalchildren width="100%" style="padding: 5px">
+						<panel sclass="sectionPanelTitle" width="100%" id="panelUsuarioMapeador"
+							title="Resultados Usuario Mapeador" collapsible="true"
+							style="margin-bottom:10px">
+							<caption sclass="sectionPanelTitle" label="Lista de Usuarios"></caption>
+							<panelchildren>
+								<grid width="99.7%" style="border:1">
+									<auxhead style="border:1">
+										<auxheader hflex="0" align="center" colspan="1">
+											<image  src="/img/refresh.png" width="16px" height="16px" onClick=""></image>
+										</auxheader>
+										<auxheader colspan="1">
+										</auxheader>
+										<auxheader colspan="2" align="center" label="Envío">
+										</auxheader>
+										<auxheader colspan="2" align="center" label="Último Envío">
+										</auxheader>
+										<auxheader colspan="2" align="center" label="Regreso Cash">
+										</auxheader>
+										<auxheader colspan="2">
+										</auxheader>
+									</auxhead>
+									<columns>										
+										<column hflex="1" label="Nombre del Perfil" sort="auto(strNombrePerfil)"></column>
+										<column hflex="1" label="Descripcion del Perfil" sort="auto(strDescripcion)"></column>										
+										<column hflex="1" label="Status" sort="auto(strStatus)"></column>	
+										<column hflex="1" label="Detalle" sort="auto(strDetalle)"></column>									
+									</columns>
+									<template name="model">
+										<row>											
+											<label hflex="1" value=""></label>
+											<label hflex="1" value=""></label>
+											<label hflex="1" value=""/>											
+											<label hflex="1" value=""></label>									
+											<cell>
+												<div align="center">
+													<image src="/img/list.png" onClick="">														
+													</image>
+												</div>
+											</cell>
+										</row>
+									</template>
+									<foot>
+										<footer span="9">											
+												<div align="right">											
+													<label value="Cantidad Registros: "></label>																			
+													<label value="@load(vm.cantidadRegistros)"></label>
+												</div>																							
+										</footer>
+									</foot>
+								</grid>
+							</panelchildren>
+						</panel>
+					</portalchildren>
+				</portallayout>								
+			</groupbox>			
+		</div>
+	</window>
+</zk>
