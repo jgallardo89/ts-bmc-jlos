@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="BbvaMT101Ejb">
+        <wb-resource deploy-path="/" source-path="/ejbModule" tag="defaultRootSource"/>
+        <property name="java-output-path" value="/BbvaMT101Ejb/build/classes"/>
+        <property name="ClientProject" value="BbvaMT101EjbClient"/>
+        <property name="ClientJARURI" value="BbvaMT101EjbClient.jar"/>
+    </wb-module>
+</project-modules>

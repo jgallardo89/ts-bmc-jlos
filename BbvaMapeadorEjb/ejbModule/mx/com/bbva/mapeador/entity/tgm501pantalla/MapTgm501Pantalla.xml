@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mx.com.bbva.mapeador.entity.tgm501pantalla.MapTgm501Pantalla">
+	<select id="obtenerPantallasPorUsuario" parameterType="mx.com.bbva.mapeador.entity.tgm501pantalla.Tgm501Pantalla"
+		resultType="mx.com.bbva.mapeador.entity.tgm501pantalla.Tgm501Pantalla">
+		   select  Cd_Pantalla cdPantalla,
+					Cd_Fk_Pantalla cdFkPantalla,
+					NB_PANTALLA nbPantalla,
+					Tx_Url_Pantalla txUrlPantalla,
+					TX_URL_ICON txUrlIcon,
+					Nu_Ord_Pantalla nuOrdPantalla,
+					St_Pantalla  stPantalla
+			From 	Tgm501_Pantalla Pantalla,
+					Tgm504_Perfil Perfil,
+					Tgm503_Usuario Usuario
+			Where 	St_Pantalla = 3
+					And St_Perfil = 2
+					And St_Usuario = 1
+					And Usuario.Cd_Cve_Usuario = #{cdCveUsuario}
+					And Pantalla.Cd_Fk_Pantalla = #{cdFkPantalla}
+					And Pantalla.Cd_Pantalla != 1
+					And Pantalla.Cd_Perfil = Perfil.Cd_Perfil
+					and Perfil.Cd_Perfil = Usuario.Cd_Perfil
+			order by Pantalla.Nu_Ord_Pantalla	
+	</select>
+</mapper>

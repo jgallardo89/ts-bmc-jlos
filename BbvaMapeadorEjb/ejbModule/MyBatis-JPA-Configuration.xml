@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="JNDI" >
+                <property  name="data_source" value="jdbc/MAPEADOR"/>               
+            </dataSource>
+        </environment>
+    </environments>
+    <mappers>    
+    	<mapper resource="mx/com/bbva/mapeador/entity/tgm501pantalla/MapTgm501Pantalla.xml" />   
+    	<mapper resource="mx/com/bbva/mapeador/entity/tgm504perfil/MapTgm504Perfil.xml" />
+    </mappers>
+</configuration>
