@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mx.com.bbva.mt101.mapper.MapTgm138Mt101ctrato">
+	<insert id="salvarContrato" keyProperty="cdContrato" parameterType="mx.com.bbva.mt101.entities.Tgm138Mt101ctrato">
+		<selectKey keyProperty="cdContrato" resultType="int" order="BEFORE"> 
+			<![CDATA[ select SQ_GM138_MT101CTRATO.nextval as cdContrato from dual ]]> 
+		</selectKey>
+			<![CDATA[
+			INSERT INTO TGM138_MT101CTRATO
+			  (
+			    CD_CONTRATO,
+			    CD_CUENTA_CHEQUES,
+			    CD_MONEDA,
+			    CD_COD_SW_REC,
+			    CD_COD_SW_ENV,
+			    NB_EMPRESA,
+			    CD_TP_CLIENTE_AAA,			    
+			    CD_ANUALIDAD,
+			    CD_MENSUALIDAD,
+			    CD_IVA,
+			    FH_ALTA,
+			    CD_CONTRATO_SICOCO
+			  )
+			  VALUES
+			  (
+			    #{cdContrato},
+			    #{cdCuentaCheques},
+			    #{cdMoneda},
+			    #{cdCodSwRec},
+			    #{cdCodSwEnv},
+			    #{nbEmpresa},
+			    #{cdTpClienteAaa},			    
+			    #{cdAnualidad},
+			    #{cdMensualidad},
+			    #{cdIva},
+			    #{fhAlta},
+			    #{cdContratoSicoco}			 
+			  )
+			  ]]>
+	</insert>
+
+	<select id="obtenerClientes" parameterType="mx.com.bbva.mt101.entities.Tgm138Mt101ctrato"
+		resultType="mx.com.bbva.mt101.entities.Tgm138Mt101ctrato">
+		select contrato.cd_contrato cdContrato,
+		contrato.cd_cuenta_cheques cdCuentaCheques,
+		contrato.cd_moneda cdMoneda,
+		contrato.cd_cod_sw_rec
+		cdCodSwRec,
+		contrato.cd_cod_sw_env cdCodSwEnv,
+		contrato.nb_empresa
+		nbEmpresa,
+		contrato.cd_tp_cliente_aaa cdTpClienteAaa,
+		contrato.cd_contrato_sicoco cdContratoSicoco,
+		contrato.cd_anualidad
+		cdAnualidad,
+		contrato.cd_mensualidad cdMensualidad,
+		contrato.cd_iva
+		cdIva,
+		contrato.fh_alta fhAlta,
+		contrato.fh_baja fhBaja,
+		moneda.nb_moneda nbMoneda,
+		iva.nu_porcentaje nuPorcentaje
+		from tgm138_mt101ctrato contrato,
+		tgm041_iva_mx iva,
+		tgm042_moneda_mx moneda
+		where iva.cd_iva = contrato.cd_iva
+		and moneda.cd_moneda =
+		contrato.cd_moneda
+		and cd_cuenta_cheques like #{cdCuentaCheques}
+		and
+		nb_empresa like #{nbEmpresa}
+		and cd_cod_sw_rec like #{cdCodSwRec}
+		<if test="cdCodSwEnv != '%%'">
+			and cd_cod_sw_env like #{cdCodSwEnv}
+		</if>
+		and cd_contrato like #{cdContratoStr}
+		and nb_moneda like #{nbMoneda}
+		and nu_porcentaje like #{nuPorcentaje}
+		and CD_TP_CLIENTE_AAA like
+		#{cdTpClienteAaa}
+	</select>
+
+	<select id="obtieneContrato" parameterType="mx.com.bbva.mt101.entities.Tgm138Mt101ctrato"
+		resultType="mx.com.bbva.mt101.entities.Tgm138Mt101ctrato">
+		<![CDATA[
+		select contrato.cd_contrato cdContrato,
+		contrato.cd_cuenta_cheques cdCuentaCheques,
+		contrato.cd_moneda cdMoneda,
+		contrato.cd_cod_sw_rec cdCodSwRec,
+		contrato.cd_cod_sw_env cdCodSwEnv,
+		contrato.nb_empresa nbEmpresa,
+		contrato.cd_tp_cliente_aaa cdTpClienteAaa,
+		contrato.cd_contrato_sicoco cdContratoSicoco,
+		contrato.cd_anualidad cdAnualidad,
+		contrato.cd_mensualidad cdMensualidad,
+		contrato.cd_iva cdIva,
+		contrato.fh_alta fhAlta,
+	    moneda.nb_moneda nbMoneda,
+    	iva.nu_porcentaje nuPorcentaje
+		from tgm138_mt101ctrato contrato,
+    	tgm041_iva_mx iva,
+    	tgm042_moneda_mx moneda
+		where iva.cd_iva = contrato.cd_iva
+          and  moneda.cd_moneda = contrato.cd_moneda
+          and contrato.cd_contrato = #{cdContrato} 
+        ]]>
+	</select>
+	<select id="obtieneContratoCliente" parameterType="mx.com.bbva.mt101.entities.Tgm138Mt101ctrato"
+		resultType="mx.com.bbva.mt101.entities.Tgm138Mt101ctrato">
+		<![CDATA[
+		select contrato.cd_contrato cdContrato,
+		contrato.cd_cuenta_cheques cdCuentaCheques,
+		contrato.cd_moneda cdMoneda,
+		contrato.cd_cod_sw_rec cdCodSwRec,
+		contrato.cd_cod_sw_env cdCodSwEnv,
+		contrato.nb_empresa nbEmpresa,
+		contrato.cd_tp_cliente_aaa cdTpClienteAaa,
+		contrato.cd_contrato_sicoco cdContratoSicoco,
+		contrato.cd_anualidad cdAnualidad,
+		contrato.cd_mensualidad cdMensualidad,
+		contrato.cd_iva cdIva,
+		contrato.fh_alta fhAlta,
+	    moneda.nb_moneda nbMoneda,
+    	iva.nu_porcentaje nuPorcentaje
+		from tgm138_mt101ctrato contrato,
+    	tgm041_iva_mx iva,
+    	tgm042_moneda_mx moneda
+		where iva.cd_iva = contrato.cd_iva
+          and  moneda.cd_moneda = contrato.cd_moneda
+          and contrato.cd_contrato = #{cdContrato} 
+          and contrato.cd_cuenta_cheques != #{cdCuentaCheques}
+        ]]>
+	</select>
+	<select id="obtieneCuentaCheques" parameterType="mx.com.bbva.mt101.entities.Tgm138Mt101ctrato"
+		resultType="mx.com.bbva.mt101.entities.Tgm138Mt101ctrato">
+		<![CDATA[
+		select contrato.cd_contrato cdContrato,
+		contrato.cd_cuenta_cheques cdCuentaCheques,
+		contrato.cd_moneda cdMoneda,
+		contrato.cd_cod_sw_rec cdCodSwRec,
+		contrato.cd_cod_sw_env cdCodSwEnv,
+		contrato.nb_empresa nbEmpresa,
+		contrato.cd_tp_cliente_aaa cdTpClienteAaa,
+		contrato.cd_contrato_sicoco cdContratoSicoco,
+		contrato.cd_anualidad cdAnualidad,
+		contrato.cd_mensualidad cdMensualidad,
+		contrato.cd_iva cdIva,
+		contrato.fh_alta fhAlta,
+	    moneda.nb_moneda nbMoneda,
+    	iva.nu_porcentaje nuPorcentaje
+		from tgm138_mt101ctrato contrato,
+    	tgm041_iva_mx iva,
+    	tgm042_moneda_mx moneda
+		where iva.cd_iva = contrato.cd_iva
+          and  moneda.cd_moneda = contrato.cd_moneda
+          and contrato.cd_cuenta_cheques = #{cdCuentaCheques} 
+        ]]>
+	</select>
+	<update id="actualizaClienteInactivo" parameterType="mx.com.bbva.mt101.entities.Tgm138Mt101ctrato">
+		update
+		tgm138_mt101ctrato
+		set fh_baja = null,
+		fh_Alta = sysdate
+		where cd_contrato = #{cdContrato}
+	</update>
+	<update id="eliminaClienteActivo" parameterType="mx.com.bbva.mt101.entities.Tgm138Mt101ctrato">
+		update
+		tgm138_mt101ctrato
+		set fh_baja = sysdate
+		where cd_contrato = #{cdContrato}
+	</update>
+	<update id="actualizaCliente" parameterType="mx.com.bbva.mt101.entities.Tgm138Mt101ctrato">
+		update
+		TGM138_MT101CTRATO
+		set CD_CONTRATO = #{cdContrato},
+		CD_MONEDA = #{cdMoneda},
+		CD_COD_SW_REC = #{cdCodSwRec},
+		CD_COD_SW_ENV = #{cdCodSwEnv},
+		NB_EMPRESA = #{nbEmpresa},
+		CD_TP_CLIENTE_AAA = #{cdTpClienteAaa},
+		CD_ANUALIDAD = #{cdAnualidad},
+		CD_MENSUALIDAD = #{cdMensualidad},
+		CD_IVA = #{cdIva}
+		where CD_CUENTA_CHEQUES = #{cdCuentaCheques}
+	</update>
+	<select id="obtieneCdCodSwRec" parameterType="mx.com.bbva.mt101.entities.Tgm138Mt101ctrato"
+		resultType="mx.com.bbva.mt101.entities.Tgm138Mt101ctrato">
+		<![CDATA[
+			select cd_bic_aba cdCodSwRec 
+			from TGM036_BIC_ABA
+			where cd_bic_aba = #{cdCodSwRec}	
+	    ]]>
+	</select>
+	<select id="obtieneCdCodSwEnv" parameterType="mx.com.bbva.mt101.entities.Tgm138Mt101ctrato"
+		resultType="mx.com.bbva.mt101.entities.Tgm138Mt101ctrato">
+		<![CDATA[
+			select cd_bic_aba cdCodSwEnv 
+			from TGM036_BIC_ABA
+			where cd_bic_aba = #{cdCodSwEnv}	
+	    ]]>
+	</select>
+</mapper>

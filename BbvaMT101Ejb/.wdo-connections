@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<connections:connections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:connections="http://www.ibm.com/websphere/wdo/connections">
+	<connection id="MT101">
+		<development xsi:type="connections:rsc-live-connection"
+			id="MT101_dev" name="MT101" />
+		<runtime xsi:type="connections:datasource-connection"
+			auto-deploy="true" class-location="D:\Bancomer\WAS7\ojdbc6.jar" id="MT101_runtime"
+			classname="oracle.jdbc.pool.OracleConnectionPoolDataSource"
+			database-name="xe" jndi-name="jdbc/MT101" port-number="1521"
+			resource-reference-name="MT101" server-name="localhost"
+			sql-vendor-type="52" userid="monitor" />
+	</connection>
+</connections:connections>

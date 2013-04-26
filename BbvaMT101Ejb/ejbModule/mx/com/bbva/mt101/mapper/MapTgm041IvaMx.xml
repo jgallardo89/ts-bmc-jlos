@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mx.com.bbva.mt101.mapper.MapTgm041IvaMx">
+	<resultMap type="mx.com.bbva.mt101.entities.Tgm041IvaMx" id="tgm041IvaMx">
+		<id property="cdIva" column="cdIva" jdbcType="INTEGER" />
+		<result property="nu_porcentaje" column="nu_porcentaje"
+			jdbcType="INTEGER" />
+	</resultMap>
+	<select id="buscarTodosIvas" resultMap="tgm041IvaMx"
+		statementType="STATEMENT">
+		select cd_iva cdIva, nu_porcentaje nuPorcentaje from tgm041_iva_mx
+	</select>
+</mapper>

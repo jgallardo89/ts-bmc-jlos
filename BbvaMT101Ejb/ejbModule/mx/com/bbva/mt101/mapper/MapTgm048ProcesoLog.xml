@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mx.com.bbva.mt101.mapper.MapTgm048ProcesoLog">
+	<insert id="salvarProcesoLog" keyProperty="cdProcesoGis"
+		parameterType="mx.com.bbva.mt101.entities.Tgm048ProcesoLog">			
+			<![CDATA[
+			INSERT INTO TGM048_PROCESO_LOG
+			  (
+			    CD_PROCESO_GIS,
+			    CD_PROCESO_LOG,
+			    CD_TP_EVENTO,
+			    TM_PROCESO_LOG,
+			    TX_PROCESO_LOG
+			  )
+			  VALUES
+			  (
+			    #{cdProcesoGis},
+			    #{cdProcesoLog},
+			    #{cdTpEvento},
+			    #{tmProcesoLog},
+			    #{txProcesoLog}			 
+			  )
+			  ]]>
+	</insert>
+</mapper>

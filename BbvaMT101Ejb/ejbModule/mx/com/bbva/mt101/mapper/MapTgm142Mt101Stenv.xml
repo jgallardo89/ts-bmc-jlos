@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mx.com.bbva.mt101.mapper.MapTgm142Mt101Stenv">	
+	<select id="buscarTodosEstatus" resultType="mx.com.bbva.mt101.entities.Tgm142Mt101Stenv"
+		statementType="STATEMENT">
+		Select Cd_St_Envio_Mt101 cdStEnvioMt101,
+		       Nb_St_Envio_Mt101 nbStEnvioMt101
+		from Tgm142_Mt101_Stenv
+	</select>
+</mapper>

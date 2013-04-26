@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mx.com.bbva.mt101.mapper.MapTgm107EventoWeb">
+	<insert id="salvarEventoWeb" keyProperty="cdEventoWeb"
+		parameterType="mx.com.bbva.mt101.entities.Tgm107EventoWeb">		
+			<![CDATA[
+			INSERT INTO TGM107_EVENTO_WEB
+			  (
+			    CD_EVENTO_WEB,
+			    CD_USUARIO,
+			    TM_EVENTO_WEB,
+			    TX_EVENTO_WEB
+			  )
+			  VALUES
+			  (
+			    #{cdEventoWeb},
+			    #{cdUsuario},
+			    #{tmEventoWeb},
+			    #{txEventoWeb}			 
+			  )
+			  ]]>
+	</insert>
+</mapper>

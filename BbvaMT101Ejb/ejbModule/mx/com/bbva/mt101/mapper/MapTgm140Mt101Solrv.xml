@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mx.com.bbva.mt101.mapper.MapTgm140Mt101Solrv">	
+	<insert id="insertaArchivoParaReenviar" keyProperty="cdSolReenvio" parameterType="mx.com.bbva.mt101.entities.Tgm140Mt101Solrv">
+		<selectKey keyProperty="cdSolReenvio" resultType="int" order="BEFORE"> 
+			<![CDATA[ select SQ_GM140_SOLRV.nextval as cdSolReenvio from dual ]]> 
+		</selectKey>
+			<![CDATA[
+			insert into tgm140_mt101_solrv
+			(
+				CD_ENV_CASH,
+				CD_SOL_REENVIO,
+				CD_USUARIO,
+				NU_LOTE,
+				ST_LOTE,
+				TM_FECHA_LOTE,
+				TM_REENVIO,
+				TX_COMENTARIO
+			)
+			values
+			(
+				#{cdEnvCash},
+				#{cdSolReenvio},
+				#{cdUsuario},
+				#{nuLote},
+				#{stLote},
+				#{tmFechaLote},
+				#{tmReenvio},
+				#{txComentario}
+			)
+			]]>
+	</insert>
+</mapper>

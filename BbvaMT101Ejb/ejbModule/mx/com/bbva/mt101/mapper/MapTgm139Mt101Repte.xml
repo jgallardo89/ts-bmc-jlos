@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mx.com.bbva.mt101.mapper.MapTgm139Mt101Repte">
+	<select id="obtenerOperacionesPorEstatus" parameterType="mx.com.bbva.mt101.entities.Tgm139Mt101Repte"
+		resultType="mx.com.bbva.mt101.entities.Tgm139Mt101Repte">
+		<![CDATA[
+			select tgm139_mt101_repte.fh_proceso fhProceso,
+			tgm139_mt101_repte.cd_repte_mt101 cdRepteMt101,
+			tgm134_mt101_a.nb_campo_20 nbCampo20,
+			tgm053_tipo_op_mx.nb_tp_operacion nbTpOperacion,
+			nvl(tgm134_mt101_a.nb_campo_50a_oc_l1,tgm135_mt101_b.nb_campo_50a_oc_l1) nbCampo50aOcl1,
+			tgm135_mt101_b. nb_campo_59a_l1 nbCampo59al1,
+			tgm135_mt101_b.im_campo_32b_monto imCampo32bMonto,
+			tgm139_mt101_repte.nb_fol_acep_cw nbFolAcepCw,
+			tgm139_mt101_repte.nb_desc_st_cw nbDescStCw,
+			tgm139_mt101_repte.nb_st_ope_cw nbStOpeCw,
+			tgm139_mt101_repte.consecutivo consecutivo			
+			from tgm139_mt101_repte,
+			tgm134_mt101_a,
+			tgm053_tipo_op_mx,
+			tgm135_mt101_b,
+			tgm142_mt101_stenv
+			where tgm139_mt101_repte.cd_st_envio_mt101 = #{cdStEnvioMt101}
+			and tgm139_mt101_repte.cd_st_envio_mt101 = tgm142_mt101_stenv.cd_st_envio_mt101
+			and tgm134_mt101_a.cd_secuencia_a = tgm139_mt101_repte.cd_secuencia_a
+			and tgm053_tipo_op_mx.cd_tp_operacion = tgm139_mt101_repte.cd_tp_operacion
+			and tgm135_mt101_b.cd_secuencia_b = tgm139_mt101_repte.cd_secuencia_b	
+	    ]]>
+	</select>
+	<select id="obtenerOperacionesPorCriterio" parameterType="mx.com.bbva.mt101.entities.Tgm139Mt101Repte"
+		resultType="mx.com.bbva.mt101.entities.Tgm139Mt101Repte">
+		select rownum fila,
+		mt101a.CD_BIC_ORIGEN cdBicOrigen,
+		mt101a.NB_CAMPO_20 nbCampo20,
+		mt101b.NB_CAMPO_21 nbCampo21,
+		mt101a.FH_CAMPO_30 fhCampo30,
+		mt101a.FH_PROCESO fhProcesoA,
+		mt101stenv.NB_ST_ENVIO_MT101 nbStEnvioMt101,
+		mt101b.CD_CAMPO_32B_MNDA cdCampo32bMnda,
+		mt101b.IM_CAMPO_32B_MONTO imCampo32bMonto,
+		mt101b.NB_CAMPO_50A_OC_L1 nbCampo50aOcL1,
+		mt101b.NB_CAMPO_50A_OC_L2 nbCampo50aOcL2,
+		mt101b.NB_CAMPO_50A_OC_L3 nbCampo50aOcL3,
+		mt101b.NB_CAMPO_59A_L1 nbCampo59aL1,
+		mt101b.NB_CAMPO_57A_L1 nbCampo57aL1,
+		mt101b.NB_CAMPO_70_L1 nbCampo70L1,
+		mt101repte.NB_DESC_ST_CW nbDescStCw,
+		mt101repte.FH_PROCESO fhProcesoRepte,
+		mt101repte.NB_ARCH_CASH nbArchCash
+		from TGM134_MT101_A mt101a,
+		TGM135_MT101_B mt101b,
+		TGM142_MT101_STENV mt101stenv,
+		TGM139_MT101_REPTE mt101repte
+		where mt101b.cd_secuencia_a = mt101a.cd_secuencia_a
+		and mt101repte.cd_st_envio_mt101 = mt101stenv.cd_st_envio_mt101
+		and mt101repte.cd_secuencia_a = mt101b.cd_secuencia_a
+		and mt101repte.cd_secuencia_b = mt101b.cd_secuencia_b
+		<if test="fhProcesoInicio != null and fhProcesoFin != null">
+			and to_date(mt101repte.FH_CAMPO_30,'dd-MM-rrrr') between
+			to_date(#{fhProcesoInicio},'dd-MM-rrrr') and
+			to_date(#{fhProcesoFin},'dd-MM-rrrr')
+		</if>
+		<if test="fhCampo30T != null">
+			and to_date(mt101repte.FH_CAMPO_30,'dd-MM-rrrr') > to_date(#{fhCampo30T},'dd-MM-rrrr')
+		</if>
+		<if test="fhCampo30T2 != null">
+			and to_date(mt101repte.FH_CAMPO_30,'dd-MM-rrrr') = to_date(#{fhCampo30T2},'dd-MM-rrrr')
+		</if>
+		<if test="validaNoNuloArchivo == 1">
+			and NB_ARCH_CASH is not null
+		</if>
+		<if
+			test="cdStEnvioMt101T != null and cdStEnvioMt101T != 0 and cdStEnvioMt101T != -1">
+			and mt101stenv.CD_ST_ENVIO_MT101 != #{cdStEnvioMt101T} 
+		</if>
+		<if test="nbArchCash != null ">
+			and mt101repte.NB_ARCH_CASH = #{nbArchCash}
+		</if>
+		<if test="nuLoteEnvio != null and nuLoteEnvio != 0 and nuLoteEnvio != -1">
+			and mt101repte.nu_lote_envio = #{nuLoteEnvio}
+		</if>
+		<if
+			test="cdStEnvioMt101 != null and cdStEnvioMt101 != 0 and cdStEnvioMt101 != -1">
+			and mt101stenv.CD_ST_ENVIO_MT101 = #{cdStEnvioMt101} 
+		</if>
+		<if
+			test="cdStEnvioMt101List != null">
+			and mt101stenv.CD_ST_ENVIO_MT101 in
+			<foreach collection="cdStEnvioMt101List" index="index" item="cdStEnvioMt101List" open="(" separator="," close=")">
+				#{cdStEnvioMt101List}
+			</foreach>			
+		</if>
+		<if
+			test="nbCampo50h != null">
+			AND mt101repte.nb_campo_50h = #{nbCampo50h}
+		</if>
+	</select>
+	<select id="obtenerOperacionesFuturas" parameterType="mx.com.bbva.mt101.entities.Tgm139Mt101Repte"
+		resultType="mx.com.bbva.mt101.entities.Tgm139Mt101Repte">
+		<![CDATA[
+			select NB_CAMPO_50H nbCampo50
+			from tgm139_mt101_repte repte,
+		  	tgm138_mt101ctrato ctrato
+		  	where repte.nb_campo_50h = ctrato.cd_cuenta_cheques
+		  	and repte.fh_campo_30 > sysdate
+		  	and ctrato.cd_cuenta_cheques = #{cdCuentaCheques}
+	]]>
+	</select>
+	<select id="obtenerTotalesOperacionesPorCriterios" parameterType="mx.com.bbva.mt101.entities.Tgm139Mt101Repte"
+		resultType="mx.com.bbva.mt101.entities.Tgm139Mt101Repte">
+		SELECT COUNT(repte.cd_tp_operacion) numeroOperaciones ,
+		  repte.cd_tp_operacion ctTpOperacion,
+		  tpopmx.nb_tp_operacion nbTpOperacion,
+		  tpopmx.tx_tp_operacion txTpOperacion,
+		  SUM(tpopmx.im_comision_eur) totalComEur,
+		  SUM(tpopmx.im_comision_usd) totalComUsd,
+		  SUM(tpopmx.im_comision_mxn) totalComMxn,
+		  (SELECT SUM(tpopmx.im_comision_Usd) totalComUsd
+		  FROM tgm139_mt101_repte repte,
+		    tgm053_tipo_op_mx tpopmx
+		  WHERE repte.cd_tp_operacion = tpopmx.cd_tp_operacion
+		  AND to_date(repte.FH_CAMPO_30,'dd-MM-rrrr') BETWEEN 
+		  TO_DATE(#{fhProcesoInicio},'dd-MM-rrrr') AND 
+		  TO_DATE(#{fhProcesoFin},'dd-MM-rrrr')
+		  AND repte.CD_ST_ENVIO_MT101 IN ( 9 , 11 )
+		  AND repte.nb_campo_50h       = #{nbCampo50h}
+		  ) subTotalUsd,
+		  (SELECT SUM(tpopmx.im_comision_mxn) totalComMxn
+		  FROM tgm139_mt101_repte repte,
+		    tgm053_tipo_op_mx tpopmx
+		  WHERE repte.cd_tp_operacion = tpopmx.cd_tp_operacion
+		  AND to_date(repte.FH_CAMPO_30,'dd-MM-rrrr') BETWEEN 
+		  TO_DATE(#{fhProcesoInicio},'dd-MM-rrrr') AND 
+		  TO_DATE(#{fhProcesoFin},'dd-MM-rrrr')
+		  AND repte.CD_ST_ENVIO_MT101 IN ( 9 , 11 )
+		  AND repte.nb_campo_50h       = #{nbCampo50h}
+		  ) subTotalMxn,
+		  (SELECT SUM(tpopmx.im_comision_Eur) totalComEur
+		  FROM tgm139_mt101_repte repte,
+		    tgm053_tipo_op_mx tpopmx
+		  WHERE repte.cd_tp_operacion = tpopmx.cd_tp_operacion
+		  AND to_date(repte.FH_CAMPO_30,'dd-MM-rrrr') BETWEEN 
+		  TO_DATE(#{fhProcesoInicio},'dd-MM-rrrr') AND 
+		  TO_DATE(#{fhProcesoFin},'dd-MM-rrrr')
+		  AND repte.CD_ST_ENVIO_MT101 IN ( 9 , 11 )
+		  AND repte.nb_campo_50h       = #{nbCampo50h}
+		  ) subTotalEur,
+		  #{cdMoneda} cdMoneda
+		FROM tgm139_mt101_repte repte,
+		  tgm053_tipo_op_mx tpopmx
+		WHERE repte.cd_tp_operacion = tpopmx.cd_tp_operacion
+		AND to_date(repte.FH_CAMPO_30,'dd-MM-rrrr') BETWEEN 
+		  TO_DATE(#{fhProcesoInicio},'dd-MM-rrrr') AND 
+		  TO_DATE(#{fhProcesoFin},'dd-MM-rrrr')
+		AND repte.CD_ST_ENVIO_MT101 IN ( 9 , 11 )
+		AND repte.nb_campo_50h       = #{nbCampo50h}
+		GROUP BY repte.cd_tp_operacion,
+		  tpopmx.nb_tp_operacion,
+		  tpopmx.tx_tp_operacion
+	</select>
+	<update id="actualizaEstatusOperacion" parameterType="mx.com.bbva.mt101.entities.Tgm139Mt101Repte">
+		update
+		tgm139_mt101_repte
+		set nb_fol_acep_cw = #{nbFolAcepCw},
+		nb_desc_st_cw = #{nbDescStCw},
+		nb_st_ope_cw = #{nbStOpeCw},
+		cd_st_envio_mt101 = #{cdStEnvioMt101}
+		where cd_repte_mt101 = #{cdRepteMt101}
+	</update>
+	<update id="actualizaEstatusOperacionReprocesar" parameterType="mx.com.bbva.mt101.entities.Tgm139Mt101Repte">
+		update tgm139_mt101_repte
+		set cd_st_envio_mt101 = #{cdStEnvioMt101},
+		nb_desc_st_cw = #{nbDescStCw},
+		nb_st_ope_cw = #{nbStOpeCw}
+		where cd_repte_mt101 = #{cdRepteMt101}
+	</update>
+</mapper>

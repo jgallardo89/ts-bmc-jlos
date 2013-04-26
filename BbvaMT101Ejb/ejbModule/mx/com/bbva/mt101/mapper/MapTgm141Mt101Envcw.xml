@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mx.com.bbva.mt101.mapper.MapTgm141Mt101Envcw">
+	<select id="obtenerArchivosPorCriterio" parameterType="mx.com.bbva.mt101.entities.Tgm141Mt101Envcw"
+		resultType="mx.com.bbva.mt101.entities.Tgm141Mt101Envcw">		
+		select CD_ENV_CASH cdEnvCash,
+		NB_ARCHIVO_CW nbArchivoCw,
+		NU_LOTE nuLote,
+		FH_PROCESO fhProceso,
+		TO_REGISTROS_ENVIO toRegistrosEnvio,
+		CT_NUM_REENVIO ctNumReenvio,
+		FH_ULTIMO_REENV fhUltimoReenv,
+		FH_REGRESO_CASH fhRegresoCash,
+		TO_REGISTROS_REG toRegistrosReg,
+		CD_REGRESO_CASH cdRegresoCash
+		from TGM141_MT101_ENVCW envcwm
+		where (to_char(FH_PROCESO, 'dd-MM-rrrr') = #{strFhProceso} or
+		to_char(FH_PROCESO, 'dd-MM-rrrr') = #{strFhProcesoAnt})		
+	</select>
+	<select id="obtenerArchivoParaReenviar" parameterType="mx.com.bbva.mt101.entities.Tgm141Mt101Envcw"
+		resultType="mx.com.bbva.mt101.entities.Tgm141Mt101Envcw">
+		Select  Cd_Env_Cash cdEnvCash,
+	        Cd_Regreso_Cash cdRegresoCash,
+	        Nu_Lote nuLote,
+	        (Select tx_valor 
+	         From Tgm046_Param_Cfg
+	         where nb_param_cfg = 'NU_REINTENTOS') nuReintentosSistema
+		From Tgm141_Mt101_Envcw
+		where Cd_Env_Cash = #{cdEnvCash}
+	</select>
+	<select id="obtenerArchivosParaReenviar" resultType="mx.com.bbva.mt101.entities.Tgm141Mt101Envcw">
+		<![CDATA[
+		SELECT envcwm.CD_ENV_CASH cdEnvCash,
+		  envcwm.NB_ARCHIVO_CW nbArchivoCw,
+		  envcwm.NU_LOTE nuLote,
+		  envcwm.FH_PROCESO fhProceso,
+		  envcwm.TO_REGISTROS_ENVIO toRegistrosEnvio,
+		  envcwm.CT_NUM_REENVIO ctNumReenvio,
+		  envcwm.FH_ULTIMO_REENV fhUltimoReenv,
+		  envcwm.FH_REGRESO_CASH fhRegresoCash,
+		  envcwm.TO_REGISTROS_REG toRegistrosReg,
+		  envcwm.CD_REGRESO_CASH cdRegresoCash
+		FROM Tgm141_Mt101_Envcw Envcwm
+		WHERE TO_CHAR(FH_PROCESO, 'dd-MM-rrrr') = TO_CHAR(sysdate, 'dd-MM-rrrr')
+		AND Envcwm.Cd_Regreso_Cash              = 0
+		AND envcwm.nu_lote                      <
+		  (SELECT MAX(Nu_Lote)
+		  FROM TGM141_MT101_ENVCW envcwmd
+		  WHERE TO_CHAR(Fh_Proceso, 'dd-MM-rrrr') = TO_CHAR(Sysdate, 'dd-MM-rrrr')
+		  AND Envcwmd.Nb_Archivo_Cw               = Envcwm.Nb_Archivo_Cw
+		  )
+		MINUS
+		SELECT envcwm.CD_ENV_CASH cdEnvCash,
+		  envcwm.NB_ARCHIVO_CW nbArchivoCw,
+		  envcwm.NU_LOTE nuLote,
+		  envcwm.FH_PROCESO fhProceso,
+		  envcwm.TO_REGISTROS_ENVIO toRegistrosEnvio,
+		  envcwm.CT_NUM_REENVIO ctNumReenvio,
+		  envcwm.FH_ULTIMO_REENV fhUltimoReenv,
+		  envcwm.FH_REGRESO_CASH fhRegresoCash,
+		  envcwm.TO_REGISTROS_REG toRegistrosReg,
+		  envcwm.CD_REGRESO_CASH cdRegresoCash
+		FROM Tgm141_Mt101_Envcw Envcwm ,
+		  Tgm140_Mt101_Solrv Solrv
+		WHERE Envcwm.Cd_Env_Cash = Solrv.Cd_Env_Cash
+		]]>
+	</select>
+	
+	<update id="actualizaArchivo" parameterType="mx.com.bbva.mt101.entities.Tgm141Mt101Envcw">
+		Update Tgm141_Mt101_Envcw
+			Set Ct_Num_Reenvio = #{ctNumReenvio},
+			Fh_Ultimo_Reenv = #{fhUltimoReenv}
+		where Cd_Env_Cash = #{cdEnvCash}
+	</update>
+</mapper>

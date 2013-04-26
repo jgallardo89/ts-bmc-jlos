@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mx.com.bbva.mt101.mapper.MapTgm042MonedaMx">
+	<resultMap type="mx.com.bbva.mt101.entities.Tgm042MonedaMx"
+		id="tgm042MonedaMx">
+		<id property="cdMoneda" column="cdMoneda" jdbcType="INTEGER" />
+		<result property="nbMoneda" column="nbMoneda" jdbcType="VARCHAR" />
+	</resultMap>
+	<select id="buscarTodasMonedas" resultMap="tgm042MonedaMx"
+		statementType="STATEMENT">
+		select cd_moneda cdMoneda, nb_moneda nbMoneda from TGM042_MONEDA_MX
+	</select>
+</mapper>
+

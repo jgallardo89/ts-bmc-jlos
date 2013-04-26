@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<environments default="development">
+		<environment id="development">
+			<transactionManager type="JDBC" />
+			<dataSource type="JNDI">
+				<property name="data_source" value="jdbc/MT101" />
+			</dataSource>
+		</environment>
+	</environments>
+	<mappers>
+		<mapper resource="/META-INF/Tgm042MonedaMx.xml" />
+		<mapper resource="mx/com/bbva/mt101/mapper/MapTgm138Mt101ctrato.xml" />
+		<mapper resource="mx/com/bbva/mt101/mapper/MapTgm041IvaMx.xml" />
+		<mapper resource="mx/com/bbva/mt101/mapper/MapTgm139Mt101Repte.xml" />
+		<mapper resource="mx/com/bbva/mt101/mapper/MapTgm141Mt101Envcw.xml" />
+		<mapper resource="mx/com/bbva/mt101/mapper/MapTgm053TipoOpMx.xml"/>
+		<mapper resource="mx/com/bbva/mt101/mapper/MapTgm023Usuario.xml"/>
+		<mapper resource="mx/com/bbva/mt101/mapper/MapTgm107EventoWeb.xml"/>
+		<mapper resource="mx/com/bbva/mt101/mapper/MapTgm048ProcesoLog.xml"/>
+		<mapper resource="mx/com/bbva/mt101/mapper/MapTgm140Mt101Solrv.xml"/>
+		<mapper resource="mx/com/bbva/mt101/mapper/MapTgm046ParamCfg.xml"/>
+		<mapper resource="mx/com/bbva/mt101/mapper/MapTgm142Mt101Stenv.xml"/>
+	</mappers>
+</configuration>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd"
+	version="1.0">
+	<persistence-unit name="BbvaMT101DS">
+		<jta-data-source>java:comp:env/jdbc/MT101</jta-data-source>
+		<class>mx.com.bbva.mt101.entities.Tgm041IvaMx</class>
+		<class>mx.com.bbva.mt101.entities.Tgm042MonedaMx</class>
+		<class>mx.com.bbva.mt101.entities.Tgm138Mt101ctrato</class>
+		<properties>
+			<property name="showSql" value="true" />
+		</properties>
+	</persistence-unit>
+</persistence>
+

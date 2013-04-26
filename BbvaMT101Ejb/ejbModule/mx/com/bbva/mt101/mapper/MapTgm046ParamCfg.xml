@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mx.com.bbva.mt101.mapper.MapTgm046ParamCfg">
+	<update id="actualizarParametroCfg">
+		Update Tgm046_Param_Cfg
+		Set Tx_Valor = 0
+		where  Nb_Param_Cfg = 'CD_VALIDA_ACUSE'		
+	</update>
+</mapper>

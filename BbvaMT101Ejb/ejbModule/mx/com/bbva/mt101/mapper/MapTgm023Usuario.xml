@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mx.com.bbva.mt101.mapper.MapTgm023Usuario">
+	<select id="obtenerUsuario" parameterType="mx.com.bbva.mt101.entities.Tgm023Usuario"
+		resultType="mx.com.bbva.mt101.entities.Tgm023Usuario">
+			select CD_CLAVE_USUARIO cdClaveUsuario,
+			CD_PAIS cdPais,
+			CD_USUARIO cdUsuario,
+			NB_APELL_MAT bnApellMat,
+			NB_APELL_PAT nbApellPat,
+			NB_NOMBRE_USR nbNombreUsuario,
+			TX_CORREO_ELECTR tcCorreoElectr
+			from tgm023_usuario
+			where cd_clave_usuario = #{cdClaveUsuario}
+	</select>
+</mapper>

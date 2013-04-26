@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mx.com.bbva.mt101.mapper.MapTgm053TipoOpMx">
+	<select id="buscarTpOpPorCriterio" parameterType="mx.com.bbva.mt101.entities.Tgm053TipoOpMx"
+		resultType="mx.com.bbva.mt101.entities.Tgm053TipoOpMx">
+		<![CDATA[
+		select IM_COMISION_EUR imComisionEur,
+		       IM_COMISION_MXN imComisionMxn,
+		       IM_COMISION_USD imComisionUsd
+		from tgm053_tipo_op_mx
+		where cd_tp_operacion = #{cdTpOperacion}
+        ]]>
+	</select>
+</mapper>
