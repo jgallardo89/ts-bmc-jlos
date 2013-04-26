@@ -1,0 +1,9 @@
+#Thu Feb 28 21:55:17 CST 2013
+DELEGATES_PREFERENCE=delegateValidatorList
+USER_MANUAL_PREFERENCE=enabledManualValidatorListorg.eclipse.jst.j2ee.internal.classpathdep.ClasspathDependencyValidator;com.ibm.jee.sdo.jdbc.ui.validators.JDBCMediatorConnectionFileValidator;com.ibm.j2c.emd.internal.validation.BOXSDValidator;com.businessobjects.crystalreports.integration.eclipse.wtp.CrystalReportsValidator;org.eclipse.jst.j2ee.internal.web.validation.UIWarValidator;org.eclipse.wst.common.componentcore.internal.ModuleCoreValidator;com.ibm.ccl.soa.deploy.internal.core.validator.wst.WstTopologyValidator;org.eclipse.wst.wsi.ui.internal.WSIMessageValidator;com.ibm.ws.ast.ext.web.internal.validation.WarValidator;com.ibm.ast.ws.ext.validator.WsExtValidator;com.ibm.etools.j2ee.migration.classpath.J2EEClasspathValidator;
+eclipse.preferences.version=1
+override=true
+USER_BUILD_PREFERENCE=enabledBuildValidatorListorg.eclipse.jst.j2ee.internal.classpathdep.ClasspathDependencyValidator;com.ibm.jee.sdo.jdbc.ui.validators.JDBCMediatorConnectionFileValidator;com.ibm.j2c.emd.internal.validation.BOXSDValidator;com.businessobjects.crystalreports.integration.eclipse.wtp.CrystalReportsValidator;org.eclipse.jst.j2ee.internal.web.validation.UIWarValidator;org.eclipse.wst.common.componentcore.internal.ModuleCoreValidator;com.ibm.ccl.soa.deploy.internal.core.validator.wst.WstTopologyValidator;org.eclipse.wst.wsi.ui.internal.WSIMessageValidator;com.ibm.ws.ast.ext.web.internal.validation.WarValidator;com.ibm.ast.ws.ext.validator.WsExtValidator;com.ibm.etools.j2ee.migration.classpath.J2EEClasspathValidator;
+suspend=true
+vf.version=3
+USER_PREFERENCE=overrideGlobalPreferencestruedisableAllValidationtrueversion1.2.16.v201109011710

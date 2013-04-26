@@ -1,0 +1,204 @@
+<!-- ventana para insertar y modificar -->
+ 
+<ice:panelPopup xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
+                draggable="true"
+                modal="true"
+                rendered="#{cambioPasswordController.renderAutoDesbloqueo}"
+                visible="#{cambioPasswordController.renderAutoDesbloqueo}"
+                autoPosition="40,40" 
+                styleClass="catalogoAgregarPopup">
+    <f:facet name="header">
+    	<ice:panelGroup>
+        <ice:outputText style="width: 920px" value="Alta Auto - Desbloqueo"/>
+        <ice:commandButton style="width: 15px" id="btnCloseArchFolioDesc" type="submit"
+                               image="#{facesContext.externalContext.requestContextPath}/../resources/css/images/popUpClose.gif"
+                               actionListener="#{cambioPasswordController.cerrarPantallaDesbloqueo}"
+                               styleClass="popupHeaderImage"
+                               title="Cerrar" />       
+        </ice:panelGroup>
+    </f:facet>
+    <f:facet name="body">
+    	<div class='pageTitle'>
+            &#160;&#160;&#160;&#160;&#160;&#160;&#160;Alta Auto-Desbloqueo
+        </div>
+    	
+		<div class='sectionTitle'>
+		    &#160;&#160;&#160;&#160;&#160;&#160;&#160;
+		    &#160;&#160;&#160;&#160;&#160;&#160;&#160;
+		    &#160;&#160;&#160;&#160;&#160;&#160;&#160;
+		    Registro de usuario
+		</div>
+        <ice:panelGroup>
+        <table align="center" width="90%" class="tableForm" border="0">
+            <thead>
+                <tr> 
+                    <td colspan='2' width="100%" align="center">
+                    <b>Nota:</b>
+                        <div style="color:green; display: inline; font-weight: normal;">
+                            Ingresa tres preguntas y respuestas secretas, 
+                            para que puedas ser registrado al servicio de auto - desbloqueo.
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center" colspan="2" width="100%" height="60px" valign="middle">
+                    <ice:panelGroup>
+                    	<ice:outputText style="color:  black; font-weight: bold" value="#{facesContext.externalContext.requestParameterMap['u']}" 
+                    		id="usuarioLbl"/>
+                        <ice:inputHidden  id="usuarioHdn" value="#{facesContext.externalContext.requestParameterMap['u']}" immediate="true"
+                        	validator="#{cambioPasswordController.validarUsuario }"/>
+                        	
+                    </ice:panelGroup>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="50%" align="left">
+                    <ice:panelGroup>
+                    	<ice:outputLabel value="Pregunta 1: " for="pregunta1Txt" id="pregunta1Lbl"/>
+                        <ice:inputText id="pregunta1Txt" styleClass="clasCombos" value="#{cambioPasswordController.pregunta1}" required="true"
+                        	size="40" maxlength="35" validator="#{cambioPasswordController.validarPreguntas}" partialSubmit="false"/>
+                        <ice:message style="color: red;" for="pregunta1Txt" />
+                   	</ice:panelGroup>
+                    </td>
+                    <td align="right">
+                    <ice:panelGroup>
+                    	<ice:outputLabel value="Respuesta 1: " for="respuesta1Txt" id="respuesta1Lbl"/>
+                        <ice:inputSecret id="respuesta1Txt" styleClass="clasCombos" value="#{cambioPasswordController.respuesta1}" required="true"
+                        	size="40" maxlength="19" validator="#{cambioPasswordController.validarRespuesta1}"
+                        	redisplay="true" partialSubmit="false"/>
+                        <ice:message style="color: red;" for="respuesta1Txt" />
+                    </ice:panelGroup>
+                    </td>
+                </tr>
+                <tr>                    
+                    <td colspan="2" align="right">
+                    <ice:panelGroup>
+                    	<ice:outputLabel value="Confirma Respuesta 1: " for="confRespuesta1Txt" id="confRespuesta1Lbl"/>
+                        <ice:inputSecret id="confRespuesta1Txt" styleClass="clasCombos"  value="#{cambioPasswordController.confResp1}" 
+                        	size="40" maxlength="19" validator="#{cambioPasswordController.validarconfRespuesta1}"
+                        	redisplay="true" partialSubmit="false" required="true"/>
+                        <ice:message style="color: red;" for="confRespuesta1Txt" />
+                    </ice:panelGroup>
+                    </td>                   
+                </tr>   
+                
+                <tr>
+                    <td colspan="2" height="10"></td>
+                </tr>           
+
+                <tr>
+                    <td width="50%" align="left">
+                    <ice:panelGroup>
+                    	<ice:outputLabel value="Pregunta 2: " for="pregunta2Txt" id="pregunta2Lbl"/>
+                        <ice:inputText id="pregunta2Txt" styleClass="clasCombos" value="#{cambioPasswordController.pregunta2}" required="true"
+                        	size="40" maxlength="35" validator="#{cambioPasswordController.validarPreguntas}" partialSubmit="false"/>
+                        	<ice:message style="color: red;" for="pregunta2Txt" />
+                    </ice:panelGroup>
+                    </td>
+                    <td align="right">
+                    <ice:panelGroup>
+                    	<ice:outputLabel value="Respuesta 2: " for="respuesta2Txt" id="respuesta2Lbl"/>
+                        <ice:inputSecret id="respuesta2Txt" styleClass="clasCombos" value="#{cambioPasswordController.respuesta2}" required="true"
+                        	size="40" maxlength="19" validator="#{cambioPasswordController.validarRespuesta2}"
+                        	redisplay="true" partialSubmit="false"/>
+                        	<ice:message style="color: red;" for="respuesta2Txt" />
+                    </ice:panelGroup>
+                    </td>
+                </tr>
+                <tr>                    
+                    <td colspan="2" align="right">
+                    <ice:panelGroup>
+                    	<ice:outputLabel value="Confirma Respuesta 2: " for="confRespuesta2Txt" id="confRespuesta2Lbl"/>
+                        <ice:inputSecret id="confRespuesta2Txt" styleClass="clasCombos" value="#{cambioPasswordController.confResp2}"
+                        	size="40" maxlength="19" validator="#{cambioPasswordController.validarconfRespuesta2}"
+                        	redisplay="true" partialSubmit="false" required="true"/>
+                        <ice:message style="color: red;" for="confRespuesta2Txt" />
+                    </ice:panelGroup>
+                    </td>                   
+                </tr>  
+                
+                <tr>
+                    <td colspan="2" height="10"></td>
+                </tr>
+                
+                <tr>
+                	
+                    <td width="50%" align="left">
+                    <ice:panelGroup>
+                    	<ice:outputLabel value="Pregunta 3: " for="pregunta3Txt" id="pregunta3Lbl"/>
+                        <ice:inputText id="pregunta3Txt" styleClass="clasCombos" value="#{cambioPasswordController.pregunta3}" required="true"
+                        	size="40" maxlength="35"  validator="#{cambioPasswordController.validarPreguntas}" partialSubmit="false"/>
+                        <ice:message style="color: red;" for="pregunta3Txt" />
+                    </ice:panelGroup>
+                    </td>
+                    <td align="right">
+                   	<ice:panelGroup>
+                    	<ice:outputLabel value="Respuesta 3: " for="respuesta3Txt" id="respuesta3Lbl"/>
+                        <ice:inputSecret id="respuesta3Txt" styleClass="clasCombos" value="#{cambioPasswordController.respuesta3}" required="true"
+                        	size="40" maxlength="19" validator="#{cambioPasswordController.validarRespuesta3}"
+                        	redisplay="true" partialSubmit="false"/>
+                        <ice:message style="color: red;" for="respuesta3Txt" />
+                    </ice:panelGroup>
+                    </td>
+                </tr>
+                <tr>                    
+                    <td colspan="2" align="right">
+                    <ice:panelGroup>
+                    	<ice:outputLabel value="Confirma Respuesta 3: " for="confRespuesta3Txt" id="confRespuesta3Lbl"/>
+                        <ice:inputSecret id="confRespuesta3Txt" styleClass="clasCombos" value="#{cambioPasswordController.confResp3}" 
+                        	size="40" maxlength="19" validator="#{cambioPasswordController.validarconfRespuesta3}" 
+                        	redisplay="true" partialSubmit="false" required="true"/>
+                        <ice:message style="color: red;" for="confRespuesta3Txt" />
+                    </ice:panelGroup>
+                    </td>                   
+                </tr>  
+                <tr>
+                    <td height="25px" colspan="2">
+                        &#160;
+                    </td>
+                </tr>
+                
+                <tr> 
+                    <td align="center" colspan="2" height="40px">
+                        <ice:commandButton immediate="true" actionListener="#{cambioPasswordController.limpiarDatos}" value="limpiar" />
+                        &#160;&#160;
+                        <ice:commandButton  action='#{cambioPasswordController.registrarServicio}' value="Guardar"/>
+                    </td>
+                </tr>
+            </thead>
+        </table>
+        <ice:panelPopup id="pnlConfirmarPreguntas" 
+        	draggable="false"
+                modal="true"
+                rendered="#{cambioPasswordController.confirmarPreguntas}"
+                visible="#{cambioPasswordController.confirmarPreguntas}"
+                autoCentre="true" 
+                styleClass="catalogoAgregarPopup">
+            <f:facet name="header">
+		    	<ice:panelGroup>
+		        <ice:outputText style="width: 200px" value=""/>		              
+		        </ice:panelGroup>
+    		</f:facet>
+    		<f:facet name="body">
+    		<ice:panelGroup>
+    			<table class="tableForm">
+    			<tr> 
+    				<td align="center">Una o varias preguntas son identicas, Favor de cambiarlas </td>
+    			</tr>
+    			<tr>
+    			<td align="center">
+    				<ice:commandButton id="btnCerrarPnlPreguntas" actionListener='#{cambioPasswordController.closePnlPreguntas}' value="Aceptar"/>
+    			</td>
+    			</tr>
+    			</table>
+    		</ice:panelGroup>
+    		</f:facet>
+    	</ice:panelPopup>
+        </ice:panelGroup>
+        
+        
+    </f:facet>
+</ice:panelPopup>

@@ -1,0 +1,1498 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 1.1//EN"
+  "http://jakarta.apache.org/struts/dtds/struts-config_1_1.dtd">
+  
+<struts-config>
+
+	<!-- Beans de formulario -->
+	<form-beans>
+		<form-bean name="loginForm" 			type="com.bancomer.gis.monitorwebswift.forms.LoginForm" 			/>
+		<form-bean name="monitorRecaudosForm" 	type="com.bancomer.gis.monitorwebswift.forms.MonitorRecaudosForm"/>
+		<form-bean name="recaudosForm" 			type="com.bancomer.gis.monitorwebswift.forms.RecaudosForm" 		/>
+		<form-bean name="relayForm" 			type="com.bancomer.gis.monitorwebswift.forms.RelayForm" 			/>
+		<form-bean name="UploadFileParamsFormBean" 	type="com.bancomer.gis.monitorwebswift.forms.UploadFileParamsForm"/>
+		<form-bean name="pagosForm" 			type="com.bancomer.gis.monitorwebswift.forms.PagosForm" 			/>
+		<form-bean name="UploadFileFormBean"	type="com.bancomer.gis.monitorwebswift.forms.UploadFileForm" 	/>
+		<form-bean name="canalForm"				type="com.bancomer.gis.monitorwebswift.forms.ChannelForm" 		/>
+		<form-bean name="canalOpsProcesadasForm" type="com.bancomer.gis.monitorwebswift.forms.CanalForm" 		/>
+		<form-bean name="usuariosForm"			type="com.bancomer.gis.monitorwebswift.forms.UsuariosForm" 		/>
+		<form-bean name="processFileForm"		type="com.bancomer.gis.monitorwebswift.forms.ProcessFileForm" 	/>
+		<form-bean name="masterBlogForm"		type="com.bancomer.gis.monitorwebswift.forms.MasterBlogForm" 	/>
+		<form-bean name="LigasSubmitFormBean" 	type="com.bancomer.gis.monitorwebswift.forms.LigasSubmitForm" 	/> 
+	  	<form-bean name="LigasEditSubmitFormBean" type="com.bancomer.gis.monitorwebswift.forms.LigasEditSubmitForm"/> 
+	  	<form-bean name="PermisosxUsrFormBean" 	type="com.bancomer.gis.monitorwebswift.forms.PermisosxUsrForm" 	/> 
+	  	<form-bean name="PermisosxGpoFormBean" 	type="com.bancomer.gis.monitorwebswift.forms.PermisosxGpoForm" 	/>
+	  	<form-bean name="SeccSubseccFormBean" 	type="com.bancomer.gis.monitorwebswift.forms.SeccSubseccForm" 	/>
+	  	<form-bean name="ComisionesFormBean" 	type="com.bancomer.gis.monitorwebswift.forms.ComisionesForm" 	/>
+	  	<form-bean name="ComisionForm" 			type="com.bancomer.gis.monitorwebswift.forms.ComisionForm"/>
+	  	<form-bean name="BitacoraConvFormBean" 	type="com.bancomer.gis.monitorwebswift.forms.BitacoraConvForm"	/>
+	  	<form-bean name="ParametrosFormBean" 	type="com.bancomer.gis.monitorwebswift.forms.ParametrosForm" 	/>
+	  	<form-bean name="PdmPdeFormBean" 		type="com.bancomer.gis.monitorwebswift.forms.PdmPdeForm" 	/>
+	  	<form-bean name="accountingForm" 		type="com.bancomer.gis.monitorwebswift.forms.AccountingForm"		/>
+	  	<form-bean name="contabilidadForm" 		type="com.bancomer.gis.monitorwebswift.forms.ContabilidadForm"		/>
+	  	<form-bean name="acountBoxForm" 		type="com.bancomer.gis.monitorwebswift.forms.AcountBoxForm"		/>
+	  	<form-bean name="messageReportForm" 	type="com.bancomer.gis.monitorwebswift.forms.MessageReportForm"		/>
+		<form-bean name="ReporteRMAForm"		type="com.bancomer.gis.monitorwebswift.forms.ReporteRMAForm" 	/>
+		<form-bean name="documentacionForm"		type="com.bancomer.gis.monitorwebswift.forms.DocumentacionForm" 	/>
+		<form-bean name="cuentaAsociadaForm"    type="com.bancomer.gis.monitorwebswift.forms.CuentaAsociadaForm"       />
+		<form-bean name="cuentasSinBuzonForm"    type="com.bancomer.gis.monitorwebswift.forms.CuentaSinBuzonForm"       />
+	  	
+		<form-bean name="cuentaAsociadaForm"        type="com.bancomer.gis.monitorwebswift.forms.CuentaAsociadaForm"       />
+	  	<form-bean name="FileActGenericMxForm"		type="com.bancomer.gis.monitorwebswift.forms.FileActGenericMxForm"       />
+	  	<form-bean name="DiaFeriadoForm"			type="com.bancomer.gis.monitorwebswift.forms.DiaFeriadoForm"/>
+	  	<form-bean name="pagosTpMT199Form" 			type="com.bancomer.gis.monitorwebswift.forms.CteSwClientesTpMT199Form" />
+	  	<form-bean name="ACHArchProcesadosForm" 	type="com.bancomer.gis.monitorwebswift.forms.ACHArchProcesadosForm" />
+	  	<form-bean name="ACHPagosForm" 				type="com.bancomer.gis.monitorwebswift.forms.ACHPagosForm" />
+	  	<form-bean name="ACHDevol_NOCs_Form"		type="com.bancomer.gis.monitorwebswift.forms.ACHDevol_NOCs_Form" />
+	  	<form-bean name="ACHCodigoForm"				type="com.bancomer.gis.monitorwebswift.forms.ACHCodigoForm" />
+	  	<!-- se da de alta el nuevo formato para cl  -->
+	  	
+	  	<form-bean name="configuraForm" 			type="com.bancomer.gis.monitorwebswift.forms.FormatoMT101Form" />
+        <form-bean name="H2HEnvioArchivosForm"		type="com.bancomer.gis.monitorwebswift.forms.H2HEnvioArchivosForm"       />
+        <form-bean name="H2HEnvioSwNetForm"		    type="com.bancomer.gis.monitorwebswift.forms.H2HEnvioSwNetForm" 	/>	  		  	
+        <form-bean name="H2HRecepcionArchivosForm"	type="com.bancomer.gis.monitorwebswift.forms.H2HRecepcionArchivosForm" 	/>
+        <form-bean name="MT94XOperacionesProcesadasForm" type="com.bancomer.gis.monitorwebswift.forms.MT94XOperacionesProcesadasForm" 		/>
+	  	<form-bean name="cuentaBuzonForm" 		type="com.bancomer.gis.monitorwebswift.forms.CuentaBuzonForm"		/>
+		
+        
+	</form-beans>
+
+	<!-- Excepciones globales -->
+	<global-exceptions>
+	</global-exceptions>
+
+	<!-- Reenvíos globales -->
+	<global-forwards>
+		<forward name="clients" path="/jsp/catalogos/clients.jsp" redirect="true" />
+		<forward name="updateClients" path="/jsp/catalogos/update-client.jsp" redirect="true" />
+		<forward name="startMonitorWebSwift" path="/" redirect="true"/>
+		<forward name="editNews" path="/jsp/administracion/actualizaciones/noticias.jsp" redirect="true"/>
+	</global-forwards>
+
+	<!-- Correlaciones de acción -->
+	<action-mappings>
+		<action name="loginForm" path="/login" type="com.bancomer.gis.monitorwebswift.actions.LoginAction">
+			<forward name="login" path="monitorwebswift.jsp" redirect="true"/>
+			<forward name="welcome" path="monitorwebswift.jsp" redirect="true" />
+			
+		</action>
+		
+		<action name="loginForm" path="/loginExterno" type="com.bancomer.gis.monitorwebswift.actions.LoginExternoAction">
+            <forward name="login" path="monitorwebswift.jsp" redirect="true"/>
+            <forward name="welcome" path="monitorwebswift.jsp" redirect="true" />
+            <forward name="error" path="jsp/paginas-error/pageServerError.jsp" redirect="true" />
+        </action>
+        
+		<!-- Action para cambiar la contraseña del usaurio -->
+		<action 
+			name = "loginForm"
+			path="/changePassword" 
+			type="com.bancomer.gis.monitorwebswift.actions.ChangePasswordAction"
+			scope="request"
+			validate="false">
+			<forward name="refresh" path="/jsp/changePassword.jsp" redirect="true"/>
+		</action>
+		
+		<action 
+			name="recaudosForm" 
+			path="/recaudos" 		
+			type="com.bancomer.gis.monitorwebswift.actions.RecaudosAction" 
+			scope="request"	
+			validate="false">
+			<forward name="clients" path="/jsp/catalogos/clients.jsp"/>
+		</action>
+		
+		<action 
+			name="recaudosForm" 
+			path="/recaudosClients" 		
+			type="com.bancomer.gis.monitorwebswift.actions.RecaudosAction" 
+			scope="request"	
+			validate="false">
+			<forward name="RecaClients" path="/jsp/catalogos/RecaudoClients.jsp" redirect="true"/>
+		</action>
+		<action 
+			name="recaudosForm" 
+			path="/relayClients" 		
+			type="com.bancomer.gis.monitorwebswift.actions.RecaudosAction" 
+			scope="request"	
+			validate="false">
+			<forward name="RecaClients" path="/jsp/catalogos/RelayClients.jsp"	redirect="true"/>
+		</action>
+		
+		<action name="relayForm" 	
+				path="/relay" 			
+				type="com.bancomer.gis.monitorwebswift.actions.RelayAction"	
+				scope="request"	
+				validate="false">
+		<forward name="RecaClients" path="/jsp/catalogos/RelayClients.jsp"	redirect="true"/>
+		</action>
+		<action name="pagosForm" 	path="/pagos" 			type="com.bancomer.gis.monitorwebswift.actions.PagosAction"	  	/>
+		
+		<action name="recaudosForm" path="/loadRecaudo" 	type="com.bancomer.gis.monitorwebswift.actions.LoadRecaudoAction"/>
+		<action name="relayForm" 	path="/loadRelay" 		type="com.bancomer.gis.monitorwebswift.actions.LoadRelayAction"	/>
+		<action name="pagosForm" 	path="/loadPay" 		type="com.bancomer.gis.monitorwebswift.actions.LoadPayAction"	/>
+		
+		<action name="recaudosForm" 
+		path="/updateRecaudos" 	
+		type="com.bancomer.gis.monitorwebswift.actions.UpdateRecaudosAction" 
+		scope="request"	
+		validate="false">
+		<forward name="RecaClients" path="/jsp/catalogos/RecaudoClients.jsp" redirect="true"/>
+		</action>
+		
+		<action name="relayForm" 	
+		path="/updateRelay"    	
+		type="com.bancomer.gis.monitorwebswift.actions.UpdateRelayAction"
+		scope="request"	
+		validate="false">
+		<forward name="RecaClients" path="/jsp/catalogos/RelayClients.jsp" redirect="true" />
+		</action>
+		
+		<action name="pagosForm" 	path="/updatePagos"    	type="com.bancomer.gis.monitorwebswift.actions.UpdatePagosAction"  	/>
+		
+		<action  name="recaudosForm" 
+				path="/removeRegister" 	
+				type="com.bancomer.gis.monitorwebswift.actions.RemoveRegisterAction"
+				scope="request"	
+				validate="false">
+		<forward name="RecaClients" path="/jsp/catalogos/RecaudoClients.jsp" redirect="true"/>
+		<forward name="RelayClients" path="/jsp/catalogos/RelayClients.jsp" redirect="true"/>
+		</action>
+		<action 
+				name="monitorRecaudosForm" 
+				path="/monitorRecaudos" 
+				type="com.bancomer.gis.monitorwebswift.actions.MonitorRecaudosAction"
+				parameter="method"
+				scope="request"
+				validate="false">
+			<forward name="monitorRecaudos" path="/jsp/consultas/cliente-SWIFT/monitorRecaudos.jsp" redirect="true" />
+			<forward name="monitorRelay" path="/jsp/consultas/cliente-SWIFT/monitorRelay.jsp" redirect="true" />
+			<forward name="monitorH2H" path="/jsp/consultas/cliente-SWIFT/monitorPagosH2H.jsp" redirect="true" />
+		</action>
+		
+		<!-- Opciones de H2H -->
+		<action path="/H2HBitacora_CGS" name="masterBlogForm" scope="request" validate="false"
+			    type="com.bancomer.gis.monitorwebswift.actions.H2HBitacoraAction_CGS">
+			<forward name="success" path="/jsp/consultas/H2H/H2HBitacora_CGS.jsp"/>
+		</action>
+		<action path="/H2HBitacora" name="masterBlogForm" scope="request" validate="false"
+			    type="com.bancomer.gis.monitorwebswift.actions.H2HBitacoraAction">
+			<forward name="success" path="/jsp/consultas/H2H/H2HBitacora.jsp"/>
+		</action>
+		
+		<!--<action path="/H2HMonitoreo" name="masterBlogForm" scope="request" validate="false"
+			    type="com.bancomer.gis.monitorwebswift.actions.H2HMonitoreoAction">
+			<forward name="success" path="/jsp/consultas/H2H/H2HMonitoreo.jsp"/>
+		</action>
+		
+		<action path="/H2HMonitoreoDetalle" name="canalForm" scope="request" validate="false"
+			    type="com.bancomer.gis.monitorwebswift.actions.H2HMonitoreoDetalleAction">
+			<forward name="success" path="/jsp/consultas/H2H/H2HMonitoreoDetalle.jsp"/>
+		</action>
+		-->
+	    
+	    <!-- Detalle de Pagos H2H -->	
+        <action path="/H2HPagosDetalle" name="canalForm" scope="request" validate="false"
+                type="com.bancomer.gis.monitorwebswift.actions.H2HPagosDetalleAction">
+            <forward name="success" path="/jsp/consultas/cliente-SWIFT/monitorDetallePagosH2H.jsp"/>
+            <forward name="noexiste" path="/jsp/consultas/cliente-SWIFT/monitorPagosH2H.jsp"/>
+        </action>		
+		
+		<action path="/H2HMonitoreoDetalleErr" name="canalForm" scope="request" validate="false" parameter="method"
+			    type="com.bancomer.gis.monitorwebswift.actions.H2HMonitoreoDetalleErrAction">
+			<forward name="success" path="/jsp/consultas/H2H/H2HMonitoreoDetalleErr.jsp"/>
+		</action>
+		
+		<action path="/H2HEnvioSwNet_CGS" name="masterBlogForm" scope="request" validate="false"
+			    type="com.bancomer.gis.monitorwebswift.actions.H2HEnvioSwNetAction_CGS">
+			<forward name="success" path="/jsp/consultas/H2H/H2HEnvioSwNet_CGS.jsp"/>
+		</action>
+		<action path="/H2HEnvioSwNet" name="H2HEnvioSwNetForm" scope="request" validate="false"
+			    type="com.bancomer.gis.monitorwebswift.actions.H2HEnvioSwNetAction">
+			<forward name="success" path="/jsp/consultas/H2H/H2HEnvioSwNet.jsp"/>
+		</action>
+		
+		<action path="/H2HRecepcionArchivos" name="H2HRecepcionArchivosForm" scope="request" validate="false"
+			    type="com.bancomer.gis.monitorwebswift.actions.H2HRecepcionArchivosAction">
+			<forward name="success" path="/jsp/consultas/H2H/H2HRecepcionArchivos.jsp"/>
+		</action>
+		<!-- Opciones de H2H -->
+		
+		<!-- Opciones de Cliente SWIFT -->
+		<action path="/CteSwCanales" name="canalForm" scope="request" validate="false" parameter="method"
+			    type="com.bancomer.gis.monitorwebswift.actions.CteSwCanalesAction">
+			<forward name="CteSwCanales" path="/jsp/catalogos/cliente-SWIFT/CteSwCanales.jsp"/>
+		</action>
+		
+		<action path="/CteSwClientes" name="pagosForm" scope="request" validate="true" parameter="method"
+			    type="com.bancomer.gis.monitorwebswift.actions.CteSwClientesAction">
+			<forward name="CteSwClientes" path="/jsp/catalogos/cliente-SWIFT/CteSwClientes.jsp"/>
+		</action>
+		
+		<action path="/CteSwClientesTpMT199" name="pagosTpMT199Form" scope="request" validate="true" parameter="method"
+			    type="com.bancomer.gis.monitorwebswift.actions.CteSwClientesTpMT199Action">
+			<forward name="CteSwClientesTpMT199" path="/jsp/catalogos/cliente-SWIFT/CteSwClientesTpMT199.jsp"/>
+		</action>
+		
+		<action path="/CteSwClientesDevols" name="canalForm" scope="request" validate="false" parameter="method"
+			    type="com.bancomer.gis.monitorwebswift.actions.CteSwClientesDevolsAction">
+			<forward name="CteSwClientesDevols" path="/jsp/catalogos/cliente-SWIFT/CteSwClientesDevols.jsp"/>
+		</action>
+		
+		<action path="/CteSwClientesCuentasAsociadas" name="cuentaAsociadaForm" scope="request" validate="false" 
+				parameter="method"
+                type="com.bancomer.gis.monitorwebswift.actions.CteSwClientesCuentasAsociadasAction">
+                
+            <forward name="CteSwClientesCuentasAsociadas" 
+            		 path="/jsp/catalogos/cliente-SWIFT/CteSwClientesCuentasAsociadas.jsp"/>
+        </action>
+        
+        
+  
+        
+
+		<action path="/CteSwProductos" name="canalForm" scope="request" validate="false" parameter="method"
+			    type="com.bancomer.gis.monitorwebswift.actions.CteSwProductosAction">
+			<forward name="CteSwProductos" path="/jsp/catalogos/cliente-SWIFT/CteSwProductos.jsp"/>
+		</action>
+		
+		<action path="/CteSwTipoArch" name="canalForm" scope="request" validate="false" parameter="method"
+			    type="com.bancomer.gis.monitorwebswift.actions.CteSwTipoArchAction">
+			<forward name="CteSwTipoArch" path="/jsp/catalogos/cliente-SWIFT/CteSwTipoArch.jsp"/>
+		</action>
+		
+		<action path="/CteSwBicInterno"  name="canalForm" scope="request" validate="false" parameter="method"
+			    type="com.bancomer.gis.monitorwebswift.actions.CteSwBicInternoAction">
+			<forward name="CteSwBicInterno" path="/jsp/catalogos/cliente-SWIFT/CteSwBicInterno.jsp"/>
+		</action>
+		
+		<action path="/CteSwTipoError" name="canalForm" scope="request" validate="false" parameter="method"
+			    type="com.bancomer.gis.monitorwebswift.actions.CteSwTipoErrorAction">
+			<forward name="CteSwTipoError" path="/jsp/catalogos/cliente-SWIFT/CteSwTipoError.jsp"/>
+		</action>
+		
+		<action path="/CteSwHistorialFolio" name="canalForm" scope="request" validate="false" parameter="method"
+			    type="com.bancomer.gis.monitorwebswift.actions.CteSwHistorialFolioAction">
+			<forward name="success" path="/jsp/consultas/cliente-SWIFT/CteSwHistorialFolio.jsp"/>
+		</action>
+		
+		<action path="/CteSwParametros" name="canalForm" scope="request" validate="false" parameter="method"
+			    type="com.bancomer.gis.monitorwebswift.actions.CteSwParametrosAction">
+			<forward name="CteSwParametros" path="/jsp/consultas/cliente-SWIFT/CteSwParametros.jsp"/>
+		</action>
+		<!-- Opciones de Cliente SWIFT -->
+		
+		
+		<!-- Inician Ligas de Pagos SIT ACH -->
+		<action path="/ACHArchProcesados" name="ACHArchProcesadosForm" scope="request" validate="false"
+			    type="com.bancomer.gis.monitorwebswift.actions.ACHArchProcesadosAction">
+			<forward name="success" path="/jsp/consultas/PagosSitAch/ACHArchProcesados.jsp"/>
+		</action>
+		
+		<action path="/ACHPagos" name="ACHPagosForm" scope="request" validate="false"
+			    type="com.bancomer.gis.monitorwebswift.actions.ACHPagosAction">
+			<forward name="success" path="/jsp/consultas/PagosSitAch/ACHPagos.jsp"/>
+		</action>
+		
+		<action path="/ACHDevol_NOCs" name="ACHDevol_NOCs_Form" scope="request" validate="false"
+			    type="com.bancomer.gis.monitorwebswift.actions.ACHDevol_NOCs_Action">
+			<forward name="success" path="/jsp/consultas/PagosSitAch/ACHDevol_NOCs.jsp"/>
+		</action>
+		
+		<action path="/ACHCodigos" name="ACHCodigoForm" scope="request" validate="false" parameter="method"
+			    type="com.bancomer.gis.monitorwebswift.actions.ACHCodigoAction">
+			<forward name="success" path="/jsp/catalogos/PagosSitAch/ACHCodigos.jsp"/>
+		</action>
+		<!-- Terminan Ligas de Pagos SIT ACH -->
+		
+		
+		<!-- Opciones de Conciliacion Extranjero -->
+		<action path="/ExtranjeConciliacion" name="masterBlogForm" scope="request" validate="false"
+			    type="com.bancomer.gis.monitorwebswift.actions.ExtranjeConciliacionAction">
+			<forward name="success" path="/jsp/consultas/Extranjero/ExtranjeConciliacion.jsp"/>
+		</action>
+		<action path="/ExtranjeConciliacion_CGS" name="masterBlogForm" scope="request" validate="false"
+			    type="com.bancomer.gis.monitorwebswift.actions.ExtranjeConciliacion_CGSAction">
+			<forward name="success" path="/jsp/consultas/Extranjero/ExtranjeConciliacion_CGS.jsp"/>
+		</action>
+		<action path="/ExtranjeReenvios" name="masterBlogForm" scope="request" validate="false"
+			    type="com.bancomer.gis.monitorwebswift.actions.ExtranjeReenviosAction">
+			<forward name="success" path="/jsp/consultas/Extranjero/ExtranjeReenvios.jsp"/>
+		</action>
+		<action path="/ExtranjeMsgsConcil" name="masterBlogForm" scope="request" validate="false"
+			    type="com.bancomer.gis.monitorwebswift.actions.ExtranjeMsgsConcilAction">
+			<forward name="success" path="/jsp/consultas/Extranjero/ExtranjeMsgsConcil.jsp"/>
+		</action>
+		<action path="/ExtranjeReenvios_CGS" name="masterBlogForm" scope="request" validate="false"
+			    type="com.bancomer.gis.monitorwebswift.actions.ExtranjeReenvios_CGSAction">
+			<forward name="success" path="/jsp/consultas/Extranjero/ExtranjeReenvios_CGS.jsp"/>
+		</action>
+		<action path="/ExtranjeAcuses" name="masterBlogForm" scope="request" validate="false"
+				type="com.bancomer.gis.monitorwebswift.actions.ExtranjeroAcusesAction">
+			<forward name="success" path="/jsp/consultas/Extranjero/ExtranjeroAcuses.jsp"/>	
+		</action>
+		<action path="/VentanaReenvios" name="masterBlogForm" scope="request" validate="false"
+			    type="com.bancomer.gis.monitorwebswift.actions.VentanaReenviosAction">
+			<forward name="success" path="/jsp/consultas/Extranjero/VentanaExtranjeReenvio.jsp"/>
+		</action>
+		<action path="/ExtranjeConcilSGH" name="masterBlogForm" scope="request" validate="false"
+			    type="com.bancomer.gis.monitorwebswift.actions.ExtranjeConcilSGHAction">
+			<forward name="success" path="/jsp/consultas/Extranjero/ExtranjeConcilSGH.jsp"/>
+		</action>
+		<!-- Opciones de Conciliacion Extranjero -->
+		
+		<action path="/formaUpload" name="UploadFileParamsFormBean" scope="request" validate="true" input="/formaUpload.do" type="com.bancomer.gis.monitorwebswift.actions.UploadFileParamsAction">
+			<forward name="success" path="/jsp/administracion/formaUpload.jsp" />
+			<forward name="error" path="/jsp/administracion/error.jsp" />
+		</action>
+		
+		<action path="/uploadFile" name="UploadFileFormBean" scope="request" validate="true" input="/formaUpload.do" type="com.bancomer.gis.monitorwebswift.actions.UploadFileAction">
+			<forward name="success" path="/formaUpload.do"/>
+			<forward name="error" path="/jsp/administracion/error.jsp" />
+		</action>
+		<action path="/downloadFile" type="com.bancomer.gis.monitorwebswift.actions.DownloadFileAction">
+			<forward name="error" path="/jsp/administracion/error.jsp" />
+		</action>	
+		
+		<!-- Actions from catalogos -->
+		<action 
+			name = "canalForm"
+			path="/canal" 
+			type="com.bancomer.gis.monitorwebswift.actions.CatalogoCanalesAction"
+			parameter="method"
+			scope="request"
+			validate="false">
+			<forward name="canales" path="/jsp/catalogos/canales.jsp" redirect="true"/>
+		</action>
+		
+		<action 
+			name = "canalForm"
+			path="/producto" 
+			type="com.bancomer.gis.monitorwebswift.actions.CatalogoProductosAction"
+			parameter="method"
+			scope="request"
+			validate="false">
+			<forward name="productos" path="/jsp/catalogos/productos.jsp" redirect="true"/>
+		</action>
+		
+		<action 
+			name = "canalForm"
+			path="/bic" 
+			type="com.bancomer.gis.monitorwebswift.actions.CatalogoBICsInternosAction"
+			parameter="method"
+			scope="request"
+			validate="false">
+			<forward name="bics" path="/jsp/catalogos/bics.jsp" redirect="true"/>
+		</action>
+		
+		<action 
+			name = "canalForm"
+			path="/bicSwift" 
+			type="com.bancomer.gis.monitorwebswift.actions.CatalogoBicSwiftAction"
+			parameter="method"
+			scope="request"
+			validate="false">
+			<forward name="bics" path="/jsp/catalogos/venezuela/bics.jsp" redirect="true"/>
+		</action>
+		
+		<action 
+			name = "canalForm"
+			path="/tipoError" 
+			type="com.bancomer.gis.monitorwebswift.actions.CatalogoTipoErrorAction"
+			parameter="method"
+			scope="request"
+			validate="false">
+			<forward name="errorsType" path="/jsp/catalogos/cliente-SWIFT/errores.jsp" redirect="true"/>
+		</action>
+		
+		<action 
+			name = "processFileForm"
+			path="/processFiles" 
+			type="com.bancomer.gis.monitorwebswift.actions.CatalogoArchivosProcesadosAction"
+			parameter="method"
+			scope="request"
+			validate="false">
+			<forward name="processFiles" path="/jsp/catalogos/cliente-SWIFT/archivos-procesados.jsp" redirect="true"/>
+		</action>
+		
+		<action 
+			name = "canalForm"
+			path="/grupo" 
+			type="com.bancomer.gis.monitorwebswift.actions.CatalogoGruposAction"
+			parameter="method"
+			scope="request"
+			validate="false">
+			<forward name="canales" path="/jsp/administracion/catalogos/catalogoGrupos.jsp" redirect="true"/>
+		</action>
+		<action 
+			name = "usuariosForm"
+			path="/usuario" 
+			type="com.bancomer.gis.monitorwebswift.actions.CatalogoUsuariosAction"
+			parameter="method"
+			scope="request"
+			validate="false">
+			<forward name="canales" path="/jsp/administracion/catalogos/catalogoUsuarios.jsp" redirect="true"/>
+		</action>
+		
+		<action 
+			name = "usuariosForm"
+			path="/catalogoDirectory"
+			type="com.bancomer.gis.monitorwebswift.actions.CatalogoDirectoryAction"
+			parameter="method"
+			scope="request"
+			validate="false">
+			<forward name="directoryCat" path="/jsp/administracion/catalogos/directory.jsp" redirect="true"/>
+		</action>
+		
+		<action 
+			name = "usuariosForm"
+			path="/requerimientos"
+			type="com.bancomer.gis.monitorwebswift.actions.CatalogoRequerimientosAction"
+			parameter="method"
+			scope="request"
+			validate="false">
+			<forward name="requerimientosCat" path="/jsp/administracion/catalogos/requerimientos.jsp" redirect="true"/>
+		</action>		
+		
+		
+		
+		<action 
+			name = "canalForm"
+			path="/continente" 
+			type="com.bancomer.gis.monitorwebswift.actions.CatalogoContinenteAction"
+			parameter="method"
+			scope="request"
+			validate="false">
+			<forward name="continentes" path="/jsp/catalogos/venezuela/continentes.jsp" redirect="true"/>
+		</action>
+		
+		<action 
+			name = "canalForm"
+			path="/paisxContinente" 
+			type="com.bancomer.gis.monitorwebswift.actions.CatalogoPaisxContinenteAction"
+			parameter="method"
+			scope="request"
+			validate="true">
+			<forward name="success" path="/jsp/catalogos/venezuela/paisxcontinente.jsp" redirect="true"/>
+		</action>
+		
+		<action 
+			name = "canalForm"
+			path="/catalogoAvisos" 
+			type="com.bancomer.gis.monitorwebswift.actions.CatalogoAvisosAction"
+			parameter="method"
+			scope="request"
+			validate="true">
+			<forward name="avisos" path="/jsp/administracion/actualizaciones/avisos2.jsp" redirect="true"/>
+		</action>
+		
+		<!--FIN Catalogos actions -->
+		<action 
+			name = "processFileForm"
+			path="/processFilesMacug" 
+			type="com.bancomer.gis.monitorwebswift.actions.MonitorMacugAction"
+			parameter="method"
+			scope="request"
+			validate="false">
+			<forward name="processFilesMacug" path="/jsp/consultas/cliente-SWIFT/monitorMacug.jsp" redirect="true"/>
+			<forward name="parameters" path="/jsp/consultas/cliente-SWIFT/parametrizacionMacug.jsp" redirect="true"/>
+		</action>
+		
+		<action path="/detalleSwift" type="com.bancomer.gis.monitorwebswift.actions.DetalleSwiftAction">
+			<forward name="detalleSwift" path="/jsp/consultas/cliente-SWIFT/detalleSwift.jsp" />
+		</action>
+		
+		<action 
+			name = "masterBlogForm"
+			path="/bitacora" 
+			type="com.bancomer.gis.monitorwebswift.actions.MonitorBitacoraAction"
+			scope="request"
+			validate="false">
+			<forward name="bitacora" path="/jsp/consultas/cliente-SWIFT/monitorBitacora.jsp" redirect="true"/>
+		</action>
+		
+		<action 
+			name = "pagosForm"
+			path="/acuses" 
+			type="com.bancomer.gis.monitorwebswift.actions.UpdateAcusesAction">
+			<forward name="acuses" path="/jsp/consultas/cliente-SWIFT/parametrizacionMacug.jsp" redirect="true"/>
+		</action>
+		
+		<action 
+			name = "canalForm"
+			path="/configUtilerias" 
+			type="com.bancomer.gis.monitorwebswift.actions.ConfUtileriasAction"
+			parameter="method"
+			scope="request"
+			validate="false">
+			<forward name="success" path="/jsp/consultas/confUtilerias.jsp" redirect="true"/>
+			<forward name="success2" path="/jsp/consultas/popUpAgregaInstancia.jsp" redirect="true"/>
+		</action>		 
+
+		<action 
+			name = "canalForm"
+			path="/transdatos" 
+			type="com.bancomer.gis.monitorwebswift.actions.TransfDatosAction"
+			parameter="method"
+			scope="request"
+			validate="false">
+			<forward name="success" path="/jsp/catalogos/transformacionDatos.jsp" redirect="true"/>
+		</action>
+		
+		<action name="DiaFeriadoForm" path="/DiasFeriados" parameter="method" scope="request" 
+			type="com.bancomer.gis.monitorwebswift.actions.DiasFeriadosAction" validate="false">
+			<forward name="success" path="/jsp/catalogos/DiasFeriados.jsp" redirect="true"/>
+		</action>
+
+        <action 
+            name = "canalForm"
+            path="/contactos" 
+            type="com.bancomer.gis.monitorwebswift.actions.ContactosAction"
+            scope="request"
+            parameter="method"
+            validate="false">            
+            <forward name="listaContactos" path="/jsp/listaContactos.jsp" redirect="true"/>
+        </action>		
+
+
+        <action 
+            name = "canalForm"
+            path="/bitacoraWeb" 
+            type="com.bancomer.gis.monitorwebswift.actions.BitacoraWebAction"
+            scope="request"
+            parameter="method"
+            validate="false">            
+            <forward name="success" path="/jsp/consultas/bitacoraWeb.jsp" redirect="true"/>
+        </action>		
+
+        <action 
+            name = "canalForm"
+            path="/contacto" 
+            type="com.bancomer.gis.monitorwebswift.actions.ContactoAction"
+            scope="request"
+            parameter="method"
+            validate="false">            
+            <forward name="contact" path="/jsp/menuHorizontal/contacto.jsp" redirect="true"/>
+        </action>       
+		 
+		 <!--  Comienza ligas --> 
+		<action path="/ligas" type="com.bancomer.gis.monitorwebswift.actions.LigasAction"
+		parameter="method"
+		>
+			<forward name="success" path="/jsp/administracion/catalogos/ligas.jsp" /> 
+		  	<forward name="error" path="/jsp/administracion/error.jsp" /> 
+		</action>
+		
+		<action path="/ligasParams" type="com.bancomer.gis.monitorwebswift.actions.LigasParamsAction">
+		  <forward name="success" path="/jsp/administracion/catalogos/ligas.jsp" /> 
+		  <forward name="error" path="/jsp/administracion/error.jsp" /> 
+		</action>
+
+		<action path="/ligasEditSubmit" name="LigasEditSubmitFormBean" scope="request" validate="true" input="/jsp/administracion/ligas.jsp" type="com.bancomer.gis.monitorwebswift.actions.LigasSubmitAction">
+		  <forward name="success" path="/jsp/administracion/catalogos/ligas.jsp" /> 
+		  <forward name="error" path="/jsp/administracion/error.jsp" /> 
+		</action>
+
+		<action path="/ligasSubmit" name="LigasSubmitFormBean" scope="request" validate="true" input="/jsp/administracion/ligas.jsp" type="com.bancomer.gis.monitorwebswift.actions.LigasSubmitAction">
+		  <forward name="success" path="/jsp/administracion/catalogos/ligas.jsp" /> 
+		  <forward name="error" path="/jsp/administracion/error.jsp" /> 
+		</action>
+		
+		<action path="/eliminarLiga" 
+			type="com.bancomer.gis.monitorwebswift.actions.LigasEliminarAction">
+		  <forward name="success" path="/jsp/administracion/catalogos/ligas.jsp" /> 
+		  <forward name="error" path="/jsp/administracion/error.jsp" /> 
+		</action>
+		<!--  Comienza Permisos por Usuario -->
+		 
+		<action path="/permisosxUsr" type="com.bancomer.gis.monitorwebswift.actions.PermisosxUsrAction">
+		  <forward name="success" path="/jsp/administracion/permisos/permisosXusuario.jsp" /> 
+		  <forward name="error" path="/jsp/administracion/error.jsp" /> 
+		</action>
+
+		<action path="/permisosxUsrParams" type="com.bancomer.gis.monitorwebswift.actions.PermisosxUsrParamsAction">
+		  <forward name="success" path="/jsp/administracion/permisos/permisosXusuario.jsp" /> 
+		  <forward name="error" path="/jsp/administracion/error.jsp" /> 
+		</action>
+
+		<action path="/permisosxUsrSubmit" name="PermisosxUsrFormBean" scope="request" validate="true" input="/jsp/administracion/permisosXusuario.jsp" type="com.bancomer.gis.monitorwebswift.actions.PermisosxUsrParamsAction">
+  			<forward name="success" path="/jsp/administracion/permisos/permisosXusuario.jsp" /> 
+  			<forward name="error" path="/jsp/administracion/error.jsp" /> 
+  		</action>
+		
+		<!--  Comienza Permisos por Grupo  --> 
+		<action path="/permisosxGpo" type="com.bancomer.gis.monitorwebswift.actions.PermisosxGpoAction">
+  			<forward name="success" path="/jsp/administracion/permisos/permisosXgrupo.jsp" /> 
+ 	 		<forward name="error" path="/jsp/administracion/error.jsp" /> 
+  		</action>
+		
+		<action path="/permisosxGpoParams" type="com.bancomer.gis.monitorwebswift.actions.PermisosxGpoParamsAction">
+  			<forward name="success" path="/jsp/administracion/permisos/permisosXgrupo.jsp" /> 
+  			<forward name="error" path="/jsp/administracion/error.jsp" /> 
+  		</action>
+		
+		<action path="/permisosxGpoSubmit" name="PermisosxGpoFormBean" scope="request" validate="true" input="/jsp/administracion/permisosXgrupo.jsp" type="com.bancomer.gis.monitorwebswift.actions.PermisosxGpoParamsAction">
+  			<forward name="success" path="/jsp/administracion/permisos/permisosXgrupo.jsp" /> 
+  			<forward name="error" path="/jsp/administracion/error.jsp" /> 
+  		</action>
+  		<!-- Comienza Secciones y Subsecciones -->
+		<action	path="/seccSubsecc"	type="com.bancomer.gis.monitorwebswift.actions.SeccSubseccAction">
+				<forward name="success" path="/jsp/administracion/catalogos/seccSubsecc.jsp"/>
+				<forward name="error" path="/jsp/administracion/error.jsp"/>
+		</action>
+		<action path="/seccSubseccParams" name="SeccSubseccFormBean" scope="request" validate="true" input="/seccSubsecc.do" type="com.bancomer.gis.monitorwebswift.actions.SeccSubseccParamsAction">
+				<forward name="success" path="/jsp/administracion/catalogos/seccSubsecc.jsp"/>
+				<forward name="dependientes" path="/seccSubsecc.do"/>
+				<forward name="error" path="/jsp/administracion/error.jsp"/>
+		</action>
+		<action path="/doctosXliga" type="com.bancomer.gis.monitorwebswift.actions.DoctosXligaAction">
+				<forward name="success" path="/jsp/documentacion/bajarInformacion/doctosXliga.jsp"/>
+		</action>
+		
+		<!-- Action para la documentacion -->
+		<action 
+			path="/documentacion"
+			name="documentacionForm"
+			type="com.bancomer.gis.monitorwebswift.actions.DocumentacionAction" 
+			scope="request"
+			parameter="method"
+			validate="false">
+			<forward name="success" path="/jsp/documentacion/documentacionliga.jsp" redirect="true"/>
+		</action>
+		
+		<!-- Monitor MACUG T101 -->
+		<action path="/bitacoraConv" name="BitacoraConvFormBean" type="com.bancomer.gis.monitorwebswift.actions.BitacoraConvAction">
+			<forward name="success" path="/jsp/consultas/bitacoraConv.jsp" />
+		</action>
+		<action path="/bitacoraConvSubmit" name="BitacoraConvFormBean" scope="request" validate="true" input="/blank.jsp" type="com.bancomer.gis.monitorwebswift.actions.BitacoraConvAction">
+			<forward name="success" path="/jsp/consultas/bitacoraConv.jsp" />
+		</action>
+		<action path="/comisionesMT94X" name="ComisionForm" scope="request" validate="true" input="/blank.jsp" type="com.bancomer.gis.monitorwebswift.actions.MT94XComisionesAction">
+				<forward name="success" path="/jsp/catalogos/MT94X/comisiones.jsp"/>
+				<forward name="error" path="jsp/paginas-error/pageServerError.jsp" redirect="true" />
+		</action>		
+		
+		<action path="/comisiones" name="ComisionesFormBean" scope="request" validate="true" input="/blank.jsp" type="com.bancomer.gis.monitorwebswift.actions.ComisionesAction">
+				<forward name="success" path="/jsp/catalogos/MT101/comisiones.jsp"/>
+		</action>		
+		<action path="/comisionesCGS" name="ComisionesFormBean" scope="request" validate="true" input="/blank.jsp" type="com.bancomer.gis.monitorwebswift.actions.ComisionesAction_CGS">
+				<forward name="success" path="/jsp/catalogos/MT101/comisiones_CGS.jsp"/>
+		</action>
+		<action path="/parametrosMT101" type="com.bancomer.gis.monitorwebswift.actions.ParametrosAction">
+				<forward name="success" path="/jsp/consultas/parametros.jsp"/>
+		</action>
+		<action path="/parametrosMT101submit" name="ParametrosFormBean" scope="request" validate="true" input="/parametrosMT101.do" type="com.bancomer.gis.monitorwebswift.actions.ParametrosAction">
+				<forward name="success" path="/jsp/consultas/parametros.jsp"/>
+		</action>
+		<action path="/pdmPde" type="com.bancomer.gis.monitorwebswift.actions.PdmPdeAction">
+				<forward name="success" path="/jsp/consultas/MT101/pdmPde.jsp"/>
+		</action>
+		<action path="/pdmPdeSubmit" type="com.bancomer.gis.monitorwebswift.actions.PdmPdeAction">
+				<forward name="success" path="/jsp/consultas/MT101/pdmPde.jsp"/>
+		</action>
+		
+		
+		
+		<!-- Monitor MACUG MT94X -->
+		<action 
+			name = "contabilidadForm"
+			path="/MT94XContabilidad" 
+			type="com.bancomer.gis.monitorwebswift.actions.MT94xContabilidadAction"
+			parameter="method"
+			scope="request"
+			validate="false">
+			<forward name="contabilidad" path="/jsp/consultas/MT94X/mt94X_contabilidad.jsp" redirect="true"/>
+			<forward name="error" path="jsp/paginas-error/pageServerError.jsp" redirect="true" />
+		</action>
+		
+		
+		<!-- Consultas Cuentas sin Buzón MT94X -->
+		<action 
+			name = "cuentasSinBuzonForm"
+			path="/MT94XCuentasSinBuzon" 
+			type="com.bancomer.gis.monitorwebswift.actions.MT94XCuentaSinBuzonAction"
+			parameter="method"
+			scope="request"
+			validate="false">
+			<forward name="cuentasinbuzon" path="/jsp/consultas/MT94X/mt94x_cuentas_sin_buzon.jsp" redirect="true"/>
+			<forward name="error" path="jsp/paginas-error/pageServerError.jsp" redirect="true" />	
+		</action>
+		
+		
+		
+		<action 
+			name = "accountingForm"
+			path="/MT940Contabilidad" 
+			type="com.bancomer.gis.monitorwebswift.actions.OperationsMT940Action"
+			parameter="method"
+			scope="request"
+			validate="false">
+			<forward name="contabilidad" path="/jsp/consultas/MT940/mt940_contabilidad.jsp" redirect="true"/>
+			<forward name="cuentabuzon" path="/jsp/consultas/MT940/cuenta_buzon.jsp" redirect="true"/>
+			<forward name="error" path="jsp/paginas-error/pageServerError.jsp" redirect="true" />
+		</action>
+		
+		<action 
+			name = "accountingForm"
+			path="/MT940ContabilidadCGS" 
+			type="com.bancomer.gis.monitorwebswift.actions.OperationsMT940Action_CGS"
+			parameter="method"
+			scope="request"
+			validate="false">
+			<forward name="contabilidad" path="/jsp/consultas/MT940/mt940_contabilidad_CGS.jsp" redirect="true"/>
+			<forward name="cuentabuzon" path="/jsp/consultas/MT940/cuenta_buzon_CGS.jsp" redirect="true"/>
+		</action>
+		
+		<!-- Action para refrescar el menu por pais -->
+		<action 
+			name = "canalForm"
+			path="/refreshMenuByCountry" 
+			type="com.bancomer.gis.monitorwebswift.actions.RefreshMenuByCountryAction"
+			scope="request"
+			validate="false">
+			<forward name="refresh" path="monitorwebswift.jsp" redirect="true"/>
+		</action>
+		
+		<!-- Actions para las operaciones procesadas -->
+		<action 
+			name = "canalForm"
+			path="/proccessOperations" 
+			type="com.bancomer.gis.monitorwebswift.actions.ProcessOperationsAction"
+			scope="request"
+			validate="false">
+			<forward name="refresh" path="/jsp/consultas/MT940/envio_hoy.jsp" redirect="true"/>
+			<forward name="error" path="jsp/paginas-error/pageServerError.jsp" redirect="true" />
+		</action>
+		<!-- Mapeo de Operaciones Procesadas Actualización Julio 2012 -->
+		<action 
+			name = "canalOpsProcesadasForm"
+			path="/operacionesProcesadasMT940" 
+			type="com.bancomer.gis.monitorwebswift.actions.MT940OperacionesProcesadasAction"
+			scope="request"
+			validate="false">
+			<forward name="refresh" path="/jsp/consultas/MT940/envio_hoy_ops_procesadas.jsp" redirect="true"/>
+			<forward name="error" path="jsp/paginas-error/pageServerError.jsp" redirect="true" />
+		</action>
+		<action 
+			name = "canalOpsProcesadasForm"
+			path="/MT940ValidaPasswordOperacion" 
+			type="com.bancomer.gis.monitorwebswift.actions.MT940PasswordOperacionAction"
+			scope="request"
+			validate="false">
+			<forward name="refresh" path="/jsp/consultas/MT940/envio_hoy_ops_procesadas.jsp" redirect="true"/>
+		</action>
+		<action 
+			name = "MT94XOperacionesProcesadasForm"
+			path="/operacionesProcesadasMT94X" 
+			type="com.bancomer.gis.monitorwebswift.actions.MT94XOperacionesProcesadasAction"
+			scope="request"
+			validate="false">
+			<forward name="MT94XoperacionesProcesadas" path="/jsp/consultas/MT94X/mt94x_ops_procesadas.jsp" redirect="true"/>
+			<forward name="error" path="jsp/paginas-error/pageServerError.jsp" redirect="true" />
+		</action>
+		
+		<!-- Fin Mapeo de Operaciones Procesadas Actualización Julio 2012 -->
+		<!-- Action para el Histórico de Ops Procesadas MT940 -->
+		<action 
+			name = "canalForm"
+			path="/OpsProcesadasHist" 
+			type="com.bancomer.gis.monitorwebswift.actions.OpsProcesadasHistAction"
+			scope="request"
+			validate="false">
+			<forward name="refresh" path="/jsp/consultas/MT940/envio_hoy_hist.jsp" redirect="true"/>
+		</action>
+		<action 
+			path="/OpsProcesadasDetHist" 
+			type="com.bancomer.gis.monitorwebswift.actions.OpsProcesadasDetHistAction"
+			scope="request"
+			validate="false">
+			<forward name="detalle" path="/jsp/consultas/MT940/OpsProcesadasDetHist.jsp" redirect="true"/>
+		</action>
+		
+		<action 
+			name = "loginForm"
+			path="/MT940Password" 
+			type="com.bancomer.gis.monitorwebswift.actions.MT940PasswordAction"
+			scope="request"
+			validate="false">
+			<forward name="refresh" path="/jsp/consultas/MT940/envio_hoy.jsp" redirect="true"/>
+		</action>
+		<action 
+			name = "loginForm"
+			path="/MT940ChangePassword" 
+			type="com.bancomer.gis.monitorwebswift.actions.MT940ChangePassOpAction"
+			scope="request"
+			validate="false">
+			<forward name="refresh" path="/jsp/consultas/MT940/envio_hoy.jsp" redirect="true"/>
+		</action>
+		<action 
+			path="/Batch" 
+			type="com.bancomer.gis.monitorwebswift.actions.MT940BatchAction"
+			scope="request"
+			validate="false">
+			<forward name="MT940Batch" path="/jsp/consultas/MT940/batch.jsp" redirect="true"/>
+		</action>
+		
+		<action 
+			path="/MT940Batch" 
+			type="com.bancomer.gis.monitorwebswift.actions.MT940BatchAction"
+			scope="request"
+			validate="false">
+			<forward name="MT940Batch" path="/jsp/consultas/MT940/batch_MT940.jsp" redirect="true"/>
+		</action>
+		
+		<!-- Action para el directorio de usuarios ubicado en la seccion de consultas -->
+		<action 
+			name="recaudosForm" 
+			path="/directory" 	
+			type="com.bancomer.gis.monitorwebswift.actions.DirectoryAction" 
+			scope="request"
+			validate="false">
+			<forward name="refresh" path="/jsp/general/directory.jsp" redirect="true"/>
+		</action>
+		
+		<!-- Action para la consulta de archivos sicocos mt940 -->
+		<action 
+			name="canalForm" 
+			path="/sicocos" 	
+			type="com.bancomer.gis.monitorwebswift.actions.SicocosAction" 
+			scope="request"
+			validate="false">
+			<forward name="refresh" path="/jsp/consultas/MT940/archSicocos.jsp" redirect="true"/>
+		</action>
+		
+		<action 
+			name="canalForm" 
+			path="/sicocosCGS" 	
+			type="com.bancomer.gis.monitorwebswift.actions.SicocosAction_CGS" 
+			scope="request"
+			validate="false">
+			<forward name="refresh" path="/jsp/consultas/MT940/archSicocos_CGS.jsp" redirect="true"/>
+		</action>
+		
+		<!-- Action para la consulta de archivos sicocos mt101 -->
+		<action 
+			name="canalForm" 
+			path="/sicocosMT101" 	
+			type="com.bancomer.gis.monitorwebswift.actions.SicocosMT101Action" 
+			scope="request"
+			validate="false">
+			<forward name="refresh" path="/jsp/consultas/MT101/sicocosMT101.jsp" redirect="true"/>
+		</action>
+		<!-- Action para la consulta de canelaciones anticipadas mt101 -->
+		<action 
+			name="canalForm" 
+			path="/cancelAntMT101" 	
+			type="com.bancomer.gis.monitorwebswift.actions.SicocosMT101Action" 
+			scope="request"
+			validate="false">
+			<forward name="refresh" path="/jsp/consultas/MT101/cancelAntMT101.jsp" redirect="true"/>
+		</action>
+		<!-- Actions para la consulta de Operaciones Dudosas mt101 -->
+		<action 
+			path="/dudosas" 	
+			type="com.bancomer.gis.monitorwebswift.actions.DudosasAction">
+			<forward name="success" path="/jsp/consultas/MT101/dudosas.jsp" redirect="true"/>
+		</action>
+		
+		<action 
+			path="/getdudosaInfo"
+			name="canalForm"
+			type="com.bancomer.gis.monitorwebswift.actions.DudosasAction" 
+			scope="request"
+			validate="false">
+			<forward name="success" path="/jsp/consultas/MT101/dudosas.jsp" redirect="true"/>
+		</action>
+		
+		<!-- Actions para la consulta de Operaciones Monitor Cash -->
+		<action 
+			path="/monitorCash"
+			name="canalForm"
+			type="com.bancomer.gis.monitorwebswift.actions.CashAction" 
+			scope="request"
+			parameter="method"
+			validate="false">
+			<forward name="success" path="/jsp/consultas/MT101/monitorCash.jsp" redirect="true"/>
+		</action>
+		
+		<action 
+			path="/monitorCashReset"
+			name="canalForm"
+			type="com.bancomer.gis.monitorwebswift.actions.CashAction" 
+			scope="request"
+			parameter="method"
+			validate="false">
+			<forward name="success" path="/jsp/consultas/MT101/monitorCashReset.jsp" redirect="true"/>
+		</action>
+		
+		<action path="/MonitorCashOps" name="masterBlogForm" scope="request" validate="false"
+			    type="com.bancomer.gis.monitorwebswift.actions.MonitorCashOpsAction">
+		<forward name="success" path="/jsp/consultas/MT101/MonitorCashOps.jsp"/>
+		</action>
+		
+		<!-- Actions para la consulta de Operaciones Clientes AAA -->
+		<action 
+			path="/cliente3A"
+			name="canalForm"
+			type="com.bancomer.gis.monitorwebswift.actions.Clientes3aAction" 
+			scope="request"
+			parameter="method"
+			validate="false">
+			<forward name="success" path="/jsp/catalogos/MT101/clientes3a.jsp" redirect="true"/>
+			<forward name="successReport" path="/jsp/catalogos/MT101/reporteServicio.jsp" redirect="true"/>
+			<forward name="successCancelAnt" path="/jsp/catalogos/MT101/cancelAnt.jsp" redirect="true"/>
+		</action>
+		<action
+			path="/cancelAntExc"
+			name="canalForm"
+			type="com.bancomer.gis.monitorwebswift.actions.CancelAntExcel" 
+			scope="request"
+			parameter="method"
+			validate="false">
+			<forward name="success" path="/jsp/catalogos/MT101/cancelAnt.jsp" redirect="true"/>
+		</action>
+		
+		<!-- Actions de menú General  -->
+		<action
+			path = "/altaDesbloqueo"
+			type="com.bancomer.gis.monitorwebswift.actions.AltaDesbloqueoAction">
+			<forward name="success" path="/jsp/general/servicios/altaDesbloqueo.jsp"/>
+		</action>
+		<action
+			path = "/altaDesbloqueoSubmit"
+			name = "PdmPdeFormBean"
+			scope="request"
+			validate="false"
+			input="/altaDesbloqueo.do"
+			type="com.bancomer.gis.monitorwebswift.actions.AltaDesbloqueoAction">
+			<forward name="success" path="/jsp/general/servicios/altaDesbloqueo.jsp"/>
+		</action>
+		<action
+			path = "/autoDesbloqueo"
+			type="com.bancomer.gis.monitorwebswift.actions.AutoDesbloqueoAction">
+			<forward name="success" path="/jsp/general/servicios/autoDesbloqueo.jsp"/>
+		</action>
+		<action
+			path = "/autoDesbloqueoSubmit"
+			name = "PdmPdeFormBean"
+			scope="request"
+			validate="false"
+			input="/autoDesbloqueo.do"
+			type="com.bancomer.gis.monitorwebswift.actions.AutoDesbloqueoAction">
+			<forward name="success" path="/jsp/general/servicios/autoDesbloqueo.jsp"/>
+		</action>
+		<action
+			path = "/cambioContrasenia"
+			name = "PdmPdeFormBean"
+			scope="request"
+			parameter="method"
+			validate="false"
+			type="com.bancomer.gis.monitorwebswift.actions.CambioContraseniaAction">
+			<forward name="success" path="/jsp/general/servicios/cambioContrasenia.jsp"/>
+		</action>
+		
+		<!-- Bitacora MACUG -->
+		<action
+			path = "/MacugBlog"
+			name = "masterBlogForm"
+			scope="request"
+			validate="false"
+			type="com.bancomer.gis.monitorwebswift.actions.MacugBlogAction">
+			<forward name="success" path="/jsp/consultas/monitor-MACUG/bitacoraMACUG.jsp"/>
+		</action>
+		<!-- Recepcion archivos host -->
+		<action
+			path = "/filesHost"
+			name = "masterBlogForm"
+			scope="request"
+			validate="false"
+			type="com.bancomer.gis.monitorwebswift.actions.RecepFilesHostAction">
+			<forward name="success" path="/jsp/consultas/monitor-MACUG/recep-arch-host.jsp"/>
+		</action>
+		<action
+			path = "/detailsFilesHost"
+			name = "masterBlogForm"
+			scope="request"
+			validate="false"
+			type="com.bancomer.gis.monitorwebswift.actions.DetailsRecepFilesHostAction">
+			<forward name="success" path="/jsp/consultas/monitor-MACUG/detalle-recep-arch-host.jsp"/>
+		</action>
+		<!-- Recepcion archivos SWIFT -->
+		<action
+			path = "/filesSWIFT"
+			name = "masterBlogForm"
+			scope="request"
+			validate="false"
+			type="com.bancomer.gis.monitorwebswift.actions.RecepFilesSWIFTAction">
+			<forward name="success" path="/jsp/consultas/monitor-MACUG/recep-arch-swift.jsp"/>
+		</action>
+		<action
+			path = "/detailsFilesSwift"
+			name = "masterBlogForm"
+			scope="request"
+			validate="false"
+			type="com.bancomer.gis.monitorwebswift.actions.DetailsRecepFilesSwiftAction">
+			<forward name="success" path="/jsp/consultas/monitor-MACUG/detalle-recep-arch-swift.jsp"/>
+		</action>
+		<action
+			path = "/detailsErrorSwift"
+			name = "masterBlogForm"
+			scope="request"
+			validate="false"
+			type="com.bancomer.gis.monitorwebswift.actions.DetailsErrorsReceoFilesSwiftAction">
+			<forward name="success" path="/jsp/consultas/monitor-MACUG/errores-detalle-recep-arch-swift.jsp"/>
+		</action>
+		
+		<!-- Action para cuenta buzon, de catalogos mt940 CGS -->
+		<action
+			path = "/acountBox"
+			name = "acountBoxForm"
+			scope="request"
+			validate="false"
+			parameter="method"
+			type="com.bancomer.gis.monitorwebswift.actions.AcountBoxAction">
+			<forward name="success" path="/jsp/catalogos/MT940/cuenta-buzon_CGS.jsp"/>
+		</action>
+		
+		<!-- Action para cuenta buzon, de catalogos mt940 GMM -->
+		<action
+			path = "/MT940CuentaBuzon"
+			name = "acountBoxForm"
+			scope="request"
+			validate="false"
+			parameter="method"
+			type="com.bancomer.gis.monitorwebswift.actions.MT940CtaBuzonAction">
+			<forward name="success" path="/jsp/catalogos/MT940/CuentaBuzon.jsp"/>
+		</action>
+		
+		<action
+			path = "/getAcountBox"
+			name = "acountBoxForm"
+			scope="request"
+			validate="false"
+			parameter="method"
+			type="com.bancomer.gis.monitorwebswift.actions.LoadAcountBoxAction">
+			<forward name="success" path="/jsp/catalogos/MT940/cuenta-buzon.jsp"/>
+		</action>
+		
+		<!-- Actions para los reenvios peru -->
+		<action
+			path = "/reenvioPeru"
+			name = "loginForm"
+			scope="request"
+			validate="false"
+			type="com.bancomer.gis.monitorwebswift.actions.ReenvioPeruAction">
+			<forward name="success" path="/jsp/consultas/puertorico/reenvio.jsp"/>
+		</action>
+		<!-- Action para cuentas buzon MT94X -->
+		<action
+			path = "/MT94XCuentaBuzon"
+			name = "cuentaBuzonForm"
+			scope="request"
+			validate="false"
+			parameter="method"
+			type="com.bancomer.gis.monitorwebswift.actions.MT94XCuentaBuzonAction">
+			<forward name="success" path="/jsp/catalogos/MT94X/cuentaBuzon.jsp"/>
+			<forward name="error" path="jsp/paginas-error/pageServerError.jsp" redirect="true" />
+		</action>
+		<!-- Actions para consultas MONEYT -->
+		<action
+			path = "/PDMPRE_CGS"
+			name = "usuariosForm"
+			scope="request"
+			validate="false"
+			type="com.bancomer.gis.monitorwebswift.actions.PDMPRE_CGSAction">
+			<forward name="success" path="/jsp/consultas/puertorico/PDMPRE_CGS.jsp"/>
+		</action>
+		<action
+			path = "/PDE_PRE"
+			name = "usuariosForm"
+			scope="request"
+			validate="false"
+			type="com.bancomer.gis.monitorwebswift.actions.PDE_PREAction">
+			<forward name="success" path="/jsp/consultas/puertorico/PDE_PRE.jsp"/>
+		</action>
+		
+		<!-- Action para control de las estadisticas mensuales de venezuela -->
+		<action
+			path = "/estadisticasMensualesVenezuela"
+			name = "usuariosForm"
+			scope="request"
+			validate="false"
+			type="com.bancomer.gis.monitorwebswift.actions.MonthlyStatisticsVenezuelaAction">
+			<forward name="success" path="/jsp/consultas/venezuela/estadisticaMes.jsp"/>
+		</action>
+		
+		<!-- Action para control de las estadisticas totales de venezuela -->
+		<action
+			path = "/estadisticasTotalesVenezuela"
+			name = "usuariosForm"
+			scope="request"
+			validate="false"
+			type="com.bancomer.gis.monitorwebswift.actions.YearStatisticsVenezuelaAction">
+			<forward name="success" path="/jsp/consultas/venezuela/estadisticaTotal.jsp"/>
+		</action>
+		
+		<action 
+			path="/clientesMT101PR"
+			name="canalForm"
+			type="com.bancomer.gis.monitorwebswift.actions.ClientesMT101prAction" 
+			scope="request"
+			parameter="method"
+			validate="false">
+			<forward name="success" path="/jsp/catalogos/puertorico/clientesMT101_PR.jsp" redirect="true"/>
+		</action>
+		<action 
+			path="/operacionesPR"
+			name="canalForm"
+			type="com.bancomer.gis.monitorwebswift.actions.OperacionesPRAction" 
+			scope="request"
+			parameter="method"
+			validate="false">
+			<forward name="scssMensaje" path="/jsp/consultas/MT101/puertorico/operacionesXmensaje_PR.jsp" redirect="true"/>
+			<forward name="scssArchivo" path="/jsp/consultas/MT101/puertorico/operacionesXarchivo_PR.jsp" redirect="true"/>
+		</action>
+		<action 
+			path="/solicReenvPR"
+			name="canalForm"
+			type="com.bancomer.gis.monitorwebswift.actions.SolicitudReenvPRAction" 
+			scope="request"
+			parameter="method"
+			validate="false">
+			<forward name="scssMensaje" path="/jsp/consultas/MT101/puertorico/solicitudReenvXmens_PR.jsp" redirect="true"/>
+			<forward name="scssArchivo" path="/jsp/consultas/MT101/puertorico/solicitudReenvXarch_PR.jsp" redirect="true"/>
+		</action>
+		
+		<!-- Actions para el catalogo de paises SQL.. -->
+		<action 
+			path="/catalogoPaises"
+			name="canalForm"
+			type="com.bancomer.gis.monitorwebswift.actions.CatalogoPaisesAction" 
+			scope="request"
+			parameter="method"
+			validate="false">
+			<forward name="success" path="/jsp/catalogos/venezuela/paises.jsp" redirect="true"/>
+		</action>
+		
+		<action 
+			path="/catalogoInterfaces"
+			name="PdmPdeFormBean"
+			type="com.bancomer.gis.monitorwebswift.actions.CatalogoInterfacesAction" 
+			scope="request"
+			parameter="method"
+			validate="false">
+			<forward name="interfaces" path="/jsp/administracion/catalogos/catalogoInterfaces.jsp" redirect="true"/>
+		</action>
+		
+		<action 
+            name = "canalForm"
+            path="/interfaces" 
+            type="com.bancomer.gis.monitorwebswift.actions.CatalogoInterfacesAction"
+            scope="request"
+            parameter="method"
+            validate="false">            
+            <forward name="interfaces" path="/jsp/areasBBVA.jsp" redirect="true"/>
+        </action>		
+		
+		
+		<action 
+			path="/repVostro"
+			name="canalForm"
+			type="com.bancomer.gis.monitorwebswift.actions.RepVostroAction" 
+			scope="request"
+			parameter="method"
+			validate="false">
+			<forward name="success" path="/jsp/consultas/MT101/repVostro.jsp" redirect="true"/>
+		</action>
+		
+		<!-- Action para la bitacora de procesos -->
+		<action 
+			name = "masterBlogForm"
+			path="/processLog" 
+			type="com.bancomer.gis.monitorwebswift.actions.BusinessProcessAction"
+			scope="request"
+			validate="false">
+			<forward name="procesosLog" path="/jsp/consultas/processLog.jsp" redirect="true"/>
+		</action>
+		
+		<action 
+			path="/catalogoPaisesMex"
+			name="canalForm"
+			type="com.bancomer.gis.monitorwebswift.actions.CatalogoPaisesMexAction" 
+			scope="request"
+			parameter="method"
+			validate="false">
+			<forward name="success" path="/jsp/administracion/catalogos/catalogoPaisesMex.jsp" redirect="true"/>
+		</action>
+		
+		
+		<!-- Action para relacionar mascara por cliente -->
+		<action 
+			path="/customerMask"
+			name="canalForm"
+			type="com.bancomer.gis.monitorwebswift.actions.CustomerMaskAction" 
+			scope="request"
+			parameter="method"
+			validate="false">
+			<forward name="customerByMask" path="/jsp/catalogos/customersMask.jsp" redirect="true"/>
+			<forward name="customerByMaskPays" path="/jsp/catalogos/MaskCustomerPays.jsp" redirect="true"/>
+		</action>
+		
+		<!-- Action para el catalogo de noticias -->
+		<action 
+			path="/editNews"
+			name="UploadFileFormBean"
+			type="com.bancomer.gis.monitorwebswift.actions.CatalogoNoticiasAction" 
+			scope="request"
+			parameter="method"
+			validate="false">
+			<forward name="editNews" path="/jsp/administracion/actualizaciones/noticias.jsp" redirect="true"/>
+			<forward name="updateImageNews" path="/jsp/administracion/actualizaciones/UpdateNewsImage.jsp" redirect="true"/>
+			<forward name="readNews" path="/jsp/general/noticias2.jsp" redirect="true"/>
+		</action>
+		
+		<action 
+			path="/branchCodes"
+			name="canalForm"
+			type="com.bancomer.gis.monitorwebswift.actions.BranchCodesAction" 
+			scope="request"
+			parameter="method"
+			validate="false">
+			<forward name="branchCodes" path="/jsp/catalogos/facturacion/branchcodes.jsp" redirect="true"/>
+		</action>
+		
+		<action 
+			path="/departamentos"
+			name="canalForm"
+			type="com.bancomer.gis.monitorwebswift.actions.DepartamentosAction" 
+			scope="request"
+			parameter="method"
+			validate="false">
+			<forward name="departamentos" path="/jsp/catalogos/facturacion/departamentos.jsp" redirect="true"/>
+		</action>
+		
+		
+		
+		<!-- Catalogo de avisos -->
+		<action 
+			name = "canalForm"
+			path="/aviso" 
+			type="com.bancomer.gis.monitorwebswift.actions.AvisoAction"
+			scope="request"
+			parameter="method"
+			validate="false">
+			<forward name="aviso" path="/jsp/administracion/actualizaciones/aviso.jsp" redirect="true"/>
+		</action>
+		
+		<!-- Busqueda de monedas -->
+		<action 
+			name = "canalForm"
+			path="/searchCoins" 
+			type="com.bancomer.gis.monitorwebswift.actions.SearchCoinsAction"
+			scope="request"
+			validate="false">
+			<forward name="SearchCoins" path="/jsp/consultas/busquedas/monedas.jsp" redirect="true"/>
+		</action>
+		
+		<!-- Busqueda de bics -->
+		<action 
+			name = "accountingForm"
+			path="/searchBics" 
+			type="com.bancomer.gis.monitorwebswift.actions.SearchBicsAction"
+			scope="request"
+			validate="false">
+			<forward name="SearchBics" path="/jsp/consultas/busquedas/bics.jsp" redirect="true"/>
+		</action>
+		
+		<!-- reporte gestion -->
+		<action 
+			name = "canalForm"
+			path="/reporteGestion" 
+			type="com.bancomer.gis.monitorwebswift.actions.ReporteGestionAction"
+			scope="request"
+			validate="false">
+			<forward name="ReporteGestion" path="/jsp/consultas/MT101/reporteGestion.jsp" redirect="true"/>
+		</action>
+		
+		
+		<!-- Catalogo de eventos para el calendario del menu horizontal -->
+		<action 
+			name = "canalForm"
+			path="/eventsCalendar" 
+			type="com.bancomer.gis.monitorwebswift.actions.CalendarEventsAction"
+			scope="request"
+			parameter="method"
+			validate="false">
+			<forward name="events" path="/jsp/administracion/actualizaciones/eventos.jsp" redirect="true"/>
+		</action>
+		
+		<action 
+            name = "canalForm"
+            path="/eventsNewCalendar" 
+            type="com.bancomer.gis.monitorwebswift.actions.CalendarNewAction"
+            scope="request"
+            parameter="method"
+            validate="false">
+            <forward name="success" path="/jsp/menuHorizontal/calendario.jsp" redirect="true"/>
+        </action>
+		
+		<action 
+			name = "pagosForm"
+			path="/calendar" 
+			type="com.bancomer.gis.monitorwebswift.actions.CalendarAction"
+			scope="request"
+			validate="false">
+			<forward name="calendar" path="/jsp/menuHorizontal/calendario.jsp" redirect="true"/>
+		</action>
+		
+		<!-- Action para el control de las operaciones sencillas del Reportes->Facturacion-->
+		<action 
+			name = "pagosForm"
+			path="/facturacion" 
+			type="com.bancomer.gis.monitorwebswift.actions.ReportOperationsAction"
+			scope="request"
+			parameter="method"
+			validate="false">
+			<forward name="histogram" path="/jsp/reportes/facturacion/histograma_dispersion.jsp" redirect="true"/>
+		</action>
+		
+		<!-- Action para la pagina de derrama costos -->
+		<action 
+			name = "pagosForm"
+			path="/derramaCostos" 
+			type="com.bancomer.gis.monitorwebswift.actions.DerramaCostosAction"
+			scope="request"
+			parameter="method"
+			validate="false">
+			<forward name="costos" path="/jsp/reportes/facturacion/derrama_costos.jsp" redirect="true"/>
+		</action>
+		
+		
+		<!-- Action para la pagina de reporte de mensajes-->
+		<action 
+			name = "messageReportForm"
+			path="/messageReport" 
+			type="com.bancomer.gis.monitorwebswift.actions.MessagesReportAction"
+			scope="request"
+			parameter="method"
+			validate="false">
+			<forward name="messagesReport" path="/jsp/reportes/facturacion/reporteMensajes.jsp" redirect="true"/>
+		</action>
+		
+		<action 
+			name="canalForm" 
+			path="/FacturaRepteMT103" 	
+			type="com.bancomer.gis.monitorwebswift.actions.FacturaRepteMT103Action" 
+			scope="request"
+			validate="false">
+			<forward name="refresh" path="/jsp/reportes/facturacion/ReporteMT103.jsp" redirect="true"/>
+		</action>
+		
+			<!-- Action para la pagina de reporte de mensajes-->
+		<action 
+			name = "canalForm"
+			path="/rating" 
+			type="com.bancomer.gis.monitorwebswift.actions.RatingAction"
+			scope="request"
+			parameter="method"
+			validate="false">
+			<forward name="rating" path="/jsp/menuHorizontal/evaluacion2.jsp" redirect="true"/>
+		</action>
+		
+		<action 
+			path="/rechazosMT202_CGS"
+			name="canalForm"
+			type="com.bancomer.gis.monitorwebswift.actions.rechazosMT202_CGSAction"			
+			scope="request"
+			parameter="method"
+			validate="false">
+			<forward name="rechazosMT202_CGS" path="/jsp/reportes/rechazosMT202_CGS.jsp" redirect="true"/>
+		</action>
+		
+		<action 
+			path="/MT202Rechazos"
+			name="canalForm"
+			type="com.bancomer.gis.monitorwebswift.actions.MT202RechazosAction"			
+			scope="request"
+			parameter="method"
+			validate="false">
+			<forward name="MT202Rechazos" path="/jsp/reportes/MT202Rechazos.jsp" redirect="true"/>
+		</action>
+
+		<action 
+			path="/reporteRMA"
+			name="ReporteRMAForm"
+			scope="request"  		    
+   		    parameter="method"
+   		    validate="false"
+			type="com.bancomer.gis.monitorwebswift.actions.ReporteRMAAction">			
+			<forward name="success" path="/jsp/reportes/reporteRMA.jsp" redirect="true"/>   
+			<forward name="error" path="/jsp/administracion/error.jsp" redirect="true"/>
+		</action>
+
+		<action 
+		    path="/MT101Procesados"
+		    name="canalForm"
+		    scope="request"             
+		    parameter="method"
+		    validate="false"
+		    type="com.bancomer.gis.monitorwebswift.actions.MT101ProcesadosAction">          
+		    <forward name="success" path="/jsp/consultas/Monitoreo-MT101/MT101Procesados.jsp" redirect="true"/>
+            <forward name="registros" path="/jsp/consultas/Monitoreo-MT101/MT101ProcArchivos.jsp" redirect="true"/>		    		    
+		    <forward name="archivos" path="/jsp/consultas/Monitoreo-MT101/MT101ProcArchivos.jsp" redirect="true"/>
+		    <forward name="error" path="/jsp/administracion/error.jsp" redirect="true"/>
+		</action>
+		<!-- PANTALLA CATALOGOS -> FILEACT-> ALTA DE SERVICIOS  -->
+		<action 
+		    path="/FileActGenericMx_CGS"
+		    name="FileActGenericMxForm"
+		    scope="request"             
+		    parameter="method"
+		    validate="false"
+		    type="com.bancomer.gis.monitorwebswift.actions.FileActGenericMxAction_CGS">          
+		    <forward name="success" path="/jsp/catalogos/fileact-generico-mx/fileActGenericMx_CGS.jsp" redirect="true"/>            
+		</action>
+		<action 
+		    path="/FileActGenericMx"
+		    name="FileActGenericMxForm"
+		    scope="request"             
+		    parameter="method"
+		    validate="false"
+		    type="com.bancomer.gis.monitorwebswift.actions.FileActGenericMxAction">          
+		    <forward name="success" path="/jsp/catalogos/fileact-generico-mx/fileActGenericMx.jsp" redirect="true"/>            
+		</action>
+		<!--  PANTALLA ENVIO ARCHIVOS  -->
+		<action path="/ArchivosCtoServH2H_CGS" 
+			name="masterBlogForm" 
+			scope="request" validate="false"
+			type="com.bancomer.gis.monitorwebswift.actions.ArchivosContratoServicioAction_CGS">
+			<forward name="success" path="/jsp/consultas/H2H/archivosCntoServH2H_CGS.jsp"/>
+		</action>
+		<action path="/ArchivosCtoServH2H" 
+			name="H2HEnvioArchivosForm" 
+			scope="request" validate="false"
+			type="com.bancomer.gis.monitorwebswift.actions.ArchivosContratoServicioAction">
+			<forward name="success" path="/jsp/consultas/H2H/archivosCntoServH2H.jsp"/>
+		</action>
+
+
+	 <!-- Se adapta un nuevo action para configurar el formato de mensajes MT101 -->
+        
+     <action path="/CteSwConfiguraMT101" name="configuraForm" scope="request" validate="true" parameter="method"
+			    type="com.bancomer.gis.monitorwebswift.actions.ConfigurarFormatoMT101Action">
+			<forward name="configurarFormatoMT101" 
+							path="/jsp/catalogos/cliente-SWIFT/asignarFormato.jsp"/>
+		</action>
+        
+		
+
+
+		</action-mappings>
+		
+
+		
+		
+		
+	<!-- Recursos de mensaje -->
+	<message-resources parameter="com.bancomer.gis.monitorwebswift.resources.ApplicationResources"/>
+</struts-config>

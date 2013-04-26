@@ -1,0 +1,209 @@
+@charset "UTF-8";
+
+/*
+-----------------------------------------------
+Spry Demos CSS Rules
+Version:  12 Apr 2006 (0.2b)
+----------------------------------------------- */
+
+/* Links
+----------------------------------------------- */
+a img { border-style: none; }
+
+/* Paragraph Headings
+----------------------------------------------- */
+h1, h2, h3, h4, h5, h6 {font-weight: normal; }
+p { margin:0.375em 0; }
+
+/* Layout Rules
+----------------------------------------------- */
+#wrap {
+	padding-top: 20px;
+	margin: 0 20px;
+}
+
+#codesample #wrap { width: auto; }
+
+#header {
+	margin-bottom: 2em;
+	text-align: left;
+	padding-left: 0.5em;
+}
+#LeftColumn {
+  margin:0 10px 0 0;
+  padding:0;
+  width: 200px;
+  float: left;
+}
+#LeftColumn, #articles {
+  border-left: solid 1px #404040;
+  border-right: solid 1px #404040;
+  border-bottom: solid 1px #404040;
+}
+#articles {	margin-bottom: 10px; }
+
+#RightColumn {
+	margin:0;
+	padding:0;
+	height: 600px;
+	float: left;
+	width:400px;
+}
+#content, #sidebar {
+	float: left;
+	text-align: left;
+}
+#content {
+	width: 660px;
+	margin-right: 15px;
+	padding-top: 5px;
+}
+#sidebar {
+	width: 240px;
+	margin-top: 0;
+}
+.SpryHiddenRegion {
+   visibility: hidden;
+}
+
+/* Gallery and Playback Controls
+----------------------------------------------- */
+#gallerySelect { 
+	width: 180px; 
+}
+
+#controls {	
+	margin:0 auto 10px auto; 
+}
+
+#galleries {
+	margin:0 auto 20px auto; 
+}
+
+#galleries label {
+	padding-bottom: 2px;
+}
+
+#galleryLinks a {
+	color: #08c;
+	text-decoration: none;
+	font-family:arial;
+	font-size:12px;
+}
+
+#transport {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+#transport li {
+	float: left;
+	margin: 0;
+	padding: 0;
+	text-align: center;
+}
+#transport a {
+	text-decoration: none;
+	text-transform: uppercase;
+	font-size: 85%;
+	font-weight: bold;
+	letter-spacing: 0.1em;
+	margin: 0 1px 0 0;
+	padding: 4px 8px;
+	width: 64px;
+	display: block;
+	float: left;
+	-moz-user-select: none;
+	-khtml-user-select: none;
+}
+#transport a:link {
+	border-top: solid 1px #999;
+	border-right: solid 1px #404040;
+	border-bottom: solid 1px #3a3a3a;
+	border-left: solid 1px #404040;
+}
+#transport a:visited {
+	background: #D3E9EB;;
+	color: #333;
+	font-family: arial;
+	font-size: 11px;
+}
+#transport a:hover {
+	background-color: #9ac2e5;
+	color: #055A78;
+	border-right: solid 1px #ccc;
+	border-bottom: solid 1px #ccc;
+}
+#transport a:focus {
+	-moz-user-select: none;
+	-khtml-user-select: none;
+}
+
+#transport .playBtn .pauseLabel, #transport .pauseBtn .playLabel {
+	display: none;
+}
+
+#previews {
+	border-top: solid 1px #ccc;
+	border-right: solid 1px #ccc;
+	border-bottom: solid 1px #ccc;
+	border-left: solid 1px #ccc;
+	padding: 10px 10px 20px 10px;
+	margin-bottom: 5px;
+	width: 250px;
+	margin-right: 10px;
+	float: left; 
+}
+#thumbnails {
+	clear: both;
+	margin: 10px auto;
+}
+#thumbnails div {
+	position: relative;
+	width: 24px;
+	height: 24px;
+	float: left;
+	margin: 8px;
+	padding: 0;
+	float: left;
+	display:inline;
+}
+#thumbnails img {
+	width: 24px;
+	height: 24px;
+	position: absolute;
+	border-top: solid 1px #999;
+	border-right: solid 1px #404040;
+	border-bottom: solid 1px #333;
+	border-left: solid 1px #404040;
+}
+#picture {
+	padding: 0px;
+	width: 200px;
+	height: 200px;
+	
+}
+#mainImageOutline {
+	margin: 0 auto;
+	padding: 0;
+	background-color: white; 
+	overflow: hidden; 
+	width: 0px;
+	height: 0px;
+}
+#mainImage {
+	width:100%;
+	height: 100%;
+}
+
+#picture img {	
+	border: 1px solid #ccc;
+}
+
+.selectedThumbnail {  
+	border: solid 2px #fc0 !important; 
+}
+
+.inFocus {
+	 border: solid 1px #fc0 !important; 
+}

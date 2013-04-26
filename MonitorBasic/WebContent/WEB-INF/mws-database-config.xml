@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"       
+       xsi:schemaLocation="       
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+    <!--|
+        | JNDI DataSource.
+        | Este datasource es el que se usara al deployar.
+        |
+    <jee:jndi-lookup id="jndiDataSource" jndi-name="${ppc.db.jndi.path}"
+        lookup-on-startup="false" proxy-interface="javax.sql.DataSource"/>
+	-->
+    <!--|
+        | Configuracion del datasource para la base de datos de Oracle.
+        |-->
+      
+    <bean id="oracleDataSource"
+   	    class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
+        <property name="url" value="${URL}"/>
+        <property name="username" value="${userName}"/>
+        <property name="password" value="${password}"/>
+        <property name="maxActive" value="5"/>
+        <property name="initialSize" value="2"/>
+    </bean>
+   
+
+    <bean id="transactionManager"
+          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="oracleDataSource"/>
+    </bean>
+
+    <!--| @author Hector Mena
+        | Advice con la definicion de la semantica transaccional que va a ser ejecutada via AOP
+        | Aqui se tiene que definir cualquier metodo con :
+        |  - su nivel de transaccionalidad
+        |  - el tipo de propagacion
+        |  - reglas para hacer rollback
+        |
+    <tx:advice id="transactionalAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="get*" read-only="true"/>
+            <tx:method name="obtener*" read-only="true"/>
+            <tx:method name="verificar*" read-only="true"/>
+            <tx:method name="validar*" read-only="true"/>
+            <tx:method name="*" propagation="REQUIRED"
+                       rollback-for="
+                       java.sql.SQLException,
+                       mx.com.crecer.prestamos.errores.InfraestructuraException,
+                       mx.com.crecer.prestamos.errores.NegocioException" />
+        </tx:attributes>
+    </tx:advice>
+	-->
+    <!--| @author Hector Mena
+        | Advice para servicios que se desean excluir de la transaccionalidad comun
+        |
+    <tx:advice id="noTransactionalAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="*" propagation="NOT_SUPPORTED"/>
+        </tx:attributes>
+    </tx:advice>
+	-->
+    <!--| 
+        | Aqui se configuran los pointcut y advisors para indicar en que paquetes/clases/metodos
+        | se aplicara la transaccinalidad
+        |
+    <aop:config>-->
+        <!-- Pointcut para el servicio de correo - no transaccional
+        <aop:pointcut id="servicioDeCorreo"
+                      expression="execution(* mx.com.crecer.prestamos.infraestructura.correo.servicios.EnvioEmailService*.*(..))"/>
+                      -->
+        <!-- Pointcut para la capa de servicios de todos los modulos
+        <aop:pointcut id="operacionesCapaServicios"
+                      expression="execution(* mx.com.crecer.prestamos..servicios..*.*(..))"/>-->
+
+        <!-- Advices 
+        <aop:advisor advice-ref="noTransactionalAdvice" pointcut-ref="servicioDeCorreo"/>
+        <aop:advisor advice-ref="transactionalAdvice" pointcut-ref="operacionesCapaServicios"/>
+    </aop:config>-->
+    
+</beans>
