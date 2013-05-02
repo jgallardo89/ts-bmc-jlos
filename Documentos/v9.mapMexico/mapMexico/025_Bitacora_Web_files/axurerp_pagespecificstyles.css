@@ -1,0 +1,1345 @@
+﻿body {
+    margin: 0px;
+}
+
+div {
+    background-repeat: no-repeat;
+}
+
+.raw_image {
+    width: 100%;
+    height: 100%;
+}
+
+.preload {
+    display: none;
+}
+#main_container {
+}
+
+.form_sketch {
+    border-color: transparent;
+    background-color: transparent;
+}
+
+#u0 {
+    position:absolute;
+    left:266px;
+    top:281px;
+    width:497px;
+    height:141px
+}
+
+.u1_normal {
+    background-image: url('../025_Bitacora_Web_files/u1_normal.png');
+}
+
+.u1_container {
+    position:absolute;
+    left:0px;
+    top:0px;
+    width:136px;
+    height:20px;
+}
+
+#u1_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:142px;
+    height:26px;
+}
+
+.u2 {
+    position:absolute;
+    left:2px;
+    top:2px;
+    width:132px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u3_normal {
+    background-image: url('../025_Bitacora_Web_files/u3_normal.png');
+}
+
+.u3_container {
+    position:absolute;
+    left:136px;
+    top:0px;
+    width:109px;
+    height:20px;
+}
+
+#u3_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:115px;
+    height:26px;
+}
+
+.u4 {
+    position:absolute;
+    left:2px;
+    top:2px;
+    width:105px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u5_normal {
+    background-image: url('../025_Bitacora_Web_files/u5_normal.png');
+}
+
+.u5_container {
+    position:absolute;
+    left:245px;
+    top:0px;
+    width:145px;
+    height:20px;
+}
+
+#u5_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:151px;
+    height:26px;
+}
+
+.u6 {
+    position:absolute;
+    left:2px;
+    top:2px;
+    width:141px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u7_normal {
+    background-image: url('../025_Bitacora_Web_files/u7_normal.png');
+}
+
+.u7_container {
+    position:absolute;
+    left:390px;
+    top:0px;
+    width:102px;
+    height:20px;
+}
+
+#u7_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:108px;
+    height:26px;
+}
+
+.u8 {
+    position:absolute;
+    left:2px;
+    top:2px;
+    width:98px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u9_normal {
+    background-image: url('../025_Bitacora_Web_files/u9_normal.png');
+}
+
+.u9_container {
+    position:absolute;
+    left:0px;
+    top:20px;
+    width:136px;
+    height:45px;
+}
+
+#u9_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:142px;
+    height:51px;
+}
+
+.u10 {
+    position:absolute;
+    left:2px;
+    top:2px;
+    width:132px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u11_normal {
+    background-image: url('../025_Bitacora_Web_files/u11_normal.png');
+}
+
+.u11_container {
+    position:absolute;
+    left:136px;
+    top:20px;
+    width:109px;
+    height:45px;
+}
+
+#u11_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:115px;
+    height:51px;
+}
+
+.u12 {
+    position:absolute;
+    left:2px;
+    top:2px;
+    width:105px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u13_normal {
+    background-image: url('../025_Bitacora_Web_files/u13_normal.png');
+}
+
+.u13_container {
+    position:absolute;
+    left:245px;
+    top:20px;
+    width:145px;
+    height:45px;
+}
+
+#u13_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:151px;
+    height:51px;
+}
+
+.u14 {
+    position:absolute;
+    left:2px;
+    top:2px;
+    width:141px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u15_normal {
+    background-image: url('../025_Bitacora_Web_files/u15_normal.png');
+}
+
+.u15_container {
+    position:absolute;
+    left:390px;
+    top:20px;
+    width:102px;
+    height:45px;
+}
+
+#u15_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:108px;
+    height:51px;
+}
+
+.u16 {
+    position:absolute;
+    left:2px;
+    top:2px;
+    width:98px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u17_normal {
+    background-image: url('../025_Bitacora_Web_files/u17_normal.png');
+}
+
+.u17_container {
+    position:absolute;
+    left:0px;
+    top:65px;
+    width:136px;
+    height:51px;
+}
+
+#u17_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:142px;
+    height:57px;
+}
+
+.u18 {
+    position:absolute;
+    left:2px;
+    top:2px;
+    width:132px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u19_normal {
+    background-image: url('../025_Bitacora_Web_files/u19_normal.png');
+}
+
+.u19_container {
+    position:absolute;
+    left:136px;
+    top:65px;
+    width:109px;
+    height:51px;
+}
+
+#u19_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:115px;
+    height:57px;
+}
+
+.u20 {
+    position:absolute;
+    left:2px;
+    top:2px;
+    width:105px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u21_normal {
+    background-image: url('../025_Bitacora_Web_files/u21_normal.png');
+}
+
+.u21_container {
+    position:absolute;
+    left:245px;
+    top:65px;
+    width:145px;
+    height:51px;
+}
+
+#u21_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:151px;
+    height:57px;
+}
+
+.u22 {
+    position:absolute;
+    left:2px;
+    top:2px;
+    width:141px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u23_normal {
+    background-image: url('../025_Bitacora_Web_files/u23_normal.png');
+}
+
+.u23_container {
+    position:absolute;
+    left:390px;
+    top:65px;
+    width:102px;
+    height:51px;
+}
+
+#u23_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:108px;
+    height:57px;
+}
+
+.u24 {
+    position:absolute;
+    left:2px;
+    top:2px;
+    width:98px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u25_normal {
+    background-image: url('../025_Bitacora_Web_files/u1_normal.png');
+}
+
+.u25_container {
+    position:absolute;
+    left:0px;
+    top:116px;
+    width:136px;
+    height:20px;
+}
+
+#u25_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:142px;
+    height:26px;
+}
+
+.u26 {
+    position:absolute;
+    left:2px;
+    top:2px;
+    width:132px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u27_normal {
+    background-image: url('../025_Bitacora_Web_files/u3_normal.png');
+}
+
+.u27_container {
+    position:absolute;
+    left:136px;
+    top:116px;
+    width:109px;
+    height:20px;
+}
+
+#u27_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:115px;
+    height:26px;
+}
+
+.u28 {
+    position:absolute;
+    left:2px;
+    top:2px;
+    width:105px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u29_normal {
+    background-image: url('../025_Bitacora_Web_files/u5_normal.png');
+}
+
+.u29_container {
+    position:absolute;
+    left:245px;
+    top:116px;
+    width:145px;
+    height:20px;
+}
+
+#u29_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:151px;
+    height:26px;
+}
+
+.u30 {
+    position:absolute;
+    left:2px;
+    top:2px;
+    width:141px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u31_normal {
+    background-image: url('../025_Bitacora_Web_files/u7_normal.png');
+}
+
+.u31_container {
+    position:absolute;
+    left:390px;
+    top:116px;
+    width:102px;
+    height:20px;
+}
+
+#u31_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:108px;
+    height:26px;
+}
+
+.u32 {
+    position:absolute;
+    left:2px;
+    top:2px;
+    width:98px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u33 {
+    position:absolute;
+    left:539px;
+    top:190px;
+    width:100px;
+    height:25px;
+    ;
+    ;
+    text-align: center;;
+    font-family:'Arial';
+    font-size: 13px;
+    color:#000000;
+    font-style:normal;
+    font-weight:normal;
+    text-decoration:none;
+    
+}
+
+.u34 {
+    position:absolute;
+    left:346px;
+    top:29px;
+    width:343px;
+    height:24px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u35 {
+    position:absolute;
+    left:291px;
+    top:256px;
+    width:150px;
+    height:15px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u36 {
+    position:absolute;
+    left:620px;
+    top:256px;
+    width:150px;
+    height:15px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u37 {
+    position:absolute;
+    left:200px;
+    top:95px;
+    width:93px;
+    height:15px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u38 {
+    position:absolute;
+    left:318px;
+    top:86px;
+    width:180px;
+    height:25px;
+    ;
+    ;
+    text-align: left;;
+    font-family:'Arial';
+    font-size: 13px;
+    color:#000000;
+    font-style:normal;
+    font-weight:normal;
+    text-decoration:none;
+    
+}
+
+.u39 {
+    position:absolute;
+    left:514px;
+    top:91px;
+    width:21px;
+    height:15px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u40 {
+    position:absolute;
+    left:535px;
+    top:86px;
+    width:180px;
+    height:25px;
+    ;
+    ;
+    text-align: left;;
+    font-family:'Arial';
+    font-size: 13px;
+    color:#000000;
+    font-style:normal;
+    font-weight:normal;
+    text-decoration:none;
+    
+}
+
+.u41 {
+    position:absolute;
+    left:200px;
+    top:142px;
+    width:150px;
+    height:15px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u42 {
+    position:absolute;
+    left:597px;
+    top:141px;
+    width:69px;
+    height:15px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u43 {
+    position:absolute;
+    left:282px;
+    top:136px;
+    width:285px;
+    height:22px;
+    ;
+    ;
+    ;
+    font-family:'Arial';
+    font-size: 13px;
+    color:#000000;
+    font-style:normal;
+    font-weight:normal;
+    text-decoration:none;
+    
+}
+
+.u44 {
+    position:absolute;
+    left:653px;
+    top:136px;
+    width:279px;
+    height:22px;
+    ;
+    ;
+    ;
+    font-family:'Arial';
+    font-size: 13px;
+    color:#000000;
+    font-style:normal;
+    font-weight:normal;
+    text-decoration:none;
+    
+}
+
+.u45_normal {
+    background-image: url('../025_Bitacora_Web_files/u45_normal.png');
+}
+
+.u45_container {
+    position:absolute;
+    left:282px;
+    top:207px;
+    width:32px;
+    height:32px;
+}
+
+#u45_img {
+    position:absolute;
+    left:0px;
+    top:0px;
+    width:32px;
+    height:32px;
+}
+
+.u46 {
+    position:absolute;
+    left:2px;
+    top:8px;
+    width:28px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u47_normal {
+    background-image: url('../025_Bitacora_Web_files/u47_normal.png');
+}
+
+.u47_container {
+    position:absolute;
+    left:324px;
+    top:207px;
+    width:32px;
+    height:32px;
+}
+
+#u47_img {
+    position:absolute;
+    left:0px;
+    top:0px;
+    width:32px;
+    height:32px;
+}
+
+.u48 {
+    position:absolute;
+    left:2px;
+    top:8px;
+    width:28px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u49_container {
+    position:absolute;
+    left:694px;
+    top:304px;
+    width:35px;
+    height:35px;
+}
+
+#u49_img {
+    position:absolute;
+    left:0px;
+    top:0px;
+    width:35px;
+    height:35px;
+}
+
+.u50 {
+    position:absolute;
+    left:2px;
+    top:10px;
+    width:31px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u51_container {
+    position:absolute;
+    left:694px;
+    top:355px;
+    width:35px;
+    height:35px;
+}
+
+#u51_img {
+    position:absolute;
+    left:0px;
+    top:0px;
+    width:35px;
+    height:35px;
+}
+
+.u52 {
+    position:absolute;
+    left:2px;
+    top:10px;
+    width:31px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+#u53 {
+    position:absolute;
+    left:266px;
+    top:71px;
+    width:522px;
+    height:307px;
+    overflow:hidden;
+}
+
+#pd0u53 {
+    position:absolute;
+    left:0px;
+    top:0px;
+    width:522px;
+    height:307px;
+    
+}
+
+.u54_normal {
+    background-image: url('../025_Bitacora_Web_files/u54_normal.png');
+}
+
+.u54_container {
+    position:absolute;
+    left:3px;
+    top:1px;
+    width:517px;
+    height:301px;
+}
+
+#u54_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:523px;
+    height:307px;
+}
+
+.u55 {
+    position:absolute;
+    left:2px;
+    top:142px;
+    width:513px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+#u56 {
+    position:absolute;
+    left:47px;
+    top:109px;
+    width:407px;
+    height:109px
+}
+
+.u57_normal {
+    background-image: url('../025_Bitacora_Web_files/u57_normal.png');
+}
+
+.u57_container {
+    position:absolute;
+    left:0px;
+    top:0px;
+    width:148px;
+    height:20px;
+}
+
+#u57_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:154px;
+    height:26px;
+}
+
+.u58 {
+    position:absolute;
+    left:2px;
+    top:2px;
+    width:144px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u59_normal {
+    background-image: url('../025_Bitacora_Web_files/u59_normal.png');
+}
+
+.u59_container {
+    position:absolute;
+    left:148px;
+    top:0px;
+    width:109px;
+    height:20px;
+}
+
+#u59_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:115px;
+    height:26px;
+}
+
+.u60 {
+    position:absolute;
+    left:2px;
+    top:2px;
+    width:105px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u61_normal {
+    background-image: url('../025_Bitacora_Web_files/u61_normal.png');
+}
+
+.u61_container {
+    position:absolute;
+    left:257px;
+    top:0px;
+    width:145px;
+    height:20px;
+}
+
+#u61_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:151px;
+    height:26px;
+}
+
+.u62 {
+    position:absolute;
+    left:2px;
+    top:2px;
+    width:141px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u63_normal {
+    background-image: url('../025_Bitacora_Web_files/u63_normal.png');
+}
+
+.u63_container {
+    position:absolute;
+    left:0px;
+    top:20px;
+    width:148px;
+    height:32px;
+}
+
+#u63_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:154px;
+    height:38px;
+}
+
+.u64 {
+    position:absolute;
+    left:2px;
+    top:2px;
+    width:144px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u65_normal {
+    background-image: url('../025_Bitacora_Web_files/u65_normal.png');
+}
+
+.u65_container {
+    position:absolute;
+    left:148px;
+    top:20px;
+    width:109px;
+    height:32px;
+}
+
+#u65_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:115px;
+    height:38px;
+}
+
+.u66 {
+    position:absolute;
+    left:2px;
+    top:2px;
+    width:105px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u67_normal {
+    background-image: url('../025_Bitacora_Web_files/u67_normal.png');
+}
+
+.u67_container {
+    position:absolute;
+    left:257px;
+    top:20px;
+    width:145px;
+    height:32px;
+}
+
+#u67_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:151px;
+    height:38px;
+}
+
+.u68 {
+    position:absolute;
+    left:2px;
+    top:2px;
+    width:141px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u69_normal {
+    background-image: url('../025_Bitacora_Web_files/u69_normal.png');
+}
+
+.u69_container {
+    position:absolute;
+    left:0px;
+    top:52px;
+    width:148px;
+    height:52px;
+}
+
+#u69_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:154px;
+    height:58px;
+}
+
+.u70 {
+    position:absolute;
+    left:2px;
+    top:2px;
+    width:144px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u71_normal {
+    background-image: url('../025_Bitacora_Web_files/u71_normal.png');
+}
+
+.u71_container {
+    position:absolute;
+    left:148px;
+    top:52px;
+    width:109px;
+    height:52px;
+}
+
+#u71_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:115px;
+    height:58px;
+}
+
+.u72 {
+    position:absolute;
+    left:2px;
+    top:2px;
+    width:105px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u73_normal {
+    background-image: url('../025_Bitacora_Web_files/u73_normal.png');
+}
+
+.u73_container {
+    position:absolute;
+    left:257px;
+    top:52px;
+    width:145px;
+    height:52px;
+}
+
+#u73_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:151px;
+    height:58px;
+}
+
+.u74 {
+    position:absolute;
+    left:2px;
+    top:2px;
+    width:141px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u75 {
+    position:absolute;
+    left:150px;
+    top:26px;
+    width:221px;
+    height:24px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u76_normal {
+    background-image: url('../025_Bitacora_Web_files/u76_normal.png');
+}
+
+.u76_container {
+    position:absolute;
+    left:47px;
+    top:80px;
+    width:390px;
+    height:29px;
+}
+
+#u76_img {
+    position:absolute;
+    left:0px;
+    top:0px;
+    width:390px;
+    height:29px;
+}
+
+.u77 {
+    position:absolute;
+    left:2px;
+    top:6px;
+    width:386px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u78_line {
+    background-image: url('../025_Bitacora_Web_files/u78_line.png');
+}
+
+.u78_line {
+    position:absolute;
+    left:0px;
+    top:4px;
+    width:229px;
+    height:3px;
+}
+
+.u78 {
+    position:absolute;
+    left:142px;
+    top:50px;
+    width:229px;
+    height:10px;
+    
+}
+
+.u79 {
+    position:absolute;
+    left:198px;
+    top:240px;
+    width:100px;
+    height:25px;
+    ;
+    ;
+    text-align: center;;
+    font-family:'Arial';
+    font-size: 13px;
+    color:#000000;
+    font-style:normal;
+    font-weight:normal;
+    text-decoration:none;
+    
+}
+
