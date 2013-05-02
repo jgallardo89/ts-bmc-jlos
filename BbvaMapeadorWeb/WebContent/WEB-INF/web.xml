@@ -9,7 +9,7 @@
 		<display-name>ZK Session cleaner</display-name>
 		<listener-class>org.zkoss.zk.ui.http.HttpSessionListener</listener-class>
 	</listener>
-	<filter>
+	<!-- filter>
 		<filter-name>SessionFilterTam</filter-name>
 		<filter-class>mx.com.bbva.mapeador.security.session.SessionFilterTam</filter-class>
 		<init-param>
@@ -20,7 +20,7 @@
 	<filter-mapping>
 		<filter-name>SessionFilterTam</filter-name>
 		<url-pattern>/app/*</url-pattern>
-	</filter-mapping>
+	</filter-mapping-->
 	<servlet>
 		<description>
 		The ZK loader for ZUML pages</description>
