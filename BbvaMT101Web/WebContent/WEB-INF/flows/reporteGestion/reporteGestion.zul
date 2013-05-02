@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?page title="Operaciones Dudosas" contentType="text/html;charset=UTF-8"?>
+<?meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7"?>
+<?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
+
+<zk>	
+	<window border="0" width="100%" height="70%"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('mx.com.bbva.mt101.ui.commons.viewmodel.reportegestion.ReporteGestionController')"
+		id="reporteGestionWindows">	
+		<include src="../../pages/styles.zul" />
+		<div sclass="BODY" height="100%">
+			<radiogroup id="radiosToEdit"></radiogroup>
+			<groupbox>
+				<portallayout maximizedMode="whole" id="portalLayoutOpeDud"
+					width="100%">
+					<portalchildren style="padding: 5px" width="100%">
+						<panel width="100%" sclass="sectionPanelTitle" id="datosOpeDup"
+							title="Filtros Reporte de Gestión" collapsible="true"
+							style="margin-bottom:10px" border="normal">
+							<caption sclass="sectionPanelTitle" label="Reporte Gestion"></caption>
+							<panelchildren>
+								<grid width="100%" style="border:0" oddRowSclass="row2">
+									<columns>
+										<column width="20%" />
+										<column width="30%" />
+										<column width="20%" />
+										<column width="30%" />
+									</columns>
+									<rows>
+										<row sclass="row2" width="100%">
+											<div align="right">
+												<label width="100%" sclass="labelFill" value="Mes:"></label>
+											</div>
+											<combobox id="meses" model="@load(vm.meses)"  width="100%" height="100%">		
+												<template name="model">										
+													<comboitem value="@load(each.idMes)" label="@load(each.nombreMes)" height="100%"/>
+												</template>																								
+											</combobox>										
+											<div align="right">
+												<label width="100%" sclass="labelFill" value="Año:"></label>
+											</div>
+											<combobox id="anios" model="@load(vm.anios)"  width="100%" height="100%">		
+												<template name="model">										
+													<comboitem value="@load(each)" label="@load(each)" height="100%"/>
+												</template>																								
+											</combobox>
+										</row>
+									</rows>
+								</grid>
+								<div align="center" width="100%">
+									<button sclass="button" label="Consultar" onClick="@command('consultar')" id="consultarBtn"></button>									
+								</div>
+							</panelchildren>
+						</panel>
+					</portalchildren>
+					<portalchildren width="100%" style="padding: 5px">
+						<panel sclass="sectionPanelTitle" width="100%" id="gridRepGest"
+							title="Resultados Reporte Gestión" collapsible="true"
+							style="margin-bottom:10px">
+							<caption sclass="sectionPanelTitle" label="Cuentas"></caption>
+							<panelchildren>
+								
+							</panelchildren>
+						</panel>
+					</portalchildren>
+				</portallayout>
+			</groupbox>
+			
+		</div>			
+	</window>
+</zk>

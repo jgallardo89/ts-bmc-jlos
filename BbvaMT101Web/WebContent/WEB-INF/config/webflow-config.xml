@@ -33,6 +33,8 @@
 			path="/WEB-INF/flows/monitorCashOps/monitorCashOps.xml" />								 <!-- AKFG -->
 		<webflow:flow-location id="reporteServicio"
 			path="/WEB-INF/flows/reporteServicio/reporteServicio.xml" />
+		<webflow:flow-location id="reporteGestion"
+			path="/WEB-INF/flows/reporteGestion/reporteGestion.xml" />
 	</webflow:flow-registry>
 
 

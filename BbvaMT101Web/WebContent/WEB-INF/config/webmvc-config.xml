@@ -14,6 +14,7 @@
 				/monitorCash=flowController  			<!-- AKFG -->
 				/monitorCashOps=flowController  		<!-- AKFG -->
 				/reporteServicio=flowController
+				/reporteGestion=flowController
 			</value>
 		</property>
 		<property name="defaultHandler">
