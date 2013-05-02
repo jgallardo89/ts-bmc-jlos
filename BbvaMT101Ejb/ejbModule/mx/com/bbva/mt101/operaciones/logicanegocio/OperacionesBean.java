@@ -173,4 +173,60 @@ public class OperacionesBean implements IOperaciones {
 			logger.debug("OperacionesBean: - Metodo: updateEstatusOperacion  -- **fin**");
 		}
 	}
+
+	@Override
+	public List<String> getMeses() {
+		logger.debug("OperacionesBean: - Metodo: getMeses  -- **inicio**");
+		List<String> result = null;
+		try {
+			SqlSession session = Mt101SessionFactory.getSqlSessionFactory()
+					.openSession();
+			MapTgm139Mt101Repte mapTgm139Mt101Repte = (MapTgm139Mt101Repte) session
+					.getMapper(MapTgm139Mt101Repte.class);
+			try {
+				result = mapTgm139Mt101Repte.obtenerMeses();
+				session.commit();
+			} catch (Exception ex) {
+				session.rollback();
+				ex.printStackTrace();
+			} finally {
+				session.close();
+			}
+			logger.debug("OperacionesBean: - result: " + result.size() + " -- **fin**");
+			return result;
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return result;
+		} finally {
+			logger.debug("OperacionesBean: - Metodo: getMeses  -- **fin**");
+		}
+	}
+
+	@Override
+	public List<String> getAnios() {
+		logger.debug("OperacionesBean: - Metodo: getAnios  -- **inicio**");
+		List<String> result = null;
+		try {
+			SqlSession session = Mt101SessionFactory.getSqlSessionFactory()
+					.openSession();
+			MapTgm139Mt101Repte mapTgm139Mt101Repte = (MapTgm139Mt101Repte) session
+					.getMapper(MapTgm139Mt101Repte.class);
+			try {
+				result = mapTgm139Mt101Repte.obtenerAnios();
+				session.commit();
+			} catch (Exception ex) {
+				session.rollback();
+				ex.printStackTrace();
+			} finally {
+				session.close();
+			}
+			logger.debug("OperacionesBean: - result: " + result.size() + " -- **fin**");
+			return result;
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return result;
+		} finally {
+			logger.debug("OperacionesBean: - Metodo: getAnios  -- **fin**");
+		}
+	}
 }

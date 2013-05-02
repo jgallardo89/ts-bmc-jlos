@@ -24,4 +24,7 @@ public interface IOperaciones {
 			Tgm139Mt101Repte tgm139Mt101Repte);
 
 	public long updateEstatusOperacion(Tgm139Mt101Repte tgm139Mt101Repte);
+	
+	public List<String> getMeses();
+	public List<String> getAnios();
 }

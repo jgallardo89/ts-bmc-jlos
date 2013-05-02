@@ -174,4 +174,13 @@
 		nb_st_ope_cw = #{nbStOpeCw}
 		where cd_repte_mt101 = #{cdRepteMt101}
 	</update>
+	<select id="obtenerMeses" resultType="String">
+		Select Distinct To_Char(Fh_Proceso,'mm') mes
+		from Tgm139_Mt101_Repte
+		order by mes
+	</select>
+	<select id="obtenerAnios" resultType="String">
+		Select Distinct To_Char(Fh_Proceso,'yyyy') anio
+		From Tgm139_Mt101_Repte
+	</select>
 </mapper>

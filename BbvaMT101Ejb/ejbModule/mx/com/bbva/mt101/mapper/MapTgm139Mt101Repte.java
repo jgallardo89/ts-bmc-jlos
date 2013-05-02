@@ -22,4 +22,8 @@ public interface MapTgm139Mt101Repte {
 
 	public abstract List<Tgm139Mt101Repte> obtenerTotalesOperacionesPorCriterios(
 			Tgm139Mt101Repte tgm139Mt101Repte);
+	
+	public abstract List<String> obtenerMeses();
+	
+	public abstract List<String> obtenerAnios();
 }
