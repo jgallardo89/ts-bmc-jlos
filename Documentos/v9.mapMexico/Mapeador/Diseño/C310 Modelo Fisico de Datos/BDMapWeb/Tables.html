@@ -1,0 +1,4444 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="keywords" content="TDM_Report">
+        <link rel="stylesheet" type="text/css" media="screen" href="classic_blue.css" title="report">
+        <link rel="stylesheet" type="text/css" media="print" href="classic_blue_NoFrames_print.css" title="report">
+            <script src="tdmShowDetails.js" type="text/javascript"></script>
+        <title>Toad Data Modeler - HTML Report</title>
+    </head>
+
+
+<body onLoad="getUrlItem()">
+ <div class="mainContainer">
+
+  <div id="headerContainer">
+  <div id="header">
+         <div class="title1"></div>
+         <div class="title2">Entities</div>
+         <div class="titleimage">
+                    <a href="http://www.quest.com" target="_blank">
+                    <img src="Img/logo.gif" alt="Made with Toad Data Modeler" border="0">
+                    </a>
+          </div>
+          <div class="headerEnd"><p>&nbsp;</p></div>  </div>
+        <div id="navTop">
+            <ul>
+                <li><a href="MInfo.html">Model Info</a>
+</li>
+                <li><a href="MImage.html">ER Diagram</a>
+</li>
+                <li class="selLi"><a href="Tables.html" class="selAnchor">Entities</a>
+</li>
+                <li><a href="Columns.html">Attributes</a>
+</li>
+                <li><a href="Indexes.html">Indexes</a>
+</li>
+                <li><a href="Keys.html">Keys</a>
+</li>
+                <li><a href="Relations.html">Relationships</a>
+</li>
+            </ul>
+            <div id="navTopEnd"><p>&nbsp;</p></div>
+        </div>
+
+  </div>
+
+<div id="navCombo"><form name="allItems" action=""><select name="listOfItems" onChange="showSelected()">    <option value="Table_{1C0BA1F8-4A1D-413A-8151-809EF3393A40}">TGM501_PANTALLA</option>    <option value="Table_{0232AD16-7160-4B58-ABA8-56A41739DF34}">TGM502_COMPONENTE</option>    <option value="Table_{69BF5EF8-09BA-44A2-A546-FF16390AFA36}">TGM503_USUARIO</option>    <option value="Table_{E88D6F98-1413-4FAC-9A59-CD160F0A87CF}">TGM504_PERFIL</option>    <option value="Table_{F02D519C-E6F2-4AA3-8CF6-72F40C45D782}">TGM505_CTRLPERMISO</option>    <option value="Table_{6276F2A8-64D0-487E-AB5C-9AEBD2117C09}">TGM507_BITACORA</option>    <option value="Table_{28381B6C-4CA9-4121-8EF7-3E2C2566CA6B}">TGM508_EVENTO_MAPA</option>    <option value="Table_{D351C56E-4945-4322-9E5F-4BED02AD083B}">TGM509_ST_CLAVE</option>    <option value="Table_{20D85D8F-E1D2-49CC-A0BE-93E511E03897}">TGM510_USUA_NOTIFI</option>    <option value="Table_{CA380738-BECE-4927-9A09-9BF6CEDE6378}">TGM511_CANAL</option>    <option value="Table_{4F357E76-AF4B-4A18-8C7C-7F3FED08808E}">TGM512_CLIENTE</option>    <option value="Table_{A5B81253-2890-468E-A593-E6EE0919A7C1}">TGM513_FLUJO</option>    <option value="Table_{76452B09-0416-4A79-9F4A-C0E978DB362C}">TGM514_MAPA_GMM</option>    <option value="Table_{288DB567-3CC6-4E06-B786-B8BB2F46D7A5}">TGM515_PRODUCTO</option>    <option value="Table_{038C345E-98B4-4594-8549-19A05D9716B5}">TGM516_MENSAJE_SAL</option>    <option value="Table_{1F4C3ABA-CA1F-403A-A88B-CD09A93AEA57}">TGM517_ETAPA</option>    <option value="Table_{B043FC30-C545-4C69-95E1-E096BE2E67C3}">TGM518_FLUJOETAPA</option>    <option value="Table_{0EBEBD0A-4D47-441E-8A98-1EF9EA1F1863}">TGM519_CONTRATACION</option>    <option value="Table_{A137C701-57DA-4E6C-B8B2-CFA26011CDC3}">TGM520_CONTRAT_MAP</option>    <option value="Table_{FCD435A3-71F9-4027-8036-FA122BDB26AC}">TGM521_PBA_COMODIN</option>    <option value="Table_{0955F352-58E7-48F0-B8A5-75CDD66469BC}">TGM522_ST_PROCESO</option>    <option value="Table_{98CA899A-D746-473E-AD20-8CA13073589D}">TGM531_DEFINE_MAPA</option>    <option value="Table_{8E064830-0C28-4C56-A7F1-7BAF5F0D9199}">TGM532_GPO_HOJA</option>    <option value="Table_{5E1FFE1C-3C46-40C7-A9C1-24CBCF9BCB8D}">TGM533_SECC_MAPA</option>    <option value="Table_{34F7D798-9382-46D0-87A8-62CDE451E8C8}">TGM534_ST_OBJETO</option>    <option value="Table_{111CDA6D-604A-4DA2-9CC6-7EAE7E7E2893}">TGM536_REG_ARCH_EN</option>    <option value="Table_{03AB2C91-7848-41FE-ADC2-2823DA77BCC8}">TGM537_EDO_ARCHIVO</option>    <option value="Table_{8C093A41-DFE1-4F8F-BC20-B02DCACA5BEB}">TGM538_ESTADO_ARCH</option>    <option value="Table_{2A7DD1A7-E9BC-4926-91AE-06574B619796}">TGM539_ESTADISTICA</option>    <option value="Table_{F9ED958F-983A-4322-A384-6C0C77D1674A}">TGM540_CONTRASENIA</option></select></form><div id="navComboEnd"><p></p></div></div><div id="navLeft"><div id="bookmark">
+<ul>
+<li><a onClick="return showDetail('Table_{1C0BA1F8-4A1D-413A-8151-809EF3393A40}', this)">TGM501_PANTALLA</a></li>
+<li><a onClick="return showDetail('Table_{0232AD16-7160-4B58-ABA8-56A41739DF34}', this)">TGM502_COMPONENTE</a></li>
+<li><a onClick="return showDetail('Table_{69BF5EF8-09BA-44A2-A546-FF16390AFA36}', this)">TGM503_USUARIO</a></li>
+<li><a onClick="return showDetail('Table_{E88D6F98-1413-4FAC-9A59-CD160F0A87CF}', this)">TGM504_PERFIL</a></li>
+<li><a onClick="return showDetail('Table_{F02D519C-E6F2-4AA3-8CF6-72F40C45D782}', this)">TGM505_CTRLPERMISO</a></li>
+<li><a onClick="return showDetail('Table_{6276F2A8-64D0-487E-AB5C-9AEBD2117C09}', this)">TGM507_BITACORA</a></li>
+<li><a onClick="return showDetail('Table_{28381B6C-4CA9-4121-8EF7-3E2C2566CA6B}', this)">TGM508_EVENTO_MAPA</a></li>
+<li><a onClick="return showDetail('Table_{D351C56E-4945-4322-9E5F-4BED02AD083B}', this)">TGM509_ST_CLAVE</a></li>
+<li><a onClick="return showDetail('Table_{20D85D8F-E1D2-49CC-A0BE-93E511E03897}', this)">TGM510_USUA_NOTIFI</a></li>
+<li><a onClick="return showDetail('Table_{CA380738-BECE-4927-9A09-9BF6CEDE6378}', this)">TGM511_CANAL</a></li>
+<li><a onClick="return showDetail('Table_{4F357E76-AF4B-4A18-8C7C-7F3FED08808E}', this)">TGM512_CLIENTE</a></li>
+<li><a onClick="return showDetail('Table_{A5B81253-2890-468E-A593-E6EE0919A7C1}', this)">TGM513_FLUJO</a></li>
+<li><a onClick="return showDetail('Table_{76452B09-0416-4A79-9F4A-C0E978DB362C}', this)">TGM514_MAPA_GMM</a></li>
+<li><a onClick="return showDetail('Table_{288DB567-3CC6-4E06-B786-B8BB2F46D7A5}', this)">TGM515_PRODUCTO</a></li>
+<li><a onClick="return showDetail('Table_{038C345E-98B4-4594-8549-19A05D9716B5}', this)">TGM516_MENSAJE_SAL</a></li>
+<li><a onClick="return showDetail('Table_{1F4C3ABA-CA1F-403A-A88B-CD09A93AEA57}', this)">TGM517_ETAPA</a></li>
+<li><a onClick="return showDetail('Table_{B043FC30-C545-4C69-95E1-E096BE2E67C3}', this)">TGM518_FLUJOETAPA</a></li>
+<li><a onClick="return showDetail('Table_{0EBEBD0A-4D47-441E-8A98-1EF9EA1F1863}', this)">TGM519_CONTRATACION</a></li>
+<li><a onClick="return showDetail('Table_{A137C701-57DA-4E6C-B8B2-CFA26011CDC3}', this)">TGM520_CONTRAT_MAP</a></li>
+<li><a onClick="return showDetail('Table_{FCD435A3-71F9-4027-8036-FA122BDB26AC}', this)">TGM521_PBA_COMODIN</a></li>
+<li><a onClick="return showDetail('Table_{0955F352-58E7-48F0-B8A5-75CDD66469BC}', this)">TGM522_ST_PROCESO</a></li>
+<li><a onClick="return showDetail('Table_{98CA899A-D746-473E-AD20-8CA13073589D}', this)">TGM531_DEFINE_MAPA</a></li>
+<li><a onClick="return showDetail('Table_{8E064830-0C28-4C56-A7F1-7BAF5F0D9199}', this)">TGM532_GPO_HOJA</a></li>
+<li><a onClick="return showDetail('Table_{5E1FFE1C-3C46-40C7-A9C1-24CBCF9BCB8D}', this)">TGM533_SECC_MAPA</a></li>
+<li><a onClick="return showDetail('Table_{34F7D798-9382-46D0-87A8-62CDE451E8C8}', this)">TGM534_ST_OBJETO</a></li>
+<li><a onClick="return showDetail('Table_{111CDA6D-604A-4DA2-9CC6-7EAE7E7E2893}', this)">TGM536_REG_ARCH_EN</a></li>
+<li><a onClick="return showDetail('Table_{03AB2C91-7848-41FE-ADC2-2823DA77BCC8}', this)">TGM537_EDO_ARCHIVO</a></li>
+<li><a onClick="return showDetail('Table_{8C093A41-DFE1-4F8F-BC20-B02DCACA5BEB}', this)">TGM538_ESTADO_ARCH</a></li>
+<li><a onClick="return showDetail('Table_{2A7DD1A7-E9BC-4926-91AE-06574B619796}', this)">TGM539_ESTADISTICA</a></li>
+<li><a onClick="return showDetail('Table_{F9ED958F-983A-4322-A384-6C0C77D1674A}', this)">TGM540_CONTRASENIA</a></li>
+</ul>
+     <div id="bookmarkEnd"><p>&nbsp;</p></div></div>
+
+</div>
+
+
+    <div class="separator" ></div>
+    <div class="container">
+        <div id="content">
+<div id="Table_{1C0BA1F8-4A1D-413A-8151-809EF3393A40}" class="item">
+<a name = "Table_{1C0BA1F8-4A1D-413A-8151-809EF3393A40}"></a>
+<div class="caption1"><p>TGM501_PANTALLA</p></div>
+<div class="caption2"><p>General Info</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="20%">Caption</td>
+    <td class="tabdata" width="80%">TGM501_PANTALLA</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Attributes</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Key</td>
+    <td class="tabhead">Attribute Name</td>
+    <td class="tabhead">Domain</td>
+    <td class="tabhead">Data Type</td>
+    <td class="tabhead">Not Null</td>
+    <td class="tabhead">Unique</td>
+    <td class="tabhead">Check</td>
+    <td class="tabhead">Default</td>
+    <td class="tabhead">Comments</td>
+  </tr>
+  <tr>
+    <td class="tabdata">PK</td>
+    <td class="tabdata">CD_PANTALLA</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Number(3,0)</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Consecutivo, representa a la llave primaria del la tabla TGM501_PANTALLA</td>
+  </tr>
+  <tr>
+    <td class="tabdata">FK</td>
+    <td class="tabdata">CD_FK_PANTALLA</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Number(3,0)</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Llave foránea del la tabla TGM501_PANTALLA, indica la jerarquía que existe entres las pantallas </td>
+  </tr>
+  <tr>
+    <td class="tabdata"></td>
+    <td class="tabdata">NB_PANTALLA</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Varchar2(30 CHAR)</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Nombre de la pantalla, hace referencia a una pantalla web la cual sirve como interfaz para que el usuario interactúe con el sistema mapeador México</td>
+  </tr>
+  <tr>
+    <td class="tabdata"></td>
+    <td class="tabdata">TX_URL_PANTALLA</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Varchar2(300 CHAR)</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Es la dirección del lugar físico dentro del servidor, donde se encuentra la plantilla.<br> Puede ser dirección absoluta o relativa.<br> Ejemplo:<br> ../bbva/mapeador/modulos/usuarios.xhtml</td>
+  </tr>
+  <tr>
+    <td class="tabdata"></td>
+    <td class="tabdata">TX_URL_ICON</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Varchar2(300 CHAR)</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Es la dirección del lugar físico dentro ó fuera del servidor, donde se encuentra el icono a usar para el menu del sistema mapéador.<br> Puede ser dirección absoluta o relativa, url.<br> Ejemplo:<br> ../bbva/mapeador/images/icnUsuario.ico<br> https://www.google.com.mx/images/srpr/addDate.icn</td>
+  </tr>
+  <tr>
+    <td class="tabdata"></td>
+    <td class="tabdata">NU_ORD_PANTALLA</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Number(5,0)</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Es un número que representa el orden en el cual se deben mostrar las pantallas en la web.</td>
+  </tr>
+  <tr>
+    <td class="tabdata">FK</td>
+    <td class="tabdata">ST_PANTALLA</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Number(5,0)</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Estatus de la pantalla.<br> Ejemplo:<br> Activo<br> Desarrollo <br> </td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Relationships</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Relationship Name</td>
+    <td class="tabhead">Relationship Type</td>
+    <td class="tabhead">Parent Entity</td>
+    <td class="tabhead">Child Entity</td>
+    <td class="tabhead">Card.</td>
+  </tr>
+  <tr>
+    <td class="tabdata">R5015011</td>
+    <td class="tabdata">Non-identifying</td>
+    <td class="tabdata">TGM501_PANTALLA</td>
+    <td class="tabdata">TGM501_PANTALLA</td>
+    <td class="tabdata">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabdata">R5015011</td>
+    <td class="tabdata">Non-identifying</td>
+    <td class="tabdata">TGM501_PANTALLA</td>
+    <td class="tabdata">TGM501_PANTALLA</td>
+    <td class="tabdata">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabdata">R5015022</td>
+    <td class="tabdata">Identifying</td>
+    <td class="tabdata">TGM501_PANTALLA</td>
+    <td class="tabdata">TGM502_COMPONENTE</td>
+    <td class="tabdata">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabdata">R5345019</td>
+    <td class="tabdata">Non-identifying</td>
+    <td class="tabdata">TGM534_ST_OBJETO</td>
+    <td class="tabdata">TGM501_PANTALLA</td>
+    <td class="tabdata">1:N</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Keys</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="10%">Key Type</td>
+    <td class="tabhead" width="30%">Constraint Name</td>
+    <td class="tabhead" width="60%">Attributes</td>
+  </tr>
+  <tr>
+    <td class="tabdata" width="10%">PK</td>
+    <td class="tabdata" width="30%">IGM501P1_PANTALLA</td>
+    <td class="tabdata" width="60%">CD_PANTALLA</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Comments</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabdata">Tabla pantallas web, esta tabla es la encargada de almacenar el total de pantallas web que utiliza el sistema Mapeador México, también es la que determina la jerarquía entre  ellas, esta jerarquía es útil para generar el menú dinámico del sistema.</td>
+  </tr>
+</table>
+<br>
+<div class="itemEnd"><p>&nbsp;</p></div></div>
+<div id="Table_{0232AD16-7160-4B58-ABA8-56A41739DF34}" class="item">
+<a name = "Table_{0232AD16-7160-4B58-ABA8-56A41739DF34}"></a>
+<div class="caption1"><p>TGM502_COMPONENTE</p></div>
+<div class="caption2"><p>General Info</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="20%">Caption</td>
+    <td class="tabdata" width="80%">TGM502_COMPONENTE</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Attributes</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Key</td>
+    <td class="tabhead">Attribute Name</td>
+    <td class="tabhead">Domain</td>
+    <td class="tabhead">Data Type</td>
+    <td class="tabhead">Not Null</td>
+    <td class="tabhead">Unique</td>
+    <td class="tabhead">Check</td>
+    <td class="tabhead">Default</td>
+    <td class="tabhead">Comments</td>
+  </tr>
+  <tr>
+    <td class="tabdata">PFK</td>
+    <td class="tabdata">CD_PANTALLA</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Number(3,0)</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Representa a la llave primaria del la tabla TGM501_PANTALLA, y forma parte de la llave compuesta de la tabla TGM502_COMPONENTE</td>
+  </tr>
+  <tr>
+    <td class="tabdata">PK</td>
+    <td class="tabdata">CD_COMPONENTE</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Number(3,0)</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Número consecutivo, forma parte de la llave compuesta de esta tabla. Se reinicia por pantalla.</td>
+  </tr>
+  <tr>
+    <td class="tabdata"></td>
+    <td class="tabdata">NB_COMPONENTE</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Varchar2(50 CHAR)</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Nombre del componente que utiliza una pantalla web .<br> Ejemplo.<br> btnGuardar<br> btnExcel<br> gridPrincipal</td>
+  </tr>
+  <tr>
+    <td class="tabdata"></td>
+    <td class="tabdata">TP_COMPONENTE</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Varchar2(30 CHAR)</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Campo que almacena el tipo del componente.<br> Ejemplo<br> btnGuardar es de tipo button<br> En este campo se guada.<br> button</td>
+  </tr>
+  <tr>
+    <td class="tabdata"></td>
+    <td class="tabdata">CD_DEFAULT</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Char(1 )</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Este campo nos indica si el componente descrito es obligatorio mostrar siempre y cuando la pantalla a mostrar tenga un componente NO DEFAUL, <br> Ejemplo:<br> T - Definir que es default<br> F - NO DEFAUL<br> </td>
+  </tr>
+  <tr>
+    <td class="tabdata">FK</td>
+    <td class="tabdata">ST_COMPONENTE</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Number(5,0)</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Estatus del componente<br> Ejemplo:<br> Activo<br> Desarrollo <br> </td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Relationships</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Relationship Name</td>
+    <td class="tabhead">Relationship Type</td>
+    <td class="tabhead">Parent Entity</td>
+    <td class="tabhead">Child Entity</td>
+    <td class="tabhead">Card.</td>
+  </tr>
+  <tr>
+    <td class="tabdata">R5015022</td>
+    <td class="tabdata">Identifying</td>
+    <td class="tabdata">TGM501_PANTALLA</td>
+    <td class="tabdata">TGM502_COMPONENTE</td>
+    <td class="tabdata">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabdata">R5025053</td>
+    <td class="tabdata">Identifying</td>
+    <td class="tabdata">TGM502_COMPONENTE</td>
+    <td class="tabdata">TGM505_CTRLPERMISO</td>
+    <td class="tabdata">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabdata">R5345028</td>
+    <td class="tabdata">Non-identifying</td>
+    <td class="tabdata">TGM534_ST_OBJETO</td>
+    <td class="tabdata">TGM502_COMPONENTE</td>
+    <td class="tabdata">1:N</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Keys</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="10%">Key Type</td>
+    <td class="tabhead" width="30%">Constraint Name</td>
+    <td class="tabhead" width="60%">Attributes</td>
+  </tr>
+  <tr>
+    <td class="tabdata" width="10%">PK</td>
+    <td class="tabdata" width="30%">IGM502P1_COMPONENT</td>
+    <td class="tabdata" width="60%">CD_PANTALLA, CD_COMPONENTE</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Comments</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabdata">Tabla componentes por pantalla web, esta tabla es la encargada de almacenar el total de componentes que tiene cada pantalla web que utiliza el sistema Mapeador México y permite tener un control de todos los componentes web del sistema mapeador.</td>
+  </tr>
+</table>
+<br>
+<div class="itemEnd"><p>&nbsp;</p></div></div>
+<div id="Table_{69BF5EF8-09BA-44A2-A546-FF16390AFA36}" class="item">
+<a name = "Table_{69BF5EF8-09BA-44A2-A546-FF16390AFA36}"></a>
+<div class="caption1"><p>TGM503_USUARIO</p></div>
+<div class="caption2"><p>General Info</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="20%">Caption</td>
+    <td class="tabdata" width="80%">TGM503_USUARIO</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Attributes</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Key</td>
+    <td class="tabhead">Attribute Name</td>
+    <td class="tabhead">Domain</td>
+    <td class="tabhead">Data Type</td>
+    <td class="tabhead">Not Null</td>
+    <td class="tabhead">Unique</td>
+    <td class="tabhead">Check</td>
+    <td class="tabhead">Default</td>
+    <td class="tabhead">Comments</td>
+  </tr>
+  <tr>
+    <td class="tabdata">PK</td>
+    <td class="tabdata">CD_USUARIO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Number(5,0)</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Consecutivo, representa a la llave primaria del la tabla TGM503_USUARIO</td>
+  </tr>
+  <tr>
+    <td class="tabdata"></td>
+    <td class="tabdata">CD_CVE_USUARIO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Varchar2(20 CHAR)</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Campo que almacena el usuario de red asignado por bbva<br> Ejemplo <br> XM05635</td>
+  </tr>
+  <tr>
+    <td class="tabdata"></td>
+    <td class="tabdata">NB_USUARIO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Varchar2(50 CHAR)</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Campo que almacena el nombre de un usuario.<br> Ejemplo <br> Juan Leon<br> Antonio Rios<br> </td>
+  </tr>
+  <tr>
+    <td class="tabdata"></td>
+    <td class="tabdata">TX_PASSWORD_USR</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Varchar2(35 CHAR)</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Campo que almacena la contraseña de acceso de un usuario.<br> Ejemplo <br> sdw4654ghr762245faqewwr</td>
+  </tr>
+  <tr>
+    <td class="tabdata"></td>
+    <td class="tabdata">TM_ALTA</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Date</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Campo que almacena la fecha y hora en que se dio de alta un usuario.<br> Ejemplo <br> 21/01/2013 03:58:41 p.m.</td>
+  </tr>
+  <tr>
+    <td class="tabdata"></td>
+    <td class="tabdata">TM_MODIFICACION</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Date</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Campo que almacena la fecha y hora en que se modificao la información de un usuario.<br> Ejemplo <br> 21/01/2013 03:58:41 p.m.</td>
+  </tr>
+  <tr>
+    <td class="tabdata"></td>
+    <td class="tabdata">FH_USUARIO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Date</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Sirve como índice, y es un campo que almacena la fecha de la última modificación al registro de un usuario.<br> Ejemplo <br> 21/01/2013</td>
+  </tr>
+  <tr>
+    <td class="tabdata"></td>
+    <td class="tabdata">TM_CAMBIO_PWS</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Date</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Campo que almacena la fecha y hora en que un usuario debe cambiar su contrasenia<br> Ejemplo <br> 21/01/2013 03:58:41 p.m.</td>
+  </tr>
+  <tr>
+    <td class="tabdata"></td>
+    <td class="tabdata">NU_INTENTOS</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Number(5,0)</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">El campo que almacena el número de intentos fallidos que el usuario ha tenido al querer entrar al sistema Mapeador México.</td>
+  </tr>
+  <tr>
+    <td class="tabdata">FK</td>
+    <td class="tabdata">ST_USUARIO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Number(5,0)</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Estatus del usuario<br> Ejemplo:<br> Activo<br> Vacaciones<br> </td>
+  </tr>
+  <tr>
+    <td class="tabdata">FK</td>
+    <td class="tabdata">CD_PERFIL</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Number(3,0)</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata"></td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Relationships</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Relationship Name</td>
+    <td class="tabhead">Relationship Type</td>
+    <td class="tabhead">Parent Entity</td>
+    <td class="tabhead">Child Entity</td>
+    <td class="tabhead">Card.</td>
+  </tr>
+  <tr>
+    <td class="tabdata">R5035076</td>
+    <td class="tabdata">Non-identifying</td>
+    <td class="tabdata">TGM503_USUARIO</td>
+    <td class="tabdata">TGM507_BITACORA</td>
+    <td class="tabdata">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabdata">R53450310</td>
+    <td class="tabdata">Non-identifying</td>
+    <td class="tabdata">TGM534_ST_OBJETO</td>
+    <td class="tabdata">TGM503_USUARIO</td>
+    <td class="tabdata">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabdata">R50354014</td>
+    <td class="tabdata">Identifying</td>
+    <td class="tabdata">TGM503_USUARIO</td>
+    <td class="tabdata">TGM540_CONTRASENIA</td>
+    <td class="tabdata">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabdata">R5045035</td>
+    <td class="tabdata">Non-identifying</td>
+    <td class="tabdata">TGM504_PERFIL</td>
+    <td class="tabdata">TGM503_USUARIO</td>
+    <td class="tabdata">1:N</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Keys</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="10%">Key Type</td>
+    <td class="tabhead" width="30%">Constraint Name</td>
+    <td class="tabhead" width="60%">Attributes</td>
+  </tr>
+  <tr>
+    <td class="tabdata" width="10%">PK</td>
+    <td class="tabdata" width="30%">IGM503P1_USUARIO</td>
+    <td class="tabdata" width="60%">CD_USUARIO</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Indexes</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Index Name</td>
+    <td class="tabhead">Attributes</td>
+    <td class="tabhead">Unique</td>
+    <td class="tabhead">Descending</td>
+    <td class="tabhead">Clustered</td>
+  </tr>
+  <tr>
+    <td class="tabdata">IGM503S1_USUARIO</td>
+    <td class="tabdata">FH_USUARIO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata" colspan="2"></td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Comments</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabdata">Tabla catálogo usuario mapeador, almacena todos los usuarios y sus respectivas contraseñas de acceso al  sistema Mapeador México.</td>
+  </tr>
+</table>
+<br>
+<div class="itemEnd"><p>&nbsp;</p></div></div>
+<div id="Table_{E88D6F98-1413-4FAC-9A59-CD160F0A87CF}" class="item">
+<a name = "Table_{E88D6F98-1413-4FAC-9A59-CD160F0A87CF}"></a>
+<div class="caption1"><p>TGM504_PERFIL</p></div>
+<div class="caption2"><p>General Info</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="20%">Caption</td>
+    <td class="tabdata" width="80%">TGM504_PERFIL</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Attributes</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Key</td>
+    <td class="tabhead">Attribute Name</td>
+    <td class="tabhead">Domain</td>
+    <td class="tabhead">Data Type</td>
+    <td class="tabhead">Not Null</td>
+    <td class="tabhead">Unique</td>
+    <td class="tabhead">Check</td>
+    <td class="tabhead">Default</td>
+    <td class="tabhead">Comments</td>
+  </tr>
+  <tr>
+    <td class="tabdata">PK</td>
+    <td class="tabdata">CD_PERFIL</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Number(3,0)</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Número consecutivo, es la llave primaria de TGM504_PERFIL.</td>
+  </tr>
+  <tr>
+    <td class="tabdata"></td>
+    <td class="tabdata">NB_PERFIL</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Varchar2(30 CHAR)</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Nombre del perfil, sirve para otorgar permisos aun usuario, sobre el sistema mapeador México <br> Ejemplo.<br> Administrador</td>
+  </tr>
+  <tr>
+    <td class="tabdata"></td>
+    <td class="tabdata">TX_PERFIL</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Varchar2(300 CHAR)</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Descripción del perfil, sirve para escribir a detalle los alcances sobre el sistema mapeador México del perfil.</td>
+  </tr>
+  <tr>
+    <td class="tabdata">FK</td>
+    <td class="tabdata">ST_PERFIL</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Number(5,0)</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Estatus del perfil<br> Ejemplo:<br> Activo<br> Desarrollo <br> </td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Relationships</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Relationship Name</td>
+    <td class="tabhead">Relationship Type</td>
+    <td class="tabhead">Parent Entity</td>
+    <td class="tabhead">Child Entity</td>
+    <td class="tabhead">Card.</td>
+  </tr>
+  <tr>
+    <td class="tabdata">R5045054</td>
+    <td class="tabdata">Identifying</td>
+    <td class="tabdata">TGM504_PERFIL</td>
+    <td class="tabdata">TGM505_CTRLPERMISO</td>
+    <td class="tabdata">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabdata">R53450411</td>
+    <td class="tabdata">Non-identifying</td>
+    <td class="tabdata">TGM534_ST_OBJETO</td>
+    <td class="tabdata">TGM504_PERFIL</td>
+    <td class="tabdata">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabdata">R5045035</td>
+    <td class="tabdata">Non-identifying</td>
+    <td class="tabdata">TGM504_PERFIL</td>
+    <td class="tabdata">TGM503_USUARIO</td>
+    <td class="tabdata">1:N</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Keys</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="10%">Key Type</td>
+    <td class="tabhead" width="30%">Constraint Name</td>
+    <td class="tabhead" width="60%">Attributes</td>
+  </tr>
+  <tr>
+    <td class="tabdata" width="10%">PK</td>
+    <td class="tabdata" width="30%">IGM504P1_PERFIL</td>
+    <td class="tabdata" width="60%">CD_PERFIL</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Comments</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabdata">Tabla catálogo perfil mapeador, almacena todos los perfiles existentes dentro del  sistema Mapeador México.</td>
+  </tr>
+</table>
+<br>
+<div class="itemEnd"><p>&nbsp;</p></div></div>
+<div id="Table_{F02D519C-E6F2-4AA3-8CF6-72F40C45D782}" class="item">
+<a name = "Table_{F02D519C-E6F2-4AA3-8CF6-72F40C45D782}"></a>
+<div class="caption1"><p>TGM505_CTRLPERMISO</p></div>
+<div class="caption2"><p>General Info</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="20%">Caption</td>
+    <td class="tabdata" width="80%">TGM505_CTRLPERMISO</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Attributes</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Key</td>
+    <td class="tabhead">Attribute Name</td>
+    <td class="tabhead">Domain</td>
+    <td class="tabhead">Data Type</td>
+    <td class="tabhead">Not Null</td>
+    <td class="tabhead">Unique</td>
+    <td class="tabhead">Check</td>
+    <td class="tabhead">Default</td>
+    <td class="tabhead">Comments</td>
+  </tr>
+  <tr>
+    <td class="tabdata">PFK</td>
+    <td class="tabdata">CD_PERFIL</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Number(3,0)</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Representa a la llave primaria tabla TGM504_PERFIL, y forma parte de la llave compuesta de esta tabla.</td>
+  </tr>
+  <tr>
+    <td class="tabdata">PFK</td>
+    <td class="tabdata">CD_PANTALLA</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Number(3,0)</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Representa a la llave primaria del la tabla TGM501_PANTALLA, y forma parte de la llave compuesta de la tabla TGM505_CTRLPERMISO</td>
+  </tr>
+  <tr>
+    <td class="tabdata">PFK</td>
+    <td class="tabdata">CD_COMPONENTE</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Number(3,0)</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Representa a la llave primaria compuesta de la tabla TGM502_COMPONENTE, y forma parte de la llave compuesta de esta tabla.</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Relationships</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Relationship Name</td>
+    <td class="tabhead">Relationship Type</td>
+    <td class="tabhead">Parent Entity</td>
+    <td class="tabhead">Child Entity</td>
+    <td class="tabhead">Card.</td>
+  </tr>
+  <tr>
+    <td class="tabdata">R5025053</td>
+    <td class="tabdata">Identifying</td>
+    <td class="tabdata">TGM502_COMPONENTE</td>
+    <td class="tabdata">TGM505_CTRLPERMISO</td>
+    <td class="tabdata">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabdata">R5045054</td>
+    <td class="tabdata">Identifying</td>
+    <td class="tabdata">TGM504_PERFIL</td>
+    <td class="tabdata">TGM505_CTRLPERMISO</td>
+    <td class="tabdata">1:N</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Keys</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="10%">Key Type</td>
+    <td class="tabhead" width="30%">Constraint Name</td>
+    <td class="tabhead" width="60%">Attributes</td>
+  </tr>
+  <tr>
+    <td class="tabdata" width="10%">PK</td>
+    <td class="tabdata" width="30%">IGM505P1_CTRLPERMI</td>
+    <td class="tabdata" width="60%">CD_PERFIL, CD_PANTALLA, CD_COMPONENTE</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Comments</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabdata">Tabla de control de permisos, almacena la relación que existe de un perfil con determinadas pantallas web y componentes por pantalla, es decir, es la tabla que proporciona los privilegios a un perfil dentro del sistema mapeador México.</td>
+  </tr>
+</table>
+<br>
+<div class="itemEnd"><p>&nbsp;</p></div></div>
+<div id="Table_{6276F2A8-64D0-487E-AB5C-9AEBD2117C09}" class="item">
+<a name = "Table_{6276F2A8-64D0-487E-AB5C-9AEBD2117C09}"></a>
+<div class="caption1"><p>TGM507_BITACORA</p></div>
+<div class="caption2"><p>General Info</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="20%">Caption</td>
+    <td class="tabdata" width="80%">TGM507_BITACORA</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Attributes</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Key</td>
+    <td class="tabhead">Attribute Name</td>
+    <td class="tabhead">Domain</td>
+    <td class="tabhead">Data Type</td>
+    <td class="tabhead">Not Null</td>
+    <td class="tabhead">Unique</td>
+    <td class="tabhead">Check</td>
+    <td class="tabhead">Default</td>
+    <td class="tabhead">Comments</td>
+  </tr>
+  <tr>
+    <td class="tabdata">PK</td>
+    <td class="tabdata">CD_BITACORA</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Number(15,0)</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Consecutivo, es la llave primaria del la tabla TGM507_BITACORA</td>
+  </tr>
+  <tr>
+    <td class="tabdata">FK</td>
+    <td class="tabdata">CD_USUARIO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Number(5,0)</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Representa a la llave primaria del la tabla TGM503_USUARIO, sirve para identificar al usuario que realizo algun evento dentro del sistema mapeador</td>
+  </tr>
+  <tr>
+    <td class="tabdata"></td>
+    <td class="tabdata">NB_BITACORA</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Varchar2(50 CHAR)</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Es un comentario breve, sobre el evento que se ejecutó dentro del sistema mapeador<br> Ejemplo.<br> Alta de &lt;elemento&gt;<br> Modificación de &lt;elemento&gt;<br> Eliminación  de &lt;elemento&gt;</td>
+  </tr>
+  <tr>
+    <td class="tabdata"></td>
+    <td class="tabdata">TX_BITACORA</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Clob</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Campo que almacena a detalle el evento realizado y las infomrmacion afectada dentro del sistema mapeador México.</td>
+  </tr>
+  <tr>
+    <td class="tabdata"></td>
+    <td class="tabdata">TM_BITACORA</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Date</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Campo que almacena la fecha y hora en que se generó algun eventro dentro del sistma mapeador<br> Ejemplo <br> 21/01/2013 03:58:41 p.m.</td>
+  </tr>
+  <tr>
+    <td class="tabdata"></td>
+    <td class="tabdata">FH_BITACORA</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Date</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Sirve como indice y almacena la fecha en la que se generó algun evento dentro del sistema mapeador<br> Ejemplo <br> 21/01/2013</td>
+  </tr>
+  <tr>
+    <td class="tabdata">FK</td>
+    <td class="tabdata">CD_EVENTO_MAPEADOR</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Number(5,0)</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Llave foránea, sirve para relacionar el evento que se generó en el sistema mapeador </td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Relationships</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Relationship Name</td>
+    <td class="tabhead">Relationship Type</td>
+    <td class="tabhead">Parent Entity</td>
+    <td class="tabhead">Child Entity</td>
+    <td class="tabhead">Card.</td>
+  </tr>
+  <tr>
+    <td class="tabdata">R5035076</td>
+    <td class="tabdata">Non-identifying</td>
+    <td class="tabdata">TGM503_USUARIO</td>
+    <td class="tabdata">TGM507_BITACORA</td>
+    <td class="tabdata">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabdata">R5085077</td>
+    <td class="tabdata">Non-identifying</td>
+    <td class="tabdata">TGM508_EVENTO_MAPA</td>
+    <td class="tabdata">TGM507_BITACORA</td>
+    <td class="tabdata">1:N</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Keys</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="10%">Key Type</td>
+    <td class="tabhead" width="30%">Constraint Name</td>
+    <td class="tabhead" width="60%">Attributes</td>
+  </tr>
+  <tr>
+    <td class="tabdata" width="10%">PK</td>
+    <td class="tabdata" width="30%">IGM507P1_BITACORA</td>
+    <td class="tabdata" width="60%">CD_BITACORA</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Indexes</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Index Name</td>
+    <td class="tabhead">Attributes</td>
+    <td class="tabhead">Unique</td>
+    <td class="tabhead">Descending</td>
+    <td class="tabhead">Clustered</td>
+  </tr>
+  <tr>
+    <td class="tabdata">IGM507S1_BITACORA</td>
+    <td class="tabdata">FH_BITACORA</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata" colspan="2"></td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Comments</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabdata">Tabla de bitácora de eventos, es la encargada de almacenar todo evento que intente ó genere cambios en la información del sistema Mapeador México.</td>
+  </tr>
+</table>
+<br>
+<div class="itemEnd"><p>&nbsp;</p></div></div>
+<div id="Table_{28381B6C-4CA9-4121-8EF7-3E2C2566CA6B}" class="item">
+<a name = "Table_{28381B6C-4CA9-4121-8EF7-3E2C2566CA6B}"></a>
+<div class="caption1"><p>TGM508_EVENTO_MAPA</p></div>
+<div class="caption2"><p>General Info</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="20%">Caption</td>
+    <td class="tabdata" width="80%">TGM508_EVENTO_MAPA</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Attributes</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Key</td>
+    <td class="tabhead">Attribute Name</td>
+    <td class="tabhead">Domain</td>
+    <td class="tabhead">Data Type</td>
+    <td class="tabhead">Not Null</td>
+    <td class="tabhead">Unique</td>
+    <td class="tabhead">Check</td>
+    <td class="tabhead">Default</td>
+    <td class="tabhead">Comments</td>
+  </tr>
+  <tr>
+    <td class="tabdata">PK</td>
+    <td class="tabdata">CD_EVENTO_MAPEADOR</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Number(5,0)</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Consecutivo, es la llave primaria del la tabla TGM508_EVENTO_MAPA</td>
+  </tr>
+  <tr>
+    <td class="tabdata"></td>
+    <td class="tabdata">NB_EVENTO_MAPEADOR</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Varchar2(30 CHAR)</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Campo que almacena un evento del sistema mapeador, el cual indica una accion del usuario dentro del sistema o un evento generado por el propio sistema.<br> Ejemplo <br> agregar usuario<br> eliminar contratacion<br> registro de archivo entrada<br> <br> </td>
+  </tr>
+  <tr>
+    <td class="tabdata"></td>
+    <td class="tabdata">TX_EVENTO_MAPEADOR</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Varchar2(200 CHAR)</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Descripción del evento mapeador, sirve para escribir a detalle las caracteristicas del evento indicado .</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Relationships</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Relationship Name</td>
+    <td class="tabhead">Relationship Type</td>
+    <td class="tabhead">Parent Entity</td>
+    <td class="tabhead">Child Entity</td>
+    <td class="tabhead">Card.</td>
+  </tr>
+  <tr>
+    <td class="tabdata">R5085077</td>
+    <td class="tabdata">Non-identifying</td>
+    <td class="tabdata">TGM508_EVENTO_MAPA</td>
+    <td class="tabdata">TGM507_BITACORA</td>
+    <td class="tabdata">1:N</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Keys</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="10%">Key Type</td>
+    <td class="tabhead" width="30%">Constraint Name</td>
+    <td class="tabhead" width="60%">Attributes</td>
+  </tr>
+  <tr>
+    <td class="tabdata" width="10%">PK</td>
+    <td class="tabdata" width="30%">IGM508P1_EVENTO_MA</td>
+    <td class="tabdata" width="60%">CD_EVENTO_MAPEADOR</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Comments</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabdata">Tabla catálogo de eventos mapeador, almacena todos los eventos permitidos en el dentro del  sistema Mapeador México.</td>
+  </tr>
+</table>
+<br>
+<div class="itemEnd"><p>&nbsp;</p></div></div>
+<div id="Table_{D351C56E-4945-4322-9E5F-4BED02AD083B}" class="item">
+<a name = "Table_{D351C56E-4945-4322-9E5F-4BED02AD083B}"></a>
+<div class="caption1"><p>TGM509_ST_CLAVE</p></div>
+<div class="caption2"><p>General Info</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="20%">Caption</td>
+    <td class="tabdata" width="80%">TGM509_ST_CLAVE</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Attributes</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Key</td>
+    <td class="tabhead">Attribute Name</td>
+    <td class="tabhead">Domain</td>
+    <td class="tabhead">Data Type</td>
+    <td class="tabhead">Not Null</td>
+    <td class="tabhead">Unique</td>
+    <td class="tabhead">Check</td>
+    <td class="tabhead">Default</td>
+    <td class="tabhead">Comments</td>
+  </tr>
+  <tr>
+    <td class="tabdata">PK</td>
+    <td class="tabdata">CD_ST_CLAVE</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Char(10 CHAR)</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Consecutivo, es la llave primaria del la tabla TGM509_ST_CLAVE</td>
+  </tr>
+  <tr>
+    <td class="tabdata"></td>
+    <td class="tabdata">NB_ST_CLAVE</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Varchar2(50 CHAR)</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Nombre de la clave que representa un estatus estándar dentro del sistema mapeador.<br> Ejemplo.<br> Activo <br> Inactivo<br> Este nombre clave, se comportará como palabra reservada la cual reconocerá el sistema para toma de decisiones<br> <br> <br> </td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Relationships</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Relationship Name</td>
+    <td class="tabhead">Relationship Type</td>
+    <td class="tabhead">Parent Entity</td>
+    <td class="tabhead">Child Entity</td>
+    <td class="tabhead">Card.</td>
+  </tr>
+  <tr>
+    <td class="tabdata">R50953412</td>
+    <td class="tabdata">Non-identifying</td>
+    <td class="tabdata">TGM509_ST_CLAVE</td>
+    <td class="tabdata">TGM534_ST_OBJETO</td>
+    <td class="tabdata">1:N</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Keys</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="10%">Key Type</td>
+    <td class="tabhead" width="30%">Constraint Name</td>
+    <td class="tabhead" width="60%">Attributes</td>
+  </tr>
+  <tr>
+    <td class="tabdata" width="10%">PK</td>
+    <td class="tabdata" width="30%">IGM509P1_ST_CLAVE</td>
+    <td class="tabdata" width="60%">CD_ST_CLAVE</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Comments</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabdata">Tabla catálogo status clave, almacena todos los status existentes en el sistema Mapeador México, la información contenida en esta tabla sirve para toma de decisiones dentro del sistema Mapeador México</td>
+  </tr>
+</table>
+<br>
+<div class="itemEnd"><p>&nbsp;</p></div></div>
+<div id="Table_{20D85D8F-E1D2-49CC-A0BE-93E511E03897}" class="item">
+<a name = "Table_{20D85D8F-E1D2-49CC-A0BE-93E511E03897}"></a>
+<div class="caption1"><p>TGM510_USUA_NOTIFI</p></div>
+<div class="caption2"><p>General Info</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="20%">Caption</td>
+    <td class="tabdata" width="80%">TGM510_USUA_NOTIFI</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Attributes</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Key</td>
+    <td class="tabhead">Attribute Name</td>
+    <td class="tabhead">Domain</td>
+    <td class="tabhead">Data Type</td>
+    <td class="tabhead">Not Null</td>
+    <td class="tabhead">Unique</td>
+    <td class="tabhead">Check</td>
+    <td class="tabhead">Default</td>
+    <td class="tabhead">Comments</td>
+  </tr>
+  <tr>
+    <td class="tabdata">PK</td>
+    <td class="tabdata">CD_USUA_NOTIFICADO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Number(5,0)</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Llave primaria de la tabla TGM510_USUA_NOTIFI</td>
+  </tr>
+  <tr>
+    <td class="tabdata"></td>
+    <td class="tabdata">NB_USUA_NOTIFICADO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Varchar2(100 CHAR)</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Representa al usuario que recibirá notificación en caso de un error en el mapero de caulquier etapa.</td>
+  </tr>
+  <tr>
+    <td class="tabdata"></td>
+    <td class="tabdata">TX_EMAIL</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Varchar2(100 CHAR)</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">email del usuario donde recibira la notificación</td>
+  </tr>
+  <tr>
+    <td class="tabdata">FK</td>
+    <td class="tabdata">CD_ST_OBJETO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Number(5,0)</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Estatus del usuario notificador</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Relationships</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Relationship Name</td>
+    <td class="tabhead">Relationship Type</td>
+    <td class="tabhead">Parent Entity</td>
+    <td class="tabhead">Child Entity</td>
+    <td class="tabhead">Card.</td>
+  </tr>
+  <tr>
+    <td class="tabdata">R53451015</td>
+    <td class="tabdata">Non-identifying</td>
+    <td class="tabdata">TGM534_ST_OBJETO</td>
+    <td class="tabdata">TGM510_USUA_NOTIFI</td>
+    <td class="tabdata">1:N</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Keys</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="10%">Key Type</td>
+    <td class="tabhead" width="30%">Constraint Name</td>
+    <td class="tabhead" width="60%">Attributes</td>
+  </tr>
+  <tr>
+    <td class="tabdata" width="10%">PK</td>
+    <td class="tabdata" width="30%">Key2</td>
+    <td class="tabdata" width="60%">CD_USUA_NOTIFICADO</td>
+  </tr>
+</table>
+<br>
+<div class="itemEnd"><p>&nbsp;</p></div></div>
+<div id="Table_{CA380738-BECE-4927-9A09-9BF6CEDE6378}" class="item">
+<a name = "Table_{CA380738-BECE-4927-9A09-9BF6CEDE6378}"></a>
+<div class="caption1"><p>TGM511_CANAL</p></div>
+<div class="caption2"><p>General Info</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="20%">Caption</td>
+    <td class="tabdata" width="80%">TGM511_CANAL</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Attributes</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Key</td>
+    <td class="tabhead">Attribute Name</td>
+    <td class="tabhead">Domain</td>
+    <td class="tabhead">Data Type</td>
+    <td class="tabhead">Not Null</td>
+    <td class="tabhead">Unique</td>
+    <td class="tabhead">Check</td>
+    <td class="tabhead">Default</td>
+    <td class="tabhead">Comments</td>
+  </tr>
+  <tr>
+    <td class="tabdata">PK</td>
+    <td class="tabdata">CD_CANAL</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Number(5,0)</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Consecutivo, es la llave primaria del la tabla TGM511_CANAL</td>
+  </tr>
+  <tr>
+    <td class="tabdata"></td>
+    <td class="tabdata">NB_CANAL</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Varchar2(5 CHAR)</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Nombre del canal, es el nombre que indica el aplicativo de donde viene y a dónde van los diferentes tipos de archivos mapeados <br> Ejemplo<br> H2H TRAD<br> SWIFT<br> BNC</td>
+  </tr>
+  <tr>
+    <td class="tabdata"></td>
+    <td class="tabdata">TX_CANAL</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Varchar2(300 CHAR)</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Descripción del canal, sirve para escribir a detalle las características relevantes del canal.<br> Ejemplo, para<br> H2H TRAD <br> El valor que se almacena es:<br> Host to Host tradicional</td>
+  </tr>
+  <tr>
+    <td class="tabdata"></td>
+    <td class="tabdata">TM_ALTA</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Date</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Campo que almacena la fecha y hora en que se dio de alta un canal.<br> Ejemplo <br> 21/01/2013 03:58:41 p.m.</td>
+  </tr>
+  <tr>
+    <td class="tabdata"></td>
+    <td class="tabdata">TX_RUTA_CANAL_ENT</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Varchar2(300 CHAR)</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Campo que almacena la ruta de transmision de entrada del canal<br> Ejemplo<br> /gmm/pp/aplicación/to[aplicación ó aplicativo]</td>
+  </tr>
+  <tr>
+    <td class="tabdata"></td>
+    <td class="tabdata">TX_RUTA_CANAL_SAL</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Varchar2(300 CHAR)</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Campo que almacena la ruta de transmision de salida, del canal.<br> Ejemplo<br> /gmm/pp/aplicación/from[aplicación ó aplicativo]</td>
+  </tr>
+  <tr>
+    <td class="tabdata">FK</td>
+    <td class="tabdata">CD_ST_OBJETO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Number(5,0)</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Estatus del canal<br> Ejemplo:<br> Activo<br> Desarrollo </td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Relationships</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Relationship Name</td>
+    <td class="tabhead">Relationship Type</td>
+    <td class="tabhead">Parent Entity</td>
+    <td class="tabhead">Child Entity</td>
+    <td class="tabhead">Card.</td>
+  </tr>
+  <tr>
+    <td class="tabdata">R53451113</td>
+    <td class="tabdata">Non-identifying</td>
+    <td class="tabdata">TGM534_ST_OBJETO</td>
+    <td class="tabdata">TGM511_CANAL</td>
+    <td class="tabdata">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabdata">R51151920</td>
+    <td class="tabdata">Non-identifying</td>
+    <td class="tabdata">TGM511_CANAL</td>
+    <td class="tabdata">TGM519_CONTRATACION</td>
+    <td class="tabdata">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabdata">R5115194</td>
+    <td class="tabdata">Non-identifying</td>
+    <td class="tabdata">TGM511_CANAL</td>
+    <td class="tabdata">TGM519_CONTRATACION</td>
+    <td class="tabdata">1:N</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Keys</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="10%">Key Type</td>
+    <td class="tabhead" width="30%">Constraint Name</td>
+    <td class="tabhead" width="60%">Attributes</td>
+  </tr>
+  <tr>
+    <td class="tabdata" width="10%">PK</td>
+    <td class="tabdata" width="30%">IGM511P1_CANAL</td>
+    <td class="tabdata" width="60%">CD_CANAL</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Comments</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabdata">Tabla catálogo canal del sistema mapeador,  almacena las características de todos los aplicativos -canales- que interactúan con el sistema mapeador México.</td>
+  </tr>
+</table>
+<br>
+<div class="itemEnd"><p>&nbsp;</p></div></div>
+<div id="Table_{4F357E76-AF4B-4A18-8C7C-7F3FED08808E}" class="item">
+<a name = "Table_{4F357E76-AF4B-4A18-8C7C-7F3FED08808E}"></a>
+<div class="caption1"><p>TGM512_CLIENTE</p></div>
+<div class="caption2"><p>General Info</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="20%">Caption</td>
+    <td class="tabdata" width="80%">TGM512_CLIENTE</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Attributes</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Key</td>
+    <td class="tabhead">Attribute Name</td>
+    <td class="tabhead">Domain</td>
+    <td class="tabhead">Data Type</td>
+    <td class="tabhead">Not Null</td>
+    <td class="tabhead">Unique</td>
+    <td class="tabhead">Check</td>
+    <td class="tabhead">Default</td>
+    <td class="tabhead">Comments</td>
+  </tr>
+  <tr>
+    <td class="tabdata">PK</td>
+    <td class="tabdata">CD_CLIENTE</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Number(5,0)</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Consecutivo, es la llave primaria del la tabla TGM512_CLIENTE</td>
+  </tr>
+  <tr>
+    <td class="tabdata"></td>
+    <td class="tabdata">CD_IDENTIFICADOR</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Varchar2(30 CHAR)</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Identificador con el cual el canal de entrada reconoce al cliente.</td>
+  </tr>
+  <tr>
+    <td class="tabdata"></td>
+    <td class="tabdata">NB_CORTO_CLIENTE</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Varchar2(30 CHAR)</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Nombre del cliente, hace referencia a un cliente sistema mapeador México.<br> Nombre representativo o Siglas del cliente<br> Ejemplo <br> PEMEX <br> IMSS</td>
+  </tr>
+  <tr>
+    <td class="tabdata"></td>
+    <td class="tabdata">NB_CLIENTE</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Varchar2(200 CHAR)</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Nombre del cliente, hace referencia a un cliente del sistema mapeador México, este nombre es mas descriptivo que NB_CORTO_CLIENTE<br> Ejemplo para<br> IMSS<br> El valor que se guarda es <br> Instituto Mexicano del Seguro Social</td>
+  </tr>
+  <tr>
+    <td class="tabdata"></td>
+    <td class="tabdata">TM_ALTA</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Date</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Campo que almacena la fecha y hora en que se dio de alta un cliente<br> Ejemplo <br> 21/01/2013 03:58:41 p.m.</td>
+  </tr>
+  <tr>
+    <td class="tabdata"></td>
+    <td class="tabdata">TM_MODIFICACION</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Date</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Campo que almacena la fecha y hora en que se modifico la información de un cliente<br> Ejemplo <br> 21/01/2013 03:58:41 p.m.</td>
+  </tr>
+  <tr>
+    <td class="tabdata">FK</td>
+    <td class="tabdata">CD_ST_OBJETO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Number(5,0)</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Estatus de un cliente<br> Ejemplo:<br> Activo<br> Inactivo</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Relationships</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Relationship Name</td>
+    <td class="tabhead">Relationship Type</td>
+    <td class="tabhead">Parent Entity</td>
+    <td class="tabhead">Child Entity</td>
+    <td class="tabhead">Card.</td>
+  </tr>
+  <tr>
+    <td class="tabdata">R53451217</td>
+    <td class="tabdata">Non-identifying</td>
+    <td class="tabdata">TGM534_ST_OBJETO</td>
+    <td class="tabdata">TGM512_CLIENTE</td>
+    <td class="tabdata">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabdata">R5125195</td>
+    <td class="tabdata">Non-identifying</td>
+    <td class="tabdata">TGM512_CLIENTE</td>
+    <td class="tabdata">TGM519_CONTRATACION</td>
+    <td class="tabdata">1:N</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Keys</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="10%">Key Type</td>
+    <td class="tabhead" width="30%">Constraint Name</td>
+    <td class="tabhead" width="60%">Attributes</td>
+  </tr>
+  <tr>
+    <td class="tabdata" width="10%">PK</td>
+    <td class="tabdata" width="30%">IGM512P1_CLIENTE</td>
+    <td class="tabdata" width="60%">CD_CLIENTE</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Comments</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabdata">Tabla catálogo cliente del sistema mapeador,  almacena las características de todos los clientes que usan los servicios del sistema mapeador México.La PK forma parte de un contrato.</td>
+  </tr>
+</table>
+<br>
+<div class="itemEnd"><p>&nbsp;</p></div></div>
+<div id="Table_{A5B81253-2890-468E-A593-E6EE0919A7C1}" class="item">
+<a name = "Table_{A5B81253-2890-468E-A593-E6EE0919A7C1}"></a>
+<div class="caption1"><p>TGM513_FLUJO</p></div>
+<div class="caption2"><p>General Info</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="20%">Caption</td>
+    <td class="tabdata" width="80%">TGM513_FLUJO</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Attributes</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Key</td>
+    <td class="tabhead">Attribute Name</td>
+    <td class="tabhead">Domain</td>
+    <td class="tabhead">Data Type</td>
+    <td class="tabhead">Not Null</td>
+    <td class="tabhead">Unique</td>
+    <td class="tabhead">Check</td>
+    <td class="tabhead">Default</td>
+    <td class="tabhead">Comments</td>
+  </tr>
+  <tr>
+    <td class="tabdata">PK</td>
+    <td class="tabdata">CD_FLUJO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Number(5,0)</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Consecutivo, es la llave primaria del la tabla TGM513_FLUJO</td>
+  </tr>
+  <tr>
+    <td class="tabdata"></td>
+    <td class="tabdata">NB_FLUJO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Varchar2(30 CHAR)</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Nombre representativo del flujo que se encuentra disponible en el sistema mapeador.<br> Ejemplo<br> F-H002<br> F-H010</td>
+  </tr>
+  <tr>
+    <td class="tabdata"></td>
+    <td class="tabdata">TX_FLUJO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Varchar2(200 CHAR)</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Descripción del nombre representativo del flujol, sirve para escribir a detalle las caracteristicas de determinado flujo del sistema mapeador México.<br> Ejemplo para:<br> F-H010<br> El valor que se almacena en este campo es:<br> Protección a cheques<br> </td>
+  </tr>
+  <tr>
+    <td class="tabdata"></td>
+    <td class="tabdata">TX_URL_IMAGEN</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Varchar2(500 CHAR)</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Es la dirección del lugar físico dentro del servidor, donde se encuentra la imagen del esquema que representa al flujo.<br> Puede ser dirección absoluta o relativa.<br> Ejemplo:<br> ../bbva/mapeador/image/flujos/fh10.png</td>
+  </tr>
+  <tr>
+    <td class="tabdata"></td>
+    <td class="tabdata">TM_ALTA</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Date</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Campo que almacena la fecha y hora en que se dio de alta un flujo.<br> Ejemplo <br> 21/01/2013 03:58:41 p.m.</td>
+  </tr>
+  <tr>
+    <td class="tabdata">FK</td>
+    <td class="tabdata">CD_ST_OBJETO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Number(5,0)</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Estatus del flujo.<br> Ejemplo:<br> Activo<br> Inactivo</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Relationships</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Relationship Name</td>
+    <td class="tabhead">Relationship Type</td>
+    <td class="tabhead">Parent Entity</td>
+    <td class="tabhead">Child Entity</td>
+    <td class="tabhead">Card.</td>
+  </tr>
+  <tr>
+    <td class="tabdata">R5135151</td>
+    <td class="tabdata">Non-identifying</td>
+    <td class="tabdata">TGM513_FLUJO</td>
+    <td class="tabdata">TGM515_PRODUCTO</td>
+    <td class="tabdata">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabdata">R5135183</td>
+    <td class="tabdata">Identifying</td>
+    <td class="tabdata">TGM513_FLUJO</td>
+    <td class="tabdata">TGM518_FLUJOETAPA</td>
+    <td class="tabdata">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabdata">R53451315</td>
+    <td class="tabdata">Non-identifying</td>
+    <td class="tabdata">TGM534_ST_OBJETO</td>
+    <td class="tabdata">TGM513_FLUJO</td>
+    <td class="tabdata">1:N</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Keys</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="10%">Key Type</td>
+    <td class="tabhead" width="30%">Constraint Name</td>
+    <td class="tabhead" width="60%">Attributes</td>
+  </tr>
+  <tr>
+    <td class="tabdata" width="10%">PK</td>
+    <td class="tabdata" width="30%">IGM513P1_FLUJO</td>
+    <td class="tabdata" width="60%">CD_FLUJO</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Comments</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabdata">Tabla catálogo flujo del sistema mapeador,  almacena todos los flujos existentes dentro el sistema mapeador México.</td>
+  </tr>
+</table>
+<br>
+<div class="itemEnd"><p>&nbsp;</p></div></div>
+<div id="Table_{76452B09-0416-4A79-9F4A-C0E978DB362C}" class="item">
+<a name = "Table_{76452B09-0416-4A79-9F4A-C0E978DB362C}"></a>
+<div class="caption1"><p>TGM514_MAPA_GMM</p></div>
+<div class="caption2"><p>General Info</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="20%">Caption</td>
+    <td class="tabdata" width="80%">TGM514_MAPA_GMM</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Attributes</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Key</td>
+    <td class="tabhead">Attribute Name</td>
+    <td class="tabhead">Domain</td>
+    <td class="tabhead">Data Type</td>
+    <td class="tabhead">Not Null</td>
+    <td class="tabhead">Unique</td>
+    <td class="tabhead">Check</td>
+    <td class="tabhead">Default</td>
+    <td class="tabhead">Comments</td>
+  </tr>
+  <tr>
+    <td class="tabdata">PK</td>
+    <td class="tabdata">CD_MAPA_GMM</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Number(5,0)</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Consecutivo, es la llave primaria del la tabla TGM514_MAPA_GMM</td>
+  </tr>
+  <tr>
+    <td class="tabdata"></td>
+    <td class="tabdata">NB_MAPA_GMM</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Varchar2(30 CHAR)</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Nombre corto de un mapa GMM, sirve para identificar a un mapa de forma rapida<br> Ejemplo.<br> MP_DIE_SIT<br> MP_IMSS_CHEQUE</td>
+  </tr>
+  <tr>
+    <td class="tabdata"></td>
+    <td class="tabdata">TX_MAPA_GMM</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Varchar2(200 CHAR)</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Descripción a detalle del nombre representativo del mapa GMM.<br> Ejemplo para<br> MP_IMSS_CHEQUE<br> El valor a guardar en este campo es:<br> Mapa a aplicar para mapear archivos de formato de Imss a BBVA Protección a Cheques</td>
+  </tr>
+  <tr>
+    <td class="tabdata"></td>
+    <td class="tabdata">TM_ALTA</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Date</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Campo que almacena la fecha y hora en que se dio de alta un mapa GMM.<br> Ejemplo <br> 21/01/2013 03:58:41 p.m.</td>
+  </tr>
+  <tr>
+    <td class="tabdata"></td>
+    <td class="tabdata">TM_MODIFICACION</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Date</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Campo que almacena la fecha y hora en que se modifico un mapa GMM.<br> Ejemplo <br> 21/01/2013 03:58:41 p.m.</td>
+  </tr>
+  <tr>
+    <td class="tabdata"></td>
+    <td class="tabdata">NB_PROCESO_SI</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Varchar2(50 CHAR)</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Es el nombre del Business Process , que será ejecutado en Sterling Integrator.<br> Ejemplo:<br> BBVAbpGMtstXM05635P1.bp</td>
+  </tr>
+  <tr>
+    <td class="tabdata">FK</td>
+    <td class="tabdata">CD_ST_OBJETO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Number(5,0)</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Estatus del Mapa GMM<br> Ejemplo:<br> Activo<br> Inactivo</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Relationships</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Relationship Name</td>
+    <td class="tabhead">Relationship Type</td>
+    <td class="tabhead">Parent Entity</td>
+    <td class="tabhead">Child Entity</td>
+    <td class="tabhead">Card.</td>
+  </tr>
+  <tr>
+    <td class="tabdata">R51452010</td>
+    <td class="tabdata">Non-identifying</td>
+    <td class="tabdata">TGM514_MAPA_GMM</td>
+    <td class="tabdata">TGM520_CONTRAT_MAP</td>
+    <td class="tabdata">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabdata">R53451418</td>
+    <td class="tabdata">Non-identifying</td>
+    <td class="tabdata">TGM534_ST_OBJETO</td>
+    <td class="tabdata">TGM514_MAPA_GMM</td>
+    <td class="tabdata">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabdata">R5145336</td>
+    <td class="tabdata">Non-identifying</td>
+    <td class="tabdata">TGM514_MAPA_GMM</td>
+    <td class="tabdata">TGM533_SECC_MAPA</td>
+    <td class="tabdata">1:N</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Keys</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="10%">Key Type</td>
+    <td class="tabhead" width="30%">Constraint Name</td>
+    <td class="tabhead" width="60%">Attributes</td>
+  </tr>
+  <tr>
+    <td class="tabdata" width="10%">PK</td>
+    <td class="tabdata" width="30%">IGM514P1_MAPA_GMM</td>
+    <td class="tabdata" width="60%">CD_MAPA_GMM</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Comments</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabdata">Tabla catálogo mapas GMM del sistema mapeador,  almacena todos los mapas y nombres de Business Process dispones para uso del sistema mapeador México.</td>
+  </tr>
+</table>
+<br>
+<div class="itemEnd"><p>&nbsp;</p></div></div>
+<div id="Table_{288DB567-3CC6-4E06-B786-B8BB2F46D7A5}" class="item">
+<a name = "Table_{288DB567-3CC6-4E06-B786-B8BB2F46D7A5}"></a>
+<div class="caption1"><p>TGM515_PRODUCTO</p></div>
+<div class="caption2"><p>General Info</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="20%">Caption</td>
+    <td class="tabdata" width="80%">TGM515_PRODUCTO</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Attributes</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Key</td>
+    <td class="tabhead">Attribute Name</td>
+    <td class="tabhead">Domain</td>
+    <td class="tabhead">Data Type</td>
+    <td class="tabhead">Not Null</td>
+    <td class="tabhead">Unique</td>
+    <td class="tabhead">Check</td>
+    <td class="tabhead">Default</td>
+    <td class="tabhead">Comments</td>
+  </tr>
+  <tr>
+    <td class="tabdata">PK</td>
+    <td class="tabdata">CD_PRODUCTO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Number(5,0)</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Consecutivo, es la llave primaria del la tabla TGM513_FLUJO.</td>
+  </tr>
+  <tr>
+    <td class="tabdata">FK</td>
+    <td class="tabdata">CD_FLUJO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Number(5,0)</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Llave foránea, sirve para relacionar el flujo que utiliza un producto dentro del sistema mapeador.</td>
+  </tr>
+  <tr>
+    <td class="tabdata"></td>
+    <td class="tabdata">NB_PRODUCTO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Varchar2(30 CHAR)</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Nombre representativo del un producto.<br> Ejemplo.<br> Nomina IMSS<br> </td>
+  </tr>
+  <tr>
+    <td class="tabdata"></td>
+    <td class="tabdata">TX_PRODUCTO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Varchar2(200 CHAR)</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Descripción del producto, sirve para escribir a detalle las caracteristicas de determinado producto del sistema mapeador México.<br> Ejemplo para:<br> Nomina IMSS<br> El valor a guardar en este campo:<br> Producto de nómina para archivos de entrada del cliente</td>
+  </tr>
+  <tr>
+    <td class="tabdata"></td>
+    <td class="tabdata">TM_ALTA</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Date</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Campo que almacena la fecha y hora en que se dio de alta un producto.<br> Ejemplo <br> 21/01/2013 03:58:41 p.m.</td>
+  </tr>
+  <tr>
+    <td class="tabdata"></td>
+    <td class="tabdata">TM_MODIFICACION</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Date</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Campo que almacena la fecha y hora en que se modificó la información de un producto.<br> Ejemplo <br> 21/01/2013 03:58:41 p.m.</td>
+  </tr>
+  <tr>
+    <td class="tabdata">FK</td>
+    <td class="tabdata">CD_ST_OBJETO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Number(5,0)</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Estatus del producto.<br> Ejemplo:<br> Activo<br> Inactivo<br> </td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Relationships</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Relationship Name</td>
+    <td class="tabhead">Relationship Type</td>
+    <td class="tabhead">Parent Entity</td>
+    <td class="tabhead">Child Entity</td>
+    <td class="tabhead">Card.</td>
+  </tr>
+  <tr>
+    <td class="tabdata">R5135151</td>
+    <td class="tabdata">Non-identifying</td>
+    <td class="tabdata">TGM513_FLUJO</td>
+    <td class="tabdata">TGM515_PRODUCTO</td>
+    <td class="tabdata">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabdata">R53451514</td>
+    <td class="tabdata">Non-identifying</td>
+    <td class="tabdata">TGM534_ST_OBJETO</td>
+    <td class="tabdata">TGM515_PRODUCTO</td>
+    <td class="tabdata">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabdata">R5155196</td>
+    <td class="tabdata">Non-identifying</td>
+    <td class="tabdata">TGM515_PRODUCTO</td>
+    <td class="tabdata">TGM519_CONTRATACION</td>
+    <td class="tabdata">1:N</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Keys</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="10%">Key Type</td>
+    <td class="tabhead" width="30%">Constraint Name</td>
+    <td class="tabhead" width="60%">Attributes</td>
+  </tr>
+  <tr>
+    <td class="tabdata" width="10%">PK</td>
+    <td class="tabdata" width="30%">IGM515P1_PRODUCTO</td>
+    <td class="tabdata" width="60%">CD_PRODUCTO</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Comments</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabdata">Tabla catálogo producto del sistema mapeador,  almacena los productos -servicios que ofrece el banco a sus clientes- que contempla el sistema mapeador para ser generados. <br> Por ejemplo, el producto Pago de Nomina IMSS</td>
+  </tr>
+</table>
+<br>
+<div class="itemEnd"><p>&nbsp;</p></div></div>
+<div id="Table_{038C345E-98B4-4594-8549-19A05D9716B5}" class="item">
+<a name = "Table_{038C345E-98B4-4594-8549-19A05D9716B5}"></a>
+<div class="caption1"><p>TGM516_MENSAJE_SAL</p></div>
+<div class="caption2"><p>General Info</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="20%">Caption</td>
+    <td class="tabdata" width="80%">TGM516_MENSAJE_SAL</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Attributes</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Key</td>
+    <td class="tabhead">Attribute Name</td>
+    <td class="tabhead">Domain</td>
+    <td class="tabhead">Data Type</td>
+    <td class="tabhead">Not Null</td>
+    <td class="tabhead">Unique</td>
+    <td class="tabhead">Check</td>
+    <td class="tabhead">Default</td>
+    <td class="tabhead">Comments</td>
+  </tr>
+  <tr>
+    <td class="tabdata">PK</td>
+    <td class="tabdata">CD_MENSAJE_SALIDA</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Number(4,0)</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Numero consecutivo, es la llave primaria del la tabla TGM516_MENSAJE_SAL</td>
+  </tr>
+  <tr>
+    <td class="tabdata"></td>
+    <td class="tabdata">NB_MENSAJE_SALIDA</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Varchar2(50 CHAR)</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Nombre corto y representativo del mensaje de salida.<br> Ejemplo.<br> MSG_ERR_IMSS<br> MSG_ERR_PEMEX_PC</td>
+  </tr>
+  <tr>
+    <td class="tabdata"></td>
+    <td class="tabdata">TX_MENSAJE_SALIDA</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Varchar2(300 CHAR)</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Es el campo donde se guarda el mensaje de salida completo.<br> Ejemplo:<br> Error al mapear archivo de Pemex de Protección a Cheques correspondiente a %FH_ERROR%, lote %NU_LOTE%.<br> </td>
+  </tr>
+  <tr>
+    <td class="tabdata">FK</td>
+    <td class="tabdata">CD_ST_OBJETO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Number(5,0)</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Estatus del mensaje de salida.<br> Ejemplo:<br> Activo<br> Inactivo</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Relationships</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Relationship Name</td>
+    <td class="tabhead">Relationship Type</td>
+    <td class="tabhead">Parent Entity</td>
+    <td class="tabhead">Child Entity</td>
+    <td class="tabhead">Card.</td>
+  </tr>
+  <tr>
+    <td class="tabdata">R51652011</td>
+    <td class="tabdata">Non-identifying</td>
+    <td class="tabdata">TGM516_MENSAJE_SAL</td>
+    <td class="tabdata">TGM520_CONTRAT_MAP</td>
+    <td class="tabdata">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabdata">R53451619</td>
+    <td class="tabdata">Non-identifying</td>
+    <td class="tabdata">TGM534_ST_OBJETO</td>
+    <td class="tabdata">TGM516_MENSAJE_SAL</td>
+    <td class="tabdata">1:N</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Keys</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="10%">Key Type</td>
+    <td class="tabhead" width="30%">Constraint Name</td>
+    <td class="tabhead" width="60%">Attributes</td>
+  </tr>
+  <tr>
+    <td class="tabdata" width="10%">PK</td>
+    <td class="tabdata" width="30%">IGM516P1_MSN_SAL</td>
+    <td class="tabdata" width="60%">CD_MENSAJE_SALIDA</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Comments</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabdata">Tabla catálogo mensajes del sistema mapeador,  almacena los mensajes que serán usados por el sistema mapeador México, estos mensajes pueden ser las notificaciones a enviar en caso de error en algún proceso, cada mensaje es pre configurado  con palabras comodín con el objetivo de sustituir estas palabras y el mensaje sea personalizado por el sistema según el proceso en ejecución. </td>
+  </tr>
+</table>
+<br>
+<div class="itemEnd"><p>&nbsp;</p></div></div>
+<div id="Table_{1F4C3ABA-CA1F-403A-A88B-CD09A93AEA57}" class="item">
+<a name = "Table_{1F4C3ABA-CA1F-403A-A88B-CD09A93AEA57}"></a>
+<div class="caption1"><p>TGM517_ETAPA</p></div>
+<div class="caption2"><p>General Info</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="20%">Caption</td>
+    <td class="tabdata" width="80%">TGM517_ETAPA</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Attributes</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Key</td>
+    <td class="tabhead">Attribute Name</td>
+    <td class="tabhead">Domain</td>
+    <td class="tabhead">Data Type</td>
+    <td class="tabhead">Not Null</td>
+    <td class="tabhead">Unique</td>
+    <td class="tabhead">Check</td>
+    <td class="tabhead">Default</td>
+    <td class="tabhead">Comments</td>
+  </tr>
+  <tr>
+    <td class="tabdata">PK</td>
+    <td class="tabdata">CD_ETAPA</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Number(5,0)</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Consecutivo, es la llave primaria del la tabla TGM517_ETAPA</td>
+  </tr>
+  <tr>
+    <td class="tabdata"></td>
+    <td class="tabdata">NB_ETAPA</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Varchar2(30 CHAR)</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Nombre corto y representativo del reporte existente en los flujos.<br> Ejemplo:<br> Archivo Entrada<br> Acuse<br> Remisión total</td>
+  </tr>
+  <tr>
+    <td class="tabdata"></td>
+    <td class="tabdata">TX_ETAPA</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Varchar2(200 CHAR)</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Descripción del nombre corto y representativo del reporte existente en un flujo.<br> Ejemplo para:<br> Acuse<br> El valor a guardar es:<br> Reporte para archivo de Acuse de respuesta para el cliente IMSS</td>
+  </tr>
+  <tr>
+    <td class="tabdata"></td>
+    <td class="tabdata">TP_ETAPA</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Char(1 CHAR)</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Es el tipo de reporte.<br> Ejemplo:<br> Entrada<br> Respuesta</td>
+  </tr>
+  <tr>
+    <td class="tabdata">FK</td>
+    <td class="tabdata">CD_ST_OBJETO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Number(5,0)</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Estatus del reporte<br> Ejemplo:<br> Activo<br> Inactivo</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Relationships</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Relationship Name</td>
+    <td class="tabhead">Relationship Type</td>
+    <td class="tabhead">Parent Entity</td>
+    <td class="tabhead">Child Entity</td>
+    <td class="tabhead">Card.</td>
+  </tr>
+  <tr>
+    <td class="tabdata">R5175182</td>
+    <td class="tabdata">Identifying</td>
+    <td class="tabdata">TGM517_ETAPA</td>
+    <td class="tabdata">TGM518_FLUJOETAPA</td>
+    <td class="tabdata">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabdata">R53451716</td>
+    <td class="tabdata">Non-identifying</td>
+    <td class="tabdata">TGM534_ST_OBJETO</td>
+    <td class="tabdata">TGM517_ETAPA</td>
+    <td class="tabdata">1:N</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Keys</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="10%">Key Type</td>
+    <td class="tabhead" width="30%">Constraint Name</td>
+    <td class="tabhead" width="60%">Attributes</td>
+  </tr>
+  <tr>
+    <td class="tabdata" width="10%">PK</td>
+    <td class="tabdata" width="30%">IGM517P1_ETAPA</td>
+    <td class="tabdata" width="60%">CD_ETAPA</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Comments</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabdata">Tabla catálogo reporte del sistema mapeador,  almacena todos los reportes -archivos del sistema- existentes en todos los flujos del sistema mapeador México, estos reportes representan son los archivos de entrada y/o salida que tiene determinado flujo del sistema.</td>
+  </tr>
+</table>
+<br>
+<div class="itemEnd"><p>&nbsp;</p></div></div>
+<div id="Table_{B043FC30-C545-4C69-95E1-E096BE2E67C3}" class="item">
+<a name = "Table_{B043FC30-C545-4C69-95E1-E096BE2E67C3}"></a>
+<div class="caption1"><p>TGM518_FLUJOETAPA</p></div>
+<div class="caption2"><p>General Info</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="20%">Caption</td>
+    <td class="tabdata" width="80%">TGM518_FLUJOETAPA</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Attributes</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Key</td>
+    <td class="tabhead">Attribute Name</td>
+    <td class="tabhead">Domain</td>
+    <td class="tabhead">Data Type</td>
+    <td class="tabhead">Not Null</td>
+    <td class="tabhead">Unique</td>
+    <td class="tabhead">Check</td>
+    <td class="tabhead">Default</td>
+    <td class="tabhead">Comments</td>
+  </tr>
+  <tr>
+    <td class="tabdata">PFK</td>
+    <td class="tabdata">CD_FLUJO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Number(5,0)</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Representa a la llave primaria del la tabla TGM513_FLUJO, y forma parte de la llave compuesta de esta tabla TGM518_FLUJOETAPA</td>
+  </tr>
+  <tr>
+    <td class="tabdata">PFK</td>
+    <td class="tabdata">CD_ETAPA</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Number(5,0)</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Representa a la llave primaria del la tabla TGM517_ETAPA, y forma parte de la llave compuesta de esta tabla TGM518_FLUJOETAPA</td>
+  </tr>
+  <tr>
+    <td class="tabdata"></td>
+    <td class="tabdata">NU_ORDEN_ETAPA</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Number(5,0)</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Numero consecutivo, represente al orden qued debe tener cada reporte en dentro de un flujo.</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Relationships</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Relationship Name</td>
+    <td class="tabhead">Relationship Type</td>
+    <td class="tabhead">Parent Entity</td>
+    <td class="tabhead">Child Entity</td>
+    <td class="tabhead">Card.</td>
+  </tr>
+  <tr>
+    <td class="tabdata">R5175182</td>
+    <td class="tabdata">Identifying</td>
+    <td class="tabdata">TGM517_ETAPA</td>
+    <td class="tabdata">TGM518_FLUJOETAPA</td>
+    <td class="tabdata">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabdata">R5185208</td>
+    <td class="tabdata">Identifying</td>
+    <td class="tabdata">TGM518_FLUJOETAPA</td>
+    <td class="tabdata">TGM520_CONTRAT_MAP</td>
+    <td class="tabdata">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabdata">R5135183</td>
+    <td class="tabdata">Identifying</td>
+    <td class="tabdata">TGM513_FLUJO</td>
+    <td class="tabdata">TGM518_FLUJOETAPA</td>
+    <td class="tabdata">1:N</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Keys</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="10%">Key Type</td>
+    <td class="tabhead" width="30%">Constraint Name</td>
+    <td class="tabhead" width="60%">Attributes</td>
+  </tr>
+  <tr>
+    <td class="tabdata" width="10%">PK</td>
+    <td class="tabdata" width="30%">IGM518P1_FLUJOREP</td>
+    <td class="tabdata" width="60%">CD_FLUJO, CD_ETAPA</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Comments</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabdata">Tabla flujo reporte del sistema mapeador México, es una tabla de control, almacena la relación que existe entre un flujo con determinado número de reportes, es decir, es la tabla que proporciona al sistema Mapeador México la configuración que tiene determinado flujo ya que cada flujo puede tener n numero de reportes -archivo entrada, acuse, validación- y cada reporte está obligado a tener un orden que determina la secuencia de ejecución del los BPs y generación del archivo mapeado.</td>
+  </tr>
+</table>
+<br>
+<div class="itemEnd"><p>&nbsp;</p></div></div>
+<div id="Table_{0EBEBD0A-4D47-441E-8A98-1EF9EA1F1863}" class="item">
+<a name = "Table_{0EBEBD0A-4D47-441E-8A98-1EF9EA1F1863}"></a>
+<div class="caption1"><p>TGM519_CONTRATACION</p></div>
+<div class="caption2"><p>General Info</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="20%">Caption</td>
+    <td class="tabdata" width="80%">TGM519_CONTRATACION</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Attributes</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Key</td>
+    <td class="tabhead">Attribute Name</td>
+    <td class="tabhead">Domain</td>
+    <td class="tabhead">Data Type</td>
+    <td class="tabhead">Not Null</td>
+    <td class="tabhead">Unique</td>
+    <td class="tabhead">Check</td>
+    <td class="tabhead">Default</td>
+  </tr>
+  <tr>
+    <td class="tabdata">PK</td>
+    <td class="tabdata">CD_CONTRATACION</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Number(10,0)</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+  </tr>
+  <tr>
+    <td class="tabdata">FK</td>
+    <td class="tabdata">CD_CANAL</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Number(5,0)</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+  </tr>
+  <tr>
+    <td class="tabdata">FK</td>
+    <td class="tabdata">CD_CLIENTE</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Number(5,0)</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+  </tr>
+  <tr>
+    <td class="tabdata">FK</td>
+    <td class="tabdata">CD_PRODUCTO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Number(5,0)</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+  </tr>
+  <tr>
+    <td class="tabdata">FK</td>
+    <td class="tabdata">CD_CANAL_SALIDA</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Number(5,0)</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+  </tr>
+  <tr>
+    <td class="tabdata"></td>
+    <td class="tabdata">TM_ALTA</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Date</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+  </tr>
+  <tr>
+    <td class="tabdata"></td>
+    <td class="tabdata">TM_MODIFICACION</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Date</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+  </tr>
+  <tr>
+    <td class="tabdata">FK</td>
+    <td class="tabdata">CD_ST_OBJETO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Number(5,0)</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Relationships</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Relationship Name</td>
+    <td class="tabhead">Relationship Type</td>
+    <td class="tabhead">Parent Entity</td>
+    <td class="tabhead">Child Entity</td>
+    <td class="tabhead">Card.</td>
+  </tr>
+  <tr>
+    <td class="tabdata">R5195207</td>
+    <td class="tabdata">Identifying</td>
+    <td class="tabdata">TGM519_CONTRATACION</td>
+    <td class="tabdata">TGM520_CONTRAT_MAP</td>
+    <td class="tabdata">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabdata">R51151920</td>
+    <td class="tabdata">Non-identifying</td>
+    <td class="tabdata">TGM511_CANAL</td>
+    <td class="tabdata">TGM519_CONTRATACION</td>
+    <td class="tabdata">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabdata">R5115194</td>
+    <td class="tabdata">Non-identifying</td>
+    <td class="tabdata">TGM511_CANAL</td>
+    <td class="tabdata">TGM519_CONTRATACION</td>
+    <td class="tabdata">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabdata">R5125195</td>
+    <td class="tabdata">Non-identifying</td>
+    <td class="tabdata">TGM512_CLIENTE</td>
+    <td class="tabdata">TGM519_CONTRATACION</td>
+    <td class="tabdata">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabdata">R5155196</td>
+    <td class="tabdata">Non-identifying</td>
+    <td class="tabdata">TGM515_PRODUCTO</td>
+    <td class="tabdata">TGM519_CONTRATACION</td>
+    <td class="tabdata">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabdata">R53451922</td>
+    <td class="tabdata">Non-identifying</td>
+    <td class="tabdata">TGM534_ST_OBJETO</td>
+    <td class="tabdata">TGM519_CONTRATACION</td>
+    <td class="tabdata">1:N</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Keys</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="10%">Key Type</td>
+    <td class="tabhead" width="30%">Constraint Name</td>
+    <td class="tabhead" width="60%">Attributes</td>
+  </tr>
+  <tr>
+    <td class="tabdata" width="10%">PK</td>
+    <td class="tabdata" width="30%">IGM519P1_PROCESO</td>
+    <td class="tabdata" width="60%">CD_CONTRATACION</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Comments</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabdata">Tabla contratación del sistema mapeador México , es una tabla de control, almacena la relación que existe entre un canal, cliente y producto , es decir, es la tabla que proporciona al sistema Mapeador México la contratación que tiene determinado cliente, esta contratación es única y un cliente puede tener varias contrataciones dentro del sistema mapeador México.</td>
+  </tr>
+</table>
+<br>
+<div class="itemEnd"><p>&nbsp;</p></div></div>
+<div id="Table_{A137C701-57DA-4E6C-B8B2-CFA26011CDC3}" class="item">
+<a name = "Table_{A137C701-57DA-4E6C-B8B2-CFA26011CDC3}"></a>
+<div class="caption1"><p>TGM520_CONTRAT_MAP</p></div>
+<div class="caption2"><p>General Info</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="20%">Caption</td>
+    <td class="tabdata" width="80%">TGM520_CONTRAT_MAP</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Attributes</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Key</td>
+    <td class="tabhead">Attribute Name</td>
+    <td class="tabhead">Domain</td>
+    <td class="tabhead">Data Type</td>
+    <td class="tabhead">Not Null</td>
+    <td class="tabhead">Unique</td>
+    <td class="tabhead">Check</td>
+    <td class="tabhead">Default</td>
+    <td class="tabhead">Comments</td>
+  </tr>
+  <tr>
+    <td class="tabdata">PFK</td>
+    <td class="tabdata">CD_CONTRATACION</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Number(10,0)</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata"></td>
+  </tr>
+  <tr>
+    <td class="tabdata">PFK</td>
+    <td class="tabdata">CD_FLUJO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Number(5,0)</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Representa a la llave primaria del la tabla TGM513_FLUJO, y forma parte de la llave compuesta de esta tabla TGM520_CONTRAT_MAP</td>
+  </tr>
+  <tr>
+    <td class="tabdata">PFK</td>
+    <td class="tabdata">CD_ETAPA</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Number(5,0)</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Representa a la llave primaria del la tabla TGM517_REPORTE, y forma parte de la llave compuesta de esta tabla TGM520_CONTRAT_MAP</td>
+  </tr>
+  <tr>
+    <td class="tabdata">FK</td>
+    <td class="tabdata">CD_MAPA_GMM</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Number(5,0)</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Llave foránea de esta tabla TGM520_CONTRAT_MAP, representa a la llave primaria del la tabla TGM514_MAPA_GMM, sirve para relacionar el mapa GMM que utiliza el reporte durante su mapeo.</td>
+  </tr>
+  <tr>
+    <td class="tabdata"></td>
+    <td class="tabdata">ST_NOTIFICACION</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Char(1 CHAR)</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Actua como bandera para determinar si se mandara notificación o no, a usuarios en caso de algun error.<br> Ejemplo.<br> 'T' para el caso de requerir notificación<br> 'F' para el caso de requerir notificación</td>
+  </tr>
+  <tr>
+    <td class="tabdata">FK</td>
+    <td class="tabdata">CD_MENSAJE_SALIDA</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Number(4,0)</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Llave foránea de esta tabla TGM520_CONTRAT_MAP, representa a la llave primaria del la tabla TGM516_MENSAJE_SAL, hace referencia al mensaje que será enviado en caso de algún error durante el proceso de mapeo</td>
+  </tr>
+  <tr>
+    <td class="tabdata"></td>
+    <td class="tabdata">TX_ID_USUARIOS</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Varchar2(200 )</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Campo ID_USUARIOS, es el campo que almacena una cadena que contiene todas las llaves primarias correspondientes a los usuarios que deberán recibir notificación en caso de error. Estas llaves primarias deben existir en la tabla TGM503_USUARIO.<br> Ejemplo de cadena a guardar:<br> 23~1~3~9~2<br> </td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Relationships</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Relationship Name</td>
+    <td class="tabhead">Relationship Type</td>
+    <td class="tabhead">Parent Entity</td>
+    <td class="tabhead">Child Entity</td>
+    <td class="tabhead">Card.</td>
+  </tr>
+  <tr>
+    <td class="tabdata">R5185208</td>
+    <td class="tabdata">Identifying</td>
+    <td class="tabdata">TGM518_FLUJOETAPA</td>
+    <td class="tabdata">TGM520_CONTRAT_MAP</td>
+    <td class="tabdata">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabdata">R5195207</td>
+    <td class="tabdata">Identifying</td>
+    <td class="tabdata">TGM519_CONTRATACION</td>
+    <td class="tabdata">TGM520_CONTRAT_MAP</td>
+    <td class="tabdata">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabdata">R51452010</td>
+    <td class="tabdata">Non-identifying</td>
+    <td class="tabdata">TGM514_MAPA_GMM</td>
+    <td class="tabdata">TGM520_CONTRAT_MAP</td>
+    <td class="tabdata">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabdata">R51652011</td>
+    <td class="tabdata">Non-identifying</td>
+    <td class="tabdata">TGM516_MENSAJE_SAL</td>
+    <td class="tabdata">TGM520_CONTRAT_MAP</td>
+    <td class="tabdata">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabdata">R52052221</td>
+    <td class="tabdata">Identifying</td>
+    <td class="tabdata">TGM520_CONTRAT_MAP</td>
+    <td class="tabdata">TGM522_ST_PROCESO</td>
+    <td class="tabdata">1:N</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Keys</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="10%">Key Type</td>
+    <td class="tabhead" width="30%">Constraint Name</td>
+    <td class="tabhead" width="60%">Attributes</td>
+  </tr>
+  <tr>
+    <td class="tabdata" width="10%">PK</td>
+    <td class="tabdata" width="30%">IGM520P1_PROREPOR</td>
+    <td class="tabdata" width="60%">CD_FLUJO, CD_ETAPA, CD_CONTRATACION</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Comments</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabdata">Tabla contrato mapa del sistema mapeador México, es una tabla de control, almacena la configuración a detalle de cada contrato así como el tipo de mapeo a aplicar en cada uno de sus reportes y las notificaciones que recibirán determinados usuarios en caso de error también indica el canal de salida donde se tendrán que depositar los reportes mapeados según el contrato, esta tabla es indispensable para la ejecución de procesos dentro del sistema mapeador.</td>
+  </tr>
+</table>
+<br>
+<div class="itemEnd"><p>&nbsp;</p></div></div>
+<div id="Table_{FCD435A3-71F9-4027-8036-FA122BDB26AC}" class="item">
+<a name = "Table_{FCD435A3-71F9-4027-8036-FA122BDB26AC}"></a>
+<div class="caption1"><p>TGM521_PBA_COMODIN</p></div>
+<div class="caption2"><p>General Info</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="20%">Caption</td>
+    <td class="tabdata" width="80%">TGM521_PBA_COMODIN</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Attributes</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Key</td>
+    <td class="tabhead">Attribute Name</td>
+    <td class="tabhead">Domain</td>
+    <td class="tabhead">Data Type</td>
+    <td class="tabhead">Not Null</td>
+    <td class="tabhead">Unique</td>
+    <td class="tabhead">Check</td>
+    <td class="tabhead">Default</td>
+    <td class="tabhead">Comments</td>
+  </tr>
+  <tr>
+    <td class="tabdata">PK</td>
+    <td class="tabdata">CD_PALABRA_COMODIN</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Number(5,0)</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Consecutivo, es la llave primaria de la tabla TGM521_PBA_COMODIN</td>
+  </tr>
+  <tr>
+    <td class="tabdata"></td>
+    <td class="tabdata">NB_PALABRA_COMODIN</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Varchar2(30 CHAR)</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Este nombre , se comportará como palabra reservada la cual reconocerá el sistema mapeador para sustituirlar por datos de procesos.<br> Ejemplo <br> nom_usua<br> nom_arch_ent</td>
+  </tr>
+  <tr>
+    <td class="tabdata"></td>
+    <td class="tabdata">TX_PALABRA_COMODIN</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Varchar2(300 CHAR)</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Es el campo donde se guarda la descripción y uso de la palabra comodin dentro del sistema mapeador México.</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Keys</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="10%">Key Type</td>
+    <td class="tabhead" width="30%">Constraint Name</td>
+    <td class="tabhead" width="60%">Attributes</td>
+  </tr>
+  <tr>
+    <td class="tabdata" width="10%">PK</td>
+    <td class="tabdata" width="30%">IGM521P1_PBA_COMOD</td>
+    <td class="tabdata" width="60%">CD_PALABRA_COMODIN</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Comments</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabdata">Tabla catálogo palabra comodín del sistema mapeador,  almacena las palabras que serán usados por los mensajes de salida pre configurados, estas palabras comodín se comportaran como palabras clave para ser sustituidas por el sistema y el mensaje de salida sea personalizado según el proceso en ejecución.</td>
+  </tr>
+</table>
+<br>
+<div class="itemEnd"><p>&nbsp;</p></div></div>
+<div id="Table_{0955F352-58E7-48F0-B8A5-75CDD66469BC}" class="item">
+<a name = "Table_{0955F352-58E7-48F0-B8A5-75CDD66469BC}"></a>
+<div class="caption1"><p>TGM522_ST_PROCESO</p></div>
+<div class="caption2"><p>General Info</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="20%">Caption</td>
+    <td class="tabdata" width="80%">TGM522_ST_PROCESO</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Attributes</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Key</td>
+    <td class="tabhead">Attribute Name</td>
+    <td class="tabhead">Domain</td>
+    <td class="tabhead">Data Type</td>
+    <td class="tabhead">Not Null</td>
+    <td class="tabhead">Unique</td>
+    <td class="tabhead">Check</td>
+    <td class="tabhead">Default</td>
+    <td class="tabhead">Comments</td>
+  </tr>
+  <tr>
+    <td class="tabdata">PFK</td>
+    <td class="tabdata">CD_CONTRATACION</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Number(10,0)</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata"></td>
+  </tr>
+  <tr>
+    <td class="tabdata">PFK</td>
+    <td class="tabdata">CD_FLUJO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Number(5,0)</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Representa a la llave primaria del la tabla TGM513_FLUJO, y forma parte de la llave compuesta de esta tabla TGM522_ST_PROCESO</td>
+  </tr>
+  <tr>
+    <td class="tabdata">PFK</td>
+    <td class="tabdata">CD_ETAPA</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Number(5,0)</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Representa a la llave primaria del la tabla TGM517_REPORTE, y forma parte de la llave compuesta de esta tabla TGM522_ST_PROCESO</td>
+  </tr>
+  <tr>
+    <td class="tabdata">FK</td>
+    <td class="tabdata">CD_REG_ARCH_ENTRA</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Number(15,0)</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Representa a la llave primaria del la tabla TGM536_REG_ARCH_EN.</td>
+  </tr>
+  <tr>
+    <td class="tabdata"></td>
+    <td class="tabdata">NU_LOTE</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Number(5,0)</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Campo para identificar el numero del lote del cliente.</td>
+  </tr>
+  <tr>
+    <td class="tabdata"></td>
+    <td class="tabdata">TM_ST_PROCESO_INI</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Date</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Campo que almacena la fecha y hora en que inicia el proceso de mapeo<br> Ejemplo <br> 21/01/2013 03:58:41 p.m.</td>
+  </tr>
+  <tr>
+    <td class="tabdata"></td>
+    <td class="tabdata">TM_ST_PROCESO_FIN</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Date</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Campo que almacena la fecha y hora en que termina el proceso de mapeo<br> Ejemplo <br> 21/01/2013 03:58:41 p.m.</td>
+  </tr>
+  <tr>
+    <td class="tabdata"></td>
+    <td class="tabdata">FH_ST_PROCESO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Date</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Sirve como indice y almacena la fecha en la que se ejecutó algun proceso dentro del sistema mapeador<br> Ejemplo <br> 21/01/2013</td>
+  </tr>
+  <tr>
+    <td class="tabdata">FK</td>
+    <td class="tabdata">CD_ST_MAPEADOR</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Number(5,0)</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Estatus del proceso<br> Ejemplo:<br> Activo<br> En proceso <br> Termino<br> </td>
+  </tr>
+  <tr>
+    <td class="tabdata"></td>
+    <td class="tabdata">TX_CONTRATACION</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Varchar2(300 CHAR)</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Sirve par aagreagar una descripción en caso de error.</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Relationships</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Relationship Name</td>
+    <td class="tabhead">Relationship Type</td>
+    <td class="tabhead">Parent Entity</td>
+    <td class="tabhead">Child Entity</td>
+    <td class="tabhead">Card.</td>
+  </tr>
+  <tr>
+    <td class="tabdata">R52052221</td>
+    <td class="tabdata">Identifying</td>
+    <td class="tabdata">TGM520_CONTRAT_MAP</td>
+    <td class="tabdata">TGM522_ST_PROCESO</td>
+    <td class="tabdata">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabdata">R53452214</td>
+    <td class="tabdata">Non-identifying</td>
+    <td class="tabdata">TGM534_ST_OBJETO</td>
+    <td class="tabdata">TGM522_ST_PROCESO</td>
+    <td class="tabdata">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabdata">R53652213</td>
+    <td class="tabdata">Non-identifying</td>
+    <td class="tabdata">TGM536_REG_ARCH_EN</td>
+    <td class="tabdata">TGM522_ST_PROCESO</td>
+    <td class="tabdata">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabdata">R5225398</td>
+    <td class="tabdata">Identifying</td>
+    <td class="tabdata">TGM522_ST_PROCESO</td>
+    <td class="tabdata">TGM539_ESTADISTICA</td>
+    <td class="tabdata">1:N</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Keys</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="10%">Key Type</td>
+    <td class="tabhead" width="30%">Constraint Name</td>
+    <td class="tabhead" width="60%">Attributes</td>
+  </tr>
+  <tr>
+    <td class="tabdata" width="10%">PK</td>
+    <td class="tabdata" width="30%">IGM522P1_ST_PROCES</td>
+    <td class="tabdata" width="60%">CD_FLUJO, CD_ETAPA, CD_CONTRATACION</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Indexes</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Index Name</td>
+    <td class="tabhead">Attributes</td>
+    <td class="tabhead">Unique</td>
+    <td class="tabhead">Descending</td>
+    <td class="tabhead">Clustered</td>
+  </tr>
+  <tr>
+    <td class="tabdata">IGM522S1_ST_PROCES</td>
+    <td class="tabdata">FH_ST_PROCESO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata" colspan="2"></td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Comments</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabdata">Tabla status por proceso del sistema mapeador México, es una tabla de seguimiento, almacena la información a detalle de cada proceso según la configuración de un contrato determinado, esta tabla es indispensable para el seguimiento del comportamiento y estatus de los procesos ejecutados y en ejecución dentro del sistema mapeador.</td>
+  </tr>
+</table>
+<br>
+<div class="itemEnd"><p>&nbsp;</p></div></div>
+<div id="Table_{98CA899A-D746-473E-AD20-8CA13073589D}" class="item">
+<a name = "Table_{98CA899A-D746-473E-AD20-8CA13073589D}"></a>
+<div class="caption1"><p>TGM531_DEFINE_MAPA</p></div>
+<div class="caption2"><p>General Info</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="20%">Caption</td>
+    <td class="tabdata" width="80%">TGM531_DEFINE_MAPA</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Attributes</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Key</td>
+    <td class="tabhead">Attribute Name</td>
+    <td class="tabhead">Domain</td>
+    <td class="tabhead">Data Type</td>
+    <td class="tabhead">Not Null</td>
+    <td class="tabhead">Unique</td>
+    <td class="tabhead">Check</td>
+    <td class="tabhead">Default</td>
+    <td class="tabhead">Comments</td>
+  </tr>
+  <tr>
+    <td class="tabdata">PK</td>
+    <td class="tabdata">CD_DEFINE_MAPA</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Number(5,0)</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Número consecutivo, es la llave primaria del la tabla TGM531_DEFINE_MAPA</td>
+  </tr>
+  <tr>
+    <td class="tabdata">FK</td>
+    <td class="tabdata">CD_SECCION_MAPA</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Number(5,0)</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Llave foránea de esta tabla TGM531_DEFINE_MAPA, representa a la llave primaria del la tabla TGM533_SECC_MAPA, sirve para identificar a que seccion corresponde el campo de está definicion.</td>
+  </tr>
+  <tr>
+    <td class="tabdata"></td>
+    <td class="tabdata">NB_CAMPO_CLIENTE</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Varchar2(100 CHAR)</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Nombre del campo del cliente, sirve para identificar el nombre del dato a extraer.<br> Ejemplo.<br> Identificador<br> Numero de Cheque<br> Tipo de Operación</td>
+  </tr>
+  <tr>
+    <td class="tabdata"></td>
+    <td class="tabdata">CD_NUMERO_HOJA</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Number(2,0)</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Índice que hace referencia al número de fila donde se encuentra el valor del campo, este número de hoja representa a la llave compuesta de la tabla TGM532_GPO_HOJA.</td>
+  </tr>
+  <tr>
+    <td class="tabdata"></td>
+    <td class="tabdata">NB_CAMPO_BD</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Varchar2(30 CHAR)</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Nombre del campo a nivel Base de Datos, sirve para identificar el nombre de la columna que almacena el valor del Campo Cliente.<br> Ejemplo para.<br> Identificador<br> Numero de Cheque<br> El valor a guardar es:<br> TX_CAMPO_1<br> TX_CAMPO_2</td>
+  </tr>
+  <tr>
+    <td class="tabdata"></td>
+    <td class="tabdata">NU_POS_INICIAL</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Number(5,0)</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Número que indica la posición inicial de un dato alfanumérico a extraer del archivo cliente.</td>
+  </tr>
+  <tr>
+    <td class="tabdata"></td>
+    <td class="tabdata">NU_POS_FINAL</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Number(5,0)</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Número que indica la posición inicial de un dato alfanumérico a extraer del archivo cliente.</td>
+  </tr>
+  <tr>
+    <td class="tabdata"></td>
+    <td class="tabdata">TP_CAMPO_CLIENTE</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Varchar2(30 CHAR)</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Es el tipo de dato a extraer del archivo cliente, este campo solo es de uso informativo, no es parámetro para ningún proceso dentro del sistema mapeador<br> Ejemplo<br> Integer<br> String <br> Numérico <br> Alfanumérico</td>
+  </tr>
+  <tr>
+    <td class="tabdata">FK</td>
+    <td class="tabdata">CD_ST_OBJETO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Number(5,0)</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Estatus del campo del cliente<br> Ejemplo:<br> Activo<br> Inactivo<br> </td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Relationships</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Relationship Name</td>
+    <td class="tabhead">Relationship Type</td>
+    <td class="tabhead">Parent Entity</td>
+    <td class="tabhead">Child Entity</td>
+    <td class="tabhead">Card.</td>
+  </tr>
+  <tr>
+    <td class="tabdata">R5315322</td>
+    <td class="tabdata">Non-identifying</td>
+    <td class="tabdata">TGM531_DEFINE_MAPA</td>
+    <td class="tabdata">TGM532_GPO_HOJA</td>
+    <td class="tabdata">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabdata">R5335313</td>
+    <td class="tabdata">Non-identifying</td>
+    <td class="tabdata">TGM533_SECC_MAPA</td>
+    <td class="tabdata">TGM531_DEFINE_MAPA</td>
+    <td class="tabdata">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabdata">R53453110</td>
+    <td class="tabdata">Non-identifying</td>
+    <td class="tabdata">TGM534_ST_OBJETO</td>
+    <td class="tabdata">TGM531_DEFINE_MAPA</td>
+    <td class="tabdata">1:N</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Keys</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="10%">Key Type</td>
+    <td class="tabhead" width="30%">Constraint Name</td>
+    <td class="tabhead" width="60%">Attributes</td>
+  </tr>
+  <tr>
+    <td class="tabdata" width="10%">PK</td>
+    <td class="tabdata" width="30%">IGM531P1_DEFINE_MA</td>
+    <td class="tabdata" width="60%">CD_DEFINE_MAPA</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Comments</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabdata">Tabla definición de mapa del sistema mapeador,  almacena la información necesaria para identificar la extracción ordenada de datos que está en un archivo cliente.</td>
+  </tr>
+</table>
+<br>
+<div class="itemEnd"><p>&nbsp;</p></div></div>
+<div id="Table_{8E064830-0C28-4C56-A7F1-7BAF5F0D9199}" class="item">
+<a name = "Table_{8E064830-0C28-4C56-A7F1-7BAF5F0D9199}"></a>
+<div class="caption1"><p>TGM532_GPO_HOJA</p></div>
+<div class="caption2"><p>General Info</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="20%">Caption</td>
+    <td class="tabdata" width="80%">TGM532_GPO_HOJA</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Attributes</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Key</td>
+    <td class="tabhead">Attribute Name</td>
+    <td class="tabhead">Domain</td>
+    <td class="tabhead">Data Type</td>
+    <td class="tabhead">Not Null</td>
+    <td class="tabhead">Unique</td>
+    <td class="tabhead">Check</td>
+    <td class="tabhead">Default</td>
+    <td class="tabhead">Comments</td>
+  </tr>
+  <tr>
+    <td class="tabdata">PK</td>
+    <td class="tabdata">CD_GPO_HOJA</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Number(15,0)</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Número consecutivo, forma parte de la llave compuesta de esta tabla TGM532_GPO_HOJA. <br> Cada grupo compone a una serie de hojas.<br> El número hoja, representa a un conjunto de valores predefinidos.</td>
+  </tr>
+  <tr>
+    <td class="tabdata">PK</td>
+    <td class="tabdata">CD_NUMERO_HOJA</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Number(2,0)</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Número consecutivo, forma parte de la llave compuesta de esta tabla TGM532_GPO_HOJA. El valor se reinicia cada vez que cambia CD_GPO_HOJA.<br> El número hoja, representa a un conjunto de valores predefinidos, este es único dentro de un grupo de hoja</td>
+  </tr>
+  <tr>
+    <td class="tabdata">FK</td>
+    <td class="tabdata">CD_DEFINE_MAPA</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Number(5,0)</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Llave foránea de esta tabla TGM532_GPO_HOJA, representa a la llave primaria de la tabla TGM531_DEFINE_MAPA, sirve para identificar la definición que rige a esta hoja.</td>
+  </tr>
+  <tr>
+    <td class="tabdata">FK</td>
+    <td class="tabdata">CD_REG_ARCH_ENTRA</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Number(15,0)</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Llave foránea de esta tabla TGM532_GPO_HOJA, representa a la llave primaria de la tabla TGM536_REG_ARCH_EN, sirve para identificar el archivo de donde se extrae la información.</td>
+  </tr>
+  <tr>
+    <td class="tabdata"></td>
+    <td class="tabdata">TM_REGISTRO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Date</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Campo que almacena la fecha y hora en que se extrae la información del archivo, según la definición.<br> Ejemplo <br> 21/01/2013 03:58:41 p.m.<br> </td>
+  </tr>
+  <tr>
+    <td class="tabdata"></td>
+    <td class="tabdata">FH_REGISTRO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Date</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Sirve como índice y almacena la fecha en la que se extrae la información del archivo, según la definición.<br> Ejemplo <br> 21/01/2013</td>
+  </tr>
+  <tr>
+    <td class="tabdata"></td>
+    <td class="tabdata">TX_CAMPO_1</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Varchar2(250 CHAR)</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Campo que almacena el valor correspondiente a un campo cliente, según la definición establecida.<br> El valor puede ser:<br> Alfabético<br> Alfanumérico<br> Numérico</td>
+  </tr>
+  <tr>
+    <td class="tabdata"></td>
+    <td class="tabdata">TX_CAMPO_50</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Varchar2(250 CHAR)</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Campo que almacena el valor correspondiente a un campo cliente, según la definición establecida.<br> El valor puede ser:<br> Alfabético<br> Alfanumérico<br> Numérico</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Relationships</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Relationship Name</td>
+    <td class="tabhead">Relationship Type</td>
+    <td class="tabhead">Parent Entity</td>
+    <td class="tabhead">Child Entity</td>
+    <td class="tabhead">Card.</td>
+  </tr>
+  <tr>
+    <td class="tabdata">R5315322</td>
+    <td class="tabdata">Non-identifying</td>
+    <td class="tabdata">TGM531_DEFINE_MAPA</td>
+    <td class="tabdata">TGM532_GPO_HOJA</td>
+    <td class="tabdata">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabdata">R5365324</td>
+    <td class="tabdata">Non-identifying</td>
+    <td class="tabdata">TGM536_REG_ARCH_EN</td>
+    <td class="tabdata">TGM532_GPO_HOJA</td>
+    <td class="tabdata">1:N</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Keys</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="10%">Key Type</td>
+    <td class="tabhead" width="30%">Constraint Name</td>
+    <td class="tabhead" width="60%">Attributes</td>
+  </tr>
+  <tr>
+    <td class="tabdata" width="10%">PK</td>
+    <td class="tabdata" width="30%">IGM532P1_GPO_HOJA</td>
+    <td class="tabdata" width="60%">CD_GPO_HOJA, CD_NUMERO_HOJA</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Indexes</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Index Name</td>
+    <td class="tabhead">Attributes</td>
+    <td class="tabhead">Unique</td>
+    <td class="tabhead">Descending</td>
+    <td class="tabhead">Clustered</td>
+  </tr>
+  <tr>
+    <td class="tabdata">IGM532S1_GPO_HOJA</td>
+    <td class="tabdata">FH_REGISTRO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata" colspan="2"></td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Comments</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabdata">Tabla grupo de hoja del sistema mapeador,  almacena las información que se extrae de un archivo cliente, es indispensable para proveer a un BP de información a mapear.</td>
+  </tr>
+</table>
+<br>
+<div class="itemEnd"><p>&nbsp;</p></div></div>
+<div id="Table_{5E1FFE1C-3C46-40C7-A9C1-24CBCF9BCB8D}" class="item">
+<a name = "Table_{5E1FFE1C-3C46-40C7-A9C1-24CBCF9BCB8D}"></a>
+<div class="caption1"><p>TGM533_SECC_MAPA</p></div>
+<div class="caption2"><p>General Info</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="20%">Caption</td>
+    <td class="tabdata" width="80%">TGM533_SECC_MAPA</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Attributes</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Key</td>
+    <td class="tabhead">Attribute Name</td>
+    <td class="tabhead">Domain</td>
+    <td class="tabhead">Data Type</td>
+    <td class="tabhead">Not Null</td>
+    <td class="tabhead">Unique</td>
+    <td class="tabhead">Check</td>
+    <td class="tabhead">Default</td>
+    <td class="tabhead">Comments</td>
+  </tr>
+  <tr>
+    <td class="tabdata">PK</td>
+    <td class="tabdata">CD_SECCION_MAPA</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Number(5,0)</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Número consecutivo, es la llave primaria del la tabla TGM533_SECC_MAPA.</td>
+  </tr>
+  <tr>
+    <td class="tabdata">FK</td>
+    <td class="tabdata">CD_FK_SECCION_MAPA</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Number(5,0)</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Llave foránea del la tabla TGM533_SECC_MAPA, indica la jerarquía que existe entres las secciones definidas.</td>
+  </tr>
+  <tr>
+    <td class="tabdata">FK</td>
+    <td class="tabdata">CD_MAPA_GMM</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Number(5,0)</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Llave foránea de esta tabla TGM533_SECC_MAPA, representa a la llave primaria del la tabla TGM14_MAPA_GMM, sirve para identificar el tipo de mapa que aplica para esta definicion.</td>
+  </tr>
+  <tr>
+    <td class="tabdata"></td>
+    <td class="tabdata">NB_SECCION_MAPA</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Varchar2(30 CHAR)</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Nombre corto de una seccion, sirve para identificar a una seccion de forma rapida<br> Ejemplo.<br> TG-0008 - HEADER<br> TG-0008 - DETALLE</td>
+  </tr>
+  <tr>
+    <td class="tabdata"></td>
+    <td class="tabdata">NB_EXPR_IDENTIFICA</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Varchar2(200 CHAR)</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Etiqueta con la que se identifica una sección dentro del archivo cliente.<br> Ejemplo<br> TG-0008 - DETALLE<br> la etiqueta a guardar:<br> 25180981D</td>
+  </tr>
+  <tr>
+    <td class="tabdata"></td>
+    <td class="tabdata">TX_SECCION_MAPA</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Varchar2(200 CHAR)</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Descripción a detalle del nombre y/o de la etiqueta de la seccion del mapa.<br> </td>
+  </tr>
+  <tr>
+    <td class="tabdata"></td>
+    <td class="tabdata">NU_ORDEN_SECCION</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Number(5,0)</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Numero consecutivo, representa el orden que debe tener cada sección del mismo nivel jerárquico y que tengan la misma sección padre, es decir, que tengan la misma llave FK CD_FK_SECCION_MAPA</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Relationships</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Relationship Name</td>
+    <td class="tabhead">Relationship Type</td>
+    <td class="tabhead">Parent Entity</td>
+    <td class="tabhead">Child Entity</td>
+    <td class="tabhead">Card.</td>
+  </tr>
+  <tr>
+    <td class="tabdata">R5335331</td>
+    <td class="tabdata">Non-identifying</td>
+    <td class="tabdata">TGM533_SECC_MAPA</td>
+    <td class="tabdata">TGM533_SECC_MAPA</td>
+    <td class="tabdata">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabdata">R5335331</td>
+    <td class="tabdata">Non-identifying</td>
+    <td class="tabdata">TGM533_SECC_MAPA</td>
+    <td class="tabdata">TGM533_SECC_MAPA</td>
+    <td class="tabdata">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabdata">R5335313</td>
+    <td class="tabdata">Non-identifying</td>
+    <td class="tabdata">TGM533_SECC_MAPA</td>
+    <td class="tabdata">TGM531_DEFINE_MAPA</td>
+    <td class="tabdata">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabdata">R5145336</td>
+    <td class="tabdata">Non-identifying</td>
+    <td class="tabdata">TGM514_MAPA_GMM</td>
+    <td class="tabdata">TGM533_SECC_MAPA</td>
+    <td class="tabdata">1:N</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Keys</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="10%">Key Type</td>
+    <td class="tabhead" width="30%">Constraint Name</td>
+    <td class="tabhead" width="60%">Attributes</td>
+  </tr>
+  <tr>
+    <td class="tabdata" width="10%">PK</td>
+    <td class="tabdata" width="30%">IGM533P1_SECC_MAPA</td>
+    <td class="tabdata" width="60%">CD_SECCION_MAPA</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Comments</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabdata">Tabla sección de mapa del sistema mapeador,  almacena la información necesaria para identificar los niveles y jerarquía entre niveles que agrupan una serie de definiciones de un determinado tipo de archivo.</td>
+  </tr>
+</table>
+<br>
+<div class="itemEnd"><p>&nbsp;</p></div></div>
+<div id="Table_{34F7D798-9382-46D0-87A8-62CDE451E8C8}" class="item">
+<a name = "Table_{34F7D798-9382-46D0-87A8-62CDE451E8C8}"></a>
+<div class="caption1"><p>TGM534_ST_OBJETO</p></div>
+<div class="caption2"><p>General Info</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="20%">Caption</td>
+    <td class="tabdata" width="80%">TGM534_ST_OBJETO</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Attributes</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Key</td>
+    <td class="tabhead">Attribute Name</td>
+    <td class="tabhead">Domain</td>
+    <td class="tabhead">Data Type</td>
+    <td class="tabhead">Not Null</td>
+    <td class="tabhead">Unique</td>
+    <td class="tabhead">Check</td>
+    <td class="tabhead">Default</td>
+    <td class="tabhead">Comments</td>
+  </tr>
+  <tr>
+    <td class="tabdata">PK</td>
+    <td class="tabdata">CD_ST_OBJETO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Number(5,0)</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Número consecutivo, es la llave primaria del la tabla TGM534_ST_OBJETO.</td>
+  </tr>
+  <tr>
+    <td class="tabdata">FK</td>
+    <td class="tabdata">CD_ST_CLAVE</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Char(10 CHAR)</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Llave foránea, sirve para asignar un status que identifique el sistema a la etiqueta estatus objeto la cual es el nombre propuesto por un usuario el sistema mapeador.</td>
+  </tr>
+  <tr>
+    <td class="tabdata"></td>
+    <td class="tabdata">NB_ST_OBJETO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Varchar2(30 CHAR)</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Nombre del status objeto, almacena etiqueta que al usuario convenga para un mejor entendimiento de los status en determinada información del sistema mapeador México, <br> Ejemplo.<br> Vacaciones <br> Cancelado<br> Suspendido</td>
+  </tr>
+  <tr>
+    <td class="tabdata"></td>
+    <td class="tabdata">TX_ST_OBJETO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Varchar2(200 CHAR)</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Descripción del status objeto, sirve para escribir a detalle el uso de la etiqueta status objeto dentro del mapeador México del perfil.</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Relationships</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Relationship Name</td>
+    <td class="tabhead">Relationship Type</td>
+    <td class="tabhead">Parent Entity</td>
+    <td class="tabhead">Child Entity</td>
+    <td class="tabhead">Card.</td>
+  </tr>
+  <tr>
+    <td class="tabdata">R5345028</td>
+    <td class="tabdata">Non-identifying</td>
+    <td class="tabdata">TGM534_ST_OBJETO</td>
+    <td class="tabdata">TGM502_COMPONENTE</td>
+    <td class="tabdata">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabdata">R5345019</td>
+    <td class="tabdata">Non-identifying</td>
+    <td class="tabdata">TGM534_ST_OBJETO</td>
+    <td class="tabdata">TGM501_PANTALLA</td>
+    <td class="tabdata">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabdata">R53450411</td>
+    <td class="tabdata">Non-identifying</td>
+    <td class="tabdata">TGM534_ST_OBJETO</td>
+    <td class="tabdata">TGM504_PERFIL</td>
+    <td class="tabdata">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabdata">R53450310</td>
+    <td class="tabdata">Non-identifying</td>
+    <td class="tabdata">TGM534_ST_OBJETO</td>
+    <td class="tabdata">TGM503_USUARIO</td>
+    <td class="tabdata">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabdata">R50953412</td>
+    <td class="tabdata">Non-identifying</td>
+    <td class="tabdata">TGM509_ST_CLAVE</td>
+    <td class="tabdata">TGM534_ST_OBJETO</td>
+    <td class="tabdata">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabdata">R53451113</td>
+    <td class="tabdata">Non-identifying</td>
+    <td class="tabdata">TGM534_ST_OBJETO</td>
+    <td class="tabdata">TGM511_CANAL</td>
+    <td class="tabdata">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabdata">R53451514</td>
+    <td class="tabdata">Non-identifying</td>
+    <td class="tabdata">TGM534_ST_OBJETO</td>
+    <td class="tabdata">TGM515_PRODUCTO</td>
+    <td class="tabdata">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabdata">R53451217</td>
+    <td class="tabdata">Non-identifying</td>
+    <td class="tabdata">TGM534_ST_OBJETO</td>
+    <td class="tabdata">TGM512_CLIENTE</td>
+    <td class="tabdata">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabdata">R53451418</td>
+    <td class="tabdata">Non-identifying</td>
+    <td class="tabdata">TGM534_ST_OBJETO</td>
+    <td class="tabdata">TGM514_MAPA_GMM</td>
+    <td class="tabdata">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabdata">R53451619</td>
+    <td class="tabdata">Non-identifying</td>
+    <td class="tabdata">TGM534_ST_OBJETO</td>
+    <td class="tabdata">TGM516_MENSAJE_SAL</td>
+    <td class="tabdata">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabdata">R53451315</td>
+    <td class="tabdata">Non-identifying</td>
+    <td class="tabdata">TGM534_ST_OBJETO</td>
+    <td class="tabdata">TGM513_FLUJO</td>
+    <td class="tabdata">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabdata">R53451716</td>
+    <td class="tabdata">Non-identifying</td>
+    <td class="tabdata">TGM534_ST_OBJETO</td>
+    <td class="tabdata">TGM517_ETAPA</td>
+    <td class="tabdata">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabdata">R53453110</td>
+    <td class="tabdata">Non-identifying</td>
+    <td class="tabdata">TGM534_ST_OBJETO</td>
+    <td class="tabdata">TGM531_DEFINE_MAPA</td>
+    <td class="tabdata">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabdata">R53453711</td>
+    <td class="tabdata">Non-identifying</td>
+    <td class="tabdata">TGM534_ST_OBJETO</td>
+    <td class="tabdata">TGM537_EDO_ARCHIVO</td>
+    <td class="tabdata">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabdata">R53452214</td>
+    <td class="tabdata">Non-identifying</td>
+    <td class="tabdata">TGM534_ST_OBJETO</td>
+    <td class="tabdata">TGM522_ST_PROCESO</td>
+    <td class="tabdata">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabdata">R53451015</td>
+    <td class="tabdata">Non-identifying</td>
+    <td class="tabdata">TGM534_ST_OBJETO</td>
+    <td class="tabdata">TGM510_USUA_NOTIFI</td>
+    <td class="tabdata">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabdata">R53451922</td>
+    <td class="tabdata">Non-identifying</td>
+    <td class="tabdata">TGM534_ST_OBJETO</td>
+    <td class="tabdata">TGM519_CONTRATACION</td>
+    <td class="tabdata">1:N</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Keys</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="10%">Key Type</td>
+    <td class="tabhead" width="30%">Constraint Name</td>
+    <td class="tabhead" width="60%">Attributes</td>
+  </tr>
+  <tr>
+    <td class="tabdata" width="10%">PK</td>
+    <td class="tabdata" width="30%">IGM534P1_ST_OBJETO</td>
+    <td class="tabdata" width="60%">CD_ST_OBJETO</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Comments</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabdata">Tabla catálogo status objeto del sistema mapeador,  almacena todas las etiquetas que al usuario convenga para un mejor entendimiento de los status en determinada información del sistema mapeador México, estos status heredan el status clave.</td>
+  </tr>
+</table>
+<br>
+<div class="itemEnd"><p>&nbsp;</p></div></div>
+<div id="Table_{111CDA6D-604A-4DA2-9CC6-7EAE7E7E2893}" class="item">
+<a name = "Table_{111CDA6D-604A-4DA2-9CC6-7EAE7E7E2893}"></a>
+<div class="caption1"><p>TGM536_REG_ARCH_EN</p></div>
+<div class="caption2"><p>General Info</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="20%">Caption</td>
+    <td class="tabdata" width="80%">TGM536_REG_ARCH_EN</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Attributes</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Key</td>
+    <td class="tabhead">Attribute Name</td>
+    <td class="tabhead">Domain</td>
+    <td class="tabhead">Data Type</td>
+    <td class="tabhead">Not Null</td>
+    <td class="tabhead">Unique</td>
+    <td class="tabhead">Check</td>
+    <td class="tabhead">Default</td>
+    <td class="tabhead">Comments</td>
+  </tr>
+  <tr>
+    <td class="tabdata">PK</td>
+    <td class="tabdata">CD_REG_ARCH_ENTRA</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Number(15,0)</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Número consecutivo, es la llave primaria del la tabla TGM536_REG_ARCH_EN</td>
+  </tr>
+  <tr>
+    <td class="tabdata"></td>
+    <td class="tabdata">NB_REG_ARCH_ENTRA</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Varchar2(200 CHAR)</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Campo que almacena el nombre del archivo recibido, no se cuenta con una nomenclatura establecida, por lo tanto, debe almacenar cualquier nombre.</td>
+  </tr>
+  <tr>
+    <td class="tabdata"></td>
+    <td class="tabdata">NU_LOTE</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Number(3,0)</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Campo que almacena el folio ó lote del archivo recibido, es decir, se pueden tener mas de un archivo recibido con el mismo nombre pero con diferente lote.<br> Ejeplo para<br> NominaIMSS.cliente<br> Valor Lote:<br> 6548<br> 6549<br> 6550</td>
+  </tr>
+  <tr>
+    <td class="tabdata"></td>
+    <td class="tabdata">FH_REG_ARCH_ENTRA</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Date</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Sirve como índice y almacena la fecha en la que se recibió algún archivo para el sistema mapeador<br> Ejemplo <br> 21/01/2013</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Relationships</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Relationship Name</td>
+    <td class="tabhead">Relationship Type</td>
+    <td class="tabhead">Parent Entity</td>
+    <td class="tabhead">Child Entity</td>
+    <td class="tabhead">Card.</td>
+  </tr>
+  <tr>
+    <td class="tabdata">R5365324</td>
+    <td class="tabdata">Non-identifying</td>
+    <td class="tabdata">TGM536_REG_ARCH_EN</td>
+    <td class="tabdata">TGM532_GPO_HOJA</td>
+    <td class="tabdata">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabdata">R5365375</td>
+    <td class="tabdata">Non-identifying</td>
+    <td class="tabdata">TGM536_REG_ARCH_EN</td>
+    <td class="tabdata">TGM537_EDO_ARCHIVO</td>
+    <td class="tabdata">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabdata">R53652213</td>
+    <td class="tabdata">Non-identifying</td>
+    <td class="tabdata">TGM536_REG_ARCH_EN</td>
+    <td class="tabdata">TGM522_ST_PROCESO</td>
+    <td class="tabdata">1:N</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Keys</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="10%">Key Type</td>
+    <td class="tabhead" width="30%">Constraint Name</td>
+    <td class="tabhead" width="60%">Attributes</td>
+  </tr>
+  <tr>
+    <td class="tabdata" width="10%">PK</td>
+    <td class="tabdata" width="30%">IGM536P1_REG_ARCH</td>
+    <td class="tabdata" width="60%">CD_REG_ARCH_ENTRA</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Indexes</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Index Name</td>
+    <td class="tabhead">Attributes</td>
+    <td class="tabhead">Unique</td>
+    <td class="tabhead">Descending</td>
+    <td class="tabhead">Clustered</td>
+  </tr>
+  <tr>
+    <td class="tabdata">IGM536S1_REG_ARCH</td>
+    <td class="tabdata">FH_REG_ARCH_ENTRA</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata" colspan="2"></td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Comments</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabdata">Tabla registro de archivo entrada del sistema mapeador,  almacena el registro de nombre tipo y hora en que se recibe un archivo para ser procesado por el sistema mapeador México.</td>
+  </tr>
+</table>
+<br>
+<div class="itemEnd"><p>&nbsp;</p></div></div>
+<div id="Table_{03AB2C91-7848-41FE-ADC2-2823DA77BCC8}" class="item">
+<a name = "Table_{03AB2C91-7848-41FE-ADC2-2823DA77BCC8}"></a>
+<div class="caption1"><p>TGM537_EDO_ARCHIVO</p></div>
+<div class="caption2"><p>General Info</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="20%">Caption</td>
+    <td class="tabdata" width="80%">TGM537_EDO_ARCHIVO</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Attributes</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Key</td>
+    <td class="tabhead">Attribute Name</td>
+    <td class="tabhead">Domain</td>
+    <td class="tabhead">Data Type</td>
+    <td class="tabhead">Not Null</td>
+    <td class="tabhead">Unique</td>
+    <td class="tabhead">Check</td>
+    <td class="tabhead">Default</td>
+    <td class="tabhead">Comments</td>
+  </tr>
+  <tr>
+    <td class="tabdata">PK</td>
+    <td class="tabdata">CD_ESTADO_ARCHIVO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Number(15,0)</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Consecutivo, es la llave primaria del la tabla TGM537_EDO_ARCHIVO</td>
+  </tr>
+  <tr>
+    <td class="tabdata">FK</td>
+    <td class="tabdata">CD_REG_ARCH_ENTRA</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Number(15,0)</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Llave foránea de esta tabla TGM537_EDO_ARCHIVO, representa a la llave primaria de la tabla TGM536_REG_ARCH_EN, sirve para identificar el archivo del cual se reporta estado de mapeo.</td>
+  </tr>
+  <tr>
+    <td class="tabdata">FK</td>
+    <td class="tabdata">CD_ESTADO_ARCHIVO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Number(5,0)</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Llave foránea de esta tabla TGM537_EDO_ARCHIVO, representa a la llave primaria de la tabla TGM538_ESTADO_MAPA, sirve para identificar el estado de mapeo por el cual está pasando o se aplicó al archivo en cuestión. </td>
+  </tr>
+  <tr>
+    <td class="tabdata"></td>
+    <td class="tabdata">TM_ESTADO_ARCHIVO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Date</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Campo que almacena la fecha y hora en que se aplica determinado estado de mapeo al archivo en cuestión.<br> Ejemplo <br> 21/01/2013 03:58:41 p.m.<br> </td>
+  </tr>
+  <tr>
+    <td class="tabdata"></td>
+    <td class="tabdata">FH_ESTADO_ARCHIVO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Date</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Sirve como índice y almacena la fecha en la que se aplica determinado estado de mapeo al archivo en cuestión.<br> Ejemplo <br> 21/01/2013</td>
+  </tr>
+  <tr>
+    <td class="tabdata">FK</td>
+    <td class="tabdata">CD_ST_OBJETO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Number(5,0)</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Estatus del estado de archivo<br> Ejemplo:<br> Correcto<br> Incorrecto<br> Terminado<br> </td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Relationships</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Relationship Name</td>
+    <td class="tabhead">Relationship Type</td>
+    <td class="tabhead">Parent Entity</td>
+    <td class="tabhead">Child Entity</td>
+    <td class="tabhead">Card.</td>
+  </tr>
+  <tr>
+    <td class="tabdata">R5365375</td>
+    <td class="tabdata">Non-identifying</td>
+    <td class="tabdata">TGM536_REG_ARCH_EN</td>
+    <td class="tabdata">TGM537_EDO_ARCHIVO</td>
+    <td class="tabdata">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabdata">R53853712</td>
+    <td class="tabdata">Non-identifying</td>
+    <td class="tabdata">TGM538_ESTADO_ARCH</td>
+    <td class="tabdata">TGM537_EDO_ARCHIVO</td>
+    <td class="tabdata">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabdata">R53453711</td>
+    <td class="tabdata">Non-identifying</td>
+    <td class="tabdata">TGM534_ST_OBJETO</td>
+    <td class="tabdata">TGM537_EDO_ARCHIVO</td>
+    <td class="tabdata">1:N</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Keys</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="10%">Key Type</td>
+    <td class="tabhead" width="30%">Constraint Name</td>
+    <td class="tabhead" width="60%">Attributes</td>
+  </tr>
+  <tr>
+    <td class="tabdata" width="10%">PK</td>
+    <td class="tabdata" width="30%">IGM537P1_EDO_ARCHI</td>
+    <td class="tabdata" width="60%">CD_ESTADO_ARCHIVO</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Indexes</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Index Name</td>
+    <td class="tabhead">Attributes</td>
+    <td class="tabhead">Unique</td>
+    <td class="tabhead">Descending</td>
+    <td class="tabhead">Clustered</td>
+  </tr>
+  <tr>
+    <td class="tabdata">IGM537S1_EDO_ARCHI</td>
+    <td class="tabdata">FH_ESTADO_ARCHIVO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata" colspan="2"></td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Comments</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabdata">Tabla estado de archivo del sistema mapeador,  almacena los estados que han o están aplicándose a determinado archivo dentro sistema mapeador México.</td>
+  </tr>
+</table>
+<br>
+<div class="itemEnd"><p>&nbsp;</p></div></div>
+<div id="Table_{8C093A41-DFE1-4F8F-BC20-B02DCACA5BEB}" class="item">
+<a name = "Table_{8C093A41-DFE1-4F8F-BC20-B02DCACA5BEB}"></a>
+<div class="caption1"><p>TGM538_ESTADO_ARCH</p></div>
+<div class="caption2"><p>General Info</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="20%">Caption</td>
+    <td class="tabdata" width="80%">TGM538_ESTADO_ARCH</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Attributes</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Key</td>
+    <td class="tabhead">Attribute Name</td>
+    <td class="tabhead">Domain</td>
+    <td class="tabhead">Data Type</td>
+    <td class="tabhead">Not Null</td>
+    <td class="tabhead">Unique</td>
+    <td class="tabhead">Check</td>
+    <td class="tabhead">Default</td>
+    <td class="tabhead">Comments</td>
+  </tr>
+  <tr>
+    <td class="tabdata">PK</td>
+    <td class="tabdata">CD_ESTADO_ARCHIVO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Number(5,0)</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Consecutivo, es la llave primaria del la tabla TGM538_ESTADO_ARCH</td>
+  </tr>
+  <tr>
+    <td class="tabdata"></td>
+    <td class="tabdata">NB_ESTADO_ARCHIVO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Varchar2(30 CHAR)</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Nombre representativo del estado archivo hace referencia a las diferentes etapas de procesos que aplican a un archivo desde  su  entrada  hasta la transferencia del archivo mapeado.<br> Ejemplo.<br> Registro de archivo entrada<br> Validación de archivo header<br> Validación de integridad</td>
+  </tr>
+  <tr>
+    <td class="tabdata"></td>
+    <td class="tabdata">TX_ESTADO_ARCHIVO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Varchar2(200 CHAR)</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Guarda la descripción y uso del nombre del estado archivo.<br> Ejemplo para:<br> Registro de archivo entrada<br> El valor a guardar es:<br> Estado mapeador que hace referencia al registro en BD del  nombre, tipo y hora en que se recibió un  archivo.</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Relationships</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Relationship Name</td>
+    <td class="tabhead">Relationship Type</td>
+    <td class="tabhead">Parent Entity</td>
+    <td class="tabhead">Child Entity</td>
+    <td class="tabhead">Card.</td>
+  </tr>
+  <tr>
+    <td class="tabdata">R53853712</td>
+    <td class="tabdata">Non-identifying</td>
+    <td class="tabdata">TGM538_ESTADO_ARCH</td>
+    <td class="tabdata">TGM537_EDO_ARCHIVO</td>
+    <td class="tabdata">1:N</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Keys</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="10%">Key Type</td>
+    <td class="tabhead" width="30%">Constraint Name</td>
+    <td class="tabhead" width="60%">Attributes</td>
+  </tr>
+  <tr>
+    <td class="tabdata" width="10%">PK</td>
+    <td class="tabdata" width="30%">IGM538P1_ESTADO_AR</td>
+    <td class="tabdata" width="60%">CD_ESTADO_ARCHIVO</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Comments</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabdata">Tabla catálogo estado mapa GMM del sistema mapeador,  almacena todos los posibles estados o etapas posibles en el sistema, estas estapas son aquellas  que aplican a un archivo desde  su  entrada  hasta la transferencia del archivo mapeado dentro sistema mapeador México.</td>
+  </tr>
+</table>
+<br>
+<div class="itemEnd"><p>&nbsp;</p></div></div>
+<div id="Table_{2A7DD1A7-E9BC-4926-91AE-06574B619796}" class="item">
+<a name = "Table_{2A7DD1A7-E9BC-4926-91AE-06574B619796}"></a>
+<div class="caption1"><p>TGM539_ESTADISTICA</p></div>
+<div class="caption2"><p>General Info</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="20%">Caption</td>
+    <td class="tabdata" width="80%">TGM539_ESTADISTICA</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Attributes</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Key</td>
+    <td class="tabhead">Attribute Name</td>
+    <td class="tabhead">Domain</td>
+    <td class="tabhead">Data Type</td>
+    <td class="tabhead">Not Null</td>
+    <td class="tabhead">Unique</td>
+    <td class="tabhead">Check</td>
+    <td class="tabhead">Default</td>
+  </tr>
+  <tr>
+    <td class="tabdata">PFK</td>
+    <td class="tabdata">CD_CONTRATACION</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Number(10,0)</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+  </tr>
+  <tr>
+    <td class="tabdata">PFK</td>
+    <td class="tabdata">CD_FLUJO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Number(5,0)</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+  </tr>
+  <tr>
+    <td class="tabdata">PFK</td>
+    <td class="tabdata">CD_ETAPA</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Number(5,0)</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+  </tr>
+  <tr>
+    <td class="tabdata"></td>
+    <td class="tabdata">NU_OPERACIONES</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Number(5,0)</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+  </tr>
+  <tr>
+    <td class="tabdata"></td>
+    <td class="tabdata">FH_ESTADISTICA</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Date</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Relationships</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Relationship Name</td>
+    <td class="tabhead">Relationship Type</td>
+    <td class="tabhead">Parent Entity</td>
+    <td class="tabhead">Child Entity</td>
+    <td class="tabhead">Card.</td>
+  </tr>
+  <tr>
+    <td class="tabdata">R5225398</td>
+    <td class="tabdata">Identifying</td>
+    <td class="tabdata">TGM522_ST_PROCESO</td>
+    <td class="tabdata">TGM539_ESTADISTICA</td>
+    <td class="tabdata">1:N</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Keys</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="10%">Key Type</td>
+    <td class="tabhead" width="30%">Constraint Name</td>
+    <td class="tabhead" width="60%">Attributes</td>
+  </tr>
+  <tr>
+    <td class="tabdata" width="10%">PK</td>
+    <td class="tabdata" width="30%">Key1</td>
+    <td class="tabdata" width="60%">CD_FLUJO, CD_ETAPA, CD_CONTRATACION</td>
+  </tr>
+</table>
+<br>
+<div class="itemEnd"><p>&nbsp;</p></div></div>
+<div id="Table_{F9ED958F-983A-4322-A384-6C0C77D1674A}" class="item">
+<a name = "Table_{F9ED958F-983A-4322-A384-6C0C77D1674A}"></a>
+<div class="caption1"><p>TGM540_CONTRASENIA</p></div>
+<div class="caption2"><p>General Info</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="20%">Caption</td>
+    <td class="tabdata" width="80%">TGM540_CONTRASENIA</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Attributes</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Key</td>
+    <td class="tabhead">Attribute Name</td>
+    <td class="tabhead">Domain</td>
+    <td class="tabhead">Data Type</td>
+    <td class="tabhead">Not Null</td>
+    <td class="tabhead">Unique</td>
+    <td class="tabhead">Check</td>
+    <td class="tabhead">Default</td>
+    <td class="tabhead">Comments</td>
+  </tr>
+  <tr>
+    <td class="tabdata">PFK</td>
+    <td class="tabdata">CD_USUARIO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Number(5,0)</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Representa a la llave primaria del la tabla TGM503_USUARIO, y forma parte de la llave compuesta de esta tabla</td>
+  </tr>
+  <tr>
+    <td class="tabdata">PK</td>
+    <td class="tabdata">CD_CONTRASENIA</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Number(5,0)</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Consecutivo, forma parte de la llave compuesta de esta tabla. <br> Se reinicia por usuario.</td>
+  </tr>
+  <tr>
+    <td class="tabdata"></td>
+    <td class="tabdata">TX_CONTRASENIA_USR</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Varchar2(35 CHAR)</td>
+    <td class="tabdata">YES</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata">NO</td>
+    <td class="tabdata"></td>
+    <td class="tabdata">Campo que almacena una de las ultimas 10 contraseñas de acceso, usadas por el usuario.<br> Ejemplo <br> sdw4654ghr762245faqewwr</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Relationships</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Relationship Name</td>
+    <td class="tabhead">Relationship Type</td>
+    <td class="tabhead">Parent Entity</td>
+    <td class="tabhead">Child Entity</td>
+    <td class="tabhead">Card.</td>
+  </tr>
+  <tr>
+    <td class="tabdata">R50354014</td>
+    <td class="tabdata">Identifying</td>
+    <td class="tabdata">TGM503_USUARIO</td>
+    <td class="tabdata">TGM540_CONTRASENIA</td>
+    <td class="tabdata">1:N</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Keys</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="10%">Key Type</td>
+    <td class="tabhead" width="30%">Constraint Name</td>
+    <td class="tabhead" width="60%">Attributes</td>
+  </tr>
+  <tr>
+    <td class="tabdata" width="10%">PK</td>
+    <td class="tabdata" width="30%">IGM540P1_CONTRASEN</td>
+    <td class="tabdata" width="60%">CD_USUARIO, CD_CONTRASENIA</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Comments</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabdata">Tabla historial de contraseñas por usuario, almacena las últimas 10 contraseñas que ha usado determinado usuario y con esto permite al sistema prohibir el uso recurrente en periodos cortos de la misma.</td>
+  </tr>
+</table>
+<br>
+<div class="itemEnd"><p>&nbsp;</p></div></div>
+
+        </div>
+<div id="footer">       <div class="pageFooter">Copyright &copy; Sitename 2005</div>        <div class="footerEnd"><p></p></div></div>
+    </div>
+  </div>
+</body>
+
+</html>
+

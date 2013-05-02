@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<faces-config
+    xmlns="http://java.sun.com/xml/ns/javaee"
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_1_2.xsd"
+    version="1.2">
+    <application>
+        <!--| Facelets View Handler|-->
+        <view-handler>com.icesoft.faces.facelets.D2DFaceletViewHandler</view-handler>
+        <!--| Permite definir lo beans declarados en los archivos de configuracion |-->
+        <variable-resolver>org.springframework.web.jsf.DelegatingVariableResolver</variable-resolver>
+        <!--| Permite definir MENSAJES para JSP-->
+        <resource-bundle>
+            <base-name>Mensajes</base-name>
+            <var>etiquetas</var>
+        </resource-bundle>
+        <locale-config>
+            <default-locale>es</default-locale>
+            <supported-locale>en</supported-locale>
+        </locale-config>
+        <message-bundle>Mensajes</message-bundle>               
+    </application>
+          
+    <lifecycle>
+        <phase-listener>com.bancomer.gis.monitorwebswift.controllers.H2HMonitoreoController</phase-listener>
+    </lifecycle>
+    <lifecycle>
+        <phase-listener>com.bancomer.gis.monitorwebswift.controllers.H2HMonitoreoController_CGS</phase-listener>
+    </lifecycle>
+    <managed-bean>
+        <description>controller para el monitoreo h2h</description>
+        <managed-bean-name>h2HMonitoreoController_CGS</managed-bean-name>
+        <managed-bean-class>com.bancomer.gis.monitorwebswift.controllers.H2HMonitoreoController_CGS</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+        <managed-property>
+            <property-name>h2HMonitoreoService_CGS</property-name>
+            <value>#{h2HMonitoreoService_CGS}</value>
+        </managed-property>
+        <managed-property>
+            <property-name>parametrosWebService</property-name>
+            <value>#{parametrosWebService}</value>
+        </managed-property> 
+        <managed-property>
+            <property-name>comboService</property-name>
+            <value>#{comboService}</value>
+        </managed-property>
+        <managed-property>
+            <property-name>h2HMonitoreoDetalleErrService</property-name>
+            <value>#{h2HMonitoreoDetalleErrService}</value>
+        </managed-property>
+        <managed-property>
+            <property-name>propertiesService</property-name>
+            <value>#{propertiesService}</value>
+        </managed-property>
+    </managed-bean>
+    <managed-bean>
+        <description>controller h2hOracle</description>
+        <managed-bean-name>h2HMonitoreoController</managed-bean-name>
+        <managed-bean-class>com.bancomer.gis.monitorwebswift.controllers.H2HMonitoreoController</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+        <managed-property>
+            <property-name>h2HMonitoreoService</property-name>
+            <value>#{h2HMonitoreoService}</value>
+        </managed-property>
+        <managed-property>
+            <property-name>parametrosWebService</property-name>
+            <value>#{parametrosWebService}</value>
+        </managed-property> 
+        <managed-property>
+            <property-name>comboService</property-name>
+            <value>#{comboService}</value>
+        </managed-property>
+        <managed-property>
+            <property-name>h2HMonitoreoDetalleErrService</property-name>
+            <value>#{h2HMonitoreoDetalleErrService}</value>
+        </managed-property>
+        <managed-property>
+            <property-name>propertiesService</property-name>
+            <value>#{propertiesService}</value>
+        </managed-property>
+    </managed-bean>
+    <managed-bean>
+        <description>estilo de prueba</description>
+        <managed-bean-name>styleBean</managed-bean-name>
+        <managed-bean-class>com.bancomer.gis.monitorwebswift.actions.StyleBean</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>        
+    </managed-bean>
+    
+    <managed-bean>
+        <description>maneja el cambio de password cuando el usuario ya caduco</description>
+        <managed-bean-name>cambioPasswordController</managed-bean-name>
+        <managed-bean-class>com.bancomer.gis.monitorwebswift.controllers.CambioPasswordController</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+        <managed-property>
+            <property-name>altaDesbloqueoService</property-name>
+            <value>#{altaDesbloqueoService}</value>
+        </managed-property>
+    </managed-bean>
+        
+</faces-config>

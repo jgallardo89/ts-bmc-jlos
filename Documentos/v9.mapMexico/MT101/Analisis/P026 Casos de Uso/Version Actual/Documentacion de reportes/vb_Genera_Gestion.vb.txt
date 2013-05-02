@@ -1,0 +1,419 @@
+Option Explicit
+
+
+'------------------------------------------------------------------------
+' Autor:            ISC Susan Gabriela Gómez González
+' Fecha Creación:   Agosto-2009
+' Descripción:      Genéra el archivo de Reporte de Gestion Mensual de las cuentas
+'------------------------------------------------------------------------
+Public Function ReportGestion() As Boolean
+
+On Error GoTo ErrReporteGestion
+
+    Dim adoConn         As New ADODB.Connection
+    Dim rstRegistros    As ADODB.Recordset
+    Dim lo_ArchMover    As Object
+    Dim ls_Sql          As String
+    Dim x               As Integer
+    Dim y               As Integer
+    Dim ld_Comision     As Double
+    Dim ld_Iva          As Double
+    Dim ls_CtaAnterior  As String
+    Dim Anualidad       As Boolean
+    Dim Mensualidad     As Boolean
+    Dim lb_tipocuenta   As Boolean
+    Dim li_contrato     As Double
+    Dim ld_Tarifa       As Double
+    Dim moneda          As String
+    Dim ls_info         As String
+    Dim ls_cabecera     As String
+    Dim rutaTotal       As String
+    Dim ls_fechaAlta    As String
+    Dim psNomArchResp   As String
+    Dim ll_TotOper      As Long
+    
+    ReportGestion = False
+    
+    If DBConexionSQL(adoConn, gs_Servidor, gs_BD, gs_Usuario, gs_Password) Then
+       
+        ls_Sql = "exec spr_Reporte_Gestion_MT101 '" & Format(Now, "MM/DD/YYYY") & "'"
+    
+        If ConsultarBD(adoConn, rstRegistros, ls_Sql) Then
+            If Not rstRegistros.BOF Or Not rstRegistros.EOF Then
+                
+                x = 2
+                y = 0
+                Do Until rstRegistros.EOF
+                
+                
+                    
+                    If StrComp(Trim(ls_CtaAnterior), "", vbTextCompare) <> 0 Then
+                        If StrComp(Trim(ls_CtaAnterior), Trim(rstRegistros.Fields(0)), vbTextCompare) <> 0 Then
+                            'Si es cliente AAA
+                            If lb_tipocuenta And ll_TotOper <> 0 Then
+                                'Generamos el renglon de totales para la cuenta
+                                Call ReportGestion_AnualMesTotMsg(adoConn, ls_info, x, y, li_contrato, 10, ld_Comision)
+                                x = x + 1
+                                y = y + 1
+                            End If
+                            
+                            If Mensualidad And ll_TotOper <> 0 Then
+                                'Generamos el renglon de la mensualidad en caso de tener seleccionada la obsión
+                                Call ReportGestion_AnualMesTotMsg(adoConn, ls_info, x, y, li_contrato, 12, ld_Comision)
+                               x = x + 1
+                                y = y + 1
+                            End If
+                            
+                            If Anualidad And ll_TotOper <> 0 Then
+                                'Generamos el renglon de la anualidad en caso de tener seleccionada la obsión
+                                If Mid(Trim(ls_fechaAlta), 1, 4) <= Mid(Format(Now(), "YYYYMMDD"), 1, 4) Then
+                                    If StrComp(Mid(Trim(ls_fechaAlta), 5, 2), Mid(Format(Now(), "MMDD"), 1, 2), vbTextCompare) = 0 Then
+                                        If Mid(Trim(ls_fechaAlta), 7) <= Mid(Format(Now(), "MMDD"), 3, 2) Then
+                                            Call ReportGestion_AnualMesTotMsg(adoConn, ls_info, x, y, li_contrato, 13, ld_Comision)
+                                            x = x + 1
+                                            y = y + 1
+                                        End If
+                                    End If
+                                End If
+                            End If
+                            
+                            'Asiganmos la sigueinte cuenta
+                            ls_CtaAnterior = Trim(rstRegistros.Fields(0))
+                            Anualidad = rstRegistros.Fields(14)
+                            Mensualidad = rstRegistros.Fields(15)
+                            lb_tipocuenta = rstRegistros.Fields(8)
+                            li_contrato = rstRegistros.Fields(16)
+                            moneda = Trim(rstRegistros.Fields(2))
+                            ls_fechaAlta = rstRegistros.Fields(18)
+                            ll_TotOper = rstRegistros.Fields(7)
+                            y = y + 1
+                        Else
+                            y = y + 1
+                        End If
+                    Else
+                        Anualidad = rstRegistros.Fields(14)
+                        Mensualidad = rstRegistros.Fields(15)
+                        lb_tipocuenta = rstRegistros.Fields(8)
+                        ls_CtaAnterior = Trim(rstRegistros.Fields(0))
+                        li_contrato = rstRegistros.Fields(16)
+                        moneda = Trim(rstRegistros.Fields(2))
+                        ls_fechaAlta = rstRegistros.Fields(18)
+                        ll_TotOper = rstRegistros.Fields(7)
+                        y = y + 1
+                    End If
+                                                                
+                    ls_info = ls_info & FillText((y), 5, " ", False)
+                    'Cuenta de cargo comisiones (18)
+                    ls_info = ls_info & Space(8)
+                    ls_info = ls_info & FillText(Trim(rstRegistros.Fields(0)), 10, " ", True)
+                    'Cuenta de Servicio (18)
+                    ls_info = ls_info & Space(8)
+                    ls_info = ls_info & FillText(Trim(rstRegistros.Fields(0)), 10, " ", True)
+                    'Divisa Cta Servicio
+                    ls_info = ls_info & FillText(Trim(rstRegistros.Fields(2)), 3, " ", True)
+                    'Nombre del Titular
+                    ls_info = ls_info & FillText(Trim(rstRegistros.Fields(3)), 45, " ", True)
+                    'Canal de Envio
+                    ls_info = ls_info & "SWIFT"
+                    'SWIFT de Envio
+                    ls_info = ls_info & FillText(Trim(rstRegistros.Fields(4)), 11, " ", True)
+                    'CR
+                    ls_info = ls_info & Space(4)
+                    'Nombre CR
+                    ls_info = ls_info & Space(40)
+                    'Banca
+                    ls_info = ls_info & Space(4)
+                     'Tipo de Transacción
+                    ls_info = ls_info & Right(rstRegistros.Fields(6), 5) '"MT101"
+                    'Transaccionalidad (numero de mensajes emitidos)
+                    If ll_TotOper = 0 Then
+                        ls_info = ls_info & FillText("1", 7, " ", False)
+                    Else
+                        ls_info = ls_info & FillText(rstRegistros.Fields(7), 7, " ", False)
+                    End If
+                    
+                    
+                    'Tarifa
+                    If StrComp(Trim(rstRegistros.Fields(2)), "MXN", vbTextCompare) = 0 Then
+                        ld_Tarifa = CDbl(Trim(rstRegistros.Fields(10)))
+                    ElseIf StrComp(Trim(rstRegistros.Fields(2)), "USD", vbTextCompare) = 0 Then
+                        ld_Tarifa = CDbl(Trim(rstRegistros.Fields(9)))
+                    ElseIf StrComp(Trim(rstRegistros.Fields(2)), "EUR", vbTextCompare) = 0 Then
+                        ld_Tarifa = CDbl(Trim(rstRegistros.Fields(11)))
+                    End If
+                    
+                    'Comisión
+                    'Si es clientes AAA
+                    If rstRegistros.Fields(8) Then
+                        ls_info = ls_info & Space(16)
+                    Else
+                        ls_info = ls_info & FillText(Format(ld_Tarifa, "#############.00"), 16, " ", False)
+                    End If
+                                        
+                    'Tipo de Cambio
+                    ls_info = ls_info & FillText("", 6, " ", False)
+                    
+                    'Importe de la Comisión
+                    If StrComp(Trim(rstRegistros.Fields(2)), "MXN", vbTextCompare) = 0 Then
+                        
+                        If ll_TotOper = 0 Then
+                            ld_Comision = CDbl(Trim(rstRegistros.Fields(10)))
+                        Else
+                            ld_Comision = CDbl(Trim(rstRegistros.Fields(7))) * CDbl(Trim(rstRegistros.Fields(10)))
+                        End If
+                        
+                    ElseIf StrComp(Trim(rstRegistros.Fields(2)), "USD", vbTextCompare) = 0 Then
+                        
+                        If ll_TotOper = 0 Then
+                            ld_Comision = CDbl(Trim(rstRegistros.Fields(9)))
+                        Else
+                            ld_Comision = CDbl(Trim(rstRegistros.Fields(7))) * CDbl(Trim(rstRegistros.Fields(9)))
+                        End If
+                        
+                    ElseIf StrComp(Trim(rstRegistros.Fields(2)), "EUR", vbTextCompare) = 0 Then
+                         If ll_TotOper = 0 Then
+                            ld_Comision = CDbl(Trim(rstRegistros.Fields(11)))
+                        Else
+                            ld_Comision = CDbl(Trim(rstRegistros.Fields(7))) * CDbl(Trim(rstRegistros.Fields(11)))
+                        End If
+                    End If
+                    
+                    If rstRegistros.Fields(8) Then
+                        ls_info = ls_info & Space(16)
+                    Else
+                        ls_info = ls_info & FillText(Right(Format(ld_Comision, "#############.00"), 15), 16, " ", False)
+                    End If
+                    
+                    'Iva de la Comisión
+                    If rstRegistros.Fields(8) Then
+                        ls_info = ls_info & Space(16) & vbCrLf
+                    Else
+                        'si es cliente tipo AA
+                        If StrComp(Trim(rstRegistros.Fields(13)), "0", vbTextCompare) = 0 Then
+                            ld_Iva = 0.11 * ld_Comision
+                        ElseIf StrComp(Trim(rstRegistros.Fields(13)), "1", vbTextCompare) = 0 Then
+                            ld_Iva = 0.16 * ld_Comision
+                        End If
+                        ls_info = ls_info & FillText(Right(Format(ld_Iva, "#############.00"), 15), 16, " ", False) & vbCrLf
+                    End If
+                
+                    x = x + 1
+                
+                    rstRegistros.MoveNext
+                Loop
+                
+                'Si es cliente AAA
+                If lb_tipocuenta And ll_TotOper <> 0 Then
+                    'Generamos el renglon de totales para la cuenta
+                    Call ReportGestion_AnualMesTotMsg(adoConn, ls_info, x, y, li_contrato, 10, ld_Comision)
+                    x = x + 1
+                    y = y + 1
+                End If
+              
+                If Mensualidad And ll_TotOper <> 0 Then
+                    'Generamos el renglon de la mensualidad en caso de tener seleccionada la obsión
+                    Call ReportGestion_AnualMesTotMsg(adoConn, ls_info, x, y, li_contrato, 12, ld_Comision)
+                    x = x + 1
+                    y = y + 1
+                End If
+              
+                If Anualidad And ll_TotOper <> 0 Then
+                    'Generamos el renglon de la anualidad en caso de tener seleccionada la obsión
+                    If Mid(Trim(rstRegistros.Fields(18)), 1, 4) <= Mid(Format(Now(), "YYYYMMDD"), 1, 4) Then
+                        If StrComp(Mid(Trim(rstRegistros.Fields(18)), 5, 2), Mid(Format(Now(), "MMDD"), 1, 2), vbTextCompare) = 0 Then
+                            If Mid(Trim(rstRegistros.Fields(18)), 7) <= Mid(Format(Now(), "MMDD"), 3, 2) Then
+                                Call ReportGestion_AnualMesTotMsg(adoConn, ls_info, x, y, li_contrato, 13, ld_Comision)
+                                x = x + 1
+                                y = y + 1
+                            End If
+                        End If
+                    End If
+                End If
+                
+                
+                ls_info = Mid(ls_info, 1, Len(ls_info) - 2)
+                               
+                'Indicamos la Ruta donde se va a Generar el Archivo
+                rutaTotal = Go_objUtil.ValidaPath(strDestinoGestion) & "\MT101.txt"
+                On Error Resume Next
+                'Preparamos el archivo plano
+                Close #1
+                If Dir(rutaTotal) <> "" Then Kill rutaTotal
+                Open rutaTotal For Output As #1
+                Print #1, ls_cabecera & ls_info
+                Close #1
+                
+                On Error GoTo ErrReporteGestion
+                ReportGestion = True
+            Else
+                
+                
+                'Indicamos la Ruta donde se va a Generar el Archivo
+                rutaTotal = Go_objUtil.ValidaPath(strDestinoGestion) & "\MT101.txt"
+                On Error Resume Next
+                'Preparamos el archivo plano
+                Close #1
+                If Dir(rutaTotal) <> "" Then Kill rutaTotal
+                Open rutaTotal For Output As #1
+                Print #1, ls_cabecera & ls_info
+                Close #1
+                
+                On Error GoTo ErrReporteGestion
+                
+                ReportGestion = True
+            End If
+        End If
+        Call CerrarCursorBD(rstRegistros)
+        
+        psNomArchResp = strRespaldoSicoco & "\MT101" & Format(Now, "YYYYMMDDHHMMSS") & ".txt"
+        'Respaldar archivo de Sicoco
+        Set lo_ArchMover = fso.GetFile(rutaTotal)
+        lo_ArchMover.Copy psNomArchResp
+        'Destruimos el objeto
+        DestruirObjeto lo_ArchMover
+    End If
+    Call CerrarConexionBD(adoConn)
+    
+Exit Function
+ErrReporteGestion:
+    Call CerrarCursorBD(rstRegistros)
+    Call CerrarConexionBD(adoConn)
+End Function
+
+
+'------------------------------------------------------------------------
+' Autor:            ISC Susan Gabriela Gómez González
+' fecha Creación:   Agosto -2009
+' Descripción:      Genéra el renglón e anulidad, mensualiad y/o total
+'                   total de mensajes según la cuenta
+'------------------------------------------------------------------------
+Public Function ReportGestion_AnualMesTotMsg(ByVal adoConn As ADODB.Connection, ByRef ls_info As String, _
+                                        ByVal x As Integer, ByVal y As Integer, ByVal li_contrato As Double, _
+                                        ByVal li_tipoOper As Double, ByRef ld_Comision As Double)
+
+
+On Error GoTo ErrReportGestion_AnualMesTotMsg
+
+    Dim rstRegistros    As ADODB.Recordset
+    Dim ls_Sql          As String
+    Dim ld_Iva          As Double
+    Dim li_dias         As Integer
+    Dim ls_importe      As String
+    Dim ld_Tarifa       As Double
+    Dim ls_FechaIni     As Date
+    Dim ls_Msg          As String
+    
+    
+    ls_Sql = "exec spr_Report_Gestion_TipoOper '" & Format(Now, "MM/DD/YYYY") & "', " & li_contrato & " , " & li_tipoOper
+
+    If ConsultarBD(adoConn, rstRegistros, ls_Sql) Then
+
+        If Not rstRegistros.BOF Or Not rstRegistros.EOF Then
+            'No de Sec (5)
+            ls_info = ls_info & FillText((y + 1), 5, " ", False)
+            'Cuenta de cargo comisiones (18)
+            ls_info = ls_info & Space(8)
+            ls_info = ls_info & FillText(Trim(rstRegistros.Fields(0)), 10, " ", True)
+            'Cuenta de Servicio (18)
+            ls_info = ls_info & Space(8)
+            ls_info = ls_info & FillText(Trim(rstRegistros.Fields(0)), 10, " ", True)
+            'Divisa Cta Servicio
+            ls_info = ls_info & FillText(Trim(rstRegistros.Fields(2)), 3, " ", True)
+            'Nombre del Titular
+            ls_info = ls_info & FillText(Trim(rstRegistros.Fields(3)), 45, " ", True)
+            'Canal de Envio
+            ls_info = ls_info & "SWIFT"
+            'SWIFT de Envio
+            ls_info = ls_info & FillText(Trim(rstRegistros.Fields(4)), 11, " ", True)
+            'CR
+            ls_info = ls_info & Space(4)
+            'Nombre CR
+            ls_info = ls_info & Space(40)
+            'Banca
+            ls_info = ls_info & Space(4)
+            'Tipo de Transacción
+            ls_info = ls_info & Right(rstRegistros.Fields(1), 5) '"MT101"
+            'Transaccionalidad (número de mensajes emitidos)
+            If li_tipoOper = 13 Or li_tipoOper = 12 Then
+                ls_info = ls_info & FillText(1, 7, " ", False)
+            Else
+                ls_info = ls_info & FillText(rstRegistros.Fields(7), 7, " ", False)
+            End If
+            
+                      
+            'Tarifa
+            If StrComp(Trim(rstRegistros.Fields(2)), "MXN", vbTextCompare) = 0 Then
+                ld_Tarifa = CDbl(Trim(rstRegistros.Fields(10)))
+            ElseIf StrComp(Trim(rstRegistros.Fields(2)), "USD", vbTextCompare) = 0 Then
+                ld_Tarifa = CDbl(Trim(rstRegistros.Fields(9)))
+            ElseIf StrComp(Trim(rstRegistros.Fields(2)), "EUR", vbTextCompare) = 0 Then
+                ld_Tarifa = CDbl(Trim(rstRegistros.Fields(11)))
+            End If
+            
+            'Comisión
+            'Si es clientes AAA
+            If rstRegistros.Fields(8) Then
+                ls_info = ls_info & Space(16)
+            Else
+                ls_info = ls_info & FillText(Format(ld_Tarifa, "#############.00"), 16, " ", False)
+            End If
+            
+            'Tipo de Cambio
+            ls_info = ls_info & FillText("", 6, " ", False)
+            
+            'Importe de la Comisión
+            If li_tipoOper = 10 Then
+                If StrComp(Trim(rstRegistros.Fields(2)), "MXN", vbTextCompare) = 0 Then
+                    ld_Comision = CDbl(Trim(rstRegistros.Fields(7))) * CDbl(Trim(rstRegistros.Fields(10)))
+                ElseIf StrComp(Trim(rstRegistros.Fields(2)), "USD", vbTextCompare) = 0 Then
+                    ld_Comision = CDbl(Trim(rstRegistros.Fields(7))) * CDbl(Trim(rstRegistros.Fields(9)))
+                ElseIf StrComp(Trim(rstRegistros.Fields(2)), "EUR", vbTextCompare) = 0 Then
+                    ld_Comision = CDbl(Trim(rstRegistros.Fields(7))) * CDbl(Trim(rstRegistros.Fields(11)))
+                End If
+            Else
+                If StrComp(Trim(rstRegistros.Fields(2)), "MXN", vbTextCompare) = 0 Then
+                    ld_Comision = CDbl(Trim(rstRegistros.Fields(10)))
+                ElseIf StrComp(Trim(rstRegistros.Fields(2)), "USD", vbTextCompare) = 0 Then
+                    ld_Comision = CDbl(Trim(rstRegistros.Fields(9)))
+                ElseIf StrComp(Trim(rstRegistros.Fields(2)), "EUR", vbTextCompare) = 0 Then
+                    ld_Comision = CDbl(Trim(rstRegistros.Fields(11)))
+                End If
+            End If
+            ls_importe = Format(ld_Comision, "#############.00")
+            ls_importe = Right(ls_importe, 15)
+            
+            If rstRegistros.Fields(8) Then
+                ls_info = ls_info & Space(16)
+            Else
+                ls_info = ls_info & FillText(ls_importe, 16, " ", False)
+            End If
+
+            'Iva de la Comisión
+            If rstRegistros.Fields(8) Then
+                ls_info = ls_info & Space(16) & vbCrLf
+            Else
+                'si es cliente tipo AA
+                If StrComp(Trim(rstRegistros.Fields(13)), "0", vbTextCompare) = 0 Then
+                    ld_Iva = 0.11 * ld_Comision
+                ElseIf StrComp(Trim(rstRegistros.Fields(13)), "1", vbTextCompare) = 0 Then
+                    ld_Iva = 0.16 * ld_Comision
+                End If
+                ld_Iva = Right(Format(ld_Iva, "#############.00"), 15)
+                ls_info = ls_info & FillText(Format(ld_Iva, "#############.00"), 16, " ", False) & vbCrLf
+            End If
+        End If
+    End If
+    Call CerrarCursorBD(rstRegistros)
+    Exit Function
+ErrReportGestion_AnualMesTotMsg:
+    
+    If Err.Number <> 0 Then
+        Call CerrarCursorBD(rstRegistros)
+        ls_Msg = "Error [" & Err.Number & "] : " & Err.Description
+        Go_objUtil.GrabarBitacora gs_Servidor, gs_BD, gs_Usuario, gs_Password, 4, 12, "Error en consulta de REPORTE DE GESTION." & ls_Msg, _
+                rutaArchivErrBD 'Bitacora BD
+    End If
+
+End Function
+
+

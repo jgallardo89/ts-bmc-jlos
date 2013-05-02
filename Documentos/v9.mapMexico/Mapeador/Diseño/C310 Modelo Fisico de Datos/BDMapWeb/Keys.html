@@ -1,0 +1,847 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="keywords" content="TDM_Report">
+        <link rel="stylesheet" type="text/css" media="screen" href="classic_blue.css" title="report">
+        <link rel="stylesheet" type="text/css" media="print" href="classic_blue_NoFrames_print.css" title="report">
+            <script src="tdmShowDetails.js" type="text/javascript"></script>
+        <title>Toad Data Modeler - HTML Report</title>
+    </head>
+
+
+<body onLoad="getUrlItem()">
+ <div class="mainContainer">
+
+  <div id="headerContainer">
+  <div id="header">
+         <div class="title1"></div>
+         <div class="title2">Keys</div>
+         <div class="titleimage">
+                    <a href="http://www.quest.com" target="_blank">
+                    <img src="Img/logo.gif" alt="Made with Toad Data Modeler" border="0">
+                    </a>
+          </div>
+          <div class="headerEnd"><p>&nbsp;</p></div>  </div>
+        <div id="navTop">
+            <ul>
+                <li><a href="MInfo.html">Model Info</a>
+</li>
+                <li><a href="MImage.html">ER Diagram</a>
+</li>
+                <li><a href="Tables.html">Entities</a>
+</li>
+                <li><a href="Columns.html">Attributes</a>
+</li>
+                <li><a href="Indexes.html">Indexes</a>
+</li>
+                <li class="selLi"><a href="Keys.html" class="selAnchor">Keys</a>
+</li>
+                <li><a href="Relations.html">Relationships</a>
+</li>
+            </ul>
+            <div id="navTopEnd"><p>&nbsp;</p></div>
+        </div>
+
+  </div>
+
+<div id="navCombo"><form name="allItems" action=""><select name="listOfItems" onChange="showSelected()">    <option value="Key_{BEB5FB4A-55BF-4A30-B3F2-FE6CC28F34ED}">IGM501P1_PANTALLA (TGM501_PANTALLA)</option><option>------------</option>    <option value="Key_{9F72C763-3E44-422D-A333-245FE2E77663}">IGM502P1_COMPONENT (TGM502_COMPONENTE)</option><option>------------</option>    <option value="Key_{8BFBB3E1-BE4D-43BF-A9D4-3DB40B7A400D}">IGM503P1_USUARIO (TGM503_USUARIO)</option><option>------------</option>    <option value="Key_{E292CE59-419A-40CC-8D61-C379BFBE6303}">IGM504P1_PERFIL (TGM504_PERFIL)</option><option>------------</option>    <option value="Key_{9951345D-005B-47C5-8BCD-5F8A08CCB8AE}">IGM505P1_CTRLPERMI (TGM505_CTRLPERMISO)</option><option>------------</option>    <option value="Key_{F82957EA-CE70-4346-A43F-9738B1BBBB3A}">IGM507P1_BITACORA (TGM507_BITACORA)</option><option>------------</option>    <option value="Key_{A3940535-3CA0-44DC-B575-2FFA5DF983DD}">IGM508P1_EVENTO_MA (TGM508_EVENTO_MAPA)</option><option>------------</option>    <option value="Key_{5B825611-F45D-42BA-8A56-BF9698A652F5}">IGM509P1_ST_CLAVE (TGM509_ST_CLAVE)</option><option>------------</option>    <option value="Key_{AEF838E0-E869-4F17-8DB3-3843F2347534}">Key2 (TGM510_USUA_NOTIFI)</option><option>------------</option>    <option value="Key_{2000042A-5E21-4604-A21D-5EE5F33AFA47}">IGM511P1_CANAL (TGM511_CANAL)</option><option>------------</option>    <option value="Key_{C5B16C7D-68B0-4C80-9DC8-70D03ABE0B9E}">IGM512P1_CLIENTE (TGM512_CLIENTE)</option><option>------------</option>    <option value="Key_{7A1B8F1D-A399-459B-A2D8-5C857A96BBD4}">IGM513P1_FLUJO (TGM513_FLUJO)</option><option>------------</option>    <option value="Key_{4A7F26E2-99F2-4FCB-AA42-1020BAE911D4}">IGM514P1_MAPA_GMM (TGM514_MAPA_GMM)</option><option>------------</option>    <option value="Key_{6A468728-EE62-4CE5-AE9F-3559D65B50D1}">IGM515P1_PRODUCTO (TGM515_PRODUCTO)</option><option>------------</option>    <option value="Key_{74DB951A-4FAB-4B0E-A159-BCA1C2D7FA46}">IGM516P1_MSN_SAL (TGM516_MENSAJE_SAL)</option><option>------------</option>    <option value="Key_{CD96E3E3-0260-4EFF-B97A-4C183908384E}">IGM517P1_ETAPA (TGM517_ETAPA)</option><option>------------</option>    <option value="Key_{8DB781AB-D64E-44CF-A7BF-F5E12D39C05D}">IGM518P1_FLUJOREP (TGM518_FLUJOETAPA)</option><option>------------</option>    <option value="Key_{14484F62-120D-49EC-B3D9-68D578C2A1D9}">IGM519P1_PROCESO (TGM519_CONTRATACION)</option><option>------------</option>    <option value="Key_{B1D80E46-0018-4F3D-A194-D4C9F7DE64F6}">IGM520P1_PROREPOR (TGM520_CONTRAT_MAP)</option><option>------------</option>    <option value="Key_{5F165855-EE0B-4E39-A374-48B45D4CD327}">IGM521P1_PBA_COMOD (TGM521_PBA_COMODIN)</option><option>------------</option>    <option value="Key_{A3CDFAC5-478D-4463-99BA-D9058C6EF0A3}">IGM522P1_ST_PROCES (TGM522_ST_PROCESO)</option><option>------------</option>    <option value="Key_{F353FAD6-9800-4946-A06E-C0E0155225BC}">IGM531P1_DEFINE_MA (TGM531_DEFINE_MAPA)</option><option>------------</option>    <option value="Key_{563C3D31-0D0C-432A-A9EF-4E92A7001735}">IGM532P1_GPO_HOJA (TGM532_GPO_HOJA)</option><option>------------</option>    <option value="Key_{798BB22D-ECEE-4ECC-816D-BAF297D11FAE}">IGM533P1_SECC_MAPA (TGM533_SECC_MAPA)</option><option>------------</option>    <option value="Key_{62358D61-9270-42C3-BB72-CCB2BA5DDA23}">IGM534P1_ST_OBJETO (TGM534_ST_OBJETO)</option><option>------------</option>    <option value="Key_{5A907641-D544-41A1-B81A-B5845856D0D4}">IGM536P1_REG_ARCH (TGM536_REG_ARCH_EN)</option><option>------------</option>    <option value="Key_{6AB08245-88A4-4E58-885A-2FD08D03121D}">IGM537P1_EDO_ARCHI (TGM537_EDO_ARCHIVO)</option><option>------------</option>    <option value="Key_{7BAB7427-0770-4F33-9FA0-957EE1C9559F}">IGM538P1_ESTADO_AR (TGM538_ESTADO_ARCH)</option><option>------------</option>    <option value="Key_{F1F8BD11-184B-4B8E-A440-D0D55742254F}">Key1 (TGM539_ESTADISTICA)</option><option>------------</option>    <option value="Key_{75F95FC0-F800-4A2D-995B-78771C321D14}">IGM540P1_CONTRASEN (TGM540_CONTRASENIA)</option></select></form><div id="navComboEnd"><p></p></div></div><div id="navLeft"><div id="bookmark">
+<ul>
+<li><a onClick="return showDetail('Key_{BEB5FB4A-55BF-4A30-B3F2-FE6CC28F34ED}', this)">IGM501P1_PANTALLA (TGM501_PANTALLA)</a></li>
+<li><a onClick="return showDetail('Gap_{9F72C763-3E44-422D-A333-245FE2E77663}', this)"></a></li>
+<li><a onClick="return showDetail('Key_{9F72C763-3E44-422D-A333-245FE2E77663}', this)">IGM502P1_COMPONENT (TGM502_COMPONENTE)</a></li>
+<li><a onClick="return showDetail('Gap_{8BFBB3E1-BE4D-43BF-A9D4-3DB40B7A400D}', this)"></a></li>
+<li><a onClick="return showDetail('Key_{8BFBB3E1-BE4D-43BF-A9D4-3DB40B7A400D}', this)">IGM503P1_USUARIO (TGM503_USUARIO)</a></li>
+<li><a onClick="return showDetail('Gap_{E292CE59-419A-40CC-8D61-C379BFBE6303}', this)"></a></li>
+<li><a onClick="return showDetail('Key_{E292CE59-419A-40CC-8D61-C379BFBE6303}', this)">IGM504P1_PERFIL (TGM504_PERFIL)</a></li>
+<li><a onClick="return showDetail('Gap_{9951345D-005B-47C5-8BCD-5F8A08CCB8AE}', this)"></a></li>
+<li><a onClick="return showDetail('Key_{9951345D-005B-47C5-8BCD-5F8A08CCB8AE}', this)">IGM505P1_CTRLPERMI (TGM505_CTRLPERMISO)</a></li>
+<li><a onClick="return showDetail('Gap_{F82957EA-CE70-4346-A43F-9738B1BBBB3A}', this)"></a></li>
+<li><a onClick="return showDetail('Key_{F82957EA-CE70-4346-A43F-9738B1BBBB3A}', this)">IGM507P1_BITACORA (TGM507_BITACORA)</a></li>
+<li><a onClick="return showDetail('Gap_{A3940535-3CA0-44DC-B575-2FFA5DF983DD}', this)"></a></li>
+<li><a onClick="return showDetail('Key_{A3940535-3CA0-44DC-B575-2FFA5DF983DD}', this)">IGM508P1_EVENTO_MA (TGM508_EVENTO_MAPA)</a></li>
+<li><a onClick="return showDetail('Gap_{5B825611-F45D-42BA-8A56-BF9698A652F5}', this)"></a></li>
+<li><a onClick="return showDetail('Key_{5B825611-F45D-42BA-8A56-BF9698A652F5}', this)">IGM509P1_ST_CLAVE (TGM509_ST_CLAVE)</a></li>
+<li><a onClick="return showDetail('Gap_{AEF838E0-E869-4F17-8DB3-3843F2347534}', this)"></a></li>
+<li><a onClick="return showDetail('Key_{AEF838E0-E869-4F17-8DB3-3843F2347534}', this)">Key2 (TGM510_USUA_NOTIFI)</a></li>
+<li><a onClick="return showDetail('Gap_{2000042A-5E21-4604-A21D-5EE5F33AFA47}', this)"></a></li>
+<li><a onClick="return showDetail('Key_{2000042A-5E21-4604-A21D-5EE5F33AFA47}', this)">IGM511P1_CANAL (TGM511_CANAL)</a></li>
+<li><a onClick="return showDetail('Gap_{C5B16C7D-68B0-4C80-9DC8-70D03ABE0B9E}', this)"></a></li>
+<li><a onClick="return showDetail('Key_{C5B16C7D-68B0-4C80-9DC8-70D03ABE0B9E}', this)">IGM512P1_CLIENTE (TGM512_CLIENTE)</a></li>
+<li><a onClick="return showDetail('Gap_{7A1B8F1D-A399-459B-A2D8-5C857A96BBD4}', this)"></a></li>
+<li><a onClick="return showDetail('Key_{7A1B8F1D-A399-459B-A2D8-5C857A96BBD4}', this)">IGM513P1_FLUJO (TGM513_FLUJO)</a></li>
+<li><a onClick="return showDetail('Gap_{4A7F26E2-99F2-4FCB-AA42-1020BAE911D4}', this)"></a></li>
+<li><a onClick="return showDetail('Key_{4A7F26E2-99F2-4FCB-AA42-1020BAE911D4}', this)">IGM514P1_MAPA_GMM (TGM514_MAPA_GMM)</a></li>
+<li><a onClick="return showDetail('Gap_{6A468728-EE62-4CE5-AE9F-3559D65B50D1}', this)"></a></li>
+<li><a onClick="return showDetail('Key_{6A468728-EE62-4CE5-AE9F-3559D65B50D1}', this)">IGM515P1_PRODUCTO (TGM515_PRODUCTO)</a></li>
+<li><a onClick="return showDetail('Gap_{74DB951A-4FAB-4B0E-A159-BCA1C2D7FA46}', this)"></a></li>
+<li><a onClick="return showDetail('Key_{74DB951A-4FAB-4B0E-A159-BCA1C2D7FA46}', this)">IGM516P1_MSN_SAL (TGM516_MENSAJE_SAL)</a></li>
+<li><a onClick="return showDetail('Gap_{CD96E3E3-0260-4EFF-B97A-4C183908384E}', this)"></a></li>
+<li><a onClick="return showDetail('Key_{CD96E3E3-0260-4EFF-B97A-4C183908384E}', this)">IGM517P1_ETAPA (TGM517_ETAPA)</a></li>
+<li><a onClick="return showDetail('Gap_{8DB781AB-D64E-44CF-A7BF-F5E12D39C05D}', this)"></a></li>
+<li><a onClick="return showDetail('Key_{8DB781AB-D64E-44CF-A7BF-F5E12D39C05D}', this)">IGM518P1_FLUJOREP (TGM518_FLUJOETAPA)</a></li>
+<li><a onClick="return showDetail('Gap_{14484F62-120D-49EC-B3D9-68D578C2A1D9}', this)"></a></li>
+<li><a onClick="return showDetail('Key_{14484F62-120D-49EC-B3D9-68D578C2A1D9}', this)">IGM519P1_PROCESO (TGM519_CONTRATACION)</a></li>
+<li><a onClick="return showDetail('Gap_{B1D80E46-0018-4F3D-A194-D4C9F7DE64F6}', this)"></a></li>
+<li><a onClick="return showDetail('Key_{B1D80E46-0018-4F3D-A194-D4C9F7DE64F6}', this)">IGM520P1_PROREPOR (TGM520_CONTRAT_MAP)</a></li>
+<li><a onClick="return showDetail('Gap_{5F165855-EE0B-4E39-A374-48B45D4CD327}', this)"></a></li>
+<li><a onClick="return showDetail('Key_{5F165855-EE0B-4E39-A374-48B45D4CD327}', this)">IGM521P1_PBA_COMOD (TGM521_PBA_COMODIN)</a></li>
+<li><a onClick="return showDetail('Gap_{A3CDFAC5-478D-4463-99BA-D9058C6EF0A3}', this)"></a></li>
+<li><a onClick="return showDetail('Key_{A3CDFAC5-478D-4463-99BA-D9058C6EF0A3}', this)">IGM522P1_ST_PROCES (TGM522_ST_PROCESO)</a></li>
+<li><a onClick="return showDetail('Gap_{F353FAD6-9800-4946-A06E-C0E0155225BC}', this)"></a></li>
+<li><a onClick="return showDetail('Key_{F353FAD6-9800-4946-A06E-C0E0155225BC}', this)">IGM531P1_DEFINE_MA (TGM531_DEFINE_MAPA)</a></li>
+<li><a onClick="return showDetail('Gap_{563C3D31-0D0C-432A-A9EF-4E92A7001735}', this)"></a></li>
+<li><a onClick="return showDetail('Key_{563C3D31-0D0C-432A-A9EF-4E92A7001735}', this)">IGM532P1_GPO_HOJA (TGM532_GPO_HOJA)</a></li>
+<li><a onClick="return showDetail('Gap_{798BB22D-ECEE-4ECC-816D-BAF297D11FAE}', this)"></a></li>
+<li><a onClick="return showDetail('Key_{798BB22D-ECEE-4ECC-816D-BAF297D11FAE}', this)">IGM533P1_SECC_MAPA (TGM533_SECC_MAPA)</a></li>
+<li><a onClick="return showDetail('Gap_{62358D61-9270-42C3-BB72-CCB2BA5DDA23}', this)"></a></li>
+<li><a onClick="return showDetail('Key_{62358D61-9270-42C3-BB72-CCB2BA5DDA23}', this)">IGM534P1_ST_OBJETO (TGM534_ST_OBJETO)</a></li>
+<li><a onClick="return showDetail('Gap_{5A907641-D544-41A1-B81A-B5845856D0D4}', this)"></a></li>
+<li><a onClick="return showDetail('Key_{5A907641-D544-41A1-B81A-B5845856D0D4}', this)">IGM536P1_REG_ARCH (TGM536_REG_ARCH_EN)</a></li>
+<li><a onClick="return showDetail('Gap_{6AB08245-88A4-4E58-885A-2FD08D03121D}', this)"></a></li>
+<li><a onClick="return showDetail('Key_{6AB08245-88A4-4E58-885A-2FD08D03121D}', this)">IGM537P1_EDO_ARCHI (TGM537_EDO_ARCHIVO)</a></li>
+<li><a onClick="return showDetail('Gap_{7BAB7427-0770-4F33-9FA0-957EE1C9559F}', this)"></a></li>
+<li><a onClick="return showDetail('Key_{7BAB7427-0770-4F33-9FA0-957EE1C9559F}', this)">IGM538P1_ESTADO_AR (TGM538_ESTADO_ARCH)</a></li>
+<li><a onClick="return showDetail('Gap_{F1F8BD11-184B-4B8E-A440-D0D55742254F}', this)"></a></li>
+<li><a onClick="return showDetail('Key_{F1F8BD11-184B-4B8E-A440-D0D55742254F}', this)">Key1 (TGM539_ESTADISTICA)</a></li>
+<li><a onClick="return showDetail('Gap_{75F95FC0-F800-4A2D-995B-78771C321D14}', this)"></a></li>
+<li><a onClick="return showDetail('Key_{75F95FC0-F800-4A2D-995B-78771C321D14}', this)">IGM540P1_CONTRASEN (TGM540_CONTRASENIA)</a></li>
+</ul>
+     <div id="bookmarkEnd"><p>&nbsp;</p></div></div>
+
+</div>
+
+
+    <div class="separator" ></div>
+    <div class="container">
+        <div id="content">
+<div id="Key_{BEB5FB4A-55BF-4A30-B3F2-FE6CC28F34ED}" class="item">
+<a name = "Key_{BEB5FB4A-55BF-4A30-B3F2-FE6CC28F34ED}"></a>
+<div class="caption1"><p>IGM501P1_PANTALLA (TGM501_PANTALLA)</p></div>
+<div class="caption2"><p>General Info</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="23%">Caption</td>
+    <td class="tabdata">IGM501P1_PANTALLA</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="23%">Entity Name</td>
+    <td class="tabdata">TGM501_PANTALLA</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="23%">Key Type</td>
+    <td class="tabdata">Primary Key</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="23%">Attribute Names</td>
+    <td class="tabdata">CD_PANTALLA</td>
+  </tr>
+</table>
+<br>
+<div class="itemEnd"><p>&nbsp;</p></div></div>
+<div id="Key_{9F72C763-3E44-422D-A333-245FE2E77663}" class="item">
+<a name = "Key_{9F72C763-3E44-422D-A333-245FE2E77663}"></a>
+<div class="caption1"><p>IGM502P1_COMPONENT (TGM502_COMPONENTE)</p></div>
+<div class="caption2"><p>General Info</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="23%">Caption</td>
+    <td class="tabdata">IGM502P1_COMPONENT</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="23%">Entity Name</td>
+    <td class="tabdata">TGM502_COMPONENTE</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="23%">Key Type</td>
+    <td class="tabdata">Primary Key</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="23%">Attribute Names</td>
+    <td class="tabdata">CD_PANTALLA, CD_COMPONENTE</td>
+  </tr>
+</table>
+<br>
+<div class="itemEnd"><p>&nbsp;</p></div></div>
+<div id="Key_{8BFBB3E1-BE4D-43BF-A9D4-3DB40B7A400D}" class="item">
+<a name = "Key_{8BFBB3E1-BE4D-43BF-A9D4-3DB40B7A400D}"></a>
+<div class="caption1"><p>IGM503P1_USUARIO (TGM503_USUARIO)</p></div>
+<div class="caption2"><p>General Info</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="23%">Caption</td>
+    <td class="tabdata">IGM503P1_USUARIO</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="23%">Entity Name</td>
+    <td class="tabdata">TGM503_USUARIO</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="23%">Key Type</td>
+    <td class="tabdata">Primary Key</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="23%">Attribute Names</td>
+    <td class="tabdata">CD_USUARIO</td>
+  </tr>
+</table>
+<br>
+<div class="itemEnd"><p>&nbsp;</p></div></div>
+<div id="Key_{E292CE59-419A-40CC-8D61-C379BFBE6303}" class="item">
+<a name = "Key_{E292CE59-419A-40CC-8D61-C379BFBE6303}"></a>
+<div class="caption1"><p>IGM504P1_PERFIL (TGM504_PERFIL)</p></div>
+<div class="caption2"><p>General Info</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="23%">Caption</td>
+    <td class="tabdata">IGM504P1_PERFIL</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="23%">Entity Name</td>
+    <td class="tabdata">TGM504_PERFIL</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="23%">Key Type</td>
+    <td class="tabdata">Primary Key</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="23%">Attribute Names</td>
+    <td class="tabdata">CD_PERFIL</td>
+  </tr>
+</table>
+<br>
+<div class="itemEnd"><p>&nbsp;</p></div></div>
+<div id="Key_{9951345D-005B-47C5-8BCD-5F8A08CCB8AE}" class="item">
+<a name = "Key_{9951345D-005B-47C5-8BCD-5F8A08CCB8AE}"></a>
+<div class="caption1"><p>IGM505P1_CTRLPERMI (TGM505_CTRLPERMISO)</p></div>
+<div class="caption2"><p>General Info</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="23%">Caption</td>
+    <td class="tabdata">IGM505P1_CTRLPERMI</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="23%">Entity Name</td>
+    <td class="tabdata">TGM505_CTRLPERMISO</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="23%">Key Type</td>
+    <td class="tabdata">Primary Key</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="23%">Attribute Names</td>
+    <td class="tabdata">CD_PERFIL, CD_PANTALLA, CD_COMPONENTE</td>
+  </tr>
+</table>
+<br>
+<div class="itemEnd"><p>&nbsp;</p></div></div>
+<div id="Key_{F82957EA-CE70-4346-A43F-9738B1BBBB3A}" class="item">
+<a name = "Key_{F82957EA-CE70-4346-A43F-9738B1BBBB3A}"></a>
+<div class="caption1"><p>IGM507P1_BITACORA (TGM507_BITACORA)</p></div>
+<div class="caption2"><p>General Info</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="23%">Caption</td>
+    <td class="tabdata">IGM507P1_BITACORA</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="23%">Entity Name</td>
+    <td class="tabdata">TGM507_BITACORA</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="23%">Key Type</td>
+    <td class="tabdata">Primary Key</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="23%">Attribute Names</td>
+    <td class="tabdata">CD_BITACORA</td>
+  </tr>
+</table>
+<br>
+<div class="itemEnd"><p>&nbsp;</p></div></div>
+<div id="Key_{A3940535-3CA0-44DC-B575-2FFA5DF983DD}" class="item">
+<a name = "Key_{A3940535-3CA0-44DC-B575-2FFA5DF983DD}"></a>
+<div class="caption1"><p>IGM508P1_EVENTO_MA (TGM508_EVENTO_MAPA)</p></div>
+<div class="caption2"><p>General Info</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="23%">Caption</td>
+    <td class="tabdata">IGM508P1_EVENTO_MA</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="23%">Entity Name</td>
+    <td class="tabdata">TGM508_EVENTO_MAPA</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="23%">Key Type</td>
+    <td class="tabdata">Primary Key</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="23%">Attribute Names</td>
+    <td class="tabdata">CD_EVENTO_MAPEADOR</td>
+  </tr>
+</table>
+<br>
+<div class="itemEnd"><p>&nbsp;</p></div></div>
+<div id="Key_{5B825611-F45D-42BA-8A56-BF9698A652F5}" class="item">
+<a name = "Key_{5B825611-F45D-42BA-8A56-BF9698A652F5}"></a>
+<div class="caption1"><p>IGM509P1_ST_CLAVE (TGM509_ST_CLAVE)</p></div>
+<div class="caption2"><p>General Info</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="23%">Caption</td>
+    <td class="tabdata">IGM509P1_ST_CLAVE</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="23%">Entity Name</td>
+    <td class="tabdata">TGM509_ST_CLAVE</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="23%">Key Type</td>
+    <td class="tabdata">Primary Key</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="23%">Attribute Names</td>
+    <td class="tabdata">CD_ST_CLAVE</td>
+  </tr>
+</table>
+<br>
+<div class="itemEnd"><p>&nbsp;</p></div></div>
+<div id="Key_{AEF838E0-E869-4F17-8DB3-3843F2347534}" class="item">
+<a name = "Key_{AEF838E0-E869-4F17-8DB3-3843F2347534}"></a>
+<div class="caption1"><p>Key2 (TGM510_USUA_NOTIFI)</p></div>
+<div class="caption2"><p>General Info</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="23%">Caption</td>
+    <td class="tabdata">Key2</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="23%">Entity Name</td>
+    <td class="tabdata">TGM510_USUA_NOTIFI</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="23%">Key Type</td>
+    <td class="tabdata">Primary Key</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="23%">Attribute Names</td>
+    <td class="tabdata">CD_USUA_NOTIFICADO</td>
+  </tr>
+</table>
+<br>
+<div class="itemEnd"><p>&nbsp;</p></div></div>
+<div id="Key_{2000042A-5E21-4604-A21D-5EE5F33AFA47}" class="item">
+<a name = "Key_{2000042A-5E21-4604-A21D-5EE5F33AFA47}"></a>
+<div class="caption1"><p>IGM511P1_CANAL (TGM511_CANAL)</p></div>
+<div class="caption2"><p>General Info</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="23%">Caption</td>
+    <td class="tabdata">IGM511P1_CANAL</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="23%">Entity Name</td>
+    <td class="tabdata">TGM511_CANAL</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="23%">Key Type</td>
+    <td class="tabdata">Primary Key</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="23%">Attribute Names</td>
+    <td class="tabdata">CD_CANAL</td>
+  </tr>
+</table>
+<br>
+<div class="itemEnd"><p>&nbsp;</p></div></div>
+<div id="Key_{C5B16C7D-68B0-4C80-9DC8-70D03ABE0B9E}" class="item">
+<a name = "Key_{C5B16C7D-68B0-4C80-9DC8-70D03ABE0B9E}"></a>
+<div class="caption1"><p>IGM512P1_CLIENTE (TGM512_CLIENTE)</p></div>
+<div class="caption2"><p>General Info</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="23%">Caption</td>
+    <td class="tabdata">IGM512P1_CLIENTE</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="23%">Entity Name</td>
+    <td class="tabdata">TGM512_CLIENTE</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="23%">Key Type</td>
+    <td class="tabdata">Primary Key</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="23%">Attribute Names</td>
+    <td class="tabdata">CD_CLIENTE</td>
+  </tr>
+</table>
+<br>
+<div class="itemEnd"><p>&nbsp;</p></div></div>
+<div id="Key_{7A1B8F1D-A399-459B-A2D8-5C857A96BBD4}" class="item">
+<a name = "Key_{7A1B8F1D-A399-459B-A2D8-5C857A96BBD4}"></a>
+<div class="caption1"><p>IGM513P1_FLUJO (TGM513_FLUJO)</p></div>
+<div class="caption2"><p>General Info</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="23%">Caption</td>
+    <td class="tabdata">IGM513P1_FLUJO</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="23%">Entity Name</td>
+    <td class="tabdata">TGM513_FLUJO</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="23%">Key Type</td>
+    <td class="tabdata">Primary Key</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="23%">Attribute Names</td>
+    <td class="tabdata">CD_FLUJO</td>
+  </tr>
+</table>
+<br>
+<div class="itemEnd"><p>&nbsp;</p></div></div>
+<div id="Key_{4A7F26E2-99F2-4FCB-AA42-1020BAE911D4}" class="item">
+<a name = "Key_{4A7F26E2-99F2-4FCB-AA42-1020BAE911D4}"></a>
+<div class="caption1"><p>IGM514P1_MAPA_GMM (TGM514_MAPA_GMM)</p></div>
+<div class="caption2"><p>General Info</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="23%">Caption</td>
+    <td class="tabdata">IGM514P1_MAPA_GMM</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="23%">Entity Name</td>
+    <td class="tabdata">TGM514_MAPA_GMM</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="23%">Key Type</td>
+    <td class="tabdata">Primary Key</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="23%">Attribute Names</td>
+    <td class="tabdata">CD_MAPA_GMM</td>
+  </tr>
+</table>
+<br>
+<div class="itemEnd"><p>&nbsp;</p></div></div>
+<div id="Key_{6A468728-EE62-4CE5-AE9F-3559D65B50D1}" class="item">
+<a name = "Key_{6A468728-EE62-4CE5-AE9F-3559D65B50D1}"></a>
+<div class="caption1"><p>IGM515P1_PRODUCTO (TGM515_PRODUCTO)</p></div>
+<div class="caption2"><p>General Info</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="23%">Caption</td>
+    <td class="tabdata">IGM515P1_PRODUCTO</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="23%">Entity Name</td>
+    <td class="tabdata">TGM515_PRODUCTO</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="23%">Key Type</td>
+    <td class="tabdata">Primary Key</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="23%">Attribute Names</td>
+    <td class="tabdata">CD_PRODUCTO</td>
+  </tr>
+</table>
+<br>
+<div class="itemEnd"><p>&nbsp;</p></div></div>
+<div id="Key_{74DB951A-4FAB-4B0E-A159-BCA1C2D7FA46}" class="item">
+<a name = "Key_{74DB951A-4FAB-4B0E-A159-BCA1C2D7FA46}"></a>
+<div class="caption1"><p>IGM516P1_MSN_SAL (TGM516_MENSAJE_SAL)</p></div>
+<div class="caption2"><p>General Info</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="23%">Caption</td>
+    <td class="tabdata">IGM516P1_MSN_SAL</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="23%">Entity Name</td>
+    <td class="tabdata">TGM516_MENSAJE_SAL</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="23%">Key Type</td>
+    <td class="tabdata">Primary Key</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="23%">Attribute Names</td>
+    <td class="tabdata">CD_MENSAJE_SALIDA</td>
+  </tr>
+</table>
+<br>
+<div class="itemEnd"><p>&nbsp;</p></div></div>
+<div id="Key_{CD96E3E3-0260-4EFF-B97A-4C183908384E}" class="item">
+<a name = "Key_{CD96E3E3-0260-4EFF-B97A-4C183908384E}"></a>
+<div class="caption1"><p>IGM517P1_ETAPA (TGM517_ETAPA)</p></div>
+<div class="caption2"><p>General Info</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="23%">Caption</td>
+    <td class="tabdata">IGM517P1_ETAPA</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="23%">Entity Name</td>
+    <td class="tabdata">TGM517_ETAPA</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="23%">Key Type</td>
+    <td class="tabdata">Primary Key</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="23%">Attribute Names</td>
+    <td class="tabdata">CD_ETAPA</td>
+  </tr>
+</table>
+<br>
+<div class="itemEnd"><p>&nbsp;</p></div></div>
+<div id="Key_{8DB781AB-D64E-44CF-A7BF-F5E12D39C05D}" class="item">
+<a name = "Key_{8DB781AB-D64E-44CF-A7BF-F5E12D39C05D}"></a>
+<div class="caption1"><p>IGM518P1_FLUJOREP (TGM518_FLUJOETAPA)</p></div>
+<div class="caption2"><p>General Info</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="23%">Caption</td>
+    <td class="tabdata">IGM518P1_FLUJOREP</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="23%">Entity Name</td>
+    <td class="tabdata">TGM518_FLUJOETAPA</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="23%">Key Type</td>
+    <td class="tabdata">Primary Key</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="23%">Attribute Names</td>
+    <td class="tabdata">CD_FLUJO, CD_ETAPA</td>
+  </tr>
+</table>
+<br>
+<div class="itemEnd"><p>&nbsp;</p></div></div>
+<div id="Key_{14484F62-120D-49EC-B3D9-68D578C2A1D9}" class="item">
+<a name = "Key_{14484F62-120D-49EC-B3D9-68D578C2A1D9}"></a>
+<div class="caption1"><p>IGM519P1_PROCESO (TGM519_CONTRATACION)</p></div>
+<div class="caption2"><p>General Info</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="23%">Caption</td>
+    <td class="tabdata">IGM519P1_PROCESO</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="23%">Entity Name</td>
+    <td class="tabdata">TGM519_CONTRATACION</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="23%">Key Type</td>
+    <td class="tabdata">Primary Key</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="23%">Attribute Names</td>
+    <td class="tabdata">CD_CONTRATACION</td>
+  </tr>
+</table>
+<br>
+<div class="itemEnd"><p>&nbsp;</p></div></div>
+<div id="Key_{B1D80E46-0018-4F3D-A194-D4C9F7DE64F6}" class="item">
+<a name = "Key_{B1D80E46-0018-4F3D-A194-D4C9F7DE64F6}"></a>
+<div class="caption1"><p>IGM520P1_PROREPOR (TGM520_CONTRAT_MAP)</p></div>
+<div class="caption2"><p>General Info</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="23%">Caption</td>
+    <td class="tabdata">IGM520P1_PROREPOR</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="23%">Entity Name</td>
+    <td class="tabdata">TGM520_CONTRAT_MAP</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="23%">Key Type</td>
+    <td class="tabdata">Primary Key</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="23%">Attribute Names</td>
+    <td class="tabdata">CD_FLUJO, CD_ETAPA, CD_CONTRATACION</td>
+  </tr>
+</table>
+<br>
+<div class="itemEnd"><p>&nbsp;</p></div></div>
+<div id="Key_{5F165855-EE0B-4E39-A374-48B45D4CD327}" class="item">
+<a name = "Key_{5F165855-EE0B-4E39-A374-48B45D4CD327}"></a>
+<div class="caption1"><p>IGM521P1_PBA_COMOD (TGM521_PBA_COMODIN)</p></div>
+<div class="caption2"><p>General Info</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="23%">Caption</td>
+    <td class="tabdata">IGM521P1_PBA_COMOD</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="23%">Entity Name</td>
+    <td class="tabdata">TGM521_PBA_COMODIN</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="23%">Key Type</td>
+    <td class="tabdata">Primary Key</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="23%">Attribute Names</td>
+    <td class="tabdata">CD_PALABRA_COMODIN</td>
+  </tr>
+</table>
+<br>
+<div class="itemEnd"><p>&nbsp;</p></div></div>
+<div id="Key_{A3CDFAC5-478D-4463-99BA-D9058C6EF0A3}" class="item">
+<a name = "Key_{A3CDFAC5-478D-4463-99BA-D9058C6EF0A3}"></a>
+<div class="caption1"><p>IGM522P1_ST_PROCES (TGM522_ST_PROCESO)</p></div>
+<div class="caption2"><p>General Info</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="23%">Caption</td>
+    <td class="tabdata">IGM522P1_ST_PROCES</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="23%">Entity Name</td>
+    <td class="tabdata">TGM522_ST_PROCESO</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="23%">Key Type</td>
+    <td class="tabdata">Primary Key</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="23%">Attribute Names</td>
+    <td class="tabdata">CD_FLUJO, CD_ETAPA, CD_CONTRATACION</td>
+  </tr>
+</table>
+<br>
+<div class="itemEnd"><p>&nbsp;</p></div></div>
+<div id="Key_{F353FAD6-9800-4946-A06E-C0E0155225BC}" class="item">
+<a name = "Key_{F353FAD6-9800-4946-A06E-C0E0155225BC}"></a>
+<div class="caption1"><p>IGM531P1_DEFINE_MA (TGM531_DEFINE_MAPA)</p></div>
+<div class="caption2"><p>General Info</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="23%">Caption</td>
+    <td class="tabdata">IGM531P1_DEFINE_MA</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="23%">Entity Name</td>
+    <td class="tabdata">TGM531_DEFINE_MAPA</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="23%">Key Type</td>
+    <td class="tabdata">Primary Key</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="23%">Attribute Names</td>
+    <td class="tabdata">CD_DEFINE_MAPA</td>
+  </tr>
+</table>
+<br>
+<div class="itemEnd"><p>&nbsp;</p></div></div>
+<div id="Key_{563C3D31-0D0C-432A-A9EF-4E92A7001735}" class="item">
+<a name = "Key_{563C3D31-0D0C-432A-A9EF-4E92A7001735}"></a>
+<div class="caption1"><p>IGM532P1_GPO_HOJA (TGM532_GPO_HOJA)</p></div>
+<div class="caption2"><p>General Info</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="23%">Caption</td>
+    <td class="tabdata">IGM532P1_GPO_HOJA</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="23%">Entity Name</td>
+    <td class="tabdata">TGM532_GPO_HOJA</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="23%">Key Type</td>
+    <td class="tabdata">Primary Key</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="23%">Attribute Names</td>
+    <td class="tabdata">CD_GPO_HOJA, CD_NUMERO_HOJA</td>
+  </tr>
+</table>
+<br>
+<div class="itemEnd"><p>&nbsp;</p></div></div>
+<div id="Key_{798BB22D-ECEE-4ECC-816D-BAF297D11FAE}" class="item">
+<a name = "Key_{798BB22D-ECEE-4ECC-816D-BAF297D11FAE}"></a>
+<div class="caption1"><p>IGM533P1_SECC_MAPA (TGM533_SECC_MAPA)</p></div>
+<div class="caption2"><p>General Info</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="23%">Caption</td>
+    <td class="tabdata">IGM533P1_SECC_MAPA</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="23%">Entity Name</td>
+    <td class="tabdata">TGM533_SECC_MAPA</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="23%">Key Type</td>
+    <td class="tabdata">Primary Key</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="23%">Attribute Names</td>
+    <td class="tabdata">CD_SECCION_MAPA</td>
+  </tr>
+</table>
+<br>
+<div class="itemEnd"><p>&nbsp;</p></div></div>
+<div id="Key_{62358D61-9270-42C3-BB72-CCB2BA5DDA23}" class="item">
+<a name = "Key_{62358D61-9270-42C3-BB72-CCB2BA5DDA23}"></a>
+<div class="caption1"><p>IGM534P1_ST_OBJETO (TGM534_ST_OBJETO)</p></div>
+<div class="caption2"><p>General Info</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="23%">Caption</td>
+    <td class="tabdata">IGM534P1_ST_OBJETO</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="23%">Entity Name</td>
+    <td class="tabdata">TGM534_ST_OBJETO</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="23%">Key Type</td>
+    <td class="tabdata">Primary Key</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="23%">Attribute Names</td>
+    <td class="tabdata">CD_ST_OBJETO</td>
+  </tr>
+</table>
+<br>
+<div class="itemEnd"><p>&nbsp;</p></div></div>
+<div id="Key_{5A907641-D544-41A1-B81A-B5845856D0D4}" class="item">
+<a name = "Key_{5A907641-D544-41A1-B81A-B5845856D0D4}"></a>
+<div class="caption1"><p>IGM536P1_REG_ARCH (TGM536_REG_ARCH_EN)</p></div>
+<div class="caption2"><p>General Info</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="23%">Caption</td>
+    <td class="tabdata">IGM536P1_REG_ARCH</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="23%">Entity Name</td>
+    <td class="tabdata">TGM536_REG_ARCH_EN</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="23%">Key Type</td>
+    <td class="tabdata">Primary Key</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="23%">Attribute Names</td>
+    <td class="tabdata">CD_REG_ARCH_ENTRA</td>
+  </tr>
+</table>
+<br>
+<div class="itemEnd"><p>&nbsp;</p></div></div>
+<div id="Key_{6AB08245-88A4-4E58-885A-2FD08D03121D}" class="item">
+<a name = "Key_{6AB08245-88A4-4E58-885A-2FD08D03121D}"></a>
+<div class="caption1"><p>IGM537P1_EDO_ARCHI (TGM537_EDO_ARCHIVO)</p></div>
+<div class="caption2"><p>General Info</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="23%">Caption</td>
+    <td class="tabdata">IGM537P1_EDO_ARCHI</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="23%">Entity Name</td>
+    <td class="tabdata">TGM537_EDO_ARCHIVO</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="23%">Key Type</td>
+    <td class="tabdata">Primary Key</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="23%">Attribute Names</td>
+    <td class="tabdata">CD_ESTADO_ARCHIVO</td>
+  </tr>
+</table>
+<br>
+<div class="itemEnd"><p>&nbsp;</p></div></div>
+<div id="Key_{7BAB7427-0770-4F33-9FA0-957EE1C9559F}" class="item">
+<a name = "Key_{7BAB7427-0770-4F33-9FA0-957EE1C9559F}"></a>
+<div class="caption1"><p>IGM538P1_ESTADO_AR (TGM538_ESTADO_ARCH)</p></div>
+<div class="caption2"><p>General Info</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="23%">Caption</td>
+    <td class="tabdata">IGM538P1_ESTADO_AR</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="23%">Entity Name</td>
+    <td class="tabdata">TGM538_ESTADO_ARCH</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="23%">Key Type</td>
+    <td class="tabdata">Primary Key</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="23%">Attribute Names</td>
+    <td class="tabdata">CD_ESTADO_ARCHIVO</td>
+  </tr>
+</table>
+<br>
+<div class="itemEnd"><p>&nbsp;</p></div></div>
+<div id="Key_{F1F8BD11-184B-4B8E-A440-D0D55742254F}" class="item">
+<a name = "Key_{F1F8BD11-184B-4B8E-A440-D0D55742254F}"></a>
+<div class="caption1"><p>Key1 (TGM539_ESTADISTICA)</p></div>
+<div class="caption2"><p>General Info</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="23%">Caption</td>
+    <td class="tabdata">Key1</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="23%">Entity Name</td>
+    <td class="tabdata">TGM539_ESTADISTICA</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="23%">Key Type</td>
+    <td class="tabdata">Primary Key</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="23%">Attribute Names</td>
+    <td class="tabdata">CD_FLUJO, CD_ETAPA, CD_CONTRATACION</td>
+  </tr>
+</table>
+<br>
+<div class="itemEnd"><p>&nbsp;</p></div></div>
+<div id="Key_{75F95FC0-F800-4A2D-995B-78771C321D14}" class="item">
+<a name = "Key_{75F95FC0-F800-4A2D-995B-78771C321D14}"></a>
+<div class="caption1"><p>IGM540P1_CONTRASEN (TGM540_CONTRASENIA)</p></div>
+<div class="caption2"><p>General Info</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="23%">Caption</td>
+    <td class="tabdata">IGM540P1_CONTRASEN</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="23%">Entity Name</td>
+    <td class="tabdata">TGM540_CONTRASENIA</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="23%">Key Type</td>
+    <td class="tabdata">Primary Key</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="23%">Attribute Names</td>
+    <td class="tabdata">CD_USUARIO, CD_CONTRASENIA</td>
+  </tr>
+</table>
+<br>
+<div class="itemEnd"><p>&nbsp;</p></div></div>
+
+        </div>
+<div id="footer">       <div class="pageFooter">Copyright &copy; Sitename 2005</div>        <div class="footerEnd"><p></p></div></div>
+    </div>
+  </div>
+</body>
+
+</html>
+

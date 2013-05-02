@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Context path="/MonitorWebSwift" docBase="MonitorWebSwift" debug="1" reloadable="true">
+<Resource 
+	name="jdbc/MonitorWebSwift" 
+	auth="Container" 
+	type="javax.sql.DataSource"
+	username="dbsbgm2"
+	password="dbsbgm212"
+	driverClassName="oracle.jdbc.driver.OracleDriver"
+	factory="org.apache.tomcat.dbcp.dbcp.BasicDataSourceFactory"
+	url="jdbc:oracle:thin:@150.100.117.63:1521:BGMBD002"
+	maxActive="100"
+    maxIdle="100"
+    maxWait="10000" />
+</Context> 

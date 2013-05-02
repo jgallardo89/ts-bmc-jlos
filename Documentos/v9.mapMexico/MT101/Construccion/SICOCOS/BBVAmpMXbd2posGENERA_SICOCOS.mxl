@@ -1,0 +1,5419 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Mapper VERSION="1.0" xmlns="http://www.stercomm.com/SI/Map" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<MapDetails>
+<VersionControl>
+<SerializationVersion>25088</SerializationVersion>
+<MajorVersion>0</MajorVersion>
+<MinorVersion>0</MinorVersion>
+<CompiledDate>285673436</CompiledDate>
+</VersionControl>
+<Summary>
+<Author>XM02621</Author>
+<Description>BBVAmpMXbd2posSICOCO.mxl</Description>
+<MapFunction>24</MapFunction>
+</Summary>
+<Flags>
+<SystemTemplate>0</SystemTemplate>
+<UseBigDecimal>0</UseBigDecimal>
+<InitializeExtendedRuleVariables>0</InitializeExtendedRuleVariables>
+<ErrorForNotUsed>0</ErrorForNotUsed>
+<SWIFTValidation></SWIFTValidation>
+<UseConfigurableTrimming>0</UseConfigurableTrimming>
+<CompatibleRuleExecution>1</CompatibleRuleExecution>
+</Flags>
+<EDIAssociations_IN>
+<AgencyID></AgencyID>
+<VersionID></VersionID>
+<BindingID></BindingID>
+<FunctionGroupID></FunctionGroupID>
+<AgencyDescription></AgencyDescription>
+<VersionDescription></VersionDescription>
+<BindingDescription></BindingDescription>
+<FunctionalGroupDescription></FunctionalGroupDescription>
+<Release>65535</Release>
+</EDIAssociations_IN>
+<EDIAssociations_OUT>
+<AgencyID></AgencyID>
+<VersionID></VersionID>
+<BindingID></BindingID>
+<FunctionGroupID></FunctionGroupID>
+<AgencyDescription></AgencyDescription>
+<VersionDescription></VersionDescription>
+<BindingDescription></BindingDescription>
+<FunctionalGroupDescription></FunctionalGroupDescription>
+<Release>65535</Release>
+</EDIAssociations_OUT>
+<ExplicitRule>
+<PreSessionRule>//Inicia Codigo BBVA
+
+
+Integer gn_TotalOperacionesMes;
+integer gn_contador_registros_mt101;
+integer gn_contador_registros_mt94X;
+string [10] gs_fecha_proceso;
+
+string [600] lg_header_archivo;
+real gn_total_comisiones;
+real gn_total_iva;
+integer gn_total_operaciones_mt101;
+integer gn_total_operaciones_mt94X;
+
+
+
+integer gn_contador_escritura_mt101;
+integer gn_contador_escritura_mt94X;
+
+real gn_importe_iva;
+
+
+lg_header_archivo = "";
+gs_fecha_proceso = "";
+
+//Inicializa contador para escritura de registros
+gn_contador_escritura_mt101 = 1;
+gn_contador_escritura_mt94X = 1;
+
+
+//Inicializa contador de registros
+gn_contador_registros_mt101 = 1;
+gn_contador_registros_mt94X = 1;
+gn_total_comisiones = 0;
+gn_total_iva = 0;
+gn_importe_iva = 0;
+gn_TotalOperacionesMes = 0; 
+gn_total_operaciones_mt101 = 0;
+gn_total_operaciones_mt94X = 0;
+//Termina Codigo BBVA</PreSessionRule>
+<PostSessionRule>//Inicia Codigo BBVA
+
+string [8] ls_operaciones ;
+ntoa(gn_TotalOperacionesMes , ls_operaciones);
+
+UPDATE ProcessData SET XPathResult = ls_operaciones WHERE XPath = "/ProcessData/ConfigFSA/ContadorRegistros";
+
+
+//Termina Codigo BBVA</PostSessionRule>
+</ExplicitRule>
+</MapDetails>
+<TemplateOption>2</TemplateOption>
+<ExtendedRuleLibraries/>
+<INPUT>
+<ODBCSyntax>
+<Group>
+<ID>44</ID>
+<Name>INPUT</Name>
+<Description></Description>
+<Active>1</Active>
+<ChildCount>5</ChildCount>
+<Note></Note>
+<Min>1</Min>
+<Max>1</Max>
+<PromoteGroup>no</PromoteGroup>
+<OrderingType>0</OrderingType>
+<OrderingTag></OrderingTag>
+<UsageRelatedFieldName/><ODBCStatement>
+<ID>43</ID>
+<Name>DISPARADOR_REPORTE</Name>
+<Description></Description>
+<Active>1</Active>
+<ChildCount>0</ChildCount>
+<Note></Note>
+<Query>
+<DataSource>BBVApoolOracle</DataSource>
+<SQL>SELECT TO_CHAR(SYSDATE, 'YYYY-MM-DD') FECHA_REPORTE FROM DUAL</SQL>
+<Type>Query</Type>
+<StoredProcedure>no</StoredProcedure>
+<Column>
+<Name>FECHA_REPORTE</Name>
+<SQLType>String</SQLType>
+<Precision>10</Precision>
+<Scale>0</Scale>
+<Nullability>yes</Nullability>
+<StoreLimit>
+<MaxLen>10</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>string</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>X</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit></Column></Query>
+</ODBCStatement>
+<ODBCStatement>
+<ID>42</ID>
+<Name>SICOCO_CONSULTA_MT94X</Name>
+<Description></Description>
+<Active>1</Active>
+<ChildCount>0</ChildCount>
+<Note></Note>
+<Query>
+<DataSource>BBVApoolOracle</DataSource>
+<SQL>PG_MX_SICOCO_MT94X.SP_132S_SICOCO_94X(?)</SQL>
+<Type>Query</Type>
+<StoredProcedure>yes</StoredProcedure>
+<Column>
+<Name>NB_CUENTA</Name>
+<SQLType>String</SQLType>
+<Precision>35</Precision>
+<Scale>0</Scale>
+<Nullability>yes</Nullability>
+<StoreLimit>
+<MaxLen>35</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>string</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>X</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>NU_CODIGO_SICOCO</Name>
+<SQLType>String</SQLType>
+<Precision>10</Precision>
+<Scale>0</Scale>
+<Nullability>yes</Nullability>
+<StoreLimit>
+<MaxLen>10</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>string</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>X</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>TX_TP_OPERACION</Name>
+<SQLType>String</SQLType>
+<Precision>50</Precision>
+<Scale>0</Scale>
+<Nullability>no</Nullability>
+<StoreLimit>
+<MaxLen>50</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>string</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>X</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>NB_CONTRATO</Name>
+<SQLType>String</SQLType>
+<Precision>9</Precision>
+<Scale>0</Scale>
+<Nullability>yes</Nullability>
+<StoreLimit>
+<MaxLen>9</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>string</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>X</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>NU_OPERACIONES</Name>
+<SQLType>Double</SQLType>
+<Precision>15</Precision>
+<Scale>0</Scale>
+<Nullability>yes</Nullability>
+<StoreLimit>
+<MaxLen>15</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>numeric</DataType>
+<ImpliedDecimalPos>9</ImpliedDecimalPos>
+<ImplicitDecimal>no</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>R9</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>NB_MONEDA</Name>
+<SQLType>String</SQLType>
+<Precision>3</Precision>
+<Scale>0</Scale>
+<Nullability>no</Nullability>
+<StoreLimit>
+<MaxLen>3</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>string</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>X</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>CD_CLIENTE_AAA</Name>
+<SQLType>String</SQLType>
+<Precision>1</Precision>
+<Scale>0</Scale>
+<Nullability>yes</Nullability>
+<StoreLimit>
+<MaxLen>1</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>string</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>X</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>NU_PORCENTAJE</Name>
+<SQLType>Double</SQLType>
+<Precision>3</Precision>
+<Scale>0</Scale>
+<Nullability>no</Nullability>
+<StoreLimit>
+<MaxLen>3</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>numeric</DataType>
+<ImpliedDecimalPos>9</ImpliedDecimalPos>
+<ImplicitDecimal>no</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>R9</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>IM_COMISION_USD</Name>
+<SQLType>Double</SQLType>
+<Precision>15</Precision>
+<Scale>0</Scale>
+<Nullability>yes</Nullability>
+<StoreLimit>
+<MaxLen>15</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>numeric</DataType>
+<ImpliedDecimalPos>9</ImpliedDecimalPos>
+<ImplicitDecimal>no</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>R9</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>IM_COMISION_MXN</Name>
+<SQLType>Double</SQLType>
+<Precision>15</Precision>
+<Scale>0</Scale>
+<Nullability>yes</Nullability>
+<StoreLimit>
+<MaxLen>15</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>numeric</DataType>
+<ImpliedDecimalPos>9</ImpliedDecimalPos>
+<ImplicitDecimal>no</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>R9</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>IM_COMISION_EUR</Name>
+<SQLType>Double</SQLType>
+<Precision>15</Precision>
+<Scale>0</Scale>
+<Nullability>yes</Nullability>
+<StoreLimit>
+<MaxLen>15</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>numeric</DataType>
+<ImpliedDecimalPos>9</ImpliedDecimalPos>
+<ImplicitDecimal>no</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>R9</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit></Column></Query>
+</ODBCStatement>
+<ODBCStatement>
+<ID>41</ID>
+<Name>SICOCO_CONSULTA_MT101</Name>
+<Description></Description>
+<Active>1</Active>
+<ChildCount>0</ChildCount>
+<Note></Note>
+<Query>
+<DataSource>BBVApoolMSSQL</DataSource>
+<SQL>spr_MXMT101_Genera_Sicoco</SQL>
+<Type>Query</Type>
+<StoredProcedure>yes</StoredProcedure>
+<Column>
+<Name>CONTRATOS.CuentaServicio</Name>
+<SQLType>String</SQLType>
+<Precision>12</Precision>
+<Scale>0</Scale>
+<Nullability>no</Nullability>
+<StoreLimit>
+<MaxLen>12</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>string</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>X</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>TIPO_OPERACION.SubServicio</Name>
+<SQLType>String</SQLType>
+<Precision>10</Precision>
+<Scale>0</Scale>
+<Nullability>yes</Nullability>
+<StoreLimit>
+<MaxLen>10</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>string</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>X</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>TIPO_OPERACION.DescSubservicio</Name>
+<SQLType>String</SQLType>
+<Precision>50</Precision>
+<Scale>0</Scale>
+<Nullability>no</Nullability>
+<StoreLimit>
+<MaxLen>50</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>string</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>X</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>CONTRATOS.Referencia</Name>
+<SQLType>String</SQLType>
+<Precision>13</Precision>
+<Scale>0</Scale>
+<Nullability>yes</Nullability>
+<StoreLimit>
+<MaxLen>13</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>string</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>X</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>TotalOps</Name>
+<SQLType>Integer</SQLType>
+<Precision>10</Precision>
+<Scale>0</Scale>
+<Nullability>yes</Nullability>
+<StoreLimit>
+<MaxLen>10</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>numeric</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>N0</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>CONTRATOS.Moneda</Name>
+<SQLType>String</SQLType>
+<Precision>3</Precision>
+<Scale>0</Scale>
+<Nullability>no</Nullability>
+<StoreLimit>
+<MaxLen>3</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>string</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>X</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>CONTRATOS.IndicadorAAA</Name>
+<SQLType>BIT</SQLType>
+<Precision>1</Precision>
+<Scale>0</Scale>
+<Nullability>yes</Nullability>
+<StoreLimit>
+<MaxLen>1</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>numeric</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>N0</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>iva</Name>
+<SQLType>Integer</SQLType>
+<Precision>10</Precision>
+<Scale>0</Scale>
+<Nullability>no</Nullability>
+<StoreLimit>
+<MaxLen>10</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>numeric</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>N0</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>imp_comision_usd</Name>
+<SQLType>Double</SQLType>
+<Precision>38</Precision>
+<Scale>2</Scale>
+<Nullability>yes</Nullability>
+<StoreLimit>
+<MaxLen>38</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>numeric</DataType>
+<ImpliedDecimalPos>2</ImpliedDecimalPos>
+<ImplicitDecimal>no</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>R2</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>imp_comision_mxp</Name>
+<SQLType>Double</SQLType>
+<Precision>38</Precision>
+<Scale>2</Scale>
+<Nullability>yes</Nullability>
+<StoreLimit>
+<MaxLen>38</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>numeric</DataType>
+<ImpliedDecimalPos>2</ImpliedDecimalPos>
+<ImplicitDecimal>no</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>R2</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>imp_comision_eur</Name>
+<SQLType>Double</SQLType>
+<Precision>38</Precision>
+<Scale>2</Scale>
+<Nullability>yes</Nullability>
+<StoreLimit>
+<MaxLen>38</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>numeric</DataType>
+<ImpliedDecimalPos>2</ImpliedDecimalPos>
+<ImplicitDecimal>no</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>R2</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>tarifa_usd</Name>
+<SQLType>Double</SQLType>
+<Precision>7</Precision>
+<Scale>2</Scale>
+<Nullability>yes</Nullability>
+<StoreLimit>
+<MaxLen>7</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>numeric</DataType>
+<ImpliedDecimalPos>2</ImpliedDecimalPos>
+<ImplicitDecimal>no</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>R2</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>tarifa_mxp</Name>
+<SQLType>Double</SQLType>
+<Precision>7</Precision>
+<Scale>2</Scale>
+<Nullability>yes</Nullability>
+<StoreLimit>
+<MaxLen>7</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>numeric</DataType>
+<ImpliedDecimalPos>2</ImpliedDecimalPos>
+<ImplicitDecimal>no</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>R2</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>tarifa_eur</Name>
+<SQLType>Double</SQLType>
+<Precision>7</Precision>
+<Scale>2</Scale>
+<Nullability>yes</Nullability>
+<StoreLimit>
+<MaxLen>7</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>numeric</DataType>
+<ImpliedDecimalPos>2</ImpliedDecimalPos>
+<ImplicitDecimal>no</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>R2</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>Importe</Name>
+<SQLType>Double</SQLType>
+<Precision>38</Precision>
+<Scale>2</Scale>
+<Nullability>yes</Nullability>
+<StoreLimit>
+<MaxLen>38</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>numeric</DataType>
+<ImpliedDecimalPos>2</ImpliedDecimalPos>
+<ImplicitDecimal>no</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>R2</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>CONTRATOS.anualidad</Name>
+<SQLType>BIT</SQLType>
+<Precision>1</Precision>
+<Scale>0</Scale>
+<Nullability>yes</Nullability>
+<StoreLimit>
+<MaxLen>1</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>numeric</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>N0</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>CONTRATOS.mensualidad</Name>
+<SQLType>BIT</SQLType>
+<Precision>1</Precision>
+<Scale>0</Scale>
+<Nullability>yes</Nullability>
+<StoreLimit>
+<MaxLen>1</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>numeric</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>N0</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>CONTRATOS.id_contratos</Name>
+<SQLType>Integer</SQLType>
+<Precision>10</Precision>
+<Scale>0</Scale>
+<Nullability>no</Nullability>
+<StoreLimit>
+<MaxLen>10</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>numeric</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>N0</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit></Column></Query>
+</ODBCStatement>
+<Group>
+<ID>40</ID>
+<Name>HEADER_FECHA</Name>
+<Description></Description>
+<Active>1</Active>
+<ChildCount>1</ChildCount>
+<Note></Note>
+<Min>0</Min>
+<Max>1</Max>
+<PromoteGroup>no</PromoteGroup>
+<OrderingType>0</OrderingType>
+<OrderingTag></OrderingTag>
+<UsageRelatedFieldName/><ODBCInputRecord>
+<ID>39</ID>
+<Name>FECHA_PROCESO</Name>
+<Description></Description>
+<Active>1</Active>
+<ChildCount>1</ChildCount>
+<Note></Note>
+<Min>0</Min>
+<Max>1</Max>
+<LoopCtl>normal</LoopCtl>
+<OrderingType>0</OrderingType>
+<OrderingTag></OrderingTag>
+<UsageRelatedFieldName/><BlockSig>
+<BlockType>255</BlockType>
+<DsnID>0</DsnID>
+<Command>0</Command>
+<Verb>255</Verb>
+<CursorOperation>1</CursorOperation>
+<KeyFieldAction>255</KeyFieldAction>
+<StmtID>0</StmtID>
+<TableID>0</TableID>
+<KeyFieldID>0</KeyFieldID>
+<KeyFieldData>0</KeyFieldData>
+<KeyFieldData2>0</KeyFieldData2>
+<KeyFieldID2>0</KeyFieldID2>
+<KeyFieldData3>0</KeyFieldData3>
+<KeyFieldData4>0</KeyFieldData4>
+<KeyFieldID3>0</KeyFieldID3>
+<KeyFieldData5>0</KeyFieldData5>
+<KeyFieldData6>0</KeyFieldData6>
+<BlockType>0</BlockType>
+<DsnID>0</DsnID>
+<Command>0</Command>
+<Verb>0</Verb>
+<CursorOperation>0</CursorOperation>
+<KeyFieldAction>0</KeyFieldAction>
+<StmtID>0</StmtID>
+<TableID>0</TableID>
+<KeyFieldID>0</KeyFieldID>
+<KeyFieldData>0</KeyFieldData>
+<KeyFieldData2>0</KeyFieldData2>
+<KeyFieldID2>0</KeyFieldID2>
+<KeyFieldData3>0</KeyFieldData3>
+<KeyFieldData4>0</KeyFieldData4>
+<KeyFieldID3>0</KeyFieldID3>
+<KeyFieldData5>0</KeyFieldData5>
+<KeyFieldData6>0</KeyFieldData6>
+</BlockSig>
+<Field>
+<ID>38</ID>
+<Name>FECHA_REPORTE</Name>
+<Description></Description>
+<Active>1</Active>
+<ChildCount>0</ChildCount>
+<Note></Note>
+<Mandatory>no</Mandatory>
+<NotUsed>no</NotUsed>
+<FieldNumber>0</FieldNumber>
+<StoreGroup>65535</StoreGroup>
+<StoreField>65535</StoreField>
+<BusinessName></BusinessName>
+<StoreLimit>
+<MaxLen>10</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>string</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>X</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+<ExplicitRule>// Inicia Codigo BBVA
+
+gs_fecha_proceso = #FECHA_REPORTE;
+
+//Termina Codigo BBVA</ExplicitRule>
+<NullsAllowed>yes</NullsAllowed>
+<BlockQueryID>0</BlockQueryID>
+<ColumnNumber>1</ColumnNumber>
+<ColumnKey>0</ColumnKey>
+<ColumnNameID>0</ColumnNameID>
+<StatementRecord>DISPARADOR_REPORTE</StatementRecord>
+<Table></Table>
+<InputColumn>FECHA_REPORTE</InputColumn>
+<OutputColumn></OutputColumn>
+<FieldType>InputOnly</FieldType>
+</Field></ODBCInputRecord>
+</Group>
+<Group>
+<ID>37</ID>
+<Name>HEADER_PRINCIPAL</Name>
+<Description></Description>
+<Active>1</Active>
+<ChildCount>2</ChildCount>
+<Note></Note>
+<Min>0</Min>
+<Max>1</Max>
+<PromoteGroup>no</PromoteGroup>
+<OrderingType>0</OrderingType>
+<OrderingTag></OrderingTag>
+<UsageRelatedFieldName/><ExplicitRule>
+<OnBegin>//Inicio Codigo BBVA
+string [250] ls_array_escritura_reporte_mt101[99999];
+string [250] ls_array_escritura_reporte_mt94X[99999];
+//Termina Codigo BBVA</OnBegin>
+<OnEnd>//Inicio Codigo BBVA
+
+string [8] ls_operaciones;
+string [8] ls_operaciones_mes;
+integer gn_SumaOperacionesMes;
+
+integer ln_pos_punto;
+integer ln_pos_punto_iva;
+
+string[17] gs_total_comisiones;
+string[17] gs_aux_total_comisiones;
+string[17] gs_total_iva;
+string[17] gs_aux_total_iva;
+
+
+gn_TotalOperacionesMes = (gn_contador_registros_mt94X-1) + (gn_contador_registros_mt101-1); 
+ntoa(gn_TotalOperacionesMes , ls_operaciones);
+
+gn_SumaOperacionesMes = gn_total_operaciones_mt101 + gn_total_operaciones_mt94X;
+ntoa(gn_SumaOperacionesMes  , ls_operaciones_mes);
+
+ntoa(gn_total_comisiones,gs_total_comisiones);
+ntoa(gn_total_iva,gs_total_iva);
+
+
+
+//************************************************************
+//HEADER
+//************************************************************
+//Identificador de tipo de registro
+	lg_header_archivo = "H";
+
+//Clave de Servicio
+	CONCAT(lg_header_archivo , FILLER_ZEROS,7); //Rellenar con ceros a la izquierda
+	lg_header_archivo = lg_header_archivo + "28";
+
+//Fecha Actual Formato (DD-MM-YYYY)
+	lg_header_archivo = lg_header_archivo + gs_fecha_proceso;	
+
+//Uso Futuro
+	CONCAT(lg_header_archivo , FILLER_SPACES_FUTURO,250-len(lg_header_archivo)); //Rellenar con espacios hacia la derecha
+
+writeblock(lg_header_archivo);
+
+
+
+
+//************************************************************
+// SICOCOS AA MT101 
+//************************************************************
+WHILE gn_contador_escritura_mt101 &lt; gn_contador_registros_mt101 + 1 DO
+BEGIN
+
+  writeblock(ls_array_escritura_reporte_mt101[gn_contador_escritura_mt101]);
+  gn_contador_escritura_mt101 = gn_contador_escritura_mt101 + 1;
+
+END
+
+
+//************************************************************
+//SICOCOS MT940
+//************************************************************
+WHILE gn_contador_escritura_mt94X &lt; gn_contador_registros_mt94X + 1 DO
+BEGIN
+
+  writeblock(ls_array_escritura_reporte_mt94X[gn_contador_escritura_mt94X]);
+  gn_contador_escritura_mt94X = gn_contador_escritura_mt94X + 1;
+
+END
+
+
+
+//************************************************************
+//
+//************************************************************
+
+lg_header_archivo  = "";
+
+//Identificador de tipo de registro
+	lg_header_archivo = "P";
+
+//Total de operaciones en el mes
+	CONCAT(lg_header_archivo , FILLER_ZEROS,8-len(ls_operaciones_mes)); //Rellenar con ceros a la izquierda
+	lg_header_archivo = lg_header_archivo + ls_operaciones_mes;
+
+
+//Total de importe acumulado en el mes
+	lg_header_archivo = lg_header_archivo + FILLER_ZEROS + "00";	
+
+//Total de operaciones Cargo
+	CONCAT(lg_header_archivo , FILLER_ZEROS,8-len(ls_operaciones)); //Rellenar con ceros a la izquierda
+	lg_header_archivo = lg_header_archivo + ls_operaciones;
+
+
+//Total de operaciones abono
+	CONCAT(lg_header_archivo , FILLER_ZEROS,8); //Rellenar con ceros a la izquierda
+ 
+//Total importe comision 
+	ln_pos_punto = strstr(gs_total_comisiones,".");
+
+	IF  ln_pos_punto &lt; 0 THEN 
+	BEGIN 
+		gs_aux_total_comisiones = gs_total_comisiones; //Enteros
+		gs_aux_total_comisiones = gs_aux_total_comisiones + "00";	
+
+	END
+	ELSE 
+	BEGIN
+		gs_aux_total_comisiones = mid(gs_total_comisiones,0,ln_pos_punto); //Enteros
+		gs_aux_total_comisiones = gs_aux_total_comisiones + mid(gs_total_comisiones, ln_pos_punto+1,2); //Decimales
+
+		IF LEN(mid(gs_total_comisiones, ln_pos_punto+1,2)) = 1 THEN
+		BEGIN
+			gs_aux_total_comisiones = gs_aux_total_comisiones + "0";	
+		END 
+	END
+
+
+
+	CONCAT(lg_header_archivo, FILLER_ZEROS,17-len(gs_aux_total_comisiones)); //Rellenar con ceros a la izquierda
+
+	lg_header_archivo = lg_header_archivo + gs_aux_total_comisiones;
+
+
+
+
+//Total de importe de impuesto comision local 1
+	ln_pos_punto_iva = strstr(gs_total_iva,".");
+	
+        IF  ln_pos_punto_iva&lt; 0 THEN 
+        BEGIN 
+	        gs_aux_total_iva = gs_total_iva; //Enteros
+	        gs_aux_total_iva = gs_aux_total_iva + "00";	
+
+        END
+        ELSE 
+        BEGIN		
+	
+	        gs_aux_total_iva = mid(gs_total_iva,0,ln_pos_punto_iva); //Enteros
+         	gs_aux_total_iva = gs_aux_total_iva + mid(gs_total_iva, ln_pos_punto_iva+1,2); //Decimales
+
+		IF LEN(mid(gs_total_iva, ln_pos_punto_iva+1,2)) = 1 THEN
+		BEGIN
+			gs_aux_total_iva = gs_aux_total_iva + "0";	
+		END 
+	
+
+        END
+
+
+	
+
+        CONCAT(lg_header_archivo, FILLER_ZEROS,17-len(gs_aux_total_iva)); //Rellenar con ceros a la izquierda
+
+        lg_header_archivo = lg_header_archivo + gs_aux_total_iva;
+
+
+
+//Total de importe de impuesto comision local 2
+	lg_header_archivo = lg_header_archivo + FILLER_ZEROS + "00";
+
+//Total de importe de impuesto comision local 3
+	lg_header_archivo = lg_header_archivo + FILLER_ZEROS + "00";
+
+//Total de importe de impuesto comision local 4
+	lg_header_archivo = lg_header_archivo + FILLER_ZEROS + "00";
+
+//Uso Futuro
+	CONCAT(lg_header_archivo , FILLER_SPACES_FUTURO,250-len(lg_header_archivo)); //Rellenar con espacios hacia la derecha
+
+
+//Uso Futuro
+	CONCAT(lg_header_archivo , FILLER_SPACES_FUTURO,250-len(lg_header_archivo)); //Rellenar con espacios hacia la derecha
+
+writeblock(lg_header_archivo);
+
+
+
+//Termina Codigo BBVA</OnEnd>
+</ExplicitRule>
+<Group>
+<ID>36</ID>
+<Name>DETALLE_SICOCO_MT94X</Name>
+<Description></Description>
+<Active>1</Active>
+<ChildCount>1</ChildCount>
+<Note></Note>
+<Min>0</Min>
+<Max>1</Max>
+<PromoteGroup>no</PromoteGroup>
+<OrderingType>0</OrderingType>
+<OrderingTag></OrderingTag>
+<UsageRelatedFieldName/><ODBCInputRecord>
+<ID>35</ID>
+<Name>DETALLE_REG_SICOCO_MT94X</Name>
+<Description></Description>
+<Active>1</Active>
+<ChildCount>11</ChildCount>
+<Note></Note>
+<Min>0</Min>
+<Max>99999</Max>
+<LoopCtl>normal</LoopCtl>
+<OrderingType>0</OrderingType>
+<OrderingTag></OrderingTag>
+<UsageRelatedFieldName/><ExplicitRule>
+<OnBegin></OnBegin>
+<OnEnd>// Inicia Codigo BBVA
+
+//Incrementa contador de registros
+
+gn_contador_registros_mt94X = gn_contador_registros_mt94X + 1;
+
+
+IF #CD_CLIENTE_AAA = "0" THEN
+BEGIN
+	IF #NB_MONEDA = "MXN" THEN
+	BEGIN
+		gn_total_comisiones = gn_total_comisiones + #IM_COMISION_MXN;
+
+	END
+	ELSE IF #NB_MONEDA = "USD" THEN
+	BEGIN
+		gn_total_comisiones = gn_total_comisiones + #IM_COMISION_USD;		
+	END 
+	ELSE
+	BEGIN
+		gn_total_comisiones = gn_total_comisiones + #IM_COMISION_EUR;
+
+	END 
+
+	
+	gn_total_iva = gn_total_iva + gn_importe_iva;
+
+END
+
+gn_total_operaciones_mt94X = gn_total_operaciones_mt94X + 1;
+// Termina Codigo BBVA</OnEnd>
+</ExplicitRule>
+<BlockSig>
+<BlockType>255</BlockType>
+<DsnID>0</DsnID>
+<Command>0</Command>
+<Verb>255</Verb>
+<CursorOperation>1</CursorOperation>
+<KeyFieldAction>255</KeyFieldAction>
+<StmtID>0</StmtID>
+<TableID>0</TableID>
+<KeyFieldID>0</KeyFieldID>
+<KeyFieldData>65535</KeyFieldData>
+<KeyFieldData2>0</KeyFieldData2>
+<KeyFieldID2>0</KeyFieldID2>
+<KeyFieldData3>0</KeyFieldData3>
+<KeyFieldData4>0</KeyFieldData4>
+<KeyFieldID3>0</KeyFieldID3>
+<KeyFieldData5>0</KeyFieldData5>
+<KeyFieldData6>0</KeyFieldData6>
+<BlockType>0</BlockType>
+<DsnID>0</DsnID>
+<Command>0</Command>
+<Verb>0</Verb>
+<CursorOperation>0</CursorOperation>
+<KeyFieldAction>0</KeyFieldAction>
+<StmtID>0</StmtID>
+<TableID>0</TableID>
+<KeyFieldID>0</KeyFieldID>
+<KeyFieldData>0</KeyFieldData>
+<KeyFieldData2>0</KeyFieldData2>
+<KeyFieldID2>0</KeyFieldID2>
+<KeyFieldData3>0</KeyFieldData3>
+<KeyFieldData4>0</KeyFieldData4>
+<KeyFieldID3>0</KeyFieldID3>
+<KeyFieldData5>0</KeyFieldData5>
+<KeyFieldData6>0</KeyFieldData6>
+</BlockSig>
+<Field>
+<ID>34</ID>
+<Name>NB_CUENTA</Name>
+<Description></Description>
+<Active>1</Active>
+<ChildCount>0</ChildCount>
+<Note></Note>
+<Mandatory>no</Mandatory>
+<NotUsed>no</NotUsed>
+<FieldNumber>0</FieldNumber>
+<StoreGroup>65535</StoreGroup>
+<StoreField>65535</StoreField>
+<BusinessName></BusinessName>
+<StoreLimit>
+<MaxLen>35</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>string</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>X</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+<NullsAllowed>yes</NullsAllowed>
+<BlockQueryID>0</BlockQueryID>
+<ColumnNumber>1</ColumnNumber>
+<ColumnKey>0</ColumnKey>
+<ColumnNameID>0</ColumnNameID>
+<StatementRecord>SICOCO_CONSULTA_MT94X</StatementRecord>
+<Table></Table>
+<InputColumn>NB_CUENTA</InputColumn>
+<OutputColumn></OutputColumn>
+<FieldType>InputOnly</FieldType>
+</Field>
+<Field>
+<ID>33</ID>
+<Name>NU_CODIGO_SICOCO</Name>
+<Description></Description>
+<Active>1</Active>
+<ChildCount>0</ChildCount>
+<Note></Note>
+<Mandatory>no</Mandatory>
+<NotUsed>no</NotUsed>
+<FieldNumber>0</FieldNumber>
+<StoreGroup>65535</StoreGroup>
+<StoreField>65535</StoreField>
+<BusinessName></BusinessName>
+<StoreLimit>
+<MaxLen>10</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>string</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>X</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+<NullsAllowed>yes</NullsAllowed>
+<BlockQueryID>0</BlockQueryID>
+<ColumnNumber>2</ColumnNumber>
+<ColumnKey>0</ColumnKey>
+<ColumnNameID>0</ColumnNameID>
+<StatementRecord>SICOCO_CONSULTA_MT94X</StatementRecord>
+<Table></Table>
+<InputColumn>NU_CODIGO_SICOCO</InputColumn>
+<OutputColumn></OutputColumn>
+<FieldType>InputOnly</FieldType>
+</Field>
+<Field>
+<ID>32</ID>
+<Name>TX_TP_OPERACION</Name>
+<Description></Description>
+<Active>1</Active>
+<ChildCount>0</ChildCount>
+<Note></Note>
+<Mandatory>no</Mandatory>
+<NotUsed>no</NotUsed>
+<FieldNumber>0</FieldNumber>
+<StoreGroup>65535</StoreGroup>
+<StoreField>65535</StoreField>
+<BusinessName></BusinessName>
+<StoreLimit>
+<MaxLen>50</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>string</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>X</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+<NullsAllowed>no</NullsAllowed>
+<BlockQueryID>0</BlockQueryID>
+<ColumnNumber>3</ColumnNumber>
+<ColumnKey>0</ColumnKey>
+<ColumnNameID>0</ColumnNameID>
+<StatementRecord>SICOCO_CONSULTA_MT94X</StatementRecord>
+<Table></Table>
+<InputColumn>TX_TP_OPERACION</InputColumn>
+<OutputColumn></OutputColumn>
+<FieldType>InputOnly</FieldType>
+</Field>
+<Field>
+<ID>31</ID>
+<Name>NB_CONTRATO</Name>
+<Description></Description>
+<Active>1</Active>
+<ChildCount>0</ChildCount>
+<Note></Note>
+<Mandatory>no</Mandatory>
+<NotUsed>no</NotUsed>
+<FieldNumber>0</FieldNumber>
+<StoreGroup>65535</StoreGroup>
+<StoreField>65535</StoreField>
+<BusinessName></BusinessName>
+<StoreLimit>
+<MaxLen>9</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>string</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>X</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+<NullsAllowed>yes</NullsAllowed>
+<BlockQueryID>0</BlockQueryID>
+<ColumnNumber>4</ColumnNumber>
+<ColumnKey>0</ColumnKey>
+<ColumnNameID>0</ColumnNameID>
+<StatementRecord>SICOCO_CONSULTA_MT94X</StatementRecord>
+<Table></Table>
+<InputColumn>NB_CONTRATO</InputColumn>
+<OutputColumn></OutputColumn>
+<FieldType>InputOnly</FieldType>
+</Field>
+<Field>
+<ID>30</ID>
+<Name>NU_OPERACIONES</Name>
+<Description></Description>
+<Active>1</Active>
+<ChildCount>0</ChildCount>
+<Note></Note>
+<Mandatory>no</Mandatory>
+<NotUsed>no</NotUsed>
+<FieldNumber>0</FieldNumber>
+<StoreGroup>65535</StoreGroup>
+<StoreField>65535</StoreField>
+<BusinessName></BusinessName>
+<StoreLimit>
+<MaxLen>15</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>numeric</DataType>
+<ImpliedDecimalPos>9</ImpliedDecimalPos>
+<ImplicitDecimal>no</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>R9</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+<NullsAllowed>yes</NullsAllowed>
+<BlockQueryID>0</BlockQueryID>
+<ColumnNumber>5</ColumnNumber>
+<ColumnKey>0</ColumnKey>
+<ColumnNameID>0</ColumnNameID>
+<StatementRecord>SICOCO_CONSULTA_MT94X</StatementRecord>
+<Table></Table>
+<InputColumn>NU_OPERACIONES</InputColumn>
+<OutputColumn></OutputColumn>
+<FieldType>InputOnly</FieldType>
+</Field>
+<Field>
+<ID>29</ID>
+<Name>NB_MONEDA</Name>
+<Description></Description>
+<Active>1</Active>
+<ChildCount>0</ChildCount>
+<Note></Note>
+<Mandatory>no</Mandatory>
+<NotUsed>no</NotUsed>
+<FieldNumber>0</FieldNumber>
+<StoreGroup>65535</StoreGroup>
+<StoreField>65535</StoreField>
+<BusinessName></BusinessName>
+<StoreLimit>
+<MaxLen>3</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>string</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>X</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+<NullsAllowed>no</NullsAllowed>
+<BlockQueryID>0</BlockQueryID>
+<ColumnNumber>6</ColumnNumber>
+<ColumnKey>0</ColumnKey>
+<ColumnNameID>0</ColumnNameID>
+<StatementRecord>SICOCO_CONSULTA_MT94X</StatementRecord>
+<Table></Table>
+<InputColumn>NB_MONEDA</InputColumn>
+<OutputColumn></OutputColumn>
+<FieldType>InputOnly</FieldType>
+</Field>
+<Field>
+<ID>28</ID>
+<Name>CD_CLIENTE_AAA</Name>
+<Description></Description>
+<Active>1</Active>
+<ChildCount>0</ChildCount>
+<Note></Note>
+<Mandatory>no</Mandatory>
+<NotUsed>no</NotUsed>
+<FieldNumber>0</FieldNumber>
+<StoreGroup>65535</StoreGroup>
+<StoreField>65535</StoreField>
+<BusinessName></BusinessName>
+<StoreLimit>
+<MaxLen>1</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>string</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>X</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+<NullsAllowed>yes</NullsAllowed>
+<BlockQueryID>0</BlockQueryID>
+<ColumnNumber>7</ColumnNumber>
+<ColumnKey>0</ColumnKey>
+<ColumnNameID>0</ColumnNameID>
+<StatementRecord>SICOCO_CONSULTA_MT94X</StatementRecord>
+<Table></Table>
+<InputColumn>CD_CLIENTE_AAA</InputColumn>
+<OutputColumn></OutputColumn>
+<FieldType>InputOnly</FieldType>
+</Field>
+<Field>
+<ID>27</ID>
+<Name>NU_PORCENTAJE</Name>
+<Description></Description>
+<Active>1</Active>
+<ChildCount>0</ChildCount>
+<Note></Note>
+<Mandatory>no</Mandatory>
+<NotUsed>no</NotUsed>
+<FieldNumber>0</FieldNumber>
+<StoreGroup>65535</StoreGroup>
+<StoreField>65535</StoreField>
+<BusinessName></BusinessName>
+<StoreLimit>
+<MaxLen>3</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>numeric</DataType>
+<ImpliedDecimalPos>9</ImpliedDecimalPos>
+<ImplicitDecimal>no</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>R9</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+<NullsAllowed>no</NullsAllowed>
+<BlockQueryID>0</BlockQueryID>
+<ColumnNumber>8</ColumnNumber>
+<ColumnKey>0</ColumnKey>
+<ColumnNameID>0</ColumnNameID>
+<StatementRecord>SICOCO_CONSULTA_MT94X</StatementRecord>
+<Table></Table>
+<InputColumn>NU_PORCENTAJE</InputColumn>
+<OutputColumn></OutputColumn>
+<FieldType>InputOnly</FieldType>
+</Field>
+<Field>
+<ID>26</ID>
+<Name>IM_COMISION_USD</Name>
+<Description></Description>
+<Active>1</Active>
+<ChildCount>0</ChildCount>
+<Note></Note>
+<Mandatory>no</Mandatory>
+<NotUsed>no</NotUsed>
+<FieldNumber>0</FieldNumber>
+<StoreGroup>65535</StoreGroup>
+<StoreField>65535</StoreField>
+<BusinessName></BusinessName>
+<StoreLimit>
+<MaxLen>15</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>numeric</DataType>
+<ImpliedDecimalPos>9</ImpliedDecimalPos>
+<ImplicitDecimal>no</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>R9</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+<NullsAllowed>yes</NullsAllowed>
+<BlockQueryID>0</BlockQueryID>
+<ColumnNumber>9</ColumnNumber>
+<ColumnKey>0</ColumnKey>
+<ColumnNameID>0</ColumnNameID>
+<StatementRecord>SICOCO_CONSULTA_MT94X</StatementRecord>
+<Table></Table>
+<InputColumn>IM_COMISION_USD</InputColumn>
+<OutputColumn></OutputColumn>
+<FieldType>InputOnly</FieldType>
+</Field>
+<Field>
+<ID>25</ID>
+<Name>IM_COMISION_MXN</Name>
+<Description></Description>
+<Active>1</Active>
+<ChildCount>0</ChildCount>
+<Note></Note>
+<Mandatory>no</Mandatory>
+<NotUsed>no</NotUsed>
+<FieldNumber>0</FieldNumber>
+<StoreGroup>65535</StoreGroup>
+<StoreField>65535</StoreField>
+<BusinessName></BusinessName>
+<StoreLimit>
+<MaxLen>15</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>numeric</DataType>
+<ImpliedDecimalPos>9</ImpliedDecimalPos>
+<ImplicitDecimal>no</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>R9</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+<NullsAllowed>yes</NullsAllowed>
+<BlockQueryID>0</BlockQueryID>
+<ColumnNumber>10</ColumnNumber>
+<ColumnKey>0</ColumnKey>
+<ColumnNameID>0</ColumnNameID>
+<StatementRecord>SICOCO_CONSULTA_MT94X</StatementRecord>
+<Table></Table>
+<InputColumn>IM_COMISION_MXN</InputColumn>
+<OutputColumn></OutputColumn>
+<FieldType>InputOnly</FieldType>
+</Field>
+<Field>
+<ID>24</ID>
+<Name>IM_COMISION_EUR</Name>
+<Description></Description>
+<Active>1</Active>
+<ChildCount>0</ChildCount>
+<Note></Note>
+<Mandatory>no</Mandatory>
+<NotUsed>no</NotUsed>
+<FieldNumber>0</FieldNumber>
+<StoreGroup>65535</StoreGroup>
+<StoreField>65535</StoreField>
+<BusinessName></BusinessName>
+<StoreLimit>
+<MaxLen>15</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>numeric</DataType>
+<ImpliedDecimalPos>9</ImpliedDecimalPos>
+<ImplicitDecimal>no</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>R9</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+<ExplicitRule>//Inicia Codigo BBVA
+
+string [15] ls_operaciones;
+string [15] ls_importe;
+string [250] ls_detalle;
+Integer ln_pos_punto;
+string [15] ls_importe_iva;
+
+
+//Inicializa detalle por registro MT94X
+	ls_detalle = "";
+
+//Identificador de tipo de registro
+	ls_detalle = ls_detalle + "D";
+
+//Entidad o país
+	ls_detalle = ls_detalle + "0074";
+
+
+//Cuenta de servicio
+	CONCAT(ls_detalle, FILLER_ZEROS,10-len(trim(#NB_CUENTA))); //Rellenar con ceros a la izquierda
+	ls_detalle = ls_detalle + trim(#NB_CUENTA);
+
+
+//Clave de sub-servicio
+	CONCAT(ls_detalle, FILLER_ZEROS,9-len(trim(RIGHT(trim(#NU_CODIGO_SICOCO),9)))); //Rellenar con ceros a la izquierda
+	ls_detalle = ls_detalle + RIGHT(TRIM(#NU_CODIGO_SICOCO),9);
+
+
+//Descripción de sub-servicio
+	ls_detalle = ls_detalle + trim(#TX_TP_OPERACION);
+	CONCAT(ls_detalle, FILLER_SPACES,45-len(trim(#TX_TP_OPERACION))); //Rellenar con espacios a la derecha
+
+//Periodo de operación (Formato AAAAMM)
+	ls_detalle = ls_detalle + mid(gs_fecha_proceso,0,4) + mid(gs_fecha_proceso,5,2);
+
+
+//Referencia / Número de contrato
+	CONCAT(ls_detalle, FILLER_ZEROS,12-len(RIGHT(trim(#NB_CONTRATO),12))); //Rellenar con ceros a la izquierda
+	ls_detalle = ls_detalle + RIGHT(trim(#NB_CONTRATO),12);
+
+
+//Número de operaciones en el mes
+	ntoa(#NU_OPERACIONES, ls_operaciones);
+	CONCAT(ls_detalle, FILLER_ZEROS,8-len(ls_operaciones)); //Rellenar con ceros a la izquierda
+	ls_detalle = ls_detalle + ls_operaciones;
+
+
+//Importe acumulado en el mes (rellena con ceros )
+	ls_detalle = ls_detalle + FILLER_ZEROS;
+
+//IIndicador de tipo de operación 
+	ls_detalle = ls_detalle + "C";
+
+//Indicador de consolidado 
+	IF #CD_CLIENTE_AAA = "1" THEN
+	   BEGIN
+        	ls_detalle = ls_detalle + "N";
+	   END
+	ELSE
+	   BEGIN
+        	ls_detalle = ls_detalle + "S";
+	   END
+
+//Indicador de cliente AAA
+	IF #CD_CLIENTE_AAA = "1" THEN
+	   BEGIN
+        	ls_detalle = ls_detalle + "S";
+	   END
+	ELSE
+	   BEGIN
+        	ls_detalle = ls_detalle + "N";
+	   END
+
+//Tarifa
+	
+	IF #NB_MONEDA = "MXN" THEN
+	   BEGIN
+		ntoa(#IM_COMISION_MXN,ls_importe);
+	
+		ln_pos_punto = strstr(ls_importe,".");
+
+
+
+		IF  ln_pos_punto &lt; 0 THEN 
+		BEGIN 
+			//En caso de que el importe no tenga decimales, Agregar los dos decimales
+			ls_operaciones = ls_importe; //Enteros
+			ls_operaciones = ls_operaciones + "00";	
+		END
+		ELSE 
+		BEGIN
+			ls_operaciones = mid(ls_importe,0,ln_pos_punto); //Enteros
+			ls_operaciones  = ls_operaciones  + mid(ls_importe, ln_pos_punto+1,2); //Decimales
+
+			IF LEN(mid(ls_importe, ln_pos_punto+1,2)) = 1 THEN
+			BEGIN
+				ls_operaciones = ls_operaciones + "0";	
+			END 
+		END
+	
+		
+		
+	
+		CONCAT(ls_detalle , FILLER_ZEROS,9-len(ls_operaciones )); //Rellenar con ceros a la izquierda
+		ls_detalle = ls_detalle + ls_operaciones;
+
+	END
+	ELSE IF #NB_MONEDA = "USD" THEN
+	    BEGIN	
+		ntoa(#IM_COMISION_USD, ls_importe);
+		
+		ln_pos_punto = strstr(ls_importe,".");
+		IF  ln_pos_punto &lt; 0 THEN 
+		BEGIN 
+			//En caso de que el importe no tenga decimales, Agregar los dos decimales
+			ls_operaciones = ls_importe; //Enteros
+			ls_operaciones = ls_operaciones + "00";	
+		END
+		ELSE 
+		BEGIN
+			ls_operaciones = mid(ls_importe,0,ln_pos_punto); //Enteros
+			ls_operaciones  = ls_operaciones  + mid(ls_importe, ln_pos_punto+1,2); //Decimales
+
+	
+			IF LEN(mid(ls_importe, ln_pos_punto+1,2)) = 1 THEN
+			BEGIN
+				ls_operaciones = ls_operaciones + "0";	
+			END 
+		END
+
+	
+		
+
+		CONCAT(ls_detalle , FILLER_ZEROS,9-len(ls_operaciones )); //Rellenar con ceros a la izquierda
+		ls_detalle = ls_detalle + ls_operaciones;
+
+	END
+	ELSE 
+	BEGIN	
+
+		ntoa(#IM_COMISION_EUR, ls_importe);
+	
+		ln_pos_punto = strstr(ls_importe,".");
+		IF  ln_pos_punto &lt; 0 THEN 
+		BEGIN 
+			//En caso de que el importe no tenga decimales, Agregar los dos decimales
+			ls_operaciones = ls_importe; //Enteros
+			ls_operaciones = ls_operaciones + "00";	
+			END
+		ELSE 
+		BEGIN
+			ls_operaciones = mid(ls_importe,0,ln_pos_punto); //Enteros
+			ls_operaciones  = ls_operaciones  + mid(ls_importe, ln_pos_punto+1,2); //Decimales
+
+
+			IF LEN(mid(ls_importe, ln_pos_punto+1,2)) = 1 THEN
+			BEGIN
+				ls_operaciones = ls_operaciones + "0";	
+			END 
+		END
+
+	
+		
+		
+
+		CONCAT(ls_detalle , FILLER_ZEROS,9-len(ls_operaciones )); //Rellenar con ceros a la izquierda
+		ls_detalle = ls_detalle + ls_operaciones;
+
+	END
+
+
+//Importe Comisión
+
+
+	IF #NB_MONEDA = "MXN" THEN
+	BEGIN
+	
+		ntoa(#IM_COMISION_MXN,ls_importe);
+	
+		ln_pos_punto = strstr(ls_importe,".");
+
+
+		IF  ln_pos_punto &lt; 0 THEN 
+		BEGIN 
+			//En caso de que el importe no tenga decimales, Agregar los dos decimales
+			ls_operaciones = ls_importe; //Enteros
+			ls_operaciones = ls_operaciones + "00";	
+
+		END
+		ELSE 
+		BEGIN
+			ls_operaciones = mid(ls_importe,0,ln_pos_punto); //Enteros
+			ls_operaciones  = ls_operaciones  + mid(ls_importe, ln_pos_punto+1,2); //Decimales
+
+                        IF LEN(mid(ls_importe, ln_pos_punto+1,2)) = 1 THEN
+			BEGIN
+				ls_operaciones = ls_operaciones + "0";	
+			END 
+	
+		END
+
+		
+		
+
+		CONCAT(ls_detalle , FILLER_ZEROS,15-len(ls_operaciones )); //Rellenar con ceros a la izquierda
+		ls_detalle = ls_detalle + ls_operaciones;
+
+	END
+	ELSE IF #NB_MONEDA = "USD" THEN
+	BEGIN	
+
+		ntoa(#IM_COMISION_USD, ls_importe);
+
+		ln_pos_punto = strstr(ls_importe,".");
+		IF  ln_pos_punto &lt; 0 THEN 
+		BEGIN 
+			//En caso de que el importe no tenga decimales, Agregar los dos decimales
+			ls_operaciones = ls_importe; //Enteros
+			ls_operaciones = ls_operaciones + "00";	
+
+		END
+		ELSE 
+		BEGIN
+			ls_operaciones = mid(ls_importe,0,ln_pos_punto); //Enteros
+			ls_operaciones  = ls_operaciones  + mid(ls_importe, ln_pos_punto+1,2); //Decimales
+			
+			IF LEN(mid(ls_importe, ln_pos_punto+1,2)) = 1 THEN
+			BEGIN
+				ls_operaciones = ls_operaciones + "0";	
+			END 
+		END
+
+	
+
+		CONCAT(ls_detalle , FILLER_ZEROS,15-len(ls_operaciones )); //Rellenar con ceros a la izquierda
+		ls_detalle = ls_detalle + ls_operaciones;
+
+	END
+	ELSE 
+	BEGIN	
+
+		ntoa(#IM_COMISION_EUR, ls_importe);
+
+		ln_pos_punto = strstr(ls_importe,".");
+		IF  ln_pos_punto &lt; 0 THEN 
+		BEGIN 
+			//En caso de que el importe no tenga decimales, Agregar los dos decimales
+			ls_operaciones = ls_importe; //Enteros
+			ls_operaciones = ls_operaciones + "00";	
+
+		END
+		ELSE 
+		BEGIN
+			ls_operaciones = mid(ls_importe,0,ln_pos_punto); //Enteros
+			ls_operaciones  = ls_operaciones  + mid(ls_importe, ln_pos_punto+1,2); //Decimales
+			
+			IF LEN(mid(ls_importe, ln_pos_punto+1,2)) = 1 THEN
+			BEGIN
+				ls_operaciones = ls_operaciones + "0";	
+			END 
+		END
+
+		CONCAT(ls_detalle , FILLER_ZEROS,15-len(ls_operaciones )); //Rellenar con ceros a la izquierda
+		ls_detalle = ls_detalle + ls_operaciones;
+
+	END
+
+
+
+//Importe del impuesto local 1
+
+	IF #CD_CLIENTE_AAA = "1" THEN
+	   BEGIN
+        	ls_detalle = ls_detalle + FILLER_ZEROS;
+	   END
+	ELSE
+	   BEGIN
+ 
+
+		IF #NB_MONEDA = "MXN" THEN	
+		BEGIN
+			gn_importe_iva = (#NU_PORCENTAJE * #IM_COMISION_MXN)/100;
+			ntoa(gn_importe_iva ,ls_importe);
+
+			ln_pos_punto = strstr(ls_importe,".");
+	
+			IF  ln_pos_punto &lt; 0 THEN 
+			BEGIN 
+				//En caso de que el importe no tenga decimales, Agregar los dos decimales	
+				ls_operaciones = ls_importe; //Enteros
+				ls_operaciones = ls_operaciones + "00";	
+				ls_importe_iva = ls_importe + ".00";
+
+			END
+			ELSE 
+			BEGIN
+				ls_operaciones = mid(ls_importe,0,ln_pos_punto); //Enteros
+				ls_operaciones  = ls_operaciones  + mid(ls_importe, ln_pos_punto+1,2); //Decimales
+				ls_importe_iva = mid(ls_importe,0,ln_pos_punto) + "." + mid(ls_importe, ln_pos_punto+1,2);
+
+
+				IF LEN(mid(ls_importe, ln_pos_punto+1,2)) = 1 THEN
+				BEGIN
+					ls_operaciones = ls_operaciones + "0";	
+					ls_importe_iva = ls_importe_iva + "0";
+				END 
+			END
+
+			gn_importe_iva = aton(ls_importe_iva);
+
+			CONCAT(ls_detalle , FILLER_ZEROS,15-len(ls_operaciones )); //Rellenar con ceros a la izquierda
+			ls_detalle = ls_detalle + ls_operaciones;
+
+		END
+		ELSE IF #NB_MONEDA = "USD" THEN
+		BEGIN
+			gn_importe_iva = (#NU_PORCENTAJE * #IM_COMISION_USD)/100;
+			ntoa(gn_importe_iva ,ls_importe);
+
+			ln_pos_punto = strstr(ls_importe,".");
+			IF  ln_pos_punto &lt; 0 THEN 
+			BEGIN 
+				//En caso de que el importe no tenga decimales, Agregar los dos decimales
+				ls_operaciones = ls_importe; //Enteros
+				ls_operaciones = ls_operaciones + "00";	
+				ls_importe_iva = ls_importe + ".00";
+	
+			END
+			ELSE 
+			BEGIN
+				ls_operaciones = mid(ls_importe,0,ln_pos_punto); //Enteros
+				ls_operaciones  = ls_operaciones  + mid(ls_importe, ln_pos_punto+1,2); //Decimales
+				ls_importe_iva = mid(ls_importe,0,ln_pos_punto) + "." + mid(ls_importe, ln_pos_punto+1,2);
+
+				IF LEN(mid(ls_importe, ln_pos_punto+1,2)) = 1 THEN
+				BEGIN
+					ls_operaciones = ls_operaciones + "0";
+					ls_importe_iva = ls_importe_iva + "0";	
+				END 
+
+			END
+
+
+			gn_importe_iva = aton(ls_importe_iva);
+
+			CONCAT(ls_detalle , FILLER_ZEROS,15-len(ls_operaciones )); //Rellenar con ceros a la izquierda
+			ls_detalle = ls_detalle + ls_operaciones;
+
+		END
+		ELSE 
+		BEGIN
+			gn_importe_iva = (#NU_PORCENTAJE * #IM_COMISION_EUR)/100;
+			ntoa(gn_importe_iva ,ls_importe);
+
+			ln_pos_punto = strstr(ls_importe,".");
+			IF  ln_pos_punto &lt; 0 THEN 
+			BEGIN 
+				//En caso de que el importe no tenga decimales, Agregar los dos decimales
+				ls_operaciones = ls_importe; //Enteros
+				ls_operaciones = ls_operaciones + "00";	
+				ls_importe_iva = ls_importe + ".00";
+	
+			END
+			ELSE 
+			BEGIN
+				ls_operaciones = mid(ls_importe,0,ln_pos_punto); //Enteros
+				ls_operaciones  = ls_operaciones  + mid(ls_importe, ln_pos_punto+1,2); //Decimales
+				ls_importe_iva = mid(ls_importe,0,ln_pos_punto) + "." + mid(ls_importe, ln_pos_punto+1,2);
+				
+				IF LEN(mid(ls_importe, ln_pos_punto+1,2)) = 1 THEN
+				BEGIN
+					ls_operaciones = ls_operaciones + "0";	
+					ls_importe_iva = ls_importe_iva + "0";
+				END 
+
+			END
+
+			gn_importe_iva = aton(ls_importe_iva);
+			
+			CONCAT(ls_detalle , FILLER_ZEROS,15-len(ls_operaciones )); //Rellenar con ceros a la izquierda
+			ls_detalle = ls_detalle + ls_operaciones;
+
+		END 
+
+	END
+//Importe del impuesto local 2
+	ls_detalle = ls_detalle + FILLER_ZEROS;
+
+//Importe del impuesto local 3
+	ls_detalle = ls_detalle + FILLER_ZEROS;
+
+//Importe del impuesto local 4
+	ls_detalle = ls_detalle + FILLER_ZEROS;
+
+//Uso Futuro
+	CONCAT(ls_detalle, FILLER_SPACES_FUTURO,250-len(ls_detalle)); //Rellenar con espacios hacia la derecha
+
+
+ls_array_escritura_reporte_mt94X[gn_contador_registros_mt94X] = ls_detalle;
+
+
+
+//Termina Codigo BBVA</ExplicitRule>
+<NullsAllowed>yes</NullsAllowed>
+<BlockQueryID>0</BlockQueryID>
+<ColumnNumber>11</ColumnNumber>
+<ColumnKey>0</ColumnKey>
+<ColumnNameID>0</ColumnNameID>
+<StatementRecord>SICOCO_CONSULTA_MT94X</StatementRecord>
+<Table></Table>
+<InputColumn>IM_COMISION_EUR</InputColumn>
+<OutputColumn></OutputColumn>
+<FieldType>InputOnly</FieldType>
+</Field></ODBCInputRecord>
+</Group>
+<Group>
+<ID>23</ID>
+<Name>DETALLE_SICOCO_MT101</Name>
+<Description></Description>
+<Active>1</Active>
+<ChildCount>1</ChildCount>
+<Note></Note>
+<Min>0</Min>
+<Max>1</Max>
+<PromoteGroup>no</PromoteGroup>
+<OrderingType>0</OrderingType>
+<OrderingTag></OrderingTag>
+<UsageRelatedFieldName/><ODBCInputRecord>
+<ID>22</ID>
+<Name>DETALLE_REG_MT101</Name>
+<Description></Description>
+<Active>1</Active>
+<ChildCount>18</ChildCount>
+<Note></Note>
+<Min>0</Min>
+<Max>99999</Max>
+<LoopCtl>normal</LoopCtl>
+<OrderingType>0</OrderingType>
+<OrderingTag></OrderingTag>
+<UsageRelatedFieldName/><ExplicitRule>
+<OnBegin></OnBegin>
+<OnEnd>// Inicia Codigo BBVA
+
+//Incrementa contador de registros
+
+gn_contador_registros_mt101 = gn_contador_registros_mt101 + 1;
+
+
+IF #CONTRATOS_IndicadorAAA = 0 THEN
+	BEGIN
+
+
+	IF #CONTRATOS_Moneda = "MXN" THEN
+	BEGIN
+		gn_total_comisiones = gn_total_comisiones + #imp_comision_mxp;
+
+	END
+	ELSE IF #CONTRATOS_Moneda = "USD" THEN
+	BEGIN
+		gn_total_comisiones = gn_total_comisiones + #imp_comision_usd;		
+	END 
+	ELSE 
+	BEGIN
+		gn_total_comisiones = gn_total_comisiones + #imp_comision_eur;
+
+	END 
+
+
+
+	gn_total_iva = gn_total_iva + gn_importe_iva;
+
+END 
+
+
+gn_total_operaciones_mt101 =  gn_total_operaciones_mt101 + #TotalOps; 
+
+
+
+// Termina Codigo BBVA</OnEnd>
+</ExplicitRule>
+<BlockSig>
+<BlockType>255</BlockType>
+<DsnID>0</DsnID>
+<Command>0</Command>
+<Verb>255</Verb>
+<CursorOperation>1</CursorOperation>
+<KeyFieldAction>255</KeyFieldAction>
+<StmtID>0</StmtID>
+<TableID>0</TableID>
+<KeyFieldID>0</KeyFieldID>
+<KeyFieldData>65535</KeyFieldData>
+<KeyFieldData2>0</KeyFieldData2>
+<KeyFieldID2>0</KeyFieldID2>
+<KeyFieldData3>0</KeyFieldData3>
+<KeyFieldData4>0</KeyFieldData4>
+<KeyFieldID3>0</KeyFieldID3>
+<KeyFieldData5>0</KeyFieldData5>
+<KeyFieldData6>0</KeyFieldData6>
+<BlockType>0</BlockType>
+<DsnID>0</DsnID>
+<Command>0</Command>
+<Verb>0</Verb>
+<CursorOperation>0</CursorOperation>
+<KeyFieldAction>0</KeyFieldAction>
+<StmtID>0</StmtID>
+<TableID>0</TableID>
+<KeyFieldID>0</KeyFieldID>
+<KeyFieldData>0</KeyFieldData>
+<KeyFieldData2>0</KeyFieldData2>
+<KeyFieldID2>0</KeyFieldID2>
+<KeyFieldData3>0</KeyFieldData3>
+<KeyFieldData4>0</KeyFieldData4>
+<KeyFieldID3>0</KeyFieldID3>
+<KeyFieldData5>0</KeyFieldData5>
+<KeyFieldData6>0</KeyFieldData6>
+</BlockSig>
+<Field>
+<ID>21</ID>
+<Name>CONTRATOS_CuentaServicio</Name>
+<Description></Description>
+<Active>1</Active>
+<ChildCount>0</ChildCount>
+<Note></Note>
+<Mandatory>no</Mandatory>
+<NotUsed>no</NotUsed>
+<FieldNumber>0</FieldNumber>
+<StoreGroup>65535</StoreGroup>
+<StoreField>65535</StoreField>
+<BusinessName></BusinessName>
+<StoreLimit>
+<MaxLen>12</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>string</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>X</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+<NullsAllowed>no</NullsAllowed>
+<BlockQueryID>0</BlockQueryID>
+<ColumnNumber>1</ColumnNumber>
+<ColumnKey>0</ColumnKey>
+<ColumnNameID>0</ColumnNameID>
+<StatementRecord>SICOCO_CONSULTA_MT101</StatementRecord>
+<Table></Table>
+<InputColumn>CONTRATOS.CuentaServicio</InputColumn>
+<OutputColumn></OutputColumn>
+<FieldType>InputOnly</FieldType>
+</Field>
+<Field>
+<ID>20</ID>
+<Name>TIPO_OPERACION_SubServicio</Name>
+<Description></Description>
+<Active>1</Active>
+<ChildCount>0</ChildCount>
+<Note></Note>
+<Mandatory>no</Mandatory>
+<NotUsed>no</NotUsed>
+<FieldNumber>0</FieldNumber>
+<StoreGroup>65535</StoreGroup>
+<StoreField>65535</StoreField>
+<BusinessName></BusinessName>
+<StoreLimit>
+<MaxLen>10</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>string</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>X</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+<NullsAllowed>yes</NullsAllowed>
+<BlockQueryID>0</BlockQueryID>
+<ColumnNumber>2</ColumnNumber>
+<ColumnKey>0</ColumnKey>
+<ColumnNameID>0</ColumnNameID>
+<StatementRecord>SICOCO_CONSULTA_MT101</StatementRecord>
+<Table></Table>
+<InputColumn>TIPO_OPERACION.SubServicio</InputColumn>
+<OutputColumn></OutputColumn>
+<FieldType>InputOnly</FieldType>
+</Field>
+<Field>
+<ID>19</ID>
+<Name>TIPO_OPERACION_DescSubservicio</Name>
+<Description></Description>
+<Active>1</Active>
+<ChildCount>0</ChildCount>
+<Note></Note>
+<Mandatory>no</Mandatory>
+<NotUsed>no</NotUsed>
+<FieldNumber>0</FieldNumber>
+<StoreGroup>65535</StoreGroup>
+<StoreField>65535</StoreField>
+<BusinessName></BusinessName>
+<StoreLimit>
+<MaxLen>50</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>string</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>X</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+<NullsAllowed>no</NullsAllowed>
+<BlockQueryID>0</BlockQueryID>
+<ColumnNumber>3</ColumnNumber>
+<ColumnKey>0</ColumnKey>
+<ColumnNameID>0</ColumnNameID>
+<StatementRecord>SICOCO_CONSULTA_MT101</StatementRecord>
+<Table></Table>
+<InputColumn>TIPO_OPERACION.DescSubservicio</InputColumn>
+<OutputColumn></OutputColumn>
+<FieldType>InputOnly</FieldType>
+</Field>
+<Field>
+<ID>18</ID>
+<Name>CONTRATOS_Referencia</Name>
+<Description></Description>
+<Active>1</Active>
+<ChildCount>0</ChildCount>
+<Note></Note>
+<Mandatory>no</Mandatory>
+<NotUsed>no</NotUsed>
+<FieldNumber>0</FieldNumber>
+<StoreGroup>65535</StoreGroup>
+<StoreField>65535</StoreField>
+<BusinessName></BusinessName>
+<StoreLimit>
+<MaxLen>13</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>string</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>X</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+<NullsAllowed>yes</NullsAllowed>
+<BlockQueryID>0</BlockQueryID>
+<ColumnNumber>4</ColumnNumber>
+<ColumnKey>0</ColumnKey>
+<ColumnNameID>0</ColumnNameID>
+<StatementRecord>SICOCO_CONSULTA_MT101</StatementRecord>
+<Table></Table>
+<InputColumn>CONTRATOS.Referencia</InputColumn>
+<OutputColumn></OutputColumn>
+<FieldType>InputOnly</FieldType>
+</Field>
+<Field>
+<ID>17</ID>
+<Name>TotalOps</Name>
+<Description></Description>
+<Active>1</Active>
+<ChildCount>0</ChildCount>
+<Note></Note>
+<Mandatory>no</Mandatory>
+<NotUsed>no</NotUsed>
+<FieldNumber>0</FieldNumber>
+<StoreGroup>65535</StoreGroup>
+<StoreField>65535</StoreField>
+<BusinessName></BusinessName>
+<StoreLimit>
+<MaxLen>10</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>numeric</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>N0</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+<NullsAllowed>yes</NullsAllowed>
+<BlockQueryID>0</BlockQueryID>
+<ColumnNumber>5</ColumnNumber>
+<ColumnKey>0</ColumnKey>
+<ColumnNameID>0</ColumnNameID>
+<StatementRecord>SICOCO_CONSULTA_MT101</StatementRecord>
+<Table></Table>
+<InputColumn>TotalOps</InputColumn>
+<OutputColumn></OutputColumn>
+<FieldType>InputOnly</FieldType>
+</Field>
+<Field>
+<ID>16</ID>
+<Name>CONTRATOS_Moneda</Name>
+<Description></Description>
+<Active>1</Active>
+<ChildCount>0</ChildCount>
+<Note></Note>
+<Mandatory>no</Mandatory>
+<NotUsed>no</NotUsed>
+<FieldNumber>0</FieldNumber>
+<StoreGroup>65535</StoreGroup>
+<StoreField>65535</StoreField>
+<BusinessName></BusinessName>
+<StoreLimit>
+<MaxLen>3</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>string</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>X</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+<NullsAllowed>no</NullsAllowed>
+<BlockQueryID>0</BlockQueryID>
+<ColumnNumber>6</ColumnNumber>
+<ColumnKey>0</ColumnKey>
+<ColumnNameID>0</ColumnNameID>
+<StatementRecord>SICOCO_CONSULTA_MT101</StatementRecord>
+<Table></Table>
+<InputColumn>CONTRATOS.Moneda</InputColumn>
+<OutputColumn></OutputColumn>
+<FieldType>InputOnly</FieldType>
+</Field>
+<Field>
+<ID>15</ID>
+<Name>CONTRATOS_IndicadorAAA</Name>
+<Description></Description>
+<Active>1</Active>
+<ChildCount>0</ChildCount>
+<Note></Note>
+<Mandatory>no</Mandatory>
+<NotUsed>no</NotUsed>
+<FieldNumber>0</FieldNumber>
+<StoreGroup>65535</StoreGroup>
+<StoreField>65535</StoreField>
+<BusinessName></BusinessName>
+<StoreLimit>
+<MaxLen>1</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>numeric</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>N0</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+<NullsAllowed>yes</NullsAllowed>
+<BlockQueryID>0</BlockQueryID>
+<ColumnNumber>7</ColumnNumber>
+<ColumnKey>0</ColumnKey>
+<ColumnNameID>0</ColumnNameID>
+<StatementRecord>SICOCO_CONSULTA_MT101</StatementRecord>
+<Table></Table>
+<InputColumn>CONTRATOS.IndicadorAAA</InputColumn>
+<OutputColumn></OutputColumn>
+<FieldType>InputOnly</FieldType>
+</Field>
+<Field>
+<ID>14</ID>
+<Name>iva</Name>
+<Description></Description>
+<Active>1</Active>
+<ChildCount>0</ChildCount>
+<Note></Note>
+<Mandatory>no</Mandatory>
+<NotUsed>no</NotUsed>
+<FieldNumber>0</FieldNumber>
+<StoreGroup>65535</StoreGroup>
+<StoreField>65535</StoreField>
+<BusinessName></BusinessName>
+<StoreLimit>
+<MaxLen>10</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>numeric</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>N0</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+<NullsAllowed>no</NullsAllowed>
+<BlockQueryID>0</BlockQueryID>
+<ColumnNumber>8</ColumnNumber>
+<ColumnKey>0</ColumnKey>
+<ColumnNameID>0</ColumnNameID>
+<StatementRecord>SICOCO_CONSULTA_MT101</StatementRecord>
+<Table></Table>
+<InputColumn>iva</InputColumn>
+<OutputColumn></OutputColumn>
+<FieldType>InputOnly</FieldType>
+</Field>
+<Field>
+<ID>13</ID>
+<Name>imp_comision_usd</Name>
+<Description></Description>
+<Active>1</Active>
+<ChildCount>0</ChildCount>
+<Note></Note>
+<Mandatory>no</Mandatory>
+<NotUsed>no</NotUsed>
+<FieldNumber>0</FieldNumber>
+<StoreGroup>65535</StoreGroup>
+<StoreField>65535</StoreField>
+<BusinessName></BusinessName>
+<StoreLimit>
+<MaxLen>38</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>numeric</DataType>
+<ImpliedDecimalPos>2</ImpliedDecimalPos>
+<ImplicitDecimal>no</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>R2</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+<NullsAllowed>yes</NullsAllowed>
+<BlockQueryID>0</BlockQueryID>
+<ColumnNumber>9</ColumnNumber>
+<ColumnKey>0</ColumnKey>
+<ColumnNameID>0</ColumnNameID>
+<StatementRecord>SICOCO_CONSULTA_MT101</StatementRecord>
+<Table></Table>
+<InputColumn>imp_comision_usd</InputColumn>
+<OutputColumn></OutputColumn>
+<FieldType>InputOnly</FieldType>
+</Field>
+<Field>
+<ID>12</ID>
+<Name>imp_comision_mxp</Name>
+<Description></Description>
+<Active>1</Active>
+<ChildCount>0</ChildCount>
+<Note></Note>
+<Mandatory>no</Mandatory>
+<NotUsed>no</NotUsed>
+<FieldNumber>0</FieldNumber>
+<StoreGroup>65535</StoreGroup>
+<StoreField>65535</StoreField>
+<BusinessName></BusinessName>
+<StoreLimit>
+<MaxLen>38</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>numeric</DataType>
+<ImpliedDecimalPos>2</ImpliedDecimalPos>
+<ImplicitDecimal>no</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>R2</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+<NullsAllowed>yes</NullsAllowed>
+<BlockQueryID>0</BlockQueryID>
+<ColumnNumber>10</ColumnNumber>
+<ColumnKey>0</ColumnKey>
+<ColumnNameID>0</ColumnNameID>
+<StatementRecord>SICOCO_CONSULTA_MT101</StatementRecord>
+<Table></Table>
+<InputColumn>imp_comision_mxp</InputColumn>
+<OutputColumn></OutputColumn>
+<FieldType>InputOnly</FieldType>
+</Field>
+<Field>
+<ID>11</ID>
+<Name>imp_comision_eur</Name>
+<Description></Description>
+<Active>1</Active>
+<ChildCount>0</ChildCount>
+<Note></Note>
+<Mandatory>no</Mandatory>
+<NotUsed>no</NotUsed>
+<FieldNumber>0</FieldNumber>
+<StoreGroup>65535</StoreGroup>
+<StoreField>65535</StoreField>
+<BusinessName></BusinessName>
+<StoreLimit>
+<MaxLen>38</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>numeric</DataType>
+<ImpliedDecimalPos>2</ImpliedDecimalPos>
+<ImplicitDecimal>no</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>R2</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+<NullsAllowed>yes</NullsAllowed>
+<BlockQueryID>0</BlockQueryID>
+<ColumnNumber>11</ColumnNumber>
+<ColumnKey>0</ColumnKey>
+<ColumnNameID>0</ColumnNameID>
+<StatementRecord>SICOCO_CONSULTA_MT101</StatementRecord>
+<Table></Table>
+<InputColumn>imp_comision_eur</InputColumn>
+<OutputColumn></OutputColumn>
+<FieldType>InputOnly</FieldType>
+</Field>
+<Field>
+<ID>10</ID>
+<Name>tarifa_usd</Name>
+<Description></Description>
+<Active>1</Active>
+<ChildCount>0</ChildCount>
+<Note></Note>
+<Mandatory>no</Mandatory>
+<NotUsed>no</NotUsed>
+<FieldNumber>0</FieldNumber>
+<StoreGroup>65535</StoreGroup>
+<StoreField>65535</StoreField>
+<BusinessName></BusinessName>
+<StoreLimit>
+<MaxLen>7</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>numeric</DataType>
+<ImpliedDecimalPos>2</ImpliedDecimalPos>
+<ImplicitDecimal>no</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>R2</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+<NullsAllowed>yes</NullsAllowed>
+<BlockQueryID>0</BlockQueryID>
+<ColumnNumber>12</ColumnNumber>
+<ColumnKey>0</ColumnKey>
+<ColumnNameID>0</ColumnNameID>
+<StatementRecord>SICOCO_CONSULTA_MT101</StatementRecord>
+<Table></Table>
+<InputColumn>tarifa_usd</InputColumn>
+<OutputColumn></OutputColumn>
+<FieldType>InputOnly</FieldType>
+</Field>
+<Field>
+<ID>9</ID>
+<Name>tarifa_mxp</Name>
+<Description></Description>
+<Active>1</Active>
+<ChildCount>0</ChildCount>
+<Note></Note>
+<Mandatory>no</Mandatory>
+<NotUsed>no</NotUsed>
+<FieldNumber>0</FieldNumber>
+<StoreGroup>65535</StoreGroup>
+<StoreField>65535</StoreField>
+<BusinessName></BusinessName>
+<StoreLimit>
+<MaxLen>7</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>numeric</DataType>
+<ImpliedDecimalPos>2</ImpliedDecimalPos>
+<ImplicitDecimal>no</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>R2</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+<NullsAllowed>yes</NullsAllowed>
+<BlockQueryID>0</BlockQueryID>
+<ColumnNumber>13</ColumnNumber>
+<ColumnKey>0</ColumnKey>
+<ColumnNameID>0</ColumnNameID>
+<StatementRecord>SICOCO_CONSULTA_MT101</StatementRecord>
+<Table></Table>
+<InputColumn>tarifa_mxp</InputColumn>
+<OutputColumn></OutputColumn>
+<FieldType>InputOnly</FieldType>
+</Field>
+<Field>
+<ID>8</ID>
+<Name>tarifa_eur</Name>
+<Description></Description>
+<Active>1</Active>
+<ChildCount>0</ChildCount>
+<Note></Note>
+<Mandatory>no</Mandatory>
+<NotUsed>no</NotUsed>
+<FieldNumber>0</FieldNumber>
+<StoreGroup>65535</StoreGroup>
+<StoreField>65535</StoreField>
+<BusinessName></BusinessName>
+<StoreLimit>
+<MaxLen>7</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>numeric</DataType>
+<ImpliedDecimalPos>2</ImpliedDecimalPos>
+<ImplicitDecimal>no</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>R2</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+<NullsAllowed>yes</NullsAllowed>
+<BlockQueryID>0</BlockQueryID>
+<ColumnNumber>14</ColumnNumber>
+<ColumnKey>0</ColumnKey>
+<ColumnNameID>0</ColumnNameID>
+<StatementRecord>SICOCO_CONSULTA_MT101</StatementRecord>
+<Table></Table>
+<InputColumn>tarifa_eur</InputColumn>
+<OutputColumn></OutputColumn>
+<FieldType>InputOnly</FieldType>
+</Field>
+<Field>
+<ID>7</ID>
+<Name>Importe</Name>
+<Description></Description>
+<Active>1</Active>
+<ChildCount>0</ChildCount>
+<Note></Note>
+<Mandatory>no</Mandatory>
+<NotUsed>no</NotUsed>
+<FieldNumber>0</FieldNumber>
+<StoreGroup>65535</StoreGroup>
+<StoreField>65535</StoreField>
+<BusinessName></BusinessName>
+<StoreLimit>
+<MaxLen>38</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>numeric</DataType>
+<ImpliedDecimalPos>2</ImpliedDecimalPos>
+<ImplicitDecimal>no</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>R2</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+<NullsAllowed>yes</NullsAllowed>
+<BlockQueryID>0</BlockQueryID>
+<ColumnNumber>15</ColumnNumber>
+<ColumnKey>0</ColumnKey>
+<ColumnNameID>0</ColumnNameID>
+<StatementRecord>SICOCO_CONSULTA_MT101</StatementRecord>
+<Table></Table>
+<InputColumn>Importe</InputColumn>
+<OutputColumn></OutputColumn>
+<FieldType>InputOnly</FieldType>
+</Field>
+<Field>
+<ID>6</ID>
+<Name>CONTRATOS_anualidad</Name>
+<Description></Description>
+<Active>1</Active>
+<ChildCount>0</ChildCount>
+<Note></Note>
+<Mandatory>no</Mandatory>
+<NotUsed>no</NotUsed>
+<FieldNumber>0</FieldNumber>
+<StoreGroup>65535</StoreGroup>
+<StoreField>65535</StoreField>
+<BusinessName></BusinessName>
+<StoreLimit>
+<MaxLen>1</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>numeric</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>N0</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+<NullsAllowed>yes</NullsAllowed>
+<BlockQueryID>0</BlockQueryID>
+<ColumnNumber>16</ColumnNumber>
+<ColumnKey>0</ColumnKey>
+<ColumnNameID>0</ColumnNameID>
+<StatementRecord>SICOCO_CONSULTA_MT101</StatementRecord>
+<Table></Table>
+<InputColumn>CONTRATOS.anualidad</InputColumn>
+<OutputColumn></OutputColumn>
+<FieldType>InputOnly</FieldType>
+</Field>
+<Field>
+<ID>5</ID>
+<Name>CONTRATOS_mensualidad</Name>
+<Description></Description>
+<Active>1</Active>
+<ChildCount>0</ChildCount>
+<Note></Note>
+<Mandatory>no</Mandatory>
+<NotUsed>no</NotUsed>
+<FieldNumber>0</FieldNumber>
+<StoreGroup>65535</StoreGroup>
+<StoreField>65535</StoreField>
+<BusinessName></BusinessName>
+<StoreLimit>
+<MaxLen>1</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>numeric</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>N0</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+<NullsAllowed>yes</NullsAllowed>
+<BlockQueryID>0</BlockQueryID>
+<ColumnNumber>17</ColumnNumber>
+<ColumnKey>0</ColumnKey>
+<ColumnNameID>0</ColumnNameID>
+<StatementRecord>SICOCO_CONSULTA_MT101</StatementRecord>
+<Table></Table>
+<InputColumn>CONTRATOS.mensualidad</InputColumn>
+<OutputColumn></OutputColumn>
+<FieldType>InputOnly</FieldType>
+</Field>
+<Field>
+<ID>4</ID>
+<Name>CONTRATOS_id_contratos</Name>
+<Description></Description>
+<Active>1</Active>
+<ChildCount>0</ChildCount>
+<Note></Note>
+<Mandatory>no</Mandatory>
+<NotUsed>no</NotUsed>
+<FieldNumber>0</FieldNumber>
+<StoreGroup>65535</StoreGroup>
+<StoreField>65535</StoreField>
+<BusinessName></BusinessName>
+<StoreLimit>
+<MaxLen>10</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>numeric</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>N0</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+<ExplicitRule>//Inicia Codigo BBVA
+//string [8] ls_valor;
+string [15] ls_operaciones;
+string [15] ls_importe;
+string [15] ls_importe_iva;
+string [250] ls_detalle;
+Integer ln_pos_punto;
+
+
+//Inicializa detalle por registro MT101
+	ls_detalle = "";
+
+//Identificador de tipo de registro
+	ls_detalle = ls_detalle + "D";
+
+//Entidad o país
+	ls_detalle = ls_detalle + "0074";
+
+
+//Cuenta de servicio
+	CONCAT(ls_detalle, FILLER_ZEROS,10-len(trim(#CONTRATOS_CuentaServicio))); //Rellenar con ceros a la izquierda
+	ls_detalle = ls_detalle + trim(#CONTRATOS_CuentaServicio);
+
+
+//Clave de sub-servicio
+	CONCAT(ls_detalle, FILLER_ZEROS,9-len(trim(RIGHT(trim(#TIPO_OPERACION_SubServicio),9)))); //Rellenar con ceros a la izquierda
+	ls_detalle = ls_detalle + RIGHT(trim(#TIPO_OPERACION_SubServicio),9);
+
+
+//Descripción de sub-servicio
+	ls_detalle = ls_detalle + trim(#TIPO_OPERACION_DescSubservicio);
+	CONCAT(ls_detalle, FILLER_SPACES,45-len(trim(#TIPO_OPERACION_DescSubservicio))); //Rellenar con espacios a la derecha
+
+//Periodo de operación (Formato AAAAMM)
+	ls_detalle = ls_detalle + mid(gs_fecha_proceso,0,4) + mid(gs_fecha_proceso,5,2);
+
+
+//Referencia / Número de contrato
+	CONCAT(ls_detalle, FILLER_ZEROS,12-len(RIGHT(trim(#CONTRATOS_Referencia),12))); //Rellenar con ceros a la izquierda
+	ls_detalle = ls_detalle + RIGHT(trim(#CONTRATOS_Referencia),12);
+
+
+//Número de operaciones en el mes
+	ntoa(#TotalOps, ls_operaciones);
+	CONCAT(ls_detalle, FILLER_ZEROS,8-len(ls_operaciones)); //Rellenar con ceros a la izquierda
+	ls_detalle = ls_detalle + ls_operaciones;
+
+
+//Importe acumulado en el mes (rellena con ceros para cliente AA)
+	IF #CONTRATOS_IndicadorAAA THEN
+	   BEGIN
+		IF #CONTRATOS_Moneda = "MXN" THEN
+		BEGIN
+
+
+			ntoa(#imp_comision_mxp,ls_importe);
+			ln_pos_punto = strstr(ls_importe,".");
+
+
+			IF  ln_pos_punto &lt; 0 THEN 
+			BEGIN 
+				//En caso de que el importe no tenga decimales, Agregar los dos decimales
+				ls_operaciones = ls_importe; //Enteros
+				ls_operaciones = ls_operaciones + "00";	
+	
+			END
+			ELSE 
+			BEGIN
+				ls_operaciones = mid(ls_importe,0,ln_pos_punto); //Enteros
+				ls_operaciones  = ls_operaciones  + mid(ls_importe, ln_pos_punto+1,2); //Decimales
+
+
+				IF LEN(mid(ls_importe, ln_pos_punto+1,2)) = 1 THEN
+				BEGIN
+					ls_operaciones = ls_operaciones + "0";	
+				END 
+		
+			END
+
+		
+			CONCAT(ls_detalle , FILLER_ZEROS,15-len(ls_operaciones )); //Rellenar con ceros a la izquierda
+			ls_detalle = ls_detalle + ls_operaciones;
+
+		END
+		ELSE IF #CONTRATOS_Moneda = "USD" THEN
+		BEGIN	
+
+
+			ntoa(#imp_comision_usd, ls_importe);
+	
+			ln_pos_punto = strstr(ls_importe,".");
+
+
+			IF  ln_pos_punto &lt; 0 THEN 
+			BEGIN 
+				//En caso de que el importe no tenga decimales, Agregar los dos decimales
+				ls_operaciones = ls_importe; //Enteros
+				ls_operaciones = ls_operaciones + "00";	
+
+			END
+			ELSE 
+			BEGIN
+				ls_operaciones = mid(ls_importe,0,ln_pos_punto); //Enteros
+				ls_operaciones  = ls_operaciones  + mid(ls_importe, ln_pos_punto+1,2); //Decimales
+
+
+				IF LEN(mid(ls_importe, ln_pos_punto+1,2)) = 1 THEN
+				BEGIN
+					ls_operaciones = ls_operaciones + "0";	
+				END
+			END
+
+
+		
+		 
+
+			CONCAT(ls_detalle , FILLER_ZEROS,15-len(ls_operaciones )); //Rellenar con ceros a la izquierda
+			ls_detalle = ls_detalle + ls_operaciones;
+
+		END
+		ELSE 
+		BEGIN	
+
+			ntoa(#imp_comision_eur, ls_importe);
+		
+			ln_pos_punto = strstr(ls_importe,".");
+
+
+			IF  ln_pos_punto &lt; 0 THEN 
+			BEGIN 
+				//En caso de que el importe no tenga decimales, Agregar los dos decimales
+				ls_operaciones = ls_importe; //Enteros
+				ls_operaciones = ls_operaciones + "00";	
+	
+			END
+			ELSE 
+			BEGIN
+				ls_operaciones = mid(ls_importe,0,ln_pos_punto); //Enteros
+				ls_operaciones  = ls_operaciones  + mid(ls_importe, ln_pos_punto+1,2); //Decimales
+
+
+				IF LEN(mid(ls_importe, ln_pos_punto+1,2)) = 1 THEN
+				BEGIN
+					ls_operaciones = ls_operaciones + "0";	
+				END 
+
+			END
+	
+
+		
+
+			CONCAT(ls_detalle , FILLER_ZEROS,15-len(ls_operaciones )); //Rellenar con ceros a la izquierda
+			ls_detalle = ls_detalle + ls_operaciones;
+
+		END
+
+	END
+	ELSE
+ 	BEGIN	
+		ls_detalle = ls_detalle + FILLER_ZEROS;
+	END
+
+//IIndicador de tipo de operación 
+	ls_detalle = ls_detalle + "C";
+
+//Indicador de consolidado 
+	IF #CONTRATOS_IndicadorAAA  THEN
+	   BEGIN
+        	ls_detalle = ls_detalle + "N";
+	   END
+	ELSE
+	   BEGIN
+        	ls_detalle = ls_detalle + "S";
+	   END
+
+//Indicador de cliente AAA
+	IF #CONTRATOS_IndicadorAAA THEN
+	   BEGIN
+        	ls_detalle = ls_detalle + "S";
+	   END
+	ELSE
+	   BEGIN
+        	ls_detalle = ls_detalle + "N";
+	   END
+
+//Tarifa
+
+	IF #CONTRATOS_Moneda = "MXN" THEN
+	   BEGIN
+		ntoa(#tarifa_mxp,ls_importe);
+	
+		ln_pos_punto = strstr(ls_importe,".");
+
+
+
+		IF  ln_pos_punto &lt; 0 THEN 
+		BEGIN 
+			//En caso de que el importe no tenga decimales, Agregar los dos decimales
+			ls_operaciones = ls_importe; //Enteros
+			ls_operaciones = ls_operaciones + "00";	
+		END
+		ELSE 
+		BEGIN
+			ls_operaciones = mid(ls_importe,0,ln_pos_punto); //Enteros
+			ls_operaciones  = ls_operaciones  + mid(ls_importe, ln_pos_punto+1,2); //Decimales
+
+			IF LEN(mid(ls_importe, ln_pos_punto+1,2)) = 1 THEN
+			BEGIN
+				ls_operaciones = ls_operaciones + "0";	
+			END 
+		END
+	
+		
+		
+	
+		CONCAT(ls_detalle , FILLER_ZEROS,9-len(ls_operaciones )); //Rellenar con ceros a la izquierda
+		ls_detalle = ls_detalle + ls_operaciones;
+
+	END
+	ELSE IF #CONTRATOS_Moneda = "USD" THEN
+	    BEGIN	
+		ntoa(#tarifa_usd, ls_importe);
+		
+		ln_pos_punto = strstr(ls_importe,".");
+		IF  ln_pos_punto &lt; 0 THEN 
+		BEGIN 
+			//En caso de que el importe no tenga decimales, Agregar los dos decimales
+			ls_operaciones = ls_importe; //Enteros
+			ls_operaciones = ls_operaciones + "00";	
+		END
+		ELSE 
+		BEGIN
+			ls_operaciones = mid(ls_importe,0,ln_pos_punto); //Enteros
+			ls_operaciones  = ls_operaciones  + mid(ls_importe, ln_pos_punto+1,2); //Decimales
+
+	
+			IF LEN(mid(ls_importe, ln_pos_punto+1,2)) = 1 THEN
+			BEGIN
+				ls_operaciones = ls_operaciones + "0";	
+			END 
+		END
+
+	
+		
+
+		CONCAT(ls_detalle , FILLER_ZEROS,9-len(ls_operaciones )); //Rellenar con ceros a la izquierda
+		ls_detalle = ls_detalle + ls_operaciones;
+
+	END
+	ELSE 
+	BEGIN	
+
+		ntoa(#tarifa_eur, ls_importe);
+	
+		ln_pos_punto = strstr(ls_importe,".");
+		IF  ln_pos_punto &lt; 0 THEN 
+		BEGIN 
+			//En caso de que el importe no tenga decimales, Agregar los dos decimales
+			ls_operaciones = ls_importe; //Enteros
+			ls_operaciones = ls_operaciones + "00";	
+			END
+		ELSE 
+		BEGIN
+			ls_operaciones = mid(ls_importe,0,ln_pos_punto); //Enteros
+			ls_operaciones  = ls_operaciones  + mid(ls_importe, ln_pos_punto+1,2); //Decimales
+
+
+			IF LEN(mid(ls_importe, ln_pos_punto+1,2)) = 1 THEN
+			BEGIN
+				ls_operaciones = ls_operaciones + "0";	
+			END 
+		END
+
+	
+		
+		
+
+		CONCAT(ls_detalle , FILLER_ZEROS,9-len(ls_operaciones )); //Rellenar con ceros a la izquierda
+		ls_detalle = ls_detalle + ls_operaciones;
+
+	END
+
+
+//Importe Comisión
+
+	IF #CONTRATOS_IndicadorAAA  THEN
+	   BEGIN
+        	ls_detalle = ls_detalle + FILLER_ZEROS;
+	   END
+	ELSE
+	    BEGIN
+
+		IF #CONTRATOS_Moneda = "MXN" THEN
+		BEGIN
+
+
+			ntoa(#imp_comision_mxp,ls_importe);
+			ln_pos_punto = strstr(ls_importe,".");
+
+
+			IF  ln_pos_punto &lt; 0 THEN 
+			BEGIN 
+				//En caso de que el importe no tenga decimales, Agregar los dos decimales
+				ls_operaciones = ls_importe; //Enteros
+				ls_operaciones = ls_operaciones + "00";	
+
+			END
+			ELSE 
+			BEGIN
+				ls_operaciones = mid(ls_importe,0,ln_pos_punto); //Enteros
+				ls_operaciones  = ls_operaciones  + mid(ls_importe, ln_pos_punto+1,2); //Decimales
+
+
+				IF LEN(mid(ls_importe, ln_pos_punto+1,2)) = 1 THEN
+				BEGIN
+					ls_operaciones = ls_operaciones + "0";	
+				END 
+
+			END
+
+		
+			CONCAT(ls_detalle , FILLER_ZEROS,15-len(ls_operaciones )); //Rellenar con ceros a la izquierda
+			ls_detalle = ls_detalle + ls_operaciones;
+
+		END
+		ELSE IF #CONTRATOS_Moneda = "USD" THEN
+		BEGIN	
+
+
+			ntoa(#imp_comision_usd, ls_importe);
+		
+			ln_pos_punto = strstr(ls_importe,".");
+
+
+			IF  ln_pos_punto &lt; 0 THEN 
+			BEGIN 
+				//En caso de que el importe no tenga decimales, Agregar los dos decimales
+				ls_operaciones = ls_importe; //Enteros
+				ls_operaciones = ls_operaciones + "00";	
+
+			END
+			ELSE 
+			BEGIN
+				ls_operaciones = mid(ls_importe,0,ln_pos_punto); //Enteros
+				ls_operaciones  = ls_operaciones  + mid(ls_importe, ln_pos_punto+1,2); //Decimales
+	
+
+				IF LEN(mid(ls_importe, ln_pos_punto+1,2)) = 1 THEN
+				BEGIN
+					ls_operaciones = ls_operaciones + "0";	
+				END
+			END
+
+
+		
+		 
+
+			CONCAT(ls_detalle , FILLER_ZEROS,15-len(ls_operaciones )); //Rellenar con ceros a la izquierda
+			ls_detalle = ls_detalle + ls_operaciones;
+
+		END
+		ELSE 
+		BEGIN	
+
+			ntoa(#imp_comision_eur, ls_importe);
+	
+			ln_pos_punto = strstr(ls_importe,".");
+
+
+			IF  ln_pos_punto &lt; 0 THEN 
+			BEGIN 
+				//En caso de que el importe no tenga decimales, Agregar los dos decimales
+				ls_operaciones = ls_importe; //Enteros
+				ls_operaciones = ls_operaciones + "00";	
+
+			END
+			ELSE 
+			BEGIN
+				ls_operaciones = mid(ls_importe,0,ln_pos_punto); //Enteros
+				ls_operaciones  = ls_operaciones  + mid(ls_importe, ln_pos_punto+1,2); //Decimales
+
+
+				IF LEN(mid(ls_importe, ln_pos_punto+1,2)) = 1 THEN
+				BEGIN
+					ls_operaciones = ls_operaciones + "0";	
+				END 
+
+			END
+
+
+		
+
+			CONCAT(ls_detalle , FILLER_ZEROS,15-len(ls_operaciones )); //Rellenar con ceros a la izquierda
+			ls_detalle = ls_detalle + ls_operaciones;
+
+		END
+	END
+
+//Importe del impuesto local 1
+
+	IF #CONTRATOS_IndicadorAAA  THEN
+	   BEGIN
+        	ls_detalle = ls_detalle + FILLER_ZEROS;
+	   END
+	ELSE
+	   BEGIN
+ 
+
+		IF #CONTRATOS_Moneda = "MXN" THEN	
+		BEGIN
+			gn_importe_iva = (#iva * #imp_comision_mxp)/100;
+			ntoa(gn_importe_iva ,ls_importe);
+
+			ln_pos_punto = strstr(ls_importe,".");
+			
+			
+			IF  ln_pos_punto &lt; 0 THEN 
+			BEGIN 
+				//En caso de que el importe no tenga decimales, Agregar los dos decimales	
+				ls_operaciones = ls_importe; //Enteros
+				ls_operaciones = ls_operaciones + "00";	
+				ls_importe_iva = ls_importe + ".00";
+
+			END
+			ELSE 
+			BEGIN
+				ls_operaciones = mid(ls_importe,0,ln_pos_punto); //Enteros
+				ls_operaciones  = ls_operaciones  + mid(ls_importe, ln_pos_punto+1,2); //Decimales
+				ls_importe_iva = mid(ls_importe,0,ln_pos_punto) + "." + mid(ls_importe, ln_pos_punto+1,2);
+
+				IF LEN(mid(ls_importe, ln_pos_punto+1,2)) = 1 THEN
+				BEGIN
+					ls_operaciones = ls_operaciones + "0";	
+					ls_importe_iva = ls_importe_iva + "0";
+				END 
+
+			END
+
+			gn_importe_iva = aton(ls_importe_iva);
+			
+			CONCAT(ls_detalle , FILLER_ZEROS,15-len(ls_operaciones )); //Rellenar con ceros a la izquierda
+			ls_detalle = ls_detalle + ls_operaciones;
+
+		END
+		ELSE IF #CONTRATOS_Moneda = "USD" THEN
+		BEGIN
+			gn_importe_iva = (#iva * #imp_comision_usd)/100;
+			ntoa(gn_importe_iva ,ls_importe);
+
+			ln_pos_punto = strstr(ls_importe,".");
+			IF  ln_pos_punto &lt; 0 THEN 
+			BEGIN 
+				//En caso de que el importe no tenga decimales, Agregar los dos decimales
+				ls_operaciones = ls_importe; //Enteros
+				ls_operaciones = ls_operaciones + "00";	
+				ls_importe_iva = ls_importe + ".00";
+	
+			END
+			ELSE 
+			BEGIN
+				ls_operaciones = mid(ls_importe,0,ln_pos_punto); //Enteros
+				ls_operaciones  = ls_operaciones  + mid(ls_importe, ln_pos_punto+1,2); //Decimales
+				ls_importe_iva = mid(ls_importe,0,ln_pos_punto) + "." + mid(ls_importe, ln_pos_punto+1,2);
+
+				IF LEN(mid(ls_importe, ln_pos_punto+1,2)) = 1 THEN
+				BEGIN
+					ls_operaciones = ls_operaciones + "0";
+					ls_importe_iva = ls_importe_iva + "0";	
+				END 
+			END
+			
+			gn_importe_iva = aton(ls_importe_iva);
+			
+			CONCAT(ls_detalle , FILLER_ZEROS,15-len(ls_operaciones )); //Rellenar con ceros a la izquierda
+			ls_detalle = ls_detalle + ls_operaciones;
+
+		END
+		ELSE 
+		BEGIN
+			gn_importe_iva = (#iva * #imp_comision_eur)/100;
+			ntoa(gn_importe_iva ,ls_importe);
+
+			ln_pos_punto = strstr(ls_importe,".");
+			IF  ln_pos_punto &lt; 0 THEN 
+			BEGIN 
+				//En caso de que el importe no tenga decimales, Agregar los dos decimales
+				ls_operaciones = ls_importe; //Enteros
+				ls_operaciones = ls_operaciones + "00";	
+				ls_importe_iva = ls_importe + ".00";
+	
+			END
+			ELSE 
+			BEGIN
+				ls_operaciones = mid(ls_importe,0,ln_pos_punto); //Enteros
+				ls_operaciones  = ls_operaciones  + mid(ls_importe, ln_pos_punto+1,2); //Decimales
+				ls_importe_iva = mid(ls_importe,0,ln_pos_punto) + "." + mid(ls_importe, ln_pos_punto+1,2);
+
+				IF LEN(mid(ls_importe, ln_pos_punto+1,2)) = 1 THEN
+				BEGIN
+					ls_operaciones = ls_operaciones + "0";	
+					ls_importe_iva = ls_importe_iva + "0";
+				END 
+
+			END
+
+
+			gn_importe_iva = aton(ls_importe_iva);
+
+			CONCAT(ls_detalle , FILLER_ZEROS,15-len(ls_operaciones )); //Rellenar con ceros a la izquierda
+			ls_detalle = ls_detalle + ls_operaciones;
+
+		END 
+
+	END
+//Importe del impuesto local 2
+	ls_detalle = ls_detalle + FILLER_ZEROS;
+
+//Importe del impuesto local 3
+	ls_detalle = ls_detalle + FILLER_ZEROS;
+
+//Importe del impuesto local 4
+	ls_detalle = ls_detalle + FILLER_ZEROS;
+
+//Uso Futuro
+	CONCAT(ls_detalle, FILLER_SPACES_FUTURO,250-len(ls_detalle)); //Rellenar con espacios hacia la derecha
+
+
+ls_array_escritura_reporte_mt101[gn_contador_registros_mt101] = ls_detalle;
+
+
+
+//Termina Codigo BBVA</ExplicitRule>
+<NullsAllowed>no</NullsAllowed>
+<BlockQueryID>0</BlockQueryID>
+<ColumnNumber>18</ColumnNumber>
+<ColumnKey>0</ColumnKey>
+<ColumnNameID>0</ColumnNameID>
+<StatementRecord>SICOCO_CONSULTA_MT101</StatementRecord>
+<Table></Table>
+<InputColumn>CONTRATOS.id_contratos</InputColumn>
+<OutputColumn></OutputColumn>
+<FieldType>InputOnly</FieldType>
+</Field></ODBCInputRecord></Group></Group>
+</Group>
+<DataSources>
+<DataSource>
+<Name>BBVApoolOracle</Name>
+<ConnectString>DSN=BBVApoolOracle;UID=DBSBGM2;PWD=hjgphhijglmhmimgmgjf;DATABASE=BBVAPOOLORACLE</ConnectString>
+<DatabaseName></DatabaseName>
+<DSN>BBVApoolOracle</DSN>
+<UID>DBSBGM2</UID>
+<PWD>hjgphhijglmhmimgmgjf</PWD>
+<PWD_encrypted_flag>true</PWD_encrypted_flag>
+<DB>BBVAPOOLORACLE</DB>
+<AttemptToConnect>yes</AttemptToConnect>
+<UseTransactions>yes</UseTransactions>
+<Table>
+<DataSourceName>BBVApoolOracle</DataSourceName>
+<TableName>DBSBGM2.TGM040_CTA_RLY_MX</TableName>
+<Column>
+<Name>CD_CUENTA</Name>
+<SQLType>Double</SQLType>
+<Precision>8</Precision>
+<Scale>0</Scale>
+<Nullability>no</Nullability>
+<StoreLimit>
+<MaxLen>8</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>numeric</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>N0</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>NB_CUENTA</Name>
+<SQLType>String</SQLType>
+<Precision>35</Precision>
+<Scale>0</Scale>
+<Nullability>no</Nullability>
+<StoreLimit>
+<MaxLen>35</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>string</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>X</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>NB_BUZON</Name>
+<SQLType>String</SQLType>
+<Precision>8</Precision>
+<Scale>0</Scale>
+<Nullability>no</Nullability>
+<StoreLimit>
+<MaxLen>8</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>string</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>X</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>CD_CANAL</Name>
+<SQLType>Double</SQLType>
+<Precision>3</Precision>
+<Scale>0</Scale>
+<Nullability>yes</Nullability>
+<StoreLimit>
+<MaxLen>3</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>numeric</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>N0</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>CD_IVA</Name>
+<SQLType>Double</SQLType>
+<Precision>3</Precision>
+<Scale>0</Scale>
+<Nullability>yes</Nullability>
+<StoreLimit>
+<MaxLen>3</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>numeric</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>N0</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>CD_MONEDA</Name>
+<SQLType>Double</SQLType>
+<Precision>3</Precision>
+<Scale>0</Scale>
+<Nullability>yes</Nullability>
+<StoreLimit>
+<MaxLen>3</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>numeric</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>N0</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>NB_CLIENTE_RELAY</Name>
+<SQLType>String</SQLType>
+<Precision>80</Precision>
+<Scale>0</Scale>
+<Nullability>no</Nullability>
+<StoreLimit>
+<MaxLen>80</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>string</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>X</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>NB_BIC_RELAY</Name>
+<SQLType>String</SQLType>
+<Precision>11</Precision>
+<Scale>0</Scale>
+<Nullability>no</Nullability>
+<StoreLimit>
+<MaxLen>11</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>string</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>X</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>NB_CONTRATO</Name>
+<SQLType>String</SQLType>
+<Precision>9</Precision>
+<Scale>0</Scale>
+<Nullability>yes</Nullability>
+<StoreLimit>
+<MaxLen>9</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>string</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>X</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>CD_CLIENTE_AAA</Name>
+<SQLType>String</SQLType>
+<Precision>1</Precision>
+<Scale>0</Scale>
+<Nullability>yes</Nullability>
+<StoreLimit>
+<MaxLen>1</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>string</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>X</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>TM_FECHA_ALTA</Name>
+<SQLType>Date</SQLType>
+<Precision>26</Precision>
+<Scale>0</Scale>
+<Nullability>yes</Nullability>
+<StoreLimit>
+<MaxLen>26</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>date</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>no</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>YYYY-MM-DD</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>NB_CTA_COMISIONES</Name>
+<SQLType>String</SQLType>
+<Precision>35</Precision>
+<Scale>0</Scale>
+<Nullability>yes</Nullability>
+<StoreLimit>
+<MaxLen>35</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>string</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>X</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>CD_CUENTA_AGRUPADA</Name>
+<SQLType>String</SQLType>
+<Precision>1</Precision>
+<Scale>0</Scale>
+<Nullability>no</Nullability>
+<StoreLimit>
+<MaxLen>1</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>string</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>X</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>NB_CTA_REFERENCIA</Name>
+<SQLType>String</SQLType>
+<Precision>50</Precision>
+<Scale>0</Scale>
+<Nullability>yes</Nullability>
+<StoreLimit>
+<MaxLen>50</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>string</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>X</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>TM_FECHA_BAJA</Name>
+<SQLType>Date</SQLType>
+<Precision>26</Precision>
+<Scale>0</Scale>
+<Nullability>yes</Nullability>
+<StoreLimit>
+<MaxLen>26</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>date</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>no</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>YYYY-MM-DD</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>CD_MENSUALIDAD</Name>
+<SQLType>String</SQLType>
+<Precision>1</Precision>
+<Scale>0</Scale>
+<Nullability>no</Nullability>
+<StoreLimit>
+<MaxLen>1</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>string</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>X</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>CD_CTARL_MX94X</Name>
+<SQLType>Double</SQLType>
+<Precision>8</Precision>
+<Scale>0</Scale>
+<Nullability>yes</Nullability>
+<StoreLimit>
+<MaxLen>8</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>numeric</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>N0</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit></Column>
+</Table>
+<Table>
+<DataSourceName>BBVApoolOracle</DataSourceName>
+<TableName>DBSBGM2.TGM041_IVA_MX</TableName>
+<Column>
+<Name>CD_IVA</Name>
+<SQLType>Double</SQLType>
+<Precision>3</Precision>
+<Scale>0</Scale>
+<Nullability>no</Nullability>
+<StoreLimit>
+<MaxLen>3</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>numeric</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>N0</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>NU_PORCENTAJE</Name>
+<SQLType>Double</SQLType>
+<Precision>3</Precision>
+<Scale>0</Scale>
+<Nullability>no</Nullability>
+<StoreLimit>
+<MaxLen>3</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>numeric</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>N0</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit></Column>
+</Table>
+<Table>
+<DataSourceName>BBVApoolOracle</DataSourceName>
+<TableName>DBSBGM2.TGM042_MONEDA_MX</TableName>
+<Column>
+<Name>CD_MONEDA</Name>
+<SQLType>Double</SQLType>
+<Precision>3</Precision>
+<Scale>0</Scale>
+<Nullability>no</Nullability>
+<StoreLimit>
+<MaxLen>3</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>numeric</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>N0</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>NB_MONEDA</Name>
+<SQLType>String</SQLType>
+<Precision>3</Precision>
+<Scale>0</Scale>
+<Nullability>no</Nullability>
+<StoreLimit>
+<MaxLen>3</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>string</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>X</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit></Column>
+</Table>
+<Table>
+<DataSourceName>BBVApoolOracle</DataSourceName>
+<TableName>DBSBGM2.TGM053_TIPO_OP_MX</TableName>
+<Column>
+<Name>CD_TP_OPERACION</Name>
+<SQLType>Double</SQLType>
+<Precision>3</Precision>
+<Scale>0</Scale>
+<Nullability>no</Nullability>
+<StoreLimit>
+<MaxLen>3</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>numeric</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>N0</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>NB_TP_OPERACION</Name>
+<SQLType>String</SQLType>
+<Precision>3</Precision>
+<Scale>0</Scale>
+<Nullability>no</Nullability>
+<StoreLimit>
+<MaxLen>3</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>string</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>X</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>TX_TP_OPERACION</Name>
+<SQLType>String</SQLType>
+<Precision>50</Precision>
+<Scale>0</Scale>
+<Nullability>no</Nullability>
+<StoreLimit>
+<MaxLen>50</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>string</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>X</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>TP_MENSAJE</Name>
+<SQLType>String</SQLType>
+<Precision>3</Precision>
+<Scale>0</Scale>
+<Nullability>no</Nullability>
+<StoreLimit>
+<MaxLen>3</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>string</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>X</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>NU_CODIGO_SICOCO</Name>
+<SQLType>String</SQLType>
+<Precision>10</Precision>
+<Scale>0</Scale>
+<Nullability>yes</Nullability>
+<StoreLimit>
+<MaxLen>10</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>string</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>X</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>IM_COMISION_USD</Name>
+<SQLType>Double</SQLType>
+<Precision>7</Precision>
+<Scale>2</Scale>
+<Nullability>no</Nullability>
+<StoreLimit>
+<MaxLen>7</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>numeric</DataType>
+<ImpliedDecimalPos>2</ImpliedDecimalPos>
+<ImplicitDecimal>no</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>R2</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>IM_COMISION_MXN</Name>
+<SQLType>Double</SQLType>
+<Precision>7</Precision>
+<Scale>2</Scale>
+<Nullability>no</Nullability>
+<StoreLimit>
+<MaxLen>7</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>numeric</DataType>
+<ImpliedDecimalPos>2</ImpliedDecimalPos>
+<ImplicitDecimal>no</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>R2</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>IM_COMISION_EUR</Name>
+<SQLType>Double</SQLType>
+<Precision>7</Precision>
+<Scale>2</Scale>
+<Nullability>no</Nullability>
+<StoreLimit>
+<MaxLen>7</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>numeric</DataType>
+<ImpliedDecimalPos>2</ImpliedDecimalPos>
+<ImplicitDecimal>no</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>R2</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit></Column></Table>
+</DataSource>
+<DataSource>
+<Name>BBVApoolMSSQL</Name>
+<ConnectString>DSN=BBVApoolMSSQL;UID=Swift;PWD=ilighdhfigmjmimfjg;DATABASE=SWIFT</ConnectString>
+<DatabaseName>SWIFT</DatabaseName>
+<DSN>BBVApoolMSSQL</DSN>
+<UID>Swift</UID>
+<PWD>ilighdhfigmjmimfjg</PWD>
+<PWD_encrypted_flag>true</PWD_encrypted_flag>
+<DB>SWIFT</DB>
+<AttemptToConnect>yes</AttemptToConnect>
+<UseTransactions>yes</UseTransactions>
+<Table>
+<DataSourceName>BBVApoolMSSQL</DataSourceName>
+<TableName>dbo.CONTRATOS</TableName>
+<Column>
+<Name>id_contratos</Name>
+<SQLType>Integer</SQLType>
+<Precision>10</Precision>
+<Scale>0</Scale>
+<Nullability>no</Nullability>
+<StoreLimit>
+<MaxLen>10</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>numeric</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>N0</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>cuenta_cheques</Name>
+<SQLType>String</SQLType>
+<Precision>12</Precision>
+<Scale>0</Scale>
+<Nullability>no</Nullability>
+<StoreLimit>
+<MaxLen>12</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>string</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>X</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>moneda</Name>
+<SQLType>String</SQLType>
+<Precision>3</Precision>
+<Scale>0</Scale>
+<Nullability>no</Nullability>
+<StoreLimit>
+<MaxLen>3</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>string</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>X</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>contrato_swift</Name>
+<SQLType>String</SQLType>
+<Precision>11</Precision>
+<Scale>0</Scale>
+<Nullability>no</Nullability>
+<StoreLimit>
+<MaxLen>11</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>string</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>X</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>nombre_empresa</Name>
+<SQLType>String</SQLType>
+<Precision>30</Precision>
+<Scale>0</Scale>
+<Nullability>no</Nullability>
+<StoreLimit>
+<MaxLen>30</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>string</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>X</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>porcentaje_iva</Name>
+<SQLType>BIT</SQLType>
+<Precision>1</Precision>
+<Scale>0</Scale>
+<Nullability>yes</Nullability>
+<StoreLimit>
+<MaxLen>1</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>numeric</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>N0</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>indicador_AAA</Name>
+<SQLType>BIT</SQLType>
+<Precision>1</Precision>
+<Scale>0</Scale>
+<Nullability>yes</Nullability>
+<StoreLimit>
+<MaxLen>1</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>numeric</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>N0</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>fecha_alta</Name>
+<SQLType>Date</SQLType>
+<Precision>23</Precision>
+<Scale>3</Scale>
+<Nullability>no</Nullability>
+<StoreLimit>
+<MaxLen>23</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>date</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>no</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>YYYY-MM-DD</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>contrato_sicoco</Name>
+<SQLType>String</SQLType>
+<Precision>13</Precision>
+<Scale>0</Scale>
+<Nullability>yes</Nullability>
+<StoreLimit>
+<MaxLen>13</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>string</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>X</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>contrato_swift_env</Name>
+<SQLType>String</SQLType>
+<Precision>11</Precision>
+<Scale>0</Scale>
+<Nullability>yes</Nullability>
+<StoreLimit>
+<MaxLen>11</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>string</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>X</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>fecha_baja</Name>
+<SQLType>Date</SQLType>
+<Precision>23</Precision>
+<Scale>3</Scale>
+<Nullability>yes</Nullability>
+<StoreLimit>
+<MaxLen>23</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>date</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>no</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>YYYY-MM-DD</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>anualidad</Name>
+<SQLType>BIT</SQLType>
+<Precision>1</Precision>
+<Scale>0</Scale>
+<Nullability>yes</Nullability>
+<StoreLimit>
+<MaxLen>1</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>numeric</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>N0</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>mensualidad</Name>
+<SQLType>BIT</SQLType>
+<Precision>1</Precision>
+<Scale>0</Scale>
+<Nullability>yes</Nullability>
+<StoreLimit>
+<MaxLen>1</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>numeric</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>N0</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>arch_sicoco_generado</Name>
+<SQLType>BIT</SQLType>
+<Precision>1</Precision>
+<Scale>0</Scale>
+<Nullability>yes</Nullability>
+<StoreLimit>
+<MaxLen>1</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>numeric</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>N0</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>fecha_arch_cancel</Name>
+<SQLType>Date</SQLType>
+<Precision>23</Precision>
+<Scale>3</Scale>
+<Nullability>yes</Nullability>
+<StoreLimit>
+<MaxLen>23</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>date</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>no</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>YYYY-MM-DD</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit></Column>
+</Table>
+<Table>
+<DataSourceName>BBVApoolMSSQL</DataSourceName>
+<TableName>dbo.REPORTE_MT101</TableName>
+<Column>
+<Name>referencia</Name>
+<SQLType>Double</SQLType>
+<Precision>6</Precision>
+<Scale>0</Scale>
+<Nullability>no</Nullability>
+<StoreLimit>
+<MaxLen>6</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>numeric</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>N0</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>fecha_proceso</Name>
+<SQLType>Date</SQLType>
+<Precision>16</Precision>
+<Scale>0</Scale>
+<Nullability>no</Nullability>
+<StoreLimit>
+<MaxLen>16</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>date</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>no</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>YYYY-MM-DD</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>referencia_envio_20</Name>
+<SQLType>String</SQLType>
+<Precision>16</Precision>
+<Scale>0</Scale>
+<Nullability>no</Nullability>
+<StoreLimit>
+<MaxLen>16</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>string</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>X</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>banco_origen_2</Name>
+<SQLType>String</SQLType>
+<Precision>16</Precision>
+<Scale>0</Scale>
+<Nullability>no</Nullability>
+<StoreLimit>
+<MaxLen>16</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>string</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>X</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>codigo_cliente_21R</Name>
+<SQLType>String</SQLType>
+<Precision>16</Precision>
+<Scale>0</Scale>
+<Nullability>no</Nullability>
+<StoreLimit>
+<MaxLen>16</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>string</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>X</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>nombre_ordenante_50H_2_50A_2</Name>
+<SQLType>String</SQLType>
+<Precision>30</Precision>
+<Scale>0</Scale>
+<Nullability>yes</Nullability>
+<StoreLimit>
+<MaxLen>30</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>string</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>X</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>tipo_operacion</Name>
+<SQLType>Integer</SQLType>
+<Precision>5</Precision>
+<Scale>0</Scale>
+<Nullability>no</Nullability>
+<StoreLimit>
+<MaxLen>5</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>numeric</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>N0</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>fecha_valor_30</Name>
+<SQLType>Date</SQLType>
+<Precision>16</Precision>
+<Scale>0</Scale>
+<Nullability>yes</Nullability>
+<StoreLimit>
+<MaxLen>16</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>date</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>no</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>YYYY-MM-DD</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>cuenta_cheques</Name>
+<SQLType>String</SQLType>
+<Precision>18</Precision>
+<Scale>0</Scale>
+<Nullability>no</Nullability>
+<StoreLimit>
+<MaxLen>18</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>string</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>X</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>cuenta_cargo_50H_1_50A_1</Name>
+<SQLType>String</SQLType>
+<Precision>18</Precision>
+<Scale>0</Scale>
+<Nullability>no</Nullability>
+<StoreLimit>
+<MaxLen>18</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>string</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>X</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>cuenta_abono_59_1</Name>
+<SQLType>String</SQLType>
+<Precision>18</Precision>
+<Scale>0</Scale>
+<Nullability>no</Nullability>
+<StoreLimit>
+<MaxLen>18</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>string</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>X</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>tipo_cuenta_abono</Name>
+<SQLType>String</SQLType>
+<Precision>3</Precision>
+<Scale>0</Scale>
+<Nullability>no</Nullability>
+<StoreLimit>
+<MaxLen>3</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>string</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>X</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>importe_32B</Name>
+<SQLType>Double</SQLType>
+<Precision>15</Precision>
+<Scale>2</Scale>
+<Nullability>yes</Nullability>
+<StoreLimit>
+<MaxLen>15</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>numeric</DataType>
+<ImpliedDecimalPos>2</ImpliedDecimalPos>
+<ImplicitDecimal>no</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>R2</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>moneda_32B</Name>
+<SQLType>String</SQLType>
+<Precision>3</Precision>
+<Scale>0</Scale>
+<Nullability>no</Nullability>
+<StoreLimit>
+<MaxLen>3</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>string</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>X</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>valida_terceros</Name>
+<SQLType>Double</SQLType>
+<Precision>1</Precision>
+<Scale>0</Scale>
+<Nullability>no</Nullability>
+<StoreLimit>
+<MaxLen>1</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>numeric</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>N0</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>motivo_concepto_70_2_57A</Name>
+<SQLType>String</SQLType>
+<Precision>30</Precision>
+<Scale>0</Scale>
+<Nullability>yes</Nullability>
+<StoreLimit>
+<MaxLen>30</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>string</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>X</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>plaza_beneficiario</Name>
+<SQLType>Double</SQLType>
+<Precision>3</Precision>
+<Scale>0</Scale>
+<Nullability>no</Nullability>
+<StoreLimit>
+<MaxLen>3</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>numeric</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>N0</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>clave_servicio</Name>
+<SQLType>String</SQLType>
+<Precision>3</Precision>
+<Scale>0</Scale>
+<Nullability>no</Nullability>
+<StoreLimit>
+<MaxLen>3</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>string</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>X</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>nombre_ordenante_50H_2</Name>
+<SQLType>String</SQLType>
+<Precision>30</Precision>
+<Scale>0</Scale>
+<Nullability>yes</Nullability>
+<StoreLimit>
+<MaxLen>30</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>string</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>X</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>banco_emisor</Name>
+<SQLType>Double</SQLType>
+<Precision>3</Precision>
+<Scale>0</Scale>
+<Nullability>no</Nullability>
+<StoreLimit>
+<MaxLen>3</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>numeric</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>N0</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>nombre_benef_59_2_70_1</Name>
+<SQLType>String</SQLType>
+<Precision>30</Precision>
+<Scale>0</Scale>
+<Nullability>no</Nullability>
+<StoreLimit>
+<MaxLen>30</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>string</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>X</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>dom_benef_59A_3</Name>
+<SQLType>String</SQLType>
+<Precision>40</Precision>
+<Scale>0</Scale>
+<Nullability>no</Nullability>
+<StoreLimit>
+<MaxLen>40</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>string</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>X</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>tel_benef_59_4</Name>
+<SQLType>String</SQLType>
+<Precision>12</Precision>
+<Scale>0</Scale>
+<Nullability>no</Nullability>
+<StoreLimit>
+<MaxLen>12</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>string</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>X</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>pc_benef_59_4</Name>
+<SQLType>String</SQLType>
+<Precision>30</Precision>
+<Scale>0</Scale>
+<Nullability>yes</Nullability>
+<StoreLimit>
+<MaxLen>30</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>string</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>X</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>sucursal_beneficiario</Name>
+<SQLType>String</SQLType>
+<Precision>15</Precision>
+<Scale>0</Scale>
+<Nullability>no</Nullability>
+<StoreLimit>
+<MaxLen>15</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>string</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>X</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>instruc_esp_70</Name>
+<SQLType>String</SQLType>
+<Precision>50</Precision>
+<Scale>0</Scale>
+<Nullability>no</Nullability>
+<StoreLimit>
+<MaxLen>50</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>string</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>X</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>bco_benef_59_1</Name>
+<SQLType>Double</SQLType>
+<Precision>3</Precision>
+<Scale>0</Scale>
+<Nullability>no</Nullability>
+<StoreLimit>
+<MaxLen>3</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>numeric</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>N0</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>dom_bco_benef_ABA_BIC</Name>
+<SQLType>String</SQLType>
+<Precision>40</Precision>
+<Scale>0</Scale>
+<Nullability>no</Nullability>
+<StoreLimit>
+<MaxLen>40</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>string</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>X</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>bco_benef_ABA_BIC</Name>
+<SQLType>String</SQLType>
+<Precision>30</Precision>
+<Scale>0</Scale>
+<Nullability>no</Nullability>
+<StoreLimit>
+<MaxLen>30</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>string</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>X</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>pc_bco_benef_ABA_BIC</Name>
+<SQLType>String</SQLType>
+<Precision>30</Precision>
+<Scale>0</Scale>
+<Nullability>no</Nullability>
+<StoreLimit>
+<MaxLen>30</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>string</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>X</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>indicador_interplaza</Name>
+<SQLType>String</SQLType>
+<Precision>1</Precision>
+<Scale>0</Scale>
+<Nullability>no</Nullability>
+<StoreLimit>
+<MaxLen>1</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>string</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>X</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>suc_benef</Name>
+<SQLType>String</SQLType>
+<Precision>6</Precision>
+<Scale>0</Scale>
+<Nullability>no</Nullability>
+<StoreLimit>
+<MaxLen>6</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>string</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>X</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>referencia_CIE_70</Name>
+<SQLType>String</SQLType>
+<Precision>20</Precision>
+<Scale>0</Scale>
+<Nullability>no</Nullability>
+<StoreLimit>
+<MaxLen>20</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>string</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>X</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>num_cheque</Name>
+<SQLType>Double</SQLType>
+<Precision>7</Precision>
+<Scale>0</Scale>
+<Nullability>no</Nullability>
+<StoreLimit>
+<MaxLen>7</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>numeric</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>N0</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>edo_cheque</Name>
+<SQLType>String</SQLType>
+<Precision>1</Precision>
+<Scale>0</Scale>
+<Nullability>no</Nullability>
+<StoreLimit>
+<MaxLen>1</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>string</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>X</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>concepto_CIE_70</Name>
+<SQLType>String</SQLType>
+<Precision>30</Precision>
+<Scale>0</Scale>
+<Nullability>yes</Nullability>
+<StoreLimit>
+<MaxLen>30</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>string</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>X</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>convenio_CIE_59_1</Name>
+<SQLType>Double</SQLType>
+<Precision>9</Precision>
+<Scale>0</Scale>
+<Nullability>no</Nullability>
+<StoreLimit>
+<MaxLen>9</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>numeric</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>N0</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>nom_plaza_benef</Name>
+<SQLType>String</SQLType>
+<Precision>20</Precision>
+<Scale>0</Scale>
+<Nullability>no</Nullability>
+<StoreLimit>
+<MaxLen>20</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>string</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>X</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>status_operacion</Name>
+<SQLType>String</SQLType>
+<Precision>7</Precision>
+<Scale>0</Scale>
+<Nullability>yes</Nullability>
+<StoreLimit>
+<MaxLen>7</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>string</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>X</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>descripcion_status</Name>
+<SQLType>String</SQLType>
+<Precision>50</Precision>
+<Scale>0</Scale>
+<Nullability>yes</Nullability>
+<StoreLimit>
+<MaxLen>50</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>string</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>X</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>folio_aceptacion</Name>
+<SQLType>String</SQLType>
+<Precision>15</Precision>
+<Scale>0</Scale>
+<Nullability>yes</Nullability>
+<StoreLimit>
+<MaxLen>15</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>string</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>X</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>filler</Name>
+<SQLType>String</SQLType>
+<Precision>50</Precision>
+<Scale>0</Scale>
+<Nullability>yes</Nullability>
+<StoreLimit>
+<MaxLen>50</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>string</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>X</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>status_envio</Name>
+<SQLType>Integer</SQLType>
+<Precision>10</Precision>
+<Scale>0</Scale>
+<Nullability>no</Nullability>
+<StoreLimit>
+<MaxLen>10</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>numeric</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>N0</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>nombre_archivo</Name>
+<SQLType>String</SQLType>
+<Precision>40</Precision>
+<Scale>0</Scale>
+<Nullability>no</Nullability>
+<StoreLimit>
+<MaxLen>40</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>string</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>X</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>nombre_archivo_cash</Name>
+<SQLType>String</SQLType>
+<Precision>40</Precision>
+<Scale>0</Scale>
+<Nullability>yes</Nullability>
+<StoreLimit>
+<MaxLen>40</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>string</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>X</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>nombre_archivo_swift</Name>
+<SQLType>String</SQLType>
+<Precision>40</Precision>
+<Scale>0</Scale>
+<Nullability>yes</Nullability>
+<StoreLimit>
+<MaxLen>40</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>string</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>X</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>lote_envio</Name>
+<SQLType>Integer</SQLType>
+<Precision>10</Precision>
+<Scale>0</Scale>
+<Nullability>yes</Nullability>
+<StoreLimit>
+<MaxLen>10</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>numeric</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>N0</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>lote_regreso</Name>
+<SQLType>Integer</SQLType>
+<Precision>10</Precision>
+<Scale>0</Scale>
+<Nullability>yes</Nullability>
+<StoreLimit>
+<MaxLen>10</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>numeric</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>N0</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>vuelta</Name>
+<SQLType>Integer</SQLType>
+<Precision>10</Precision>
+<Scale>0</Scale>
+<Nullability>yes</Nullability>
+<StoreLimit>
+<MaxLen>10</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>numeric</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>N0</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>referencia_transaccion_21</Name>
+<SQLType>String</SQLType>
+<Precision>16</Precision>
+<Scale>0</Scale>
+<Nullability>yes</Nullability>
+<StoreLimit>
+<MaxLen>16</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>string</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>X</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>direccion_ordenante_50H_3_50A_3</Name>
+<SQLType>String</SQLType>
+<Precision>35</Precision>
+<Scale>0</Scale>
+<Nullability>yes</Nullability>
+<StoreLimit>
+<MaxLen>35</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>string</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>X</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>direccion_ordenante_50H_4_50A_4</Name>
+<SQLType>String</SQLType>
+<Precision>35</Precision>
+<Scale>0</Scale>
+<Nullability>yes</Nullability>
+<StoreLimit>
+<MaxLen>35</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>string</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>X</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit></Column>
+</Table>
+<Table>
+<DataSourceName>BBVApoolMSSQL</DataSourceName>
+<TableName>dbo.TIPO_OPERACION</TableName>
+<Column>
+<Name>tipo_operacion</Name>
+<SQLType>Integer</SQLType>
+<Precision>5</Precision>
+<Scale>0</Scale>
+<Nullability>no</Nullability>
+<StoreLimit>
+<MaxLen>5</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>numeric</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>N0</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>clave</Name>
+<SQLType>String</SQLType>
+<Precision>3</Precision>
+<Scale>0</Scale>
+<Nullability>no</Nullability>
+<StoreLimit>
+<MaxLen>3</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>string</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>X</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>descripcion</Name>
+<SQLType>String</SQLType>
+<Precision>50</Precision>
+<Scale>0</Scale>
+<Nullability>no</Nullability>
+<StoreLimit>
+<MaxLen>50</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>string</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>X</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>cod_sicoco</Name>
+<SQLType>String</SQLType>
+<Precision>10</Precision>
+<Scale>0</Scale>
+<Nullability>yes</Nullability>
+<StoreLimit>
+<MaxLen>10</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>string</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>X</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>imp_comision_usd</Name>
+<SQLType>Double</SQLType>
+<Precision>7</Precision>
+<Scale>2</Scale>
+<Nullability>yes</Nullability>
+<StoreLimit>
+<MaxLen>7</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>numeric</DataType>
+<ImpliedDecimalPos>2</ImpliedDecimalPos>
+<ImplicitDecimal>no</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>R2</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>imp_comision_mxp</Name>
+<SQLType>Double</SQLType>
+<Precision>7</Precision>
+<Scale>2</Scale>
+<Nullability>yes</Nullability>
+<StoreLimit>
+<MaxLen>7</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>numeric</DataType>
+<ImpliedDecimalPos>2</ImpliedDecimalPos>
+<ImplicitDecimal>no</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>R2</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>tipo_mensaje</Name>
+<SQLType>String</SQLType>
+<Precision>3</Precision>
+<Scale>0</Scale>
+<Nullability>yes</Nullability>
+<StoreLimit>
+<MaxLen>3</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>string</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>yes</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>X</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+</Column>
+<Column>
+<Name>imp_comision_eur</Name>
+<SQLType>Double</SQLType>
+<Precision>7</Precision>
+<Scale>2</Scale>
+<Nullability>yes</Nullability>
+<StoreLimit>
+<MaxLen>7</MaxLen>
+<MinLen>0</MinLen>
+<Signed>yes</Signed>
+<DataType>numeric</DataType>
+<ImpliedDecimalPos>2</ImpliedDecimalPos>
+<ImplicitDecimal>no</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>R2</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit></Column></Table></DataSource></DataSources></ODBCSyntax></INPUT><OUTPUT>
+<PosSyntax>
+<DelimiterUsed>no</DelimiterUsed>
+<Delimiter1/><Delimiter2Used>no</Delimiter2Used>
+<Delimiter2/><RecordLengthUsed>no</RecordLengthUsed>
+<RecordLength>0</RecordLength>
+<CharacterEncoding></CharacterEncoding>
+<DecimalCharUsed>no</DecimalCharUsed>
+<DecimalChar/><UseBytePositions>no</UseBytePositions>
+<RepeatSuppressionCharUsed>no</RepeatSuppressionCharUsed>
+<RepeatSuppressionChar/><Group>
+<ID>3</ID>
+<Name>OUTPUT</Name>
+<Description></Description>
+<Active>1</Active>
+<ChildCount>1</ChildCount>
+<Note></Note>
+<Min>1</Min>
+<Max>1</Max>
+<PromoteGroup>no</PromoteGroup>
+<OrderingType>0</OrderingType>
+<OrderingTag></OrderingTag>
+<UsageRelatedFieldName/><PosRecord>
+<ID>2</ID>
+<Name>SALIDA_DUMMY</Name>
+<Description></Description>
+<Active>1</Active>
+<ChildCount>1</ChildCount>
+<Note></Note>
+<Min>0</Min>
+<Max>1</Max>
+<LoopCtl>normal</LoopCtl>
+<OrderingType>0</OrderingType>
+<OrderingTag></OrderingTag>
+<UsageRelatedFieldName/><BlockSig>
+<Tag></Tag>
+<TagPos>0</TagPos>
+<KeyFieldID>0</KeyFieldID>
+<KeyFieldData>0</KeyFieldData>
+<KeyFieldAction>65535</KeyFieldAction>
+<Tag></Tag>
+<TagPos>0</TagPos>
+<KeyFieldID>0</KeyFieldID>
+<KeyFieldData>0</KeyFieldData>
+<KeyFieldAction>0</KeyFieldAction>
+</BlockSig>
+<TagLength>0</TagLength>
+<Field>
+<ID>1</ID>
+<Name>FIELD_DUMMY</Name>
+<Description></Description>
+<Active>1</Active>
+<ChildCount>0</ChildCount>
+<Note></Note>
+<Mandatory>no</Mandatory>
+<NotUsed>no</NotUsed>
+<FieldNumber>0</FieldNumber>
+<StoreGroup>65535</StoreGroup>
+<StoreField>65535</StoreField>
+<BusinessName></BusinessName>
+<StoreLimit>
+<MaxLen>1</MaxLen>
+<MinLen>0</MinLen>
+<Signed>no</Signed>
+<DataType>string</DataType>
+<ImpliedDecimalPos>0</ImpliedDecimalPos>
+<ImplicitDecimal>no</ImplicitDecimal>
+<AllowSignedDecimal>0</AllowSignedDecimal>
+<Format>X</Format>
+<BinaryOutput>0</BinaryOutput>
+<BinaryWidth>0</BinaryWidth>
+</StoreLimit>
+<StartPos>0</StartPos>
+<Length>1</Length>
+<Justify>left</Justify>
+<PadChar>SP</PadChar>
+<PadHighByte>0</PadHighByte>
+<Binary>0</Binary>
+</Field></PosRecord></Group></PosSyntax>
+</OUTPUT>
+<SyntaxTokens>
+<Token>
+<Code>A</Code>
+<Range>
+<Start>Z</Start>
+<End>A</End>
+</Range>
+<Range>
+<Start>z</Start>
+<End>a</End>
+</Range>
+<Char>SP</Char>
+<Char>SP</Char>
+</Token>
+<Token>
+<Code>N</Code>
+<Range>
+<Start>9</Start>
+<End>0</End>
+</Range>
+<Char>.</Char>
+<Char>-</Char>
+<Char>+</Char>
+</Token>
+<Token>
+<Code>X</Code>
+<Range>
+<Start>Z</Start>
+<End>A</End>
+</Range>
+<Range>
+<Start>z</Start>
+<End>a</End>
+</Range>
+<Range>
+<Start>9</Start>
+<End>0</End>
+</Range>
+<Char>.</Char>
+<Char>-</Char>
+<Char>+</Char>
+<Char>SP</Char>
+<Char>(</Char>
+<Char>)</Char>
+<Char>:</Char>
+<Char>/</Char>
+<Char>%</Char>
+<Char>\</Char>
+<Char>!</Char>
+<Char>"</Char>
+<Char>$</Char>
+<Char>^</Char>
+<Char>&amp;</Char>
+<Char>*</Char>
+<Char>_</Char>
+<Char>=</Char>
+<Char>[</Char>
+<Char>]</Char>
+<Char>{</Char>
+<Char>}</Char>
+<Char>;</Char>
+<Char>'</Char>
+<Char>?</Char>
+<Char>,</Char>
+<Char>&lt;</Char>
+<Char>&gt;</Char>
+<Char>~</Char>
+<Char>0xA3</Char>
+<Char>#</Char>
+<Char>|</Char>
+<Char>@</Char>
+<Char>`</Char>
+</Token>
+<Token>
+<Code>J</Code>
+<Range>
+<Start>Z</Start>
+<End>A</End>
+</Range>
+<Range>
+<Start>z</Start>
+<End>a</End>
+</Range>
+<Range>
+<Start>9</Start>
+<End>0</End>
+</Range>
+<Range>
+<Start>/</Start>
+<End>!</End>
+</Range>
+<Range>
+<Start>@</Start>
+<End>:</End>
+</Range>
+<Range>
+<Start>`</Start>
+<End>[</End>
+</Range>
+<Range>
+<Start>~</Start>
+<End>{</End>
+</Range>
+<Range>
+<Start>0xDF</Start>
+<End>0xA1</End>
+</Range>
+<Char>SP</Char>
+</Token>
+</SyntaxTokens>
+<ConstantMap xml:space="preserve">
+<Constant>
+<ConstantID>FILLER_SPACES</ConstantID>
+<Type>String</Type>
+<Value>                                             </Value>
+</Constant>
+<Constant>
+<ConstantID>FILLER_ZEROS</ConstantID>
+<Type>String</Type>
+<Value>000000000000000</Value>
+</Constant>
+<Constant>
+<ConstantID>FILLER_SPACES_FUTURO</ConstantID>
+<Type>String</Type>
+<Value>                                                                                                                                                                                                                                                          </Value>
+</Constant></ConstantMap></Mapper>

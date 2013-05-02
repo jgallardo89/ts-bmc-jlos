@@ -1,0 +1,3962 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="keywords" content="TDM_Report">
+        <link rel="stylesheet" type="text/css" media="screen" href="classic_blue.css" title="report">
+        <link rel="stylesheet" type="text/css" media="print" href="classic_blue_NoFrames_print.css" title="report">
+            <script src="tdmShowDetails.js" type="text/javascript"></script>
+        <title>Toad Data Modeler - HTML Report</title>
+    </head>
+
+
+<body onLoad="getUrlItem()">
+ <div class="mainContainer">
+
+  <div id="headerContainer">
+  <div id="header">
+         <div class="title1"></div>
+         <div class="title2">Relationships</div>
+         <div class="titleimage">
+                    <a href="http://www.quest.com" target="_blank">
+                    <img src="Img/logo.gif" alt="Made with Toad Data Modeler" border="0">
+                    </a>
+          </div>
+          <div class="headerEnd"><p>&nbsp;</p></div>  </div>
+        <div id="navTop">
+            <ul>
+                <li><a href="MInfo.html">Model Info</a>
+</li>
+                <li><a href="MImage.html">ER Diagram</a>
+</li>
+                <li><a href="Tables.html">Entities</a>
+</li>
+                <li><a href="Columns.html">Attributes</a>
+</li>
+                <li><a href="Indexes.html">Indexes</a>
+</li>
+                <li><a href="Keys.html">Keys</a>
+</li>
+                <li class="selLi"><a href="Relations.html" class="selAnchor">Relationships</a>
+</li>
+            </ul>
+            <div id="navTopEnd"><p>&nbsp;</p></div>
+        </div>
+
+  </div>
+
+<div id="navCombo"><form name="allItems" action=""><select name="listOfItems" onChange="showSelected()">    <option value="Relation_{5561AA70-560E-4C1F-89ED-4633549794C6}">R5015011</option>    <option value="Relation_{23980728-B96B-4272-90B9-69E469F5B220}">R5015022</option>    <option value="Relation_{1EB99427-24AB-4EF4-8D1E-A3827763C38B}">R5025053</option>    <option value="Relation_{2A76325F-6CB2-41AC-A565-7F1CA37C6E44}">R5035076</option>    <option value="Relation_{1FF4E2BB-8DF0-4211-AB80-3ACFA0C8E055}">R50354014</option>    <option value="Relation_{27371C24-CEC2-4F50-91F6-800196017E37}">R5045035</option>    <option value="Relation_{5825E26C-8863-4B15-8BE9-AD36189F3F7B}">R5045054</option>    <option value="Relation_{D2859AD7-6FEE-4DCB-9FFB-DAADFF083157}">R5085077</option>    <option value="Relation_{D5F79123-D275-45A7-8E7E-6E327EE542B1}">R50953412</option>    <option value="Relation_{B3281711-4B63-4EC1-A424-83C79CF0CC2E}">R51151920</option>    <option value="Relation_{C4B43B80-96BA-4BF0-AFC6-2390FFA7A25D}">R5115194</option>    <option value="Relation_{00B95FD3-845E-4672-9B3D-1E7A56978FCE}">R5125195</option>    <option value="Relation_{F70A39DD-F991-4AE6-8FA4-8A98165121F2}">R5135151</option>    <option value="Relation_{1452247E-A0E3-4343-8749-06B1BE63914E}">R5135183</option>    <option value="Relation_{88C2D7E9-8F05-48DE-BA8F-D3CCD5092F16}">R51452010</option>    <option value="Relation_{091047DB-A562-4710-B190-39D288FEBC29}">R5145336</option>    <option value="Relation_{CDAE8BC7-DC1E-4C74-B297-3EE578288D9D}">R5155196</option>    <option value="Relation_{07464B1C-C4BB-4837-8587-F2FE36C5AAF9}">R51652011</option>    <option value="Relation_{9094D030-D829-41D6-83A6-EAFC423B8466}">R5175182</option>    <option value="Relation_{96AFB92E-27B7-40EF-8C82-CF9EB4826E4E}">R5185208</option>    <option value="Relation_{84ED8E6A-617C-4DCC-B81C-121795E80BD5}">R5195207</option>    <option value="Relation_{8BDC2856-F2D9-469F-B45C-D9810AB7A85B}">R52052221</option>    <option value="Relation_{F54B8D26-C1DC-487E-B2EE-1DEE757A52B9}">R5225398</option>    <option value="Relation_{86E97D08-BF47-4983-9C9A-1A06519B4EFD}">R5315322</option>    <option value="Relation_{A86F64CA-AAF2-4DA1-8702-64B769936CEE}">R5335313</option>    <option value="Relation_{357D36A7-103D-4653-BA2E-4A64EB77AD6E}">R5335331</option>    <option value="Relation_{E247B226-332D-4EE1-A65E-B99A7CC29F4E}">R5345019</option>    <option value="Relation_{D7BB7B95-2ED8-4DCB-B356-DF44617F26A1}">R5345028</option>    <option value="Relation_{58153B97-B9DD-4473-978F-55C832CDE56C}">R53450310</option>    <option value="Relation_{5E4C86AC-35F1-4E14-8977-667D3086566E}">R53450411</option>    <option value="Relation_{27752036-4AB2-41D3-9F88-2AF47F803641}">R53451015</option>    <option value="Relation_{31D0E11E-D12E-4DCF-8BB1-53CBCF6A95D6}">R53451113</option>    <option value="Relation_{B1B9B5EA-61BA-4E4D-B2D8-1D69B4D99F15}">R53451217</option>    <option value="Relation_{B9BB8BFF-B270-47AF-84DD-19C4AB12E911}">R53451315</option>    <option value="Relation_{78B685CE-F33A-4E63-8020-70C07489D886}">R53451418</option>    <option value="Relation_{CC390126-B0B5-42D7-86A1-37AC95CB5EF6}">R53451514</option>    <option value="Relation_{E0D271BB-64A3-4181-AEF6-D674C86CDFC1}">R53451619</option>    <option value="Relation_{2A75AAEF-A2AE-4085-844A-7740B924A2E5}">R53451716</option>    <option value="Relation_{B5AD5B51-42D3-4740-A131-30220CC7ECB1}">R53451922</option>    <option value="Relation_{48A9AE47-AD1B-40AA-BDA3-31CF832A0707}">R53452214</option>    <option value="Relation_{8503CAD0-582A-4C02-88B7-C77232ACB54D}">R53453110</option>    <option value="Relation_{F0AEBE35-8B26-46F0-BCA6-61E452AAEA92}">R53453711</option>    <option value="Relation_{4C2CE2AB-09D8-49C8-9D15-99312DE6A75C}">R53652213</option>    <option value="Relation_{19D0461D-C233-473A-BD5A-9B1E46A26791}">R5365324</option>    <option value="Relation_{6D00AE4A-2D86-496F-BB1A-870B3D22AB4F}">R5365375</option>    <option value="Relation_{237E33D9-24FD-4A78-B3BF-09E4E33FCB61}">R53853712</option></select></form><div id="navComboEnd"><p></p></div></div><div id="navLeft"><div id="bookmark">
+<ul>
+<li><a onClick="return showDetail('Relation_{5561AA70-560E-4C1F-89ED-4633549794C6}', this)">R5015011</a></li>
+<li><a onClick="return showDetail('Relation_{23980728-B96B-4272-90B9-69E469F5B220}', this)">R5015022</a></li>
+<li><a onClick="return showDetail('Relation_{1EB99427-24AB-4EF4-8D1E-A3827763C38B}', this)">R5025053</a></li>
+<li><a onClick="return showDetail('Relation_{2A76325F-6CB2-41AC-A565-7F1CA37C6E44}', this)">R5035076</a></li>
+<li><a onClick="return showDetail('Relation_{1FF4E2BB-8DF0-4211-AB80-3ACFA0C8E055}', this)">R50354014</a></li>
+<li><a onClick="return showDetail('Relation_{27371C24-CEC2-4F50-91F6-800196017E37}', this)">R5045035</a></li>
+<li><a onClick="return showDetail('Relation_{5825E26C-8863-4B15-8BE9-AD36189F3F7B}', this)">R5045054</a></li>
+<li><a onClick="return showDetail('Relation_{D2859AD7-6FEE-4DCB-9FFB-DAADFF083157}', this)">R5085077</a></li>
+<li><a onClick="return showDetail('Relation_{D5F79123-D275-45A7-8E7E-6E327EE542B1}', this)">R50953412</a></li>
+<li><a onClick="return showDetail('Relation_{B3281711-4B63-4EC1-A424-83C79CF0CC2E}', this)">R51151920</a></li>
+<li><a onClick="return showDetail('Relation_{C4B43B80-96BA-4BF0-AFC6-2390FFA7A25D}', this)">R5115194</a></li>
+<li><a onClick="return showDetail('Relation_{00B95FD3-845E-4672-9B3D-1E7A56978FCE}', this)">R5125195</a></li>
+<li><a onClick="return showDetail('Relation_{F70A39DD-F991-4AE6-8FA4-8A98165121F2}', this)">R5135151</a></li>
+<li><a onClick="return showDetail('Relation_{1452247E-A0E3-4343-8749-06B1BE63914E}', this)">R5135183</a></li>
+<li><a onClick="return showDetail('Relation_{88C2D7E9-8F05-48DE-BA8F-D3CCD5092F16}', this)">R51452010</a></li>
+<li><a onClick="return showDetail('Relation_{091047DB-A562-4710-B190-39D288FEBC29}', this)">R5145336</a></li>
+<li><a onClick="return showDetail('Relation_{CDAE8BC7-DC1E-4C74-B297-3EE578288D9D}', this)">R5155196</a></li>
+<li><a onClick="return showDetail('Relation_{07464B1C-C4BB-4837-8587-F2FE36C5AAF9}', this)">R51652011</a></li>
+<li><a onClick="return showDetail('Relation_{9094D030-D829-41D6-83A6-EAFC423B8466}', this)">R5175182</a></li>
+<li><a onClick="return showDetail('Relation_{96AFB92E-27B7-40EF-8C82-CF9EB4826E4E}', this)">R5185208</a></li>
+<li><a onClick="return showDetail('Relation_{84ED8E6A-617C-4DCC-B81C-121795E80BD5}', this)">R5195207</a></li>
+<li><a onClick="return showDetail('Relation_{8BDC2856-F2D9-469F-B45C-D9810AB7A85B}', this)">R52052221</a></li>
+<li><a onClick="return showDetail('Relation_{F54B8D26-C1DC-487E-B2EE-1DEE757A52B9}', this)">R5225398</a></li>
+<li><a onClick="return showDetail('Relation_{86E97D08-BF47-4983-9C9A-1A06519B4EFD}', this)">R5315322</a></li>
+<li><a onClick="return showDetail('Relation_{A86F64CA-AAF2-4DA1-8702-64B769936CEE}', this)">R5335313</a></li>
+<li><a onClick="return showDetail('Relation_{357D36A7-103D-4653-BA2E-4A64EB77AD6E}', this)">R5335331</a></li>
+<li><a onClick="return showDetail('Relation_{E247B226-332D-4EE1-A65E-B99A7CC29F4E}', this)">R5345019</a></li>
+<li><a onClick="return showDetail('Relation_{D7BB7B95-2ED8-4DCB-B356-DF44617F26A1}', this)">R5345028</a></li>
+<li><a onClick="return showDetail('Relation_{58153B97-B9DD-4473-978F-55C832CDE56C}', this)">R53450310</a></li>
+<li><a onClick="return showDetail('Relation_{5E4C86AC-35F1-4E14-8977-667D3086566E}', this)">R53450411</a></li>
+<li><a onClick="return showDetail('Relation_{27752036-4AB2-41D3-9F88-2AF47F803641}', this)">R53451015</a></li>
+<li><a onClick="return showDetail('Relation_{31D0E11E-D12E-4DCF-8BB1-53CBCF6A95D6}', this)">R53451113</a></li>
+<li><a onClick="return showDetail('Relation_{B1B9B5EA-61BA-4E4D-B2D8-1D69B4D99F15}', this)">R53451217</a></li>
+<li><a onClick="return showDetail('Relation_{B9BB8BFF-B270-47AF-84DD-19C4AB12E911}', this)">R53451315</a></li>
+<li><a onClick="return showDetail('Relation_{78B685CE-F33A-4E63-8020-70C07489D886}', this)">R53451418</a></li>
+<li><a onClick="return showDetail('Relation_{CC390126-B0B5-42D7-86A1-37AC95CB5EF6}', this)">R53451514</a></li>
+<li><a onClick="return showDetail('Relation_{E0D271BB-64A3-4181-AEF6-D674C86CDFC1}', this)">R53451619</a></li>
+<li><a onClick="return showDetail('Relation_{2A75AAEF-A2AE-4085-844A-7740B924A2E5}', this)">R53451716</a></li>
+<li><a onClick="return showDetail('Relation_{B5AD5B51-42D3-4740-A131-30220CC7ECB1}', this)">R53451922</a></li>
+<li><a onClick="return showDetail('Relation_{48A9AE47-AD1B-40AA-BDA3-31CF832A0707}', this)">R53452214</a></li>
+<li><a onClick="return showDetail('Relation_{8503CAD0-582A-4C02-88B7-C77232ACB54D}', this)">R53453110</a></li>
+<li><a onClick="return showDetail('Relation_{F0AEBE35-8B26-46F0-BCA6-61E452AAEA92}', this)">R53453711</a></li>
+<li><a onClick="return showDetail('Relation_{4C2CE2AB-09D8-49C8-9D15-99312DE6A75C}', this)">R53652213</a></li>
+<li><a onClick="return showDetail('Relation_{19D0461D-C233-473A-BD5A-9B1E46A26791}', this)">R5365324</a></li>
+<li><a onClick="return showDetail('Relation_{6D00AE4A-2D86-496F-BB1A-870B3D22AB4F}', this)">R5365375</a></li>
+<li><a onClick="return showDetail('Relation_{237E33D9-24FD-4A78-B3BF-09E4E33FCB61}', this)">R53853712</a></li>
+</ul>
+     <div id="bookmarkEnd"><p>&nbsp;</p></div></div>
+
+</div>
+
+
+    <div class="separator" ></div>
+    <div class="container">
+        <div id="content">
+<div id="Relation_{5561AA70-560E-4C1F-89ED-4633549794C6}" class="item">
+<a name = "Relation_{5561AA70-560E-4C1F-89ED-4633549794C6}"></a>
+<div class="caption1"><p>R5015011</p></div>
+<div class="caption2"><p>General Info</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="25%">Caption</td>
+    <td class="tabdata" width="47%">R5015011</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Relationship Type</td>
+    <td class="tabdata" width="47%">Non-identifying</td>
+    <td class="tabhead" width="20%">Cardinality</td>
+    <td class="tabdata" width="8%">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Mandatory Parent</td>
+    <td class="tabdata" width="47%">NO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Mandatory Child</td>
+    <td class="tabdata" width="47%">NO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Parent Entity</td>
+    <td class="tabdata" width="47%">TGM501_PANTALLA</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Child Entity</td>
+    <td class="tabdata" width="47%">TGM501_PANTALLA</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Referential Integrity</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="25%"></td>
+    <td class="tabhead" width="25%">Insert</td>
+    <td class="tabhead" width="25%">Update</td>
+    <td class="tabhead" width="25%">Delete</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Parent</td>
+    <td class="tabdata" width="25%">----</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">NONE</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Child</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">----</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Keys</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Key Type</td>
+    <td class="tabhead">Parent Key</td>
+    <td class="tabhead">Child Key</td>
+  </tr>
+  <tr>
+    <td class="tabdata">Primary Key 'IGM501P1_PANTALLA'</td>
+    <td class="tabdata">CD_PANTALLA</td>
+    <td class="tabdata">CD_FK_PANTALLA</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Relation Properties</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="20%">Create Index to Foreign Key</td>
+    <td class="tabdata" width="80%">YES</td>
+  </tr>
+</table>
+<br>
+<div class="itemEnd"><p>&nbsp;</p></div></div>
+<div id="Relation_{23980728-B96B-4272-90B9-69E469F5B220}" class="item">
+<a name = "Relation_{23980728-B96B-4272-90B9-69E469F5B220}"></a>
+<div class="caption1"><p>R5015022</p></div>
+<div class="caption2"><p>General Info</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="25%">Caption</td>
+    <td class="tabdata" width="47%">R5015022</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Relationship Type</td>
+    <td class="tabdata" width="47%">Identifying</td>
+    <td class="tabhead" width="20%">Cardinality</td>
+    <td class="tabdata" width="8%">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Mandatory Parent</td>
+    <td class="tabdata" width="47%">YES</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Mandatory Child</td>
+    <td class="tabdata" width="47%">NO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Parent Entity</td>
+    <td class="tabdata" width="47%">TGM501_PANTALLA</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Child Entity</td>
+    <td class="tabdata" width="47%">TGM502_COMPONENTE</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Referential Integrity</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="25%"></td>
+    <td class="tabhead" width="25%">Insert</td>
+    <td class="tabhead" width="25%">Update</td>
+    <td class="tabhead" width="25%">Delete</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Parent</td>
+    <td class="tabdata" width="25%">----</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">NONE</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Child</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">----</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Keys</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Key Type</td>
+    <td class="tabhead">Parent Key</td>
+    <td class="tabhead">Child Key</td>
+  </tr>
+  <tr>
+    <td class="tabdata">Primary Key 'IGM501P1_PANTALLA'</td>
+    <td class="tabdata">CD_PANTALLA</td>
+    <td class="tabdata">CD_PANTALLA</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Relation Properties</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="20%">Create Index to Foreign Key</td>
+    <td class="tabdata" width="80%">YES</td>
+  </tr>
+</table>
+<br>
+<div class="itemEnd"><p>&nbsp;</p></div></div>
+<div id="Relation_{1EB99427-24AB-4EF4-8D1E-A3827763C38B}" class="item">
+<a name = "Relation_{1EB99427-24AB-4EF4-8D1E-A3827763C38B}"></a>
+<div class="caption1"><p>R5025053</p></div>
+<div class="caption2"><p>General Info</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="25%">Caption</td>
+    <td class="tabdata" width="47%">R5025053</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Relationship Type</td>
+    <td class="tabdata" width="47%">Identifying</td>
+    <td class="tabhead" width="20%">Cardinality</td>
+    <td class="tabdata" width="8%">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Mandatory Parent</td>
+    <td class="tabdata" width="47%">YES</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Mandatory Child</td>
+    <td class="tabdata" width="47%">NO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Parent Entity</td>
+    <td class="tabdata" width="47%">TGM502_COMPONENTE</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Child Entity</td>
+    <td class="tabdata" width="47%">TGM505_CTRLPERMISO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Referential Integrity</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="25%"></td>
+    <td class="tabhead" width="25%">Insert</td>
+    <td class="tabhead" width="25%">Update</td>
+    <td class="tabhead" width="25%">Delete</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Parent</td>
+    <td class="tabdata" width="25%">----</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">NONE</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Child</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">----</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Keys</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Key Type</td>
+    <td class="tabhead">Parent Key</td>
+    <td class="tabhead">Child Key</td>
+  </tr>
+  <tr>
+    <td class="tabdata">Primary Key 'IGM502P1_COMPONENT'</td>
+    <td class="tabdata">CD_PANTALLA</td>
+    <td class="tabdata">CD_PANTALLA</td>
+  </tr>
+  <tr>
+    <td class="tabdata"></td>
+    <td class="tabdata">CD_COMPONENTE</td>
+    <td class="tabdata">CD_COMPONENTE</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Relation Properties</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="20%">Create Index to Foreign Key</td>
+    <td class="tabdata" width="80%">YES</td>
+  </tr>
+</table>
+<br>
+<div class="itemEnd"><p>&nbsp;</p></div></div>
+<div id="Relation_{2A76325F-6CB2-41AC-A565-7F1CA37C6E44}" class="item">
+<a name = "Relation_{2A76325F-6CB2-41AC-A565-7F1CA37C6E44}"></a>
+<div class="caption1"><p>R5035076</p></div>
+<div class="caption2"><p>General Info</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="25%">Caption</td>
+    <td class="tabdata" width="47%">R5035076</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Relationship Type</td>
+    <td class="tabdata" width="47%">Non-identifying</td>
+    <td class="tabhead" width="20%">Cardinality</td>
+    <td class="tabdata" width="8%">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Mandatory Parent</td>
+    <td class="tabdata" width="47%">NO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Mandatory Child</td>
+    <td class="tabdata" width="47%">NO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Parent Entity</td>
+    <td class="tabdata" width="47%">TGM503_USUARIO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Child Entity</td>
+    <td class="tabdata" width="47%">TGM507_BITACORA</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Referential Integrity</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="25%"></td>
+    <td class="tabhead" width="25%">Insert</td>
+    <td class="tabhead" width="25%">Update</td>
+    <td class="tabhead" width="25%">Delete</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Parent</td>
+    <td class="tabdata" width="25%">----</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">NONE</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Child</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">----</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Keys</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Key Type</td>
+    <td class="tabhead">Parent Key</td>
+    <td class="tabhead">Child Key</td>
+  </tr>
+  <tr>
+    <td class="tabdata">Primary Key 'IGM503P1_USUARIO'</td>
+    <td class="tabdata">CD_USUARIO</td>
+    <td class="tabdata">CD_USUARIO</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Relation Properties</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="20%">Create Index to Foreign Key</td>
+    <td class="tabdata" width="80%">YES</td>
+  </tr>
+</table>
+<br>
+<div class="itemEnd"><p>&nbsp;</p></div></div>
+<div id="Relation_{1FF4E2BB-8DF0-4211-AB80-3ACFA0C8E055}" class="item">
+<a name = "Relation_{1FF4E2BB-8DF0-4211-AB80-3ACFA0C8E055}"></a>
+<div class="caption1"><p>R50354014</p></div>
+<div class="caption2"><p>General Info</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="25%">Caption</td>
+    <td class="tabdata" width="47%">R50354014</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Relationship Type</td>
+    <td class="tabdata" width="47%">Identifying</td>
+    <td class="tabhead" width="20%">Cardinality</td>
+    <td class="tabdata" width="8%">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Mandatory Parent</td>
+    <td class="tabdata" width="47%">YES</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Mandatory Child</td>
+    <td class="tabdata" width="47%">NO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Parent Entity</td>
+    <td class="tabdata" width="47%">TGM503_USUARIO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Child Entity</td>
+    <td class="tabdata" width="47%">TGM540_CONTRASENIA</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Referential Integrity</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="25%"></td>
+    <td class="tabhead" width="25%">Insert</td>
+    <td class="tabhead" width="25%">Update</td>
+    <td class="tabhead" width="25%">Delete</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Parent</td>
+    <td class="tabdata" width="25%">----</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">NONE</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Child</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">----</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Keys</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Key Type</td>
+    <td class="tabhead">Parent Key</td>
+    <td class="tabhead">Child Key</td>
+  </tr>
+  <tr>
+    <td class="tabdata">Primary Key 'IGM503P1_USUARIO'</td>
+    <td class="tabdata">CD_USUARIO</td>
+    <td class="tabdata">CD_USUARIO</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Relation Properties</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="20%">Create Index to Foreign Key</td>
+    <td class="tabdata" width="80%">YES</td>
+  </tr>
+</table>
+<br>
+<div class="itemEnd"><p>&nbsp;</p></div></div>
+<div id="Relation_{27371C24-CEC2-4F50-91F6-800196017E37}" class="item">
+<a name = "Relation_{27371C24-CEC2-4F50-91F6-800196017E37}"></a>
+<div class="caption1"><p>R5045035</p></div>
+<div class="caption2"><p>General Info</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="25%">Caption</td>
+    <td class="tabdata" width="47%">R5045035</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Relationship Type</td>
+    <td class="tabdata" width="47%">Non-identifying</td>
+    <td class="tabhead" width="20%">Cardinality</td>
+    <td class="tabdata" width="8%">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Mandatory Parent</td>
+    <td class="tabdata" width="47%">NO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Mandatory Child</td>
+    <td class="tabdata" width="47%">NO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Parent Entity</td>
+    <td class="tabdata" width="47%">TGM504_PERFIL</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Child Entity</td>
+    <td class="tabdata" width="47%">TGM503_USUARIO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Referential Integrity</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="25%"></td>
+    <td class="tabhead" width="25%">Insert</td>
+    <td class="tabhead" width="25%">Update</td>
+    <td class="tabhead" width="25%">Delete</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Parent</td>
+    <td class="tabdata" width="25%">----</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">NONE</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Child</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">----</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Keys</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Key Type</td>
+    <td class="tabhead">Parent Key</td>
+    <td class="tabhead">Child Key</td>
+  </tr>
+  <tr>
+    <td class="tabdata">Primary Key 'IGM504P1_PERFIL'</td>
+    <td class="tabdata">CD_PERFIL</td>
+    <td class="tabdata">CD_PERFIL</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Relation Properties</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="20%">Create Index to Foreign Key</td>
+    <td class="tabdata" width="80%">YES</td>
+  </tr>
+</table>
+<br>
+<div class="itemEnd"><p>&nbsp;</p></div></div>
+<div id="Relation_{5825E26C-8863-4B15-8BE9-AD36189F3F7B}" class="item">
+<a name = "Relation_{5825E26C-8863-4B15-8BE9-AD36189F3F7B}"></a>
+<div class="caption1"><p>R5045054</p></div>
+<div class="caption2"><p>General Info</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="25%">Caption</td>
+    <td class="tabdata" width="47%">R5045054</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Relationship Type</td>
+    <td class="tabdata" width="47%">Identifying</td>
+    <td class="tabhead" width="20%">Cardinality</td>
+    <td class="tabdata" width="8%">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Mandatory Parent</td>
+    <td class="tabdata" width="47%">YES</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Mandatory Child</td>
+    <td class="tabdata" width="47%">NO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Parent Entity</td>
+    <td class="tabdata" width="47%">TGM504_PERFIL</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Child Entity</td>
+    <td class="tabdata" width="47%">TGM505_CTRLPERMISO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Referential Integrity</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="25%"></td>
+    <td class="tabhead" width="25%">Insert</td>
+    <td class="tabhead" width="25%">Update</td>
+    <td class="tabhead" width="25%">Delete</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Parent</td>
+    <td class="tabdata" width="25%">----</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">NONE</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Child</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">----</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Keys</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Key Type</td>
+    <td class="tabhead">Parent Key</td>
+    <td class="tabhead">Child Key</td>
+  </tr>
+  <tr>
+    <td class="tabdata">Primary Key 'IGM504P1_PERFIL'</td>
+    <td class="tabdata">CD_PERFIL</td>
+    <td class="tabdata">CD_PERFIL</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Relation Properties</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="20%">Create Index to Foreign Key</td>
+    <td class="tabdata" width="80%">YES</td>
+  </tr>
+</table>
+<br>
+<div class="itemEnd"><p>&nbsp;</p></div></div>
+<div id="Relation_{D2859AD7-6FEE-4DCB-9FFB-DAADFF083157}" class="item">
+<a name = "Relation_{D2859AD7-6FEE-4DCB-9FFB-DAADFF083157}"></a>
+<div class="caption1"><p>R5085077</p></div>
+<div class="caption2"><p>General Info</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="25%">Caption</td>
+    <td class="tabdata" width="47%">R5085077</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Relationship Type</td>
+    <td class="tabdata" width="47%">Non-identifying</td>
+    <td class="tabhead" width="20%">Cardinality</td>
+    <td class="tabdata" width="8%">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Mandatory Parent</td>
+    <td class="tabdata" width="47%">NO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Mandatory Child</td>
+    <td class="tabdata" width="47%">NO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Parent Entity</td>
+    <td class="tabdata" width="47%">TGM508_EVENTO_MAPA</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Child Entity</td>
+    <td class="tabdata" width="47%">TGM507_BITACORA</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Referential Integrity</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="25%"></td>
+    <td class="tabhead" width="25%">Insert</td>
+    <td class="tabhead" width="25%">Update</td>
+    <td class="tabhead" width="25%">Delete</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Parent</td>
+    <td class="tabdata" width="25%">----</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">NONE</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Child</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">----</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Keys</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Key Type</td>
+    <td class="tabhead">Parent Key</td>
+    <td class="tabhead">Child Key</td>
+  </tr>
+  <tr>
+    <td class="tabdata">Primary Key 'IGM508P1_EVENTO_MA'</td>
+    <td class="tabdata">CD_EVENTO_MAPEADOR</td>
+    <td class="tabdata">CD_EVENTO_MAPEADOR</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Relation Properties</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="20%">Create Index to Foreign Key</td>
+    <td class="tabdata" width="80%">YES</td>
+  </tr>
+</table>
+<br>
+<div class="itemEnd"><p>&nbsp;</p></div></div>
+<div id="Relation_{D5F79123-D275-45A7-8E7E-6E327EE542B1}" class="item">
+<a name = "Relation_{D5F79123-D275-45A7-8E7E-6E327EE542B1}"></a>
+<div class="caption1"><p>R50953412</p></div>
+<div class="caption2"><p>General Info</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="25%">Caption</td>
+    <td class="tabdata" width="47%">R50953412</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Relationship Type</td>
+    <td class="tabdata" width="47%">Non-identifying</td>
+    <td class="tabhead" width="20%">Cardinality</td>
+    <td class="tabdata" width="8%">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Mandatory Parent</td>
+    <td class="tabdata" width="47%">NO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Mandatory Child</td>
+    <td class="tabdata" width="47%">NO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Parent Entity</td>
+    <td class="tabdata" width="47%">TGM509_ST_CLAVE</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Child Entity</td>
+    <td class="tabdata" width="47%">TGM534_ST_OBJETO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Referential Integrity</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="25%"></td>
+    <td class="tabhead" width="25%">Insert</td>
+    <td class="tabhead" width="25%">Update</td>
+    <td class="tabhead" width="25%">Delete</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Parent</td>
+    <td class="tabdata" width="25%">----</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">NONE</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Child</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">----</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Keys</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Key Type</td>
+    <td class="tabhead">Parent Key</td>
+    <td class="tabhead">Child Key</td>
+  </tr>
+  <tr>
+    <td class="tabdata">Primary Key 'IGM509P1_ST_CLAVE'</td>
+    <td class="tabdata">CD_ST_CLAVE</td>
+    <td class="tabdata">CD_ST_CLAVE</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Relation Properties</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="20%">Create Index to Foreign Key</td>
+    <td class="tabdata" width="80%">YES</td>
+  </tr>
+</table>
+<br>
+<div class="itemEnd"><p>&nbsp;</p></div></div>
+<div id="Relation_{B3281711-4B63-4EC1-A424-83C79CF0CC2E}" class="item">
+<a name = "Relation_{B3281711-4B63-4EC1-A424-83C79CF0CC2E}"></a>
+<div class="caption1"><p>R51151920</p></div>
+<div class="caption2"><p>General Info</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="25%">Caption</td>
+    <td class="tabdata" width="47%">R51151920</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Relationship Type</td>
+    <td class="tabdata" width="47%">Non-identifying</td>
+    <td class="tabhead" width="20%">Cardinality</td>
+    <td class="tabdata" width="8%">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Mandatory Parent</td>
+    <td class="tabdata" width="47%">NO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Mandatory Child</td>
+    <td class="tabdata" width="47%">NO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Parent Entity</td>
+    <td class="tabdata" width="47%">TGM511_CANAL</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Child Entity</td>
+    <td class="tabdata" width="47%">TGM519_CONTRATACION</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Referential Integrity</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="25%"></td>
+    <td class="tabhead" width="25%">Insert</td>
+    <td class="tabhead" width="25%">Update</td>
+    <td class="tabhead" width="25%">Delete</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Parent</td>
+    <td class="tabdata" width="25%">----</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">NONE</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Child</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">----</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Keys</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Key Type</td>
+    <td class="tabhead">Parent Key</td>
+    <td class="tabhead">Child Key</td>
+  </tr>
+  <tr>
+    <td class="tabdata">Primary Key 'IGM511P1_CANAL'</td>
+    <td class="tabdata">CD_CANAL</td>
+    <td class="tabdata">CD_CANAL_SALIDA</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Relation Properties</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="20%">Create Index to Foreign Key</td>
+    <td class="tabdata" width="80%">YES</td>
+  </tr>
+</table>
+<br>
+<div class="itemEnd"><p>&nbsp;</p></div></div>
+<div id="Relation_{C4B43B80-96BA-4BF0-AFC6-2390FFA7A25D}" class="item">
+<a name = "Relation_{C4B43B80-96BA-4BF0-AFC6-2390FFA7A25D}"></a>
+<div class="caption1"><p>R5115194</p></div>
+<div class="caption2"><p>General Info</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="25%">Caption</td>
+    <td class="tabdata" width="47%">R5115194</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Relationship Type</td>
+    <td class="tabdata" width="47%">Non-identifying</td>
+    <td class="tabhead" width="20%">Cardinality</td>
+    <td class="tabdata" width="8%">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Mandatory Parent</td>
+    <td class="tabdata" width="47%">NO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Mandatory Child</td>
+    <td class="tabdata" width="47%">NO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Parent Entity</td>
+    <td class="tabdata" width="47%">TGM511_CANAL</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Child Entity</td>
+    <td class="tabdata" width="47%">TGM519_CONTRATACION</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Referential Integrity</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="25%"></td>
+    <td class="tabhead" width="25%">Insert</td>
+    <td class="tabhead" width="25%">Update</td>
+    <td class="tabhead" width="25%">Delete</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Parent</td>
+    <td class="tabdata" width="25%">----</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">NONE</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Child</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">----</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Keys</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Key Type</td>
+    <td class="tabhead">Parent Key</td>
+    <td class="tabhead">Child Key</td>
+  </tr>
+  <tr>
+    <td class="tabdata">Primary Key 'IGM511P1_CANAL'</td>
+    <td class="tabdata">CD_CANAL</td>
+    <td class="tabdata">CD_CANAL</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Relation Properties</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="20%">Create Index to Foreign Key</td>
+    <td class="tabdata" width="80%">YES</td>
+  </tr>
+</table>
+<br>
+<div class="itemEnd"><p>&nbsp;</p></div></div>
+<div id="Relation_{00B95FD3-845E-4672-9B3D-1E7A56978FCE}" class="item">
+<a name = "Relation_{00B95FD3-845E-4672-9B3D-1E7A56978FCE}"></a>
+<div class="caption1"><p>R5125195</p></div>
+<div class="caption2"><p>General Info</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="25%">Caption</td>
+    <td class="tabdata" width="47%">R5125195</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Relationship Type</td>
+    <td class="tabdata" width="47%">Non-identifying</td>
+    <td class="tabhead" width="20%">Cardinality</td>
+    <td class="tabdata" width="8%">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Mandatory Parent</td>
+    <td class="tabdata" width="47%">NO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Mandatory Child</td>
+    <td class="tabdata" width="47%">NO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Parent Entity</td>
+    <td class="tabdata" width="47%">TGM512_CLIENTE</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Child Entity</td>
+    <td class="tabdata" width="47%">TGM519_CONTRATACION</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Referential Integrity</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="25%"></td>
+    <td class="tabhead" width="25%">Insert</td>
+    <td class="tabhead" width="25%">Update</td>
+    <td class="tabhead" width="25%">Delete</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Parent</td>
+    <td class="tabdata" width="25%">----</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">NONE</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Child</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">----</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Keys</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Key Type</td>
+    <td class="tabhead">Parent Key</td>
+    <td class="tabhead">Child Key</td>
+  </tr>
+  <tr>
+    <td class="tabdata">Primary Key 'IGM512P1_CLIENTE'</td>
+    <td class="tabdata">CD_CLIENTE</td>
+    <td class="tabdata">CD_CLIENTE</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Relation Properties</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="20%">Create Index to Foreign Key</td>
+    <td class="tabdata" width="80%">YES</td>
+  </tr>
+</table>
+<br>
+<div class="itemEnd"><p>&nbsp;</p></div></div>
+<div id="Relation_{F70A39DD-F991-4AE6-8FA4-8A98165121F2}" class="item">
+<a name = "Relation_{F70A39DD-F991-4AE6-8FA4-8A98165121F2}"></a>
+<div class="caption1"><p>R5135151</p></div>
+<div class="caption2"><p>General Info</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="25%">Caption</td>
+    <td class="tabdata" width="47%">R5135151</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Relationship Type</td>
+    <td class="tabdata" width="47%">Non-identifying</td>
+    <td class="tabhead" width="20%">Cardinality</td>
+    <td class="tabdata" width="8%">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Mandatory Parent</td>
+    <td class="tabdata" width="47%">NO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Mandatory Child</td>
+    <td class="tabdata" width="47%">NO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Parent Entity</td>
+    <td class="tabdata" width="47%">TGM513_FLUJO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Child Entity</td>
+    <td class="tabdata" width="47%">TGM515_PRODUCTO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Referential Integrity</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="25%"></td>
+    <td class="tabhead" width="25%">Insert</td>
+    <td class="tabhead" width="25%">Update</td>
+    <td class="tabhead" width="25%">Delete</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Parent</td>
+    <td class="tabdata" width="25%">----</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">NONE</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Child</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">----</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Keys</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Key Type</td>
+    <td class="tabhead">Parent Key</td>
+    <td class="tabhead">Child Key</td>
+  </tr>
+  <tr>
+    <td class="tabdata">Primary Key 'IGM513P1_FLUJO'</td>
+    <td class="tabdata">CD_FLUJO</td>
+    <td class="tabdata">CD_FLUJO</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Relation Properties</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="20%">Create Index to Foreign Key</td>
+    <td class="tabdata" width="80%">YES</td>
+  </tr>
+</table>
+<br>
+<div class="itemEnd"><p>&nbsp;</p></div></div>
+<div id="Relation_{1452247E-A0E3-4343-8749-06B1BE63914E}" class="item">
+<a name = "Relation_{1452247E-A0E3-4343-8749-06B1BE63914E}"></a>
+<div class="caption1"><p>R5135183</p></div>
+<div class="caption2"><p>General Info</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="25%">Caption</td>
+    <td class="tabdata" width="47%">R5135183</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Relationship Type</td>
+    <td class="tabdata" width="47%">Identifying</td>
+    <td class="tabhead" width="20%">Cardinality</td>
+    <td class="tabdata" width="8%">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Mandatory Parent</td>
+    <td class="tabdata" width="47%">YES</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Mandatory Child</td>
+    <td class="tabdata" width="47%">NO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Parent Entity</td>
+    <td class="tabdata" width="47%">TGM513_FLUJO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Child Entity</td>
+    <td class="tabdata" width="47%">TGM518_FLUJOETAPA</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Referential Integrity</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="25%"></td>
+    <td class="tabhead" width="25%">Insert</td>
+    <td class="tabhead" width="25%">Update</td>
+    <td class="tabhead" width="25%">Delete</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Parent</td>
+    <td class="tabdata" width="25%">----</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">NONE</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Child</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">----</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Keys</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Key Type</td>
+    <td class="tabhead">Parent Key</td>
+    <td class="tabhead">Child Key</td>
+  </tr>
+  <tr>
+    <td class="tabdata">Primary Key 'IGM513P1_FLUJO'</td>
+    <td class="tabdata">CD_FLUJO</td>
+    <td class="tabdata">CD_FLUJO</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Relation Properties</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="20%">Create Index to Foreign Key</td>
+    <td class="tabdata" width="80%">YES</td>
+  </tr>
+</table>
+<br>
+<div class="itemEnd"><p>&nbsp;</p></div></div>
+<div id="Relation_{88C2D7E9-8F05-48DE-BA8F-D3CCD5092F16}" class="item">
+<a name = "Relation_{88C2D7E9-8F05-48DE-BA8F-D3CCD5092F16}"></a>
+<div class="caption1"><p>R51452010</p></div>
+<div class="caption2"><p>General Info</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="25%">Caption</td>
+    <td class="tabdata" width="47%">R51452010</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Relationship Type</td>
+    <td class="tabdata" width="47%">Non-identifying</td>
+    <td class="tabhead" width="20%">Cardinality</td>
+    <td class="tabdata" width="8%">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Mandatory Parent</td>
+    <td class="tabdata" width="47%">NO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Mandatory Child</td>
+    <td class="tabdata" width="47%">NO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Parent Entity</td>
+    <td class="tabdata" width="47%">TGM514_MAPA_GMM</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Child Entity</td>
+    <td class="tabdata" width="47%">TGM520_CONTRAT_MAP</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Referential Integrity</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="25%"></td>
+    <td class="tabhead" width="25%">Insert</td>
+    <td class="tabhead" width="25%">Update</td>
+    <td class="tabhead" width="25%">Delete</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Parent</td>
+    <td class="tabdata" width="25%">----</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">NONE</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Child</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">----</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Keys</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Key Type</td>
+    <td class="tabhead">Parent Key</td>
+    <td class="tabhead">Child Key</td>
+  </tr>
+  <tr>
+    <td class="tabdata">Primary Key 'IGM514P1_MAPA_GMM'</td>
+    <td class="tabdata">CD_MAPA_GMM</td>
+    <td class="tabdata">CD_MAPA_GMM</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Relation Properties</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="20%">Create Index to Foreign Key</td>
+    <td class="tabdata" width="80%">YES</td>
+  </tr>
+</table>
+<br>
+<div class="itemEnd"><p>&nbsp;</p></div></div>
+<div id="Relation_{091047DB-A562-4710-B190-39D288FEBC29}" class="item">
+<a name = "Relation_{091047DB-A562-4710-B190-39D288FEBC29}"></a>
+<div class="caption1"><p>R5145336</p></div>
+<div class="caption2"><p>General Info</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="25%">Caption</td>
+    <td class="tabdata" width="47%">Relationship16</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Relationship Type</td>
+    <td class="tabdata" width="47%">Non-identifying</td>
+    <td class="tabhead" width="20%">Cardinality</td>
+    <td class="tabdata" width="8%">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Mandatory Parent</td>
+    <td class="tabdata" width="47%">NO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Mandatory Child</td>
+    <td class="tabdata" width="47%">NO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Parent Entity</td>
+    <td class="tabdata" width="47%">TGM514_MAPA_GMM</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Child Entity</td>
+    <td class="tabdata" width="47%">TGM533_SECC_MAPA</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Referential Integrity</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="25%"></td>
+    <td class="tabhead" width="25%">Insert</td>
+    <td class="tabhead" width="25%">Update</td>
+    <td class="tabhead" width="25%">Delete</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Parent</td>
+    <td class="tabdata" width="25%">----</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">NONE</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Child</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">----</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Keys</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Key Type</td>
+    <td class="tabhead">Parent Key</td>
+    <td class="tabhead">Child Key</td>
+  </tr>
+  <tr>
+    <td class="tabdata">Primary Key 'IGM514P1_MAPA_GMM'</td>
+    <td class="tabdata">CD_MAPA_GMM</td>
+    <td class="tabdata">CD_MAPA_GMM</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Relation Properties</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="20%">Create Index to Foreign Key</td>
+    <td class="tabdata" width="80%">YES</td>
+  </tr>
+</table>
+<br>
+<div class="itemEnd"><p>&nbsp;</p></div></div>
+<div id="Relation_{CDAE8BC7-DC1E-4C74-B297-3EE578288D9D}" class="item">
+<a name = "Relation_{CDAE8BC7-DC1E-4C74-B297-3EE578288D9D}"></a>
+<div class="caption1"><p>R5155196</p></div>
+<div class="caption2"><p>General Info</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="25%">Caption</td>
+    <td class="tabdata" width="47%">R5155196</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Relationship Type</td>
+    <td class="tabdata" width="47%">Non-identifying</td>
+    <td class="tabhead" width="20%">Cardinality</td>
+    <td class="tabdata" width="8%">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Mandatory Parent</td>
+    <td class="tabdata" width="47%">NO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Mandatory Child</td>
+    <td class="tabdata" width="47%">NO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Parent Entity</td>
+    <td class="tabdata" width="47%">TGM515_PRODUCTO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Child Entity</td>
+    <td class="tabdata" width="47%">TGM519_CONTRATACION</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Referential Integrity</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="25%"></td>
+    <td class="tabhead" width="25%">Insert</td>
+    <td class="tabhead" width="25%">Update</td>
+    <td class="tabhead" width="25%">Delete</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Parent</td>
+    <td class="tabdata" width="25%">----</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">NONE</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Child</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">----</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Keys</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Key Type</td>
+    <td class="tabhead">Parent Key</td>
+    <td class="tabhead">Child Key</td>
+  </tr>
+  <tr>
+    <td class="tabdata">Primary Key 'IGM515P1_PRODUCTO'</td>
+    <td class="tabdata">CD_PRODUCTO</td>
+    <td class="tabdata">CD_PRODUCTO</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Relation Properties</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="20%">Create Index to Foreign Key</td>
+    <td class="tabdata" width="80%">YES</td>
+  </tr>
+</table>
+<br>
+<div class="itemEnd"><p>&nbsp;</p></div></div>
+<div id="Relation_{07464B1C-C4BB-4837-8587-F2FE36C5AAF9}" class="item">
+<a name = "Relation_{07464B1C-C4BB-4837-8587-F2FE36C5AAF9}"></a>
+<div class="caption1"><p>R51652011</p></div>
+<div class="caption2"><p>General Info</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="25%">Caption</td>
+    <td class="tabdata" width="47%">R51652011</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Relationship Type</td>
+    <td class="tabdata" width="47%">Non-identifying</td>
+    <td class="tabhead" width="20%">Cardinality</td>
+    <td class="tabdata" width="8%">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Mandatory Parent</td>
+    <td class="tabdata" width="47%">NO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Mandatory Child</td>
+    <td class="tabdata" width="47%">NO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Parent Entity</td>
+    <td class="tabdata" width="47%">TGM516_MENSAJE_SAL</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Child Entity</td>
+    <td class="tabdata" width="47%">TGM520_CONTRAT_MAP</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Referential Integrity</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="25%"></td>
+    <td class="tabhead" width="25%">Insert</td>
+    <td class="tabhead" width="25%">Update</td>
+    <td class="tabhead" width="25%">Delete</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Parent</td>
+    <td class="tabdata" width="25%">----</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">NONE</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Child</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">----</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Keys</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Key Type</td>
+    <td class="tabhead">Parent Key</td>
+    <td class="tabhead">Child Key</td>
+  </tr>
+  <tr>
+    <td class="tabdata">Primary Key 'IGM516P1_MSN_SAL'</td>
+    <td class="tabdata">CD_MENSAJE_SALIDA</td>
+    <td class="tabdata">CD_MENSAJE_SALIDA</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Relation Properties</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="20%">Create Index to Foreign Key</td>
+    <td class="tabdata" width="80%">YES</td>
+  </tr>
+</table>
+<br>
+<div class="itemEnd"><p>&nbsp;</p></div></div>
+<div id="Relation_{9094D030-D829-41D6-83A6-EAFC423B8466}" class="item">
+<a name = "Relation_{9094D030-D829-41D6-83A6-EAFC423B8466}"></a>
+<div class="caption1"><p>R5175182</p></div>
+<div class="caption2"><p>General Info</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="25%">Caption</td>
+    <td class="tabdata" width="47%">R5175182</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Relationship Type</td>
+    <td class="tabdata" width="47%">Identifying</td>
+    <td class="tabhead" width="20%">Cardinality</td>
+    <td class="tabdata" width="8%">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Mandatory Parent</td>
+    <td class="tabdata" width="47%">YES</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Mandatory Child</td>
+    <td class="tabdata" width="47%">NO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Parent Entity</td>
+    <td class="tabdata" width="47%">TGM517_ETAPA</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Child Entity</td>
+    <td class="tabdata" width="47%">TGM518_FLUJOETAPA</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Referential Integrity</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="25%"></td>
+    <td class="tabhead" width="25%">Insert</td>
+    <td class="tabhead" width="25%">Update</td>
+    <td class="tabhead" width="25%">Delete</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Parent</td>
+    <td class="tabdata" width="25%">----</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">NONE</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Child</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">----</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Keys</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Key Type</td>
+    <td class="tabhead">Parent Key</td>
+    <td class="tabhead">Child Key</td>
+  </tr>
+  <tr>
+    <td class="tabdata">Primary Key 'IGM517P1_ETAPA'</td>
+    <td class="tabdata">CD_ETAPA</td>
+    <td class="tabdata">CD_ETAPA</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Relation Properties</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="20%">Create Index to Foreign Key</td>
+    <td class="tabdata" width="80%">YES</td>
+  </tr>
+</table>
+<br>
+<div class="itemEnd"><p>&nbsp;</p></div></div>
+<div id="Relation_{96AFB92E-27B7-40EF-8C82-CF9EB4826E4E}" class="item">
+<a name = "Relation_{96AFB92E-27B7-40EF-8C82-CF9EB4826E4E}"></a>
+<div class="caption1"><p>R5185208</p></div>
+<div class="caption2"><p>General Info</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="25%">Caption</td>
+    <td class="tabdata" width="47%">R5185208</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Relationship Type</td>
+    <td class="tabdata" width="47%">Identifying</td>
+    <td class="tabhead" width="20%">Cardinality</td>
+    <td class="tabdata" width="8%">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Mandatory Parent</td>
+    <td class="tabdata" width="47%">YES</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Mandatory Child</td>
+    <td class="tabdata" width="47%">NO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Parent Entity</td>
+    <td class="tabdata" width="47%">TGM518_FLUJOETAPA</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Child Entity</td>
+    <td class="tabdata" width="47%">TGM520_CONTRAT_MAP</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Referential Integrity</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="25%"></td>
+    <td class="tabhead" width="25%">Insert</td>
+    <td class="tabhead" width="25%">Update</td>
+    <td class="tabhead" width="25%">Delete</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Parent</td>
+    <td class="tabdata" width="25%">----</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">NONE</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Child</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">----</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Keys</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Key Type</td>
+    <td class="tabhead">Parent Key</td>
+    <td class="tabhead">Child Key</td>
+  </tr>
+  <tr>
+    <td class="tabdata">Primary Key 'IGM518P1_FLUJOREP'</td>
+    <td class="tabdata">CD_FLUJO</td>
+    <td class="tabdata">CD_FLUJO</td>
+  </tr>
+  <tr>
+    <td class="tabdata"></td>
+    <td class="tabdata">CD_ETAPA</td>
+    <td class="tabdata">CD_ETAPA</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Relation Properties</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="20%">Create Index to Foreign Key</td>
+    <td class="tabdata" width="80%">YES</td>
+  </tr>
+</table>
+<br>
+<div class="itemEnd"><p>&nbsp;</p></div></div>
+<div id="Relation_{84ED8E6A-617C-4DCC-B81C-121795E80BD5}" class="item">
+<a name = "Relation_{84ED8E6A-617C-4DCC-B81C-121795E80BD5}"></a>
+<div class="caption1"><p>R5195207</p></div>
+<div class="caption2"><p>General Info</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="25%">Caption</td>
+    <td class="tabdata" width="47%">R5195207</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Relationship Type</td>
+    <td class="tabdata" width="47%">Identifying</td>
+    <td class="tabhead" width="20%">Cardinality</td>
+    <td class="tabdata" width="8%">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Mandatory Parent</td>
+    <td class="tabdata" width="47%">YES</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Mandatory Child</td>
+    <td class="tabdata" width="47%">NO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Parent Entity</td>
+    <td class="tabdata" width="47%">TGM519_CONTRATACION</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Child Entity</td>
+    <td class="tabdata" width="47%">TGM520_CONTRAT_MAP</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Referential Integrity</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="25%"></td>
+    <td class="tabhead" width="25%">Insert</td>
+    <td class="tabhead" width="25%">Update</td>
+    <td class="tabhead" width="25%">Delete</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Parent</td>
+    <td class="tabdata" width="25%">----</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">NONE</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Child</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">----</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Keys</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Key Type</td>
+    <td class="tabhead">Parent Key</td>
+    <td class="tabhead">Child Key</td>
+  </tr>
+  <tr>
+    <td class="tabdata">Primary Key 'IGM519P1_PROCESO'</td>
+    <td class="tabdata">CD_CONTRATACION</td>
+    <td class="tabdata">CD_CONTRATACION</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Relation Properties</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="20%">Create Index to Foreign Key</td>
+    <td class="tabdata" width="80%">YES</td>
+  </tr>
+</table>
+<br>
+<div class="itemEnd"><p>&nbsp;</p></div></div>
+<div id="Relation_{8BDC2856-F2D9-469F-B45C-D9810AB7A85B}" class="item">
+<a name = "Relation_{8BDC2856-F2D9-469F-B45C-D9810AB7A85B}"></a>
+<div class="caption1"><p>R52052221</p></div>
+<div class="caption2"><p>General Info</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="25%">Caption</td>
+    <td class="tabdata" width="47%">R52052221</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Relationship Type</td>
+    <td class="tabdata" width="47%">Identifying</td>
+    <td class="tabhead" width="20%">Cardinality</td>
+    <td class="tabdata" width="8%">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Mandatory Parent</td>
+    <td class="tabdata" width="47%">YES</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Mandatory Child</td>
+    <td class="tabdata" width="47%">NO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Parent Entity</td>
+    <td class="tabdata" width="47%">TGM520_CONTRAT_MAP</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Child Entity</td>
+    <td class="tabdata" width="47%">TGM522_ST_PROCESO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Referential Integrity</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="25%"></td>
+    <td class="tabhead" width="25%">Insert</td>
+    <td class="tabhead" width="25%">Update</td>
+    <td class="tabhead" width="25%">Delete</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Parent</td>
+    <td class="tabdata" width="25%">----</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">NONE</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Child</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">----</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Keys</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Key Type</td>
+    <td class="tabhead">Parent Key</td>
+    <td class="tabhead">Child Key</td>
+  </tr>
+  <tr>
+    <td class="tabdata">Primary Key 'IGM520P1_PROREPOR'</td>
+    <td class="tabdata">CD_FLUJO</td>
+    <td class="tabdata">CD_FLUJO</td>
+  </tr>
+  <tr>
+    <td class="tabdata"></td>
+    <td class="tabdata">CD_ETAPA</td>
+    <td class="tabdata">CD_ETAPA</td>
+  </tr>
+  <tr>
+    <td class="tabdata"></td>
+    <td class="tabdata">CD_CONTRATACION</td>
+    <td class="tabdata">CD_CONTRATACION</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Relation Properties</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="20%">Create Index to Foreign Key</td>
+    <td class="tabdata" width="80%">YES</td>
+  </tr>
+</table>
+<br>
+<div class="itemEnd"><p>&nbsp;</p></div></div>
+<div id="Relation_{F54B8D26-C1DC-487E-B2EE-1DEE757A52B9}" class="item">
+<a name = "Relation_{F54B8D26-C1DC-487E-B2EE-1DEE757A52B9}"></a>
+<div class="caption1"><p>R5225398</p></div>
+<div class="caption2"><p>General Info</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="25%">Caption</td>
+    <td class="tabdata" width="47%">R5225398</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Relationship Type</td>
+    <td class="tabdata" width="47%">Identifying</td>
+    <td class="tabhead" width="20%">Cardinality</td>
+    <td class="tabdata" width="8%">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Mandatory Parent</td>
+    <td class="tabdata" width="47%">YES</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Mandatory Child</td>
+    <td class="tabdata" width="47%">NO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Parent Entity</td>
+    <td class="tabdata" width="47%">TGM522_ST_PROCESO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Child Entity</td>
+    <td class="tabdata" width="47%">TGM539_ESTADISTICA</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Referential Integrity</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="25%"></td>
+    <td class="tabhead" width="25%">Insert</td>
+    <td class="tabhead" width="25%">Update</td>
+    <td class="tabhead" width="25%">Delete</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Parent</td>
+    <td class="tabdata" width="25%">----</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">NONE</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Child</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">----</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Keys</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Key Type</td>
+    <td class="tabhead">Parent Key</td>
+    <td class="tabhead">Child Key</td>
+  </tr>
+  <tr>
+    <td class="tabdata">Primary Key 'IGM522P1_ST_PROCES'</td>
+    <td class="tabdata">CD_FLUJO</td>
+    <td class="tabdata">CD_FLUJO</td>
+  </tr>
+  <tr>
+    <td class="tabdata"></td>
+    <td class="tabdata">CD_ETAPA</td>
+    <td class="tabdata">CD_ETAPA</td>
+  </tr>
+  <tr>
+    <td class="tabdata"></td>
+    <td class="tabdata">CD_CONTRATACION</td>
+    <td class="tabdata">CD_CONTRATACION</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Relation Properties</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="20%">Create Index to Foreign Key</td>
+    <td class="tabdata" width="80%">YES</td>
+  </tr>
+</table>
+<br>
+<div class="itemEnd"><p>&nbsp;</p></div></div>
+<div id="Relation_{86E97D08-BF47-4983-9C9A-1A06519B4EFD}" class="item">
+<a name = "Relation_{86E97D08-BF47-4983-9C9A-1A06519B4EFD}"></a>
+<div class="caption1"><p>R5315322</p></div>
+<div class="caption2"><p>General Info</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="25%">Caption</td>
+    <td class="tabdata" width="47%">R5315322</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Relationship Type</td>
+    <td class="tabdata" width="47%">Non-identifying</td>
+    <td class="tabhead" width="20%">Cardinality</td>
+    <td class="tabdata" width="8%">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Mandatory Parent</td>
+    <td class="tabdata" width="47%">NO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Mandatory Child</td>
+    <td class="tabdata" width="47%">NO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Parent Entity</td>
+    <td class="tabdata" width="47%">TGM531_DEFINE_MAPA</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Child Entity</td>
+    <td class="tabdata" width="47%">TGM532_GPO_HOJA</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Referential Integrity</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="25%"></td>
+    <td class="tabhead" width="25%">Insert</td>
+    <td class="tabhead" width="25%">Update</td>
+    <td class="tabhead" width="25%">Delete</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Parent</td>
+    <td class="tabdata" width="25%">----</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">NONE</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Child</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">----</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Keys</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Key Type</td>
+    <td class="tabhead">Parent Key</td>
+    <td class="tabhead">Child Key</td>
+  </tr>
+  <tr>
+    <td class="tabdata">Primary Key 'IGM531P1_DEFINE_MA'</td>
+    <td class="tabdata">CD_DEFINE_MAPA</td>
+    <td class="tabdata">CD_DEFINE_MAPA</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Relation Properties</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="20%">Create Index to Foreign Key</td>
+    <td class="tabdata" width="80%">YES</td>
+  </tr>
+</table>
+<br>
+<div class="itemEnd"><p>&nbsp;</p></div></div>
+<div id="Relation_{A86F64CA-AAF2-4DA1-8702-64B769936CEE}" class="item">
+<a name = "Relation_{A86F64CA-AAF2-4DA1-8702-64B769936CEE}"></a>
+<div class="caption1"><p>R5335313</p></div>
+<div class="caption2"><p>General Info</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="25%">Caption</td>
+    <td class="tabdata" width="47%">R5335313</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Relationship Type</td>
+    <td class="tabdata" width="47%">Non-identifying</td>
+    <td class="tabhead" width="20%">Cardinality</td>
+    <td class="tabdata" width="8%">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Mandatory Parent</td>
+    <td class="tabdata" width="47%">NO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Mandatory Child</td>
+    <td class="tabdata" width="47%">NO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Parent Entity</td>
+    <td class="tabdata" width="47%">TGM533_SECC_MAPA</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Child Entity</td>
+    <td class="tabdata" width="47%">TGM531_DEFINE_MAPA</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Referential Integrity</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="25%"></td>
+    <td class="tabhead" width="25%">Insert</td>
+    <td class="tabhead" width="25%">Update</td>
+    <td class="tabhead" width="25%">Delete</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Parent</td>
+    <td class="tabdata" width="25%">----</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">NONE</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Child</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">----</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Keys</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Key Type</td>
+    <td class="tabhead">Parent Key</td>
+    <td class="tabhead">Child Key</td>
+  </tr>
+  <tr>
+    <td class="tabdata">Primary Key 'IGM533P1_SECC_MAPA'</td>
+    <td class="tabdata">CD_SECCION_MAPA</td>
+    <td class="tabdata">CD_SECCION_MAPA</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Relation Properties</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="20%">Create Index to Foreign Key</td>
+    <td class="tabdata" width="80%">YES</td>
+  </tr>
+</table>
+<br>
+<div class="itemEnd"><p>&nbsp;</p></div></div>
+<div id="Relation_{357D36A7-103D-4653-BA2E-4A64EB77AD6E}" class="item">
+<a name = "Relation_{357D36A7-103D-4653-BA2E-4A64EB77AD6E}"></a>
+<div class="caption1"><p>R5335331</p></div>
+<div class="caption2"><p>General Info</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="25%">Caption</td>
+    <td class="tabdata" width="47%">R5335331</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Relationship Type</td>
+    <td class="tabdata" width="47%">Non-identifying</td>
+    <td class="tabhead" width="20%">Cardinality</td>
+    <td class="tabdata" width="8%">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Mandatory Parent</td>
+    <td class="tabdata" width="47%">NO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Mandatory Child</td>
+    <td class="tabdata" width="47%">NO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Parent Entity</td>
+    <td class="tabdata" width="47%">TGM533_SECC_MAPA</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Child Entity</td>
+    <td class="tabdata" width="47%">TGM533_SECC_MAPA</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Referential Integrity</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="25%"></td>
+    <td class="tabhead" width="25%">Insert</td>
+    <td class="tabhead" width="25%">Update</td>
+    <td class="tabhead" width="25%">Delete</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Parent</td>
+    <td class="tabdata" width="25%">----</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">NONE</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Child</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">----</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Keys</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Key Type</td>
+    <td class="tabhead">Parent Key</td>
+    <td class="tabhead">Child Key</td>
+  </tr>
+  <tr>
+    <td class="tabdata">Primary Key 'IGM533P1_SECC_MAPA'</td>
+    <td class="tabdata">CD_SECCION_MAPA</td>
+    <td class="tabdata">CD_FK_SECCION_MAPA</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Relation Properties</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="20%">Create Index to Foreign Key</td>
+    <td class="tabdata" width="80%">YES</td>
+  </tr>
+</table>
+<br>
+<div class="itemEnd"><p>&nbsp;</p></div></div>
+<div id="Relation_{E247B226-332D-4EE1-A65E-B99A7CC29F4E}" class="item">
+<a name = "Relation_{E247B226-332D-4EE1-A65E-B99A7CC29F4E}"></a>
+<div class="caption1"><p>R5345019</p></div>
+<div class="caption2"><p>General Info</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="25%">Caption</td>
+    <td class="tabdata" width="47%">R5345019</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Relationship Type</td>
+    <td class="tabdata" width="47%">Non-identifying</td>
+    <td class="tabhead" width="20%">Cardinality</td>
+    <td class="tabdata" width="8%">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Mandatory Parent</td>
+    <td class="tabdata" width="47%">NO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Mandatory Child</td>
+    <td class="tabdata" width="47%">NO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Parent Entity</td>
+    <td class="tabdata" width="47%">TGM534_ST_OBJETO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Child Entity</td>
+    <td class="tabdata" width="47%">TGM501_PANTALLA</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Referential Integrity</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="25%"></td>
+    <td class="tabhead" width="25%">Insert</td>
+    <td class="tabhead" width="25%">Update</td>
+    <td class="tabhead" width="25%">Delete</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Parent</td>
+    <td class="tabdata" width="25%">----</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">NONE</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Child</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">----</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Keys</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Key Type</td>
+    <td class="tabhead">Parent Key</td>
+    <td class="tabhead">Child Key</td>
+  </tr>
+  <tr>
+    <td class="tabdata">Primary Key 'IGM534P1_ST_OBJETO'</td>
+    <td class="tabdata">CD_ST_OBJETO</td>
+    <td class="tabdata">ST_PANTALLA</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Relation Properties</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="20%">Create Index to Foreign Key</td>
+    <td class="tabdata" width="80%">YES</td>
+  </tr>
+</table>
+<br>
+<div class="itemEnd"><p>&nbsp;</p></div></div>
+<div id="Relation_{D7BB7B95-2ED8-4DCB-B356-DF44617F26A1}" class="item">
+<a name = "Relation_{D7BB7B95-2ED8-4DCB-B356-DF44617F26A1}"></a>
+<div class="caption1"><p>R5345028</p></div>
+<div class="caption2"><p>General Info</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="25%">Caption</td>
+    <td class="tabdata" width="47%">R5345028</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Relationship Type</td>
+    <td class="tabdata" width="47%">Non-identifying</td>
+    <td class="tabhead" width="20%">Cardinality</td>
+    <td class="tabdata" width="8%">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Mandatory Parent</td>
+    <td class="tabdata" width="47%">NO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Mandatory Child</td>
+    <td class="tabdata" width="47%">NO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Parent Entity</td>
+    <td class="tabdata" width="47%">TGM534_ST_OBJETO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Child Entity</td>
+    <td class="tabdata" width="47%">TGM502_COMPONENTE</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Referential Integrity</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="25%"></td>
+    <td class="tabhead" width="25%">Insert</td>
+    <td class="tabhead" width="25%">Update</td>
+    <td class="tabhead" width="25%">Delete</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Parent</td>
+    <td class="tabdata" width="25%">----</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">NONE</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Child</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">----</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Keys</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Key Type</td>
+    <td class="tabhead">Parent Key</td>
+    <td class="tabhead">Child Key</td>
+  </tr>
+  <tr>
+    <td class="tabdata">Primary Key 'IGM534P1_ST_OBJETO'</td>
+    <td class="tabdata">CD_ST_OBJETO</td>
+    <td class="tabdata">ST_COMPONENTE</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Relation Properties</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="20%">Create Index to Foreign Key</td>
+    <td class="tabdata" width="80%">YES</td>
+  </tr>
+</table>
+<br>
+<div class="itemEnd"><p>&nbsp;</p></div></div>
+<div id="Relation_{58153B97-B9DD-4473-978F-55C832CDE56C}" class="item">
+<a name = "Relation_{58153B97-B9DD-4473-978F-55C832CDE56C}"></a>
+<div class="caption1"><p>R53450310</p></div>
+<div class="caption2"><p>General Info</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="25%">Caption</td>
+    <td class="tabdata" width="47%">R53450310</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Relationship Type</td>
+    <td class="tabdata" width="47%">Non-identifying</td>
+    <td class="tabhead" width="20%">Cardinality</td>
+    <td class="tabdata" width="8%">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Mandatory Parent</td>
+    <td class="tabdata" width="47%">NO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Mandatory Child</td>
+    <td class="tabdata" width="47%">NO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Parent Entity</td>
+    <td class="tabdata" width="47%">TGM534_ST_OBJETO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Child Entity</td>
+    <td class="tabdata" width="47%">TGM503_USUARIO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Referential Integrity</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="25%"></td>
+    <td class="tabhead" width="25%">Insert</td>
+    <td class="tabhead" width="25%">Update</td>
+    <td class="tabhead" width="25%">Delete</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Parent</td>
+    <td class="tabdata" width="25%">----</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">NONE</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Child</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">----</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Keys</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Key Type</td>
+    <td class="tabhead">Parent Key</td>
+    <td class="tabhead">Child Key</td>
+  </tr>
+  <tr>
+    <td class="tabdata">Primary Key 'IGM534P1_ST_OBJETO'</td>
+    <td class="tabdata">CD_ST_OBJETO</td>
+    <td class="tabdata">ST_USUARIO</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Relation Properties</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="20%">Create Index to Foreign Key</td>
+    <td class="tabdata" width="80%">YES</td>
+  </tr>
+</table>
+<br>
+<div class="itemEnd"><p>&nbsp;</p></div></div>
+<div id="Relation_{5E4C86AC-35F1-4E14-8977-667D3086566E}" class="item">
+<a name = "Relation_{5E4C86AC-35F1-4E14-8977-667D3086566E}"></a>
+<div class="caption1"><p>R53450411</p></div>
+<div class="caption2"><p>General Info</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="25%">Caption</td>
+    <td class="tabdata" width="47%">R53450411</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Relationship Type</td>
+    <td class="tabdata" width="47%">Non-identifying</td>
+    <td class="tabhead" width="20%">Cardinality</td>
+    <td class="tabdata" width="8%">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Mandatory Parent</td>
+    <td class="tabdata" width="47%">NO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Mandatory Child</td>
+    <td class="tabdata" width="47%">NO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Parent Entity</td>
+    <td class="tabdata" width="47%">TGM534_ST_OBJETO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Child Entity</td>
+    <td class="tabdata" width="47%">TGM504_PERFIL</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Referential Integrity</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="25%"></td>
+    <td class="tabhead" width="25%">Insert</td>
+    <td class="tabhead" width="25%">Update</td>
+    <td class="tabhead" width="25%">Delete</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Parent</td>
+    <td class="tabdata" width="25%">----</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">NONE</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Child</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">----</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Keys</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Key Type</td>
+    <td class="tabhead">Parent Key</td>
+    <td class="tabhead">Child Key</td>
+  </tr>
+  <tr>
+    <td class="tabdata">Primary Key 'IGM534P1_ST_OBJETO'</td>
+    <td class="tabdata">CD_ST_OBJETO</td>
+    <td class="tabdata">ST_PERFIL</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Relation Properties</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="20%">Create Index to Foreign Key</td>
+    <td class="tabdata" width="80%">YES</td>
+  </tr>
+</table>
+<br>
+<div class="itemEnd"><p>&nbsp;</p></div></div>
+<div id="Relation_{27752036-4AB2-41D3-9F88-2AF47F803641}" class="item">
+<a name = "Relation_{27752036-4AB2-41D3-9F88-2AF47F803641}"></a>
+<div class="caption1"><p>R53451015</p></div>
+<div class="caption2"><p>General Info</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="25%">Caption</td>
+    <td class="tabdata" width="47%">R53451015</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Relationship Type</td>
+    <td class="tabdata" width="47%">Non-identifying</td>
+    <td class="tabhead" width="20%">Cardinality</td>
+    <td class="tabdata" width="8%">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Mandatory Parent</td>
+    <td class="tabdata" width="47%">NO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Mandatory Child</td>
+    <td class="tabdata" width="47%">NO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Parent Entity</td>
+    <td class="tabdata" width="47%">TGM534_ST_OBJETO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Child Entity</td>
+    <td class="tabdata" width="47%">TGM510_USUA_NOTIFI</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Referential Integrity</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="25%"></td>
+    <td class="tabhead" width="25%">Insert</td>
+    <td class="tabhead" width="25%">Update</td>
+    <td class="tabhead" width="25%">Delete</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Parent</td>
+    <td class="tabdata" width="25%">----</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">NONE</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Child</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">----</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Keys</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Key Type</td>
+    <td class="tabhead">Parent Key</td>
+    <td class="tabhead">Child Key</td>
+  </tr>
+  <tr>
+    <td class="tabdata">Primary Key 'IGM534P1_ST_OBJETO'</td>
+    <td class="tabdata">CD_ST_OBJETO</td>
+    <td class="tabdata">CD_ST_OBJETO</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Relation Properties</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="20%">Create Index to Foreign Key</td>
+    <td class="tabdata" width="80%">YES</td>
+  </tr>
+</table>
+<br>
+<div class="itemEnd"><p>&nbsp;</p></div></div>
+<div id="Relation_{31D0E11E-D12E-4DCF-8BB1-53CBCF6A95D6}" class="item">
+<a name = "Relation_{31D0E11E-D12E-4DCF-8BB1-53CBCF6A95D6}"></a>
+<div class="caption1"><p>R53451113</p></div>
+<div class="caption2"><p>General Info</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="25%">Caption</td>
+    <td class="tabdata" width="47%">Relationship1</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Relationship Type</td>
+    <td class="tabdata" width="47%">Non-identifying</td>
+    <td class="tabhead" width="20%">Cardinality</td>
+    <td class="tabdata" width="8%">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Mandatory Parent</td>
+    <td class="tabdata" width="47%">NO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Mandatory Child</td>
+    <td class="tabdata" width="47%">NO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Parent Entity</td>
+    <td class="tabdata" width="47%">TGM534_ST_OBJETO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Child Entity</td>
+    <td class="tabdata" width="47%">TGM511_CANAL</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Referential Integrity</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="25%"></td>
+    <td class="tabhead" width="25%">Insert</td>
+    <td class="tabhead" width="25%">Update</td>
+    <td class="tabhead" width="25%">Delete</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Parent</td>
+    <td class="tabdata" width="25%">----</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">NONE</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Child</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">----</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Keys</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Key Type</td>
+    <td class="tabhead">Parent Key</td>
+    <td class="tabhead">Child Key</td>
+  </tr>
+  <tr>
+    <td class="tabdata">Primary Key 'IGM534P1_ST_OBJETO'</td>
+    <td class="tabdata">CD_ST_OBJETO</td>
+    <td class="tabdata">CD_ST_OBJETO</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Relation Properties</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="20%">Create Index to Foreign Key</td>
+    <td class="tabdata" width="80%">YES</td>
+  </tr>
+</table>
+<br>
+<div class="itemEnd"><p>&nbsp;</p></div></div>
+<div id="Relation_{B1B9B5EA-61BA-4E4D-B2D8-1D69B4D99F15}" class="item">
+<a name = "Relation_{B1B9B5EA-61BA-4E4D-B2D8-1D69B4D99F15}"></a>
+<div class="caption1"><p>R53451217</p></div>
+<div class="caption2"><p>General Info</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="25%">Caption</td>
+    <td class="tabdata" width="47%">Relationship3</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Relationship Type</td>
+    <td class="tabdata" width="47%">Non-identifying</td>
+    <td class="tabhead" width="20%">Cardinality</td>
+    <td class="tabdata" width="8%">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Mandatory Parent</td>
+    <td class="tabdata" width="47%">NO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Mandatory Child</td>
+    <td class="tabdata" width="47%">NO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Parent Entity</td>
+    <td class="tabdata" width="47%">TGM534_ST_OBJETO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Child Entity</td>
+    <td class="tabdata" width="47%">TGM512_CLIENTE</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Referential Integrity</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="25%"></td>
+    <td class="tabhead" width="25%">Insert</td>
+    <td class="tabhead" width="25%">Update</td>
+    <td class="tabhead" width="25%">Delete</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Parent</td>
+    <td class="tabdata" width="25%">----</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">NONE</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Child</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">----</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Keys</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Key Type</td>
+    <td class="tabhead">Parent Key</td>
+    <td class="tabhead">Child Key</td>
+  </tr>
+  <tr>
+    <td class="tabdata">Primary Key 'IGM534P1_ST_OBJETO'</td>
+    <td class="tabdata">CD_ST_OBJETO</td>
+    <td class="tabdata">CD_ST_OBJETO</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Relation Properties</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="20%">Create Index to Foreign Key</td>
+    <td class="tabdata" width="80%">YES</td>
+  </tr>
+</table>
+<br>
+<div class="itemEnd"><p>&nbsp;</p></div></div>
+<div id="Relation_{B9BB8BFF-B270-47AF-84DD-19C4AB12E911}" class="item">
+<a name = "Relation_{B9BB8BFF-B270-47AF-84DD-19C4AB12E911}"></a>
+<div class="caption1"><p>R53451315</p></div>
+<div class="caption2"><p>General Info</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="25%">Caption</td>
+    <td class="tabdata" width="47%">Relationship6</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Relationship Type</td>
+    <td class="tabdata" width="47%">Non-identifying</td>
+    <td class="tabhead" width="20%">Cardinality</td>
+    <td class="tabdata" width="8%">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Mandatory Parent</td>
+    <td class="tabdata" width="47%">NO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Mandatory Child</td>
+    <td class="tabdata" width="47%">NO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Parent Entity</td>
+    <td class="tabdata" width="47%">TGM534_ST_OBJETO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Child Entity</td>
+    <td class="tabdata" width="47%">TGM513_FLUJO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Referential Integrity</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="25%"></td>
+    <td class="tabhead" width="25%">Insert</td>
+    <td class="tabhead" width="25%">Update</td>
+    <td class="tabhead" width="25%">Delete</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Parent</td>
+    <td class="tabdata" width="25%">----</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">NONE</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Child</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">----</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Keys</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Key Type</td>
+    <td class="tabhead">Parent Key</td>
+    <td class="tabhead">Child Key</td>
+  </tr>
+  <tr>
+    <td class="tabdata">Primary Key 'IGM534P1_ST_OBJETO'</td>
+    <td class="tabdata">CD_ST_OBJETO</td>
+    <td class="tabdata">CD_ST_OBJETO</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Relation Properties</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="20%">Create Index to Foreign Key</td>
+    <td class="tabdata" width="80%">YES</td>
+  </tr>
+</table>
+<br>
+<div class="itemEnd"><p>&nbsp;</p></div></div>
+<div id="Relation_{78B685CE-F33A-4E63-8020-70C07489D886}" class="item">
+<a name = "Relation_{78B685CE-F33A-4E63-8020-70C07489D886}"></a>
+<div class="caption1"><p>R53451418</p></div>
+<div class="caption2"><p>General Info</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="25%">Caption</td>
+    <td class="tabdata" width="47%">Relationship4</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Relationship Type</td>
+    <td class="tabdata" width="47%">Non-identifying</td>
+    <td class="tabhead" width="20%">Cardinality</td>
+    <td class="tabdata" width="8%">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Mandatory Parent</td>
+    <td class="tabdata" width="47%">NO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Mandatory Child</td>
+    <td class="tabdata" width="47%">NO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Parent Entity</td>
+    <td class="tabdata" width="47%">TGM534_ST_OBJETO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Child Entity</td>
+    <td class="tabdata" width="47%">TGM514_MAPA_GMM</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Referential Integrity</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="25%"></td>
+    <td class="tabhead" width="25%">Insert</td>
+    <td class="tabhead" width="25%">Update</td>
+    <td class="tabhead" width="25%">Delete</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Parent</td>
+    <td class="tabdata" width="25%">----</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">NONE</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Child</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">----</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Keys</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Key Type</td>
+    <td class="tabhead">Parent Key</td>
+    <td class="tabhead">Child Key</td>
+  </tr>
+  <tr>
+    <td class="tabdata">Primary Key 'IGM534P1_ST_OBJETO'</td>
+    <td class="tabdata">CD_ST_OBJETO</td>
+    <td class="tabdata">CD_ST_OBJETO</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Relation Properties</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="20%">Create Index to Foreign Key</td>
+    <td class="tabdata" width="80%">YES</td>
+  </tr>
+</table>
+<br>
+<div class="itemEnd"><p>&nbsp;</p></div></div>
+<div id="Relation_{CC390126-B0B5-42D7-86A1-37AC95CB5EF6}" class="item">
+<a name = "Relation_{CC390126-B0B5-42D7-86A1-37AC95CB5EF6}"></a>
+<div class="caption1"><p>R53451514</p></div>
+<div class="caption2"><p>General Info</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="25%">Caption</td>
+    <td class="tabdata" width="47%">Relationship2</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Relationship Type</td>
+    <td class="tabdata" width="47%">Non-identifying</td>
+    <td class="tabhead" width="20%">Cardinality</td>
+    <td class="tabdata" width="8%">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Mandatory Parent</td>
+    <td class="tabdata" width="47%">NO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Mandatory Child</td>
+    <td class="tabdata" width="47%">NO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Parent Entity</td>
+    <td class="tabdata" width="47%">TGM534_ST_OBJETO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Child Entity</td>
+    <td class="tabdata" width="47%">TGM515_PRODUCTO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Referential Integrity</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="25%"></td>
+    <td class="tabhead" width="25%">Insert</td>
+    <td class="tabhead" width="25%">Update</td>
+    <td class="tabhead" width="25%">Delete</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Parent</td>
+    <td class="tabdata" width="25%">----</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">NONE</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Child</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">----</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Keys</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Key Type</td>
+    <td class="tabhead">Parent Key</td>
+    <td class="tabhead">Child Key</td>
+  </tr>
+  <tr>
+    <td class="tabdata">Primary Key 'IGM534P1_ST_OBJETO'</td>
+    <td class="tabdata">CD_ST_OBJETO</td>
+    <td class="tabdata">CD_ST_OBJETO</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Relation Properties</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="20%">Create Index to Foreign Key</td>
+    <td class="tabdata" width="80%">YES</td>
+  </tr>
+</table>
+<br>
+<div class="itemEnd"><p>&nbsp;</p></div></div>
+<div id="Relation_{E0D271BB-64A3-4181-AEF6-D674C86CDFC1}" class="item">
+<a name = "Relation_{E0D271BB-64A3-4181-AEF6-D674C86CDFC1}"></a>
+<div class="caption1"><p>R53451619</p></div>
+<div class="caption2"><p>General Info</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="25%">Caption</td>
+    <td class="tabdata" width="47%">Relationship5</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Relationship Type</td>
+    <td class="tabdata" width="47%">Non-identifying</td>
+    <td class="tabhead" width="20%">Cardinality</td>
+    <td class="tabdata" width="8%">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Mandatory Parent</td>
+    <td class="tabdata" width="47%">NO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Mandatory Child</td>
+    <td class="tabdata" width="47%">NO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Parent Entity</td>
+    <td class="tabdata" width="47%">TGM534_ST_OBJETO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Child Entity</td>
+    <td class="tabdata" width="47%">TGM516_MENSAJE_SAL</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Referential Integrity</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="25%"></td>
+    <td class="tabhead" width="25%">Insert</td>
+    <td class="tabhead" width="25%">Update</td>
+    <td class="tabhead" width="25%">Delete</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Parent</td>
+    <td class="tabdata" width="25%">----</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">NONE</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Child</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">----</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Keys</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Key Type</td>
+    <td class="tabhead">Parent Key</td>
+    <td class="tabhead">Child Key</td>
+  </tr>
+  <tr>
+    <td class="tabdata">Primary Key 'IGM534P1_ST_OBJETO'</td>
+    <td class="tabdata">CD_ST_OBJETO</td>
+    <td class="tabdata">CD_ST_OBJETO</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Relation Properties</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="20%">Create Index to Foreign Key</td>
+    <td class="tabdata" width="80%">YES</td>
+  </tr>
+</table>
+<br>
+<div class="itemEnd"><p>&nbsp;</p></div></div>
+<div id="Relation_{2A75AAEF-A2AE-4085-844A-7740B924A2E5}" class="item">
+<a name = "Relation_{2A75AAEF-A2AE-4085-844A-7740B924A2E5}"></a>
+<div class="caption1"><p>R53451716</p></div>
+<div class="caption2"><p>General Info</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="25%">Caption</td>
+    <td class="tabdata" width="47%">Relationship7</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Relationship Type</td>
+    <td class="tabdata" width="47%">Non-identifying</td>
+    <td class="tabhead" width="20%">Cardinality</td>
+    <td class="tabdata" width="8%">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Mandatory Parent</td>
+    <td class="tabdata" width="47%">NO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Mandatory Child</td>
+    <td class="tabdata" width="47%">NO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Parent Entity</td>
+    <td class="tabdata" width="47%">TGM534_ST_OBJETO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Child Entity</td>
+    <td class="tabdata" width="47%">TGM517_ETAPA</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Referential Integrity</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="25%"></td>
+    <td class="tabhead" width="25%">Insert</td>
+    <td class="tabhead" width="25%">Update</td>
+    <td class="tabhead" width="25%">Delete</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Parent</td>
+    <td class="tabdata" width="25%">----</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">NONE</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Child</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">----</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Keys</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Key Type</td>
+    <td class="tabhead">Parent Key</td>
+    <td class="tabhead">Child Key</td>
+  </tr>
+  <tr>
+    <td class="tabdata">Primary Key 'IGM534P1_ST_OBJETO'</td>
+    <td class="tabdata">CD_ST_OBJETO</td>
+    <td class="tabdata">CD_ST_OBJETO</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Relation Properties</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="20%">Create Index to Foreign Key</td>
+    <td class="tabdata" width="80%">YES</td>
+  </tr>
+</table>
+<br>
+<div class="itemEnd"><p>&nbsp;</p></div></div>
+<div id="Relation_{B5AD5B51-42D3-4740-A131-30220CC7ECB1}" class="item">
+<a name = "Relation_{B5AD5B51-42D3-4740-A131-30220CC7ECB1}"></a>
+<div class="caption1"><p>R53451922</p></div>
+<div class="caption2"><p>General Info</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="25%">Caption</td>
+    <td class="tabdata" width="47%">R53451922</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Relationship Type</td>
+    <td class="tabdata" width="47%">Non-identifying</td>
+    <td class="tabhead" width="20%">Cardinality</td>
+    <td class="tabdata" width="8%">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Mandatory Parent</td>
+    <td class="tabdata" width="47%">NO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Mandatory Child</td>
+    <td class="tabdata" width="47%">NO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Parent Entity</td>
+    <td class="tabdata" width="47%">TGM534_ST_OBJETO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Child Entity</td>
+    <td class="tabdata" width="47%">TGM519_CONTRATACION</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Referential Integrity</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="25%"></td>
+    <td class="tabhead" width="25%">Insert</td>
+    <td class="tabhead" width="25%">Update</td>
+    <td class="tabhead" width="25%">Delete</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Parent</td>
+    <td class="tabdata" width="25%">----</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">NONE</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Child</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">----</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Keys</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Key Type</td>
+    <td class="tabhead">Parent Key</td>
+    <td class="tabhead">Child Key</td>
+  </tr>
+  <tr>
+    <td class="tabdata">Primary Key 'IGM534P1_ST_OBJETO'</td>
+    <td class="tabdata">CD_ST_OBJETO</td>
+    <td class="tabdata">CD_ST_OBJETO</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Relation Properties</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="20%">Create Index to Foreign Key</td>
+    <td class="tabdata" width="80%">YES</td>
+  </tr>
+</table>
+<br>
+<div class="itemEnd"><p>&nbsp;</p></div></div>
+<div id="Relation_{48A9AE47-AD1B-40AA-BDA3-31CF832A0707}" class="item">
+<a name = "Relation_{48A9AE47-AD1B-40AA-BDA3-31CF832A0707}"></a>
+<div class="caption1"><p>R53452214</p></div>
+<div class="caption2"><p>General Info</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="25%">Caption</td>
+    <td class="tabdata" width="47%">Relationship13</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Relationship Type</td>
+    <td class="tabdata" width="47%">Non-identifying</td>
+    <td class="tabhead" width="20%">Cardinality</td>
+    <td class="tabdata" width="8%">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Mandatory Parent</td>
+    <td class="tabdata" width="47%">YES</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Mandatory Child</td>
+    <td class="tabdata" width="47%">NO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Parent Entity</td>
+    <td class="tabdata" width="47%">TGM534_ST_OBJETO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Child Entity</td>
+    <td class="tabdata" width="47%">TGM522_ST_PROCESO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Referential Integrity</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="25%"></td>
+    <td class="tabhead" width="25%">Insert</td>
+    <td class="tabhead" width="25%">Update</td>
+    <td class="tabhead" width="25%">Delete</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Parent</td>
+    <td class="tabdata" width="25%">----</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">NONE</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Child</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">----</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Keys</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Key Type</td>
+    <td class="tabhead">Parent Key</td>
+    <td class="tabhead">Child Key</td>
+  </tr>
+  <tr>
+    <td class="tabdata">Primary Key 'IGM534P1_ST_OBJETO'</td>
+    <td class="tabdata">CD_ST_OBJETO</td>
+    <td class="tabdata">CD_ST_MAPEADOR</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Relation Properties</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="20%">Create Index to Foreign Key</td>
+    <td class="tabdata" width="80%">YES</td>
+  </tr>
+</table>
+<br>
+<div class="itemEnd"><p>&nbsp;</p></div></div>
+<div id="Relation_{8503CAD0-582A-4C02-88B7-C77232ACB54D}" class="item">
+<a name = "Relation_{8503CAD0-582A-4C02-88B7-C77232ACB54D}"></a>
+<div class="caption1"><p>R53453110</p></div>
+<div class="caption2"><p>General Info</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="25%">Caption</td>
+    <td class="tabdata" width="47%">Relationship9</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Relationship Type</td>
+    <td class="tabdata" width="47%">Non-identifying</td>
+    <td class="tabhead" width="20%">Cardinality</td>
+    <td class="tabdata" width="8%">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Mandatory Parent</td>
+    <td class="tabdata" width="47%">NO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Mandatory Child</td>
+    <td class="tabdata" width="47%">NO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Parent Entity</td>
+    <td class="tabdata" width="47%">TGM534_ST_OBJETO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Child Entity</td>
+    <td class="tabdata" width="47%">TGM531_DEFINE_MAPA</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Referential Integrity</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="25%"></td>
+    <td class="tabhead" width="25%">Insert</td>
+    <td class="tabhead" width="25%">Update</td>
+    <td class="tabhead" width="25%">Delete</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Parent</td>
+    <td class="tabdata" width="25%">----</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">NONE</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Child</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">----</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Keys</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Key Type</td>
+    <td class="tabhead">Parent Key</td>
+    <td class="tabhead">Child Key</td>
+  </tr>
+  <tr>
+    <td class="tabdata">Primary Key 'IGM534P1_ST_OBJETO'</td>
+    <td class="tabdata">CD_ST_OBJETO</td>
+    <td class="tabdata">CD_ST_OBJETO</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Relation Properties</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="20%">Create Index to Foreign Key</td>
+    <td class="tabdata" width="80%">YES</td>
+  </tr>
+</table>
+<br>
+<div class="itemEnd"><p>&nbsp;</p></div></div>
+<div id="Relation_{F0AEBE35-8B26-46F0-BCA6-61E452AAEA92}" class="item">
+<a name = "Relation_{F0AEBE35-8B26-46F0-BCA6-61E452AAEA92}"></a>
+<div class="caption1"><p>R53453711</p></div>
+<div class="caption2"><p>General Info</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="25%">Caption</td>
+    <td class="tabdata" width="47%">Relationship10</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Relationship Type</td>
+    <td class="tabdata" width="47%">Non-identifying</td>
+    <td class="tabhead" width="20%">Cardinality</td>
+    <td class="tabdata" width="8%">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Mandatory Parent</td>
+    <td class="tabdata" width="47%">NO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Mandatory Child</td>
+    <td class="tabdata" width="47%">NO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Parent Entity</td>
+    <td class="tabdata" width="47%">TGM534_ST_OBJETO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Child Entity</td>
+    <td class="tabdata" width="47%">TGM537_EDO_ARCHIVO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Referential Integrity</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="25%"></td>
+    <td class="tabhead" width="25%">Insert</td>
+    <td class="tabhead" width="25%">Update</td>
+    <td class="tabhead" width="25%">Delete</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Parent</td>
+    <td class="tabdata" width="25%">----</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">NONE</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Child</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">----</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Keys</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Key Type</td>
+    <td class="tabhead">Parent Key</td>
+    <td class="tabhead">Child Key</td>
+  </tr>
+  <tr>
+    <td class="tabdata">Primary Key 'IGM534P1_ST_OBJETO'</td>
+    <td class="tabdata">CD_ST_OBJETO</td>
+    <td class="tabdata">CD_ST_OBJETO</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Relation Properties</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="20%">Create Index to Foreign Key</td>
+    <td class="tabdata" width="80%">YES</td>
+  </tr>
+</table>
+<br>
+<div class="itemEnd"><p>&nbsp;</p></div></div>
+<div id="Relation_{4C2CE2AB-09D8-49C8-9D15-99312DE6A75C}" class="item">
+<a name = "Relation_{4C2CE2AB-09D8-49C8-9D15-99312DE6A75C}"></a>
+<div class="caption1"><p>R53652213</p></div>
+<div class="caption2"><p>General Info</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="25%">Caption</td>
+    <td class="tabdata" width="47%">R53652213</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Relationship Type</td>
+    <td class="tabdata" width="47%">Non-identifying</td>
+    <td class="tabhead" width="20%">Cardinality</td>
+    <td class="tabdata" width="8%">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Mandatory Parent</td>
+    <td class="tabdata" width="47%">NO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Mandatory Child</td>
+    <td class="tabdata" width="47%">NO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Parent Entity</td>
+    <td class="tabdata" width="47%">TGM536_REG_ARCH_EN</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Child Entity</td>
+    <td class="tabdata" width="47%">TGM522_ST_PROCESO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Referential Integrity</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="25%"></td>
+    <td class="tabhead" width="25%">Insert</td>
+    <td class="tabhead" width="25%">Update</td>
+    <td class="tabhead" width="25%">Delete</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Parent</td>
+    <td class="tabdata" width="25%">----</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">NONE</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Child</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">----</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Keys</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Key Type</td>
+    <td class="tabhead">Parent Key</td>
+    <td class="tabhead">Child Key</td>
+  </tr>
+  <tr>
+    <td class="tabdata">Primary Key 'IGM536P1_REG_ARCH'</td>
+    <td class="tabdata">CD_REG_ARCH_ENTRA</td>
+    <td class="tabdata">CD_REG_ARCH_ENTRA</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Relation Properties</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="20%">Create Index to Foreign Key</td>
+    <td class="tabdata" width="80%">YES</td>
+  </tr>
+</table>
+<br>
+<div class="itemEnd"><p>&nbsp;</p></div></div>
+<div id="Relation_{19D0461D-C233-473A-BD5A-9B1E46A26791}" class="item">
+<a name = "Relation_{19D0461D-C233-473A-BD5A-9B1E46A26791}"></a>
+<div class="caption1"><p>R5365324</p></div>
+<div class="caption2"><p>General Info</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="25%">Caption</td>
+    <td class="tabdata" width="47%">R5365324</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Relationship Type</td>
+    <td class="tabdata" width="47%">Non-identifying</td>
+    <td class="tabhead" width="20%">Cardinality</td>
+    <td class="tabdata" width="8%">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Mandatory Parent</td>
+    <td class="tabdata" width="47%">NO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Mandatory Child</td>
+    <td class="tabdata" width="47%">NO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Parent Entity</td>
+    <td class="tabdata" width="47%">TGM536_REG_ARCH_EN</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Child Entity</td>
+    <td class="tabdata" width="47%">TGM532_GPO_HOJA</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Referential Integrity</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="25%"></td>
+    <td class="tabhead" width="25%">Insert</td>
+    <td class="tabhead" width="25%">Update</td>
+    <td class="tabhead" width="25%">Delete</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Parent</td>
+    <td class="tabdata" width="25%">----</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">NONE</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Child</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">----</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Keys</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Key Type</td>
+    <td class="tabhead">Parent Key</td>
+    <td class="tabhead">Child Key</td>
+  </tr>
+  <tr>
+    <td class="tabdata">Primary Key 'IGM536P1_REG_ARCH'</td>
+    <td class="tabdata">CD_REG_ARCH_ENTRA</td>
+    <td class="tabdata">CD_REG_ARCH_ENTRA</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Relation Properties</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="20%">Create Index to Foreign Key</td>
+    <td class="tabdata" width="80%">YES</td>
+  </tr>
+</table>
+<br>
+<div class="itemEnd"><p>&nbsp;</p></div></div>
+<div id="Relation_{6D00AE4A-2D86-496F-BB1A-870B3D22AB4F}" class="item">
+<a name = "Relation_{6D00AE4A-2D86-496F-BB1A-870B3D22AB4F}"></a>
+<div class="caption1"><p>R5365375</p></div>
+<div class="caption2"><p>General Info</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="25%">Caption</td>
+    <td class="tabdata" width="47%">R5365375</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Relationship Type</td>
+    <td class="tabdata" width="47%">Non-identifying</td>
+    <td class="tabhead" width="20%">Cardinality</td>
+    <td class="tabdata" width="8%">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Mandatory Parent</td>
+    <td class="tabdata" width="47%">NO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Mandatory Child</td>
+    <td class="tabdata" width="47%">NO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Parent Entity</td>
+    <td class="tabdata" width="47%">TGM536_REG_ARCH_EN</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Child Entity</td>
+    <td class="tabdata" width="47%">TGM537_EDO_ARCHIVO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Referential Integrity</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="25%"></td>
+    <td class="tabhead" width="25%">Insert</td>
+    <td class="tabhead" width="25%">Update</td>
+    <td class="tabhead" width="25%">Delete</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Parent</td>
+    <td class="tabdata" width="25%">----</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">NONE</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Child</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">----</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Keys</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Key Type</td>
+    <td class="tabhead">Parent Key</td>
+    <td class="tabhead">Child Key</td>
+  </tr>
+  <tr>
+    <td class="tabdata">Primary Key 'IGM536P1_REG_ARCH'</td>
+    <td class="tabdata">CD_REG_ARCH_ENTRA</td>
+    <td class="tabdata">CD_REG_ARCH_ENTRA</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Relation Properties</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="20%">Create Index to Foreign Key</td>
+    <td class="tabdata" width="80%">YES</td>
+  </tr>
+</table>
+<br>
+<div class="itemEnd"><p>&nbsp;</p></div></div>
+<div id="Relation_{237E33D9-24FD-4A78-B3BF-09E4E33FCB61}" class="item">
+<a name = "Relation_{237E33D9-24FD-4A78-B3BF-09E4E33FCB61}"></a>
+<div class="caption1"><p>R53853712</p></div>
+<div class="caption2"><p>General Info</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="25%">Caption</td>
+    <td class="tabdata" width="47%">R53853712</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Relationship Type</td>
+    <td class="tabdata" width="47%">Non-identifying</td>
+    <td class="tabhead" width="20%">Cardinality</td>
+    <td class="tabdata" width="8%">1:N</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Mandatory Parent</td>
+    <td class="tabdata" width="47%">NO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Mandatory Child</td>
+    <td class="tabdata" width="47%">NO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Parent Entity</td>
+    <td class="tabdata" width="47%">TGM538_ESTADO_ARCH</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Child Entity</td>
+    <td class="tabdata" width="47%">TGM537_EDO_ARCHIVO</td>
+    <td class="tabdata" colspan="2" width="20%"></td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Referential Integrity</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="25%"></td>
+    <td class="tabhead" width="25%">Insert</td>
+    <td class="tabhead" width="25%">Update</td>
+    <td class="tabhead" width="25%">Delete</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Parent</td>
+    <td class="tabdata" width="25%">----</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">NONE</td>
+  </tr>
+  <tr>
+    <td class="tabhead" width="25%">Child</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">NONE</td>
+    <td class="tabdata" width="25%">----</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Keys</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead">Key Type</td>
+    <td class="tabhead">Parent Key</td>
+    <td class="tabhead">Child Key</td>
+  </tr>
+  <tr>
+    <td class="tabdata">Primary Key 'IGM538P1_ESTADO_AR'</td>
+    <td class="tabdata">CD_ESTADO_ARCHIVO</td>
+    <td class="tabdata">CD_ESTADO_ARCHIVO</td>
+  </tr>
+</table>
+<br>
+<div class="caption2"><p>Relation Properties</p></div>
+<table class="tabformat" border="0" cellpadding="2" cellspacing="1" width="100%">
+  <tr>
+    <td class="tabhead" width="20%">Create Index to Foreign Key</td>
+    <td class="tabdata" width="80%">YES</td>
+  </tr>
+</table>
+<br>
+<div class="itemEnd"><p>&nbsp;</p></div></div>
+
+        </div>
+<div id="footer">       <div class="pageFooter">Copyright &copy; Sitename 2005</div>        <div class="footerEnd"><p></p></div></div>
+    </div>
+  </div>
+</body>
+
+</html>
+

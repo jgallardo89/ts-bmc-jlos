@@ -1,0 +1,1989 @@
+﻿body {
+    margin: 0px;
+}
+
+div {
+    background-repeat: no-repeat;
+}
+
+.raw_image {
+    width: 100%;
+    height: 100%;
+}
+
+.preload {
+    display: none;
+}
+#main_container {
+}
+
+.form_sketch {
+    border-color: transparent;
+    background-color: transparent;
+}
+
+.u0 {
+    position:absolute;
+    left:506px;
+    top:43px;
+    width:120px;
+    height:24px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u1_line {
+    background-image: url('../027_Estadistico_files/u1_line.png');
+}
+
+.u1_line {
+    position:absolute;
+    left:0px;
+    top:4px;
+    width:676px;
+    height:3px;
+}
+
+.u1 {
+    position:absolute;
+    left:250px;
+    top:77px;
+    width:676px;
+    height:10px;
+    
+}
+
+.u2 {
+    position:absolute;
+    left:262px;
+    top:90px;
+    width:117px;
+    height:15px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u3 {
+    position:absolute;
+    left:379px;
+    top:87px;
+    width:180px;
+    height:22px;
+    ;
+    ;
+    ;
+    font-family:'Arial';
+    font-size: 13px;
+    color:#000000;
+    font-style:normal;
+    font-weight:normal;
+    text-decoration:none;
+    
+}
+
+.u4_normal {
+    background-image: url('../027_Estadistico_files/u4_normal.png');
+}
+
+.u4_container {
+    position:absolute;
+    left:263px;
+    top:288px;
+    width:32px;
+    height:32px;
+}
+
+#u4_img {
+    position:absolute;
+    left:0px;
+    top:0px;
+    width:32px;
+    height:32px;
+}
+
+.u5 {
+    position:absolute;
+    left:2px;
+    top:8px;
+    width:28px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u6_normal {
+    background-image: url('../027_Estadistico_files/u6_normal.png');
+}
+
+.u6_container {
+    position:absolute;
+    left:305px;
+    top:288px;
+    width:32px;
+    height:32px;
+}
+
+#u6_img {
+    position:absolute;
+    left:0px;
+    top:0px;
+    width:32px;
+    height:32px;
+}
+
+.u7 {
+    position:absolute;
+    left:2px;
+    top:8px;
+    width:28px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u8_normal {
+    background-image: url('../027_Estadistico_files/u8_normal.png');
+}
+
+.u8_container {
+    position:absolute;
+    left:348px;
+    top:328px;
+    width:437px;
+    height:29px;
+}
+
+#u8_img {
+    position:absolute;
+    left:0px;
+    top:0px;
+    width:437px;
+    height:29px;
+}
+
+.u9 {
+    position:absolute;
+    left:2px;
+    top:6px;
+    width:433px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u10 {
+    position:absolute;
+    left:352px;
+    top:230px;
+    width:52px;
+    height:15px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u11 {
+    position:absolute;
+    left:414px;
+    top:225px;
+    width:186px;
+    height:25px;
+    ;
+    ;
+    text-align: left;;
+    font-family:'Arial';
+    font-size: 13px;
+    color:#000000;
+    font-style:normal;
+    font-weight:normal;
+    text-decoration:none;
+    
+}
+
+.u12 {
+    position:absolute;
+    left:610px;
+    top:230px;
+    width:20px;
+    height:15px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u13 {
+    position:absolute;
+    left:630px;
+    top:225px;
+    width:180px;
+    height:25px;
+    ;
+    ;
+    text-align: left;;
+    font-family:'Arial';
+    font-size: 13px;
+    color:#000000;
+    font-style:normal;
+    font-weight:normal;
+    text-decoration:none;
+    
+}
+
+.u14 {
+    position:absolute;
+    left:274px;
+    top:139px;
+    width:104px;
+    height:15px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u15 {
+    position:absolute;
+    left:388px;
+    top:136px;
+    width:162px;
+    height:22px;
+    ;
+    ;
+    ;
+    font-family:'Arial';
+    font-size: 13px;
+    color:#000000;
+    font-style:normal;
+    font-weight:normal;
+    text-decoration:none;
+    
+}
+
+.u16 {
+    position:absolute;
+    left:471px;
+    top:270px;
+    width:100px;
+    height:25px;
+    ;
+    ;
+    text-align: center;;
+    font-family:'Arial';
+    font-size: 13px;
+    color:#000000;
+    font-style:normal;
+    font-weight:normal;
+    text-decoration:none;
+    
+}
+
+.u17_line {
+    background-image: url('../027_Estadistico_files/u17_line.png');
+}
+
+.u17_line {
+    position:absolute;
+    left:0px;
+    top:4px;
+    width:676px;
+    height:3px;
+}
+
+.u17 {
+    position:absolute;
+    left:250px;
+    top:116px;
+    width:676px;
+    height:10px;
+    
+}
+
+.u18_line {
+    background-image: url('../027_Estadistico_files/u18_line.png');
+}
+
+.u18_line {
+    position:absolute;
+    left:0px;
+    top:4px;
+    width:87px;
+    height:3px;
+}
+
+.u18 {
+    position:absolute;
+    left:250px;
+    top:274px;
+    width:87px;
+    height:10px;
+    
+}
+
+.u19 {
+    position:absolute;
+    left:598px;
+    top:87px;
+    width:356px;
+    height:19px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u20 {
+    position:absolute;
+    left:581px;
+    top:270px;
+    width:100px;
+    height:25px;
+    ;
+    ;
+    text-align: center;;
+    font-family:'Arial';
+    font-size: 13px;
+    color:#000000;
+    font-style:normal;
+    font-weight:normal;
+    text-decoration:none;
+    
+}
+
+#u21 {
+    position:absolute;
+    left:194px;
+    top:357px;
+    width:709px;
+    height:53px
+}
+
+.u22_normal {
+    background-image: url('../027_Estadistico_files/u22_normal.png');
+}
+
+.u22_container {
+    position:absolute;
+    left:0px;
+    top:0px;
+    width:704px;
+    height:20px;
+}
+
+#u22_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:710px;
+    height:26px;
+}
+
+.u23 {
+    position:absolute;
+    left:2px;
+    top:2px;
+    width:700px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u24_normal {
+    background-image: url('../027_Estadistico_files/u24_normal.png');
+}
+
+.u24_container {
+    position:absolute;
+    left:0px;
+    top:20px;
+    width:704px;
+    height:28px;
+}
+
+#u24_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:710px;
+    height:34px;
+}
+
+.u25 {
+    position:absolute;
+    left:2px;
+    top:2px;
+    width:700px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+#u26 {
+    position:absolute;
+    left:194px;
+    top:453px;
+    width:709px;
+    height:117px
+}
+
+.u27_normal {
+    background-image: url('../027_Estadistico_files/u27_normal.png');
+}
+
+.u27_container {
+    position:absolute;
+    left:0px;
+    top:0px;
+    width:193px;
+    height:20px;
+}
+
+#u27_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:199px;
+    height:26px;
+}
+
+.u28 {
+    position:absolute;
+    left:2px;
+    top:2px;
+    width:189px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u29_normal {
+    background-image: url('../027_Estadistico_files/u29_normal.png');
+}
+
+.u29_container {
+    position:absolute;
+    left:193px;
+    top:0px;
+    width:149px;
+    height:20px;
+}
+
+#u29_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:155px;
+    height:26px;
+}
+
+.u30 {
+    position:absolute;
+    left:2px;
+    top:2px;
+    width:145px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u31_normal {
+    background-image: url('../027_Estadistico_files/u31_normal.png');
+}
+
+.u31_container {
+    position:absolute;
+    left:342px;
+    top:0px;
+    width:205px;
+    height:20px;
+}
+
+#u31_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:211px;
+    height:26px;
+}
+
+.u32 {
+    position:absolute;
+    left:2px;
+    top:2px;
+    width:201px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u33_normal {
+    background-image: url('../027_Estadistico_files/u33_normal.png');
+}
+
+.u33_container {
+    position:absolute;
+    left:547px;
+    top:0px;
+    width:156px;
+    height:20px;
+}
+
+#u33_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:162px;
+    height:26px;
+}
+
+.u34 {
+    position:absolute;
+    left:2px;
+    top:2px;
+    width:152px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u35_normal {
+    background-image: url('../027_Estadistico_files/u35_normal.png');
+}
+
+.u35_container {
+    position:absolute;
+    left:0px;
+    top:20px;
+    width:193px;
+    height:36px;
+}
+
+#u35_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:199px;
+    height:42px;
+}
+
+.u36 {
+    position:absolute;
+    left:2px;
+    top:2px;
+    width:189px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u37_normal {
+    background-image: url('../027_Estadistico_files/u37_normal.png');
+}
+
+.u37_container {
+    position:absolute;
+    left:193px;
+    top:20px;
+    width:149px;
+    height:36px;
+}
+
+#u37_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:155px;
+    height:42px;
+}
+
+.u38 {
+    position:absolute;
+    left:2px;
+    top:2px;
+    width:145px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u39_normal {
+    background-image: url('../027_Estadistico_files/u39_normal.png');
+}
+
+.u39_container {
+    position:absolute;
+    left:342px;
+    top:20px;
+    width:205px;
+    height:36px;
+}
+
+#u39_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:211px;
+    height:42px;
+}
+
+.u40 {
+    position:absolute;
+    left:2px;
+    top:2px;
+    width:201px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u41_normal {
+    background-image: url('../027_Estadistico_files/u41_normal.png');
+}
+
+.u41_container {
+    position:absolute;
+    left:547px;
+    top:20px;
+    width:156px;
+    height:36px;
+}
+
+#u41_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:162px;
+    height:42px;
+}
+
+.u42 {
+    position:absolute;
+    left:2px;
+    top:2px;
+    width:152px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u43_normal {
+    background-image: url('../027_Estadistico_files/u43_normal.png');
+}
+
+.u43_container {
+    position:absolute;
+    left:0px;
+    top:56px;
+    width:193px;
+    height:28px;
+}
+
+#u43_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:199px;
+    height:34px;
+}
+
+.u44 {
+    position:absolute;
+    left:2px;
+    top:2px;
+    width:189px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u45_normal {
+    background-image: url('../027_Estadistico_files/u45_normal.png');
+}
+
+.u45_container {
+    position:absolute;
+    left:193px;
+    top:56px;
+    width:149px;
+    height:28px;
+}
+
+#u45_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:155px;
+    height:34px;
+}
+
+.u46 {
+    position:absolute;
+    left:2px;
+    top:2px;
+    width:145px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u47_normal {
+    background-image: url('../027_Estadistico_files/u47_normal.png');
+}
+
+.u47_container {
+    position:absolute;
+    left:342px;
+    top:56px;
+    width:205px;
+    height:28px;
+}
+
+#u47_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:211px;
+    height:34px;
+}
+
+.u48 {
+    position:absolute;
+    left:2px;
+    top:2px;
+    width:201px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u49_normal {
+    background-image: url('../027_Estadistico_files/u49_normal.png');
+}
+
+.u49_container {
+    position:absolute;
+    left:547px;
+    top:56px;
+    width:156px;
+    height:28px;
+}
+
+#u49_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:162px;
+    height:34px;
+}
+
+.u50 {
+    position:absolute;
+    left:2px;
+    top:2px;
+    width:152px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u51_normal {
+    background-image: url('../027_Estadistico_files/u43_normal.png');
+}
+
+.u51_container {
+    position:absolute;
+    left:0px;
+    top:84px;
+    width:193px;
+    height:28px;
+}
+
+#u51_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:199px;
+    height:34px;
+}
+
+.u52 {
+    position:absolute;
+    left:2px;
+    top:2px;
+    width:189px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u53_normal {
+    background-image: url('../027_Estadistico_files/u45_normal.png');
+}
+
+.u53_container {
+    position:absolute;
+    left:193px;
+    top:84px;
+    width:149px;
+    height:28px;
+}
+
+#u53_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:155px;
+    height:34px;
+}
+
+.u54 {
+    position:absolute;
+    left:2px;
+    top:2px;
+    width:145px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u55_normal {
+    background-image: url('../027_Estadistico_files/u47_normal.png');
+}
+
+.u55_container {
+    position:absolute;
+    left:342px;
+    top:84px;
+    width:205px;
+    height:28px;
+}
+
+#u55_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:211px;
+    height:34px;
+}
+
+.u56 {
+    position:absolute;
+    left:2px;
+    top:2px;
+    width:201px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u57_normal {
+    background-image: url('../027_Estadistico_files/u49_normal.png');
+}
+
+.u57_container {
+    position:absolute;
+    left:547px;
+    top:84px;
+    width:156px;
+    height:28px;
+}
+
+#u57_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:162px;
+    height:34px;
+}
+
+.u58 {
+    position:absolute;
+    left:2px;
+    top:2px;
+    width:152px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+#u59 {
+    position:absolute;
+    left:194px;
+    top:405px;
+    width:709px;
+    height:53px
+}
+
+.u60_normal {
+    background-image: url('../027_Estadistico_files/u60_normal.png');
+}
+
+.u60_container {
+    position:absolute;
+    left:0px;
+    top:0px;
+    width:117px;
+    height:20px;
+}
+
+#u60_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:123px;
+    height:26px;
+}
+
+.u61 {
+    position:absolute;
+    left:2px;
+    top:2px;
+    width:113px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u62_normal {
+    background-image: url('../027_Estadistico_files/u62_normal.png');
+}
+
+.u62_container {
+    position:absolute;
+    left:117px;
+    top:0px;
+    width:587px;
+    height:20px;
+}
+
+#u62_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:593px;
+    height:26px;
+}
+
+.u63 {
+    position:absolute;
+    left:2px;
+    top:2px;
+    width:583px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u64_normal {
+    background-image: url('../027_Estadistico_files/u64_normal.png');
+}
+
+.u64_container {
+    position:absolute;
+    left:0px;
+    top:20px;
+    width:117px;
+    height:28px;
+}
+
+#u64_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:123px;
+    height:34px;
+}
+
+.u65 {
+    position:absolute;
+    left:2px;
+    top:2px;
+    width:113px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u66_normal {
+    background-image: url('../027_Estadistico_files/u66_normal.png');
+}
+
+.u66_container {
+    position:absolute;
+    left:117px;
+    top:20px;
+    width:587px;
+    height:28px;
+}
+
+#u66_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:593px;
+    height:34px;
+}
+
+.u67 {
+    position:absolute;
+    left:2px;
+    top:2px;
+    width:583px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+#u68 {
+    position:absolute;
+    left:194px;
+    top:565px;
+    width:709px;
+    height:53px
+}
+
+.u69_normal {
+    background-image: url('../027_Estadistico_files/u22_normal.png');
+}
+
+.u69_container {
+    position:absolute;
+    left:0px;
+    top:0px;
+    width:704px;
+    height:20px;
+}
+
+#u69_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:710px;
+    height:26px;
+}
+
+.u70 {
+    position:absolute;
+    left:2px;
+    top:2px;
+    width:700px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u71_normal {
+    background-image: url('../027_Estadistico_files/u24_normal.png');
+}
+
+.u71_container {
+    position:absolute;
+    left:0px;
+    top:20px;
+    width:704px;
+    height:28px;
+}
+
+#u71_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:710px;
+    height:34px;
+}
+
+.u72 {
+    position:absolute;
+    left:2px;
+    top:2px;
+    width:700px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+#u73 {
+    position:absolute;
+    left:194px;
+    top:661px;
+    width:709px;
+    height:117px
+}
+
+.u74_normal {
+    background-image: url('../027_Estadistico_files/u27_normal.png');
+}
+
+.u74_container {
+    position:absolute;
+    left:0px;
+    top:0px;
+    width:193px;
+    height:20px;
+}
+
+#u74_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:199px;
+    height:26px;
+}
+
+.u75 {
+    position:absolute;
+    left:2px;
+    top:2px;
+    width:189px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u76_normal {
+    background-image: url('../027_Estadistico_files/u29_normal.png');
+}
+
+.u76_container {
+    position:absolute;
+    left:193px;
+    top:0px;
+    width:149px;
+    height:20px;
+}
+
+#u76_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:155px;
+    height:26px;
+}
+
+.u77 {
+    position:absolute;
+    left:2px;
+    top:2px;
+    width:145px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u78_normal {
+    background-image: url('../027_Estadistico_files/u31_normal.png');
+}
+
+.u78_container {
+    position:absolute;
+    left:342px;
+    top:0px;
+    width:205px;
+    height:20px;
+}
+
+#u78_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:211px;
+    height:26px;
+}
+
+.u79 {
+    position:absolute;
+    left:2px;
+    top:2px;
+    width:201px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u80_normal {
+    background-image: url('../027_Estadistico_files/u33_normal.png');
+}
+
+.u80_container {
+    position:absolute;
+    left:547px;
+    top:0px;
+    width:156px;
+    height:20px;
+}
+
+#u80_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:162px;
+    height:26px;
+}
+
+.u81 {
+    position:absolute;
+    left:2px;
+    top:2px;
+    width:152px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u82_normal {
+    background-image: url('../027_Estadistico_files/u35_normal.png');
+}
+
+.u82_container {
+    position:absolute;
+    left:0px;
+    top:20px;
+    width:193px;
+    height:36px;
+}
+
+#u82_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:199px;
+    height:42px;
+}
+
+.u83 {
+    position:absolute;
+    left:2px;
+    top:2px;
+    width:189px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u84_normal {
+    background-image: url('../027_Estadistico_files/u37_normal.png');
+}
+
+.u84_container {
+    position:absolute;
+    left:193px;
+    top:20px;
+    width:149px;
+    height:36px;
+}
+
+#u84_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:155px;
+    height:42px;
+}
+
+.u85 {
+    position:absolute;
+    left:2px;
+    top:2px;
+    width:145px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u86_normal {
+    background-image: url('../027_Estadistico_files/u39_normal.png');
+}
+
+.u86_container {
+    position:absolute;
+    left:342px;
+    top:20px;
+    width:205px;
+    height:36px;
+}
+
+#u86_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:211px;
+    height:42px;
+}
+
+.u87 {
+    position:absolute;
+    left:2px;
+    top:2px;
+    width:201px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u88_normal {
+    background-image: url('../027_Estadistico_files/u41_normal.png');
+}
+
+.u88_container {
+    position:absolute;
+    left:547px;
+    top:20px;
+    width:156px;
+    height:36px;
+}
+
+#u88_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:162px;
+    height:42px;
+}
+
+.u89 {
+    position:absolute;
+    left:2px;
+    top:2px;
+    width:152px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u90_normal {
+    background-image: url('../027_Estadistico_files/u43_normal.png');
+}
+
+.u90_container {
+    position:absolute;
+    left:0px;
+    top:56px;
+    width:193px;
+    height:28px;
+}
+
+#u90_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:199px;
+    height:34px;
+}
+
+.u91 {
+    position:absolute;
+    left:2px;
+    top:2px;
+    width:189px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u92_normal {
+    background-image: url('../027_Estadistico_files/u45_normal.png');
+}
+
+.u92_container {
+    position:absolute;
+    left:193px;
+    top:56px;
+    width:149px;
+    height:28px;
+}
+
+#u92_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:155px;
+    height:34px;
+}
+
+.u93 {
+    position:absolute;
+    left:2px;
+    top:2px;
+    width:145px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u94_normal {
+    background-image: url('../027_Estadistico_files/u47_normal.png');
+}
+
+.u94_container {
+    position:absolute;
+    left:342px;
+    top:56px;
+    width:205px;
+    height:28px;
+}
+
+#u94_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:211px;
+    height:34px;
+}
+
+.u95 {
+    position:absolute;
+    left:2px;
+    top:2px;
+    width:201px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u96_normal {
+    background-image: url('../027_Estadistico_files/u49_normal.png');
+}
+
+.u96_container {
+    position:absolute;
+    left:547px;
+    top:56px;
+    width:156px;
+    height:28px;
+}
+
+#u96_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:162px;
+    height:34px;
+}
+
+.u97 {
+    position:absolute;
+    left:2px;
+    top:2px;
+    width:152px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u98_normal {
+    background-image: url('../027_Estadistico_files/u43_normal.png');
+}
+
+.u98_container {
+    position:absolute;
+    left:0px;
+    top:84px;
+    width:193px;
+    height:28px;
+}
+
+#u98_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:199px;
+    height:34px;
+}
+
+.u99 {
+    position:absolute;
+    left:2px;
+    top:2px;
+    width:189px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u100_normal {
+    background-image: url('../027_Estadistico_files/u45_normal.png');
+}
+
+.u100_container {
+    position:absolute;
+    left:193px;
+    top:84px;
+    width:149px;
+    height:28px;
+}
+
+#u100_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:155px;
+    height:34px;
+}
+
+.u101 {
+    position:absolute;
+    left:2px;
+    top:2px;
+    width:145px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u102_normal {
+    background-image: url('../027_Estadistico_files/u47_normal.png');
+}
+
+.u102_container {
+    position:absolute;
+    left:342px;
+    top:84px;
+    width:205px;
+    height:28px;
+}
+
+#u102_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:211px;
+    height:34px;
+}
+
+.u103 {
+    position:absolute;
+    left:2px;
+    top:2px;
+    width:201px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u104_normal {
+    background-image: url('../027_Estadistico_files/u49_normal.png');
+}
+
+.u104_container {
+    position:absolute;
+    left:547px;
+    top:84px;
+    width:156px;
+    height:28px;
+}
+
+#u104_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:162px;
+    height:34px;
+}
+
+.u105 {
+    position:absolute;
+    left:2px;
+    top:2px;
+    width:152px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+#u106 {
+    position:absolute;
+    left:194px;
+    top:613px;
+    width:709px;
+    height:53px
+}
+
+.u107_normal {
+    background-image: url('../027_Estadistico_files/u60_normal.png');
+}
+
+.u107_container {
+    position:absolute;
+    left:0px;
+    top:0px;
+    width:117px;
+    height:20px;
+}
+
+#u107_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:123px;
+    height:26px;
+}
+
+.u108 {
+    position:absolute;
+    left:2px;
+    top:2px;
+    width:113px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u109_normal {
+    background-image: url('../027_Estadistico_files/u62_normal.png');
+}
+
+.u109_container {
+    position:absolute;
+    left:117px;
+    top:0px;
+    width:587px;
+    height:20px;
+}
+
+#u109_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:593px;
+    height:26px;
+}
+
+.u110 {
+    position:absolute;
+    left:2px;
+    top:2px;
+    width:583px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u111_normal {
+    background-image: url('../027_Estadistico_files/u64_normal.png');
+}
+
+.u111_container {
+    position:absolute;
+    left:0px;
+    top:20px;
+    width:117px;
+    height:28px;
+}
+
+#u111_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:123px;
+    height:34px;
+}
+
+.u112 {
+    position:absolute;
+    left:2px;
+    top:2px;
+    width:113px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u113_normal {
+    background-image: url('../027_Estadistico_files/u66_normal.png');
+}
+
+.u113_container {
+    position:absolute;
+    left:117px;
+    top:20px;
+    width:587px;
+    height:28px;
+}
+
+#u113_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:593px;
+    height:34px;
+}
+
+.u114 {
+    position:absolute;
+    left:2px;
+    top:2px;
+    width:583px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u115 {
+    position:absolute;
+    left:610px;
+    top:139px;
+    width:125px;
+    height:15px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u116 {
+    position:absolute;
+    left:738px;
+    top:136px;
+    width:149px;
+    height:22px;
+    ;
+    ;
+    ;
+    font-family:'Arial';
+    font-size: 13px;
+    color:#000000;
+    font-style:normal;
+    font-weight:normal;
+    text-decoration:none;
+    
+}
+
+.u117 {
+    position:absolute;
+    left:262px;
+    top:186px;
+    width:97px;
+    height:15px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u118 {
+    position:absolute;
+    left:374px;
+    top:177px;
+    width:467px;
+    height:22px;
+    ;
+    ;
+    ;
+    font-family:'Arial';
+    font-size: 13px;
+    color:#000000;
+    font-style:normal;
+    font-weight:normal;
+    text-decoration:none;
+    
+}
+

@@ -1,0 +1,754 @@
+﻿body {
+    margin: 0px;
+}
+
+div {
+    background-repeat: no-repeat;
+}
+
+.raw_image {
+    width: 100%;
+    height: 100%;
+}
+
+.preload {
+    display: none;
+}
+#main_container {
+}
+
+.form_sketch {
+    border-color: transparent;
+    background-color: transparent;
+}
+
+.u0 {
+    position:absolute;
+    left:498px;
+    top:43px;
+    width:122px;
+    height:24px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u1_line {
+    background-image: url('../018_CatContratacion_files/u1_line.png');
+}
+
+.u1_line {
+    position:absolute;
+    left:0px;
+    top:4px;
+    width:632px;
+    height:3px;
+}
+
+.u1 {
+    position:absolute;
+    left:252px;
+    top:77px;
+    width:632px;
+    height:10px;
+    
+}
+
+.u2 {
+    position:absolute;
+    left:250px;
+    top:142px;
+    width:85px;
+    height:15px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u3 {
+    position:absolute;
+    left:567px;
+    top:223px;
+    width:100px;
+    height:25px;
+    ;
+    ;
+    text-align: center;;
+    font-family:'Arial';
+    font-size: 13px;
+    color:#000000;
+    font-style:normal;
+    font-weight:normal;
+    text-decoration:none;
+    
+}
+
+.u4 {
+    position:absolute;
+    left:457px;
+    top:223px;
+    width:100px;
+    height:25px;
+    ;
+    ;
+    text-align: center;;
+    font-family:'Arial';
+    font-size: 13px;
+    color:#000000;
+    font-style:normal;
+    font-weight:normal;
+    text-decoration:none;
+    
+}
+
+.u5 {
+    position:absolute;
+    left:250px;
+    top:110px;
+    width:92px;
+    height:15px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u6 {
+    position:absolute;
+    left:352px;
+    top:107px;
+    width:180px;
+    height:22px;
+    ;
+    ;
+    ;
+    font-family:'Arial';
+    font-size: 13px;
+    color:#000000;
+    font-style:normal;
+    font-weight:normal;
+    text-decoration:none;
+    
+}
+
+.u7 {
+    position:absolute;
+    left:582px;
+    top:142px;
+    width:85px;
+    height:15px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u8_normal {
+    background-image: url('../018_CatContratacion_files/u8_normal.png');
+}
+
+.u8_container {
+    position:absolute;
+    left:252px;
+    top:291px;
+    width:110px;
+    height:26px;
+}
+
+#u8_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:116px;
+    height:32px;
+}
+
+.u9 {
+    position:absolute;
+    left:2px;
+    top:5px;
+    width:106px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u10_normal {
+    background-image: url('../018_CatContratacion_files/u10_normal.png');
+}
+
+.u10_container {
+    position:absolute;
+    left:372px;
+    top:291px;
+    width:110px;
+    height:26px;
+}
+
+#u10_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:116px;
+    height:32px;
+}
+
+.u11 {
+    position:absolute;
+    left:2px;
+    top:5px;
+    width:106px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u12_normal {
+    background-image: url('../018_CatContratacion_files/u10_normal.png');
+}
+
+.u12_container {
+    position:absolute;
+    left:492px;
+    top:291px;
+    width:110px;
+    height:26px;
+}
+
+#u12_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:116px;
+    height:32px;
+}
+
+.u13 {
+    position:absolute;
+    left:2px;
+    top:5px;
+    width:106px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u14_normal {
+    background-image: url('../018_CatContratacion_files/u10_normal.png');
+}
+
+.u14_container {
+    position:absolute;
+    left:612px;
+    top:291px;
+    width:110px;
+    height:26px;
+}
+
+#u14_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:116px;
+    height:32px;
+}
+
+.u15 {
+    position:absolute;
+    left:2px;
+    top:5px;
+    width:106px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u16_normal {
+    background-image: url('../018_CatContratacion_files/u10_normal.png');
+}
+
+.u16_container {
+    position:absolute;
+    left:732px;
+    top:291px;
+    width:110px;
+    height:26px;
+}
+
+#u16_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:116px;
+    height:32px;
+}
+
+.u17 {
+    position:absolute;
+    left:2px;
+    top:5px;
+    width:106px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+#u18 {
+    position:absolute;
+    left:250px;
+    top:302px;
+    width:633px;
+    height:621px;
+    overflow:hidden;
+}
+
+#pd0u18 {
+    position:absolute;
+    left:0px;
+    top:0px;
+    width:633px;
+    height:621px;
+    
+}
+
+.u19 {
+    position:absolute;
+    left:275px;
+    top:352px;
+    width:40px;
+    height:15px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u20 {
+    position:absolute;
+    left:325px;
+    top:349px;
+    width:85px;
+    height:22px;
+    ;
+    ;
+    ;
+    font-family:'Arial';
+    font-size: 13px;
+    color:#000000;
+    font-style:normal;
+    font-weight:normal;
+    text-decoration:none;
+    
+}
+
+.u21 {
+    position:absolute;
+    left:582px;
+    top:107px;
+    width:92px;
+    height:15px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u22 {
+    position:absolute;
+    left:684px;
+    top:104px;
+    width:200px;
+    height:22px;
+    ;
+    ;
+    ;
+    font-family:'Arial';
+    font-size: 13px;
+    color:#000000;
+    font-style:normal;
+    font-weight:normal;
+    text-decoration:none;
+    
+}
+
+.u23 {
+    position:absolute;
+    left:432px;
+    top:347px;
+    width:423px;
+    height:25px;
+    ;
+    ;
+    text-align: left;;
+    font-family:'Arial';
+    font-size: 13px;
+    color:#000000;
+    font-style:normal;
+    font-weight:normal;
+    text-decoration:none;
+    
+}
+
+.u24_normal {
+    background-image: url('../018_CatContratacion_files/u24_normal.png');
+}
+
+.u24_container {
+    position:absolute;
+    left:290px;
+    top:437px;
+    width:553px;
+    height:284px;
+}
+
+#u24_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:559px;
+    height:290px;
+}
+
+.u25 {
+    position:absolute;
+    left:2px;
+    top:134px;
+    width:549px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u26 {
+    position:absolute;
+    left:299px;
+    top:414px;
+    width:92px;
+    height:25px;
+    ;
+    ;
+    text-align: left;;
+    font-family:'Arial';
+    font-size: 13px;
+    color:#000000;
+    font-style:normal;
+    font-weight:normal;
+    text-decoration:none;
+    
+}
+
+.u28 {
+    position:absolute;
+    left:16px;
+    top:0px;
+    width:27px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u30 {
+    position:absolute;
+    left:16px;
+    top:0px;
+    width:27px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u31 {
+    position:absolute;
+    left:317px;
+    top:567px;
+    width:67px;
+    height:15px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u32 {
+    position:absolute;
+    left:384px;
+    top:564px;
+    width:276px;
+    height:22px;
+    ;
+    ;
+    ;
+    font-family:'Arial';
+    font-size: 13px;
+    color:#000000;
+    font-style:normal;
+    font-weight:normal;
+    text-decoration:none;
+    
+}
+
+.u33 {
+    position:absolute;
+    left:415px;
+    top:488px;
+    width:56px;
+    height:15px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u34 {
+    position:absolute;
+    left:481px;
+    top:485px;
+    width:180px;
+    height:22px;
+    ;
+    ;
+    ;
+    font-family:'Arial';
+    font-size: 13px;
+    color:#000000;
+    font-style:normal;
+    font-weight:normal;
+    text-decoration:none;
+    
+}
+
+.u35 {
+    position:absolute;
+    left:706px;
+    top:487px;
+    width:119px;
+    height:209px;
+    ;
+    ;
+    ;
+    font-family:'Arial';
+    font-size: 13px;
+    color:#000000;
+    font-style:normal;
+    font-weight:normal;
+    text-decoration:none;
+    
+}
+
+.u36 {
+    position:absolute;
+    left:706px;
+    top:451px;
+    width:119px;
+    height:30px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u37 {
+    position:absolute;
+    left:317px;
+    top:616px;
+    width:343px;
+    height:80px;
+    ;
+    ;
+    text-align: left;;
+    font-family:'Arial';
+    font-size: 13px;
+    color:#000000;
+    font-style:normal;
+    font-weight:normal;
+    text-decoration:none;
+    
+}
+
+.u38_line {
+    background-image: url('../018_CatContratacion_files/u38_line.png');
+}
+
+.u38_line {
+    position:absolute;
+    left:0px;
+    top:4px;
+    width:167px;
+    height:3px;
+}
+
+.u38 {
+    position:absolute;
+    left:493px;
+    top:547px;
+    width:167px;
+    height:10px;
+    
+}
+
+.u39 {
+    position:absolute;
+    left:317px;
+    top:541px;
+    width:176px;
+    height:15px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u40 {
+    position:absolute;
+    left:317px;
+    top:593px;
+    width:256px;
+    height:15px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u41 {
+    position:absolute;
+    left:677px;
+    top:223px;
+    width:100px;
+    height:25px;
+    ;
+    ;
+    text-align: center;;
+    font-family:'Arial';
+    font-size: 13px;
+    color:#000000;
+    font-style:normal;
+    font-weight:normal;
+    text-decoration:none;
+    
+}
+
+.u42 {
+    position:absolute;
+    left:436px;
+    top:181px;
+    width:85px;
+    height:15px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u43 {
+    position:absolute;
+    left:537px;
+    top:174px;
+    width:180px;
+    height:22px;
+    ;
+    ;
+    ;
+    font-family:'Arial';
+    font-size: 13px;
+    color:#000000;
+    font-style:normal;
+    font-weight:normal;
+    text-decoration:none;
+    
+}
+
+.u44 {
+    position:absolute;
+    left:352px;
+    top:138px;
+    width:175px;
+    height:22px;
+    ;
+    ;
+    ;
+    font-family:'Arial';
+    font-size: 13px;
+    color:#000000;
+    font-style:normal;
+    font-weight:normal;
+    text-decoration:none;
+    
+}
+
+.u45 {
+    position:absolute;
+    left:684px;
+    top:138px;
+    width:200px;
+    height:22px;
+    ;
+    ;
+    ;
+    font-family:'Arial';
+    font-size: 13px;
+    color:#000000;
+    font-style:normal;
+    font-weight:normal;
+    text-decoration:none;
+    
+}
+

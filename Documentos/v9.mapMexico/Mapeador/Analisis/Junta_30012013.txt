@@ -1,0 +1,11 @@
+Al recibir el archivo se almacenan todas las secuencias en la BD de bitacora.
+
+Se debe de persistir en varios puntos.
+
+No se valida archivo duplicado. Todo lo que llega se procesa.
+
+Tabla por cliente.
+
+Se requiere recibir arhivos por filesystem y otro por web services.
+
+Bancomer actualiza los casos de uso, define el modelo de datos de las tablas de persistencia. Asi mismo defniran las reglas de negocio.
