@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mx.com.bbva.bancomer.commons.persistence.dao.BbvaIMyBatisMapper">
+	<select  id="read" resultType="mx.com.bbva.bancomer.mapper.persistence.entity.BbvaEstatusVO">
+		SELECT 	CD_ST_OBJETO	cdStObjeto,
+				CD_ST_CLAVE 	cdStClave,
+				NB_ST_OBJETO	nbStObjeto,
+				TX_ST_OBJETO	txStObjeto,
+				NB_TABLA		nbTabla
+		FROM TGM534_ST_OBJETO
+		ORDER BY CD_ST_OBJETO
+	</select>
+
+</mapper>
