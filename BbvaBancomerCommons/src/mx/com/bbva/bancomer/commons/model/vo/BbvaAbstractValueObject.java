@@ -1,7 +1,8 @@
 package mx.com.bbva.bancomer.commons.model.vo;
 
 import java.lang.reflect.Method;
-import java.util.Arrays;
+
+import org.apache.log4j.Logger;
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * Informacion Confidencial:
@@ -29,12 +30,9 @@ public 	abstract class 		BbvaAbstractValueObject
 	{
 	//  Atributos     - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 	//	Privados|estaticos
-	private static final long serialVersionUID = -966884264279020290L;
+	private static final long 						serialVersionUID	= -966884264279020290L;
+	private static final org.apache.log4j.Logger 	logger				= Logger.getLogger( BbvaAbstractValueObject.class );
 
-	//	Publicos|estaticos
-	public static final java.lang.String XML	= "xml";
-	public static final java.lang.String JSON	= "json";
-	
 	//  Metodos       - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 	//	Publicos
 	/* (non-Javadoc)
@@ -43,33 +41,39 @@ public 	abstract class 		BbvaAbstractValueObject
 	@Override
 	public java.lang.String toString()
 		{
+		//	En este nivel solo se debe permitir registro de bitacora a nivel de depuracion.
+		//	Un nivel mas alto puede interferir en el desempeño de la aplicacion.
+		logger.debug( "Entrada toString -- OK" );
+		//	Creamos un buffer para la representacion texto plano del objeto actual.
+		//	En primer lugar imprimimos el nombre de la clase.
 		final	StringBuffer stringBuffer = new StringBuffer( "[" + this.getClass().getSimpleName() + ":" );
 		
 		try {
-			//
+			//	Obtenemos todos lo metodos de la clase -Constructores, propiedades, heredados de Object-
 			final Method[] methodList = this.getClass().getDeclaredMethods();
-			Arrays.sort( methodList );
-			//
+			//	Recorremos el arreglo y filtramos para obtener solamente los metodos get.
+			//	Impime correctamente atributos de tipo: primitivo, Cadena, Booleano, Wrappers, List, VO, DTO.
 			for ( final Method method : methodList )
 				if ( method.getName().startsWith( "get" ) )
 					try	{
-						// TODO: Que imprime con Lista, Colecciones, Mapas, Arreglos
+						logger.debug( "Agregando atributo --" + method.getName().substring( 3 ) + "--" );
 						stringBuffer.append( method.getName().substring( 3 ) + "=" + method.invoke( this ) + "," );
 						}
 					catch ( Exception exception ) 
 						{
-						// TODO: Eliminar despues de las pruebas unitarias
-						// OJO:  Callar la excepcion
-						exception.printStackTrace();
+						// FIXME: Verificar si se lanza algun tipo de excepcion de infraestructura en este punto.
+						logger.warn( "Error al agregar atributo --" + method.getName().substring( 3 ) + "--" + exception.getMessage() );
 						}
-			//
+			//	La cadena se construyo exitosamente.
 			stringBuffer.append( "]" );
+			logger.debug( "Datos de Salida toString -- " + stringBuffer.toString().replaceFirst( ",]", "]" ) );
+			logger.debug( "Salida toString          -- OK" );
 			} 
 		catch ( SecurityException securityException ) 
 			{
-			// TODO: Eliminar despues de las pruebas unitarias
-			// OJO:  Callar la excepcion
-			securityException.printStackTrace();
+			//	FIXME: Existen restricciones de seguridad para el usuario que ejecuta el contenedor web|ejb.
+			//         Verificar si se lanza algun tipo de excepcion de infraestructura en este punto.
+			logger.warn( "Error en toString --" + securityException.getMessage() );
 			}
 		return stringBuffer.toString().replaceFirst( ",]", "]" );
 		}

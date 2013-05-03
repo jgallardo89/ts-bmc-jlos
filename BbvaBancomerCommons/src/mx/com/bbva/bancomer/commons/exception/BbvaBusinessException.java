@@ -1,4 +1,4 @@
-package mx.com.bbva.bancomer.commons.exception.persistence;
+package mx.com.bbva.bancomer.commons.exception;
 
 public class BbvaBusinessException extends Exception {
 
