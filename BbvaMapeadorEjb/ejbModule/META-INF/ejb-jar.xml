@@ -1,5 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ejb-jar version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/ejb-jar_3_0.xsd">
   <display-name>BbvaMT101Ejb </display-name>
+  
+  	<enterprise-beans>
+		<session>
+			<description>Objeto de Negocio para el(los) Caso(s) de Uso(s) Consulta de Catalogo.</description>
+			<ejb-name>BbvaCatalogoHelperBO</ejb-name>
+			<ejb-class>mx.com.bbva.bancomer.mapper.business.BbvaCatalogoHelperBO</ejb-class>
+			<session-type>Stateless</session-type>
+		</session>
+		<session>
+			<description>Objeto de Negocio para el(los) Caso(s) de Uso(s) Mantenimiento de Usuario.</description>
+			<ejb-name>BbvaUsuarioBO</ejb-name>
+			<ejb-class>mx.com.bbva.bancomer.mapper.business.BbvaUsuarioBO</ejb-class>
+			<session-type>Stateless</session-type>
+		</session>
+	</enterprise-beans>
+
   <ejb-client-jar>BbvaMT101EjbClient.jar</ejb-client-jar>   
+  
  </ejb-jar>
