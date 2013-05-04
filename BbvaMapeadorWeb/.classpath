@@ -21,7 +21,7 @@
 			<attribute name="owner.project.facets" value="java"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry combineaccessrules="false" kind="src" path="/BbvaMapeadorEjb"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/BbvaBancomerCommons"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/BbvaMapeadorEjb"/>
 	<classpathentry kind="output" path="WebContent/WEB-INF/classes"/>
 </classpath>

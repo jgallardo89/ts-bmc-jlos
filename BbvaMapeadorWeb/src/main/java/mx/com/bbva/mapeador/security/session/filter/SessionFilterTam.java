@@ -1,4 +1,4 @@
-package mx.com.bbva.mapeador.security.session;
+package mx.com.bbva.mapeador.security.session.filter;
 import java.io.IOException;
 import java.util.Enumeration;
 import java.util.HashMap;
