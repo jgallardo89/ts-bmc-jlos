@@ -3,8 +3,9 @@
 	<name>BbvaMapeadorWebEAR</name>
 	<comment></comment>
 	<projects>
-		<project>BbvaMapeadorWeb</project>
+		<project>BbvaBancomerCommons</project>
 		<project>BbvaMapeadorEjb</project>
+		<project>BbvaMapeadorWeb</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
