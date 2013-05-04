@@ -5,15 +5,135 @@
 <zk>
 	<window border="0" width="100%" height="70%"
 		apply="org.zkoss.bind.BindComposer"
-		viewModel="@id('vm') @init('mx.com.bbva.mt101.ui.commons.viewmodel.estatusObjeto.EstatusObjetoController')"
+		viewModel="@id('vm') @init('mx.com.bbva.mapeador.ui.commons.viewmodel.estatusObjeto.EstatusObjetoController')"
 		id="estatusObjetoWindows">
 		<include src="../../pages/styles.zul" />
 		<div sclass="BODY" height="100%">
-			<groupbox height="100%">			
-							
-			</groupbox>
-			<intbox value="@load(vm.strMonedaCbxId)" id="moneda" visible="false"></intbox>
-			<textbox value="@load(vm.strCdContrato)" id="cdContrato" visible="false"></textbox>
+			<groupbox height="100%">
+				<caption sclass="pageTitle" label="Sistema > Estatus Objeto > Catálogo de Estatus"></caption>		
+					<portallayout maximizedMode="whole" id="portalLayoutEstatusObjeto"
+					width="100%" height="100%">
+					<portalchildren>
+						<panel width="100%" sclass="sectionPanelTitle" id="datosEstatusObjeto"
+							title="Catalogo" collapsible="true" style="margin-bottom:10px"
+							border="normal">
+							<caption sclass="sectionPanelTitle" label="Estatus Objeto"></caption>
+							<panelchildren>
+								<div align="center">
+									<grid width="100%" style="border:0" oddRowSclass="row2">
+										<columns>
+											<column width="20%" />
+											<column width="25%" />
+											<column width="20%" />
+											<column width="25%" />
+										</columns>
+										<rows>
+											<row sclass="row2">
+												<div align="right">
+													<label width="100%" sclass="labelFill" value="Pantalla:"></label>
+												</div>
+												<combobox id="pantallas" model="@load(vm.estatusObjetoDTO.pantallaVOs)"  width="100%" height="100%" onChange="selectedValuePantallas()">		
+													<template name="model">										
+														<comboitem value="@load(each.idPantalla)" label="@load(each.nombrePantalla)" height="100%"/>
+													</template>																								
+												</combobox>	
+												<div align="right">
+													<label width="100%" sclass="labelFill" value="Nombre Estatus Objeto:"></label>												
+												</div>
+												<textbox sclass="textboxUpperCase" maxlength="50"
+													id="nombreEstatusObjeto" value="@load(vm.estatusObjetoDTO.estatusObjetoVO.nombreEstatusObjeto)" width="100%"></textbox>																													
+											</row>
+											<row sclass="row2">
+												<div align="right">
+													<label width="100%" sclass="labelFill" value="Descripción Estatus Objeto:"></label>												
+												</div>
+												<textbox sclass="textboxUpperCase" maxlength="50"
+													id="descripcionEstatusObjeto" value="@load(vm.estatusObjetoDTO.estatusObjetoVO.descripcionEstatusObjeto)" width="100%"></textbox>												
+												<div align="right">
+													<label width="100%" sclass="labelFill" value="Status:"></label>												
+												</div>
+												<combobox sclass="textboxUpperCase" readonly="true" onChange="selectedValueStatusClave()"
+													id="statusClave" width="70%" model="@load(vm.estatusObjetoDTO.estatusClaveVOs)" autodrop="true">		
+													<template name="model">										
+														<comboitem value="@load(each.idEstatusClave)" label="@load(each.nombreEstatusClave)" height="100%"/>
+													</template>																								
+												</combobox>																														
+											</row>
+											<row sclass="row2">												
+												<div align="right" width="70%">
+													<button sclass="button" label="Limpiar" id="limpiarBtn" onClick="@command('clean')" ></button>
+												</div>	
+												<div align="right" width="70%">
+													<button sclass="button" label="Guardar" id="guardarBtn" onClick="@command('save')"></button>
+												</div>
+												<div align="right" width="70%">
+													<button sclass="button" label="Consultar" id="consultarBtn" onClick="@command('reenviarArchivo')"></button>
+												</div>																													
+												<div align="right" width="70%">
+													<button sclass="button" label="Eliminar" id="eliminarBtn" onClick="@command('reenviarArchivo')"></button>
+												</div>
+											</row>
+										</rows>								
+									</grid>
+								</div>
+							</panelchildren>										
+						</panel>
+					</portalchildren>
+					<portalchildren width="100%" style="padding: 5px">
+						<panel sclass="sectionPanelTitle" width="100%" id="panelUsuarioMapeador"
+							title="Resultados Usuario Mapeador" collapsible="true"
+							style="margin-bottom:10px">
+							<caption sclass="sectionPanelTitle" label="Lista de Usuarios"></caption>
+							<panelchildren>
+								<grid width="99.7%" id="clientesGrid" mold="paging"
+									model="@load(vm.estatusObjetoDTO.estatusObjetoVOs)" pagingPosition="both" pageSize="5"
+									vflex="true" height="100%">									
+									<columns sizable="true" menupopup="auto">
+										<column hflex="0" align="center" image="/img/pencil-small.png" 
+											width="5%"></column>
+										<column hflex="1" label="Pantalla" style="text-wrap: normal;"
+											width="10%" sort="auto(vm.estatusObjetoDTO.estatusObjetoVO.nombreTabla)"></column>
+										<column hflex="1" label="Nombre Estatus Objeto" width="20%"
+											sort="vm.estatusObjetoDTO.estatusObjetoVO.nombreEstatusObjeto"></column>
+										<column hflex="1" label="Descripción Estatus Objeto" width="10%"
+											sort="auto(vm.estatusObjetoDTO.estatusObjetoVO.descripcionEstatusObjeto)"></column>
+										<column hflex="1" label="Estatus" width="10%"
+											sort="auto(vm.estatusObjetoDTO.estatusObjetoVO.nombreStatusClave)"></column>										
+									</columns>
+									<template name="model">
+										<row>
+											<image src="/img/pencil-small.png" onClick="@command('readSelected',idEstatusObjeto=each)"></image>											
+											<label hflex="1" value="@load(each.nombreTabla)"></label>
+											<label hflex="1" value="@load(each.nombreEstatusObjeto)"></label>
+											<label hflex="1" value="@load(each.descripcionEstatusObjeto)"></label>
+											<label hflex="1" value="@load(each.nombreStatusClave)"></label>																						
+										</row>
+									</template>									
+								</grid>
+							</panelchildren>
+						</panel>
+					</portalchildren>
+				</portallayout>								
+			</groupbox>	
+			<textbox id="idPantalla" value="@load(vm.estatusObjetoDTO.idPantalla)" visible="false"></textbox>
+			<textbox id="idEstatusClave" value="@load(vm.estatusObjetoDTO.idEstatusClave)" visible="false"></textbox>
+			<textbox id="idEstatusObjeto" value="@load(vm.estatusObjetoDTO.estatusObjetoVO.idEstatusObjeto)" visible="false"></textbox>
 		</div>
+		<zscript>
+			public void selectedValuePantallas(){
+				try{
+					idPantalla.setValue(pantallas.getSelectedItem().getValue().toString());
+				}catch(Exception ex){
+					idPantalla.setValue(null);
+				}
+			}
+			public void selectedValueStatusClave(){
+				try{
+					idEstatusClave.setValue(statusClave.getSelectedItem().getValue().toString());
+				}catch(Exception ex){
+					idEstatusClave.setValue(null);
+				}
+			}			
+		</zscript>
 	</window>
 </zk>

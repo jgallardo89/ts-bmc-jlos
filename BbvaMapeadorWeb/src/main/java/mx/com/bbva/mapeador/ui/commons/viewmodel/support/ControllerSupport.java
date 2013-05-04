@@ -5,8 +5,12 @@ import mx.com.bbva.mapeador.security.session.user.SessionUser;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.zkoss.bind.annotation.AfterCompose;
+import org.zkoss.bind.annotation.ContextParam;
+import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.select.SelectorComposer;
+import org.zkoss.zk.ui.select.Selectors;
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * Informacion Confidencial:
@@ -60,5 +64,5 @@ public class ControllerSupport extends SelectorComposer<Component>{
 	 */
 	public void setInvoker(BbvaAbstractCommandInvoker invoker) {
 		this.invoker = invoker;
-	}
+	}	
 }
