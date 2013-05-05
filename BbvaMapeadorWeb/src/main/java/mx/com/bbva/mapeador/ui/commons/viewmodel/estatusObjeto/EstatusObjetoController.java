@@ -16,11 +16,11 @@ import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Textbox;
 
+import mx.com.bbva.bancomer.bussinnes.model.vo.EstatusClaveVO;
+import mx.com.bbva.bancomer.bussinnes.model.vo.EstatusObjetoVO;
+import mx.com.bbva.bancomer.bussinnes.model.vo.PantallaVO;
 import mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject;
-import mx.com.bbva.bancomer.commons.model.dto.EstatusObjetoDTO;
-import mx.com.bbva.bancomer.commons.model.vo.EstatusObjetoVO;
-import mx.com.bbva.bancomer.commons.model.vo.EstatusClaveVO;
-import mx.com.bbva.bancomer.commons.model.vo.PantallaVO;
+import mx.com.bbva.bancomer.estatusobjeto.dto.EstatusObjetoDTO;
 import mx.com.bbva.mapeador.ui.commons.controller.IController;
 import mx.com.bbva.mapeador.ui.commons.viewmodel.support.ControllerSupport;
 
