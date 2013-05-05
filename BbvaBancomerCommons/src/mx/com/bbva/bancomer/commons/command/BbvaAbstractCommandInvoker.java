@@ -39,15 +39,14 @@ public class BbvaAbstractCommandInvoker
 
 	//  Atributos     - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 	//	Privados
-	//	FIXME: Esta configuracion se puede granularizar en archivos de propiedades.
-	private java.util.Map< java.lang.String, java.lang.String > 											dtoMap;
+	private java.util.Properties 	dtoMap;
+	private java.util.Properties	cmdMap;
 	private java.util.Map< java.lang.String, mx.com.bbva.bancomer.commons.business.BbvaIBusinessObject > 	boMap;
-	private java.util.Map< java.lang.String, java.lang.String >												cmdMap;
 
 	//	Propiedades
 //	public final java.util.Map<java.lang.String, java.lang.String> getDtoMap()
 //		{	return dtoMap;					}
-	public final void setDtoMap( final java.util.Map< java.lang.String, java.lang.String > dtoMap )
+	public final void setDtoMap( final java.util.Properties dtoMap )
 		{	this.dtoMap = dtoMap;			}
 
 //	public final java.util.Map<java.lang.String, mx.com.bbva.bancomer.commons.business.BbvaIBusinessObject> getBoMap()
@@ -57,7 +56,7 @@ public class BbvaAbstractCommandInvoker
 
 //	public final java.util.Map<java.lang.String, java.lang.String> getCmdMap()
 //		{	return cmdMap;					}
-	public final void setCmdMap( final java.util.Map< java.lang.String, java.lang.String > cmdMap )
+	public final void setCmdMap( final java.util.Properties cmdMap )
 		{	this.cmdMap = cmdMap;			}
 	
 	//  Metodos       - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -85,13 +84,12 @@ public class BbvaAbstractCommandInvoker
 																.getSimpleName();
 		//	Buscamos dentro de nuestro mapeo DTO - BO.
 		//	Primero obtenemos el ID del Objeto de Negocio. Con ese ID obtenemos el BO. 
-		final	String 				boId				= dtoMap.get( dtoName );
+		final	String 				boId				= (String)dtoMap.get( dtoName );
 		final	BbvaIBusinessObject bbvaIBusinessObject	= boMap.get	( boId	  );
 		logger.debug( "Objeto de Negocio       -- " + bbvaIBusinessObject.getClass() );
 		try {
 			//	Obtenemos la accion que se debe ejecutar.
-			final	String	commandAction	= cmdMap.get( bbvaAbstractDataTransferObject.getCommandId()
-																						.toString() );
+			final	String	commandAction	= (String)cmdMap.get( bbvaAbstractDataTransferObject.getCommandId().toString() );
 
 			//	Obtenemos el metodo que se debe ejecutar.
 			final	Method method	= bbvaIBusinessObject.getClass()
@@ -103,7 +101,7 @@ public class BbvaAbstractCommandInvoker
 
 			//	Si la respuesta es diferente de 0000 construimos una excepcion de negocio y la lanzamos.
 			if ( !bbvaAbstractDTO.getErrorCode().equals( BbvaAbstractDataTransferObject.RESPONSECODEOK ) )	
-				throw new BbvaBusinessException( bbvaAbstractDTO.getErrorCode(), bbvaAbstractDTO.getErrorDescription() );
+				throw new BbvaBusinessException( bbvaAbstractDTO.getErrorCode() + "|BbvaAbstractCommandInvoker|invoke"  );
 
 			//	Regresamos a la capa de presentacion.
 			logger.debug( "Datos de Salida invoke -- " + bbvaAbstractDTO.toString() );
@@ -116,13 +114,13 @@ public class BbvaAbstractCommandInvoker
 			//	       Cualquier error de invocacion es responsabilidad de la implementacion, es decir, algo esta mal en la configuracion
 			//         de Spring de estos componentes. 
 			String errorCode = "";
-			if ( exception instanceof SecurityException 		)	errorCode= "9998" ;
-			if ( exception instanceof NoSuchMethodException 	)	errorCode= "9997" ;
-			if ( exception instanceof IllegalArgumentException 	)	errorCode= "9996" ;
-			if ( exception instanceof IllegalAccessException 	)	errorCode= "9995" ;
-			if ( exception instanceof InvocationTargetException )	errorCode= "9994" ;
+			if ( exception instanceof SecurityException 		)	errorCode= "8899" ;
+			if ( exception instanceof NoSuchMethodException 	)	errorCode= "8898" ;
+			if ( exception instanceof IllegalArgumentException 	)	errorCode= "8897" ;
+			if ( exception instanceof IllegalAccessException 	)	errorCode= "8896" ;
+			if ( exception instanceof InvocationTargetException )	errorCode= "8896" ;
 
-			throw new BbvaBusinessException( errorCode, exception.getMessage() + "\n" + exception.getCause() );
+			throw new BbvaBusinessException( errorCode + "|BbvaAbstractCommandInvoker|invoke", exception );
 			} 
 		}
 	}	

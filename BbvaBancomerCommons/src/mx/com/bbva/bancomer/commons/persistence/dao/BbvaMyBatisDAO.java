@@ -59,11 +59,11 @@ public 	class 		BbvaMyBatisDAO
 		logger.debug ( "Datos de Entrada               -- " + queryName );
 		try {
 			//	Programacion Defensiva: Verificamos el contenido del parametro queryName.
-			if ( queryName == null || queryName.trim().equals( "" ) )	throw new BbvaDataBaseException( "9999|validateQueryStructure" );
+			if ( queryName == null || queryName.trim().equals( "" ) )	throw new BbvaDataBaseException( "9950|validateQueryStructure" );
 
 			//	                        Verificamos cada uno de los elementos de la consulta.
 			final String[] stringSplit = queryName.split("[|]");
-			if ( stringSplit.length != 2 )								throw new BbvaDataBaseException( "9998|validateQueryStructure" );
+			if ( stringSplit.length != 2 )								throw new BbvaDataBaseException( "9951|validateQueryStructure" );
 			logger.debug ( "queryName -- OK" );
 
 			//	                        Verificamos la existencia del mapeador.
@@ -79,12 +79,10 @@ public 	class 		BbvaMyBatisDAO
 			logger.debug ( "Salida -- validateQueryStructure Ejecutado -- OK" );
 			return clase.getName() + "." + metodo.getName();
 			} 
-		catch ( SecurityException securityException )
-			{	throw new BbvaDataBaseException( "9997|validateQueryStructure", securityException );			} 
-		catch ( ClassNotFoundException classNotFoundException )
-			{	throw new BbvaDataBaseException( "9996|validateQueryStructure", classNotFoundException );		} 
-		catch ( NoSuchMethodException noSuchMethodException )
-			{	throw new BbvaDataBaseException( "9995,validateQueryStructure", noSuchMethodException );		}	
+		catch ( Exception exception ) 
+			{
+			throw new BbvaDataBaseException( "9906|queryForObject", exception );
+			}
 		}
 	//  Metodos       - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 	//	Publicos	
@@ -101,7 +99,7 @@ public 	class 		BbvaMyBatisDAO
 			final T t = this.getSqlSession().selectOne( this.validateQueryStructure( queryName ) );
 
 			//	TODO: ¿Si la consulta no trae registros lanzamos una excepcion? 
-			if ( t == null )				throw new BbvaDataBaseException( "9994|queryForObject" );
+			if ( t == null )				throw new BbvaDataBaseException( "9952|queryForObject" );
 
 			//	Impimimos el resultado.
 			//	Regresamos el primer elemento de la lista.
@@ -111,7 +109,7 @@ public 	class 		BbvaMyBatisDAO
 			} 
 		catch ( Exception exception ) 
 			{
-			throw new BbvaDataBaseException( "9993|queryForObject", exception );
+			throw new BbvaDataBaseException( "9906|queryForObject", exception );
 			}
 		}
 	/* (non-Javadoc)
@@ -128,7 +126,7 @@ public 	class 		BbvaMyBatisDAO
 			String query = this.validateQueryStructure( queryName );
 
 			//	Verificamos el parametro bbvaAbstractValueObject.
-			if ( bbvaAbstractValueObject == null )		throw new BbvaDataBaseException( "9992|queryForObject" );
+			if ( bbvaAbstractValueObject == null )		throw new BbvaDataBaseException( "9953|queryForObject" );
 
 			//	Ejecutamos la consulta.
 			int affectedRows = 0;
@@ -137,7 +135,7 @@ public 	class 		BbvaMyBatisDAO
 			if ( query.contains( "delete" ) ) affectedRows = this.getSqlSession().delete	( query, bbvaAbstractValueObject );
 
 			//	TODO: ¿Si la consulta no afecta registros lanzamos una excepcion? 
-			if ( affectedRows == 0 )	throw new BbvaDataBaseException( "9991|queryForObject" );
+			if ( affectedRows == 0 )	throw new BbvaDataBaseException( "9954|queryForObject" );
 
 			//	TODO: Si la consulta es create ¿Consultamos nuevamente el objeto para traer los id's?
 			if ( query.contains( "create" ) ) query = query.replace( "create", "readByAllRequired" );
@@ -146,7 +144,7 @@ public 	class 		BbvaMyBatisDAO
 				final T t = this.getSqlSession().selectOne( query, bbvaAbstractValueObject );
 			
 				//	TODO: ¿Si la consulta no trae registros lanzamos una excepcion? 
-				if ( t == null )		throw new BbvaDataBaseException( "9990|queryForObject" );
+				if ( t == null )		throw new BbvaDataBaseException( "9955|queryForObject" );
 
 				//	Impimimos el resultado.
 				logger.debug ( "Datos de Salida                    -- " + t );
@@ -160,7 +158,7 @@ public 	class 		BbvaMyBatisDAO
 			} 
 		catch ( Exception exception ) 
 			{
-			throw new BbvaDataBaseException( "9993|queryForObject", exception );
+			throw new BbvaDataBaseException( "9906|queryForObject", exception );
 			}
 		}
 	/* (non-Javadoc)
@@ -176,7 +174,7 @@ public 	class 		BbvaMyBatisDAO
 			final	List<T>	list = this.getSqlSession().selectList( this.validateQueryStructure( queryName ) );
 
 			//	TODO: ¿Si la consulta no trae registros lanzamos una excepcion? 
-			if ( list == null || list.isEmpty() )	throw new BbvaDataBaseException( "9989|queryForList" );
+			if ( list == null || list.isEmpty() )	throw new BbvaDataBaseException( "9956|queryForList" );
 
 			//	Impimimos el resultado.
 			for ( final T bbvaAbstractValueObject : list )
@@ -188,7 +186,7 @@ public 	class 		BbvaMyBatisDAO
 			} 
 		catch ( Exception exception ) 
 			{
-			throw new BbvaDataBaseException( "9993|queryForList", exception );
+			throw new BbvaDataBaseException( "9906|queryForList", exception );
 			}
 		}
 	/* (non-Javadoc)
@@ -205,7 +203,7 @@ public 	class 		BbvaMyBatisDAO
 			String query = this.validateQueryStructure( queryName );
 
 			//	Verificamos el parametro bbvaAbstractValueObject.
-			if ( bbvaAbstractValueObject == null )		throw new BbvaDataBaseException( "9988|queryForList" );
+			if ( bbvaAbstractValueObject == null )		throw new BbvaDataBaseException( "9957|queryForList" );
 
 			//	Ejecutamos la consulta.
 			int affectedRows = 0;
@@ -221,7 +219,7 @@ public 	class 		BbvaMyBatisDAO
 				final List<T> list = this.getSqlSession().selectList( query, bbvaAbstractValueObject );
 			
 				//	TODO: ¿Si la consulta no trae registros lanzamos una excepcion? 
-				if ( list == null || list.isEmpty() )	throw new BbvaDataBaseException( "9986|queryForList" );
+				if ( list == null || list.isEmpty() )	throw new BbvaDataBaseException( "9958|queryForList" );
 
 				//	Impimimos el resultado.
 				for ( final T t : list )
@@ -235,7 +233,7 @@ public 	class 		BbvaMyBatisDAO
 			} 
 		catch ( Exception exception ) 
 			{
-			throw new BbvaDataBaseException( "9993|queryForList", exception );
+			throw new BbvaDataBaseException( "9906|queryForList", exception );
 			}
 		}
 	/* (non-Javadoc)
@@ -252,9 +250,9 @@ public 	class 		BbvaMyBatisDAO
 			String query = this.validateQueryStructure( queryName );
 
 			//	Verificamos el parametro bbvaAbstractValueObject.
-			if ( list == null || list.isEmpty() )	throw new BbvaDataBaseException( "9985|queryForList" );
+			if ( list == null || list.isEmpty() )	throw new BbvaDataBaseException( "9959|queryForList" );
 			//	Verificamos que la consulta solo sea de creacion.
-			if ( !query.contains( "create" ) )	throw new BbvaDataBaseException( "9984|queryForList" );
+			if ( !query.contains( "create" ) )	throw new BbvaDataBaseException( "9960|queryForList" );
 
 			//	Ejecutamos la consulta.
 			int affectedRows = 0;
@@ -262,9 +260,9 @@ public 	class 		BbvaMyBatisDAO
 				affectedRows += this.getSqlSession().insert	( query, t );
 
 			//	TODO: ¿Si la consulta no registro nada lanzamos una excepcion? 
-			if ( affectedRows == 0 )	throw new BbvaDataBaseException( "9983|queryForList" );
+			if ( affectedRows == 0 )	throw new BbvaDataBaseException( "9961|queryForList" );
 			//	TODO: ¿Si la lista y el numero de registros insertados no coinciden lanzamos una excepcion? 
-			if ( affectedRows != list.size() )		throw new BbvaDataBaseException( "9982|queryForList" );
+			if ( affectedRows != list.size() )		throw new BbvaDataBaseException( "9962|queryForList" );
 
 			//	TODO: ¿Consultamos la lista para todos los objetos insertados?
 			//	
@@ -283,7 +281,7 @@ public 	class 		BbvaMyBatisDAO
 			} 
 		catch ( Exception exception ) 
 			{
-			throw new BbvaDataBaseException( "9993|queryForList", exception );
+			throw new BbvaDataBaseException( "9906|queryForList", exception );
 			}
 		}
 	}
