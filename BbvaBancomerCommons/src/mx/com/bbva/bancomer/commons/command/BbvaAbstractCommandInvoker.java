@@ -39,26 +39,58 @@ public class BbvaAbstractCommandInvoker
 
 	//  Atributos     - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 	//	Privados
-	private java.util.Properties 	dtoMap;
-	private java.util.Properties	cmdMap;
-	private java.util.Map< java.lang.String, mx.com.bbva.bancomer.commons.business.BbvaIBusinessObject > 	boMap;
+	private static java.util.Properties dtoMap;
+	private static java.util.Properties	cmdMap;
+	private static java.util.Map< java.lang.String, mx.com.bbva.bancomer.commons.business.BbvaIBusinessObject > boMap;
 
 	//	Propiedades
-//	public final java.util.Map<java.lang.String, java.lang.String> getDtoMap()
+//	public java.util.Map<java.lang.String, java.lang.String> getDtoMap()
 //		{	return dtoMap;					}
-	public final void setDtoMap( final java.util.Properties dtoMap )
-		{	this.dtoMap = dtoMap;			}
+	public void setDtoMap( final java.util.Properties dtoMap )
+		{	if ( BbvaAbstractCommandInvoker.dtoMap == null ) BbvaAbstractCommandInvoker.dtoMap = dtoMap;			}
 
-//	public final java.util.Map<java.lang.String, mx.com.bbva.bancomer.commons.business.BbvaIBusinessObject> getBoMap()
+//	public java.util.Map<java.lang.String, mx.com.bbva.bancomer.commons.business.BbvaIBusinessObject> getBoMap()
 //		{	return boMap;					}
-	public final void setBoMap( final java.util.Map< java.lang.String, mx.com.bbva.bancomer.commons.business.BbvaIBusinessObject > boMap )
-		{	this.boMap = boMap;				}
+	public void setBoMap( final java.util.Map< java.lang.String, mx.com.bbva.bancomer.commons.business.BbvaIBusinessObject > boMap )
+		{	if ( BbvaAbstractCommandInvoker.boMap == null ) BbvaAbstractCommandInvoker.boMap = boMap;				}
 
-//	public final java.util.Map<java.lang.String, java.lang.String> getCmdMap()
+//	public java.util.Map<java.lang.String, java.lang.String> getCmdMap()
 //		{	return cmdMap;					}
-	public final void setCmdMap( final java.util.Properties cmdMap )
-		{	this.cmdMap = cmdMap;			}
-	
+	public void setCmdMap( final java.util.Properties cmdMap )
+		{	if ( BbvaAbstractCommandInvoker.dtoMap == null ) BbvaAbstractCommandInvoker.cmdMap = cmdMap;			}
+
+	//  Constructor   - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+	//	
+	/**
+	 * <b>BbvaAbstractCommandInvoker</b>
+	 * @param dtoMap
+	 * @param cmdMap
+	 * @param boMap
+	 */
+	public BbvaAbstractCommandInvoker (	final java.util.Properties dtoMap,
+	                                    final java.util.Properties cmdMap,
+	                                    final java.util.Map< java.lang.String, mx.com.bbva.bancomer.commons.business.BbvaIBusinessObject > boMap )
+		{
+		logger.info ( "Constructor BbvaAbstractCommandInvoker -- OK" );
+		if ( BbvaAbstractCommandInvoker.dtoMap == null )
+			{
+			logger.debug( "Datos de Entrada                       -- " + dtoMap );
+			BbvaAbstractCommandInvoker.dtoMap = dtoMap;
+			}
+
+		if ( BbvaAbstractCommandInvoker.cmdMap == null )
+			{
+			logger.debug( "Datos de Entrada                       -- " + cmdMap );
+			BbvaAbstractCommandInvoker.cmdMap = cmdMap;
+			}
+
+		if ( BbvaAbstractCommandInvoker.boMap == null )
+			{
+			logger.debug( "Datos de Entrada                       -- " + boMap );
+			BbvaAbstractCommandInvoker.boMap = boMap;
+			}
+		}
+
 	//  Metodos       - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 	//	
 	/**
@@ -84,12 +116,12 @@ public class BbvaAbstractCommandInvoker
 																.getSimpleName();
 		//	Buscamos dentro de nuestro mapeo DTO - BO.
 		//	Primero obtenemos el ID del Objeto de Negocio. Con ese ID obtenemos el BO. 
-		final	String 				boId				= (String)dtoMap.get( dtoName );
-		final	BbvaIBusinessObject bbvaIBusinessObject	= boMap.get	( boId	  );
+		final	String 				boId				= (String)BbvaAbstractCommandInvoker.dtoMap.get( dtoName );
+		final	BbvaIBusinessObject bbvaIBusinessObject	= BbvaAbstractCommandInvoker.boMap.get	( boId	  );
 		logger.debug( "Objeto de Negocio       -- " + bbvaIBusinessObject.getClass() );
 		try {
 			//	Obtenemos la accion que se debe ejecutar.
-			final	String	commandAction	= (String)cmdMap.get( bbvaAbstractDataTransferObject.getCommandId().toString() );
+			final	String	commandAction	= (String)BbvaAbstractCommandInvoker.cmdMap.get( bbvaAbstractDataTransferObject.getCommandId().toString() );
 
 			//	Obtenemos el metodo que se debe ejecutar.
 			final	Method method	= bbvaIBusinessObject.getClass()
