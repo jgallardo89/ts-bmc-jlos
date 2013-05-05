@@ -44,17 +44,21 @@ public 	abstract class 		BbvaAbstractValueObject
 		//	En este nivel solo se debe permitir registro de bitacora a nivel de depuracion.
 		//	Un nivel mas alto puede interferir en el desempeño de la aplicacion.
 		logger.debug( "Entrada toString -- OK" );
+
 		//	Creamos un buffer para la representacion texto plano del objeto actual.
 		//	En primer lugar imprimimos el nombre de la clase.
 		final	StringBuffer stringBuffer = new StringBuffer( "[" + this.getClass().getSimpleName() + ":" );
-		
+
 		try {
 			//	Obtenemos todos lo metodos de la clase -Constructores, propiedades, heredados de Object-
-			final Method[] methodList = this.getClass().getDeclaredMethods();
+			final Method[] methodList = this.getClass()
+			                                .getDeclaredMethods();
+
 			//	Recorremos el arreglo y filtramos para obtener solamente los metodos get.
 			//	Impime correctamente atributos de tipo: primitivo, Cadena, Booleano, Wrappers, List, VO, DTO.
 			for ( final Method method : methodList )
-				if ( method.getName().startsWith( "get" ) )
+				if ( method.getName()
+				           .startsWith( "get" ) )
 					try	{
 						logger.debug( "Agregando atributo --" + method.getName().substring( 3 ) + "--" );
 						stringBuffer.append( method.getName().substring( 3 ) + "=" + method.invoke( this ) + "," );
@@ -64,6 +68,7 @@ public 	abstract class 		BbvaAbstractValueObject
 						// FIXME: Verificar si se lanza algun tipo de excepcion de infraestructura en este punto.
 						logger.warn( "Error al agregar atributo --" + method.getName().substring( 3 ) + "--" + exception.getMessage() );
 						}
+
 			//	La cadena se construyo exitosamente.
 			stringBuffer.append( "]" );
 			logger.debug( "Datos de Salida toString -- " + stringBuffer.toString().replaceFirst( ",]", "]" ) );
@@ -75,6 +80,7 @@ public 	abstract class 		BbvaAbstractValueObject
 			//         Verificar si se lanza algun tipo de excepcion de infraestructura en este punto.
 			logger.warn( "Error en toString --" + securityException.getMessage() );
 			}
-		return stringBuffer.toString().replaceFirst( ",]", "]" );
+		return stringBuffer.toString()
+		                   .replaceFirst( ",]", "]" );
 		}
 	}

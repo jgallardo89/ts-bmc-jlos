@@ -2,6 +2,7 @@ package mx.com.bbva.bancomer.commons.persistence.dao;
 
 import java.util.List;
 
+import mx.com.bbva.bancomer.commons.exception.BbvaDataBaseException;
 import mx.com.bbva.bancomer.commons.model.vo.BbvaAbstractValueObject;
 
 import org.apache.log4j.Logger;
@@ -101,4 +102,11 @@ public 	class 		BbvaJdoDAO
 			throw new mx.com.bbva.bancomer.commons.exception.BbvaDataBaseException();
 			}
 		}
+	@Override
+	public <T extends BbvaAbstractValueObject> List<T> queryForList(
+			String queryName, List<T> bbvaAbstractValueObject)
+			throws BbvaDataBaseException {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	}

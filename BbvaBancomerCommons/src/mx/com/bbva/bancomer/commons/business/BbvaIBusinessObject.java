@@ -35,7 +35,7 @@ public interface BbvaIBusinessObject
 	 * @param <T> - bbvaAbstractDataTransferObject - Bean contenedor especifico para caso de uso Registrar X.
 	 * @return mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject.
 	 */
-	public < T extends BbvaAbstractDataTransferObject > T createCommand 	( final T bbvaAbstractDataTransferObject );
+	public < T extends BbvaAbstractDataTransferObject > T createCommand ( final T bbvaAbstractDataTransferObject );
 	/**
 	 * <b>readCommand</b>
 	 * Ejecuta logica de negocio para consulta de base de datos.

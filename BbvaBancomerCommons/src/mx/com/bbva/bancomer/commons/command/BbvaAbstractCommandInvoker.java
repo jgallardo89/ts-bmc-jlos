@@ -79,6 +79,7 @@ public class BbvaAbstractCommandInvoker
 		//	Un nivel mas alto puede interferir en el desempeño de la aplicacion.
 		logger.debug( "Entrada invoke          -- OK" );
 		logger.debug( "Datos de Entrada invoke -- " + bbvaAbstractDataTransferObject.toString() );
+
 		//	Obtenemos el nombre de DTO.
 		final	String dtoName 	= bbvaAbstractDataTransferObject.getClass()
 																.getSimpleName();
@@ -91,15 +92,19 @@ public class BbvaAbstractCommandInvoker
 			//	Obtenemos la accion que se debe ejecutar.
 			final	String	commandAction	= cmdMap.get( bbvaAbstractDataTransferObject.getCommandId()
 																						.toString() );
+
 			//	Obtenemos el metodo que se debe ejecutar.
 			final	Method method	= bbvaIBusinessObject.getClass()
 														 .getMethod( commandAction, bbvaAbstractDataTransferObject.getClass() );
+
 			//	Ejecutamos el metodos pasandole bbvaAbstractDataTransferObject como parametro.
 			final 	BbvaAbstractDataTransferObject
 					bbvaAbstractDTO = ( BbvaAbstractDataTransferObject ) method.invoke( bbvaIBusinessObject, bbvaAbstractDataTransferObject );
+
 			//	Si la respuesta es diferente de 0000 construimos una excepcion de negocio y la lanzamos.
 			if ( !bbvaAbstractDTO.getErrorCode().equals( BbvaAbstractDataTransferObject.RESPONSECODEOK ) )	
 				throw new BbvaBusinessException( bbvaAbstractDTO.getErrorCode(), bbvaAbstractDTO.getErrorDescription() );
+
 			//	Regresamos a la capa de presentacion.
 			logger.debug( "Datos de Salida invoke -- " + bbvaAbstractDTO.toString() );
 			logger.debug( "Salida invoke          -- OK" );

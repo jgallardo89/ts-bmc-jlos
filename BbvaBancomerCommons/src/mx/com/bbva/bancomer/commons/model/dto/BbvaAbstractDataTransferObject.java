@@ -74,21 +74,25 @@ public 	abstract	class 	BbvaAbstractDataTransferObject
 		//	Un nivel mas alto puede interferir en el desempeño de la aplicacion.
 		logger.debug( "Entrada toString(String)          -- OK" );
 		logger.debug( "Datos de Entrada toString(String) -- " + stringType );
+
 		try {
 			//	Convierte el objeto actual en su representacion JSON.
 			if ( stringType.equals( BbvaAbstractDataTransferObject.JSON ) ) 
 				{
 				logger.debug( "Datos de Salida toString(String) -- " + JSONSerializer.toJSON( this ).toString() );
 				logger.debug( "Salida toString(String)          -- OK" );
-				return JSONSerializer.toJSON( this ).toString();
+				return JSONSerializer.toJSON( this )
+				                     .toString();
 				}
 
 			//	Flujo de salida para almacenar la serializacion a XML.
 			final 	ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+
 			//	Convierte el objeto actual en su representacion XML.
 			final	Serializer 
 					serializer = new Persister();
 					serializer.write( this, byteArrayOutputStream );
+
 			//	Agregamos encabezado.
 			logger.debug( "Datos de Salida toString(String) -- " + BbvaAbstractDataTransferObject.XMLHEADER + byteArrayOutputStream.toString() );
 			logger.debug( "Salida toString(String)          -- OK" );

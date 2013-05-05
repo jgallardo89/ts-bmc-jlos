@@ -24,9 +24,16 @@ import mx.com.bbva.bancomer.commons.model.vo.BbvaAbstractValueObject;
  *              
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 public interface BbvaIDataAccessObject 
-	{
+	{	
+	//  Atributos     - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+	//	Privados|estaticos
+	public static final java.lang.String MYBATISSQLMAPPERPACKAGE = "mx.com.bbva.bancomer.mapper.persistence.sqlmapping.Bbva";
+
+	//  Comportamiento  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+	//	
 	/**
 	 * <b>queryForObject</b>
+	 * Metodo de consulta a base de datos.
 	 * @param <T> - BbvaAbstractValueObject - Contenedor de especifico para cada tabla de base de datos.
 	 * @param queryName - String nombre de la consulta.
 	 * @return mx.com.bbva.bancomer.commons.model.vo.BbvaAbstractValueObject
@@ -36,31 +43,45 @@ public interface BbvaIDataAccessObject
 	throws mx.com.bbva.bancomer.commons.exception.BbvaDataBaseException;
 	/**
 	 * <b>queryForObject</b>
+	 * Metodo de creacion, actualizacion y eliminacion en base de datos.
 	 * @param <T> - BbvaAbstractValueObject - Contenedor de especifico para cada tabla de base de datos.
 	 * @param queryName - String nombre de la consulta.
-	 * @param queryMapValues - Mapa de valores que se le pasan a la consulta.
 	 * @return mx.com.bbva.bancomer.commons.model.vo.BbvaAbstractValueObject
 	 * @throws mx.com.bbva.bancomer.commons.exception.BbvaDataBaseException
 	 */
-	public < T extends BbvaAbstractValueObject > T queryForObject ( final java.lang.String queryName, final T bbvaAbstractValueObject ) 
+	public < T extends BbvaAbstractValueObject > T queryForObject ( final java.lang.String queryName, 
+																	final T bbvaAbstractValueObject ) 
 	throws mx.com.bbva.bancomer.commons.exception.BbvaDataBaseException;
 	/**
-	 * <b>queryForObject</b>
+	 * <b>queryForList</b>
+	 * Metodo de consulta a base de datos.
 	 * @param <T> - BbvaAbstractValueObject - Contenedor de especifico para cada tabla de base de datos.
 	 * @param queryName - String nombre de la consulta.
 	 * @return java.util.List<mx.com.bbva.bancomer.commons.model.vo.BbvaAbstractValueObject>
 	 * @throws mx.com.bbva.bancomer.commons.exception.BbvaDataBaseException
 	 */
-	public < T extends BbvaAbstractValueObject > java.util.List<T> queryForList ( final java.lang.String queryName ) 
+	public < T extends BbvaAbstractValueObject > java.util.List<T> queryForList ( 	final java.lang.String queryName ) 
 	throws mx.com.bbva.bancomer.commons.exception.BbvaDataBaseException;
 	/**
-	 * <b>queryForObject</b>
+	 * <b>queryForList</b>
+	 * Metodo de consulta, actualizacion y eliminacion en base de datos.
 	 * @param <T> - BbvaAbstractValueObject - Contenedor de especifico para cada tabla de base de datos.
 	 * @param queryName - String nombre de la consulta.
-	 * @param queryMapValues - Mapa de valores que se le pasan a la consulta.
 	 * @return java.util.List<mx.com.bbva.bancomer.commons.model.vo.BbvaAbstractValueObject>
 	 * @throws mx.com.bbva.bancomer.commons.exception.BbvaDataBaseException
 	 */
-	public < T extends BbvaAbstractValueObject > java.util.List<T> queryForList ( final java.lang.String queryName, final T bbvaAbstractValueObject )
+	public < T extends BbvaAbstractValueObject > java.util.List<T> queryForList ( 	final java.lang.String queryName, 
+																				  	final T bbvaAbstractValueObject )
+	throws mx.com.bbva.bancomer.commons.exception.BbvaDataBaseException;
+	/**
+	 * <b>queryForList</b>
+	 * Metodo de creacion, actualizacion y eliminacion en base de datos.
+	 * @param <T> - BbvaAbstractValueObject - Contenedor de especifico para cada tabla de base de datos.
+	 * @param queryName - String nombre de la consulta.
+	 * @return java.util.List<mx.com.bbva.bancomer.commons.model.vo.BbvaAbstractValueObject>
+	 * @throws mx.com.bbva.bancomer.commons.exception.BbvaDataBaseException
+	 */
+	public < T extends BbvaAbstractValueObject > java.util.List<T> queryForList ( 	final java.lang.String queryName, 
+																					final java.util.List<T> bbvaAbstractValueObject )
 	throws mx.com.bbva.bancomer.commons.exception.BbvaDataBaseException;
 	}
