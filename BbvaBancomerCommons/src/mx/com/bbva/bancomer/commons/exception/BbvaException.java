@@ -32,14 +32,15 @@ public 	class 	BbvaException
 	private static final org.apache.log4j.Logger 	logger			 = Logger.getLogger( BbvaException.class );
 
 	//	Privados
-	private java.util.Properties 	errorProperties;
-	private java.lang.String		errorCode;
-	private java.lang.String		errorDescription;
+	private static java.util.Properties errorProperties;
+	private java.lang.String			errorCode;
+	private java.lang.String			errorDescription;
 
 	//  Atributos     - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 	//	Privados
-	public final java.util.Properties getErrorProperties() 								{	return errorProperties;						}
-	public final void setErrorProperties( final java.util.Properties errorProperties ) 	{	this.errorProperties = errorProperties;		}
+//	public final java.util.Properties getErrorProperties() 								{	return errorProperties;						}
+	public final void setErrorProperties( final java.util.Properties errorProperties )
+		{	if ( BbvaException.errorProperties == null ) BbvaException.errorProperties = errorProperties;		}
 
 	public final java.lang.String getErrorCode() 										{	return errorCode;							}
 	public final void setErrorCode( final java.lang.String errorCode ) 					{	this.errorCode = errorCode;					}
@@ -58,7 +59,7 @@ public 	class 	BbvaException
 		super( message );
 		final	String[] splitString = message.split( "[|]" ); 
 				errorCode 			= splitString[ 0 ];
-				errorDescription	= errorProperties.getProperty( splitString[ 0 ] );
+				errorDescription	= BbvaException.errorProperties.getProperty( splitString[ 0 ] );
 
 		logger.warn( "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -" );
 		logger.warn( "Excepcion   : " + this.getClass().getName()  );
@@ -78,7 +79,7 @@ public 	class 	BbvaException
 		super( message, cause );
 		final	String[] splitString = message.split( "[|]" ); 
 				errorCode 			= splitString[ 0 ];
-				errorDescription	= errorProperties.getProperty( splitString[ 0 ] );
+				errorDescription	= BbvaException.errorProperties.getProperty( splitString[ 0 ] );
 
 		logger.warn( "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -" );
 		logger.warn( "Excepcion   : " + cause.getClass().getName() + "--" + cause.getMessage() );
