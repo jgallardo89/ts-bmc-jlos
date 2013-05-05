@@ -5,7 +5,7 @@
 <zk>
 	<window border="0" width="100%" height="70%"
 		apply="org.zkoss.bind.BindComposer" 
-		viewModel="@id('vm') @init('mx.com.bbva.mt101.ui.commons.viewmodel.perfil.PerfilController')"
+		viewModel="@id('vm') @init('mx.com.bbva.mapeador.ui.commons.viewmodel.perfil.PerfilController')"
 		id="perfilWindows">
 		<include src="../../pages/styles.zul" />
 		<div sclass="BODY" height="100%">
@@ -14,7 +14,7 @@
 					<portallayout maximizedMode="whole" id="portalLayoutPerfil"
 					width="100%" height="100%">
 					 <portalchildren>
-						<panel width="100%" sclass="sectionPanelTitle" id="datosOpeDup"
+						<panel width="100%" sclass="sectionPanelTitle" id="datosPerfil"
 							title="Perfil" collapsible="true" style="margin-bottom:10px"
 							border="normal">							
 							<panelchildren>
@@ -22,9 +22,10 @@
 									<grid width="100%" style="border:0" oddRowSclass="row2">
 										<columns>
 											<column width="20%" />
-											<column width="25%" />
 											<column width="20%" />
-											<column width="25%" />
+											<column width="20%" />
+											<column width="3%" />
+											<column width="20%" />
 										</columns>
 										<rows>
 											<row sclass="row2">
@@ -36,14 +37,16 @@
 												<div align="right">
 													<label width="100%" sclass="labelFill" value="Descipción del Perfil:"></label>												
 												</div>
+												<cell colspan="2">
 												<textbox sclass="textboxUpperCase" maxlength="300"
-													id="descripcionPerfil" value="@load(vm.strDescripcionPerfil)" width="70%"></textbox>																													
+													id="descripcionPerfil" value="@load(vm.strDescripcionPerfil)" width="70%"></textbox>
+												</cell>																													
 											</row>
 											<row sclass="row2">												
 												<div align="right">
 													<label width="100%" sclass="labelFill" value="Status:"></label>												
 												</div>
-												<combobox sclass="textboxUpperCase" readonly="true" onChange=""
+												<combobox sclass="textboxUpperCase" onChange=""
 													id="status" width="70%" model="@load(vm.strStatus)" autodrop="true">		
 													<template name="model">										
 														<comboitem  value="" label="" />
@@ -56,22 +59,56 @@
 													<label width="100%" sclass="labelFill" value=""></label>
 												</div>																													
 											</row>
-											<row sclass="row2">												
+											<row sclass="row2" style="vertical-align:top;">												
 												<div align="right">
 													<label width="100%" sclass="labelFill" value="Pantalla:"></label>												
 												</div>
-												<combobox sclass="textboxUpperCase" readonly="true" onChange=""
-													id="pantalla" width="70%" model="@load(vm.strPantalla)" autodrop="true">		
-													<template name="model">										
-														<comboitem  value="" label="" />
-													</template>																								
-												</combobox>		
-												<div align="right">							
-
+												<div style="vertical-align:top;">
+													<combobox sclass="textboxUpperCase" onChange=""
+														id="pantalla" width="70%" model="@load(vm.strPantalla)" autodrop="true">		
+														<template name="model">										
+															<comboitem  value="" label="" />
+														</template>																								
+													</combobox>
+												</div>		
+												<div align="center">																		
+													<listbox id="componentesPantalla" height="150px" model="@load(vm.strStatus)">														
+														<listhead>
+															<listheader>																
+																<label value="Componentes Pantalla:"></label>																
+															</listheader>																										
+														</listhead>
+														<!--template name="model"-->
+												            <listitem>												            	
+												            	<listcell autag="" label="Algo"></listcell>												                												               
+												            </listitem>
+												        <!--/template-->		
+													</listbox>
 												</div>
-												<div align="right">
-													<label width="100%" sclass="labelFill" value=""></label>
-												</div>																													
+												<div width="15%">
+													<vbox spacing="2px" width="100%">
+												        <image style="cursor:pointer" id="chooseAllBtn" src="/img/rightrightarrow_g.png" />
+												        <image style="cursor:pointer" id="chooseBtn" src="/img/rightarrow_g.png" onClick="@command('choose')" />
+												        <image style="cursor:pointer" id="removeBtn" src="/img/leftarrow_g.png" />
+												        <image style="cursor:pointer" id="removeAllBtn" src="/img/leftleftarrow_g.png" />
+   													</vbox>		
+   												</div>
+   												<div>
+   													<listbox id="componentesPerfil" height="150px">														
+														<listhead>
+															<listheader>																
+																<label value="Componentes Pantalla:"></label>																
+															</listheader>																										
+														</listhead>
+														<!--template name="model"-->
+												            <listitem>												            	
+												            	<listcell>
+												            		<label value="Algo" id="sa1"></label>
+												            	</listcell>												                												               
+												            </listitem>
+												        <!--/template-->		
+													</listbox>																									
+												</div>																																							
 											</row>										
 										</rows>
 									</grid>
