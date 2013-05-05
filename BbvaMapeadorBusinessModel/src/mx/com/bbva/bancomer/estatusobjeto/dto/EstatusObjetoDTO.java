@@ -3,9 +3,9 @@ package mx.com.bbva.bancomer.estatusobjeto.dto;
 import java.util.List;
 
 import mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject;
-import mx.com.bbva.bancomer.commons.model.vo.EstatusObjetoVO;
-import mx.com.bbva.bancomer.commons.model.vo.EstatusClaveVO;
-import mx.com.bbva.bancomer.commons.model.vo.PantallaVO;
+import mx.com.bbva.bancomer.bussinnes.model.vo.EstatusClaveVO;
+import mx.com.bbva.bancomer.bussinnes.model.vo.EstatusObjetoVO;
+import mx.com.bbva.bancomer.bussinnes.model.vo.PantallaVO;
 
 public class EstatusObjetoDTO extends BbvaAbstractDataTransferObject {
 
