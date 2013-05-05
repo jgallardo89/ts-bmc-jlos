@@ -60,6 +60,7 @@ public 	abstract	class 	BbvaAbstractDataTransferObject
 
 	public final java.lang.Integer getCommandId() 								{	return commandId;							}
 	public final void setCommandId( final java.lang.Integer commandId ) 		{	this.commandId = commandId;					}
+
 	//  Metodos       - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 	//	
 	/**
