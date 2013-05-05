@@ -81,27 +81,27 @@ public 	class 		BbvaJdoDAO
 			throw new BbvaDataBaseException( "9904|BbvaJdoDAO|queryForObject", exception );
 			}
 		}
-//	/* (non-Javadoc)
-//	 * @see mx.com.bbva.bancomer.commons.persistence.dao.BbvaIDataAccessObject#queryForList(java.lang.String)
-//	 */
-//	public <T extends BbvaAbstractValueObject> List< T > queryForList ( final java.lang.String queryName )
-//	throws mx.com.bbva.bancomer.commons.exception.BbvaDataBaseException
-//		{
-//		try {
-//			logger.debug( "Entrada queryForList -- OK" );
-//			logger.debug( "Datos de Entrada     -- " + queryName );
-//			
-//			// TODO: Implementacion de cada uno los Framework
-//			
-//			logger.debug( "queryForList Ejecutado -- OK" );
-//			logger.debug( "Datos de Salida        -- " + "" );
-//			return null;
-//			} 
-//		catch ( Exception exception ) 
-//			{
-//			throw new BbvaDataBaseException( "9904|BbvaJdoDAO|queryForList", exception );
-//			}
-//		}
+	/* (non-Javadoc)
+	 * @see mx.com.bbva.bancomer.commons.persistence.dao.BbvaIDataAccessObject#queryForList(java.lang.String)
+	 */
+	public <T extends BbvaAbstractValueObject> List< T > queryForList ( final java.lang.String queryName )
+	throws mx.com.bbva.bancomer.commons.exception.BbvaDataBaseException
+		{
+		try {
+			logger.debug( "Entrada queryForList -- OK" );
+			logger.debug( "Datos de Entrada     -- " + queryName );
+			
+			// TODO: Implementacion de cada uno los Framework
+			
+			logger.debug( "queryForList Ejecutado -- OK" );
+			logger.debug( "Datos de Salida        -- " + "" );
+			return null;
+			} 
+		catch ( Exception exception ) 
+			{
+			throw new BbvaDataBaseException( "9904|BbvaJdoDAO|queryForList", exception );
+			}
+		}
 	/* (non-Javadoc)
 	 * @see mx.com.bbva.bancomer.commons.persistence.dao.BbvaIDataAccessObject#queryForList(java.lang.String, java.util.Map)
 	 */
