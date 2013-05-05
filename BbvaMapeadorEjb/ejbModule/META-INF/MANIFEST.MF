@@ -1,3 +1,4 @@
 Manifest-Version: 1.0
-Class-Path: BbvaMT101EjbClient.jar
+Class-Path: BbvaMT101EjbClient.jar 
+ lib/log4j-1.2.17.jar
 
