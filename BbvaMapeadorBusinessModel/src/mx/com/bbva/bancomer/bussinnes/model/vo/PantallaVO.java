@@ -1,4 +1,4 @@
-package mx.com.bbva.bancomer.estatusobjeto.vo;
+package mx.com.bbva.bancomer.bussinnes.model.vo;
 
 import java.math.BigDecimal;
 import mx.com.bbva.bancomer.commons.model.vo.BbvaAbstractValueObject;
