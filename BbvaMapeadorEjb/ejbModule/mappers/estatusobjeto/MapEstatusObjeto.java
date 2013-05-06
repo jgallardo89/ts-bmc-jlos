@@ -9,4 +9,6 @@ public abstract interface MapEstatusObjeto {
 	public abstract List<EstatusObjetoVO> obtenerEstatusObjeto(EstatusObjetoVO estatusObjetoVO);
 	public abstract List<EstatusClaveVO> obtenerEstatusClave(EstatusClaveVO estatusClaveO);
 	public abstract void crearEstatusObjeto(EstatusObjetoVO estatusObjetoVO);
+	public abstract void actualizarEstatusObjeto(EstatusObjetoVO estatusObjetoVO);
+	public abstract void eliminarEstatusObjeto(EstatusObjetoVO estatusObjetoVO);
 }

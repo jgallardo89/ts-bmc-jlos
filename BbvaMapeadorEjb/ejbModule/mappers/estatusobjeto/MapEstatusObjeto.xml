@@ -53,4 +53,15 @@
 			#{nombreTabla}
 		)		
 	</insert>
+	<update id="actualizaEstatusObjeto" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.EstatusObjetoVO">
+		Set Cd_St_Clave = #{idEstatusClave},
+			Nb_St_Objeto = #{nombreEstatusObjeto},
+			Nb_Tabla = #{nombreTabla},
+			Tx_St_Objeto = #{descripcionEstatusObjeto}
+		where Cd_St_Objeto = #{idEstatusobjeto}
+	</update>
+	<delete id="eliminarEstatusObjeto" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.EstatusObjetoVO">
+		Delete From Tgm534_St_Objeto 
+		Where Cd_St_Objeto = #{idEstatusObjeto}
+	</delete>
 </mapper>
