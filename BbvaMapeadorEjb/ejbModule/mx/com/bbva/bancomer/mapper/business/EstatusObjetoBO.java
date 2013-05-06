@@ -6,18 +6,12 @@ import javax.ejb.Stateless;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 import mappers.estatusobjeto.MapEstatusObjeto;
 import mx.com.bbva.bancomer.bussinnes.model.vo.EstatusClaveVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.EstatusObjetoVO;
-import mx.com.bbva.bancomer.bussinnes.model.vo.PantallaVO;
 import mx.com.bbva.bancomer.commons.command.CommandConstants;
 import mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject;
-import mx.com.bbva.bancomer.commons.persistence.dao.BbvaIDataAccessObject;
-import mx.com.bbva.bancomer.commons.persistence.dao.BbvaMyBatisDAO;
 import mx.com.bbva.bancomer.estatusobjeto.dto.EstatusObjetoDTO;
 import mx.com.bbva.mapeador.oralce.session.MapeadorSessionFactory;
 
