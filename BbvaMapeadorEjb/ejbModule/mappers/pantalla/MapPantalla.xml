@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mappers.pantalla.MapPantalla">
+	<select id="obtenerPantallas" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.PantallaVO"
+		resultType="mx.com.bbva.bancomer.bussinnes.model.vo.PantallaVO">
+			  SELECT Pantalla.Cd_Pantalla idPantalla,
+				  Pantalla.Cd_Fk_Pantalla idPantallaPadre,
+				  Pantalla.Nb_Pantalla nombrePantalla,
+				  Pantalla.Tx_Url_Pantalla descripcionPantalla,
+				  Pantalla.Tx_Url_Icon descripcionUrlIcon,
+				  Pantalla.Nu_Ord_Pantalla numeroOrdenPantalla,
+				  Pantalla.St_Pantalla estatusPantalla				  
+				FROM Tgm501_Pantalla Pantalla,
+				  Tgm534_St_Objeto Statusobjeto,
+				  Tgm509_St_Clave statusClave
+				WHERE Pantalla.St_Pantalla   = Statusobjeto.Cd_St_Objeto
+				AND Statusobjeto.Cd_St_Clave = Statusclave.Cd_St_Clave
+				AND Statusclave.Cd_St_Clave  = 1
+				ORDER BY Pantalla.Nb_Pantalla
+	</select>
+</mapper>
