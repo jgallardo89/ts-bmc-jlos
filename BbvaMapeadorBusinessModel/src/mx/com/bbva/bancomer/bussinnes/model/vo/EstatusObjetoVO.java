@@ -8,6 +8,20 @@ public class EstatusObjetoVO extends BbvaAbstractValueObject {
 	private String nombreEstatusObjeto;
 	private String descripcionEstatusObjeto;
 	private String nombreStatusClave;
+	private String nombrePantalla;
+	
+	/**
+	 * @return the nombrePantalla
+	 */
+	public final String getNombrePantalla() {
+		return nombrePantalla;
+	}
+	/**
+	 * @param nombrePantalla the nombrePantalla to set
+	 */
+	public final void setNombrePantalla(String nombrePantalla) {
+		this.nombrePantalla = nombrePantalla;
+	}
 	/**
 	 * @return the nombreStatusClave
 	 */
