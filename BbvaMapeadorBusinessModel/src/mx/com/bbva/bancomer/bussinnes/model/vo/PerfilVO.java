@@ -83,6 +83,27 @@ public	class 	PerfilVO
 	public void setNombrebPerfil(final java.lang.String nombrebPerfil) {
 		this.nombrebPerfil = nombrebPerfil;
 	}
+	/**
+	 * @param descripcionPerfil
+	 * @param estatusPerfil
+	 * @param idPerfil
+	 * @param nombrebPerfil
+	 */
+	public PerfilVO(String descripcionPerfil, Integer estatusPerfil,
+			Integer idPerfil, String nombrebPerfil) {
+		super();
+		this.descripcionPerfil = descripcionPerfil;
+		this.estatusPerfil = estatusPerfil;
+		this.idPerfil = idPerfil;
+		this.nombrebPerfil = nombrebPerfil;
+	}
+	/**
+	 * 
+	 */
+	public PerfilVO() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	//  Metodos       - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 	//	

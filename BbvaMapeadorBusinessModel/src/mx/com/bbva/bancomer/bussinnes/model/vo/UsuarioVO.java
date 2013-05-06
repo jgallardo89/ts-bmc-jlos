@@ -1,5 +1,7 @@
 package mx.com.bbva.bancomer.bussinnes.model.vo;
 
+import java.util.Date;
+
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * Informacion Confidencial:
@@ -42,6 +44,8 @@ public	class 	UsuarioVO
 	private java.lang.Integer 	numeroIntentos;		//	5 digitos [00000 - 99999 ]
 	private java.lang.Integer 	estatusUsuario; 		//	Llave foranea [TGM534_ST_OBJETO] - 5 digitos [00000 - 99999 ]
 	private java.lang.Integer 	idPerfil;		//	Llave foranea [TGM504_PERFIL]    - 3 digitos [00000 - 99999 ]
+	private java.lang.String	descripcionPerfil;
+	private String nombreEstatusObjeto;
 	/**
 	 * @return the idUsuario
 	 */
@@ -174,6 +178,73 @@ public	class 	UsuarioVO
 	 */
 	public final void setIdPerfil(final java.lang.Integer idPerfil) {
 		this.idPerfil = idPerfil;
+	}
+	/**
+	 * @return the descripcionPerfil
+	 */
+	public java.lang.String getDescripcionPerfil() {
+		return descripcionPerfil;
+	}
+	/**
+	 * @param descripcionPerfil the descripcionPerfil to set
+	 */
+	public void setDescripcionPerfil(java.lang.String descripcionPerfil) {
+		this.descripcionPerfil = descripcionPerfil;
+	}
+	/**
+	 * @return the nombreEstatusObjeto
+	 */
+	public String getNombreEstatusObjeto() {
+		return nombreEstatusObjeto;
+	}
+	/**
+	 * @param nombreEstatusObjeto the nombreEstatusObjeto to set
+	 */
+	public void setNombreEstatusObjeto(String nombreEstatusObjeto) {
+		this.nombreEstatusObjeto = nombreEstatusObjeto;
+	}
+	/**
+	 * @param idUsuario
+	 * @param idCveUsuario
+	 * @param nombreUsuario
+	 * @param descripcionPasswordUsr
+	 * @param fechaAlta
+	 * @param fechaModificacion
+	 * @param fechaUsuario
+	 * @param fechaCambioPws
+	 * @param numeroIntentos
+	 * @param estatusUsuario
+	 * @param idPerfil
+	 * @param descripcionPerfil
+	 * @param nombreEstatusObjeto
+	 */
+	public UsuarioVO(Integer idUsuario, String idCveUsuario,
+			String nombreUsuario, String descripcionPasswordUsr,
+			Date fechaAlta, Date fechaModificacion, Date fechaUsuario,
+			Date fechaCambioPws, Integer numeroIntentos,
+			Integer estatusUsuario, Integer idPerfil, String descripcionPerfil,
+			String nombreEstatusObjeto) {
+		super();
+		this.idUsuario = idUsuario;
+		this.idCveUsuario = idCveUsuario;
+		this.nombreUsuario = nombreUsuario;
+		this.descripcionPasswordUsr = descripcionPasswordUsr;
+		this.fechaAlta = fechaAlta;
+		this.fechaModificacion = fechaModificacion;
+		this.fechaUsuario = fechaUsuario;
+		this.fechaCambioPws = fechaCambioPws;
+		this.numeroIntentos = numeroIntentos;
+		this.estatusUsuario = estatusUsuario;
+		this.idPerfil = idPerfil;
+		this.descripcionPerfil = descripcionPerfil;
+		this.nombreEstatusObjeto = nombreEstatusObjeto;
+	}
+	/**
+	 * 
+	 */
+	public UsuarioVO() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
 	//  Metodos       - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
