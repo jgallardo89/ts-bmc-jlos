@@ -1,11 +1,8 @@
 package mx.com.bbva.mt101.ui.commons.viewmodel.canales;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import mx.com.bbva.bancomer.bussinnes.model.vo.CanalVO;
-import mx.com.bbva.bancomer.bussinnes.model.vo.EstatusObjetoVO;
 import mx.com.bbva.bancomer.canal.dto.CanalDTO;
 import mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject;
 import mx.com.bbva.bancomer.estatusobjeto.dto.EstatusObjetoDTO;
@@ -15,7 +12,6 @@ import mx.com.bbva.bancomer.utils.StringUtil;
 import mx.com.bbva.mapeador.ui.commons.controller.IController;
 import mx.com.bbva.mapeador.ui.commons.viewmodel.support.ControllerSupport;
 
-import org.apache.log4j.Logger;
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
@@ -36,17 +32,6 @@ public class CanalesController extends ControllerSupport implements IController 
 
 	private static final long serialVersionUID = 1L;
 
-	private static final Logger logger = Logger.getLogger(ControllerSupport.class);
-	
-	public CanalesController() {
-		this.read();
-		this.canalesVOs = canalDTO.getCanalVOs();
-	}
-	
-	private CanalDTO canalDTO;
-	
-	private List<CanalVO> canalesVOs;
-	
 	@Wire
 	private Textbox nombreCanal;
 	
@@ -61,6 +46,18 @@ public class CanalesController extends ControllerSupport implements IController 
 	
 	@Wire
 	private Combobox statusObjeto;
+	
+	private CanalDTO canalDTO;
+	private String strIdCanal;
+	private List<CanalVO> canalesVOs;
+	
+	/**
+	 * Constructor de CanalesController
+	 */
+	public CanalesController() {
+		this.read();
+		this.canalesVOs = canalDTO.getCanalVOs();
+	}
 	
 	@Override
 	public Object read() {
@@ -93,14 +90,13 @@ public class CanalesController extends ControllerSupport implements IController 
 	
 	@Override
 	@Command
+	@NotifyChange({ "canalesVOs" })
 	public void save() {
 		CanalBO canalBO = new CanalBO();
 		boolean errorGuardar = false;
-		int estatusObjeto = 0;
 		if (statusObjeto.getSelectedItem() == null
 				|| statusObjeto.getSelectedItem().getValue() == null
 				|| statusObjeto.getSelectedItem().getValue().toString().isEmpty()) {
-			estatusObjeto = statusObjeto.getSelectedIndex();
 			statusObjeto.setErrorMessage("Favor de seleccionar el Estatus");
 			errorGuardar = true;
 		}
@@ -115,15 +111,41 @@ public class CanalesController extends ControllerSupport implements IController 
 			errorGuardar = true;
 		}
 		if(!errorGuardar){
-			CanalDTO canalDTO = new CanalDTO();
-			CanalVO canalVO = new CanalVO();
-			canalVO.setNombreCanal(nombreCanal.getValue());
-			canalVO.setDescripcionCanal(descripcionCanal.getValue());
-			//canalVO.setFechaAlta(new Date());
-			canalVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue()));
-			canalDTO.setCanalVO(canalVO);
-			canalBO.createCommand(canalDTO);
-			canalDTO.toString(BbvaAbstractDataTransferObject.XML);
+			if(idCanal.getValue().isEmpty()){
+				CanalDTO canalDTO = new CanalDTO();
+				CanalVO canalVO = new CanalVO();
+				canalVO.setNombreCanal(nombreCanal.getValue().toUpperCase());
+				canalVO.setDescripcionCanal(descripcionCanal.getValue().toUpperCase());
+				canalVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue()));
+				canalDTO.setCanalVO(canalVO);
+				canalBO.createCommand(canalDTO);
+				canalDTO.toString(BbvaAbstractDataTransferObject.XML);
+				clean();
+				canalVO.setNombreCanal(StringUtil.validaLike(nombreCanal.getValue()));
+				canalVO.setDescripcionCanal(StringUtil.validaLike(descripcionCanal.getValue()));
+				canalVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue().isEmpty()?"0":idEstatusObjeto.getValue()));
+				canalVO.toString();
+				canalDTO.setCanalVO(canalVO);
+				canalesVOs = canalBO.readCommand(canalDTO).getCanalVOs();
+				
+			} else {
+				CanalDTO canalDTO = new CanalDTO();
+				CanalVO canalVO = new CanalVO();
+				canalVO.setNombreCanal(nombreCanal.getValue().toUpperCase());
+				canalVO.setDescripcionCanal(descripcionCanal.getValue().toUpperCase());
+				canalVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue()));
+				canalVO.setIdCanal(Integer.parseInt(idCanal.getValue()));
+				canalDTO.setCanalVO(canalVO);
+				canalBO.updateCommand(canalDTO);
+				canalDTO.toString(BbvaAbstractDataTransferObject.XML);
+				clean();
+				canalVO.setNombreCanal(StringUtil.validaLike(nombreCanal.getValue()));
+				canalVO.setDescripcionCanal(StringUtil.validaLike(descripcionCanal.getValue()));
+				canalVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue().isEmpty()?"0":idEstatusObjeto.getValue()));
+				canalVO.toString();
+				canalDTO.setCanalVO(canalVO);
+				canalesVOs = canalBO.readCommand(canalDTO).getCanalVOs();
+			}
 		}
 	}
 	
@@ -154,9 +176,21 @@ public class CanalesController extends ControllerSupport implements IController 
 		//rutaCanalEntrada.setValue(canalVO.getRutaCanalEntrada());
 		//rutaCanalSalida.setValue(canalVO.getRutaCanalSalida());
 		statusObjeto.setValue(canalVO.getNombreEstatusObjeto());
-		
+		idCanal.setValue(Integer.toString(canalVO.getIdCanal()));
 		//idCanal.setValue(Integer.toString(canalVO.getIdCanal()));
-		//idEstatusObjeto.setValue(canalVO);
+		idEstatusObjeto.setValue(Integer.toString(canalVO.getIdEstatusObjeto()));
+	}
+	
+	@Override
+	public Object read(Object t) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void delete() {
+		// TODO Auto-generated method stub
+		
 	}
 
 	/**
@@ -172,12 +206,14 @@ public class CanalesController extends ControllerSupport implements IController 
 	public void setCanalDTO(CanalDTO canalDTO) {
 		this.canalDTO = canalDTO;
 	}
+	
 	/**
 	 * @return the canalesVOs
 	 */
 	public List<CanalVO> getCanalesVOs() {
 		return canalesVOs;
 	}
+	
 	/**
 	 * @param canalesVOs the canalesVOs to set
 	 */
@@ -185,21 +221,22 @@ public class CanalesController extends ControllerSupport implements IController 
 		this.canalesVOs = canalesVOs;
 	}
 
+	/**
+	 * @return the strIdCanal
+	 */
+	public String getStrIdCanal() {
+		return strIdCanal;
+	}
+
+	/**
+	 * @param strIdCanal the strIdCanal to set
+	 */
+	public void setStrIdCanal(String strIdCanal) {
+		this.strIdCanal = strIdCanal;
+	}
+
 	@AfterCompose
     public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
         Selectors.wireComponents(view, this, false);        
     }
-
-	@Override
-	public Object read(Object t) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void delete() {
-		// TODO Auto-generated method stub
-		
-	}
-
 }
