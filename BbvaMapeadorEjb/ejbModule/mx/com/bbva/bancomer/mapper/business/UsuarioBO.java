@@ -36,7 +36,7 @@ public class UsuarioBO implements mx.com.bbva.bancomer.commons.business.BbvaIBus
 					.openSession();
 			MapUsuario mapUsuario = session
 					.getMapper(MapUsuario.class);
-			if(usuarioVO.getIdCveUsuario() != null) {
+			if(usuarioVO != null && usuarioVO.getIdCveUsuario() != null) {
 				logger.debug(":::::::::::::::::::::" + usuarioVO.getIdCveUsuario());
 			}
 			try {
