@@ -1,7 +1,7 @@
 package mx.com.bbva.bancomer.utils;
 
 public abstract class StringUtil {
-	public String validaLike(String elemento) {
+	public static String validaLike(String elemento) {
 		if(elemento == null)
 			elemento = "%";
 		else 
