@@ -14,5 +14,6 @@
     	<mapper resource="mappers/canal/MapCanal.xml"/>
     	<mapper resource="mappers/pantalla/MapPantalla.xml"/>
     	<mapper resource="mx/com/bbva/mapeador/entity/tgm501pantalla/MapTgm501Pantalla.xml"/>
+    	<mapper resource="mappers/cliente/MapCliente.xml"/>
     </mappers>
 </configuration>

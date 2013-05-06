@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mappers.cliente.MapCliente">
+	<select id="obtenerClientes" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.ClienteVO"
+		resultType="mx.com.bbva.bancomer.bussinnes.model.vo.ClienteVO">
+				SELECT
+					CLIENTE.CD_CLIENTE idCliente,
+					CLIENTE.CD_IDENTIFICADOR idIdentificador,
+					CLIENTE.NB_CLIENTE nombreCliente,
+					CLIENTE.NB_CORTO_CLIENTE nombreCortoCliente,
+					CLIENTE.TM_ALTA fechaAlta,
+					CLIENTE.TM_MODIFICACION fechaModificacion,
+					CLIENTE.CD_ST_OBJETO idEstatusObjeto,
+					OBJETO.NB_ST_OBJETO nombreEstatusObjeto
+				FROM 
+					TGM512_CLIENTE CLIENTE,
+					TGM534_ST_OBJETO OBJETO
+				WHERE
+					CLIENTE.CD_ST_OBJETO = OBJETO.CD_ST_OBJETO
+				<if test="idIdentificador != null">
+					AND CLIENTE.CD_IDENTIFICADOR LIKE #{idIdentificador}
+					</if>
+				<if test="nombreCliente != null">
+					AND CLIENTE.NB_CLIENTE LIKE #{nombreCliente}
+				</if>
+				<if test="nombreCortoCliente != null">
+					AND CLIENTE.NB_CLIENTE LIKE #{nombreCortoCliente}
+				</if>
+				<if test="idEstatusObjeto != null and idEstatusObjeto != 0">
+					AND CLIENTE.CD_ST_OBJETO = #{idEstatusObjeto}
+				</if>
+				ORDER BY CLIENTE.CD_CLIENTE
+	</select>
+	<insert id="crearCliente" keyProperty="idCliente" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.ClienteVO">
+		<selectKey keyProperty="idCliente" resultType="int" order="BEFORE"> 
+			<![CDATA[ select SQ_CLIENTE.nextval as idCliente from dual ]]> 
+		</selectKey>
+		INSERT INTO TGM512_CLIENTE
+			(CD_CLIENTE,
+			CD_IDENTIFICADOR,
+			NB_CLIENTE,
+			NB_CORTO_CLIENTE,
+			TM_ALTA,
+			CD_ST_OBJETO)
+		VALUES 
+			(#{idCliente},
+			#{idIdentificador},
+			#{nombreCliente},
+			#{nombreCortoCliente},
+			CURRENT_DATE,
+			#{idEstatusObjeto})
+	</insert>
+	<update id="actualizarCliente" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.ClienteVO">
+	    UPDATE 
+	    	TGM512_CLIENTE
+		SET CD_IDENTIFICADOR = #{idIdentificador},
+			NB_CLIENTE = #{nombreCliente},
+			NB_CORTO_CLIENTE = #{nombreCortoCliente},
+			TM_MODIFICACION = CURRENT_DATE,
+			CD_ST_OBJETO = #{idEstatusObjeto}
+		WHERE CD_CLIENTE = #{idCliente}
+	</update>
+</mapper>
