@@ -8,7 +8,7 @@
 				  Statusobjeto.Nb_St_Objeto nombreEstatusObjeto,
 				  Statusobjeto.Tx_St_Objeto descripcionEstatusObjeto,
 				  Statusobjeto.Nb_Tabla nombreTabla,
-				  Statusclave.Nb_St_Clave nombreEstatusClave
+				  Statusclave.Nb_St_Clave nombreStatusClave
 			From Tgm534_St_Objeto Statusobjeto,
 				Tgm509_St_Clave Statusclave
 				Where Statusobjeto.Cd_St_Clave = Statusclave.Cd_St_Clave				
