@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mappers.canal.MapCanal">
+	<select id="obtenerCanales" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.CanalVO"
+		resultType="mx.com.bbva.bancomer.bussinnes.model.vo.CanalVO">
+				SELECT
+					CANAL.CD_CANAL idCanal,
+					CANAL.NB_CANAL nombreCanal,
+					CANAL.TX_CANAL descripcionCanal,
+					CANAL.TM_ALTA fechaAlta,
+					CANAL.TX_RUTA_CANAL_ENT rutaCanalEntrada,
+					CANAL.TX_RUTA_CANAL_SAL rutaCanalSalida,
+					CANAL.CD_ST_OBJETO idEstatusObjeto,
+					OBJETO.NB_ST_OBJETO nombreEstatusObjeto
+				FROM
+					TGM511_CANAL CANAL,
+					TGM534_ST_OBJETO OBJETO
+				WHERE
+					CANAL.CD_ST_OBJETO = OBJETO.CD_ST_OBJETO
+				<if test="nombreCanal != null">
+					AND CANAL.NB_CANAL LIKE #{nombreCanal}
+				</if>
+				<if test="descripcionCanal != null">
+					AND CANAL.TX_CANAL LIKE #{descripcionCanal}
+				</if>
+				<if test="idEstatusObjeto != null and idEstatusObjeto != 0">    
+					AND OBJETO.CD_ST_OBJETO = #{idEstatusObjeto}
+				</if>
+				ORDER BY CD_CANAL
+	</select>
+	<insert id="crearCanal" keyProperty="idCanal" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.CanalVO">
+		<selectKey keyProperty="idCanal" resultType="int" order="BEFORE"> 
+			<![CDATA[ select SQ_CANAL.nextval as idCanal from dual ]]> 
+		</selectKey>
+		INSERT INTO TGM511_CANAL
+			(CD_CANAL,
+			NB_CANAL,
+			TX_CANAL,
+			TX_RUTA_CANAL_ENT,
+			TX_RUTA_CANAL_SAL,
+			TM_ALTA,
+			CD_ST_OBJETO)
+		VALUES
+			(#{idCanal},
+			#{nombreCanal},
+			#{descripcionCanal},
+			'-',
+			'-',
+			CURRENT_DATE,
+			#{idEstatusObjeto})
+	</insert>
+</mapper>
