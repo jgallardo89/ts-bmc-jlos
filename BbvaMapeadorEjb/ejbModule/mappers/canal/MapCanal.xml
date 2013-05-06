@@ -49,4 +49,11 @@
 			CURRENT_DATE,
 			#{idEstatusObjeto})
 	</insert>
+	<update id="actualizarCanal" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.CanalVO">
+	    UPDATE TGM511_CANAL
+		Set NB_CANAL = #{nombreCanal},
+			TX_CANAL = #{descripcionCanal},
+			CD_ST_OBJETO = #{idEstatusObjeto}
+		where CD_CANAL = #{idCanal}
+	</update>
 </mapper>
