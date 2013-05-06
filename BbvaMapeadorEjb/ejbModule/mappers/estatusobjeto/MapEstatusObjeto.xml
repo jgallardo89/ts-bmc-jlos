@@ -54,6 +54,7 @@
 		)		
 	</insert>
 	<update id="actualizaEstatusObjeto" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.EstatusObjetoVO">
+		update Tgm534_St_Objeto
 		Set Cd_St_Clave = #{idEstatusClave},
 			Nb_St_Objeto = #{nombreEstatusObjeto},
 			Nb_Tabla = #{nombreTabla},
