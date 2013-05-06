@@ -33,45 +33,42 @@
 													<label width="100%" sclass="labelFill" value="Identificador Usuario:"></label>
 												</div>
 												<textbox sclass="textboxUpperCase" maxlength="20"
-													id="identificadorUsuario" value="@load(vm.strIdentificadorUsuario)" width="100%"></textbox>
+													id="identificadorUsuario" value="@load(vm.usuarioDTO.usuarioVO.idCveUsuario)" width="100%"></textbox>
 												<div align="right">
 													<label width="100%" sclass="labelFill" value="Nombre Usuario:"></label>												
 												</div>
 												<textbox sclass="textboxUpperCase" maxlength="50"
-													id="nombreUsuario" value="@load(vm.strNombreUsuario)" width="100%"></textbox>																													
+													id="nombreUsuario" value="@load(vm.usuarioDTO.usuarioVO.nombreUsuario)" width="100%"></textbox>																													
 											</row>
 											<row sclass="row2">
 												<div align="right">
 													<label width="100%" sclass="labelFill" value="Perfiles Disponibles:"></label>
 												</div>
-												<combobox id="perfilesDisponibles" model="@load(vm.perfiles)"  width="100%" height="100%">		
+												<combobox id="perfilesDisponibles" model="@load(vm.usuarioDTO.perfilVOs)"  width="100%" height="100%">		
 													<template name="model">										
-														<comboitem value="@load(each.cdPerfil)" label="@load(each.nbPerfil)" height="100%"/>
+														<comboitem value="@load(each.idPerfil)" label="@load(each.nombrebPerfil)" height="100%"/>
 													</template>																								
 												</combobox>													
 												<div align="right">
 													<label width="100%" sclass="labelFill" value="Status:"></label>												
 												</div>
 												<combobox sclass="textboxUpperCase" readonly="true" onChange=""
-													id="status" width="70%" model="@load(vm.strStatus)" autodrop="true">		
+													id="status" width="70%" model="@load(vm.usuarioDTO.estatusObjetoVOs)" autodrop="true">		
 													<template name="model">										
-														<comboitem  value="" label="" />
+														<comboitem  value="@load(each.idEstatusObjeto)" label="@load(each.nombreEstatusObjeto)" />
 													</template>																								
 												</combobox>																														
 											</row>
-											<row sclass="row2">
+											<row sclass="row2">												
 												<div align="right" width="70%">
-													<label width="100%" sclass="labelFill" value=""></label>
-												</div>
-												<div align="right" width="70%">
-													<button sclass="button" label="Limpiar" id="limpiarBtn" onClick="@command('reenviarArchivo')" ></button>
+													<button sclass="button" label="Limpiar" id="limpiarBtn" onClick="@command('clean')" ></button>
 												</div>	
 												<div align="right" width="70%">
-													<button sclass="button" label="Guardar" id="guardarUsuarioBtn" onClick="@command('reenviarArchivo')"></button>
+													<button sclass="button" label="Guardar" id="guardarBtn" onClick="@command('save')"></button>
 												</div>
 												<div align="right" width="70%">
-													<button sclass="button" label="Consultar" id="consultarUsuarioBtn" onClick="@command('reenviarArchivo')"></button>
-												</div>																													
+													<button sclass="button" label="Consultar" id="consultarBtn" onClick="@command('readWithFilters')"></button>
+												</div>
 											</row>
 										</rows>
 								
@@ -86,56 +83,50 @@
 							style="margin-bottom:10px">
 							<caption sclass="sectionPanelTitle" label="Lista de Usuarios"></caption>
 							<panelchildren>
-								<grid width="99.7%" style="border:1">
-									<auxhead style="border:1">
-										<auxheader hflex="0" align="center" colspan="1">
-											<image  src="/img/refresh.png" width="16px" height="16px" onClick=""></image>
-										</auxheader>
-										<auxheader colspan="1">
-										</auxheader>
-										<auxheader colspan="2" align="center" label="Envío">
-										</auxheader>
-										<auxheader colspan="2" align="center" label="Último Envío">
-										</auxheader>
-										<auxheader colspan="2" align="center" label="Regreso Cash">
-										</auxheader>
-										<auxheader colspan="2">
-										</auxheader>
-									</auxhead>
-									<columns>										
-										<column hflex="1" label="Identificador Usuario" sort="auto(strIdentificadorUsuario)"></column>
-										<column hflex="1" label="Usuario" sort="auto(strUsuario)"></column>
-										<column hflex="1" label="Perfil" sort="auto(strProceso)"></column>
-										<column hflex="1" label="Status" sort="auto(strStatus)"></column>										
+								<grid width="99.7%" id="usuariosGrid" mold="paging"
+									model="@load(vm.usuarioDTO.usuarioVOs)" pagingPosition="both" pageSize="5"
+									vflex="true" height="100%">
+									<columns sizable="true" menupopup="auto">
+									<column hflex="0" align="center" image="/img/pencil-small.png" 
+											width="5%"></column>										
+										<column hflex="1" label="Identificador Usuario" sort="auto(vm.usuarioDTO.usuarioVO.idCveUsuario)"></column>
+										<column hflex="1" label="Usuario" sort="vm.usuarioDTO.usuarioVO.nombreUsuario"></column>
+										<column hflex="1" label="Perfil" sort="vm.usuarioDTO.usuarioVO.descripcionPerfil"></column>
+										<column hflex="1" label="Status" sort="vm.usuarioDTO.usuarioVO.nombreEstatusObjeto"></column>										
 									</columns>
 									<template name="model">
 										<row>											
-											<label hflex="1" value=""></label>
-											<label hflex="1" value=""></label>
-											<label hflex="1" value=""/>											
-											<label hflex="1" value=""></label>									
-											<cell>
-												<div align="center">
-													<image src="/img/list.png" onClick="">														
-													</image>
-												</div>
-											</cell>
+											<image src="/img/pencil-small.png" onClick="@command('readSelected',idCveUsuario=each)"></image>											
+											<label hflex="1" value="@load(each.idCveUsuario)"></label>
+											<label hflex="1" value="@load(each.nombreUsuario)"></label>
+											<label hflex="1" value="@load(each.descripcionPerfil)"></label>
+											<label hflex="1" value="@load(each.nombreEstatusObjeto)"></label>	
 										</row>
 									</template>
-									<foot>
-										<footer span="9">											
-												<div align="right">											
-													<label value="Cantidad Registros: "></label>																			
-													<label value="@load(vm.cantidadRegistros)"></label>
-												</div>																							
-										</footer>
-									</foot>
 								</grid>
 							</panelchildren>
 						</panel>
 					</portalchildren>
 				</portallayout>								
-			</groupbox>			
+			</groupbox>
+			<textbox id="idPerfil" value="@load(vm.usuarioDTO.perfilVO.idPerfil)" visible="false"></textbox>
+			<textbox id="idEstatusObjeto" value="@load(vm.usuarioDTO.estatusObjetoVO.idEstatusObjeto)" visible="false"></textbox>	
 		</div>
+		<zscript>
+			public void selectedValuePerfiles(){
+				try{
+					idPerfil.setValue(perfilesDisponibles.getSelectedItem().getValue().toString());
+				}catch(Exception ex){
+					idPerfil.setValue(null);
+				}
+			}
+			public void selectedValueStatusClave(){
+				try{
+					idEstatusObjeto.setValue(status.getSelectedItem().getValue().toString());
+				}catch(Exception ex){
+					idEstatusObjeto.setValue(null);
+				}
+			}			
+		</zscript>
 	</window>
 </zk>
