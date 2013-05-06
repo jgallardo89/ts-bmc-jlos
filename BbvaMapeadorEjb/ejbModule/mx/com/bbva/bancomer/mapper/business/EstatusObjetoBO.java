@@ -84,7 +84,8 @@ public class EstatusObjetoBO implements mx.com.bbva.bancomer.commons.business.Bb
 			switch (bbvaAbstractDataTransferObject.getCommandId()) {
 				case CommandConstants.ESTATUS_OBJETO:					
 					List<EstatusObjetoVO> estatusObjetoVOs = null;
-					EstatusObjetoVO estatusObjetoVO = ((EstatusObjetoDTO)bbvaAbstractDataTransferObject).getEstatusObjetoVO();					
+					EstatusObjetoVO estatusObjetoVO = ((EstatusObjetoDTO)bbvaAbstractDataTransferObject).getEstatusObjetoVO();
+					logger.debug("estatusObjetoVO--nombreTabla:"+estatusObjetoVO);
 					session = MapeadorSessionFactory.getSqlSessionFactory()
 							.openSession();
 					mapEstatusObjeto = session
@@ -137,7 +138,7 @@ public class EstatusObjetoBO implements mx.com.bbva.bancomer.commons.business.Bb
 				.openSession();
 		MapEstatusObjeto mapEstatusObjeto = session.getMapper(MapEstatusObjeto.class);
 		try {
-			mapEstatusObjeto.actualizarEstatusObjeto(estatusObjetoVO);
+			mapEstatusObjeto.actualizaEstatusObjeto(estatusObjetoVO);
 			session.commit();
 		} catch (Exception ex) {
 			session.rollback();

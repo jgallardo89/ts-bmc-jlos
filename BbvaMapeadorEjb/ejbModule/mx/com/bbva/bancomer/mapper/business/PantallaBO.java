@@ -7,6 +7,8 @@ import javax.ejb.Stateless;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.log4j.Logger;
 
+import com.ibm.xtq.ast.nodes.ValueOf;
+
 import mappers.estatusobjeto.MapEstatusObjeto;
 import mappers.pantalla.MapPantalla;
 import mx.com.bbva.bancomer.bussinnes.model.vo.EstatusObjetoVO;
@@ -16,6 +18,7 @@ import mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject;
 import mx.com.bbva.bancomer.commons.persistence.dao.BbvaIDataAccessObject;
 import mx.com.bbva.bancomer.commons.persistence.dao.BbvaMyBatisDAO;
 import mx.com.bbva.bancomer.estatusobjeto.dto.EstatusObjetoDTO;
+import mx.com.bbva.bancomer.estatusobjeto.dto.PerfilDTO;
 import mx.com.bbva.mapeador.oralce.session.MapeadorSessionFactory;
 
 @Stateless(mappedName="pantallaBO")
@@ -88,7 +91,8 @@ public class PantallaBO implements mx.com.bbva.bancomer.commons.business.BbvaIBu
 //			}						
 			try {
 				List<PantallaVO> result = null;
-				PantallaVO pantallaVO = ((EstatusObjetoDTO)bbvaAbstractDataTransferObject).getPantallaVO();				
+				PantallaVO pantallaVO =null; 				
+				pantallaVO = ((EstatusObjetoDTO)bbvaAbstractDataTransferObject).getPantallaVO();				
 				SqlSession session = MapeadorSessionFactory.getSqlSessionFactory()
 						.openSession();
 				MapPantalla mapPantalla = session
