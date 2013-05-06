@@ -11,6 +11,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 import mappers.estatusobjeto.MapEstatusObjeto;
+import mx.com.bbva.bancomer.bussinnes.model.vo.EstatusClaveVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.EstatusObjetoVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.PantallaVO;
 import mx.com.bbva.bancomer.commons.command.CommandConstants;
@@ -19,6 +20,7 @@ import mx.com.bbva.bancomer.commons.persistence.dao.BbvaIDataAccessObject;
 import mx.com.bbva.bancomer.commons.persistence.dao.BbvaMyBatisDAO;
 import mx.com.bbva.bancomer.estatusobjeto.dto.EstatusObjetoDTO;
 import mx.com.bbva.mapeador.oralce.session.MapeadorSessionFactory;
+
 
 @Stateless(mappedName="estatusObjetoBO")
 public class EstatusObjetoBO implements mx.com.bbva.bancomer.commons.business.BbvaIBusinessObject {
@@ -45,35 +47,30 @@ public class EstatusObjetoBO implements mx.com.bbva.bancomer.commons.business.Bb
 	
 	@Override
 	public <T extends BbvaAbstractDataTransferObject> T createCommand(
-			T bbvaAbstractDataTransferObject) {
-		try {
+			T bbvaAbstractDataTransferObject) {		
 			logger.debug( "Entrada createCommand          -- OK" );
 			logger.debug( "Datos de Entrada createCommand -- " + bbvaAbstractDataTransferObject.toString() );
-			
-//			switch (bbvaAbstractDataTransferObject.getCommandId()) {
-//			case CommandConstants.ESTATUS_OBJETO_COMBO_PANTALLAS:
-//				List<PantallaVO> pantallaVOs = bbvaIDataAccessObject.queryForList("ConsultarCatalogoMapper|readBbvaPantallaComboVO");
-//				((EstatusObjetoDTO)bbvaAbstractDataTransferObject).setPantallaVOs(pantallaVOs);
-//				break;
-//
-//			default:
-//				break;
-//			}			
-			
+			EstatusObjetoVO estatusObjetoVO = ((EstatusObjetoDTO)bbvaAbstractDataTransferObject).getEstatusObjetoVO();
+			SqlSession session = MapeadorSessionFactory.getSqlSessionFactory()
+					.openSession();
+			MapEstatusObjeto mapEstatusObjeto = session.getMapper(MapEstatusObjeto.class);
+			try {
+				mapEstatusObjeto.crearEstatusObjeto(estatusObjetoVO);
+				session.commit();
+			} catch (Exception ex) {
+				session.rollback();
+				ex.printStackTrace();
+			} finally {
+				session.close();
+			}
 			logger.debug( "Datos de Salida invoke -- " + bbvaAbstractDataTransferObject.toString() );
 			logger.debug( "Salida invoke          -- OK" );
-			return null;
-		} 
-		catch ( Exception exception ) 
-		{
-			return null;
-		}
+			return bbvaAbstractDataTransferObject;														
 	}
 
 	@Override
 	public <T extends BbvaAbstractDataTransferObject> T readCommand(
-			T bbvaAbstractDataTransferObject) {
-		try {
+			T bbvaAbstractDataTransferObject) {		
 			logger.debug( "Entrada createCommand          -- OK" );
 			logger.debug( "Datos de Entrada createCommand -- " + bbvaAbstractDataTransferObject.toString() );
 			
@@ -87,37 +84,53 @@ public class EstatusObjetoBO implements mx.com.bbva.bancomer.commons.business.Bb
 //					break;	
 //				default:
 //					break;
-//			}						
-			try {
-				List<EstatusObjetoVO> result = null;
-				EstatusObjetoVO estatusObjetoVO = ((EstatusObjetoDTO)bbvaAbstractDataTransferObject).getEstatusObjetoVO();
-				logger.debug("estatusObjetoVO--"+estatusObjetoVO.getNombreEstatusObjeto());
-				SqlSession session = MapeadorSessionFactory.getSqlSessionFactory()
-						.openSession();
-				MapEstatusObjeto mapEstatusObjeto = session
-						.getMapper(MapEstatusObjeto.class);
-				try {
-					result = mapEstatusObjeto.obtenerEstatusObjeto(estatusObjetoVO);					
-				} catch (Exception ex) {
-					ex.printStackTrace();
-				} finally {
-					session.close();
-				}
-				((EstatusObjetoDTO)bbvaAbstractDataTransferObject).setEstatusObjetoVOs(result);
-				logger.debug("result: " + result + " -- **fin**");
-				logger.debug( "Datos de Salida invoke -- " + bbvaAbstractDataTransferObject.toString() );
-				logger.debug( "Salida invoke          -- OK" );
-				return bbvaAbstractDataTransferObject;
-			} catch (Exception ex) {
-				ex.printStackTrace();
-				return bbvaAbstractDataTransferObject;
-			} 					
-		} 
-		catch ( Exception exception ) 
-		{
-			exception.printStackTrace();
-			return bbvaAbstractDataTransferObject;
-		}
+//			}
+			SqlSession session;
+			MapEstatusObjeto mapEstatusObjeto;
+			switch (bbvaAbstractDataTransferObject.getCommandId()) {
+				case CommandConstants.ESTATUS_OBJETO:					
+					List<EstatusObjetoVO> estatusObjetoVOs = null;
+					EstatusObjetoVO estatusObjetoVO = ((EstatusObjetoDTO)bbvaAbstractDataTransferObject).getEstatusObjetoVO();					
+					session = MapeadorSessionFactory.getSqlSessionFactory()
+							.openSession();
+					mapEstatusObjeto = session
+							.getMapper(MapEstatusObjeto.class);
+					try {
+						estatusObjetoVOs = mapEstatusObjeto.obtenerEstatusObjeto(estatusObjetoVO);					
+					} catch (Exception ex) {
+						ex.printStackTrace();
+						return bbvaAbstractDataTransferObject;
+					} finally {
+						session.close();
+					}
+					((EstatusObjetoDTO)bbvaAbstractDataTransferObject).setEstatusObjetoVOs(estatusObjetoVOs);
+					logger.debug("result: " + estatusObjetoVOs + " -- **fin**");
+					logger.debug( "Datos de Salida invoke -- " + bbvaAbstractDataTransferObject.toString() );
+					logger.debug( "Salida invoke          -- OK" );
+					return bbvaAbstractDataTransferObject;
+				case CommandConstants.ESTATUS_CLAVE:					
+					List<EstatusClaveVO> estatusClaveVOs = null;
+					EstatusClaveVO estatusClaveVO = ((EstatusObjetoDTO)bbvaAbstractDataTransferObject).getEstatusClaveVO();					
+					session = MapeadorSessionFactory.getSqlSessionFactory()
+							.openSession();
+					mapEstatusObjeto = session
+							.getMapper(MapEstatusObjeto.class);
+					try {
+						estatusClaveVOs = mapEstatusObjeto.obtenerEstatusClave(estatusClaveVO);					
+					} catch (Exception ex) {
+						ex.printStackTrace();
+						return bbvaAbstractDataTransferObject;
+					} finally {
+						session.close();
+					}
+					((EstatusObjetoDTO)bbvaAbstractDataTransferObject).setEstatusClaveVOs(estatusClaveVOs);
+					logger.debug("result: " + estatusClaveVOs + " -- **fin**");
+					logger.debug( "Datos de Salida invoke -- " + bbvaAbstractDataTransferObject.toString() );
+					logger.debug( "Salida invoke          -- OK" );
+					return bbvaAbstractDataTransferObject;
+				default:
+					return bbvaAbstractDataTransferObject;
+			}
 	}
 
 	@Override
