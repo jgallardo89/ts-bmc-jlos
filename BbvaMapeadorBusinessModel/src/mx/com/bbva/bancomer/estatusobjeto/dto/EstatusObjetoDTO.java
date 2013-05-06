@@ -10,6 +10,19 @@ import mx.com.bbva.bancomer.bussinnes.model.vo.PantallaVO;
 public class EstatusObjetoDTO extends BbvaAbstractDataTransferObject {
 
 	private List<EstatusClaveVO> estatusClaveVOs;
+	private EstatusClaveVO estatusClaveVO;
+	/**
+	 * @return the estatusClaveVO
+	 */
+	public final EstatusClaveVO getEstatusClaveVO() {
+		return estatusClaveVO;
+	}
+	/**
+	 * @param estatusClaveVO the estatusClaveVO to set
+	 */
+	public final void setEstatusClaveVO(EstatusClaveVO estatusClaveVO) {
+		this.estatusClaveVO = estatusClaveVO;
+	}
 	private PantallaVO pantallaVO;
 	private List<PantallaVO> pantallaVOs;
 	private EstatusObjetoVO estatusObjetoVO;
