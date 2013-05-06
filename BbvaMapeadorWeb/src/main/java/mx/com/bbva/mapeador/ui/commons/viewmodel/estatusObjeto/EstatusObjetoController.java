@@ -11,6 +11,7 @@ import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.Combobox;
@@ -22,19 +23,28 @@ import mx.com.bbva.bancomer.bussinnes.model.vo.PantallaVO;
 import mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject;
 import mx.com.bbva.bancomer.estatusobjeto.dto.EstatusObjetoDTO;
 import mx.com.bbva.bancomer.mapper.business.EstatusObjetoBO;
+import mx.com.bbva.mapeador.security.session.user.SessionUser;
 import mx.com.bbva.mapeador.ui.commons.controller.IController;
-import mx.com.bbva.mapeador.ui.commons.viewmodel.support.ControllerSupport;
 
-public class EstatusObjetoController extends ControllerSupport implements IController{
+public class EstatusObjetoController extends SelectorComposer<Component> implements IController{
 	private static final Logger logger = Logger.getLogger(EstatusObjetoController.class);
 
 	private static final long serialVersionUID = 1L;
 	
+	public SessionUser getSessionUser(){
+		logger.debug( "Entrada getSessionUser          -- OK" );		
+		String cveUsuario = null;
+		logger.debug( "Datos de usuario -- " + cveUsuario);
+		SessionUser sessionUser = new SessionUser();
+		sessionUser.setCveUsuario(cveUsuario);
+		logger.debug( "Salida getSessionUser          -- OK" );
+		return sessionUser;
+	}
 	
 	@Wire
 	private Textbox descripcionEstatusObjeto;		
 
-	private EstatusObjetoDTO estatusObjetoDTO = (EstatusObjetoDTO)this.read();
+	private EstatusObjetoDTO estatusObjetoDTO = (EstatusObjetoDTO)this.read();;  
 	
 	@Wire
 	private Textbox idEstatusClave;
@@ -50,9 +60,26 @@ public class EstatusObjetoController extends ControllerSupport implements IContr
 	
 	@Wire
 	private Combobox pantallas;
+	
 	@Wire
 	private Combobox statusClave;
 		
+	List<EstatusObjetoVO> estatusObjetoVOs = estatusObjetoDTO.getEstatusObjetoVOs();
+	
+	/**
+	 * @return the estatusObjetoVOs
+	 */
+	public final List<EstatusObjetoVO> getEstatusObjetoVOs() {
+		return estatusObjetoVOs;
+	}
+
+	/**
+	 * @param estatusObjetoVOs the estatusObjetoVOs to set
+	 */
+	public final void setEstatusObjetoVOs(List<EstatusObjetoVO> estatusObjetoVOs) {
+		this.estatusObjetoVOs = estatusObjetoVOs;
+	}
+
 	private String strDescripcionEstatusObjeto;
 	
 	private String strIdEstatusClave;
@@ -111,65 +138,87 @@ public class EstatusObjetoController extends ControllerSupport implements IContr
 	/**
 	 * @return the strDescripcionEstatusObjeto
 	 */
-	public final String getStrDescripcionEstatusObjeto() {
+	public String getStrDescripcionEstatusObjeto() {
 		return strDescripcionEstatusObjeto;
 	}
 
 	/**
 	 * @return the strIdEstatusClave
 	 */
-	public final String getStrIdEstatusClave() {
+	public String getStrIdEstatusClave() {
 		return strIdEstatusClave;
 	}
 
 	/**
 	 * @return the strIdEstatusObjeto
 	 */
-	public final String getStrIdEstatusObjeto() {
+	public String getStrIdEstatusObjeto() {
 		return strIdEstatusObjeto;
 	}
 
 	/**
 	 * @return the strIdPantalla
 	 */
-	public final String getStrIdPantalla() {
+	public String getStrIdPantalla() {
 		return strIdPantalla;
 	}
 	
 	/**
 	 * @return the strNombreEstatusObjeto
 	 */
-	public final String getStrNombreEstatusObjeto() {
+	public String getStrNombreEstatusObjeto() {
 		return strNombreEstatusObjeto;
 	}
 		
 	/**
 	 * @return the strPantallas
 	 */
-	public final String getStrPantallas() {
+	public String getStrPantallas() {
 		return strPantallas;
 	}
 	
 	/**
 	 * @return the strStatusClave
 	 */
-	public final String getStrStatusClave() {
+	public String getStrStatusClave() {
 		return strStatusClave;
 	}
-	
-	@Override
 	@Command
+	@NotifyChange({ "estatusObjetoVOs" })
+	public void readWithFilters() {
+		EstatusObjetoDTO estatusObjetoDTO = new EstatusObjetoDTO();
+		EstatusObjetoVO estatusObjetoVO = new EstatusObjetoVO();		
+		estatusObjetoVO.setDescripcionEstatusObjeto(descripcionEstatusObjeto.getValue().isEmpty()?"%":"%"+descripcionEstatusObjeto.getValue().toUpperCase()+"%");
+		estatusObjetoVO.setNombreTabla(pantallas.getValue().isEmpty()?null:"%"+pantallas.getValue().toUpperCase()+"%");
+		estatusObjetoVO.setNombreEstatusObjeto(nombreEstatusObjeto.getValue().isEmpty()?"%":"%"+nombreEstatusObjeto.getValue().toUpperCase()+"%");
+		estatusObjetoVO.setIdEstatusObjeto(Integer.parseInt(idEstatusClave.getValue().isEmpty()?"0":idEstatusClave.getValue()));
+		estatusObjetoDTO.setCommandId(1);
+		EstatusObjetoBO estatusObjetoBO = new EstatusObjetoBO();
+		estatusObjetoDTO.setEstatusObjetoVO(estatusObjetoVO);
+		estatusObjetoDTO.toString(BbvaAbstractDataTransferObject.XML);		
+		estatusObjetoDTO = estatusObjetoBO.readCommand(estatusObjetoDTO);
+		logger.debug("size:"+estatusObjetoDTO.getEstatusObjetoVOs().size());
+		estatusObjetoVOs = estatusObjetoDTO.getEstatusObjetoVOs();
+		
+	}
+	
+	
+	
+	@Override	
 	public Object read() {
 		EstatusObjetoDTO estatusObjetoDTO = new EstatusObjetoDTO();
-		EstatusObjetoVO estatusObjetoVO = new EstatusObjetoVO();
-		logger.debug(descripcionEstatusObjeto.getValue());
+		EstatusObjetoVO estatusObjetoVO = new EstatusObjetoVO();				
 		estatusObjetoVO.setDescripcionEstatusObjeto(strDescripcionEstatusObjeto==null?"%":"%"+strDescripcionEstatusObjeto.toUpperCase()+"%");
-		estatusObjetoVO.setNombreTabla(pantallas.getValue()==null?null:"%"+strPantallas.toUpperCase()+"%");
-		estatusObjetoVO.setNombreEstatusObjeto(nombreEstatusObjeto.getValue()==null?"%":"%"+nombreEstatusObjeto.getValue().toUpperCase()+"%");
-		estatusObjetoVO.setIdEstatusObjeto(Integer.parseInt(idEstatusClave.getValue()==null?"0":idEstatusClave.getValue()));
+		logger.debug("getDescripcionEstatusObjeto:"+estatusObjetoVO.getDescripcionEstatusObjeto());
+		estatusObjetoVO.setNombreTabla(strPantallas==null?null:"%"+strPantallas.toUpperCase()+"%");
+		estatusObjetoVO.setNombreEstatusObjeto(strNombreEstatusObjeto==null?"%":"%"+strNombreEstatusObjeto.toUpperCase()+"%");
+		estatusObjetoVO.setIdEstatusObjeto(Integer.parseInt(strIdEstatusClave==null?"0":strIdEstatusClave));
+		logger.debug("*estatusObjetoVO*");
+		estatusObjetoVO.toString();
 //		estatusObjetoDTO.setCommandId(1);
 		EstatusObjetoBO estatusObjetoBO = new EstatusObjetoBO();
-		estatusObjetoDTO.toString(BbvaAbstractDataTransferObject.XML);
+		estatusObjetoDTO.setEstatusObjetoVO(estatusObjetoVO);
+		estatusObjetoDTO.toString(BbvaAbstractDataTransferObject.XML);		
 		estatusObjetoDTO = estatusObjetoBO.readCommand(estatusObjetoDTO);
 //		List<PantallaVO> pantallaVOs = new  ArrayList<PantallaVO>();		
 //		PantallaVO pantallaVO = new PantallaVO();
@@ -293,7 +342,7 @@ public class EstatusObjetoController extends ControllerSupport implements IContr
 	/**
 	 * @param strDescripcionEstatusObjeto the strDescripcionEstatusObjeto to set
 	 */
-	public final void setStrDescripcionEstatusObjeto(
+	public void setStrDescripcionEstatusObjeto(
 			String strDescripcionEstatusObjeto) {
 		this.strDescripcionEstatusObjeto = strDescripcionEstatusObjeto;
 	}
@@ -301,42 +350,42 @@ public class EstatusObjetoController extends ControllerSupport implements IContr
 	/**
 	 * @param strIdEstatusClave the strIdEstatusClave to set
 	 */
-	public final void setStrIdEstatusClave(String strIdEstatusClave) {
+	public void setStrIdEstatusClave(String strIdEstatusClave) {
 		this.strIdEstatusClave = strIdEstatusClave;
 	}
 
 	/**
 	 * @param strIdEstatusObjeto the strIdEstatusObjeto to set
 	 */
-	public final void setStrIdEstatusObjeto(String strIdEstatusObjeto) {
+	public void setStrIdEstatusObjeto(String strIdEstatusObjeto) {
 		this.strIdEstatusObjeto = strIdEstatusObjeto;
 	}
 
 	/**
 	 * @param strIdPantalla the strIdPantalla to set
 	 */
-	public final void setStrIdPantalla(String strIdPantalla) {
+	public void setStrIdPantalla(String strIdPantalla) {
 		this.strIdPantalla = strIdPantalla;
 	}
 
 	/**
 	 * @param strNombreEstatusObjeto the strNombreEstatusObjeto to set
 	 */
-	public final void setStrNombreEstatusObjeto(String strNombreEstatusObjeto) {
+	public void setStrNombreEstatusObjeto(String strNombreEstatusObjeto) {
 		this.strNombreEstatusObjeto = strNombreEstatusObjeto;
 	}
 
 	/**
 	 * @param strPantallas the strPantallas to set
 	 */
-	public final void setStrPantallas(String strPantallas) {
+	public void setStrPantallas(String strPantallas) {
 		this.strPantallas = strPantallas;
 	}
 	
 	/**
 	 * @param strStatusClave the strStatusClave to set
 	 */
-	public final void setStrStatusClave(String strStatusClave) {
+	public void setStrStatusClave(String strStatusClave) {
 		this.strStatusClave = strStatusClave;
 	}
 	
