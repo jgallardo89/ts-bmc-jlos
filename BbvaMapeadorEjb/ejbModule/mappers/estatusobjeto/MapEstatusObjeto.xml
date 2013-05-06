@@ -26,4 +26,31 @@
 				</if>				
 				ORDER BY Statusobjeto.Nb_Tabla
 	</select>
+	<select id="obtenerEstatusClave" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.EstatusClaveVO"
+		resultType="mx.com.bbva.bancomer.bussinnes.model.vo.EstatusClaveVO">
+		SELECT Statusclave.Cd_St_Clave idEstatusClave,
+		  Statusclave.Nb_St_Clave nombreEstatusClave
+		FROM Tgm509_St_Clave Statusclave
+		ORDER BY Statusclave.Nb_St_Clave	
+	</select>
+	<insert id="crearEstatusObjeto" keyProperty="idEstatusObjeto" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.EstatusObjetoVO">
+		<selectKey keyProperty="idEstatusObjeto" resultType="int" order="BEFORE"> 
+			<![CDATA[ select SQ_ESTATUS_COMPONENTE.nextval as idEstatusObjeto from dual ]]> 
+		</selectKey>
+		Insert Into Tgm534_St_Objeto
+		(
+			Cd_St_Objeto,
+			CD_ST_CLAVE,
+			Nb_St_Objeto,
+			Tx_St_Objeto,
+			Nb_Tabla
+		)
+		Values(
+			#{idEstatusObjeto},
+			#{idEstatusClave},
+			#{nombreEstatusObjeto},
+			#{descripcionEstatusObjeto},
+			#{nombreTabla}
+		)		
+	</insert>
 </mapper>
