@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mappers.estatusobjeto.MapEstatusObjeto">
+	<select id="obtenerEstatusObjeto" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.EstatusObjetoVO"
+		resultType="mx.com.bbva.bancomer.bussinnes.model.vo.EstatusObjetoVO">
+			  SELECT Statusobjeto.Cd_St_Objeto idEstatusObjeto,
+				  Statusobjeto.Cd_St_Clave idEstatusClave,
+				  Statusobjeto.Nb_St_Objeto nombreEstatusObjeto,
+				  Statusobjeto.Tx_St_Objeto descripcionEstatusObjeto,
+				  Statusobjeto.Nb_Tabla nombreTabla,
+				  Statusclave.Nb_St_Clave nombreEstatusClave
+			From Tgm534_St_Objeto Statusobjeto,
+				Tgm509_St_Clave Statusclave
+				Where Statusobjeto.Cd_St_Clave = Statusclave.Cd_St_Clave				
+				<if test="nombreTabla != null">
+					And Statusobjeto.Nb_Tabla  = #{nombreTabla}
+				</if>
+				<if test="nombreEstatusObjeto != null">
+					And Statusobjeto.Nb_St_Objeto Like #{nombreEstatusObjeto}
+				</if>
+				<if test="descripcionEstatusObjeto != null">
+					And Statusobjeto.Tx_St_Objeto Like #{descripcionEstatusObjeto}
+				</if>						  
+				<if test="idEstatusClave != null">
+					and Statusobjeto.Cd_St_Clave = #{idEstatusClave}
+				</if>				
+				ORDER BY Statusobjeto.Nb_Tabla
+	</select>
+</mapper>
