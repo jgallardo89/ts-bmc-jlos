@@ -42,7 +42,7 @@ public interface BbvaConsultarCatalogoMapper
                       "and TGM534_ST_OBJETO.CD_ST_CLAVE = TGM509_ST_CLAVE.CD_ST_CLAVE "                      +
                       "and TGM509_ST_CLAVE.CD_ST_CLAVE  = 1 "                                                +
                       "order by TGM501_PANTALLA.NB_PANTALLA" )
-	public java.util.List<mx.com.bbva.bancomer.mapper.persistence.entity.BbvaEstatusVO> readBbvaPantallaVO( );
+	public java.util.List<mx.com.bbva.bancomer.mapper.persistence.entity.BbvaEstatusVO> readPantallaVO( );
 	/**
 	 * 
 	 * @return
