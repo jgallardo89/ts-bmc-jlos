@@ -6,6 +6,8 @@ import mx.com.bbva.bancomer.commons.model.vo.BbvaAbstractValueObject;
 
 public class CanalVO extends BbvaAbstractValueObject  {
 
+	private static final long serialVersionUID = -7463449300240248623L;
+	
 	private int idCanal;
 	private String nombreCanal;
 	private String descripcionCanal;
@@ -13,6 +15,7 @@ public class CanalVO extends BbvaAbstractValueObject  {
 	private String rutaCanalEntrada;
 	private String rutaCanalSalida;
 	private String nombreEstatusObjeto;
+	private int idEstatusObjeto;
 	
 	/**
 	 * @return the idCanal
@@ -98,6 +101,17 @@ public class CanalVO extends BbvaAbstractValueObject  {
 	public void setNombreEstatusObjeto(String nombreEstatusObjeto) {
 		this.nombreEstatusObjeto = nombreEstatusObjeto;
 	}
-	
+	/**
+	 * @return the idEstatusObjeto
+	 */
+	public int getIdEstatusObjeto() {
+		return idEstatusObjeto;
+	}
+	/**
+	 * @param idEstatusObjeto the idEstatusObjeto to set
+	 */
+	public void setIdEstatusObjeto(int idEstatusObjeto) {
+		this.idEstatusObjeto = idEstatusObjeto;
+	}
 	
 }
