@@ -8,7 +8,46 @@ public class PantallaVO extends BbvaAbstractValueObject {
 	private long idPantalla;	
 	private String nombrePantalla;
 	private BigDecimal numeroOrdenPantalla;
-	private long idPantallaPadre;
+	private long idPantallaPadre;	
+	private String descripcionPantalla;
+	private String descripcionUrlIcon;
+	/**
+	 * @return the descripcionPantalla
+	 */
+	public final String getDescripcionPantalla() {
+		return descripcionPantalla;
+	}
+	/**
+	 * @param descripcionPantalla the descripcionPantalla to set
+	 */
+	public final void setDescripcionPantalla(String descripcionPantalla) {
+		this.descripcionPantalla = descripcionPantalla;
+	}
+	/**
+	 * @return the descripcionUrlIcon
+	 */
+	public final String getDescripcionUrlIcon() {
+		return descripcionUrlIcon;
+	}
+	/**
+	 * @param descripcionUrlIcon the descripcionUrlIcon to set
+	 */
+	public final void setDescripcionUrlIcon(String descripcionUrlIcon) {
+		this.descripcionUrlIcon = descripcionUrlIcon;
+	}
+	/**
+	 * @return the estatusPantalla
+	 */
+	public final long getEstatusPantalla() {
+		return estatusPantalla;
+	}
+	/**
+	 * @param estatusPantalla the estatusPantalla to set
+	 */
+	public final void setEstatusPantalla(long estatusPantalla) {
+		this.estatusPantalla = estatusPantalla;
+	}
+	private long estatusPantalla;	
 	/**
 	 * @return the idPantalla
 	 */
