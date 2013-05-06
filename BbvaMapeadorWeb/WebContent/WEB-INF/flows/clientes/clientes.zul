@@ -67,14 +67,14 @@
 												</combobox>																														
 											</row>
 											<row sclass="row2">												
-												<div align="right" width="70%">
+												<div align="right" width="82%">
 													<button sclass="button" label="Limpiar" id="limpiarBtn" onClick="@command('clean')" ></button>
 												</div>	
-												<div align="right" width="70%">
+												<div align="right" width="82%">
 													<button sclass="button" label="Guardar" id="guardarBtn" onClick="@command('save')"></button>
 												</div>
-												<div align="right" width="70%">
-													<button sclass="button" label="Consultar" id="consultarBtn" onClick="@command('read')"></button>
+												<div align="right" width="82%">
+													<button sclass="button" label="Consultar" id="consultarBtn" onClick="@command('readWithFilters')"></button>
 												</div>
 											</row>
 										</rows>								
@@ -90,7 +90,7 @@
 							<caption sclass="sectionPanelTitle" label="Lista de Clientes"></caption>
 							<panelchildren>
 								<grid width="99.7%" id="clientesGrid" mold="paging"
-									model="@load(vm.clienteDTO.clienteVOs)" pagingPosition="both" pageSize="5"
+									model="@load(vm.clientesVOs)" pagingPosition="both" pageSize="5"
 									vflex="true" height="100%">									
 									<columns sizable="true" menupopup="auto">
 										<column hflex="0" align="center" image="/img/pencil-small.png" 
@@ -114,8 +114,8 @@
 											<label hflex="1" value="@load(each.idIdentificador)"></label>
 											<label hflex="1" value="@load(each.nombreCliente)"></label>
 											<label hflex="1" value="@load(each.nombreCortoCliente)"></label>
-											<label hflex="1" value="@load(each.fechaAlta)"></label>
-											<label hflex="1" value="@load(each.fechaModificacion)"></label>
+											<label hflex="1" value="@load(each.fechaAlta)  @converter('formatedDate', format='dd/MM/yyyy  HH:MM:SS')"></label>
+											<label hflex="1" value="@load(each.fechaModificacion)  @converter('formatedDate', format='dd/MM/yyyy  HH:MM:SS')"></label>
 											<label hflex="1" value="@load(each.nombreEstatusObjeto)"></label>																							
 										</row>
 									</template>									
@@ -125,7 +125,7 @@
 					</portalchildren>
 				</portallayout>								
 			</groupbox>	
-			<textbox id="idEstatusObjeto" value="@load(vm.clienteDTO.clienteVO.nombreEstatusObjeto)" visible="false"></textbox>
+			<textbox id="idEstatusObjeto" value="@load(vm.clienteDTO.clienteVO.idEstatusObjeto)" visible="false"></textbox>
 			<textbox id="idCliente" value="@load(vm.clienteDTO.clienteVO.idCliente)" visible="false"></textbox>
 		</div>
 		<zscript>

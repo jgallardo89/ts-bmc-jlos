@@ -1,7 +1,5 @@
 package mx.com.bbva.mt101.ui.commons.viewmodel.clientes;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.zkoss.bind.annotation.AfterCompose;
@@ -9,17 +7,20 @@ import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
+import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.Combobox;
-import org.zkoss.zul.Datebox;
 import org.zkoss.zul.Textbox;
 
 import mx.com.bbva.bancomer.bussinnes.model.vo.ClienteVO;
-import mx.com.bbva.bancomer.bussinnes.model.vo.EstatusObjetoVO;
 import mx.com.bbva.bancomer.cliente.dto.ClienteDTO;
 import mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject;
+import mx.com.bbva.bancomer.estatusobjeto.dto.EstatusObjetoDTO;
+import mx.com.bbva.bancomer.mapper.business.ClienteBO;
+import mx.com.bbva.bancomer.mapper.business.EstatusObjetoBO;
+import mx.com.bbva.bancomer.utils.StringUtil;
 import mx.com.bbva.mapeador.ui.commons.controller.IController;
 import mx.com.bbva.mapeador.ui.commons.viewmodel.support.ControllerSupport;
 
@@ -30,8 +31,6 @@ import mx.com.bbva.mapeador.ui.commons.viewmodel.support.ControllerSupport;
 public class ClientesController extends ControllerSupport implements IController {
 
 	private static final long serialVersionUID = 6447535392970904023L;
-
-	private ClienteDTO clienteDTO = (ClienteDTO)this.read();	
 	
 	@Wire
 	private Textbox idCliente;
@@ -40,57 +39,51 @@ public class ClientesController extends ControllerSupport implements IController
 	@Wire
 	private Textbox nombreCliente;
 	@Wire
-	private Datebox fechaAlta;
-	@Wire
 	private Textbox nombreCortoCliente;
 	@Wire
-	private Datebox fechaModificacion;	
+	private Textbox idEstatusObjeto;
 	@Wire
 	private Combobox statusObjeto;
 	
+	private ClienteDTO clienteDTO;
+	private List<ClienteVO> clientesVOs;
+	
+	/**
+	 * Constructor de CanalesController
+	 */
+	public ClientesController() {
+		this.read();
+		this.clientesVOs = clienteDTO.getClienteVOs();
+	}
 	
 	@Override
 	public Object read() {
-		ClienteDTO clienteDTO = new ClienteDTO();
-		
-		List<EstatusObjetoVO> estatusObjetoVOs = new ArrayList<EstatusObjetoVO>();
-		EstatusObjetoVO estatusObjetoVO = new EstatusObjetoVO();
-		estatusObjetoVO.setIdEstatusObjeto(1);
-		estatusObjetoVO.setNombreEstatusObjeto("Activo");
-		estatusObjetoVOs.add(estatusObjetoVO);
-		estatusObjetoVO = new EstatusObjetoVO();
-		estatusObjetoVO.setIdEstatusObjeto(2);
-		estatusObjetoVO.setNombreEstatusObjeto("Inactivo");
-		estatusObjetoVOs.add(estatusObjetoVO);
-		clienteDTO.setEstatusObjetoVOs(estatusObjetoVOs);
-		
-		List<ClienteVO> clienteVOs = new ArrayList<ClienteVO>();
-		ClienteVO clienteVO = new ClienteVO();
-		
-		clienteVO.setIdIdentificador("CL1");
-		clienteVO.setNombreCliente("Julio Cesar");
-		clienteVO.setNombreCortoCliente("Morales Ortega");
-		clienteVO.setIdCliente(1);
-		clienteVO.setFechaAlta(new Date());
-		clienteVO.setFechaModificacion(new Date());
-		clienteVO.setIdEstatusObjeto(1);
-		clienteVO.setNombreEstatusObjeto("Activo");
-		clienteVOs.add(clienteVO);
-		
-		clienteVO = new ClienteVO();
-		clienteVO.setIdIdentificador("CL2");
-		clienteVO.setNombreCliente("Miguel Angel");
-		clienteVO.setNombreCortoCliente("Martinez");
-		clienteVO.setIdCliente(2);
-		clienteVO.setFechaAlta(new Date());
-		clienteVO.setFechaModificacion(new Date());
-		clienteVO.setIdEstatusObjeto(2);
-		clienteVO.setNombreEstatusObjeto("Inactivo");
-		clienteVOs.add(clienteVO);
-		
-		clienteDTO.setClienteVOs(clienteVOs);
-		
+		clienteDTO = new ClienteDTO();
+		EstatusObjetoBO estatusObjetoBO = new EstatusObjetoBO();
+		EstatusObjetoDTO estatusObjetoDTO = new EstatusObjetoDTO();
+	    estatusObjetoDTO.setCommandId(2);
+	    estatusObjetoDTO = estatusObjetoBO.readCommand(estatusObjetoDTO);
+	    clienteDTO.setEstatusObjetoVOs(estatusObjetoDTO.getEstatusObjetoVOs());
+	    
+		ClienteBO clienteBO = new ClienteBO();
+		clienteBO.readCommand(clienteDTO);
 		return clienteDTO;
+	}
+	
+	@Command
+	@NotifyChange({ "clientesVOs" })
+	public void readWithFilters() {
+		ClienteDTO clienteDTO = new ClienteDTO();
+		ClienteVO clienteVO = new ClienteVO();
+		clienteVO.setIdIdentificador(StringUtil.validaLike(idIdentificador.getValue()));
+		clienteVO.setNombreCliente(StringUtil.validaLike(nombreCliente.getValue()));
+		clienteVO.setNombreCortoCliente(StringUtil.validaLike(nombreCortoCliente.getValue()));
+		clienteVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue().isEmpty()?"0":idEstatusObjeto.getValue()));
+		
+		clienteVO.toString();
+		clienteDTO.setClienteVO(clienteVO);
+		ClienteBO clienteBO = new ClienteBO();
+		clientesVOs = clienteBO.readCommand(clienteDTO).getClienteVOs();
 	}
 
 	@Override
@@ -102,13 +95,12 @@ public class ClientesController extends ControllerSupport implements IController
 
 	@Override
 	@Command
+	@NotifyChange({ "clientesVOs" })
 	public void save() {
 		boolean errorGuardar = false;
-		int estatusObjeto = 0;
 		if (statusObjeto.getSelectedItem() == null
 				|| statusObjeto.getSelectedItem().getValue() == null
 				|| statusObjeto.getSelectedItem().getValue().toString().isEmpty()) {
-			estatusObjeto = statusObjeto.getSelectedIndex();
 			statusObjeto.setErrorMessage("Favor de seleccionar el Estatus");
 			errorGuardar = true;
 		}
@@ -122,32 +114,57 @@ public class ClientesController extends ControllerSupport implements IController
 					.setErrorMessage("Favor de introducir el nombre del Cliente");
 			errorGuardar = true;
 		}
-		if (fechaAlta.getValue() == null) {
-			fechaAlta
-			.setErrorMessage("Favor de introducir la fecha alta del Cliente");
-			errorGuardar = true;
-		}
 		if (nombreCortoCliente.getValue().isEmpty()) {
 			nombreCortoCliente
 			.setErrorMessage("Favor de introducir el nombre corto del Cliente");
 			errorGuardar = true;
 		}
-		if (fechaModificacion.getValue() == null) {
-			fechaModificacion
-			.setErrorMessage("Favor de introducir la fecha de modificación del Cliente");
-			errorGuardar = true;
-		}
 		if(!errorGuardar){
-			ClienteDTO clienteDTO = new ClienteDTO();
-			ClienteVO clienteVO = new ClienteVO();
-			clienteVO.setIdIdentificador("CL1");
-			clienteVO.setNombreCliente("Jose Luis");
-			clienteVO.setNombreCortoCliente("Ortiz");
-			clienteVO.setIdCliente(3);
-			clienteVO.setFechaAlta(new Date());
-			clienteVO.setFechaModificacion(new Date());
-			clienteVO.setIdEstatusObjeto(estatusObjeto);
-			clienteDTO.toString(BbvaAbstractDataTransferObject.XML);
+			if(idCliente.getValue().isEmpty()){
+				ClienteDTO clienteDTO = new ClienteDTO();
+				ClienteVO clienteVO = new ClienteVO();
+				clienteVO.setIdIdentificador(idIdentificador.getValue().toUpperCase());
+				clienteVO.setNombreCliente(nombreCliente.getValue().toUpperCase());
+				clienteVO.setNombreCortoCliente(nombreCortoCliente.getValue().toUpperCase());
+				clienteVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue()));
+				clienteDTO.setClienteVO(clienteVO);
+				ClienteBO clienteBO = new ClienteBO();
+				clienteBO.createCommand(clienteDTO);
+				clienteDTO.toString(BbvaAbstractDataTransferObject.XML);
+				clean();
+				
+				clienteVO.setIdIdentificador(StringUtil.validaLike(idIdentificador.getValue()));
+				clienteVO.setNombreCliente(StringUtil.validaLike(nombreCliente.getValue()));
+				clienteVO.setNombreCortoCliente(StringUtil.validaLike(nombreCortoCliente.getValue()));
+				clienteVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue().isEmpty()?"0":idEstatusObjeto.getValue()));
+				
+				clienteVO.toString();
+				clienteDTO.setClienteVO(clienteVO);
+				clientesVOs = clienteBO.readCommand(clienteDTO).getClienteVOs();
+				
+			} else {
+				ClienteDTO clienteDTO = new ClienteDTO();
+				ClienteVO clienteVO = new ClienteVO();
+				clienteVO.setIdCliente(Integer.parseInt(idCliente.getValue()));
+				clienteVO.setIdIdentificador(idIdentificador.getValue().toUpperCase());
+				clienteVO.setNombreCliente(nombreCliente.getValue().toUpperCase());
+				clienteVO.setNombreCortoCliente(nombreCortoCliente.getValue().toUpperCase());
+				clienteVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue()));
+				clienteDTO.setClienteVO(clienteVO);
+				ClienteBO clienteBO = new ClienteBO();
+				clienteBO.updateCommand(clienteDTO);
+				clienteDTO.toString(BbvaAbstractDataTransferObject.XML);
+				
+				clean();
+				clienteVO.setIdIdentificador(StringUtil.validaLike(idIdentificador.getValue()));
+				clienteVO.setNombreCliente(StringUtil.validaLike(nombreCliente.getValue()));
+				clienteVO.setNombreCortoCliente(StringUtil.validaLike(nombreCortoCliente.getValue()));
+				clienteVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue().isEmpty()?"0":idEstatusObjeto.getValue()));
+				
+				clienteVO.toString();
+				clienteDTO.setClienteVO(clienteVO);
+				clientesVOs = clienteBO.readCommand(clienteDTO).getClienteVOs();
+			}
 		}
 	}
 
@@ -163,17 +180,17 @@ public class ClientesController extends ControllerSupport implements IController
 	public void clean() {
 		idIdentificador.clearErrorMessage();
 		nombreCliente.clearErrorMessage();
-		//fechaAlta.clearErrorMessage();
 		nombreCortoCliente.clearErrorMessage();
-		fechaModificacion.clearErrorMessage();
 		statusObjeto.clearErrorMessage();
+		idCliente.clearErrorMessage();
+		idEstatusObjeto.clearErrorMessage();
 
 		idIdentificador.setValue(null);
 		nombreCliente.setValue(null);
-		//fechaAlta.setValue(null);
 		nombreCortoCliente.setValue(null);
-		fechaModificacion.setValue(null);
 		statusObjeto.setValue(null);
+		idCliente.setValue(null);
+		idEstatusObjeto.setValue(null);
 	}
 	
 	@Command
@@ -181,10 +198,10 @@ public class ClientesController extends ControllerSupport implements IController
 		clienteVO.toString();
 		idIdentificador.setValue(clienteVO.getIdIdentificador());
 		nombreCliente.setValue(clienteVO.getNombreCliente());
-		//fechaAlta.setValue(clienteVO.getFechaAlta().toString());
 		nombreCortoCliente.setValue(clienteVO.getNombreCortoCliente());
-		fechaModificacion.setValue(clienteVO.getFechaModificacion());
 		statusObjeto.setValue(clienteVO.getNombreEstatusObjeto());
+		idCliente.setValue(Integer.toString(clienteVO.getIdCliente()));
+		idEstatusObjeto.setValue(Integer.toString(clienteVO.getIdEstatusObjeto()));
 	}
 	
 	@AfterCompose
@@ -204,6 +221,20 @@ public class ClientesController extends ControllerSupport implements IController
 	 */
 	public void setClienteDTO(ClienteDTO clienteDTO) {
 		this.clienteDTO = clienteDTO;
+	}
+
+	/**
+	 * @return the clientesVOs
+	 */
+	public List<ClienteVO> getClientesVOs() {
+		return clientesVOs;
+	}
+
+	/**
+	 * @param clientesVOs the clientesVOs to set
+	 */
+	public void setClientesVOs(List<ClienteVO> clientesVOs) {
+		this.clientesVOs = clientesVOs;
 	}
 	
 }

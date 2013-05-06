@@ -81,7 +81,6 @@ public class CanalesController extends ControllerSupport implements IController 
 		canalVO.setNombreCanal(StringUtil.validaLike(nombreCanal.getValue()));
 		canalVO.setDescripcionCanal(StringUtil.validaLike(descripcionCanal.getValue()));
 		canalVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue().isEmpty()?"0":idEstatusObjeto.getValue()));
-		
 		canalVO.toString();
 		canalDTO.setCanalVO(canalVO);
 		CanalBO canalBO = new CanalBO();

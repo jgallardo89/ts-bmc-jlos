@@ -64,5 +64,5 @@ public class ControllerSupport extends SelectorComposer<Component>{
 	 */
 	public void setInvoker(BbvaAbstractCommandInvoker invoker) {
 		this.invoker = invoker;
-	}	
+	}
 }
