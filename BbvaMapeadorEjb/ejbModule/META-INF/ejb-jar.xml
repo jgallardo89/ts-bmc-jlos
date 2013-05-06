@@ -8,12 +8,19 @@
 			<ejb-name>BbvaCatalogoHelperBO</ejb-name>
 			<ejb-class>mx.com.bbva.bancomer.mapper.business.BbvaCatalogoHelperBO</ejb-class>
 			<session-type>Stateless</session-type>
+			
 		</session>
 		<session>
 			<description>Objeto de Negocio para el(los) Caso(s) de Uso(s) Mantenimiento de Usuario.</description>
 			<ejb-name>BbvaUsuarioBO</ejb-name>
 			<ejb-class>mx.com.bbva.bancomer.mapper.business.BbvaUsuarioBO</ejb-class>
 			<session-type>Stateless</session-type>
+		</session>
+		<session>
+			<description>Objeto de Negocio para el(los) Caso(s) de Uso(s) Catalogo Estatus.</description>
+			<ejb-name>EstatusObjetoBO</ejb-name>			
+			<ejb-class>mx.com.bbva.bancomer.mapper.business.EstatusObjetoBO</ejb-class>
+			<session-type>Stateless</session-type>				
 		</session>
 	</enterprise-beans>
 
