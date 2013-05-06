@@ -27,8 +27,7 @@ public class EstatusObjetoBO implements mx.com.bbva.bancomer.commons.business.Bb
 	private static final org.apache.log4j.Logger 	logger			 = Logger.getLogger(EstatusObjetoBO.class);
 	
 	//  Atributos     - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-	//	Privados
-	@Autowired
+	//	Privados	
 	private mx.com.bbva.bancomer.commons.persistence.dao.BbvaIDataAccessObject bbvaIDataAccessObject;
 
 	/**
@@ -92,15 +91,14 @@ public class EstatusObjetoBO implements mx.com.bbva.bancomer.commons.business.Bb
 			try {
 				List<EstatusObjetoVO> result = null;
 				EstatusObjetoVO estatusObjetoVO = ((EstatusObjetoDTO)bbvaAbstractDataTransferObject).getEstatusObjetoVO();
+				logger.debug("estatusObjetoVO--"+estatusObjetoVO.getNombreEstatusObjeto());
 				SqlSession session = MapeadorSessionFactory.getSqlSessionFactory()
 						.openSession();
 				MapEstatusObjeto mapEstatusObjeto = session
 						.getMapper(MapEstatusObjeto.class);
 				try {
-					result = mapEstatusObjeto.obtenerEstatusObjeto(estatusObjetoVO);
-					session.commit();
+					result = mapEstatusObjeto.obtenerEstatusObjeto(estatusObjetoVO);					
 				} catch (Exception ex) {
-					session.rollback();
 					ex.printStackTrace();
 				} finally {
 					session.close();
