@@ -10,5 +10,6 @@
 		P.NB_PERFIL AS nombrebPerfil
 		FROM 
 		TGM504_PERFIL P
-	</select>
+		where st_perfil = 1		
+	</select>	
 </mapper>
