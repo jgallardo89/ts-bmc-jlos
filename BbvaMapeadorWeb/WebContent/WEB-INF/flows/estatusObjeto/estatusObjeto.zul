@@ -67,10 +67,10 @@
 													<button sclass="button" label="Guardar" id="guardarBtn" onClick="@command('save')"></button>
 												</div>
 												<div align="right" width="70%">
-													<button sclass="button" label="Consultar" id="consultarBtn" onClick="@command('reenviarArchivo')"></button>
+													<button sclass="button" label="Consultar" id="consultarBtn" onClick="@command('read')"></button>
 												</div>																													
 												<div align="right" width="70%">
-													<button sclass="button" label="Eliminar" id="eliminarBtn" onClick="@command('reenviarArchivo')"></button>
+													<button sclass="button" label="Eliminar" id="eliminarBtn" onClick="@command('delete')"></button>
 												</div>
 											</row>
 										</rows>								
