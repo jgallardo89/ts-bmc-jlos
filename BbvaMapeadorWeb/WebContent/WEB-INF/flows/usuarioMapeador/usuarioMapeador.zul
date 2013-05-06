@@ -84,15 +84,15 @@
 							<caption sclass="sectionPanelTitle" label="Lista de Usuarios"></caption>
 							<panelchildren>
 								<grid width="99.7%" id="usuariosGrid" mold="paging"
-									model="@load(vm.usuarioDTO.usuarioVOs)" pagingPosition="both" pageSize="5"
+									model="@load(vm.usuarioVOs)" pagingPosition="both" pageSize="5"
 									vflex="true" height="100%">
 									<columns sizable="true" menupopup="auto">
 									<column hflex="0" align="center" image="/img/pencil-small.png" 
 											width="5%"></column>										
-										<column hflex="1" label="Identificador Usuario" sort="auto(vm.usuarioDTO.usuarioVO.idCveUsuario)"></column>
-										<column hflex="1" label="Usuario" sort="vm.usuarioDTO.usuarioVO.nombreUsuario"></column>
-										<column hflex="1" label="Perfil" sort="vm.usuarioDTO.usuarioVO.descripcionPerfil"></column>
-										<column hflex="1" label="Status" sort="vm.usuarioDTO.usuarioVO.nombreEstatusObjeto"></column>										
+										<column hflex="1" label="Identificador Usuario" sort="auto(vm.usuarioVO.idCveUsuario)"></column>
+										<column hflex="1" label="Usuario" sort="vm.usuarioVO.nombreUsuario"></column>
+										<column hflex="1" label="Perfil" sort="vm.usuarioVO.descripcionPerfil"></column>
+										<column hflex="1" label="Status" sort="vm.usuarioVO.nombreEstatusObjeto"></column>										
 									</columns>
 									<template name="model">
 										<row>											
