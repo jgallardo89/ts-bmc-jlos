@@ -133,9 +133,13 @@ public class EstatusObjetoController extends ControllerSupport implements IContr
 	}
 
 	@Override
+	@Command
 	public void delete() {
-		// TODO Auto-generated method stub
-		
+		EstatusObjetoDTO estatusObjetoDTO = new EstatusObjetoDTO();
+		EstatusObjetoVO estatusObjetoVO = new EstatusObjetoVO();
+		estatusObjetoVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue()));
+		estatusObjetoDTO.setEstatusObjetoVO(estatusObjetoVO);
+		estatusObjetoDTO.toString(BbvaAbstractDataTransferObject.XML);
 	}
 
 	@Override
@@ -202,6 +206,7 @@ public class EstatusObjetoController extends ControllerSupport implements IContr
 		pantallas.setValue(estatusObjetoVO.getNombreTabla());
 		nombreEstatusObjeto.setValue(estatusObjetoVO.getNombreEstatusObjeto());
 		descripcionEstatusObjeto.setValue(estatusObjetoVO.getDescripcionEstatusObjeto());
+		idEstatusObjeto.setValue(Integer.toString(estatusObjetoVO.getIdEstatusObjeto()));
 		statusClave.setValue(estatusObjetoVO.getNombreStatusClave());
 		idEstatusClave.setValue(Integer.toString(estatusObjetoVO.getIdEstatusClave()));
 		idPantalla.setValue(Integer.toString(estatusObjetoVO.getIdEstatusObjeto()));
