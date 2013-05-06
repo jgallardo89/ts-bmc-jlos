@@ -136,8 +136,24 @@ public class EstatusObjetoBO implements mx.com.bbva.bancomer.commons.business.Bb
 	@Override
 	public <T extends BbvaAbstractDataTransferObject> T updateCommand(
 			T bbvaAbstractDataTransferObject) {
-		// TODO Auto-generated method stub
-		return null;
+		logger.debug( "Entrada updateCommand          -- OK" );
+		logger.debug( "Datos de Entrada updateCommand -- " + bbvaAbstractDataTransferObject.toString() );
+		EstatusObjetoVO estatusObjetoVO = ((EstatusObjetoDTO)bbvaAbstractDataTransferObject).getEstatusObjetoVO();
+		SqlSession session = MapeadorSessionFactory.getSqlSessionFactory()
+				.openSession();
+		MapEstatusObjeto mapEstatusObjeto = session.getMapper(MapEstatusObjeto.class);
+		try {
+			mapEstatusObjeto.actualizarEstatusObjeto(estatusObjetoVO);
+			session.commit();
+		} catch (Exception ex) {
+			session.rollback();
+			ex.printStackTrace();
+		} finally {
+			session.close();
+		}
+		logger.debug( "Datos de Salida invoke -- " + bbvaAbstractDataTransferObject.toString() );
+		logger.debug( "Salida invoke          -- OK" );
+		return bbvaAbstractDataTransferObject;	
 	}
 
 	@Override
