@@ -12,6 +12,8 @@
     <mappers>
     	<mapper resource="mappers/estatusobjeto/MapEstatusObjeto.xml"/>
     	<mapper resource="mappers/canal/MapCanal.xml"/>
+    	<mapper resource="mappers/canal/MapCanal.xml"/>
+    	<mapper resource="mappers/pantalla/MapPantalla.xml"/>
     	<mapper resource="mx/com/bbva/mapeador/entity/tgm501pantalla/MapTgm501Pantalla.xml"/>
     </mappers>
 </configuration>
