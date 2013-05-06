@@ -4,14 +4,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
+import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zhtml.Messagebox;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.event.Event;
+import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
@@ -123,12 +127,37 @@ public class EstatusObjetoController extends SelectorComposer<Component> impleme
 	}
 
 	@Override
+	@Command
 	public void delete() {
-		EstatusObjetoDTO estatusObjetoDTO = new EstatusObjetoDTO();
-		EstatusObjetoVO estatusObjetoVO = new EstatusObjetoVO();
-		estatusObjetoVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue()));
-		estatusObjetoDTO.setEstatusObjetoVO(estatusObjetoVO);
-		estatusObjetoDTO.toString(BbvaAbstractDataTransferObject.XML);	
+		logger.debug("Eliminando registro:"+idEstatusObjeto.getValue());
+		if(!idEstatusObjeto.getValue().isEmpty()){
+			Messagebox.show(
+					"¿Está seguro que desea eliminar el estatus?",
+					"Pregunta", Messagebox.YES | Messagebox.NO,
+					Messagebox.QUESTION, new EventListener<Event>() {
+						@Override
+						public void onEvent(Event event) throws Exception {
+							EstatusObjetoDTO estatusObjetoDTO = new EstatusObjetoDTO();
+							EstatusObjetoVO estatusObjetoVO = new EstatusObjetoVO();
+							estatusObjetoVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue()));
+							estatusObjetoDTO.setEstatusObjetoVO(estatusObjetoVO);
+							EstatusObjetoBO estatusObjetoBO = new EstatusObjetoBO();
+							estatusObjetoDTO.toString(BbvaAbstractDataTransferObject.XML);
+							estatusObjetoBO.deleteCommand(estatusObjetoDTO);
+							clean();
+							BindUtils
+									.postGlobalCommand(
+											null,
+											null,
+											"resetGridEstatusObjetos",
+											null);
+						}
+					});
+		}else{
+			Messagebox.show("!Favor de seleccionar el registro a eliminar!",
+					"Error", Messagebox.OK,
+					Messagebox.ERROR);
+		}
 	}
 
 	/**
@@ -253,6 +282,7 @@ public class EstatusObjetoController extends SelectorComposer<Component> impleme
 		statusClave.setValue(estatusObjetoVO.getNombreStatusClave());
 		idEstatusClave.setValue(Integer.toString(estatusObjetoVO.getIdEstatusClave()));
 		idPantalla.setValue(estatusObjetoVO.getNombreTabla());
+		idEstatusObjeto.setValue(Integer.toString(estatusObjetoVO.getIdEstatusObjeto()));
 	}
 
 	@Override
@@ -284,35 +314,67 @@ public class EstatusObjetoController extends SelectorComposer<Component> impleme
 			errorGuardar = true;
 		}
 		if(!errorGuardar){
-			nombreTabla = pantallas.getSelectedItem().getLabel().toUpperCase();
-			EstatusObjetoDTO estatusObjetoDTO = new EstatusObjetoDTO();
-			EstatusObjetoVO estatusObjetoVO = new EstatusObjetoVO();
-			estatusObjetoVO.setDescripcionEstatusObjeto(descripcionEstatusObjeto.getValue().toUpperCase());
-			estatusObjetoVO.setIdEstatusClave(Integer.parseInt(idEstatusClave.getValue()));
-			estatusObjetoVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue().isEmpty()?"0":idEstatusObjeto.getValue()));
-			estatusObjetoVO.setNombreEstatusObjeto(nombreEstatusObjeto.getValue().toUpperCase());
-			estatusObjetoVO.setNombreTabla(nombreTabla);
-			estatusObjetoDTO.setEstatusObjetoVO(estatusObjetoVO);
-			estatusObjetoDTO.toString(BbvaAbstractDataTransferObject.XML);
-			EstatusObjetoBO estatusObjetoBO = new EstatusObjetoBO();
-			estatusObjetoBO.createCommand(estatusObjetoDTO);
-			clean();			
-			logger.debug("*estatusObjetoVO*");
-			estatusObjetoDTO.setCommandId(CommandConstants.ESTATUS_OBJETO);
-			estatusObjetoVO = new EstatusObjetoVO();				
-			estatusObjetoVO.setDescripcionEstatusObjeto(strDescripcionEstatusObjeto==null?"%":"%"+strDescripcionEstatusObjeto.toUpperCase()+"%");
-			estatusObjetoVO.setNombreTabla(strPantallas==null?null:"%"+strPantallas.toUpperCase()+"%");
-			estatusObjetoVO.setNombreEstatusObjeto(strNombreEstatusObjeto==null?"%":"%"+strNombreEstatusObjeto.toUpperCase()+"%");
-			estatusObjetoVO.setIdEstatusObjeto(Integer.parseInt(strIdEstatusClave==null?"0":strIdEstatusClave));		
-			estatusObjetoBO = new EstatusObjetoBO();
-			estatusObjetoDTO.setEstatusObjetoVO(estatusObjetoVO);
-			estatusObjetoDTO.toString(BbvaAbstractDataTransferObject.XML);		
-			estatusObjetoDTO.setEstatusObjetoVOs(estatusObjetoBO.readCommand(estatusObjetoDTO).getEstatusObjetoVOs());
-			estatusObjetoDTO.setEstatusObjetoVO(estatusObjetoVO);
-			estatusObjetoVOs = estatusObjetoBO.readCommand(estatusObjetoDTO).getEstatusObjetoVOs();
-			Messagebox.show("Registro actualizado con exito!!",
-					"Confirmación", Messagebox.OK,
-					Messagebox.INFORMATION);
+			if(idEstatusObjeto.getValue().isEmpty()){
+				nombreTabla = pantallas.getSelectedItem().getLabel().toUpperCase();
+				EstatusObjetoDTO estatusObjetoDTO = new EstatusObjetoDTO();
+				EstatusObjetoVO estatusObjetoVO = new EstatusObjetoVO();
+				estatusObjetoVO.setDescripcionEstatusObjeto(descripcionEstatusObjeto.getValue().toUpperCase());
+				estatusObjetoVO.setIdEstatusClave(Integer.parseInt(idEstatusClave.getValue()));
+				estatusObjetoVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue().isEmpty()?"0":idEstatusObjeto.getValue()));
+				estatusObjetoVO.setNombreEstatusObjeto(nombreEstatusObjeto.getValue().toUpperCase());
+				estatusObjetoVO.setNombreTabla(nombreTabla);
+				estatusObjetoDTO.setEstatusObjetoVO(estatusObjetoVO);
+				estatusObjetoDTO.toString(BbvaAbstractDataTransferObject.XML);
+				EstatusObjetoBO estatusObjetoBO = new EstatusObjetoBO();
+				estatusObjetoBO.createCommand(estatusObjetoDTO);
+				clean();			
+				logger.debug("*estatusObjetoVO*");
+				estatusObjetoDTO.setCommandId(CommandConstants.ESTATUS_OBJETO);
+				estatusObjetoVO = new EstatusObjetoVO();				
+				estatusObjetoVO.setDescripcionEstatusObjeto(strDescripcionEstatusObjeto==null?"%":"%"+strDescripcionEstatusObjeto.toUpperCase()+"%");
+				estatusObjetoVO.setNombreTabla(strPantallas==null?null:"%"+strPantallas.toUpperCase()+"%");
+				estatusObjetoVO.setNombreEstatusObjeto(strNombreEstatusObjeto==null?"%":"%"+strNombreEstatusObjeto.toUpperCase()+"%");
+				estatusObjetoVO.setIdEstatusObjeto(Integer.parseInt(strIdEstatusClave==null?"0":strIdEstatusClave));		
+				estatusObjetoBO = new EstatusObjetoBO();
+				estatusObjetoDTO.setEstatusObjetoVO(estatusObjetoVO);
+				estatusObjetoDTO.toString(BbvaAbstractDataTransferObject.XML);		
+				estatusObjetoDTO.setEstatusObjetoVOs(estatusObjetoBO.readCommand(estatusObjetoDTO).getEstatusObjetoVOs());
+				estatusObjetoDTO.setEstatusObjetoVO(estatusObjetoVO);
+				estatusObjetoVOs = estatusObjetoBO.readCommand(estatusObjetoDTO).getEstatusObjetoVOs();
+				Messagebox.show("Registro actualizado con exito!!",
+						"Confirmación", Messagebox.OK,
+						Messagebox.INFORMATION);
+			}else{
+				nombreTabla = pantallas.getSelectedItem().getLabel().toUpperCase();
+				EstatusObjetoDTO estatusObjetoDTO = new EstatusObjetoDTO();
+				EstatusObjetoVO estatusObjetoVO = new EstatusObjetoVO();
+				estatusObjetoVO.setDescripcionEstatusObjeto(descripcionEstatusObjeto.getValue().toUpperCase());
+				estatusObjetoVO.setIdEstatusClave(Integer.parseInt(idEstatusClave.getValue()));
+				estatusObjetoVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue().isEmpty()?"0":idEstatusObjeto.getValue()));
+				estatusObjetoVO.setNombreEstatusObjeto(nombreEstatusObjeto.getValue().toUpperCase());
+				estatusObjetoVO.setNombreTabla(nombreTabla);
+				estatusObjetoDTO.setEstatusObjetoVO(estatusObjetoVO);
+				estatusObjetoDTO.toString(BbvaAbstractDataTransferObject.XML);
+				EstatusObjetoBO estatusObjetoBO = new EstatusObjetoBO();
+				estatusObjetoBO.updateCommand(estatusObjetoDTO);
+				clean();			
+				logger.debug("*estatusObjetoVO*");
+				estatusObjetoDTO.setCommandId(CommandConstants.ESTATUS_OBJETO);
+				estatusObjetoVO = new EstatusObjetoVO();				
+				estatusObjetoVO.setDescripcionEstatusObjeto(strDescripcionEstatusObjeto==null?"%":"%"+strDescripcionEstatusObjeto.toUpperCase()+"%");
+				estatusObjetoVO.setNombreTabla(strPantallas==null?null:"%"+strPantallas.toUpperCase()+"%");
+				estatusObjetoVO.setNombreEstatusObjeto(strNombreEstatusObjeto==null?"%":"%"+strNombreEstatusObjeto.toUpperCase()+"%");
+				estatusObjetoVO.setIdEstatusObjeto(Integer.parseInt(strIdEstatusClave==null?"0":strIdEstatusClave));		
+				estatusObjetoBO = new EstatusObjetoBO();
+				estatusObjetoDTO.setEstatusObjetoVO(estatusObjetoVO);
+				estatusObjetoDTO.toString(BbvaAbstractDataTransferObject.XML);		
+				estatusObjetoDTO.setEstatusObjetoVOs(estatusObjetoBO.readCommand(estatusObjetoDTO).getEstatusObjetoVOs());
+				estatusObjetoDTO.setEstatusObjetoVO(estatusObjetoVO);
+				estatusObjetoVOs = estatusObjetoBO.readCommand(estatusObjetoDTO).getEstatusObjetoVOs();
+				Messagebox.show("Registro actualizado con exito!!",
+						"Confirmación", Messagebox.OK,
+						Messagebox.INFORMATION);
+			}
 		}
 		
 	}
@@ -372,5 +434,22 @@ public class EstatusObjetoController extends SelectorComposer<Component> impleme
 	public void setStrStatusClave(String strStatusClave) {
 		this.strStatusClave = strStatusClave;
 	}
-	
+	@GlobalCommand("resetGridEstatusObjetos")
+	@NotifyChange({ "estatusObjetoVOs" })
+	public void resetGrid() {
+		EstatusObjetoDTO estatusObjetoDTO = new EstatusObjetoDTO();
+		EstatusObjetoVO estatusObjetoVO = new EstatusObjetoVO();		
+		estatusObjetoVO.setDescripcionEstatusObjeto(descripcionEstatusObjeto.getValue().isEmpty()?"%":"%"+descripcionEstatusObjeto.getValue().toUpperCase()+"%");
+		estatusObjetoVO.setNombreTabla(pantallas.getValue().isEmpty()?null:pantallas.getValue().toUpperCase());
+		estatusObjetoVO.setNombreEstatusObjeto(nombreEstatusObjeto.getValue().isEmpty()?"%":"%"+nombreEstatusObjeto.getValue().toUpperCase()+"%");
+		estatusObjetoVO.setIdEstatusClave(Integer.parseInt(idEstatusClave.getValue().isEmpty()?"0":idEstatusClave.getValue()));
+		estatusObjetoDTO.setCommandId(CommandConstants.ESTATUS_OBJETO);
+		EstatusObjetoBO estatusObjetoBO = new EstatusObjetoBO();
+		estatusObjetoDTO.setEstatusObjetoVO(estatusObjetoVO);
+		estatusObjetoDTO.toString(BbvaAbstractDataTransferObject.XML);		
+		estatusObjetoDTO = estatusObjetoBO.readCommand(estatusObjetoDTO);
+		logger.debug("size:"+estatusObjetoDTO.getEstatusObjetoVOs().size());
+		estatusObjetoVOs = estatusObjetoDTO.getEstatusObjetoVOs();
+		//operacionesDudosasGrid.invalidate();
+	}
 }
