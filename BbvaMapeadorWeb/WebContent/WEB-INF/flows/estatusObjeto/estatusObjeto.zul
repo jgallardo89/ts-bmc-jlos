@@ -32,7 +32,7 @@
 												<div align="right">
 													<label width="100%" sclass="labelFill" value="Pantalla:"></label>
 												</div>
-												<combobox id="pantallas" model="@load(vm.estatusObjetoDTO.pantallaVOs)"  width="100%" height="100%" onChange="selectedValuePantallas()">		
+												<combobox id="pantallas" model="@load(vm.strPantallas)"  width="100%" height="100%" onChange="selectedValuePantallas()">		
 													<template name="model">										
 														<comboitem value="@load(each.idPantalla)" label="@load(each.nombrePantalla)" height="100%"/>
 													</template>																								
@@ -41,19 +41,19 @@
 													<label width="100%" sclass="labelFill" value="Nombre Estatus Objeto:"></label>												
 												</div>
 												<textbox sclass="textboxUpperCase" maxlength="50"
-													id="nombreEstatusObjeto" value="@load(vm.estatusObjetoDTO.estatusObjetoVO.nombreEstatusObjeto)" width="100%"></textbox>																													
+													id="nombreEstatusObjeto" value="@load(vm.strNombreEstatusObjeto)" width="100%"></textbox>																													
 											</row>
 											<row sclass="row2">
 												<div align="right">
 													<label width="100%" sclass="labelFill" value="Descripción Estatus Objeto:"></label>												
 												</div>
 												<textbox sclass="textboxUpperCase" maxlength="50"
-													id="descripcionEstatusObjeto" value="@load(vm.estatusObjetoDTO.estatusObjetoVO.descripcionEstatusObjeto)" width="100%"></textbox>												
+													id="descripcionEstatusObjeto" value="@load(vm.strDescripcionEstatusObjeto)" width="100%"></textbox>												
 												<div align="right">
 													<label width="100%" sclass="labelFill" value="Status:"></label>												
 												</div>
 												<combobox sclass="textboxUpperCase" readonly="true" onChange="selectedValueStatusClave()"
-													id="statusClave" width="70%" model="@load(vm.estatusObjetoDTO.estatusClaveVOs)" autodrop="true">		
+													id="strStatusClave" width="70%" model="@load(vm.estatusObjetoDTO.estatusClaveVOs)" autodrop="true">		
 													<template name="model">										
 														<comboitem value="@load(each.idEstatusClave)" label="@load(each.nombreEstatusClave)" height="100%"/>
 													</template>																								
@@ -67,10 +67,10 @@
 													<button sclass="button" label="Guardar" id="guardarBtn" onClick="@command('save')"></button>
 												</div>
 												<div align="right" width="70%">
-													<button sclass="button" label="Consultar" id="consultarBtn" onClick="@command('read')"></button>
+													<button sclass="button" label="Consultar" id="consultarBtn" onClick="@command('readWithFilters')"></button>
 												</div>																													
 												<div align="right" width="70%">
-													<button sclass="button" label="Eliminar" id="eliminarBtn" onClick="@command('delete')"></button>
+													<button sclass="button" label="Eliminar" id="eliminarBtn" onClick="@command('reenviarArchivo')"></button>
 												</div>
 											</row>
 										</rows>								
@@ -85,8 +85,8 @@
 							style="margin-bottom:10px">
 							<caption sclass="sectionPanelTitle" label="Lista de Usuarios"></caption>
 							<panelchildren>
-								<grid width="99.7%" id="clientesGrid" mold="paging"
-									model="@load(vm.estatusObjetoDTO.estatusObjetoVOs)" pagingPosition="both" pageSize="5"
+								<grid width="99.7%" id="estatusObjetosGrid" mold="paging"
+									model="@load(vm.estatusObjetoVOs)" pagingPosition="both" pageSize="5"
 									vflex="true" height="100%">									
 									<columns sizable="true" menupopup="auto">
 										<column hflex="0" align="center" image="/img/pencil-small.png" 
@@ -116,8 +116,8 @@
 				</portallayout>								
 			</groupbox>	
 			<textbox id="idPantalla" value="@load(vm.estatusObjetoDTO.idPantalla)" visible="false"></textbox>
-			<textbox id="idEstatusClave" value="@load(vm.estatusObjetoDTO.idEstatusClave)" visible="false"></textbox>
-			<textbox id="idEstatusObjeto" value="@load(vm.estatusObjetoDTO.estatusObjetoVO.idEstatusObjeto)" visible="false"></textbox>
+			<textbox id="idEstatusClave" value="@load(vm.strIdEstatusClave)" visible="false"></textbox>
+			<textbox id="idEstatusObjeto" value="@load(vm.strIdEstatusObjeto)" visible="false"></textbox>
 		</div>
 		<zscript>
 			public void selectedValuePantallas(){
