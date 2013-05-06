@@ -98,7 +98,7 @@
 											<image src="/img/pencil-small.png" onClick="@command('readSelected',idCanal=each)"></image>											
 											<label hflex="1" value="@load(each.nombreCanal)"></label>
 											<label hflex="1" value="@load(each.descripcionCanal)"></label>
-											<label hflex="1" value="@load(each.fechaAlta)"></label>
+											<label hflex="1" value="@load(each.fechaAlta) @converter('formatedDate', format='dd/MM/yyyy  HH:MM:SS')"></label>
 											<label hflex="1" value="@load(each.nombreEstatusObjeto)"></label>																							
 										</row>
 									</template>									
