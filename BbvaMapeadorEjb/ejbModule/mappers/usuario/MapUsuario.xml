@@ -38,4 +38,46 @@
 			</if>				
 				ORDER BY U.CD_USUARIO
 	</select>
+	<insert id="crearUsuario" keyProperty="idUsuario" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.UsuarioVO">
+		<selectKey keyProperty="idUsuario" resultType="int" order="BEFORE"> 
+			<![CDATA[ select SQ_USUARIO.nextval as idUsuario from dual ]]> 
+		</selectKey>
+		Insert Into Tgm503_Usuario
+		(
+			Cd_Usuario,
+			CD_CVE_USUARIO,
+			NB_USUARIO,
+			Tx_Password_Usr,
+			TM_ALTA,
+			Tm_Modificacion,
+			FH_USUARIO,
+			Tm_Cambio_Pws,
+			NU_INTENTOS,
+			St_Usuario,
+			CD_PERFIL
+		)
+		Values
+		(
+			#{idUsuario},
+			#{idCveUsuario},
+			#{nombreUsuario},
+			'--',
+			sysdate,
+			null,
+			sysdate,
+			sysdate,
+			0,
+			#{estatusUsuario},
+			#{idPerfil}						
+		)	
+	</insert>
+	<update id="actualizarUsuario" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.UsuarioVO">
+		Update Tgm503_Usuario
+			Set Cd_Cve_Usuario = #{idCveUsuario},
+			Nb_Usuario = #{nombreUsuario},
+			Tm_Modificacion = sysdate,
+			St_Usuario = #{estatusUsuario},
+			Cd_Perfil= #{idPerfil}
+		where cd_usuario = #{idUsuario}
+	</update>
 </mapper>
