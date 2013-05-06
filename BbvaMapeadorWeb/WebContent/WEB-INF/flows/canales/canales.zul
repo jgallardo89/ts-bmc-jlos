@@ -37,7 +37,7 @@
 												<div align="right">
 													<label width="100%" sclass="labelFill" value="Fecha y Hora de Alta:"></label>												
 												</div>
-												<datebox value="@load(vm.canalDTO.canalVO.fechaAlta)" id="fechaAlta" readonly="true" buttonVisible="false" onCreate="self.value = new Date()" format="dd/MM/yyyy HH:MM:SS"></datebox> 																													
+												<datebox value="@load(vm.canalDTO.canalVO.fechaAlta)"  maxlength="50"  width="100%" id="fechaAlta" readonly="true" buttonVisible="false" onCreate="self.value = new Date()" format="dd/MM/yyyy HH:MM:SS"></datebox> 																													
 											</row>
 											<row sclass="row2">
 												<div align="right">
@@ -63,7 +63,7 @@
 													<button sclass="button" label="Guardar" id="guardarBtn" onClick="@command('save')"></button>
 												</div>
 												<div align="right" width="70%">
-													<button sclass="button" label="Consultar" id="consultarBtn" onClick="@command('read')"></button>
+													<button sclass="button" label="Consultar" id="consultarBtn" onClick="@command('readWithFilters')"></button>
 												</div>
 											</row>
 										</rows>								
@@ -79,7 +79,7 @@
 							<caption sclass="sectionPanelTitle" label="Lista de Canales"></caption>
 							<panelchildren>
 								<grid width="99.7%" id="clientesGrid" mold="paging"
-									model="@load(vm.canalDTO.canalVOs)" pagingPosition="both" pageSize="5"
+									model="@load(vm.canalesVOs)" pagingPosition="both" pageSize="5"
 									vflex="true" height="100%">									
 									<columns sizable="true" menupopup="auto">
 										<column hflex="0" align="center" image="/img/pencil-small.png" 
