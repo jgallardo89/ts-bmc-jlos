@@ -8,6 +8,10 @@ import mx.com.bbva.bancomer.bussinnes.model.vo.CanalVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.EstatusObjetoVO;
 import mx.com.bbva.bancomer.canal.dto.CanalDTO;
 import mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject;
+import mx.com.bbva.bancomer.estatusobjeto.dto.EstatusObjetoDTO;
+import mx.com.bbva.bancomer.mapper.business.CanalBO;
+import mx.com.bbva.bancomer.mapper.business.EstatusObjetoBO;
+import mx.com.bbva.bancomer.utils.StringUtil;
 import mx.com.bbva.mapeador.ui.commons.controller.IController;
 import mx.com.bbva.mapeador.ui.commons.viewmodel.support.ControllerSupport;
 
@@ -17,6 +21,7 @@ import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
+import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
@@ -33,20 +38,20 @@ public class CanalesController extends ControllerSupport implements IController 
 
 	private static final Logger logger = Logger.getLogger(ControllerSupport.class);
 	
+	public CanalesController() {
+		this.read();
+		this.canalesVOs = canalDTO.getCanalVOs();
+	}
 	
-	private CanalDTO canalDTO = (CanalDTO)this.read();		
+	private CanalDTO canalDTO;
+	
+	private List<CanalVO> canalesVOs;
 	
 	@Wire
 	private Textbox nombreCanal;
 	
 	@Wire
 	private Textbox descripcionCanal;
-	
-	@Wire
-	private Textbox rutaCanalEntrada;
-	
-	@Wire
-	private Textbox rutaCanalSalida;
 	
 	@Wire
 	private Textbox idEstatusObjeto;
@@ -59,45 +64,37 @@ public class CanalesController extends ControllerSupport implements IController 
 	
 	@Override
 	public Object read() {
-		//Llenado del Combo de Status Objeto
-		CanalDTO canalDTO = new CanalDTO();
-		List<EstatusObjetoVO> estatusObjetoVOs = new ArrayList<EstatusObjetoVO>();
-		EstatusObjetoVO estatusObjetoVO = new EstatusObjetoVO();
-		estatusObjetoVO.setIdEstatusObjeto(1);
-		estatusObjetoVO.setNombreEstatusObjeto("Activo");
-		estatusObjetoVOs.add(estatusObjetoVO);
-		estatusObjetoVO = new EstatusObjetoVO();
-		estatusObjetoVO.setIdEstatusObjeto(2);
-		estatusObjetoVO.setNombreEstatusObjeto("Inactivo");
-		estatusObjetoVOs.add(estatusObjetoVO);
-		canalDTO.setEstatusObjetoVOs(estatusObjetoVOs);
-		
-		List<CanalVO> canalVOs = new ArrayList<CanalVO>();
-		CanalVO canalVO = new CanalVO();
-		canalVO.setIdCanal(1);
-		canalVO.setNombreCanal("H2H");
-		canalVO.setDescripcionCanal("Host to Host");
-		canalVO.setFechaAlta(new Date());
-		canalVO.setRutaCanalEntrada("/gmm/mx/mapeador/ejemplo/");
-		canalVO.setRutaCanalSalida("/gmm/mx/mapeador/ejemplo2/");
-		canalVO.setNombreEstatusObjeto("Activo");
-		canalVOs.add(canalVO);
-		canalVO = new CanalVO();
-		canalVO.setIdCanal(2);
-		canalVO.setNombreCanal("H2H E");
-		canalVO.setDescripcionCanal("Host to Host example");
-		canalVO.setFechaAlta(new Date());
-		canalVO.setRutaCanalEntrada("/gmm/mx/mapeador/x/");
-		canalVO.setRutaCanalSalida("/gmm/mx/mapeador/x/");
-		canalVO.setNombreEstatusObjeto("Inactivo");
-		canalVOs.add(canalVO);
-		canalDTO.setCanalVOs(canalVOs);
+		canalDTO = new CanalDTO();
+		EstatusObjetoBO estatusObjetoBO = new EstatusObjetoBO();
+		EstatusObjetoDTO estatusObjetoDTO = new EstatusObjetoDTO();
+	    estatusObjetoDTO.setCommandId(2);
+	    estatusObjetoDTO = estatusObjetoBO.readCommand(estatusObjetoDTO);
+	    canalDTO.setEstatusObjetoVOs(estatusObjetoDTO.getEstatusObjetoVOs());
+	    
+		CanalBO canalBO = new CanalBO();
+		canalBO.readCommand(canalDTO);
 		return canalDTO;
+	}
+	
+	@Command
+	@NotifyChange({ "canalesVOs" })
+	public void readWithFilters() {
+		CanalDTO canalDTO = new CanalDTO();
+		CanalVO canalVO = new CanalVO();
+		canalVO.setNombreCanal(StringUtil.validaLike(nombreCanal.getValue()));
+		canalVO.setDescripcionCanal(StringUtil.validaLike(descripcionCanal.getValue()));
+		canalVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue().isEmpty()?"0":idEstatusObjeto.getValue()));
+		
+		canalVO.toString();
+		canalDTO.setCanalVO(canalVO);
+		CanalBO canalBO = new CanalBO();
+		canalesVOs = canalBO.readCommand(canalDTO).getCanalVOs();
 	}
 	
 	@Override
 	@Command
 	public void save() {
+		CanalBO canalBO = new CanalBO();
 		boolean errorGuardar = false;
 		int estatusObjeto = 0;
 		if (statusObjeto.getSelectedItem() == null
@@ -117,26 +114,15 @@ public class CanalesController extends ControllerSupport implements IController 
 					.setErrorMessage("Favor de introducir la descripción del Canal");
 			errorGuardar = true;
 		}
-		/*if (rutaCanalEntrada.getValue().isEmpty()) {
-			rutaCanalEntrada
-					.setErrorMessage("Favor de introducir la ruta de entrada del Canal");
-			errorGuardar = true;
-		}
-		if (rutaCanalSalida.getValue().isEmpty()) {
-			rutaCanalSalida
-			.setErrorMessage("Favor de introducir la ruta de salida del Canal");
-			errorGuardar = true;
-		}*/
 		if(!errorGuardar){
 			CanalDTO canalDTO = new CanalDTO();
 			CanalVO canalVO = new CanalVO();
-			canalVO.setNombreCanal("H2H");
-			canalVO.setDescripcionCanal("Host to Host");
-			canalVO.setFechaAlta(new Date());
-			canalVO.setRutaCanalEntrada("/gmm/mx/mapeador/ejemplo/");
-			canalVO.setRutaCanalSalida("/gmm/mx/mapeador/ejemplo2/");
-			canalVO.setIdEstatusObjeto(estatusObjeto);
+			canalVO.setNombreCanal(nombreCanal.getValue());
+			canalVO.setDescripcionCanal(descripcionCanal.getValue());
+			//canalVO.setFechaAlta(new Date());
+			canalVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue()));
 			canalDTO.setCanalVO(canalVO);
+			canalBO.createCommand(canalDTO);
 			canalDTO.toString(BbvaAbstractDataTransferObject.XML);
 		}
 	}
@@ -186,7 +172,19 @@ public class CanalesController extends ControllerSupport implements IController 
 	public void setCanalDTO(CanalDTO canalDTO) {
 		this.canalDTO = canalDTO;
 	}
-	
+	/**
+	 * @return the canalesVOs
+	 */
+	public List<CanalVO> getCanalesVOs() {
+		return canalesVOs;
+	}
+	/**
+	 * @param canalesVOs the canalesVOs to set
+	 */
+	public void setCanalesVOs(List<CanalVO> canalesVOs) {
+		this.canalesVOs = canalesVOs;
+	}
+
 	@AfterCompose
     public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
         Selectors.wireComponents(view, this, false);        
