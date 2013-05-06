@@ -58,7 +58,7 @@
 			Nb_St_Objeto = #{nombreEstatusObjeto},
 			Nb_Tabla = #{nombreTabla},
 			Tx_St_Objeto = #{descripcionEstatusObjeto}
-		where Cd_St_Objeto = #{idEstatusobjeto}
+		where Cd_St_Objeto = #{idEstatusObjeto}
 	</update>
 	<delete id="eliminarEstatusObjeto" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.EstatusObjetoVO">
 		Delete From Tgm534_St_Objeto 
