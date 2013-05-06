@@ -3,140 +3,139 @@
 <?meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7"?>
 <?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
 <zk>	
-   <window border="0" width="100%" height="100%"
-		id="clientes">
-   		<div>
-   			<groupbox>
-				<caption sclass="pageTitle" label="Catálogos > Mapeador > Cliente"></caption>
-				<portallayout maximizedMode="whole" id="portalLayoutClientesAAA"
-					width="100%">
-					<portalchildren style="padding: 5px" width="100%">
-						<panel width="100%" sclass="sectionPanelTitle" id="datosClientesAAA"
-							title="Datos Clientes AAA" collapsible="true" style="margin-bottom:10px"
+   <window border="0" width="100%" height="70%"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('mx.com.bbva.mt101.ui.commons.viewmodel.clientes.ClientesController')"
+		id="estatusObjetoWindows">
+		<include src="../../pages/styles.zul" />
+		<div sclass="BODY" height="100%">
+			<groupbox height="100%">
+				<caption sclass="pageTitle" label="Sistema > Catálogos > Catálogo de Clientes"></caption>		
+					<portallayout maximizedMode="whole" id="portalLayoutEstatusObjeto"
+					width="100%" height="100%">
+					<portalchildren>
+						<panel width="100%" sclass="sectionPanelTitle" id="datosClientes"
+							title="Catalogo" collapsible="true" style="margin-bottom:10px"
 							border="normal">
-							<caption sclass="sectionPanelTitle" label="Información del Cliente"></caption>
+							<caption sclass="sectionPanelTitle" label="Catálogo Clientes"></caption>
 							<panelchildren>
-								<grid width="100%" style="border:0" oddRowSclass="row2">
-									<columns>
-										<column width="20%" />
-										<column width="60%" />										
-									</columns>
-									<rows>
-										<row sclass="row2">
-											<div align="right">
-												<label width="100%" sclass="labelFill" value="Nombre del Cliente:"></label>
-											</div>
-											<textbox sclass="textboxUpperCase" value="" maxlength="50" id="cuentaCheques"
-												width="100%"></textbox>
-										</row>										
-										<row sclass="row2">		
-											<div align="right">
-												<label width="100%" sclass="labelFill" value="Descripción del Cliente:"></label>
-											</div>
-											<textbox sclass="textboxUpperCase" value=""
-												maxlength="50" id="nombreCliente" width="100%"></textbox>
-										</row>										
-										<row sclass="row2">											
-											<div align="right">
-												<label width="100%" sclass="labelFill" value="Estatus:"></label>
-											</div>
-											<combobox value="--Seleccionar--">																								
-											</combobox>
-										</row>										
-									</rows>
-								</grid>
-								<div align="center" width="100%">
-									<button sclass="button" image="/img/disk.png" label="Guardar" id="registarClienteBtn"></button>																		
-									<button sclass="button" image="/img/clear.png" label="Limpiar" id="limpiarDatosBtn"></button>									
-								</div>								
-							</panelchildren>
+								<div align="center">
+									<grid width="100%" style="border:0" oddRowSclass="row2">
+										<columns>
+											<column width="20%" />
+											<column width="25%" />
+											<column width="20%" />
+											<column width="25%" />
+										</columns>
+										<rows>
+											<row sclass="row2">
+												<div align="right">
+													<label width="100%" sclass="labelFill" value="Identificador: "></label>
+												</div>
+												<textbox sclass="textboxUpperCase" maxlength="50"
+													id="idIdentificador" value="@load(vm.clienteDTO.clienteVO.idIdentificador)" width="100%"></textbox>
+												<div align="right">
+													<label width="100%" sclass="labelFill" value="Nombre Cliente: "></label>
+												</div>
+												<textbox sclass="textboxUpperCase" maxlength="50"
+													id="nombreCliente" value="@load(vm.clienteDTO.clienteVO.nombreCliente)" width="100%"></textbox> 																													
+											</row>
+											<row sclass="row2">
+												<div align="right">
+													<label width="100%" sclass="labelFill" value="Fecha alta: "></label>												
+												</div>
+												<datebox value="@load(vm.clienteDTO.clienteVO.fechaAlta)" maxlength="50" width="100%" id="fechaAlta" readonly="true" buttonVisible="false" onCreate="self.value = new Date()" format="dd/MM/yyyy HH:MM:SS"></datebox>
+												<div align="right">
+													<label width="100%" sclass="labelFill" value="Descripción Cliente: "></label>												
+												</div>
+												<textbox sclass="textboxUpperCase" maxlength="50"
+													id="nombreCortoCliente" value="@load(vm.clienteDTO.clienteVO.nombreCortoCliente)" width="100%"></textbox>																											
+											</row>
+											<row sclass="row2">
+												<div align="right">
+													<label width="100%" sclass="labelFill" value="Fecha Modificación: "></label>												
+												</div>
+												<datebox value="@load(vm.clienteDTO.clienteVO.fechaModificacion)" maxlength="50" width="100%" id="fechaModificacion" readonly="true" buttonVisible="false" onCreate="self.value = new Date()" format="dd/MM/yyyy HH:MM:SS"></datebox>
+												<div align="right">
+													<label width="100%" sclass="labelFill" value="Status:"></label>												
+												</div>
+												<combobox sclass="textboxUpperCase" readonly="true" onChange="selectedValueStatusObjeto()"
+													id="statusObjeto" width="70%" model="@load(vm.clienteDTO.estatusObjetoVOs)" autodrop="true">		
+													<template name="model">										
+														<comboitem value="@load(each.idEstatusObjeto)" label="@load(each.nombreEstatusObjeto)" height="100%"/>
+													</template>																								
+												</combobox>																														
+											</row>
+											<row sclass="row2">												
+												<div align="right" width="70%">
+													<button sclass="button" label="Limpiar" id="limpiarBtn" onClick="@command('clean')" ></button>
+												</div>	
+												<div align="right" width="70%">
+													<button sclass="button" label="Guardar" id="guardarBtn" onClick="@command('save')"></button>
+												</div>
+												<div align="right" width="70%">
+													<button sclass="button" label="Consultar" id="consultarBtn" onClick="@command('read')"></button>
+												</div>
+											</row>
+										</rows>								
+									</grid>
+								</div>
+							</panelchildren>										
 						</panel>
 					</portalchildren>
-					<portalchildren  width="100%" style="padding: 5px" height="300px">
-						<panel sclass="sectionPanelTitle" width="100%" height="100%" id="gridOpeDud"
-							title="Resultados Clientes" collapsible="true" style="margin-bottom:10px">
+					<portalchildren width="100%" style="padding: 5px">
+						<panel sclass="sectionPanelTitle" width="100%" id="panelCanalMapeador"
+							title="Resultados Clientes Mapeador" collapsible="true"
+							style="margin-bottom:10px">
 							<caption sclass="sectionPanelTitle" label="Lista de Clientes"></caption>
-							<panelchildren >
-								<grid  width="100%" height="100%" id="clientesGrid" mold="paging"
-									model="@load(vm.clientes)" pagingPosition="both" pageSize="5"
-									vflex="true">
-									<auxhead>
-										<auxheader sclass="sectionFilterTitle" align="left"
-											label="Filtrar Resultados Por" colspan="5" />
-										<auxheader colspan="1" label="Exportar:" align="center">	
-												<label value="  "></label>									
-												<image src="/img/excel.png"></image>
-												<label value="  "></label>		
-												<image src="/img/flat.png"></image>									
-										</auxheader>
-									</auxhead>
-									<auxhead>
-										<auxheader hflex="0" align="center" colspan="1">
-											<image  src="/img/refresh.png" width="16px" height="16px" onClick="@command('establecerFiltroClientes')"></image>
-										</auxheader>
-										<auxheader colspan="1">
-											<image src="/img/search.png"></image>
-											<textbox width="70%" sclass="textboxUpperCase" id="filtroCuentaCheques"
-												instant="true" value="@bind(vm.filtroCuentaCheques)"
-												onChange="@command('establecerFiltroClientes')" />
-										</auxheader>
-										<auxheader colspan="1">
-											<image src="/img/search.png"></image>
-											<textbox width="70%" sclass="textboxUpperCase" id="filtroNombreCliente"
-												instant="true" value="@bind(vm.filtroNombreCliente)"
-												onChange="@command('establecerFiltroClientes')" />
-										</auxheader>
-										<auxheader colspan="1">
-											<image src="/img/search.png"></image>
-											<textbox width="70%" sclass="textboxUpperCase"
-												id="filtroCodigoBicRecepcion" instant="true"
-												value="@bind(vm.filtroCodigoBicRecepcion)" onChange="@command('establecerFiltroClientes')" />
-										</auxheader>
-										<auxheader colspan="1">
-											<image src="/img/search.png"></image>
-											<textbox width="70%" sclass="textboxUpperCase" id="filtroCodigoBicEnvio"
-												instant="true" value="@bind(vm.filtroCodigoBicEnvio)"
-												onChange="@command('establecerFiltroClientes')" />
-										</auxheader>
-										<auxheader colspan="1">
-											<image src="/img/search.png"></image>
-											<textbox width="70%" sclass="textboxUpperCase" id="filtroContrato"
-												instant="true" value="@bind(vm.filtroContrato)" onChange="@command('establecerFiltroClientes')" />
-										</auxheader>										
-									</auxhead>
+							<panelchildren>
+								<grid width="99.7%" id="clientesGrid" mold="paging"
+									model="@load(vm.clienteDTO.clienteVOs)" pagingPosition="both" pageSize="5"
+									vflex="true" height="100%">									
 									<columns sizable="true" menupopup="auto">
 										<column hflex="0" align="center" image="/img/pencil-small.png" 
 											width="5%"></column>
-										<column hflex="1" label="Nombre Cliente" style="text-wrap: normal;"
-											width="10%" sort="auto(cdCuentaCheques)"></column>
-										<column hflex="1" label="Descripción Cliente" width="20%"
-											sort="auto(nbEmpresa)"></column>
-										<column hflex="1" label="Fecha Alta" width="10%"
-											sort="auto(cdCodSwRec)"></column>
-										<column hflex="1" label="Fecha Modificación" width="10%"
-											sort="auto(cdCodSwEnv)"></column>
-										<column hflex="1" label="Estatus" width="10%"
-											sort="auto(cdContratoSicoco)"></column>										
+										<column hflex="1" label="Identificador" style="text-wrap: normal;"
+											width="10%" sort="auto(vm.clienteDTO.clienteVO.idIdentificador)"></column>
+										<column hflex="1" label="Nombre Cliente" width="20%"
+											sort="auto(vm.clienteDTO.clienteVO.nombreCliente)"></column>
+										<column hflex="1" label="Descripción Cliente" width="10%"
+											sort="auto(vm.clienteDTO.clienteVO.nombreCortoCliente)"></column>
+										<column hflex="1" label="Fecha y Hora de Alta" width="10%"
+											sort="auto(vm.clienteDTO.clienteVO.fechaAlta)"></column>
+										<column hflex="1" label="Fecha y Hora de Modificación" width="10%"
+											sort="auto(vm.clienteDTO.clienteVO.fechaModificacion)"></column>	
+										<column hflex="1" label="Status" width="10%"
+											sort="auto(vm.clienteDTO.clienteVO.nombreEstatusObjeto)"></column>								
 									</columns>
 									<template name="model">
 										<row>
-											<image src="/img/pencil-small.png" onClick="@command('getContrato',idCliente=each)"></image>											
-											<label hflex="1" value="@load(each.cdCuentaCheques)"></label>
-											<label hflex="1" value="@load(each.nbEmpresa)"></label>
-											<label hflex="1" value="@load(each.cdCodSwRec)"></label>
-											<label hflex="1" value="@load(each.cdCodSwEnv)"></label>
-											<label hflex="1" value="@load(each.cdContratoSicoco)"></label>											
+											<image src="/img/pencil-small.png" onClick="@command('readSelected',idCliente=each)"></image>											
+											<label hflex="1" value="@load(each.idIdentificador)"></label>
+											<label hflex="1" value="@load(each.nombreCliente)"></label>
+											<label hflex="1" value="@load(each.nombreCortoCliente)"></label>
+											<label hflex="1" value="@load(each.fechaAlta)"></label>
+											<label hflex="1" value="@load(each.fechaModificacion)"></label>
+											<label hflex="1" value="@load(each.nombreEstatusObjeto)"></label>																							
 										</row>
-									</template>
-									<foot>
-										<footer span="6"></footer>
-									</foot>
+									</template>									
 								</grid>
 							</panelchildren>
 						</panel>
 					</portalchildren>
-				</portallayout>
-			</groupbox>
-   		</div>
-   </window>
+				</portallayout>								
+			</groupbox>	
+			<textbox id="idEstatusObjeto" value="@load(vm.clienteDTO.clienteVO.nombreEstatusObjeto)" visible="false"></textbox>
+			<textbox id="idCliente" value="@load(vm.clienteDTO.clienteVO.idCliente)" visible="false"></textbox>
+		</div>
+		<zscript>
+			public void selectedValueStatusObjeto(){
+				try{
+					idEstatusObjeto.setValue(statusObjeto.getSelectedItem().getValue().toString());
+				}catch(Exception ex){
+					idEstatusObjeto.setValue(null);
+				}
+			}
+		</zscript>
+	</window>
 </zk>
