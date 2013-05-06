@@ -296,9 +296,18 @@ public class EstatusObjetoController extends SelectorComposer<Component> impleme
 			estatusObjetoDTO.toString(BbvaAbstractDataTransferObject.XML);
 			EstatusObjetoBO estatusObjetoBO = new EstatusObjetoBO();
 			estatusObjetoBO.createCommand(estatusObjetoDTO);
-			clean();
-			estatusObjetoDTO = new EstatusObjetoDTO();
-			estatusObjetoVO = new EstatusObjetoVO();
+			clean();			
+			logger.debug("*estatusObjetoVO*");
+			estatusObjetoDTO.setCommandId(CommandConstants.ESTATUS_OBJETO);
+			estatusObjetoVO = new EstatusObjetoVO();				
+			estatusObjetoVO.setDescripcionEstatusObjeto(strDescripcionEstatusObjeto==null?"%":"%"+strDescripcionEstatusObjeto.toUpperCase()+"%");
+			estatusObjetoVO.setNombreTabla(strPantallas==null?null:"%"+strPantallas.toUpperCase()+"%");
+			estatusObjetoVO.setNombreEstatusObjeto(strNombreEstatusObjeto==null?"%":"%"+strNombreEstatusObjeto.toUpperCase()+"%");
+			estatusObjetoVO.setIdEstatusObjeto(Integer.parseInt(strIdEstatusClave==null?"0":strIdEstatusClave));		
+			estatusObjetoBO = new EstatusObjetoBO();
+			estatusObjetoDTO.setEstatusObjetoVO(estatusObjetoVO);
+			estatusObjetoDTO.toString(BbvaAbstractDataTransferObject.XML);		
+			estatusObjetoDTO.setEstatusObjetoVOs(estatusObjetoBO.readCommand(estatusObjetoDTO).getEstatusObjetoVOs());
 			estatusObjetoDTO.setEstatusObjetoVO(estatusObjetoVO);
 			estatusObjetoVOs = estatusObjetoBO.readCommand(estatusObjetoDTO).getEstatusObjetoVOs();
 			Messagebox.show("Registro actualizado con exito!!",
