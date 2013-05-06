@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mappers.usuario.MapUsuario">
+	<select id="obtenerUsuarios" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.UsuarioVO"
+		resultType="mx.com.bbva.bancomer.bussinnes.model.vo.UsuarioVO">
+		SELECT 
+			U.CD_USUARIO AS idUsuario, 
+			U.CD_CVE_USUARIO AS idCveUsuario, 
+			U.NB_USUARIO AS nombreUsuario, 
+			U.TX_PASSWORD_USR AS descripcionPasswordUsr, 
+			U.TM_ALTA AS fechaAlta, 
+			U.TM_MODIFICACION AS fechaModificacion, 
+			U.FH_USUARIO AS fechaUsuario, 
+			U.TM_CAMBIO_PWS AS fechaCambioPws, 
+			U.NU_INTENTOS AS numeroIntentos, 
+			U.ST_USUARIO AS estatusUsuario, 
+			U.CD_PERFIL AS idPerfil,
+			P.NB_PERFIL AS descripcionPerfil,
+			O.NB_ST_OBJETO AS nombreEstatusObjeto
+		FROM 
+			TGM503_USUARIO U,TGM534_ST_OBJETO O,
+		        TGM504_PERFIL P
+		        
+		WHERE 
+		        U.ST_USUARIO = O.CD_ST_OBJETO   AND
+		        U.CD_PERFIL = P.CD_PERFIL
+			<if test="nombreUsuario != null">
+				AND U.NB_USUARIO LIKE  #{nombreUsuario}
+			</if>
+			<if test="idCveUsuario != null">
+				AND U.CD_CVE_USUARIO LIKE #{idCveUsuario}
+			</if>
+			<if test="idPerfil != null and idPerfil != 0">
+				AND U.CD_PERFIL = #{idPerfil}
+			</if>						  
+			<if test="estatusUsuario != null and estatusUsuario != 0">
+				AND  U.ST_USUARIO = #{estatusUsuario}
+			</if>				
+				ORDER BY U.CD_USUARIO
+	</select>
+</mapper>

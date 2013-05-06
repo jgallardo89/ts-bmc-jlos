@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mappers.perfil.MapPerfil">
+	<select id="obtenerPerfiles" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.PerfilVO"
+		resultType="mx.com.bbva.bancomer.bussinnes.model.vo.PerfilVO">
+		SELECT 
+		P.TX_PERFIL AS descripcionPerfil, 
+		P.ST_PERFIL AS estatusPerfil,
+		P.CD_PERFIL AS idPerfil, 
+		P.NB_PERFIL AS nombrebPerfil
+		FROM 
+		TGM504_PERFIL P
+	</select>
+</mapper>
