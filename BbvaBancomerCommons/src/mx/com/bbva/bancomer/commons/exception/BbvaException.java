@@ -52,6 +52,11 @@ public 	class 	BbvaException
 	//	
 	/**
 	 * <b>BbvaException</b>
+	 */
+	public BbvaException( ) 
+		{	super( );	}
+	/**
+	 * <b>BbvaException</b>
 	 * @param message
 	 */
 	public BbvaException( final java.lang.String message ) 
@@ -61,13 +66,13 @@ public 	class 	BbvaException
 				errorCode 			= splitString[ 0 ];
 				errorDescription	= BbvaException.errorProperties.getProperty( splitString[ 0 ] );
 
-		logger.warn( "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -" );
-		logger.warn( "Excepcion   : " + this.getClass().getName()  );
-		logger.warn( "Codigo      : " + splitString[ 0 ] );
-		logger.warn( "Origen      : " + splitString[ 1 ] );
-		logger.warn( "Metodo      : " + splitString[ 2 ] );
-		logger.warn( "Descripcion : " + errorProperties.getProperty( splitString[ 0 ] ) );
-		logger.warn( "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -" );
+		logger.warn ( "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -" );
+		logger.warn ( "Excepcion   : " + this.getClass().getName()  );
+		logger.warn ( "Codigo      : " + splitString[ 0 ] );
+		logger.warn ( "Origen      : " + splitString[ 1 ] );
+		logger.warn ( "Metodo      : " + splitString[ 2 ] );
+		logger.warn ( "Descripcion : " + errorProperties.getProperty( splitString[ 0 ] ) );
+		logger.warn ( "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -" );
 		}
 	/**
 	 * <b>BbvaException</b>
@@ -81,13 +86,15 @@ public 	class 	BbvaException
 				errorCode 			= splitString[ 0 ];
 				errorDescription	= BbvaException.errorProperties.getProperty( splitString[ 0 ] );
 
-		logger.warn( "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -" );
-		logger.warn( "Excepcion   : " + cause.getClass().getName() + "--" + cause.getMessage() );
-		logger.warn( "Causa       : " + cause.getCause().getClass().getName() + "--" + cause.getCause().getMessage() );
-		logger.warn( "Codigo      : " + splitString[ 0 ] );
-		logger.warn( "Origen      : " + splitString[ 1 ] );
-		logger.warn( "Metodo      : " + splitString[ 2 ] );
-		logger.warn( "Descripcion : " + errorProperties.getProperty( splitString[ 0 ] ) );
-		logger.warn( "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -" );
+		logger.warn ( "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -" );
+		logger.warn ( "Excepcion   : " + cause.getClass().getName() + " -- " + cause.getMessage() );
+		logger.warn ( "Causa       : " + ( cause.getCause() == null ? "Sin causa aparente." : 
+			                                                                cause.getCause().getClass().getName() + "--" + 
+			                                                                cause.getCause().getMessage() ) );
+		logger.warn ( "Codigo      : " + splitString[ 0 ] );
+		logger.warn ( "Origen      : " + splitString[ 1 ] );
+		logger.warn ( "Metodo      : " + splitString[ 2 ] );
+		logger.warn ( "Descripcion : " + errorProperties.getProperty( splitString[ 0 ] ) );
+		logger.warn ( "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -" );
 		}
 	}

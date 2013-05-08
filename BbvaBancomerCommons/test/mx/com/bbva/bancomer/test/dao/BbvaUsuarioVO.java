@@ -1,4 +1,4 @@
-package mx.com.bbva.bancomer.test.model;
+package mx.com.bbva.bancomer.test.dao;
 
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *

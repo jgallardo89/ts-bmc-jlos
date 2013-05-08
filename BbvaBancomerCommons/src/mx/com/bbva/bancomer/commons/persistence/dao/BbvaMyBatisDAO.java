@@ -49,40 +49,48 @@ public 	class 		BbvaMyBatisDAO
 	 * @param queryName - parametros de consulta contruidos de la siguiente manera: Nombre del Mapeador de MyBatis|Nombre del metodo a invocar,
 	 *                    por ejemplo, ConsultarCatalogoMapper|readBbvaEstatusVO
 	 * @return java.lang.String - cadena de consulta para MyBatis con el nombre calificado completo del mapeador y el metodo de la consulta,
-	 *                            por ejemplo, mx.com.bbva.bancomer.mapper.persistence.sqlmapping.BbvaConsultarCatalogoMapper.readBbvaEstatusVO
+	 *                            por ejemplo, mx.com.bbva.bancomer.mapper.persistence.sqlmapping.BbvaMantenimientoCatalogoMapper.readBbvaEstatusVO
 	 * @throws mx.com.bbva.bancomer.commons.exception.BbvaDataBaseException
 	 */
-	private java.lang.String validateQueryStructure( final java.lang.String queryName )
+	private java.lang.String validateQueryStructure( final java.lang.String queryName, final BbvaAbstractValueObject bbvaAbstractValueObject )
 	throws mx.com.bbva.bancomer.commons.exception.BbvaDataBaseException
 		{
-		logger.debug ( "Entrada validateQueryStructure -- OK" );
-		logger.debug ( "Datos de Entrada               -- " + queryName );
+		logger.debug( "Entrada validateQueryStructure -- OK" );
+		logger.debug( "Datos de Entrada               -- " + queryName );
 		try {
 			//	Programacion Defensiva: Verificamos el contenido del parametro queryName.
-			if ( queryName == null || queryName.trim().equals( "" ) )	throw new BbvaDataBaseException( "9950|validateQueryStructure" );
+			if ( queryName == null || queryName.trim().equals( "" ) )
+				throw new BbvaDataBaseException( "9950|validateQueryStructure|BbvaMyBatisDAO" );
 
+			//	                        Verificamos la existencia de alguna de las 4 operaciones basicas.
+			if ( !queryName.contains( "create" ) && !queryName.contains( "read" ) && 
+					!queryName.contains( "update" ) && !queryName.contains( "delete" ) )
+				throw new BbvaDataBaseException( "9951|validateQueryStructure|BbvaMyBatisDAO" );
+			logger.debug( "Operacion de Base de Datos -- OK" );
 			//	                        Verificamos cada uno de los elementos de la consulta.
 			final String[] stringSplit = queryName.split("[|]");
-			if ( stringSplit.length != 2 )								throw new BbvaDataBaseException( "9951|validateQueryStructure" );
-			logger.debug ( "queryName -- OK" );
+			if ( stringSplit.length != 2 )
+				throw new BbvaDataBaseException( "9952|validateQueryStructure|BbvaMyBatisDAO" );
+			logger.debug( "queryName -- OK" );
 
 			//	                        Verificamos la existencia del mapeador.
 			final Class<?> clase       = Class.forName( BbvaIDataAccessObject.MYBATISSQLMAPPERPACKAGE + stringSplit[0] );
-			logger.debug ( clase.getName() + " -- Existe -- OK" );
+			logger.debug( clase.getName() + " -- Existe -- OK" );
 
 			//	                        Verificamos la existencia del metodo.
-			final Method metodo        = clase.getMethod( stringSplit[1] );
-			logger.debug ( metodo.getName() + " -- Existe -- OK" );
+			final Method metodo        = bbvaAbstractValueObject == null ? clase.getMethod( stringSplit[1] ) :
+				                                                           clase.getMethod( stringSplit[1], bbvaAbstractValueObject.getClass() );
+			logger.debug( metodo.getName() + " -- Existe -- OK" );
 
 			//	Impimimos el resultado.
-			logger.debug ( "Datos de Salida                            -- " + clase.getName() + "." + metodo.getName() );
-			logger.debug ( "Salida -- validateQueryStructure Ejecutado -- OK" );
+			logger.debug( "Datos de Salida                            -- " + clase.getName() + "." + metodo.getName() );
+			logger.debug( "Salida -- validateQueryStructure Ejecutado -- OK" );
 			return clase.getName() + "." + metodo.getName();
 			} 
+		catch ( BbvaDataBaseException bbvaDataBaseException ) 
+			{	throw bbvaDataBaseException;				}
 		catch ( Exception exception ) 
-			{
-			throw new BbvaDataBaseException( "9906|queryForObject", exception );
-			}
+			{	throw new BbvaDataBaseException( "9906|validateQueryStructure|BbvaMyBatisDAO", exception );		}
 		}
 	//  Metodos       - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 	//	Publicos	
@@ -92,25 +100,31 @@ public 	class 		BbvaMyBatisDAO
 	public synchronized <T extends BbvaAbstractValueObject> T queryForObject ( final java.lang.String queryName )
 	throws mx.com.bbva.bancomer.commons.exception.BbvaDataBaseException
 		{
-		logger.debug ( "Entrada queryForObject -- OK" );
-		logger.debug ( "Datos de Entrada       -- " + queryName );
+		logger.debug( "Entrada queryForObject -- OK" );
+		logger.debug( "Datos de Entrada       -- " + queryName );
 		try {
+			//	Verificamos que solo sea consulta.
+			if ( !queryName.contains( "read" ) )
+				throw new BbvaDataBaseException( "9953|validateQueryStructure|BbvaMyBatisDAO" );
+			logger.debug( "Operacion read permitida -- OK" );
+			
 			//	Ejecutamos la consulta de lectura.
-			final T t = this.getSqlSession().selectOne( this.validateQueryStructure( queryName ) );
+			final T t = this.getSqlSession().selectOne( this.validateQueryStructure( queryName, null ) );
 
 			//	TODO: ¿Si la consulta no trae registros lanzamos una excepcion? 
-			if ( t == null )				throw new BbvaDataBaseException( "9952|queryForObject" );
+			if ( t == null )
+				throw new BbvaDataBaseException( "9954|queryForObject|BbvaMyBatisDAO" );
 
 			//	Impimimos el resultado.
 			//	Regresamos el primer elemento de la lista.
-			logger.debug ( "Datos de Salida                    -- " + t.toString() );
-			logger.debug ( "Salida -- queryForObject Ejecutado -- OK" );
+			logger.debug( "Datos de Salida                    -- " + t.toString() );
+			logger.debug( "Salida -- queryForObject Ejecutado -- OK" );
 			return t;
 			} 
+		catch ( BbvaDataBaseException bbvaDataBaseException ) 
+			{	throw bbvaDataBaseException;				}
 		catch ( Exception exception ) 
-			{
-			throw new BbvaDataBaseException( "9906|queryForObject", exception );
-			}
+			{	throw new BbvaDataBaseException( "9906|queryForObject|BbvaMyBatisDAO", exception );		}
 		}
 	/* (non-Javadoc)
 	 * @see mx.com.bbva.bancomer.commons.persistence.dao.BbvaIDataAccessObject#queryForObject(java.lang.String, BbvaAbstractValueObject)
@@ -119,14 +133,16 @@ public 	class 		BbvaMyBatisDAO
 	                                                                            final T bbvaAbstractValueObject )
 	throws mx.com.bbva.bancomer.commons.exception.BbvaDataBaseException
 		{
-		logger.debug ( "Entrada queryForObject -- OK" );
-		logger.debug ( "Datos de Entrada       -- " + queryName + " -- " + bbvaAbstractValueObject );
+		logger.debug( "Entrada queryForObject -- OK" );
+		logger.debug( "Datos de Entrada       -- " + queryName + " -- " + bbvaAbstractValueObject );
 		try {
 			//	Verificamos validez del parametro queryName.
-			String query = this.validateQueryStructure( queryName );
+			String query = this.validateQueryStructure( queryName, bbvaAbstractValueObject );
+			logger.debug( "Operacion create|read|update|delete permitida -- OK" );
 
 			//	Verificamos el parametro bbvaAbstractValueObject.
-			if ( bbvaAbstractValueObject == null )		throw new BbvaDataBaseException( "9953|queryForObject" );
+			if ( bbvaAbstractValueObject == null )
+				throw new BbvaDataBaseException( "9954|queryForObject|BbvaMyBatisDAO" );
 
 			//	Ejecutamos la consulta.
 			int affectedRows = 0;
@@ -135,7 +151,8 @@ public 	class 		BbvaMyBatisDAO
 			if ( query.contains( "delete" ) ) affectedRows = this.getSqlSession().delete	( query, bbvaAbstractValueObject );
 
 			//	TODO: ¿Si la consulta no afecta registros lanzamos una excepcion? 
-			if ( affectedRows == 0 )	throw new BbvaDataBaseException( "9954|queryForObject" );
+			if ( affectedRows == 0 && !query.contains( "read" ) )
+				throw new BbvaDataBaseException( "9955|queryForObject|BbvaMyBatisDAO" );
 
 			//	TODO: Si la consulta es create ¿Consultamos nuevamente el objeto para traer los id's?
 			if ( query.contains( "create" ) ) query = query.replace( "create", "readByAllRequired" );
@@ -144,22 +161,23 @@ public 	class 		BbvaMyBatisDAO
 				final T t = this.getSqlSession().selectOne( query, bbvaAbstractValueObject );
 			
 				//	TODO: ¿Si la consulta no trae registros lanzamos una excepcion? 
-				if ( t == null )		throw new BbvaDataBaseException( "9955|queryForObject" );
+				if ( t == null )
+					throw new BbvaDataBaseException( "9956|queryForObject|BbvaMyBatisDAO" );
 
 				//	Impimimos el resultado.
-				logger.debug ( "Datos de Salida                    -- " + t );
-				logger.debug ( "Salida -- queryForObject Ejecutado -- OK" );
+				logger.debug( "Datos de Salida                    -- " + t );
+				logger.debug( "Salida -- queryForObject Ejecutado -- OK" );
 				return t;
 				}
 			//	Impimimos el resultado.
-			logger.debug ( "Datos de Salida                    -- " + bbvaAbstractValueObject );
-			logger.debug ( "Salida -- queryForObject Ejecutado -- OK" );
+			logger.debug( "Datos de Salida                    -- " + bbvaAbstractValueObject );
+			logger.debug( "Salida -- queryForObject Ejecutado -- OK" );
 			return bbvaAbstractValueObject;
 			} 
+		catch ( BbvaDataBaseException bbvaDataBaseException ) 
+			{	throw bbvaDataBaseException;				}
 		catch ( Exception exception ) 
-			{
-			throw new BbvaDataBaseException( "9906|queryForObject", exception );
-			}
+			{	throw new BbvaDataBaseException( "9906|queryForObject|BbvaMyBatisDAO", exception );		}
 		}
 	/* (non-Javadoc)
 	 * @see mx.com.bbva.bancomer.commons.persistence.dao.BbvaIDataAccessObject#queryForList(java.lang.String)
@@ -167,27 +185,33 @@ public 	class 		BbvaMyBatisDAO
 	public synchronized <T extends BbvaAbstractValueObject> java.util.List< T > queryForList ( final java.lang.String queryName )
 	throws mx.com.bbva.bancomer.commons.exception.BbvaDataBaseException
 		{
-		logger.debug ( "Entrada queryForList -- OK" );
-		logger.debug ( "Datos de Entrada     -- " + queryName );
+		logger.debug( "Entrada queryForList -- OK" );
+		logger.debug( "Datos de Entrada     -- " + queryName );
 		try {
+			//	Verificamos que solo sea consulta.
+			if ( !queryName.contains( "read" ) )
+				throw new BbvaDataBaseException( "9957|validateQueryStructure|BbvaMyBatisDAO" );
+			logger.debug( "Operacion read permitida -- OK" );
+
 			//	Ejecutamos la consulta de lectura.
-			final	List<T>	list = this.getSqlSession().selectList( this.validateQueryStructure( queryName ) );
+			final	List<T>	list = this.getSqlSession().selectList( this.validateQueryStructure( queryName, null ) );
 
 			//	TODO: ¿Si la consulta no trae registros lanzamos una excepcion? 
-			if ( list == null || list.isEmpty() )	throw new BbvaDataBaseException( "9956|queryForList" );
+			if ( list == null || list.isEmpty() )
+				throw new BbvaDataBaseException( "9958|queryForList|BbvaMyBatisDAO" );
 
 			//	Impimimos el resultado.
 			for ( final T bbvaAbstractValueObject : list )
-				logger.debug ( "Datos de Salida                    -- " + bbvaAbstractValueObject.toString() );
+				logger.debug( "Datos de Salida                    -- " + bbvaAbstractValueObject.toString() );
 
 			//	Regresamos la lista.
-			logger.debug ( "Salida -- queryForObject Ejecutado -- OK" );
+			logger.debug( "Salida -- queryForObject Ejecutado -- OK" );
 			return list;
 			} 
+		catch ( BbvaDataBaseException bbvaDataBaseException ) 
+			{	throw bbvaDataBaseException;				}
 		catch ( Exception exception ) 
-			{
-			throw new BbvaDataBaseException( "9906|queryForList", exception );
-			}
+			{	throw new BbvaDataBaseException( "9906|queryForObject|BbvaMyBatisDAO", exception );		}
 		}
 	/* (non-Javadoc)
 	 * @see mx.com.bbva.bancomer.commons.persistence.dao.BbvaIDataAccessObject#queryForList(java.lang.String, java.util.Map)
@@ -196,14 +220,20 @@ public 	class 		BbvaMyBatisDAO
 			                                                                                   final T bbvaAbstractValueObject )
 	throws mx.com.bbva.bancomer.commons.exception.BbvaDataBaseException
 		{
-		logger.debug ( "Entrada queryForList -- OK" );
-		logger.debug ( "Datos de Entrada       -- " + queryName + " -- " + bbvaAbstractValueObject );
+		logger.debug( "Entrada queryForList -- OK" );
+		logger.debug( "Datos de Entrada       -- " + queryName + " -- " + bbvaAbstractValueObject );
 		try {
 			//	Verificamos validez del parametro queryName.
-			String query = this.validateQueryStructure( queryName );
+			String query = this.validateQueryStructure( queryName, bbvaAbstractValueObject );
+
+			//	Verificamos que solo sea consulta o actualizacion.
+			if ( queryName.contains( "create" ) )
+				throw new BbvaDataBaseException( "9959|validateQueryStructure|BbvaMyBatisDAO" );
+			logger.debug( "Operacion read|update|delete permitida -- OK" );
 
 			//	Verificamos el parametro bbvaAbstractValueObject.
-			if ( bbvaAbstractValueObject == null )		throw new BbvaDataBaseException( "9957|queryForList" );
+			if ( bbvaAbstractValueObject == null )
+				throw new BbvaDataBaseException( "9960|queryForList|BbvaMyBatisDAO" );
 
 			//	Ejecutamos la consulta.
 			int affectedRows = 0;
@@ -211,30 +241,29 @@ public 	class 		BbvaMyBatisDAO
 			if ( query.contains( "delete" ) ) affectedRows = this.getSqlSession().delete	( query, bbvaAbstractValueObject );
 
 			//	TODO: ¿Si la consulta no afecta registros lanzamos una excepcion? 
-			if ( affectedRows == 0 )	throw new BbvaDataBaseException( "9987|queryForList" );
+			if ( affectedRows == 0 )
+				throw new BbvaDataBaseException( "9961|queryForList|BbvaMyBatisDAO" );
 
 			//	TODO: ¿Consultamos la lista para todos los objetos actualizados?
-			if ( query.contains( "read" ) )
-				{
-				final List<T> list = this.getSqlSession().selectList( query, bbvaAbstractValueObject );
-			
-				//	TODO: ¿Si la consulta no trae registros lanzamos una excepcion? 
-				if ( list == null || list.isEmpty() )	throw new BbvaDataBaseException( "9958|queryForList" );
+			query = query.replaceAll( "[update|delete]", "read" );
 
-				//	Impimimos el resultado.
-				for ( final T t : list )
-					logger.debug ( "Datos de Salida                    -- " + t.toString() );
+			final List<T> list = this.getSqlSession().selectList( query, bbvaAbstractValueObject );
+			
+			//	TODO: ¿Si la consulta no trae registros lanzamos una excepcion? 
+			if ( list == null || list.isEmpty() )	throw new BbvaDataBaseException( "9962|queryForList|BbvaMyBatisDAO" );
+
+			//	Impimimos el resultado.
+			for ( final T t : list )
+				logger.debug( "Datos de Salida                    -- " + t.toString() );
 				
-				//	
-				logger.debug ( "Salida -- queryForList Ejecutado -- OK" );
-				return list;
-				}
-			return new ArrayList<T>();
+			//	
+			logger.debug( "Salida -- queryForList Ejecutado -- OK" );
+			return list;
 			} 
+		catch ( BbvaDataBaseException bbvaDataBaseException ) 
+			{	throw bbvaDataBaseException;				}
 		catch ( Exception exception ) 
-			{
-			throw new BbvaDataBaseException( "9906|queryForList", exception );
-			}
+			{	throw new BbvaDataBaseException( "9906|queryForList|BbvaMyBatisDAO", exception );		}
 		}
 	/* (non-Javadoc)
 	 * @see mx.com.bbva.bancomer.commons.persistence.dao.BbvaIDataAccessObject#queryForList(java.lang.String, java.util.List)
@@ -243,16 +272,20 @@ public 	class 		BbvaMyBatisDAO
 			                                                                                  final java.util.List< T > list )
 	throws mx.com.bbva.bancomer.commons.exception.BbvaDataBaseException
 		{
-		logger.debug ( "Entrada queryForList -- OK" );
-		logger.debug ( "Datos de Entrada       -- " + queryName + " -- " + list );
+		logger.debug( "Entrada queryForList -- OK" );
+		logger.debug( "Datos de Entrada       -- " + queryName + " -- " + list );
 		try {
 			//	Verificamos validez del parametro queryName.
-			String query = this.validateQueryStructure( queryName );
+			String query = this.validateQueryStructure( queryName, list.get( 0 ) );
+
+			//	Verificamos que solo sea consulta.
+			if ( !queryName.contains( "create" ) )
+				throw new BbvaDataBaseException( "9963|queryForList|BbvaMyBatisDAO" );
+			logger.debug( "Operacion create permitida -- OK" );
 
 			//	Verificamos el parametro bbvaAbstractValueObject.
-			if ( list == null || list.isEmpty() )	throw new BbvaDataBaseException( "9959|queryForList" );
-			//	Verificamos que la consulta solo sea de creacion.
-			if ( !query.contains( "create" ) )	throw new BbvaDataBaseException( "9960|queryForList" );
+			if ( list == null || list.isEmpty() )
+				throw new BbvaDataBaseException( "9964|queryForList|BbvaMyBatisDAO" );
 
 			//	Ejecutamos la consulta.
 			int affectedRows = 0;
@@ -260,9 +293,11 @@ public 	class 		BbvaMyBatisDAO
 				affectedRows += this.getSqlSession().insert	( query, t );
 
 			//	TODO: ¿Si la consulta no registro nada lanzamos una excepcion? 
-			if ( affectedRows == 0 )	throw new BbvaDataBaseException( "9961|queryForList" );
+			if ( affectedRows == 0 )
+				throw new BbvaDataBaseException( "9965|queryForList|BbvaMyBatisDAO" );
 			//	TODO: ¿Si la lista y el numero de registros insertados no coinciden lanzamos una excepcion? 
-			if ( affectedRows != list.size() )		throw new BbvaDataBaseException( "9962|queryForList" );
+			if ( affectedRows != list.size() )
+				throw new BbvaDataBaseException( "9966|queryForList|BbvaMyBatisDAO" );
 
 			//	TODO: ¿Consultamos la lista para todos los objetos insertados?
 			//	
@@ -273,15 +308,15 @@ public 	class 		BbvaMyBatisDAO
 				final T tempT = this.getSqlSession().selectOne( query, t );
 				tempList.add( tempT );
 				//	Impimimos el resultado.
-				logger.debug ( "Datos de Salida                    -- " + tempT.toString() );
+				logger.debug( "Datos de Salida                    -- " + tempT.toString() );
 				}
 			//	
-			logger.debug ( "Salida -- queryForList Ejecutado -- OK" );
+			logger.debug( "Salida -- queryForList Ejecutado -- OK" );
 			return tempList;
 			} 
+		catch ( BbvaDataBaseException bbvaDataBaseException ) 
+			{	throw bbvaDataBaseException;				}
 		catch ( Exception exception ) 
-			{
-			throw new BbvaDataBaseException( "9906|queryForList", exception );
-			}
+			{	throw new BbvaDataBaseException( "9906|queryForObject|BbvaMyBatisDAO", exception );		}
 		}
 	}

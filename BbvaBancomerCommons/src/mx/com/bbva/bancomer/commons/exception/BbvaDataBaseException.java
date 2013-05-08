@@ -32,19 +32,20 @@ public 	class 	BbvaDataBaseException
 	//	
 	/**
 	 * <b>BbvaDataBaseException</b>
+	 */
+	public BbvaDataBaseException( ) 
+		{	super( );					}
+	/**
+	 * <b>BbvaDataBaseException</b>
 	 * @param message
 	 */
 	public BbvaDataBaseException( final java.lang.String message ) 
-		{
-		super( message );
-		}
+		{	super( message );			}
 	/**
 	 * <b>BbvaDataBaseException</b>
 	 * @param message
 	 * @param cause
 	 */
 	public BbvaDataBaseException( final java.lang.String message, final java.lang.Throwable cause ) 
-		{
-		super( message, cause );
-		}
+		{	super( message, cause );	}
 	}

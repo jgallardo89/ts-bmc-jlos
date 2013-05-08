@@ -1,4 +1,4 @@
-package mx.com.bbva.bancomer.test.model;
+package mx.com.bbva.bancomer.test.dao;
 
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -22,7 +22,7 @@ package mx.com.bbva.bancomer.test.model;
  *              Consultoria
  *              
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-public	class 	BbvaEstatusVO 
+public	class 	BbvaPerfilVO 
 		extends mx.com.bbva.bancomer.commons.model.vo.BbvaAbstractValueObject 
 	{
 	//  Atributos     - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -31,26 +31,22 @@ public	class 	BbvaEstatusVO
 
 	//  Atributos     - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 	//	Privados
-	private java.lang.Integer 	cdStObjeto;		//	Llave primaria[TGM534_ST_OBJETO] - 3 digitos [000 - 999 ]
-	private java.lang.String	cdStClave;		//	Llave foranea [TGM509_ST_CLAVE] - 10 caracteres 
-	private java.lang.String	nbStObjeto;		//	30 caracteres 
-	private java.lang.String	txStObjeto;		//	200 caracteres 
-	private java.lang.Integer 	nbTabla; 		//	30 caracteres
+	private java.lang.Integer 	cdPerfil;		//	Llave primaria[TGM504_PERFIL] - 3 digitos [000 - 999 ]
+	private java.lang.String	nbPerfil;		//	30 caracteres 
+	private java.lang.String	txPerfil;		//	300 caracteres 
+	private java.lang.Integer 	stPerfil; 		//	Llave foranea [TGM534_ST_OBJETO] - 5 digitos [00000 - 99999 ]
 
 	//  Metodos       - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 	//	
-	public  java.lang.Integer getCdStObjeto() 							{	return cdStObjeto;				}
-	public  void setCdStObjeto( final java.lang.Integer cdStObjeto )	{	this.cdStObjeto = cdStObjeto;	}
+	public  java.lang.Integer getCdPerfil() 								{	return cdPerfil;				}
+	public  void setCdPerfil( final java.lang.Integer cdPerfil )			{	this.cdPerfil = cdPerfil;		}
 
-	public  java.lang.String getCdStClave() 							{	return cdStClave;				}
-	public  void setCdStClave( final java.lang.String cdStClave ) 		{	this.cdStClave = cdStClave;		}
+	public  java.lang.String getNbPerfil() 									{	return nbPerfil;				}
+	public  void setNbPerfil( final java.lang.String nbPerfil ) 			{	this.nbPerfil = nbPerfil;		}
 
-	public  java.lang.String getNbStObjeto() 							{	return nbStObjeto;				}
-	public  void setNbStObjeto( final java.lang.String nbStObjeto ) 	{	this.nbStObjeto = nbStObjeto;	}
+	public  java.lang.String getTxPerfil() 									{	return txPerfil;				}
+	public  void setTxPerfil( final java.lang.String txPerfil ) 			{	this.txPerfil = txPerfil;		}
 
-	public  java.lang.String getTxStObjeto() 							{	return txStObjeto;				}
-	public  void setTxStObjeto( final java.lang.String txStObjeto ) 	{	this.txStObjeto = txStObjeto;	}
-
-	public  java.lang.Integer getNbTabla() 								{	return nbTabla;					}
-	public  void setNbTabla( final java.lang.Integer nbTabla ) 			{	this.nbTabla = nbTabla;			}
+	public  java.lang.Integer getStPerfil() 								{	return stPerfil;				}
+	public  void setStPerfil( final java.lang.Integer stPerfil ) 			{	this.stPerfil = stPerfil;		}
 	}
