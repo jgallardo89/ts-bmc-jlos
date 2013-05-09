@@ -55,7 +55,10 @@ public class BbvaCommandInvokerTestCase
 
 		BbvaCargarPantallaUsuarioDTO
 		bbvaCargarPantallaUsuarioDTO = new BbvaCargarPantallaUsuarioDTO ();
+//		bbvaCargarPantallaUsuarioDTO.setCommandId( 2 );	-> createCommand
 		bbvaCargarPantallaUsuarioDTO.setCommandId( 2 );
+//		bbvaCargarPantallaUsuarioDTO.setCommandId( 2 );	-> updateCommand
+//		bbvaCargarPantallaUsuarioDTO.setCommandId( 2 );	-> deleteCommand
 		bbvaCargarPantallaUsuarioDTO = bbvaICommandInvoker.invoke( bbvaCargarPantallaUsuarioDTO );
 		
 		System.out.println( bbvaCargarPantallaUsuarioDTO.toString() );
@@ -64,7 +67,10 @@ public class BbvaCommandInvokerTestCase
 
 		BbvaCargarTablaUsuarioDTO 
 		bbvaCargarTablaUsuarioDTO = new BbvaCargarTablaUsuarioDTO ();
-		bbvaCargarTablaUsuarioDTO.setCommandId( 2 );
+//		bbvaCargarPantallaUsuarioDTO.setCommandId( 2 );	-> createCommand
+		bbvaCargarPantallaUsuarioDTO.setCommandId( 2 );
+//		bbvaCargarPantallaUsuarioDTO.setCommandId( 2 );	-> updateCommand
+//		bbvaCargarPantallaUsuarioDTO.setCommandId( 2 );	-> deleteCommand
 		bbvaCargarTablaUsuarioDTO = bbvaICommandInvoker.invoke( bbvaCargarTablaUsuarioDTO );
 		
 		System.out.println( bbvaCargarTablaUsuarioDTO.toString() );
