@@ -49,7 +49,7 @@ public 	abstract	class 	BbvaAbstractDataTransferObject
 	//	Privados
 	private java.lang.String	errorCode			=	BbvaAbstractDataTransferObject.RESPONSECODEOK;
 	private java.lang.String	errorDescription	=	BbvaAbstractDataTransferObject.RESPONSEDESCOK;
-	private java.lang.Integer	commandId			=	new Integer ( 0 );
+	private java.lang.Integer	commandId			=	new Integer ( 2 );
 
 	//	Propiedades
 	public java.lang.String getErrorCode() 										{	return errorCode;							}

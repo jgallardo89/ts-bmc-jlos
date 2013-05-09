@@ -68,11 +68,7 @@ public 	abstract class	 BbvaException
 
 		logger.warn ( "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -" );
 		logger.warn ( "Excepcion   : " + this.getClass().getName()  );
-		logger.warn ( "Codigo      : " + splitString[ 0 ] );
-		logger.warn ( "Origen      : " + splitString[ 1 ] );
-		logger.warn ( "Metodo      : " + splitString[ 2 ] );
-		logger.warn ( "Descripcion : " + errorProperties.getProperty( splitString[ 0 ] ) );
-		logger.warn ( "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -" );
+		printDetail( splitString );
 		}
 	/**
 	 * <b>BbvaException</b>
@@ -91,10 +87,22 @@ public 	abstract class	 BbvaException
 		logger.warn ( "Causa       : " + ( cause.getCause() == null ? "Sin causa aparente." : 
 			                                                                cause.getCause().getClass().getName() + "--" + 
 			                                                                cause.getCause().getMessage() ) );
+		printDetail( splitString );
+		}
+	//	Metodos - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+	//
+	/**
+	 * <b>printDetail</b>
+	 * Imprime detalles de la excepcion.
+	 * @param splitString
+	 */
+	private void printDetail( final java.lang.String[] splitString )
+		{
 		logger.warn ( "Codigo      : " + splitString[ 0 ] );
 		logger.warn ( "Origen      : " + splitString[ 1 ] );
 		logger.warn ( "Metodo      : " + splitString[ 2 ] );
-		logger.warn ( "Descripcion : " + errorProperties.getProperty( splitString[ 0 ] ) );
+		logger.warn ( "Descripcion : " + BbvaException.errorProperties.getProperty( splitString[ 0 ] ) );
 		logger.warn ( "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -" );
+		
 		}
 	}

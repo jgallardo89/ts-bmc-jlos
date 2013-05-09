@@ -40,25 +40,26 @@ public 	class 		BbvaCommandInvoker
 
 	//  Atributos     - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 	//	Privados
-	private static java.util.Properties dtoMap;
-	private static java.util.Properties	cmdMap;
-	private static java.util.Map< java.lang.String, mx.com.bbva.bancomer.commons.business.BbvaIBusinessObject > boMap;
+	private static java.util.Properties dtoMappingProperties;
+	private static java.util.Properties	cmdMappingProperties;
+	private static java.util.Map< java.lang.String, mx.com.bbva.bancomer.commons.business.BbvaIBusinessObject > businessObjectMap;
 
 	//	Propiedades
-//	public java.util.Map<java.lang.String, java.lang.String> getDtoMap()
-//		{	return dtoMap;					}
-	public void setDtoMap( final java.util.Properties dtoMap )
-		{	if ( BbvaCommandInvoker.dtoMap == null ) BbvaCommandInvoker.dtoMap = dtoMap;			}
+//	public java.util.Map<java.lang.String, java.lang.String> getDtoMappingProperties()
+//		{	return dtoMappingProperties;					}
+	public void setDtoMappingProperties( final java.util.Properties dtoMappingProperties )
+		{	if ( BbvaCommandInvoker.dtoMappingProperties == null ) BbvaCommandInvoker.dtoMappingProperties = dtoMappingProperties;			}
 
 //	public java.util.Map<java.lang.String, mx.com.bbva.bancomer.commons.business.BbvaIBusinessObject> getBoMap()
 //		{	return boMap;					}
-	public void setBoMap( final java.util.Map< java.lang.String, mx.com.bbva.bancomer.commons.business.BbvaIBusinessObject > boMap )
-		{	if ( BbvaCommandInvoker.boMap == null ) BbvaCommandInvoker.boMap = boMap;				}
+	public void setBusinessObject( final java.util.Map< java.lang.String, mx.com.bbva.bancomer.commons.business.BbvaIBusinessObject > 
+	                                       businessObjectMap )
+		{	if ( BbvaCommandInvoker.businessObjectMap == null ) BbvaCommandInvoker.businessObjectMap = businessObjectMap;					}
 
-//	public java.util.Map<java.lang.String, java.lang.String> getCmdMap()
-//		{	return cmdMap;					}
-	public void setCmdMap( final java.util.Properties cmdMap )
-		{	if ( BbvaCommandInvoker.dtoMap == null ) BbvaCommandInvoker.cmdMap = cmdMap;			}
+//	public java.util.Map<java.lang.String, java.lang.String> getCmdMappingProperties()
+//		{	return cmdMappingProperties;					}
+	public void setCmdMappingProperties( final java.util.Properties cmdMappingProperties )
+		{	if ( BbvaCommandInvoker.dtoMappingProperties == null ) BbvaCommandInvoker.cmdMappingProperties = cmdMappingProperties;			}
 
 	//  Constructor   - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 	//	
@@ -73,32 +74,33 @@ public 	class 		BbvaCommandInvoker
 		}
 	/**
 	 * <b>BbvaCommandInvoker</b>
-	 * @param dtoMap
-	 * @param cmdMap
+	 * @param dtoMappingProperties
+	 * @param cmdMappingProperties
 	 * @param boMap
 	 */
-	public BbvaCommandInvoker (	final java.util.Properties dtoMap,
-	                            final java.util.Properties cmdMap,
-	                            final java.util.Map< java.lang.String, mx.com.bbva.bancomer.commons.business.BbvaIBusinessObject > boMap )
+	public BbvaCommandInvoker (	final java.util.Properties dtoMappingProperties,
+	                            final java.util.Properties cmdMappingProperties,
+	                            final java.util.Map< java.lang.String, mx.com.bbva.bancomer.commons.business.BbvaIBusinessObject > 
+	                                    businessObjectMap )
 		{
 		logger.info ( "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -" );
 		logger.info ( "Constructor BbvaCommandInvoker -- OK" );
-		if ( BbvaCommandInvoker.dtoMap == null )
+		if ( BbvaCommandInvoker.dtoMappingProperties == null )
 			{
-			logger.debug( "Datos de Entrada                       -- " + dtoMap );
-			BbvaCommandInvoker.dtoMap = dtoMap;
+			logger.debug( "Datos de Entrada                       -- " + dtoMappingProperties );
+			BbvaCommandInvoker.dtoMappingProperties = dtoMappingProperties;
 			}
 
-		if ( BbvaCommandInvoker.cmdMap == null )
+		if ( BbvaCommandInvoker.cmdMappingProperties == null )
 			{
-			logger.debug( "Datos de Entrada                       -- " + cmdMap );
-			BbvaCommandInvoker.cmdMap = cmdMap;
+			logger.debug( "Datos de Entrada                       -- " + cmdMappingProperties );
+			BbvaCommandInvoker.cmdMappingProperties = cmdMappingProperties;
 			}
 
-		if ( BbvaCommandInvoker.boMap == null )
+		if ( BbvaCommandInvoker.businessObjectMap == null )
 			{
-			logger.debug( "Datos de Entrada                       -- " + boMap );
-			BbvaCommandInvoker.boMap = boMap;
+			logger.debug( "Datos de Entrada                       -- " + businessObjectMap );
+			BbvaCommandInvoker.businessObjectMap = businessObjectMap;
 			}
 		logger.info ( "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -" );
 		}
@@ -123,12 +125,13 @@ public 	class 		BbvaCommandInvoker
 																.getSimpleName();
 		//	Buscamos dentro de nuestro mapeo DTO - BO.
 		//	Primero obtenemos el ID del Objeto de Negocio. Con ese ID obtenemos el BO. 
-		final	String 				boId				= (String)BbvaCommandInvoker.dtoMap.get( dtoName );
-		final	BbvaIBusinessObject bbvaIBusinessObject	= BbvaCommandInvoker.boMap.get	( boId	  );
+		final	String 				boId				= (String)BbvaCommandInvoker.dtoMappingProperties.get( dtoName );
+		final	BbvaIBusinessObject bbvaIBusinessObject	= BbvaCommandInvoker.businessObjectMap.get	( boId	  );
 		logger.debug( "Objeto de Negocio       -- " + bbvaIBusinessObject.getClass() );
 		try {
 			//	Obtenemos la accion que se debe ejecutar.
-			final	String	commandAction	= (String)BbvaCommandInvoker.cmdMap.get( bbvaAbstractDataTransferObject.getCommandId().toString() );
+			final	String	commandAction	= (String)BbvaCommandInvoker.cmdMappingProperties.get( bbvaAbstractDataTransferObject.getCommandId()
+					                                                                                                             .toString() );
 
 			//	Obtenemos el metodo que se debe ejecutar.
 			final	Method method	= bbvaIBusinessObject.getClass()

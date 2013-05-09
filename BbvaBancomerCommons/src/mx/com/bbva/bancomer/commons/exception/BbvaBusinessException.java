@@ -21,7 +21,7 @@ package mx.com.bbva.bancomer.commons.exception;
  *              Consultoria
  *              
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-public 	class BbvaBusinessException 
+public 	class 	BbvaBusinessException 
 		extends BbvaException 
 	{
 	//  Atributos     - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -30,6 +30,11 @@ public 	class BbvaBusinessException
 
 	//  Constructores - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 	//	
+	/**
+	 * <b>BbvaBusinessException</b>
+	 */
+	public BbvaBusinessException( ) 
+		{	super( );					}
 	/**
 	 * <b>BbvaBusinessException</b>
 	 * @param message

@@ -14,11 +14,36 @@
      						  http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
      						  http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring.xsd
      						  http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+ - Informacion Confidencial:
+ - Este software contiene informacion totalmente confidencial propiedad de Grupo Financiero BBVA Bancomer. 
+ - Queda totalmente prohibido su uso o divulgacion en forma parcial o total y solamente podra ser utilizada de acuerdo a los terminos y estatutos 
+ - que determine el Grupo Financiero BBVA Bancomer.
+ - 
+ - Todos los derechos reservados, Mexico 2013.
+ -
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+ - DESCRIPCION DEL PROGRAMA:
+ - 
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+ -
+ - HISTORIAL DE CAMBIOS:
+ - 
+ - Fecha:		Por:							Razon:         	Version
+ - 09-MAY-2013  F. Emmanuel Chavarria Ortiz		Creacion        1.0.0
+ -              femmanuel.chavarriao@gmail.com
+ -              Consultoria
+ -              
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 <!-- Recursos de Texto -->
 	<!-- Catalago de Errores -->
 	<util:properties id="errorProperties" location="classpath:mx/com/bbva/bancomer/test/exception/exception-properties.properties" />
+	<!-- Relacion DTO - BO -->
+	<util:properties id="dtoMappingProperties" location="classpath:mx/com/bbva/bancomer/test/command/dtomapping-properties.properties" />
+	<!-- Catalgo de Acciones de Negocio Permitidas -->
+	<util:properties id="cmdMappingProperties" location="classpath:mx/com/bbva/bancomer/test/command/cmdmapping-properties.properties" />
 
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 <!-- Excepciones -->
@@ -55,9 +80,32 @@
   		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
 	</bean>
 
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 <!-- Business Object -->
- 	<bean id="bbvaBusinessObject" class="mx.com.bbva.bancomer.test.business.BbvaBusinessObject">
+<!-- Objeto de Negocio 1 -->
+ 	<bean id="bbvaBusinessObject1" class="mx.com.bbva.bancomer.test.business.BbvaBusinessObject">
  		<constructor-arg><ref bean="bbvaMyBatisDAO"/></constructor-arg>
+ 
+	</bean>
+
+<!-- Objeto de Negocio 2 -->
+ 	<bean id="bbvaBusinessObject2" class="mx.com.bbva.bancomer.test.command.BbvaBusinessObject">
+ 		<constructor-arg><ref bean="bbvaMyBatisDAO"/></constructor-arg>
+ 
+	</bean>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<!-- Catalogo de Objetos de Negocio -->
+	<util:map id="businessObjectMap" map-class="java.util.TreeMap">
+	    <entry key="bbvaBusinessObject1"><ref bean="bbvaBusinessObject1"/></entry>
+	    <entry key="bbvaBusinessObject2"><ref bean="bbvaBusinessObject2"/></entry>
+	</util:map>
+
+<!-- Invoker -->
+ 	<bean id="bbvaCommandInvoker" class="mx.com.bbva.bancomer.commons.command.BbvaCommandInvoker">
+ 		<constructor-arg><ref bean="dtoMappingProperties"/></constructor-arg>
+ 		<constructor-arg><ref bean="cmdMappingProperties"/></constructor-arg>
+ 		<constructor-arg><ref bean="businessObjectMap"/></constructor-arg>
  
 	</bean>
 

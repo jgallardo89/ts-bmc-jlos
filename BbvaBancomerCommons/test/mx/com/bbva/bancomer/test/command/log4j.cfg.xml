@@ -2,6 +2,27 @@
 <!DOCTYPE log4j:configuration SYSTEM "log4j.dtd" >
 <log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/" debug="false">
 
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+ - Informacion Confidencial:
+ - Este software contiene informacion totalmente confidencial propiedad de Grupo Financiero BBVA Bancomer. 
+ - Queda totalmente prohibido su uso o divulgacion en forma parcial o total y solamente podra ser utilizada de acuerdo a los terminos y estatutos 
+ - que determine el Grupo Financiero BBVA Bancomer.
+ - 
+ - Todos los derechos reservados, Mexico 2013.
+ -
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+ - DESCRIPCION DEL PROGRAMA:
+ - 
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+ -
+ - HISTORIAL DE CAMBIOS:
+ - 
+ - Fecha:		Por:							Razon:         	Version
+ - 09-MAY-2013  F. Emmanuel Chavarria Ortiz		Creacion        1.0.0
+ -              femmanuel.chavarriao@gmail.com
+ -              Consultoria
+ -              
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 	<!-- Flujo a consola -->
 	<appender name="console" class="org.apache.log4j.ConsoleAppender">
 		<layout class="org.apache.log4j.PatternLayout">

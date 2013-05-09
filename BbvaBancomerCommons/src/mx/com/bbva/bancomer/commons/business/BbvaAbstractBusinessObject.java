@@ -1,6 +1,7 @@
 package mx.com.bbva.bancomer.commons.business;
 
 import mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject;
+import mx.com.bbva.bancomer.commons.persistence.dao.BbvaIDataAccessObject;
 
 import org.apache.log4j.Logger;
 
@@ -34,12 +35,12 @@ public 	abstract class 			BbvaAbstractBusinessObject
 
 	//  Atributos     - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 	//	Privados
-	protected mx.com.bbva.bancomer.commons.persistence.dao.BbvaIDataAccessObject bbvaIDataAccessObject;
+	protected BbvaIDataAccessObject bbvaIDataAccessObject;
 
 	//	Propiedades
-	public final mx.com.bbva.bancomer.commons.persistence.dao.BbvaIDataAccessObject getBbvaIDataAccessObject() 
+	public final BbvaIDataAccessObject getBbvaIDataAccessObject() 
 		{	return bbvaIDataAccessObject;																		}
-	public final void setBbvaIDataAccessObject( final	mx.com.bbva.bancomer.commons.persistence.dao.BbvaIDataAccessObject bbvaIDataAccessObject )
+	public final void setBbvaIDataAccessObject( final	BbvaIDataAccessObject bbvaIDataAccessObject )
 		{	if ( this.bbvaIDataAccessObject == null )	this.bbvaIDataAccessObject = bbvaIDataAccessObject;		}
 
 	//  Constructores - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -56,7 +57,7 @@ public 	abstract class 			BbvaAbstractBusinessObject
     /**
      * Default constructor. 
      */
-    public BbvaAbstractBusinessObject( final mx.com.bbva.bancomer.commons.persistence.dao.BbvaIDataAccessObject bbvaIDataAccessObject ) 
+    public BbvaAbstractBusinessObject( final BbvaIDataAccessObject bbvaIDataAccessObject ) 
     	{
 		logger.info ( "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -" );
 		logger.info ( "Constructor Business Object -- OK -- " + bbvaIDataAccessObject.getClass() );
@@ -64,7 +65,7 @@ public 	abstract class 			BbvaAbstractBusinessObject
 		logger.info ( "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -" );
     	}
 	//  Metodos       - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-	//	Escribimos la implementacion de la interfase.
+	//	Implementacion de la interfase. Adaptador que no hace nada.
 	/* (non-Javadoc)
 	 * @see mx.com.bbva.bancomer.commons.business.BbvaIBusinessObject#createCommand(mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject)
 	 */
