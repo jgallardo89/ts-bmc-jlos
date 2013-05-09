@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--xtools2_universal_type_manager-->
+<?com.ibm.xtools.emf.core.signature <signature id="com.ibm.xtools.mmi.ui.signatures.diagram" version="7.0.0"><feature description="" name="Rational Modeling Platform (com.ibm.xtools.rmp)" url="" version="7.0.0"/></signature>?>
+<notation:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.1/notation" xmlns:uml="http://www.eclipse.org/uml2/2.1.0/UML" xmlns:umlnotation="http://www.ibm.com/xtools/1.5.2/Umlnotation" xmi:id="_Uhx50LjcEeKxsee0edLF7Q" type="Class" name="classdiagram.dnx">
+  <eAnnotations xmi:id="_Uhx50rjcEeKxsee0edLF7Q" source="com.ibm.xtools.common.ui.reduction.editingCapabilities">
+    <details xmi:id="_Uhx507jcEeKxsee0edLF7Q" key="com.ibm.xtools.viz.java.webservice.capability" value="1"/>
+    <details xmi:id="_Uhx51LjcEeKxsee0edLF7Q" key="com.ibm.xtools.activities.javaVisualizerActivity" value="1"/>
+  </eAnnotations>
+  <children xmi:id="_U9AdQLjcEeKxsee0edLF7Q">
+    <children xmi:id="_U9AdQ7jcEeKxsee0edLF7Q" type="ImageCompartment">
+      <layoutConstraint xmi:type="notation:Size" xmi:id="_U9AdRLjcEeKxsee0edLF7Q" width="1320" height="1320"/>
+    </children>
+    <children xmi:id="_U9AdRbjcEeKxsee0edLF7Q" type="Stereotype"/>
+    <children xmi:id="_U9AdRrjcEeKxsee0edLF7Q" type="Name"/>
+    <children xmi:id="_U9AdR7jcEeKxsee0edLF7Q" type="Parent"/>
+    <children xmi:id="_U9AdSLjcEeKxsee0edLF7Q" type="PackageContents">
+      <styles xmi:type="umlnotation:UMLShapeCompartmentStyle" xmi:id="_U9AdSbjcEeKxsee0edLF7Q" canonical="false" collapsed="true"/>
+    </children>
+    <styles xmi:type="umlnotation:UMLShapeStyle" xmi:id="_U9AdQbjcEeKxsee0edLF7Q" fontName="Segoe UI" showStereotype="Label"/>
+    <element xmi:type="uml:Package" href="mmi:///#jpack%5Ename=mx.com.bbva.bancomer.commons.business%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=BbvaBancomerCommons%5D%5D$uml.Package"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_U9AdQrjcEeKxsee0edLF7Q" x="5676" y="3960"/>
+  </children>
+  <children xmi:id="_U9AdSrjcEeKxsee0edLF7Q">
+    <children xmi:id="_U9AdTbjcEeKxsee0edLF7Q" type="ImageCompartment">
+      <layoutConstraint xmi:type="notation:Size" xmi:id="_U9AdTrjcEeKxsee0edLF7Q" width="1320" height="1320"/>
+    </children>
+    <children xmi:id="_U9AdT7jcEeKxsee0edLF7Q" type="Stereotype"/>
+    <children xmi:id="_U9AdULjcEeKxsee0edLF7Q" type="Name"/>
+    <children xmi:id="_U9AdUbjcEeKxsee0edLF7Q" type="Parent"/>
+    <children xmi:id="_U9AdUrjcEeKxsee0edLF7Q" type="PackageContents">
+      <styles xmi:type="umlnotation:UMLShapeCompartmentStyle" xmi:id="_U9AdU7jcEeKxsee0edLF7Q" canonical="false" collapsed="true"/>
+    </children>
+    <styles xmi:type="umlnotation:UMLShapeStyle" xmi:id="_U9AdS7jcEeKxsee0edLF7Q" fontName="Segoe UI" showStereotype="Label"/>
+    <element xmi:type="uml:Package" href="mmi:///#jpack%5Ename=mx.com.bbva.bancomer.commons.exception%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=BbvaBancomerCommons%5D%5D$uml.Package"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_U9AdTLjcEeKxsee0edLF7Q" x="15840" y="10692"/>
+  </children>
+  <children xmi:id="_U9AdVLjcEeKxsee0edLF7Q">
+    <children xmi:id="_U9AdV7jcEeKxsee0edLF7Q" type="ImageCompartment">
+      <layoutConstraint xmi:type="notation:Size" xmi:id="_U9AdWLjcEeKxsee0edLF7Q" width="1320" height="1320"/>
+    </children>
+    <children xmi:id="_U9AdWbjcEeKxsee0edLF7Q" type="Stereotype"/>
+    <children xmi:id="_U9AdWrjcEeKxsee0edLF7Q" type="Name"/>
+    <children xmi:id="_U9AdW7jcEeKxsee0edLF7Q" type="Parent"/>
+    <children xmi:id="_U9AdXLjcEeKxsee0edLF7Q" type="PackageContents">
+      <styles xmi:type="umlnotation:UMLShapeCompartmentStyle" xmi:id="_U9AdXbjcEeKxsee0edLF7Q" canonical="false" collapsed="true"/>
+    </children>
+    <styles xmi:type="umlnotation:UMLShapeStyle" xmi:id="_U9AdVbjcEeKxsee0edLF7Q" fontName="Segoe UI" showStereotype="Label"/>
+    <element xmi:type="uml:Package" href="mmi:///#jpack%5Ename=mx.com.bbva.bancomer.commons.model.vo%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=BbvaBancomerCommons%5D%5D$uml.Package"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_U9AdVrjcEeKxsee0edLF7Q" x="660" y="10692"/>
+  </children>
+  <children xmi:id="_U9AdXrjcEeKxsee0edLF7Q">
+    <children xmi:id="_U9AdYbjcEeKxsee0edLF7Q" type="ImageCompartment">
+      <layoutConstraint xmi:type="notation:Size" xmi:id="_U9AdYrjcEeKxsee0edLF7Q" width="1320" height="1320"/>
+    </children>
+    <children xmi:id="_U9AdY7jcEeKxsee0edLF7Q" type="Stereotype"/>
+    <children xmi:id="_U9AdZLjcEeKxsee0edLF7Q" type="Name"/>
+    <children xmi:id="_U9AdZbjcEeKxsee0edLF7Q" type="Parent"/>
+    <children xmi:id="_U9AdZrjcEeKxsee0edLF7Q" type="PackageContents">
+      <styles xmi:type="umlnotation:UMLShapeCompartmentStyle" xmi:id="_U9AdZ7jcEeKxsee0edLF7Q" canonical="false" collapsed="true"/>
+    </children>
+    <styles xmi:type="umlnotation:UMLShapeStyle" xmi:id="_U9AdX7jcEeKxsee0edLF7Q" fontName="Segoe UI" showStereotype="Label"/>
+    <element xmi:type="uml:Package" href="mmi:///#jpack%5Ename=mx.com.bbva.bancomer.commons.command%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=BbvaBancomerCommons%5D%5D$uml.Package"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_U9AdYLjcEeKxsee0edLF7Q" x="660" y="660"/>
+  </children>
+  <children xmi:id="_U9AdaLjcEeKxsee0edLF7Q">
+    <children xmi:id="_U9JnMLjcEeKxsee0edLF7Q" type="ImageCompartment">
+      <layoutConstraint xmi:type="notation:Size" xmi:id="_U9JnMbjcEeKxsee0edLF7Q" width="1320" height="1320"/>
+    </children>
+    <children xmi:id="_U9JnMrjcEeKxsee0edLF7Q" type="Stereotype"/>
+    <children xmi:id="_U9JnM7jcEeKxsee0edLF7Q" type="Name"/>
+    <children xmi:id="_U9JnNLjcEeKxsee0edLF7Q" type="Parent"/>
+    <children xmi:id="_U9JnNbjcEeKxsee0edLF7Q" type="PackageContents">
+      <styles xmi:type="umlnotation:UMLShapeCompartmentStyle" xmi:id="_U9JnNrjcEeKxsee0edLF7Q" canonical="false" collapsed="true"/>
+    </children>
+    <styles xmi:type="umlnotation:UMLShapeStyle" xmi:id="_U9AdabjcEeKxsee0edLF7Q" fontName="Segoe UI" showStereotype="Label"/>
+    <element xmi:type="uml:Package" href="mmi:///#jpack%5Ename=mx.com.bbva.bancomer.commons.model.dto%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=BbvaBancomerCommons%5D%5D$uml.Package"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_U9AdarjcEeKxsee0edLF7Q" x="660" y="7392"/>
+  </children>
+  <children xmi:id="_U9JnN7jcEeKxsee0edLF7Q">
+    <children xmi:id="_U9JnOrjcEeKxsee0edLF7Q" type="ImageCompartment">
+      <layoutConstraint xmi:type="notation:Size" xmi:id="_U9JnO7jcEeKxsee0edLF7Q" width="1320" height="1320"/>
+    </children>
+    <children xmi:id="_U9JnPLjcEeKxsee0edLF7Q" type="Stereotype"/>
+    <children xmi:id="_U9JnPbjcEeKxsee0edLF7Q" type="Name"/>
+    <children xmi:id="_U9JnPrjcEeKxsee0edLF7Q" type="Parent"/>
+    <children xmi:id="_U9JnP7jcEeKxsee0edLF7Q" type="PackageContents">
+      <styles xmi:type="umlnotation:UMLShapeCompartmentStyle" xmi:id="_U9JnQLjcEeKxsee0edLF7Q" canonical="false" collapsed="true"/>
+    </children>
+    <styles xmi:type="umlnotation:UMLShapeStyle" xmi:id="_U9JnOLjcEeKxsee0edLF7Q" fontName="Segoe UI" showStereotype="Label"/>
+    <element xmi:type="uml:Package" href="mmi:///#jpack%5Ename=mx.com.bbva.bancomer.commons.persistence.dao%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=BbvaBancomerCommons%5D%5D$uml.Package"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_U9JnObjcEeKxsee0edLF7Q" x="9900" y="7392"/>
+  </children>
+  <styles xmi:type="umlnotation:UMLDiagramStyle" xmi:id="_Uhx50bjcEeKxsee0edLF7Q"/>
+  <element xsi:nil="true"/>
+  <edges xmi:id="_U_Fg6bjcEeKxsee0edLF7Q" source="_U9AdQLjcEeKxsee0edLF7Q" target="_U9JnN7jcEeKxsee0edLF7Q">
+    <children xmi:id="_U_Fg7LjcEeKxsee0edLF7Q" type="KindLabel">
+      <children xmi:id="_U_Fg7rjcEeKxsee0edLF7Q" type="Stereotype"/>
+      <children xmi:id="_U_Fg8LjcEeKxsee0edLF7Q" type="Kind"/>
+      <children xmi:id="_U_Fg77jcEeKxsee0edLF7Q" type="Name"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_U_Fg7bjcEeKxsee0edLF7Q" y="-186"/>
+    </children>
+    <styles xmi:type="umlnotation:UMLConnectorStyle" xmi:id="_U_Fg6rjcEeKxsee0edLF7Q" fontName="Segoe UI" lineWidth="1" showStereotype="Text"/>
+    <element xmi:type="uml:Usage" href="mmi:///#jpack-dep%5Bjpack%5Ename=mx.com.bbva.bancomer.commons.persistence.dao%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=BbvaBancomerCommons%5D%5D%5D$uml.Usage"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_U_Fg67jcEeKxsee0edLF7Q" points="[0, 0, 0, -1586]$[0, 1586, 0, 0]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_VAbksLjcEeKxsee0edLF7Q" id="(0.6666667,1.0)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_VAbksbjcEeKxsee0edLF7Q" id="(0.08128545,0.0)"/>
+  </edges>
+  <edges xmi:id="_U_Fg8bjcEeKxsee0edLF7Q" source="_U9AdQLjcEeKxsee0edLF7Q" target="_U9AdaLjcEeKxsee0edLF7Q">
+    <children xmi:id="_U_Fg9LjcEeKxsee0edLF7Q" type="KindLabel">
+      <children xmi:id="_U_Fg9rjcEeKxsee0edLF7Q" type="Stereotype"/>
+      <children xmi:id="_U_Fg-LjcEeKxsee0edLF7Q" type="Kind"/>
+      <children xmi:id="_U_Fg97jcEeKxsee0edLF7Q" type="Name"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_U_Fg9bjcEeKxsee0edLF7Q" y="-186"/>
+    </children>
+    <styles xmi:type="umlnotation:UMLConnectorStyle" xmi:id="_U_Fg8rjcEeKxsee0edLF7Q" fontName="Segoe UI" lineWidth="1" showStereotype="Text"/>
+    <element xmi:type="uml:Usage" href="mmi:///#jpack-dep%5Bjpack%5Ename=mx.com.bbva.bancomer.commons.model.dto%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=BbvaBancomerCommons%5D%5D%5D$uml.Usage"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_U_Fg87jcEeKxsee0edLF7Q" points="[0, 0, 1, -1586]$[0, 1586, 1, 0]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_VARzuLjcEeKxsee0edLF7Q" id="(0.33333334,1.0)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_VARzubjcEeKxsee0edLF7Q" id="(0.97575283,0.0)"/>
+  </edges>
+  <edges xmi:id="_U_Fg-bjcEeKxsee0edLF7Q" source="_U9AdXrjcEeKxsee0edLF7Q" target="_U9AdVLjcEeKxsee0edLF7Q">
+    <children xmi:id="_U_Fg_LjcEeKxsee0edLF7Q" type="KindLabel">
+      <children xmi:id="_U_Fg_rjcEeKxsee0edLF7Q" type="Stereotype"/>
+      <children xmi:id="_U_FhALjcEeKxsee0edLF7Q" type="Kind"/>
+      <children xmi:id="_U_Fg_7jcEeKxsee0edLF7Q" type="Name"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_U_Fg_bjcEeKxsee0edLF7Q" y="-186"/>
+    </children>
+    <styles xmi:type="umlnotation:UMLConnectorStyle" xmi:id="_U_Fg-rjcEeKxsee0edLF7Q" fontName="Segoe UI" lineWidth="1" showStereotype="Text"/>
+    <element xmi:type="uml:Usage" href="mmi:///#jpack-dep%5Bjpack%5Ename=mx.com.bbva.bancomer.commons.model.vo%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=BbvaBancomerCommons%5D%5D%5D$uml.Usage"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_U_Fg-7jcEeKxsee0edLF7Q" points="[1, 0, 79, -8296]$[-3118, 4941, -3040, -3355]$[-3118, 6709, -3040, -1587]$[-78, 8296, 0, 0]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_VAbktLjcEeKxsee0edLF7Q" id="(0.24993436,1.0)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_VAbktbjcEeKxsee0edLF7Q" id="(0.24993367,0.0)"/>
+  </edges>
+  <edges xmi:id="_U_FhAbjcEeKxsee0edLF7Q" source="_U9AdXrjcEeKxsee0edLF7Q" target="_U9AdSrjcEeKxsee0edLF7Q">
+    <children xmi:id="_U_FhBLjcEeKxsee0edLF7Q" type="KindLabel">
+      <children xmi:id="_U_FhBrjcEeKxsee0edLF7Q" type="Stereotype"/>
+      <children xmi:id="_U_FhCLjcEeKxsee0edLF7Q" type="Kind"/>
+      <children xmi:id="_U_FhB7jcEeKxsee0edLF7Q" type="Name"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_U_FhBbjcEeKxsee0edLF7Q" y="-186"/>
+    </children>
+    <styles xmi:type="umlnotation:UMLConnectorStyle" xmi:id="_U_FhArjcEeKxsee0edLF7Q" fontName="Segoe UI" lineWidth="1" showStereotype="Text"/>
+    <element xmi:type="uml:Usage" href="mmi:///#jpack-dep%5Bjpack%5Ename=mx.com.bbva.bancomer.commons.exception%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=BbvaBancomerCommons%5D%5D%5D$uml.Usage"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_U_FhA7jcEeKxsee0edLF7Q" points="[1, 0, -12534, -8296]$[7220, 1586, -5315, -6710]$[12536, 4941, 1, -3355]$[12536, 8296, 1, 0]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_VAbktrjcEeKxsee0edLF7Q" id="(0.83328956,1.0)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_VAbkt7jcEeKxsee0edLF7Q" id="(0.49986917,0.0)"/>
+  </edges>
+  <edges xmi:id="_U_FhCbjcEeKxsee0edLF7Q" source="_U9AdXrjcEeKxsee0edLF7Q" target="_U9AdQLjcEeKxsee0edLF7Q">
+    <children xmi:id="_U_PR4LjcEeKxsee0edLF7Q" type="KindLabel">
+      <children xmi:id="_U_PR4rjcEeKxsee0edLF7Q" type="Stereotype"/>
+      <children xmi:id="_U_PR5LjcEeKxsee0edLF7Q" type="Kind"/>
+      <children xmi:id="_U_PR47jcEeKxsee0edLF7Q" type="Name"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_U_PR4bjcEeKxsee0edLF7Q" y="-186"/>
+    </children>
+    <styles xmi:type="umlnotation:UMLConnectorStyle" xmi:id="_U_FhCrjcEeKxsee0edLF7Q" fontName="Segoe UI" lineWidth="1" showStereotype="Text"/>
+    <element xmi:type="uml:Usage" href="mmi:///#jpack-dep%5Bjpack%5Ename=mx.com.bbva.bancomer.commons.business%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=BbvaBancomerCommons%5D%5D%5D$uml.Usage"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_U_FhC7jcEeKxsee0edLF7Q" points="[1, 0, -3611, -1586]$[3612, 1586, 0, 0]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_VARztLjcEeKxsee0edLF7Q" id="(0.6665791,1.0)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_VARztbjcEeKxsee0edLF7Q" id="(0.5,0.0)"/>
+  </edges>
+  <edges xmi:id="_U_PR5bjcEeKxsee0edLF7Q" source="_U9AdXrjcEeKxsee0edLF7Q" target="_U9AdaLjcEeKxsee0edLF7Q">
+    <children xmi:id="_U_PR6LjcEeKxsee0edLF7Q" type="KindLabel">
+      <children xmi:id="_U_PR6rjcEeKxsee0edLF7Q" type="Stereotype"/>
+      <children xmi:id="_U_PR7LjcEeKxsee0edLF7Q" type="Kind"/>
+      <children xmi:id="_U_PR67jcEeKxsee0edLF7Q" type="Name"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_U_PR6bjcEeKxsee0edLF7Q" y="-186"/>
+    </children>
+    <styles xmi:type="umlnotation:UMLConnectorStyle" xmi:id="_U_PR5rjcEeKxsee0edLF7Q" fontName="Segoe UI" lineWidth="1" showStereotype="Text"/>
+    <element xmi:type="uml:Usage" href="mmi:///#jpack-dep%5Bjpack%5Ename=mx.com.bbva.bancomer.commons.model.dto%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=BbvaBancomerCommons%5D%5D%5D$uml.Usage"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_U_PR57jcEeKxsee0edLF7Q" points="[0, 0, 0, -4941]$[0, 4941, 0, 0]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_VAbksrjcEeKxsee0edLF7Q" id="(0.5,1.0)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_VAbks7jcEeKxsee0edLF7Q" id="(0.49993482,0.0)"/>
+  </edges>
+  <edges xmi:id="_U_PR7bjcEeKxsee0edLF7Q" source="_U9AdaLjcEeKxsee0edLF7Q" target="_U9AdVLjcEeKxsee0edLF7Q">
+    <children xmi:id="_U_PR8LjcEeKxsee0edLF7Q" type="KindLabel">
+      <children xmi:id="_U_PR8rjcEeKxsee0edLF7Q" type="Stereotype"/>
+      <children xmi:id="_U_PR9LjcEeKxsee0edLF7Q" type="Kind"/>
+      <children xmi:id="_U_PR87jcEeKxsee0edLF7Q" type="Name"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_U_PR8bjcEeKxsee0edLF7Q" y="-186"/>
+    </children>
+    <styles xmi:type="umlnotation:UMLConnectorStyle" xmi:id="_U_PR7rjcEeKxsee0edLF7Q" fontName="Segoe UI" lineWidth="1" showStereotype="Text"/>
+    <element xmi:type="uml:Usage" href="mmi:///#jpack-dep%5Bjpack%5Ename=mx.com.bbva.bancomer.commons.model.vo%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=BbvaBancomerCommons%5D%5D%5D$uml.Usage"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_U_PR77jcEeKxsee0edLF7Q" points="[0, 0, 0, -1586]$[0, 1586, 0, 0]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_VARztrjcEeKxsee0edLF7Q" id="(0.48702908,1.0)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_VARzt7jcEeKxsee0edLF7Q" id="(0.5,0.0)"/>
+  </edges>
+  <edges xmi:id="_U_PR9bjcEeKxsee0edLF7Q" source="_U9JnN7jcEeKxsee0edLF7Q" target="_U9AdSrjcEeKxsee0edLF7Q">
+    <children xmi:id="_U_PR-LjcEeKxsee0edLF7Q" type="KindLabel">
+      <children xmi:id="_U_PR-rjcEeKxsee0edLF7Q" type="Stereotype"/>
+      <children xmi:id="_U_PR_LjcEeKxsee0edLF7Q" type="Kind"/>
+      <children xmi:id="_U_PR-7jcEeKxsee0edLF7Q" type="Name"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_U_PR-bjcEeKxsee0edLF7Q" y="-186"/>
+    </children>
+    <styles xmi:type="umlnotation:UMLConnectorStyle" xmi:id="_U_PR9rjcEeKxsee0edLF7Q" fontName="Segoe UI" lineWidth="1" showStereotype="Text"/>
+    <element xmi:type="uml:Usage" href="mmi:///#jpack-dep%5Bjpack%5Ename=mx.com.bbva.bancomer.commons.exception%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=BbvaBancomerCommons%5D%5D%5D$uml.Usage"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_U_PR97jcEeKxsee0edLF7Q" points="[1, 0, 0, -1586]$[1, 1586, 0, 0]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_VARzsLjcEeKxsee0edLF7Q" id="(0.9145794,1.0)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_VARzsbjcEeKxsee0edLF7Q" id="(0.24986918,0.0)"/>
+  </edges>
+  <edges xmi:id="_U_PR_bjcEeKxsee0edLF7Q" source="_U9JnN7jcEeKxsee0edLF7Q" target="_U9AdVLjcEeKxsee0edLF7Q">
+    <children xmi:id="_U_PSALjcEeKxsee0edLF7Q" type="KindLabel">
+      <children xmi:id="_U_PSArjcEeKxsee0edLF7Q" type="Stereotype"/>
+      <children xmi:id="_U_PSBLjcEeKxsee0edLF7Q" type="Kind"/>
+      <children xmi:id="_U_PSA7jcEeKxsee0edLF7Q" type="Name"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_U_PSAbjcEeKxsee0edLF7Q" y="-186"/>
+    </children>
+    <styles xmi:type="umlnotation:UMLConnectorStyle" xmi:id="_U_PR_rjcEeKxsee0edLF7Q" fontName="Segoe UI" lineWidth="1" showStereotype="Text"/>
+    <element xmi:type="uml:Usage" href="mmi:///#jpack-dep%5Bjpack%5Ename=mx.com.bbva.bancomer.commons.model.vo%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=BbvaBancomerCommons%5D%5D%5D$uml.Usage"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_U_PR_7jcEeKxsee0edLF7Q" points="[0, 0, 7508, -1586]$[-7507, 1586, 1, 0]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_VARzsrjcEeKxsee0edLF7Q" id="(0.45723063,1.0)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_VARzs7jcEeKxsee0edLF7Q" id="(0.74993366,0.0)"/>
+  </edges>
+</notation:Diagram>

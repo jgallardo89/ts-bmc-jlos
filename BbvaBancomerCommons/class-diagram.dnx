@@ -1,0 +1,791 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--xtools2_universal_type_manager-->
+<?com.ibm.xtools.emf.core.signature <signature id="com.ibm.xtools.mmi.ui.signatures.diagram" version="7.0.0"><feature description="" name="Rational Modeling Platform (com.ibm.xtools.rmp)" url="" version="7.0.0"/></signature>?>
+<notation:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.1/notation" xmlns:uml="http://www.eclipse.org/uml2/2.1.0/UML" xmlns:umlnotation="http://www.ibm.com/xtools/1.5.2/Umlnotation" xmi:id="_kb2w4LjcEeKxsee0edLF7Q" type="Class" name="classdiagram1.dnx">
+  <eAnnotations xmi:id="_kb2w4rjcEeKxsee0edLF7Q" source="com.ibm.xtools.common.ui.reduction.editingCapabilities">
+    <details xmi:id="_kb2w47jcEeKxsee0edLF7Q" key="com.ibm.xtools.viz.java.webservice.capability" value="1"/>
+    <details xmi:id="_kb2w5LjcEeKxsee0edLF7Q" key="com.ibm.xtools.activities.javaVisualizerActivity" value="1"/>
+  </eAnnotations>
+  <children xmi:id="_kpZdoLjcEeKxsee0edLF7Q">
+    <children xmi:id="_kpinkLjcEeKxsee0edLF7Q" type="ImageCompartment">
+      <layoutConstraint xmi:type="notation:Size" xmi:id="_kpinkbjcEeKxsee0edLF7Q" width="1320" height="1320"/>
+    </children>
+    <children xmi:id="_kpinkrjcEeKxsee0edLF7Q" type="Stereotype"/>
+    <children xmi:id="_kpink7jcEeKxsee0edLF7Q" type="Name"/>
+    <children xmi:id="_kpinlLjcEeKxsee0edLF7Q" type="Parent"/>
+    <children xmi:id="_kpinlbjcEeKxsee0edLF7Q" type="ANNOTATION_COMPARTMENT">
+      <styles xmi:type="umlnotation:UMLListCompartmentStyle" xmi:id="_kpinlrjcEeKxsee0edLF7Q"/>
+    </children>
+    <children xmi:id="_kpinl7jcEeKxsee0edLF7Q" type="ANNOTATED_ATTRIBUTE_COMPARTMENT">
+      <styles xmi:type="umlnotation:UMLListCompartmentStyle" xmi:id="_kpinmLjcEeKxsee0edLF7Q"/>
+    </children>
+    <children xmi:id="_kpinmbjcEeKxsee0edLF7Q" type="ANNOTATED_OPERATION_COMPARTMENT">
+      <styles xmi:type="umlnotation:UMLListCompartmentStyle" xmi:id="_kpinmrjcEeKxsee0edLF7Q"/>
+    </children>
+    <styles xmi:type="umlnotation:UMLShapeStyle" xmi:id="_kpZdobjcEeKxsee0edLF7Q" fontName="Segoe UI" showStereotype="Label"/>
+    <element xmi:type="uml:Class" href="mmi:///#jsrctype%5Ename=BbvaIBatisDAO%5Bjcu%5Ename=BbvaIBatisDAO.java%5Bjpack%5Ename=mx.com.bbva.bancomer.commons.persistence.dao%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=BbvaBancomerCommons%5D%5D%5D%5D$uml.Class"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_kpZdorjcEeKxsee0edLF7Q" x="31284" y="31416"/>
+  </children>
+  <children xmi:id="_kpinm7jcEeKxsee0edLF7Q">
+    <children xmi:id="_kpinnrjcEeKxsee0edLF7Q" type="ImageCompartment">
+      <layoutConstraint xmi:type="notation:Size" xmi:id="_kpinn7jcEeKxsee0edLF7Q" width="1320" height="1320"/>
+    </children>
+    <children xmi:id="_kpinoLjcEeKxsee0edLF7Q" type="Stereotype"/>
+    <children xmi:id="_kpinobjcEeKxsee0edLF7Q" type="Name"/>
+    <children xmi:id="_kpinorjcEeKxsee0edLF7Q" type="Parent"/>
+    <children xmi:id="_kpino7jcEeKxsee0edLF7Q" visible="false" type="ANNOTATION_COMPARTMENT">
+      <styles xmi:type="umlnotation:UMLListCompartmentStyle" xmi:id="_kpinpLjcEeKxsee0edLF7Q"/>
+    </children>
+    <children xmi:id="_kpinpbjcEeKxsee0edLF7Q" type="ANNOTATED_ATTRIBUTE_COMPARTMENT">
+      <styles xmi:type="umlnotation:UMLListCompartmentStyle" xmi:id="_kpinprjcEeKxsee0edLF7Q"/>
+    </children>
+    <children xmi:id="_kpinp7jcEeKxsee0edLF7Q" type="ANNOTATED_OPERATION_COMPARTMENT">
+      <styles xmi:type="umlnotation:UMLListCompartmentStyle" xmi:id="_kpinqLjcEeKxsee0edLF7Q"/>
+    </children>
+    <styles xmi:type="umlnotation:UMLShapeStyle" xmi:id="_kpinnLjcEeKxsee0edLF7Q" fontName="Segoe UI" showStereotype="Label"/>
+    <element xmi:type="uml:Class" href="mmi:///#jsrctype%5Ename=BbvaAbstractBusinessObject%5Bjcu%5Ename=BbvaAbstractBusinessObject.java%5Bjpack%5Ename=mx.com.bbva.bancomer.commons.business%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=BbvaBancomerCommons%5D%5D%5D%5D$uml.Class"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_kpinnbjcEeKxsee0edLF7Q" x="65208" y="18744"/>
+  </children>
+  <children xmi:id="_kpinqbjcEeKxsee0edLF7Q">
+    <children xmi:id="_kpinrLjcEeKxsee0edLF7Q" type="ImageCompartment">
+      <layoutConstraint xmi:type="notation:Size" xmi:id="_kpinrbjcEeKxsee0edLF7Q" width="1320" height="1320"/>
+    </children>
+    <children xmi:id="_kpinrrjcEeKxsee0edLF7Q" type="Stereotype"/>
+    <children xmi:id="_kpinr7jcEeKxsee0edLF7Q" type="Name"/>
+    <children xmi:id="_kpinsLjcEeKxsee0edLF7Q" type="Parent"/>
+    <children xmi:id="_kpinsbjcEeKxsee0edLF7Q" type="ANNOTATION_COMPARTMENT">
+      <styles xmi:type="umlnotation:UMLListCompartmentStyle" xmi:id="_kpinsrjcEeKxsee0edLF7Q"/>
+    </children>
+    <children xmi:id="_kpins7jcEeKxsee0edLF7Q" type="ANNOTATED_ATTRIBUTE_COMPARTMENT">
+      <styles xmi:type="umlnotation:UMLListCompartmentStyle" xmi:id="_kpintLjcEeKxsee0edLF7Q"/>
+    </children>
+    <children xmi:id="_kpintbjcEeKxsee0edLF7Q" type="ANNOTATED_OPERATION_COMPARTMENT">
+      <styles xmi:type="umlnotation:UMLListCompartmentStyle" xmi:id="_kpintrjcEeKxsee0edLF7Q"/>
+    </children>
+    <styles xmi:type="umlnotation:UMLShapeStyle" xmi:id="_kpinqrjcEeKxsee0edLF7Q" fontName="Segoe UI" showStereotype="Label"/>
+    <element xmi:type="uml:Class" href="mmi:///#jsrctype%5Ename=BbvaJdoDAO%5Bjcu%5Ename=BbvaJdoDAO.java%5Bjpack%5Ename=mx.com.bbva.bancomer.commons.persistence.dao%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=BbvaBancomerCommons%5D%5D%5D%5D$uml.Class"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_kpinq7jcEeKxsee0edLF7Q" x="37752" y="31416"/>
+  </children>
+  <children xmi:id="_kpint7jcEeKxsee0edLF7Q">
+    <children xmi:id="_kpinurjcEeKxsee0edLF7Q" type="ImageCompartment">
+      <layoutConstraint xmi:type="notation:Size" xmi:id="_kpinu7jcEeKxsee0edLF7Q" width="1320" height="1320"/>
+    </children>
+    <children xmi:id="_kpinvLjcEeKxsee0edLF7Q" type="Stereotype"/>
+    <children xmi:id="_kpinvbjcEeKxsee0edLF7Q" type="Name"/>
+    <children xmi:id="_kpinvrjcEeKxsee0edLF7Q" type="Parent"/>
+    <children xmi:id="_kpinv7jcEeKxsee0edLF7Q" visible="false" type="ANNOTATION_COMPARTMENT">
+      <styles xmi:type="umlnotation:UMLListCompartmentStyle" xmi:id="_kpinwLjcEeKxsee0edLF7Q"/>
+    </children>
+    <children xmi:id="_kpinwbjcEeKxsee0edLF7Q" type="ANNOTATED_ATTRIBUTE_COMPARTMENT">
+      <styles xmi:type="umlnotation:UMLListCompartmentStyle" xmi:id="_kpinwrjcEeKxsee0edLF7Q"/>
+    </children>
+    <children xmi:id="_kpinw7jcEeKxsee0edLF7Q" type="ANNOTATED_OPERATION_COMPARTMENT">
+      <styles xmi:type="umlnotation:UMLListCompartmentStyle" xmi:id="_kpinxLjcEeKxsee0edLF7Q"/>
+    </children>
+    <styles xmi:type="umlnotation:UMLShapeStyle" xmi:id="_kpinuLjcEeKxsee0edLF7Q" fontName="Segoe UI" showStereotype="Label"/>
+    <element xmi:type="uml:Class" href="mmi:///#jsrctype%5Ename=BbvaException%5Bjcu%5Ename=BbvaException.java%5Bjpack%5Ename=mx.com.bbva.bancomer.commons.exception%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=BbvaBancomerCommons%5D%5D%5D%5D$uml.Class"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_kpinubjcEeKxsee0edLF7Q" x="1188" y="4488"/>
+  </children>
+  <children xmi:id="_kpinxbjcEeKxsee0edLF7Q">
+    <children xmi:id="_kpinyLjcEeKxsee0edLF7Q" type="ImageCompartment">
+      <layoutConstraint xmi:type="notation:Size" xmi:id="_kpinybjcEeKxsee0edLF7Q" width="530" height="530"/>
+    </children>
+    <children xmi:id="_kpinyrjcEeKxsee0edLF7Q" type="Stereotype"/>
+    <children xmi:id="_kpiny7jcEeKxsee0edLF7Q" type="Kind"/>
+    <children xmi:id="_kpinzLjcEeKxsee0edLF7Q" type="Name"/>
+    <children xmi:id="_kpinzbjcEeKxsee0edLF7Q" type="Parent"/>
+    <children xmi:id="_kpinzrjcEeKxsee0edLF7Q" type="AttributeCompartment">
+      <styles xmi:type="umlnotation:UMLListCompartmentStyle" xmi:id="_kpinz7jcEeKxsee0edLF7Q"/>
+    </children>
+    <children xmi:id="_kpin0LjcEeKxsee0edLF7Q" type="OperationCompartment">
+      <styles xmi:type="umlnotation:UMLListCompartmentStyle" xmi:id="_kpin0bjcEeKxsee0edLF7Q"/>
+    </children>
+    <children xmi:id="_kpin0rjcEeKxsee0edLF7Q" visible="false" type="SignalCompartment">
+      <styles xmi:type="umlnotation:UMLListCompartmentStyle" xmi:id="_kpin07jcEeKxsee0edLF7Q"/>
+    </children>
+    <styles xmi:type="umlnotation:UMLClassifierStyle" xmi:id="_kpinxrjcEeKxsee0edLF7Q" fontName="Segoe UI" showStereotype="Label" useClassifierShape="true"/>
+    <element xmi:type="uml:Interface" href="mmi:///#jsrctype%5Ename=BbvaIBusinessObject%5Bjcu%5Ename=BbvaIBusinessObject.java%5Bjpack%5Ename=mx.com.bbva.bancomer.commons.business%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=BbvaBancomerCommons%5D%5D%5D%5D$uml.Interface"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_kpinx7jcEeKxsee0edLF7Q" x="72468" y="13860"/>
+  </children>
+  <children xmi:id="_kpin1LjcEeKxsee0edLF7Q">
+    <children xmi:id="_kpin17jcEeKxsee0edLF7Q" type="ImageCompartment">
+      <layoutConstraint xmi:type="notation:Size" xmi:id="_kpin2LjcEeKxsee0edLF7Q" width="1320" height="1320"/>
+    </children>
+    <children xmi:id="_kpin2bjcEeKxsee0edLF7Q" type="Stereotype"/>
+    <children xmi:id="_kpin2rjcEeKxsee0edLF7Q" type="Name"/>
+    <children xmi:id="_kpsYkLjcEeKxsee0edLF7Q" type="Parent"/>
+    <children xmi:id="_kpsYkbjcEeKxsee0edLF7Q" type="ANNOTATION_COMPARTMENT">
+      <styles xmi:type="umlnotation:UMLListCompartmentStyle" xmi:id="_kpsYkrjcEeKxsee0edLF7Q"/>
+    </children>
+    <children xmi:id="_kpsYk7jcEeKxsee0edLF7Q" type="ANNOTATED_ATTRIBUTE_COMPARTMENT">
+      <styles xmi:type="umlnotation:UMLListCompartmentStyle" xmi:id="_kpsYlLjcEeKxsee0edLF7Q"/>
+    </children>
+    <children xmi:id="_kpsYlbjcEeKxsee0edLF7Q" type="ANNOTATED_OPERATION_COMPARTMENT">
+      <styles xmi:type="umlnotation:UMLListCompartmentStyle" xmi:id="_kpsYlrjcEeKxsee0edLF7Q"/>
+    </children>
+    <styles xmi:type="umlnotation:UMLShapeStyle" xmi:id="_kpin1bjcEeKxsee0edLF7Q" fontName="Segoe UI" showStereotype="Label"/>
+    <element xmi:type="uml:Class" href="mmi:///#jsrctype%5Ename=BbvaJpaDAO%5Bjcu%5Ename=BbvaJpaDAO.java%5Bjpack%5Ename=mx.com.bbva.bancomer.commons.persistence.dao%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=BbvaBancomerCommons%5D%5D%5D%5D$uml.Class"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_kpin1rjcEeKxsee0edLF7Q" x="17688" y="31416"/>
+  </children>
+  <children xmi:id="_kpsYl7jcEeKxsee0edLF7Q">
+    <children xmi:id="_kpsYmrjcEeKxsee0edLF7Q" type="ImageCompartment">
+      <layoutConstraint xmi:type="notation:Size" xmi:id="_kpsYm7jcEeKxsee0edLF7Q" width="1320" height="1320"/>
+    </children>
+    <children xmi:id="_kpsYnLjcEeKxsee0edLF7Q" type="Stereotype"/>
+    <children xmi:id="_kpsYnbjcEeKxsee0edLF7Q" type="Name"/>
+    <children xmi:id="_kpsYnrjcEeKxsee0edLF7Q" type="Parent"/>
+    <children xmi:id="_kpsYn7jcEeKxsee0edLF7Q" type="ANNOTATION_COMPARTMENT">
+      <styles xmi:type="umlnotation:UMLListCompartmentStyle" xmi:id="_kpsYoLjcEeKxsee0edLF7Q"/>
+    </children>
+    <children xmi:id="_kpsYobjcEeKxsee0edLF7Q" type="ANNOTATED_ATTRIBUTE_COMPARTMENT">
+      <styles xmi:type="umlnotation:UMLListCompartmentStyle" xmi:id="_kpsYorjcEeKxsee0edLF7Q"/>
+    </children>
+    <children xmi:id="_kpsYo7jcEeKxsee0edLF7Q" type="ANNOTATED_OPERATION_COMPARTMENT">
+      <styles xmi:type="umlnotation:UMLListCompartmentStyle" xmi:id="_kpsYpLjcEeKxsee0edLF7Q"/>
+    </children>
+    <styles xmi:type="umlnotation:UMLShapeStyle" xmi:id="_kpsYmLjcEeKxsee0edLF7Q" fontName="Segoe UI" showStereotype="Label"/>
+    <element xmi:type="uml:Class" href="mmi:///#jsrctype%5Ename=BbvaJdbcDAO%5Bjcu%5Ename=BbvaJdbcDAO.java%5Bjpack%5Ename=mx.com.bbva.bancomer.commons.persistence.dao%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=BbvaBancomerCommons%5D%5D%5D%5D$uml.Class"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_kpsYmbjcEeKxsee0edLF7Q" x="24288" y="31416"/>
+  </children>
+  <children xmi:id="_kpsYpbjcEeKxsee0edLF7Q">
+    <children xmi:id="_kpsYqLjcEeKxsee0edLF7Q" type="ImageCompartment">
+      <layoutConstraint xmi:type="notation:Size" xmi:id="_kpsYqbjcEeKxsee0edLF7Q" width="1320" height="1320"/>
+    </children>
+    <children xmi:id="_kpsYqrjcEeKxsee0edLF7Q" type="Stereotype"/>
+    <children xmi:id="_kpsYq7jcEeKxsee0edLF7Q" type="Name"/>
+    <children xmi:id="_kpsYrLjcEeKxsee0edLF7Q" type="Parent"/>
+    <children xmi:id="_kpsYrbjcEeKxsee0edLF7Q" visible="false" type="ANNOTATION_COMPARTMENT">
+      <styles xmi:type="umlnotation:UMLListCompartmentStyle" xmi:id="_kpsYrrjcEeKxsee0edLF7Q"/>
+    </children>
+    <children xmi:id="_kpsYr7jcEeKxsee0edLF7Q" type="ANNOTATED_ATTRIBUTE_COMPARTMENT">
+      <styles xmi:type="umlnotation:UMLListCompartmentStyle" xmi:id="_kpsYsLjcEeKxsee0edLF7Q"/>
+    </children>
+    <children xmi:id="_kpsYsbjcEeKxsee0edLF7Q" type="ANNOTATED_OPERATION_COMPARTMENT">
+      <styles xmi:type="umlnotation:UMLListCompartmentStyle" xmi:id="_kpsYsrjcEeKxsee0edLF7Q"/>
+    </children>
+    <styles xmi:type="umlnotation:UMLShapeStyle" xmi:id="_kpsYprjcEeKxsee0edLF7Q" fontName="Segoe UI" showStereotype="Label"/>
+    <element xmi:type="uml:Class" href="mmi:///#jsrctype%5Ename=BbvaCommandInvoker%5Bjcu%5Ename=BbvaCommandInvoker.java%5Bjpack%5Ename=mx.com.bbva.bancomer.commons.command%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=BbvaBancomerCommons%5D%5D%5D%5D$uml.Class"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_kpsYp7jcEeKxsee0edLF7Q" x="68376" y="4488"/>
+  </children>
+  <children xmi:id="_kpsYs7jcEeKxsee0edLF7Q">
+    <children xmi:id="_kpsYtrjcEeKxsee0edLF7Q" type="ImageCompartment">
+      <layoutConstraint xmi:type="notation:Size" xmi:id="_kpsYt7jcEeKxsee0edLF7Q" width="1320" height="1320"/>
+    </children>
+    <children xmi:id="_kpsYuLjcEeKxsee0edLF7Q" type="Stereotype"/>
+    <children xmi:id="_kpsYubjcEeKxsee0edLF7Q" type="Name"/>
+    <children xmi:id="_kpsYurjcEeKxsee0edLF7Q" type="Parent"/>
+    <children xmi:id="_kpsYu7jcEeKxsee0edLF7Q" visible="false" type="ANNOTATION_COMPARTMENT">
+      <styles xmi:type="umlnotation:UMLListCompartmentStyle" xmi:id="_kpsYvLjcEeKxsee0edLF7Q"/>
+    </children>
+    <children xmi:id="_kpsYvbjcEeKxsee0edLF7Q" type="ANNOTATED_ATTRIBUTE_COMPARTMENT">
+      <styles xmi:type="umlnotation:UMLListCompartmentStyle" xmi:id="_kpsYvrjcEeKxsee0edLF7Q"/>
+    </children>
+    <children xmi:id="_kpsYv7jcEeKxsee0edLF7Q" type="ANNOTATED_OPERATION_COMPARTMENT">
+      <styles xmi:type="umlnotation:UMLListCompartmentStyle" xmi:id="_kpsYwLjcEeKxsee0edLF7Q"/>
+    </children>
+    <styles xmi:type="umlnotation:UMLShapeStyle" xmi:id="_kpsYtLjcEeKxsee0edLF7Q" fontName="Segoe UI" showStereotype="Label"/>
+    <element xmi:type="uml:Class" href="mmi:///#jsrctype%5Ename=BbvaMyBatisDAO%5Bjcu%5Ename=BbvaMyBatisDAO.java%5Bjpack%5Ename=mx.com.bbva.bancomer.commons.persistence.dao%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=BbvaBancomerCommons%5D%5D%5D%5D$uml.Class"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_kpsYtbjcEeKxsee0edLF7Q" x="44352" y="31416"/>
+  </children>
+  <children xmi:id="_kpsYwbjcEeKxsee0edLF7Q">
+    <children xmi:id="_kpsYxLjcEeKxsee0edLF7Q" type="ImageCompartment">
+      <layoutConstraint xmi:type="notation:Size" xmi:id="_kpsYxbjcEeKxsee0edLF7Q" width="1320" height="1320"/>
+    </children>
+    <children xmi:id="_kpsYxrjcEeKxsee0edLF7Q" type="Stereotype"/>
+    <children xmi:id="_kpsYx7jcEeKxsee0edLF7Q" type="Name"/>
+    <children xmi:id="_kpsYyLjcEeKxsee0edLF7Q" type="Parent"/>
+    <children xmi:id="_kpsYybjcEeKxsee0edLF7Q" visible="false" type="ANNOTATION_COMPARTMENT">
+      <styles xmi:type="umlnotation:UMLListCompartmentStyle" xmi:id="_kpsYyrjcEeKxsee0edLF7Q"/>
+    </children>
+    <children xmi:id="_kpsYy7jcEeKxsee0edLF7Q" type="ANNOTATED_ATTRIBUTE_COMPARTMENT">
+      <styles xmi:type="umlnotation:UMLListCompartmentStyle" xmi:id="_kpsYzLjcEeKxsee0edLF7Q"/>
+    </children>
+    <children xmi:id="_kpsYzbjcEeKxsee0edLF7Q" type="ANNOTATED_OPERATION_COMPARTMENT">
+      <styles xmi:type="umlnotation:UMLListCompartmentStyle" xmi:id="_kpsYzrjcEeKxsee0edLF7Q"/>
+    </children>
+    <styles xmi:type="umlnotation:UMLShapeStyle" xmi:id="_kpsYwrjcEeKxsee0edLF7Q" fontName="Segoe UI" showStereotype="Label"/>
+    <element xmi:type="uml:Class" href="mmi:///#jsrctype%5Ename=BbvaAbstractDataTransferObject%5Bjcu%5Ename=BbvaAbstractDataTransferObject.java%5Bjpack%5Ename=mx.com.bbva.bancomer.commons.model.dto%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=BbvaBancomerCommons%5D%5D%5D%5D$uml.Class"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_kpsYw7jcEeKxsee0edLF7Q" x="74580" y="41844"/>
+  </children>
+  <children xmi:id="_kpsYz7jcEeKxsee0edLF7Q">
+    <children xmi:id="_kpsY0rjcEeKxsee0edLF7Q" type="ImageCompartment">
+      <layoutConstraint xmi:type="notation:Size" xmi:id="_kpsY07jcEeKxsee0edLF7Q" width="1320" height="1320"/>
+    </children>
+    <children xmi:id="_kpsY1LjcEeKxsee0edLF7Q" type="Stereotype"/>
+    <children xmi:id="_kpsY1bjcEeKxsee0edLF7Q" type="Name"/>
+    <children xmi:id="_kpsY1rjcEeKxsee0edLF7Q" type="Parent"/>
+    <children xmi:id="_kpsY17jcEeKxsee0edLF7Q" visible="false" type="ANNOTATION_COMPARTMENT">
+      <styles xmi:type="umlnotation:UMLListCompartmentStyle" xmi:id="_kpsY2LjcEeKxsee0edLF7Q"/>
+    </children>
+    <children xmi:id="_kpsY2bjcEeKxsee0edLF7Q" type="ANNOTATED_ATTRIBUTE_COMPARTMENT">
+      <styles xmi:type="umlnotation:UMLListCompartmentStyle" xmi:id="_kpsY2rjcEeKxsee0edLF7Q"/>
+    </children>
+    <children xmi:id="_kpsY27jcEeKxsee0edLF7Q" type="ANNOTATED_OPERATION_COMPARTMENT">
+      <styles xmi:type="umlnotation:UMLListCompartmentStyle" xmi:id="_kpsY3LjcEeKxsee0edLF7Q"/>
+    </children>
+    <styles xmi:type="umlnotation:UMLShapeStyle" xmi:id="_kpsY0LjcEeKxsee0edLF7Q" fontName="Segoe UI" showStereotype="Label"/>
+    <element xmi:type="uml:Class" href="mmi:///#jsrctype%5Ename=BbvaAbstractValueObject%5Bjcu%5Ename=BbvaAbstractValueObject.java%5Bjpack%5Ename=mx.com.bbva.bancomer.commons.model.vo%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=BbvaBancomerCommons%5D%5D%5D%5D$uml.Class"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_kpsY0bjcEeKxsee0edLF7Q" x="44352" y="37356"/>
+  </children>
+  <children xmi:id="_kpsY3bjcEeKxsee0edLF7Q">
+    <children xmi:id="_kpsY4LjcEeKxsee0edLF7Q" type="ImageCompartment">
+      <layoutConstraint xmi:type="notation:Size" xmi:id="_kpsY4bjcEeKxsee0edLF7Q" width="530" height="530"/>
+    </children>
+    <children xmi:id="_kpsY4rjcEeKxsee0edLF7Q" type="Stereotype"/>
+    <children xmi:id="_kpsY47jcEeKxsee0edLF7Q" type="Kind"/>
+    <children xmi:id="_kpsY5LjcEeKxsee0edLF7Q" type="Name"/>
+    <children xmi:id="_kpsY5bjcEeKxsee0edLF7Q" type="Parent"/>
+    <children xmi:id="_kp1igLjcEeKxsee0edLF7Q" type="AttributeCompartment">
+      <styles xmi:type="umlnotation:UMLListCompartmentStyle" xmi:id="_kp1igbjcEeKxsee0edLF7Q"/>
+    </children>
+    <children xmi:id="_kp1igrjcEeKxsee0edLF7Q" type="OperationCompartment">
+      <styles xmi:type="umlnotation:UMLListCompartmentStyle" xmi:id="_kp1ig7jcEeKxsee0edLF7Q"/>
+    </children>
+    <children xmi:id="_kp1ihLjcEeKxsee0edLF7Q" visible="false" type="SignalCompartment">
+      <styles xmi:type="umlnotation:UMLListCompartmentStyle" xmi:id="_kp1ihbjcEeKxsee0edLF7Q"/>
+    </children>
+    <styles xmi:type="umlnotation:UMLClassifierStyle" xmi:id="_kpsY3rjcEeKxsee0edLF7Q" fontName="Segoe UI" showStereotype="Label" useClassifierShape="true"/>
+    <element xmi:type="uml:Interface" href="mmi:///#jsrctype%5Ename=BbvaIDataAccessObject%5Bjcu%5Ename=BbvaIDataAccessObject.java%5Bjpack%5Ename=mx.com.bbva.bancomer.commons.persistence.dao%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=BbvaBancomerCommons%5D%5D%5D%5D$uml.Interface"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_kpsY37jcEeKxsee0edLF7Q" x="32076" y="26004"/>
+  </children>
+  <children xmi:id="_kp1ihrjcEeKxsee0edLF7Q">
+    <children xmi:id="_kp1iibjcEeKxsee0edLF7Q" type="ImageCompartment">
+      <layoutConstraint xmi:type="notation:Size" xmi:id="_kp1iirjcEeKxsee0edLF7Q" width="530" height="530"/>
+    </children>
+    <children xmi:id="_kp1ii7jcEeKxsee0edLF7Q" type="Stereotype"/>
+    <children xmi:id="_kp1ijLjcEeKxsee0edLF7Q" type="Kind"/>
+    <children xmi:id="_kp1ijbjcEeKxsee0edLF7Q" type="Name"/>
+    <children xmi:id="_kp1ijrjcEeKxsee0edLF7Q" type="Parent"/>
+    <children xmi:id="_kp1ij7jcEeKxsee0edLF7Q" type="AttributeCompartment">
+      <styles xmi:type="umlnotation:UMLListCompartmentStyle" xmi:id="_kp1ikLjcEeKxsee0edLF7Q"/>
+    </children>
+    <children xmi:id="_kp1ikbjcEeKxsee0edLF7Q" type="OperationCompartment">
+      <styles xmi:type="umlnotation:UMLListCompartmentStyle" xmi:id="_kp1ikrjcEeKxsee0edLF7Q"/>
+    </children>
+    <children xmi:id="_kp1ik7jcEeKxsee0edLF7Q" visible="false" type="SignalCompartment">
+      <styles xmi:type="umlnotation:UMLListCompartmentStyle" xmi:id="_kp1ilLjcEeKxsee0edLF7Q"/>
+    </children>
+    <styles xmi:type="umlnotation:UMLClassifierStyle" xmi:id="_kp1ih7jcEeKxsee0edLF7Q" fontName="Segoe UI" showStereotype="Label" useClassifierShape="true"/>
+    <element xmi:type="uml:Interface" href="mmi:///#jsrctype%5Ename=BbvaICommandInvoker%5Bjcu%5Ename=BbvaICommandInvoker.java%5Bjpack%5Ename=mx.com.bbva.bancomer.commons.command%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=BbvaBancomerCommons%5D%5D%5D%5D$uml.Interface"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_kp1iiLjcEeKxsee0edLF7Q" x="70884" y="1188"/>
+  </children>
+  <children xmi:id="_kp1ilbjcEeKxsee0edLF7Q">
+    <children xmi:id="_kp1imLjcEeKxsee0edLF7Q" type="ImageCompartment">
+      <layoutConstraint xmi:type="notation:Size" xmi:id="_kp1imbjcEeKxsee0edLF7Q" width="1320" height="1320"/>
+    </children>
+    <children xmi:id="_kp1imrjcEeKxsee0edLF7Q" type="Stereotype"/>
+    <children xmi:id="_kp1im7jcEeKxsee0edLF7Q" type="Name"/>
+    <children xmi:id="_kp1inLjcEeKxsee0edLF7Q" type="Parent"/>
+    <children xmi:id="_kp1inbjcEeKxsee0edLF7Q" visible="false" type="ANNOTATION_COMPARTMENT">
+      <styles xmi:type="umlnotation:UMLListCompartmentStyle" xmi:id="_kp1inrjcEeKxsee0edLF7Q"/>
+    </children>
+    <children xmi:id="_kp1in7jcEeKxsee0edLF7Q" type="ANNOTATED_ATTRIBUTE_COMPARTMENT">
+      <styles xmi:type="umlnotation:UMLListCompartmentStyle" xmi:id="_kp1ioLjcEeKxsee0edLF7Q"/>
+    </children>
+    <children xmi:id="_kp1iobjcEeKxsee0edLF7Q" type="ANNOTATED_OPERATION_COMPARTMENT">
+      <styles xmi:type="umlnotation:UMLListCompartmentStyle" xmi:id="_kp1iorjcEeKxsee0edLF7Q"/>
+    </children>
+    <styles xmi:type="umlnotation:UMLShapeStyle" xmi:id="_kp1ilrjcEeKxsee0edLF7Q" fontName="Segoe UI" showStereotype="Label"/>
+    <element xmi:type="uml:Class" href="mmi:///#jsrctype%5Ename=BbvaBusinessException%5Bjcu%5Ename=BbvaBusinessException.java%5Bjpack%5Ename=mx.com.bbva.bancomer.commons.exception%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=BbvaBancomerCommons%5D%5D%5D%5D$uml.Class"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_kp1il7jcEeKxsee0edLF7Q" x="18348" y="5016"/>
+  </children>
+  <children xmi:id="_kp1io7jcEeKxsee0edLF7Q">
+    <children xmi:id="_kp1iprjcEeKxsee0edLF7Q" type="ImageCompartment">
+      <layoutConstraint xmi:type="notation:Size" xmi:id="_kp1ip7jcEeKxsee0edLF7Q" width="1320" height="1320"/>
+    </children>
+    <children xmi:id="_kp1iqLjcEeKxsee0edLF7Q" type="Stereotype"/>
+    <children xmi:id="_kp1iqbjcEeKxsee0edLF7Q" type="Name"/>
+    <children xmi:id="_kp1iqrjcEeKxsee0edLF7Q" type="Parent"/>
+    <children xmi:id="_kp1iq7jcEeKxsee0edLF7Q" visible="false" type="ANNOTATION_COMPARTMENT">
+      <styles xmi:type="umlnotation:UMLListCompartmentStyle" xmi:id="_kp1irLjcEeKxsee0edLF7Q"/>
+    </children>
+    <children xmi:id="_kp1irbjcEeKxsee0edLF7Q" type="ANNOTATED_ATTRIBUTE_COMPARTMENT">
+      <styles xmi:type="umlnotation:UMLListCompartmentStyle" xmi:id="_kp1irrjcEeKxsee0edLF7Q"/>
+    </children>
+    <children xmi:id="_kp1ir7jcEeKxsee0edLF7Q" type="ANNOTATED_OPERATION_COMPARTMENT">
+      <styles xmi:type="umlnotation:UMLListCompartmentStyle" xmi:id="_kp1isLjcEeKxsee0edLF7Q"/>
+    </children>
+    <styles xmi:type="umlnotation:UMLShapeStyle" xmi:id="_kp1ipLjcEeKxsee0edLF7Q" fontName="Segoe UI" showStereotype="Label"/>
+    <element xmi:type="uml:Class" href="mmi:///#jsrctype%5Ename=BbvaHibernateDAO%5Bjcu%5Ename=BbvaHibernateDAO.java%5Bjpack%5Ename=mx.com.bbva.bancomer.commons.persistence.dao%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=BbvaBancomerCommons%5D%5D%5D%5D$uml.Class"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_kp1ipbjcEeKxsee0edLF7Q" x="12144" y="31416"/>
+  </children>
+  <children xmi:id="_kp1isbjcEeKxsee0edLF7Q">
+    <children xmi:id="_kp1itLjcEeKxsee0edLF7Q" type="ImageCompartment">
+      <layoutConstraint xmi:type="notation:Size" xmi:id="_kp1itbjcEeKxsee0edLF7Q" width="1320" height="1320"/>
+    </children>
+    <children xmi:id="_kp1itrjcEeKxsee0edLF7Q" type="Stereotype"/>
+    <children xmi:id="_kp1it7jcEeKxsee0edLF7Q" type="Name"/>
+    <children xmi:id="_kp1iuLjcEeKxsee0edLF7Q" type="Parent"/>
+    <children xmi:id="_kp1iubjcEeKxsee0edLF7Q" visible="false" type="ANNOTATION_COMPARTMENT">
+      <styles xmi:type="umlnotation:UMLListCompartmentStyle" xmi:id="_kp1iurjcEeKxsee0edLF7Q"/>
+    </children>
+    <children xmi:id="_kp1iu7jcEeKxsee0edLF7Q" type="ANNOTATED_ATTRIBUTE_COMPARTMENT">
+      <styles xmi:type="umlnotation:UMLListCompartmentStyle" xmi:id="_kp1ivLjcEeKxsee0edLF7Q"/>
+    </children>
+    <children xmi:id="_kp_TgLjcEeKxsee0edLF7Q" type="ANNOTATED_OPERATION_COMPARTMENT">
+      <styles xmi:type="umlnotation:UMLListCompartmentStyle" xmi:id="_kp_TgbjcEeKxsee0edLF7Q"/>
+    </children>
+    <styles xmi:type="umlnotation:UMLShapeStyle" xmi:id="_kp1isrjcEeKxsee0edLF7Q" fontName="Segoe UI" showStereotype="Label"/>
+    <element xmi:type="uml:Class" href="mmi:///#jsrctype%5Ename=BbvaDataBaseException%5Bjcu%5Ename=BbvaDataBaseException.java%5Bjpack%5Ename=mx.com.bbva.bancomer.commons.exception%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=BbvaBancomerCommons%5D%5D%5D%5D$uml.Class"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_kp1is7jcEeKxsee0edLF7Q" x="9240" y="14784"/>
+  </children>
+  <styles xmi:type="umlnotation:UMLDiagramStyle" xmi:id="_kb2w4bjcEeKxsee0edLF7Q"/>
+  <element xsi:nil="true"/>
+  <edges xmi:id="_kuv3sLjcEeKxsee0edLF7Q" source="_kpZdoLjcEeKxsee0edLF7Q" target="_kpsYz7jcEeKxsee0edLF7Q">
+    <children xmi:id="_kuv3s7jcEeKxsee0edLF7Q" type="KindLabel">
+      <children xmi:id="_kuv3tbjcEeKxsee0edLF7Q" type="Stereotype"/>
+      <children xmi:id="_kuv3t7jcEeKxsee0edLF7Q" type="Kind"/>
+      <children xmi:id="_kuv3trjcEeKxsee0edLF7Q" type="Name"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_kuv3tLjcEeKxsee0edLF7Q" y="-530"/>
+    </children>
+    <styles xmi:type="umlnotation:UMLConnectorStyle" xmi:id="_kuv3sbjcEeKxsee0edLF7Q" fontName="Segoe UI" lineWidth="1" showStereotype="Text"/>
+    <element xmi:type="uml:Usage" href="mmi:///#jdep%5Bjsrctype%5Ename=BbvaIBatisDAO%5Bjcu%5Ename=BbvaIBatisDAO.java%5Bjpack%5Ename=mx.com.bbva.bancomer.commons.persistence.dao%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=BbvaBancomerCommons%5D%5D%5D%5D%5D%5Bjsrctype%5Ename=BbvaAbstractValueObject%5Bjcu%5Ename=BbvaAbstractValueObject.java%5Bjpack%5Ename=mx.com.bbva.bancomer.commons.model.vo%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=BbvaBancomerCommons%5D%5D%5D%5D%5D$uml.Usage"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_kuv3srjcEeKxsee0edLF7Q" points="[0, 0, -11609, -1586]$[11610, 1586, 1, 0]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_kyd6I7jcEeKxsee0edLF7Q" id="(0.6666667,1.0)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_kyd6JLjcEeKxsee0edLF7Q" id="(0.33319846,0.0)"/>
+  </edges>
+  <edges xmi:id="_kuv3uLjcEeKxsee0edLF7Q" source="_kpZdoLjcEeKxsee0edLF7Q" target="_kp1isbjcEeKxsee0edLF7Q">
+    <children xmi:id="_kuv3u7jcEeKxsee0edLF7Q" type="KindLabel">
+      <children xmi:id="_kuv3vbjcEeKxsee0edLF7Q" type="Stereotype"/>
+      <children xmi:id="_kuv3v7jcEeKxsee0edLF7Q" type="Kind"/>
+      <children xmi:id="_kuv3vrjcEeKxsee0edLF7Q" type="Name"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_kuv3vLjcEeKxsee0edLF7Q" y="-530"/>
+    </children>
+    <styles xmi:type="umlnotation:UMLConnectorStyle" xmi:id="_kuv3ubjcEeKxsee0edLF7Q" fontName="Segoe UI" lineWidth="1" showStereotype="Text"/>
+    <element xmi:type="uml:Usage" href="mmi:///#jdep%5Bjsrctype%5Ename=BbvaIBatisDAO%5Bjcu%5Ename=BbvaIBatisDAO.java%5Bjpack%5Ename=mx.com.bbva.bancomer.commons.persistence.dao%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=BbvaBancomerCommons%5D%5D%5D%5D%5D%5Bjsrctype%5Ename=BbvaDataBaseException%5Bjcu%5Ename=BbvaDataBaseException.java%5Bjpack%5Ename=mx.com.bbva.bancomer.commons.exception%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=BbvaBancomerCommons%5D%5D%5D%5D%5D$uml.Usage"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_kuv3urjcEeKxsee0edLF7Q" points="[0, 0, 11524, -1586]$[-11524, 1586, 0, 0]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_kyd6JbjcEeKxsee0edLF7Q" id="(0.33333334,1.0)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_kyd6JrjcEeKxsee0edLF7Q" id="(0.69992036,0.0)"/>
+  </edges>
+  <edges xmi:id="_kuv3wLjcEeKxsee0edLF7Q" source="_kpZdoLjcEeKxsee0edLF7Q" target="_kpsY3bjcEeKxsee0edLF7Q">
+    <children xmi:id="_kuv3w7jcEeKxsee0edLF7Q" type="NameLabel">
+      <children xmi:id="_kuv3xbjcEeKxsee0edLF7Q" type="Stereotype"/>
+      <children xmi:id="_kuv3xrjcEeKxsee0edLF7Q" type="Name"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_kuv3xLjcEeKxsee0edLF7Q" y="-186"/>
+    </children>
+    <styles xmi:type="umlnotation:UMLConnectorStyle" xmi:id="_kuv3wbjcEeKxsee0edLF7Q" fontName="Segoe UI" lineWidth="1" showStereotype="Text"/>
+    <element xmi:type="uml:InterfaceRealization" href="mmi:///#jimpl%5Bjsrctype%5Ename=BbvaIBatisDAO%5Bjcu%5Ename=BbvaIBatisDAO.java%5Bjpack%5Ename=mx.com.bbva.bancomer.commons.persistence.dao%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=BbvaBancomerCommons%5D%5D%5D%5D%5D%5Bjsrctype%5Ename=BbvaIDataAccessObject%5Bjcu%5Ename=BbvaIDataAccessObject.java%5Bjpack%5Ename=mx.com.bbva.bancomer.commons.persistence.dao%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=BbvaBancomerCommons%5D%5D%5D%5D%5D$uml.InterfaceRealization"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_kuv3wrjcEeKxsee0edLF7Q" points="[1, 0, 0, 1586]$[1, -1586, 0, 0]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_kyUwLLjcEeKxsee0edLF7Q" id="(0.499902,0.0)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_kyUwLbjcEeKxsee0edLF7Q" id="(0.3952263,1.0)"/>
+  </edges>
+  <edges xmi:id="_kuv3x7jcEeKxsee0edLF7Q" source="_kpinm7jcEeKxsee0edLF7Q" target="_kpsYwbjcEeKxsee0edLF7Q">
+    <children xmi:id="_kuv3yrjcEeKxsee0edLF7Q" type="KindLabel">
+      <children xmi:id="_kuv3zLjcEeKxsee0edLF7Q" type="Stereotype"/>
+      <children xmi:id="_kuv3zrjcEeKxsee0edLF7Q" type="Kind"/>
+      <children xmi:id="_kuv3zbjcEeKxsee0edLF7Q" type="Name"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_kuv3y7jcEeKxsee0edLF7Q" y="-530"/>
+    </children>
+    <styles xmi:type="umlnotation:UMLConnectorStyle" xmi:id="_kuv3yLjcEeKxsee0edLF7Q" fontName="Segoe UI" lineWidth="1" showStereotype="Text"/>
+    <element xmi:type="uml:Usage" href="mmi:///#jdep%5Bjsrctype%5Ename=BbvaAbstractBusinessObject%5Bjcu%5Ename=BbvaAbstractBusinessObject.java%5Bjpack%5Ename=mx.com.bbva.bancomer.commons.business%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=BbvaBancomerCommons%5D%5D%5D%5D%5D%5Bjsrctype%5Ename=BbvaAbstractDataTransferObject%5Bjcu%5Ename=BbvaAbstractDataTransferObject.java%5Bjpack%5Ename=mx.com.bbva.bancomer.commons.model.dto%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=BbvaBancomerCommons%5D%5D%5D%5D%5D$uml.Usage"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_kuv3ybjcEeKxsee0edLF7Q" points="[0, 0, -1621, -17438]$[0, 15851, -1621, -1587]$[1621, 17438, 0, 0]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_kyd6L7jcEeKxsee0edLF7Q" id="(0.95137525,1.0)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_kyd6MLjcEeKxsee0edLF7Q" id="(0.37479353,0.0)"/>
+  </edges>
+  <edges xmi:id="_kuv3z7jcEeKxsee0edLF7Q" source="_kpinm7jcEeKxsee0edLF7Q" target="_kpinxbjcEeKxsee0edLF7Q">
+    <children xmi:id="_kuv30rjcEeKxsee0edLF7Q" type="NameLabel">
+      <children xmi:id="_kuv31LjcEeKxsee0edLF7Q" type="Stereotype"/>
+      <children xmi:id="_kuv31bjcEeKxsee0edLF7Q" type="Name"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_kuv307jcEeKxsee0edLF7Q" y="-186"/>
+    </children>
+    <styles xmi:type="umlnotation:UMLConnectorStyle" xmi:id="_kuv30LjcEeKxsee0edLF7Q" fontName="Segoe UI" lineWidth="1" showStereotype="Text"/>
+    <element xmi:type="uml:InterfaceRealization" href="mmi:///#jimpl%5Bjsrctype%5Ename=BbvaAbstractBusinessObject%5Bjcu%5Ename=BbvaAbstractBusinessObject.java%5Bjpack%5Ename=mx.com.bbva.bancomer.commons.business%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=BbvaBancomerCommons%5D%5D%5D%5D%5D%5Bjsrctype%5Ename=BbvaIBusinessObject%5Bjcu%5Ename=BbvaIBusinessObject.java%5Bjpack%5Ename=mx.com.bbva.bancomer.commons.business%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=BbvaBancomerCommons%5D%5D%5D%5D%5D$uml.InterfaceRealization"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_kuv30bjcEeKxsee0edLF7Q" points="[1, 0, 0, 1586]$[1, -1586, 0, 0]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_kyUwJrjcEeKxsee0edLF7Q" id="(0.90680254,0.0)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_kyUwJ7jcEeKxsee0edLF7Q" id="(0.5,1.0)"/>
+  </edges>
+  <edges xmi:id="_kuv31rjcEeKxsee0edLF7Q" source="_kpinm7jcEeKxsee0edLF7Q" target="_kpsY3bjcEeKxsee0edLF7Q">
+    <children xmi:id="_kuv32bjcEeKxsee0edLF7Q" type="KindLabel">
+      <children xmi:id="_kuv327jcEeKxsee0edLF7Q" type="Stereotype"/>
+      <children xmi:id="_kuv33bjcEeKxsee0edLF7Q" type="Kind"/>
+      <children xmi:id="_kuv33LjcEeKxsee0edLF7Q" type="Name"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_kuv32rjcEeKxsee0edLF7Q" y="-530"/>
+    </children>
+    <styles xmi:type="umlnotation:UMLConnectorStyle" xmi:id="_kuv317jcEeKxsee0edLF7Q" fontName="Segoe UI" lineWidth="1" showStereotype="Text"/>
+    <element xmi:type="uml:Usage" href="mmi:///#jdep%5Bjsrctype%5Ename=BbvaAbstractBusinessObject%5Bjcu%5Ename=BbvaAbstractBusinessObject.java%5Bjpack%5Ename=mx.com.bbva.bancomer.commons.business%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=BbvaBancomerCommons%5D%5D%5D%5D%5D%5Bjsrctype%5Ename=BbvaIDataAccessObject%5Bjcu%5Ename=BbvaIDataAccessObject.java%5Bjpack%5Ename=mx.com.bbva.bancomer.commons.persistence.dao%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=BbvaBancomerCommons%5D%5D%5D%5D%5D$uml.Usage"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_kuv32LjcEeKxsee0edLF7Q" points="[0, 0, 25289, -1586]$[-25289, 1586, 0, 0]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_kyd6F7jcEeKxsee0edLF7Q" id="(0.47568762,1.0)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_kyd6GLjcEeKxsee0edLF7Q" id="(0.5,0.0)"/>
+  </edges>
+  <edges xmi:id="_kuv33rjcEeKxsee0edLF7Q" source="_kpinqbjcEeKxsee0edLF7Q" target="_kp1isbjcEeKxsee0edLF7Q">
+    <children xmi:id="_ku5osLjcEeKxsee0edLF7Q" type="KindLabel">
+      <children xmi:id="_ku5osrjcEeKxsee0edLF7Q" type="Stereotype"/>
+      <children xmi:id="_ku5otLjcEeKxsee0edLF7Q" type="Kind"/>
+      <children xmi:id="_ku5os7jcEeKxsee0edLF7Q" type="Name"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_ku5osbjcEeKxsee0edLF7Q" y="-530"/>
+    </children>
+    <styles xmi:type="umlnotation:UMLConnectorStyle" xmi:id="_kuv337jcEeKxsee0edLF7Q" fontName="Segoe UI" lineWidth="1" showStereotype="Text"/>
+    <element xmi:type="uml:Usage" href="mmi:///#jdep%5Bjsrctype%5Ename=BbvaJdoDAO%5Bjcu%5Ename=BbvaJdoDAO.java%5Bjpack%5Ename=mx.com.bbva.bancomer.commons.persistence.dao%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=BbvaBancomerCommons%5D%5D%5D%5D%5D%5Bjsrctype%5Ename=BbvaDataBaseException%5Bjcu%5Ename=BbvaDataBaseException.java%5Bjpack%5Ename=mx.com.bbva.bancomer.commons.exception%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=BbvaBancomerCommons%5D%5D%5D%5D%5D$uml.Usage"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_kuv34LjcEeKxsee0edLF7Q" points="[0, 0, 17712, -1586]$[-17711, 1586, 1, 0]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_kyd6LbjcEeKxsee0edLF7Q" id="(0.33333334,1.0)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_kyd6LrjcEeKxsee0edLF7Q" id="(0.7998805,0.0)"/>
+  </edges>
+  <edges xmi:id="_ku5otbjcEeKxsee0edLF7Q" source="_kpinqbjcEeKxsee0edLF7Q" target="_kpsY3bjcEeKxsee0edLF7Q">
+    <children xmi:id="_ku5ouLjcEeKxsee0edLF7Q" type="NameLabel">
+      <children xmi:id="_ku5ourjcEeKxsee0edLF7Q" type="Stereotype"/>
+      <children xmi:id="_ku5ou7jcEeKxsee0edLF7Q" type="Name"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_ku5oubjcEeKxsee0edLF7Q" y="-186"/>
+    </children>
+    <styles xmi:type="umlnotation:UMLConnectorStyle" xmi:id="_ku5otrjcEeKxsee0edLF7Q" fontName="Segoe UI" lineWidth="1" showStereotype="Text"/>
+    <element xmi:type="uml:InterfaceRealization" href="mmi:///#jimpl%5Bjsrctype%5Ename=BbvaJdoDAO%5Bjcu%5Ename=BbvaJdoDAO.java%5Bjpack%5Ename=mx.com.bbva.bancomer.commons.persistence.dao%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=BbvaBancomerCommons%5D%5D%5D%5D%5D%5Bjsrctype%5Ename=BbvaIDataAccessObject%5Bjcu%5Ename=BbvaIDataAccessObject.java%5Bjpack%5Ename=mx.com.bbva.bancomer.commons.persistence.dao%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=BbvaBancomerCommons%5D%5D%5D%5D%5D$uml.InterfaceRealization"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_ku5ot7jcEeKxsee0edLF7Q" points="[1, 0, 5910, 1586]$[-5908, -1586, 1, 0]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_kyUwMrjcEeKxsee0edLF7Q" id="(0.499902,0.0)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_kyUwM7jcEeKxsee0edLF7Q" id="(0.516119,1.0)"/>
+  </edges>
+  <edges xmi:id="_ku5ovLjcEeKxsee0edLF7Q" source="_kpinqbjcEeKxsee0edLF7Q" target="_kpsYz7jcEeKxsee0edLF7Q">
+    <children xmi:id="_ku5ov7jcEeKxsee0edLF7Q" type="KindLabel">
+      <children xmi:id="_ku5owbjcEeKxsee0edLF7Q" type="Stereotype"/>
+      <children xmi:id="_ku5ow7jcEeKxsee0edLF7Q" type="Kind"/>
+      <children xmi:id="_ku5owrjcEeKxsee0edLF7Q" type="Name"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_ku5owLjcEeKxsee0edLF7Q" y="-530"/>
+    </children>
+    <styles xmi:type="umlnotation:UMLConnectorStyle" xmi:id="_ku5ovbjcEeKxsee0edLF7Q" fontName="Segoe UI" lineWidth="1" showStereotype="Text"/>
+    <element xmi:type="uml:Usage" href="mmi:///#jdep%5Bjsrctype%5Ename=BbvaJdoDAO%5Bjcu%5Ename=BbvaJdoDAO.java%5Bjpack%5Ename=mx.com.bbva.bancomer.commons.persistence.dao%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=BbvaBancomerCommons%5D%5D%5D%5D%5D%5Bjsrctype%5Ename=BbvaAbstractValueObject%5Bjcu%5Ename=BbvaAbstractValueObject.java%5Bjpack%5Ename=mx.com.bbva.bancomer.commons.model.vo%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=BbvaBancomerCommons%5D%5D%5D%5D%5D$uml.Usage"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_ku5ovrjcEeKxsee0edLF7Q" points="[0, 0, -5333, -1586]$[5333, 1586, 0, 0]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_kyd6K7jcEeKxsee0edLF7Q" id="(0.6666667,1.0)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_kyd6LLjcEeKxsee0edLF7Q" id="(0.41654867,0.0)"/>
+  </edges>
+  <edges xmi:id="_ku5oxLjcEeKxsee0edLF7Q" source="_kpinxbjcEeKxsee0edLF7Q" target="_kpsYwbjcEeKxsee0edLF7Q">
+    <children xmi:id="_ku5ox7jcEeKxsee0edLF7Q" type="KindLabel">
+      <children xmi:id="_ku5oybjcEeKxsee0edLF7Q" type="Stereotype"/>
+      <children xmi:id="_ku5oy7jcEeKxsee0edLF7Q" type="Kind"/>
+      <children xmi:id="_ku5oyrjcEeKxsee0edLF7Q" type="Name"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_ku5oyLjcEeKxsee0edLF7Q" y="-530"/>
+    </children>
+    <styles xmi:type="umlnotation:UMLConnectorStyle" xmi:id="_ku5oxbjcEeKxsee0edLF7Q" fontName="Segoe UI" lineWidth="1" showStereotype="Text"/>
+    <element xmi:type="uml:Usage" href="mmi:///#jdep%5Bjsrctype%5Ename=BbvaIBusinessObject%5Bjcu%5Ename=BbvaIBusinessObject.java%5Bjpack%5Ename=mx.com.bbva.bancomer.commons.business%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=BbvaBancomerCommons%5D%5D%5D%5D%5D%5Bjsrctype%5Ename=BbvaAbstractDataTransferObject%5Bjcu%5Ename=BbvaAbstractDataTransferObject.java%5Bjpack%5Ename=mx.com.bbva.bancomer.commons.model.dto%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=BbvaBancomerCommons%5D%5D%5D%5D%5D$uml.Usage"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_ku5oxrjcEeKxsee0edLF7Q" points="[0, 0, -1676, -24884]$[1677, 1586, 1, -23298]$[1677, 24884, 1, 0]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_kyd6M7jcEeKxsee0edLF7Q" id="(0.75,1.0)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_kyd6NLjcEeKxsee0edLF7Q" id="(0.4998348,0.0)"/>
+  </edges>
+  <edges xmi:id="_ku5ozLjcEeKxsee0edLF7Q" source="_kpin1LjcEeKxsee0edLF7Q" target="_kpsY3bjcEeKxsee0edLF7Q">
+    <children xmi:id="_ku5oz7jcEeKxsee0edLF7Q" type="NameLabel">
+      <children xmi:id="_ku5o0bjcEeKxsee0edLF7Q" type="Stereotype"/>
+      <children xmi:id="_ku5o0rjcEeKxsee0edLF7Q" type="Name"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_ku5o0LjcEeKxsee0edLF7Q" y="-186"/>
+    </children>
+    <styles xmi:type="umlnotation:UMLConnectorStyle" xmi:id="_ku5ozbjcEeKxsee0edLF7Q" fontName="Segoe UI" lineWidth="1" showStereotype="Text"/>
+    <element xmi:type="uml:InterfaceRealization" href="mmi:///#jimpl%5Bjsrctype%5Ename=BbvaJpaDAO%5Bjcu%5Ename=BbvaJpaDAO.java%5Bjpack%5Ename=mx.com.bbva.bancomer.commons.persistence.dao%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=BbvaBancomerCommons%5D%5D%5D%5D%5D%5Bjsrctype%5Ename=BbvaIDataAccessObject%5Bjcu%5Ename=BbvaIDataAccessObject.java%5Bjpack%5Ename=mx.com.bbva.bancomer.commons.persistence.dao%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=BbvaBancomerCommons%5D%5D%5D%5D%5D$uml.InterfaceRealization"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_ku5ozrjcEeKxsee0edLF7Q" points="[1, 0, -12357, 1586]$[12359, -1586, 1, 0]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_kyUwLrjcEeKxsee0edLF7Q" id="(0.499902,0.0)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_kyUwL7jcEeKxsee0edLF7Q" id="(0.23713577,1.0)"/>
+  </edges>
+  <edges xmi:id="_ku5o07jcEeKxsee0edLF7Q" source="_kpin1LjcEeKxsee0edLF7Q" target="_kp1isbjcEeKxsee0edLF7Q">
+    <children xmi:id="_ku5o1rjcEeKxsee0edLF7Q" type="KindLabel">
+      <children xmi:id="_ku5o2LjcEeKxsee0edLF7Q" type="Stereotype"/>
+      <children xmi:id="_ku5o2rjcEeKxsee0edLF7Q" type="Kind"/>
+      <children xmi:id="_ku5o2bjcEeKxsee0edLF7Q" type="Name"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_ku5o17jcEeKxsee0edLF7Q" y="-530"/>
+    </children>
+    <styles xmi:type="umlnotation:UMLConnectorStyle" xmi:id="_ku5o1LjcEeKxsee0edLF7Q" fontName="Segoe UI" lineWidth="1" showStereotype="Text"/>
+    <element xmi:type="uml:Usage" href="mmi:///#jdep%5Bjsrctype%5Ename=BbvaJpaDAO%5Bjcu%5Ename=BbvaJpaDAO.java%5Bjpack%5Ename=mx.com.bbva.bancomer.commons.persistence.dao%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=BbvaBancomerCommons%5D%5D%5D%5D%5D%5Bjsrctype%5Ename=BbvaDataBaseException%5Bjcu%5Ename=BbvaDataBaseException.java%5Bjpack%5Ename=mx.com.bbva.bancomer.commons.exception%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=BbvaBancomerCommons%5D%5D%5D%5D%5D$uml.Usage"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_ku5o1bjcEeKxsee0edLF7Q" points="[1, 0, 0, -1586]$[1, 1586, 0, 0]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_kyd6KbjcEeKxsee0edLF7Q" id="(0.499902,1.0)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_kyd6KrjcEeKxsee0edLF7Q" id="(0.5,0.0)"/>
+  </edges>
+  <edges xmi:id="_ku5o27jcEeKxsee0edLF7Q" source="_kpin1LjcEeKxsee0edLF7Q" target="_kpsYz7jcEeKxsee0edLF7Q">
+    <children xmi:id="_ku5o3rjcEeKxsee0edLF7Q" type="KindLabel">
+      <children xmi:id="_ku5o4LjcEeKxsee0edLF7Q" type="Stereotype"/>
+      <children xmi:id="_ku5o4rjcEeKxsee0edLF7Q" type="Kind"/>
+      <children xmi:id="_ku5o4bjcEeKxsee0edLF7Q" type="Name"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_ku5o37jcEeKxsee0edLF7Q" y="-530"/>
+    </children>
+    <styles xmi:type="umlnotation:UMLConnectorStyle" xmi:id="_ku5o3LjcEeKxsee0edLF7Q" fontName="Segoe UI" lineWidth="1" showStereotype="Text"/>
+    <element xmi:type="uml:Usage" href="mmi:///#jdep%5Bjsrctype%5Ename=BbvaJpaDAO%5Bjcu%5Ename=BbvaJpaDAO.java%5Bjpack%5Ename=mx.com.bbva.bancomer.commons.persistence.dao%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=BbvaBancomerCommons%5D%5D%5D%5D%5D%5Bjsrctype%5Ename=BbvaAbstractValueObject%5Bjcu%5Ename=BbvaAbstractValueObject.java%5Bjpack%5Ename=mx.com.bbva.bancomer.commons.model.vo%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=BbvaBancomerCommons%5D%5D%5D%5D%5D$uml.Usage"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_ku5o3bjcEeKxsee0edLF7Q" points="[1, 0, -23739, -1586]$[23740, 1586, 0, 0]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_kyd6J7jcEeKxsee0edLF7Q" id="(0.749951,1.0)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_kyd6KLjcEeKxsee0edLF7Q" id="(0.16649808,0.0)"/>
+  </edges>
+  <edges xmi:id="_ku5o47jcEeKxsee0edLF7Q" source="_kpsYl7jcEeKxsee0edLF7Q" target="_kpsYz7jcEeKxsee0edLF7Q">
+    <children xmi:id="_ku5o5rjcEeKxsee0edLF7Q" type="KindLabel">
+      <children xmi:id="_ku5o6LjcEeKxsee0edLF7Q" type="Stereotype"/>
+      <children xmi:id="_ku5o6rjcEeKxsee0edLF7Q" type="Kind"/>
+      <children xmi:id="_ku5o6bjcEeKxsee0edLF7Q" type="Name"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_ku5o57jcEeKxsee0edLF7Q" y="-530"/>
+    </children>
+    <styles xmi:type="umlnotation:UMLConnectorStyle" xmi:id="_ku5o5LjcEeKxsee0edLF7Q" fontName="Segoe UI" lineWidth="1" showStereotype="Text"/>
+    <element xmi:type="uml:Usage" href="mmi:///#jdep%5Bjsrctype%5Ename=BbvaJdbcDAO%5Bjcu%5Ename=BbvaJdbcDAO.java%5Bjpack%5Ename=mx.com.bbva.bancomer.commons.persistence.dao%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=BbvaBancomerCommons%5D%5D%5D%5D%5D%5Bjsrctype%5Ename=BbvaAbstractValueObject%5Bjcu%5Ename=BbvaAbstractValueObject.java%5Bjpack%5Ename=mx.com.bbva.bancomer.commons.model.vo%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=BbvaBancomerCommons%5D%5D%5D%5D%5D$uml.Usage"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_ku5o5bjcEeKxsee0edLF7Q" points="[0, 0, -17887, -2061]$[1304, 474, -16583, -1587]$[17887, 2061, 0, 0]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_kyd6E7jcEeKxsee0edLF7Q" id="(0.6666667,1.0)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_kyd6FLjcEeKxsee0edLF7Q" id="(0.24984828,0.0)"/>
+  </edges>
+  <edges xmi:id="_ku5o67jcEeKxsee0edLF7Q" source="_kpsYl7jcEeKxsee0edLF7Q" target="_kpsY3bjcEeKxsee0edLF7Q">
+    <children xmi:id="_ku5o7rjcEeKxsee0edLF7Q" type="NameLabel">
+      <children xmi:id="_ku5o8LjcEeKxsee0edLF7Q" type="Stereotype"/>
+      <children xmi:id="_ku5o8bjcEeKxsee0edLF7Q" type="Name"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_ku5o77jcEeKxsee0edLF7Q" y="-186"/>
+    </children>
+    <styles xmi:type="umlnotation:UMLConnectorStyle" xmi:id="_ku5o7LjcEeKxsee0edLF7Q" fontName="Segoe UI" lineWidth="1" showStereotype="Text"/>
+    <element xmi:type="uml:InterfaceRealization" href="mmi:///#jimpl%5Bjsrctype%5Ename=BbvaJdbcDAO%5Bjcu%5Ename=BbvaJdbcDAO.java%5Bjpack%5Ename=mx.com.bbva.bancomer.commons.persistence.dao%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=BbvaBancomerCommons%5D%5D%5D%5D%5D%5Bjsrctype%5Ename=BbvaIDataAccessObject%5Bjcu%5Ename=BbvaIDataAccessObject.java%5Bjpack%5Ename=mx.com.bbva.bancomer.commons.persistence.dao%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=BbvaBancomerCommons%5D%5D%5D%5D%5D$uml.InterfaceRealization"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_ku5o7bjcEeKxsee0edLF7Q" points="[1, 0, -6179, 1586]$[6180, -1586, 0, 0]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_kyUwIrjcEeKxsee0edLF7Q" id="(0.499902,0.0)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_kyUwI7jcEeKxsee0edLF7Q" id="(0.31618103,1.0)"/>
+  </edges>
+  <edges xmi:id="_ku5o8rjcEeKxsee0edLF7Q" source="_kpsYl7jcEeKxsee0edLF7Q" target="_kp1isbjcEeKxsee0edLF7Q">
+    <children xmi:id="_ku5o9bjcEeKxsee0edLF7Q" type="KindLabel">
+      <children xmi:id="_ku5o97jcEeKxsee0edLF7Q" type="Stereotype"/>
+      <children xmi:id="_ku5o-bjcEeKxsee0edLF7Q" type="Kind"/>
+      <children xmi:id="_ku5o-LjcEeKxsee0edLF7Q" type="Name"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_ku5o9rjcEeKxsee0edLF7Q" y="-530"/>
+    </children>
+    <styles xmi:type="umlnotation:UMLConnectorStyle" xmi:id="_ku5o87jcEeKxsee0edLF7Q" fontName="Segoe UI" lineWidth="1" showStereotype="Text"/>
+    <element xmi:type="uml:Usage" href="mmi:///#jdep%5Bjsrctype%5Ename=BbvaJdbcDAO%5Bjcu%5Ename=BbvaJdbcDAO.java%5Bjpack%5Ename=mx.com.bbva.bancomer.commons.persistence.dao%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=BbvaBancomerCommons%5D%5D%5D%5D%5D%5Bjsrctype%5Ename=BbvaDataBaseException%5Bjcu%5Ename=BbvaDataBaseException.java%5Bjpack%5Ename=mx.com.bbva.bancomer.commons.exception%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=BbvaBancomerCommons%5D%5D%5D%5D%5D$uml.Usage"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_ku5o9LjcEeKxsee0edLF7Q" points="[0, 0, 5338, -2061]$[-5337, 2061, 1, 0]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_kyd6EbjcEeKxsee0edLF7Q" id="(0.33333334,1.0)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_kyd6ErjcEeKxsee0edLF7Q" id="(0.59996015,0.0)"/>
+  </edges>
+  <edges xmi:id="_ku5o-rjcEeKxsee0edLF7Q" source="_kpsYpbjcEeKxsee0edLF7Q" target="_kp1ihrjcEeKxsee0edLF7Q">
+    <children xmi:id="_ku5o_bjcEeKxsee0edLF7Q" type="NameLabel">
+      <children xmi:id="_ku5o_7jcEeKxsee0edLF7Q" type="Stereotype"/>
+      <children xmi:id="_ku5pALjcEeKxsee0edLF7Q" type="Name"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_ku5o_rjcEeKxsee0edLF7Q" y="-186"/>
+    </children>
+    <styles xmi:type="umlnotation:UMLConnectorStyle" xmi:id="_ku5o-7jcEeKxsee0edLF7Q" fontName="Segoe UI" lineWidth="1" showStereotype="Text"/>
+    <element xmi:type="uml:InterfaceRealization" href="mmi:///#jimpl%5Bjsrctype%5Ename=BbvaCommandInvoker%5Bjcu%5Ename=BbvaCommandInvoker.java%5Bjpack%5Ename=mx.com.bbva.bancomer.commons.command%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=BbvaBancomerCommons%5D%5D%5D%5D%5D%5Bjsrctype%5Ename=BbvaICommandInvoker%5Bjcu%5Ename=BbvaICommandInvoker.java%5Bjpack%5Ename=mx.com.bbva.bancomer.commons.command%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=BbvaBancomerCommons%5D%5D%5D%5D%5D$uml.InterfaceRealization"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_ku5o_LjcEeKxsee0edLF7Q" points="[0, 0, 0, 1586]$[0, -1586, 0, 0]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_kyUwKrjcEeKxsee0edLF7Q" id="(0.5,0.0)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_kyUwK7jcEeKxsee0edLF7Q" id="(0.5,1.0)"/>
+  </edges>
+  <edges xmi:id="_kvCyoLjcEeKxsee0edLF7Q" source="_kpsYpbjcEeKxsee0edLF7Q" target="_kpsYz7jcEeKxsee0edLF7Q">
+    <children xmi:id="_kvCyo7jcEeKxsee0edLF7Q" type="KindLabel">
+      <children xmi:id="_kvCypbjcEeKxsee0edLF7Q" type="Stereotype"/>
+      <children xmi:id="_kvCyp7jcEeKxsee0edLF7Q" type="Kind"/>
+      <children xmi:id="_kvCyprjcEeKxsee0edLF7Q" type="Name"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_kvCypLjcEeKxsee0edLF7Q" y="-530"/>
+    </children>
+    <styles xmi:type="umlnotation:UMLConnectorStyle" xmi:id="_kvCyobjcEeKxsee0edLF7Q" fontName="Segoe UI" lineWidth="1" showStereotype="Text"/>
+    <element xmi:type="uml:Usage" href="mmi:///#jdep%5Bjsrctype%5Ename=BbvaCommandInvoker%5Bjcu%5Ename=BbvaCommandInvoker.java%5Bjpack%5Ename=mx.com.bbva.bancomer.commons.command%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=BbvaBancomerCommons%5D%5D%5D%5D%5D%5Bjsrctype%5Ename=BbvaAbstractValueObject%5Bjcu%5Ename=BbvaAbstractValueObject.java%5Bjpack%5Ename=mx.com.bbva.bancomer.commons.model.vo%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=BbvaBancomerCommons%5D%5D%5D%5D%5D$uml.Usage"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_kvCyorjcEeKxsee0edLF7Q" points="[1, 0, 12276, -26892]$[-7100, 8190, 5175, -18702]$[-7102, 25305, 5173, -1587]$[-12275, 26892, 0, 0]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_kyd6NbjcEeKxsee0edLF7Q" id="(0.48973638,1.0)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_kyd6NrjcEeKxsee0edLF7Q" id="(0.83329964,0.0)"/>
+  </edges>
+  <edges xmi:id="_kvCyqLjcEeKxsee0edLF7Q" source="_kpsYpbjcEeKxsee0edLF7Q" target="_kp1ilbjcEeKxsee0edLF7Q">
+    <children xmi:id="_kvCyq7jcEeKxsee0edLF7Q" type="KindLabel">
+      <children xmi:id="_kvCyrbjcEeKxsee0edLF7Q" type="Stereotype"/>
+      <children xmi:id="_kvCyr7jcEeKxsee0edLF7Q" type="Kind"/>
+      <children xmi:id="_kvCyrrjcEeKxsee0edLF7Q" type="Name"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_kvCyrLjcEeKxsee0edLF7Q" y="-530"/>
+    </children>
+    <styles xmi:type="umlnotation:UMLConnectorStyle" xmi:id="_kvCyqbjcEeKxsee0edLF7Q" fontName="Segoe UI" lineWidth="1" showStereotype="Text"/>
+    <element xmi:type="uml:Usage" href="mmi:///#jdep%5Bjsrctype%5Ename=BbvaCommandInvoker%5Bjcu%5Ename=BbvaCommandInvoker.java%5Bjpack%5Ename=mx.com.bbva.bancomer.commons.command%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=BbvaBancomerCommons%5D%5D%5D%5D%5D%5Bjsrctype%5Ename=BbvaBusinessException%5Bjcu%5Ename=BbvaBusinessException.java%5Bjpack%5Ename=mx.com.bbva.bancomer.commons.exception%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=BbvaBancomerCommons%5D%5D%5D%5D%5D$uml.Usage"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_kvCyqrjcEeKxsee0edLF7Q" points="[1, 0, 8055, -3486]$[-1869, 1899, 6185, -1587]$[-8053, 3486, 1, 0]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_kyd6H7jcEeKxsee0edLF7Q" id="(0.24481417,1.0)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_kyd6ILjcEeKxsee0edLF7Q" id="(0.7499494,0.0)"/>
+  </edges>
+  <edges xmi:id="_kvCysLjcEeKxsee0edLF7Q" source="_kpsYpbjcEeKxsee0edLF7Q" target="_kpsYwbjcEeKxsee0edLF7Q">
+    <children xmi:id="_kvCys7jcEeKxsee0edLF7Q" type="KindLabel">
+      <children xmi:id="_kvCytbjcEeKxsee0edLF7Q" type="Stereotype"/>
+      <children xmi:id="_kvCyt7jcEeKxsee0edLF7Q" type="Kind"/>
+      <children xmi:id="_kvCytrjcEeKxsee0edLF7Q" type="Name"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_kvCytLjcEeKxsee0edLF7Q" y="-530"/>
+    </children>
+    <styles xmi:type="umlnotation:UMLConnectorStyle" xmi:id="_kvCysbjcEeKxsee0edLF7Q" fontName="Segoe UI" lineWidth="1" showStereotype="Text"/>
+    <element xmi:type="uml:Usage" href="mmi:///#jdep%5Bjsrctype%5Ename=BbvaCommandInvoker%5Bjcu%5Ename=BbvaCommandInvoker.java%5Bjpack%5Ename=mx.com.bbva.bancomer.commons.command%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=BbvaBancomerCommons%5D%5D%5D%5D%5D%5Bjsrctype%5Ename=BbvaAbstractDataTransferObject%5Bjcu%5Ename=BbvaAbstractDataTransferObject.java%5Bjpack%5Ename=mx.com.bbva.bancomer.commons.model.dto%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=BbvaBancomerCommons%5D%5D%5D%5D%5D$uml.Usage"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_kvCysrjcEeKxsee0edLF7Q" points="[1, 0, -3894, -31488]$[2883, 3486, -1012, -28002]$[3895, 8190, 0, -23298]$[3895, 31488, 0, 0]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_kyd6N7jcEeKxsee0edLF7Q" id="(0.8673293,1.0)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_kyd6OLjcEeKxsee0edLF7Q" id="(0.8931285,0.0)"/>
+  </edges>
+  <edges xmi:id="_kvCyuLjcEeKxsee0edLF7Q" source="_kpsYpbjcEeKxsee0edLF7Q" target="_kpinxbjcEeKxsee0edLF7Q">
+    <children xmi:id="_kvCyu7jcEeKxsee0edLF7Q" type="KindLabel">
+      <children xmi:id="_kvCyvbjcEeKxsee0edLF7Q" type="Stereotype"/>
+      <children xmi:id="_kvCyv7jcEeKxsee0edLF7Q" type="Kind"/>
+      <children xmi:id="_kvCyvrjcEeKxsee0edLF7Q" type="Name"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_kvCyvLjcEeKxsee0edLF7Q" y="-530"/>
+    </children>
+    <styles xmi:type="umlnotation:UMLConnectorStyle" xmi:id="_kvCyubjcEeKxsee0edLF7Q" fontName="Segoe UI" lineWidth="1" showStereotype="Text"/>
+    <element xmi:type="uml:Usage" href="mmi:///#jdep%5Bjsrctype%5Ename=BbvaCommandInvoker%5Bjcu%5Ename=BbvaCommandInvoker.java%5Bjpack%5Ename=mx.com.bbva.bancomer.commons.command%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=BbvaBancomerCommons%5D%5D%5D%5D%5D%5Bjsrctype%5Ename=BbvaIBusinessObject%5Bjcu%5Ename=BbvaIBusinessObject.java%5Bjpack%5Ename=mx.com.bbva.bancomer.commons.business%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=BbvaBancomerCommons%5D%5D%5D%5D%5D$uml.Usage"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_kvCyurjcEeKxsee0edLF7Q" points="[1, 0, 0, -3486]$[1, 3486, 0, 0]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_kyd6IbjcEeKxsee0edLF7Q" id="(0.7346586,1.0)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_kyd6IrjcEeKxsee0edLF7Q" id="(0.5,0.0)"/>
+  </edges>
+  <edges xmi:id="_kvCywLjcEeKxsee0edLF7Q" source="_kpsYs7jcEeKxsee0edLF7Q" target="_kp1isbjcEeKxsee0edLF7Q">
+    <children xmi:id="_kvCyw7jcEeKxsee0edLF7Q" type="KindLabel">
+      <children xmi:id="_kvCyxbjcEeKxsee0edLF7Q" type="Stereotype"/>
+      <children xmi:id="_kvCyx7jcEeKxsee0edLF7Q" type="Kind"/>
+      <children xmi:id="_kvCyxrjcEeKxsee0edLF7Q" type="Name"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_kvCyxLjcEeKxsee0edLF7Q" y="-530"/>
+    </children>
+    <styles xmi:type="umlnotation:UMLConnectorStyle" xmi:id="_kvCywbjcEeKxsee0edLF7Q" fontName="Segoe UI" lineWidth="1" showStereotype="Text"/>
+    <element xmi:type="uml:Usage" href="mmi:///#jdep%5Bjsrctype%5Ename=BbvaMyBatisDAO%5Bjcu%5Ename=BbvaMyBatisDAO.java%5Bjpack%5Ename=mx.com.bbva.bancomer.commons.persistence.dao%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=BbvaBancomerCommons%5D%5D%5D%5D%5D%5Bjsrctype%5Ename=BbvaDataBaseException%5Bjcu%5Ename=BbvaDataBaseException.java%5Bjpack%5Ename=mx.com.bbva.bancomer.commons.exception%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=BbvaBancomerCommons%5D%5D%5D%5D%5D$uml.Usage"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_kvCywrjcEeKxsee0edLF7Q" points="[0, 0, 23426, -1587]$[-23426, 1587, 0, 0]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_kyd6G7jcEeKxsee0edLF7Q" id="(0.25,1.0)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_kyd6HLjcEeKxsee0edLF7Q" id="(0.8998407,0.0)"/>
+  </edges>
+  <edges xmi:id="_kvCyyLjcEeKxsee0edLF7Q" source="_kpsYs7jcEeKxsee0edLF7Q" target="_kpsYz7jcEeKxsee0edLF7Q">
+    <children xmi:id="_kvCyy7jcEeKxsee0edLF7Q" type="KindLabel">
+      <children xmi:id="_kvCyzbjcEeKxsee0edLF7Q" type="Stereotype"/>
+      <children xmi:id="_kvCyz7jcEeKxsee0edLF7Q" type="Kind"/>
+      <children xmi:id="_kvCyzrjcEeKxsee0edLF7Q" type="Name"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_kvCyzLjcEeKxsee0edLF7Q" y="-530"/>
+    </children>
+    <styles xmi:type="umlnotation:UMLConnectorStyle" xmi:id="_kvCyybjcEeKxsee0edLF7Q" fontName="Segoe UI" lineWidth="1" showStereotype="Text"/>
+    <element xmi:type="uml:Usage" href="mmi:///#jdep%5Bjsrctype%5Ename=BbvaMyBatisDAO%5Bjcu%5Ename=BbvaMyBatisDAO.java%5Bjpack%5Ename=mx.com.bbva.bancomer.commons.persistence.dao%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=BbvaBancomerCommons%5D%5D%5D%5D%5D%5Bjsrctype%5Ename=BbvaAbstractValueObject%5Bjcu%5Ename=BbvaAbstractValueObject.java%5Bjpack%5Ename=mx.com.bbva.bancomer.commons.model.vo%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=BbvaBancomerCommons%5D%5D%5D%5D%5D$uml.Usage"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_kvCyyrjcEeKxsee0edLF7Q" points="[0, 0, 0, -1587]$[0, 1587, 0, 0]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_kyd6HbjcEeKxsee0edLF7Q" id="(0.5,1.0)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_kyd6HrjcEeKxsee0edLF7Q" id="(0.49989885,0.0)"/>
+  </edges>
+  <edges xmi:id="_kvCy0LjcEeKxsee0edLF7Q" source="_kpsYs7jcEeKxsee0edLF7Q" target="_kpsY3bjcEeKxsee0edLF7Q">
+    <children xmi:id="_kvCy07jcEeKxsee0edLF7Q" type="NameLabel">
+      <children xmi:id="_kvCy1bjcEeKxsee0edLF7Q" type="Stereotype"/>
+      <children xmi:id="_kvCy1rjcEeKxsee0edLF7Q" type="Name"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_kvCy1LjcEeKxsee0edLF7Q" y="-186"/>
+    </children>
+    <styles xmi:type="umlnotation:UMLConnectorStyle" xmi:id="_kvCy0bjcEeKxsee0edLF7Q" fontName="Segoe UI" lineWidth="1" showStereotype="Text"/>
+    <element xmi:type="uml:InterfaceRealization" href="mmi:///#jimpl%5Bjsrctype%5Ename=BbvaMyBatisDAO%5Bjcu%5Ename=BbvaMyBatisDAO.java%5Bjpack%5Ename=mx.com.bbva.bancomer.commons.persistence.dao%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=BbvaBancomerCommons%5D%5D%5D%5D%5D%5Bjsrctype%5Ename=BbvaIDataAccessObject%5Bjcu%5Ename=BbvaIDataAccessObject.java%5Bjpack%5Ename=mx.com.bbva.bancomer.commons.persistence.dao%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=BbvaBancomerCommons%5D%5D%5D%5D%5D$uml.InterfaceRealization"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_kvCy0rjcEeKxsee0edLF7Q" points="[1, 0, 10906, 1586]$[-10904, -1586, 1, 0]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_kyUwKLjcEeKxsee0edLF7Q" id="(0.3331977,0.0)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_kyUwKbjcEeKxsee0edLF7Q" id="(0.63701177,1.0)"/>
+  </edges>
+  <edges xmi:id="_kvCy17jcEeKxsee0edLF7Q" source="_kpsYs7jcEeKxsee0edLF7Q" target="_kpsY3bjcEeKxsee0edLF7Q">
+    <children xmi:id="_kvCy2rjcEeKxsee0edLF7Q" type="KindLabel">
+      <children xmi:id="_kvCy3LjcEeKxsee0edLF7Q" type="Stereotype"/>
+      <children xmi:id="_kvCy3rjcEeKxsee0edLF7Q" type="Kind"/>
+      <children xmi:id="_kvCy3bjcEeKxsee0edLF7Q" type="Name"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_kvCy27jcEeKxsee0edLF7Q" y="-530"/>
+    </children>
+    <styles xmi:type="umlnotation:UMLConnectorStyle" xmi:id="_kvCy2LjcEeKxsee0edLF7Q" fontName="Segoe UI" lineWidth="1" showStereotype="Text"/>
+    <element xmi:type="uml:Usage" href="mmi:///#jdep%5Bjsrctype%5Ename=BbvaMyBatisDAO%5Bjcu%5Ename=BbvaMyBatisDAO.java%5Bjpack%5Ename=mx.com.bbva.bancomer.commons.persistence.dao%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=BbvaBancomerCommons%5D%5D%5D%5D%5D%5Bjsrctype%5Ename=BbvaIDataAccessObject%5Bjcu%5Ename=BbvaIDataAccessObject.java%5Bjpack%5Ename=mx.com.bbva.bancomer.commons.persistence.dao%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=BbvaBancomerCommons%5D%5D%5D%5D%5D$uml.Usage"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_kvCy2bjcEeKxsee0edLF7Q" points="[1, 0, 11764, 1586]$[-11762, -1586, 1, 0]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_kyd6GbjcEeKxsee0edLF7Q" id="(0.66659886,0.0)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_kyd6GrjcEeKxsee0edLF7Q" id="(0.7580595,1.0)"/>
+  </edges>
+  <edges xmi:id="_kvCy37jcEeKxsee0edLF7Q" source="_kpsYwbjcEeKxsee0edLF7Q" target="_kpsYz7jcEeKxsee0edLF7Q">
+    <children xmi:id="_kvCy4rjcEeKxsee0edLF7Q" type="NameLabel">
+      <children xmi:id="_kvCy5LjcEeKxsee0edLF7Q" type="Stereotype"/>
+      <children xmi:id="_kvCy5bjcEeKxsee0edLF7Q" type="Name"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_kvCy47jcEeKxsee0edLF7Q" y="-186"/>
+    </children>
+    <styles xmi:type="umlnotation:UMLConnectorStyle" xmi:id="_kvCy4LjcEeKxsee0edLF7Q" fontName="Segoe UI" lineWidth="1" showStereotype="Text"/>
+    <element xmi:type="uml:Generalization" href="mmi:///#jgen%5Bjsrctype%5Ename=BbvaAbstractDataTransferObject%5Bjcu%5Ename=BbvaAbstractDataTransferObject.java%5Bjpack%5Ename=mx.com.bbva.bancomer.commons.model.dto%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=BbvaBancomerCommons%5D%5D%5D%5D%5D%5Bjsrctype%5Ename=BbvaAbstractValueObject%5Bjcu%5Ename=BbvaAbstractValueObject.java%5Bjpack%5Ename=mx.com.bbva.bancomer.commons.model.vo%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=BbvaBancomerCommons%5D%5D%5D%5D%5D$uml.Generalization"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_kvCy4bjcEeKxsee0edLF7Q" points="[1, 0, 17487, 2061]$[-17485, -2061, 1, 0]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_kyUwJLjcEeKxsee0edLF7Q" id="(0.12487611,0.0)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_kyUwJbjcEeKxsee0edLF7Q" id="(0.33319846,1.0)"/>
+  </edges>
+  <edges xmi:id="_kvCy5rjcEeKxsee0edLF7Q" source="_kpsYwbjcEeKxsee0edLF7Q" target="_kpsYz7jcEeKxsee0edLF7Q">
+    <children xmi:id="_kvCy6bjcEeKxsee0edLF7Q" type="KindLabel">
+      <children xmi:id="_kvCy67jcEeKxsee0edLF7Q" type="Stereotype"/>
+      <children xmi:id="_kvCy7bjcEeKxsee0edLF7Q" type="Kind"/>
+      <children xmi:id="_kvCy7LjcEeKxsee0edLF7Q" type="Name"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_kvCy6rjcEeKxsee0edLF7Q" y="-530"/>
+    </children>
+    <styles xmi:type="umlnotation:UMLConnectorStyle" xmi:id="_kvCy57jcEeKxsee0edLF7Q" fontName="Segoe UI" lineWidth="1" showStereotype="Text"/>
+    <element xmi:type="uml:Usage" href="mmi:///#jdep%5Bjsrctype%5Ename=BbvaAbstractDataTransferObject%5Bjcu%5Ename=BbvaAbstractDataTransferObject.java%5Bjpack%5Ename=mx.com.bbva.bancomer.commons.model.dto%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=BbvaBancomerCommons%5D%5D%5D%5D%5D%5Bjsrctype%5Ename=BbvaAbstractValueObject%5Bjcu%5Ename=BbvaAbstractValueObject.java%5Bjpack%5Ename=mx.com.bbva.bancomer.commons.model.vo%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=BbvaBancomerCommons%5D%5D%5D%5D%5D$uml.Usage"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_kvCy6LjcEeKxsee0edLF7Q" points="[1, 0, 16596, 2061]$[-16594, -2061, 1, 0]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_kyd6FbjcEeKxsee0edLF7Q" id="(0.2499174,0.0)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_kyd6FrjcEeKxsee0edLF7Q" id="(0.6665992,1.0)"/>
+  </edges>
+  <edges xmi:id="_kvCy7rjcEeKxsee0edLF7Q" source="_kpsY3bjcEeKxsee0edLF7Q" target="_kpsYz7jcEeKxsee0edLF7Q">
+    <children xmi:id="_kvCy8bjcEeKxsee0edLF7Q" type="KindLabel">
+      <children xmi:id="_kvCy87jcEeKxsee0edLF7Q" type="Stereotype"/>
+      <children xmi:id="_kvCy9bjcEeKxsee0edLF7Q" type="Kind"/>
+      <children xmi:id="_kvCy9LjcEeKxsee0edLF7Q" type="Name"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_kvCy8rjcEeKxsee0edLF7Q" y="-530"/>
+    </children>
+    <styles xmi:type="umlnotation:UMLConnectorStyle" xmi:id="_kvCy77jcEeKxsee0edLF7Q" fontName="Segoe UI" lineWidth="1" showStereotype="Text"/>
+    <element xmi:type="uml:Usage" href="mmi:///#jdep%5Bjsrctype%5Ename=BbvaIDataAccessObject%5Bjcu%5Ename=BbvaIDataAccessObject.java%5Bjpack%5Ename=mx.com.bbva.bancomer.commons.persistence.dao%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=BbvaBancomerCommons%5D%5D%5D%5D%5D%5Bjsrctype%5Ename=BbvaAbstractValueObject%5Bjcu%5Ename=BbvaAbstractValueObject.java%5Bjpack%5Ename=mx.com.bbva.bancomer.commons.model.vo%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=BbvaBancomerCommons%5D%5D%5D%5D%5D$uml.Usage"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_kvCy8LjcEeKxsee0edLF7Q" points="[0, 0, -10987, -7608]$[14604, 1586, 3617, -6022]$[14604, 6021, 3617, -1587]$[10988, 7608, 1, 0]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_kyd6O7jcEeKxsee0edLF7Q" id="(0.87895226,1.0)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_kyd6PLjcEeKxsee0edLF7Q" id="(0.6665992,0.0)"/>
+  </edges>
+  <edges xmi:id="_kvMjoLjcEeKxsee0edLF7Q" source="_kpsY3bjcEeKxsee0edLF7Q" target="_kp1isbjcEeKxsee0edLF7Q">
+    <children xmi:id="_kvMjo7jcEeKxsee0edLF7Q" type="KindLabel">
+      <children xmi:id="_kvMjpbjcEeKxsee0edLF7Q" type="Stereotype"/>
+      <children xmi:id="_kvMjp7jcEeKxsee0edLF7Q" type="Kind"/>
+      <children xmi:id="_kvMjprjcEeKxsee0edLF7Q" type="Name"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_kvMjpLjcEeKxsee0edLF7Q" y="-530"/>
+    </children>
+    <styles xmi:type="umlnotation:UMLConnectorStyle" xmi:id="_kvMjobjcEeKxsee0edLF7Q" fontName="Segoe UI" lineWidth="1" showStereotype="Text"/>
+    <element xmi:type="uml:Usage" href="mmi:///#jdep%5Bjsrctype%5Ename=BbvaIDataAccessObject%5Bjcu%5Ename=BbvaIDataAccessObject.java%5Bjpack%5Ename=mx.com.bbva.bancomer.commons.persistence.dao%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=BbvaBancomerCommons%5D%5D%5D%5D%5D%5Bjsrctype%5Ename=BbvaDataBaseException%5Bjcu%5Ename=BbvaDataBaseException.java%5Bjpack%5Ename=mx.com.bbva.bancomer.commons.exception%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=BbvaBancomerCommons%5D%5D%5D%5D%5D$uml.Usage"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_kvMjorjcEeKxsee0edLF7Q" points="[0, 0, 12594, -7608]$[-21528, 1586, -8934, -6022]$[-21528, 6021, -8934, -1587]$[-12594, 7608, 0, 0]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_kyd6ObjcEeKxsee0edLF7Q" id="(0.07904526,1.0)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_kyd6OrjcEeKxsee0edLF7Q" id="(0.24990045,0.0)"/>
+  </edges>
+  <edges xmi:id="_kvMjqLjcEeKxsee0edLF7Q" source="_kp1ihrjcEeKxsee0edLF7Q" target="_kp1ilbjcEeKxsee0edLF7Q">
+    <children xmi:id="_kvMjq7jcEeKxsee0edLF7Q" type="KindLabel">
+      <children xmi:id="_kvMjrbjcEeKxsee0edLF7Q" type="Stereotype"/>
+      <children xmi:id="_kvMjr7jcEeKxsee0edLF7Q" type="Kind"/>
+      <children xmi:id="_kvMjrrjcEeKxsee0edLF7Q" type="Name"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_kvMjrLjcEeKxsee0edLF7Q" y="-530"/>
+    </children>
+    <styles xmi:type="umlnotation:UMLConnectorStyle" xmi:id="_kvMjqbjcEeKxsee0edLF7Q" fontName="Segoe UI" lineWidth="1" showStereotype="Text"/>
+    <element xmi:type="uml:Usage" href="mmi:///#jdep%5Bjsrctype%5Ename=BbvaICommandInvoker%5Bjcu%5Ename=BbvaICommandInvoker.java%5Bjpack%5Ename=mx.com.bbva.bancomer.commons.command%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=BbvaBancomerCommons%5D%5D%5D%5D%5D%5Bjsrctype%5Ename=BbvaBusinessException%5Bjcu%5Ename=BbvaBusinessException.java%5Bjpack%5Ename=mx.com.bbva.bancomer.commons.exception%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=BbvaBancomerCommons%5D%5D%5D%5D%5D$uml.Usage"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_kvMjqrjcEeKxsee0edLF7Q" points="[0, 0, 10489, -10932]$[-5448, 1586, 5041, -9346]$[-10489, 10932, 0, 0]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_kyd6PbjcEeKxsee0edLF7Q" id="(0.25,1.0)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_kyd6PrjcEeKxsee0edLF7Q" id="(0.49989885,0.0)"/>
+  </edges>
+  <edges xmi:id="_kvMjsLjcEeKxsee0edLF7Q" source="_kp1ihrjcEeKxsee0edLF7Q" target="_kpsYwbjcEeKxsee0edLF7Q">
+    <children xmi:id="_kvMjs7jcEeKxsee0edLF7Q" type="KindLabel">
+      <children xmi:id="_kvMjtbjcEeKxsee0edLF7Q" type="Stereotype"/>
+      <children xmi:id="_kvMjt7jcEeKxsee0edLF7Q" type="Kind"/>
+      <children xmi:id="_kvMjtrjcEeKxsee0edLF7Q" type="Name"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_kvMjtLjcEeKxsee0edLF7Q" y="-530"/>
+    </children>
+    <styles xmi:type="umlnotation:UMLConnectorStyle" xmi:id="_kvMjsbjcEeKxsee0edLF7Q" fontName="Segoe UI" lineWidth="1" showStereotype="Text"/>
+    <element xmi:type="uml:Usage" href="mmi:///#jdep%5Bjsrctype%5Ename=BbvaICommandInvoker%5Bjcu%5Ename=BbvaICommandInvoker.java%5Bjpack%5Ename=mx.com.bbva.bancomer.commons.command%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=BbvaBancomerCommons%5D%5D%5D%5D%5D%5Bjsrctype%5Ename=BbvaAbstractDataTransferObject%5Bjcu%5Ename=BbvaAbstractDataTransferObject.java%5Bjpack%5Ename=mx.com.bbva.bancomer.commons.model.dto%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=BbvaBancomerCommons%5D%5D%5D%5D%5D$uml.Usage"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_kvMjsrjcEeKxsee0edLF7Q" points="[0, 0, -6453, -38934]$[5447, 1586, -1006, -37348]$[8512, 10932, 2059, -28002]$[8512, 37347, 2059, -1587]$[6454, 38934, 1, 0]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_kyd6P7jcEeKxsee0edLF7Q" id="(0.75,1.0)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_kyd6QLjcEeKxsee0edLF7Q" id="(0.94648165,0.0)"/>
+  </edges>
+  <edges xmi:id="_kvMjuLjcEeKxsee0edLF7Q" source="_kp1ilbjcEeKxsee0edLF7Q" target="_kpint7jcEeKxsee0edLF7Q">
+    <children xmi:id="_kvMju7jcEeKxsee0edLF7Q" type="NameLabel">
+      <children xmi:id="_kvMjvbjcEeKxsee0edLF7Q" type="Stereotype"/>
+      <children xmi:id="_kvMjvrjcEeKxsee0edLF7Q" type="Name"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_kvMjvLjcEeKxsee0edLF7Q" y="-186"/>
+    </children>
+    <styles xmi:type="umlnotation:UMLConnectorStyle" xmi:id="_kvMjubjcEeKxsee0edLF7Q" fontName="Segoe UI" lineWidth="1" showStereotype="Text"/>
+    <element xmi:type="uml:Generalization" href="mmi:///#jgen%5Bjsrctype%5Ename=BbvaBusinessException%5Bjcu%5Ename=BbvaBusinessException.java%5Bjpack%5Ename=mx.com.bbva.bancomer.commons.exception%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=BbvaBancomerCommons%5D%5D%5D%5D%5D%5Bjsrctype%5Ename=BbvaException%5Bjcu%5Ename=BbvaException.java%5Bjpack%5Ename=mx.com.bbva.bancomer.commons.exception%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=BbvaBancomerCommons%5D%5D%5D%5D%5D$uml.Generalization"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_kvMjurjcEeKxsee0edLF7Q" points="[0, 0, 38309, 1586]$[-38309, -1586, 0, 0]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_kyUwMLjcEeKxsee0edLF7Q" id="(0.24984828,0.0)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_kyUwMbjcEeKxsee0edLF7Q" id="(0.9908893,0.17512886)"/>
+  </edges>
+  <edges xmi:id="_kvMjv7jcEeKxsee0edLF7Q" source="_kp1io7jcEeKxsee0edLF7Q" target="_kpsY3bjcEeKxsee0edLF7Q">
+    <children xmi:id="_kvMjwrjcEeKxsee0edLF7Q" type="NameLabel">
+      <children xmi:id="_kvMjxLjcEeKxsee0edLF7Q" type="Stereotype"/>
+      <children xmi:id="_kvMjxbjcEeKxsee0edLF7Q" type="Name"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_kvMjw7jcEeKxsee0edLF7Q" y="-186"/>
+    </children>
+    <styles xmi:type="umlnotation:UMLConnectorStyle" xmi:id="_kvMjwLjcEeKxsee0edLF7Q" fontName="Segoe UI" lineWidth="1" showStereotype="Text"/>
+    <element xmi:type="uml:InterfaceRealization" href="mmi:///#jimpl%5Bjsrctype%5Ename=BbvaHibernateDAO%5Bjcu%5Ename=BbvaHibernateDAO.java%5Bjpack%5Ename=mx.com.bbva.bancomer.commons.persistence.dao%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=BbvaBancomerCommons%5D%5D%5D%5D%5D%5Bjsrctype%5Ename=BbvaIDataAccessObject%5Bjcu%5Ename=BbvaIDataAccessObject.java%5Bjpack%5Ename=mx.com.bbva.bancomer.commons.persistence.dao%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=BbvaBancomerCommons%5D%5D%5D%5D%5D$uml.InterfaceRealization"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_kvMjwbjcEeKxsee0edLF7Q" points="[0, 0, -18020, 1586]$[18020, -1586, 0, 0]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_kyUwILjcEeKxsee0edLF7Q" id="(0.5,0.0)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_kyUwIbjcEeKxsee0edLF7Q" id="(0.15809052,1.0)"/>
+  </edges>
+  <edges xmi:id="_kvMjxrjcEeKxsee0edLF7Q" source="_kp1io7jcEeKxsee0edLF7Q" target="_kpsYz7jcEeKxsee0edLF7Q">
+    <children xmi:id="_kvMjybjcEeKxsee0edLF7Q" type="KindLabel">
+      <children xmi:id="_kvMjy7jcEeKxsee0edLF7Q" type="Stereotype"/>
+      <children xmi:id="_kvMjzbjcEeKxsee0edLF7Q" type="Kind"/>
+      <children xmi:id="_kvMjzLjcEeKxsee0edLF7Q" type="Name"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_kvMjyrjcEeKxsee0edLF7Q" y="-530"/>
+    </children>
+    <styles xmi:type="umlnotation:UMLConnectorStyle" xmi:id="_kvMjx7jcEeKxsee0edLF7Q" fontName="Segoe UI" lineWidth="1" showStereotype="Text"/>
+    <element xmi:type="uml:Usage" href="mmi:///#jdep%5Bjsrctype%5Ename=BbvaHibernateDAO%5Bjcu%5Ename=BbvaHibernateDAO.java%5Bjpack%5Ename=mx.com.bbva.bancomer.commons.persistence.dao%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=BbvaBancomerCommons%5D%5D%5D%5D%5D%5Bjsrctype%5Ename=BbvaAbstractValueObject%5Bjcu%5Ename=BbvaAbstractValueObject.java%5Bjpack%5Ename=mx.com.bbva.bancomer.commons.model.vo%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=BbvaBancomerCommons%5D%5D%5D%5D%5D$uml.Usage"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_kvMjyLjcEeKxsee0edLF7Q" points="[0, 0, -30096, -2062]$[1208, 475, -28888, -1587]$[30097, 2062, 1, 0]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_kyUwNrjcEeKxsee0edLF7Q" id="(0.6665848,1.0)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_kyd6ELjcEeKxsee0edLF7Q" id="(0.08314788,0.0)"/>
+  </edges>
+  <edges xmi:id="_kvMjzrjcEeKxsee0edLF7Q" source="_kp1io7jcEeKxsee0edLF7Q" target="_kp1isbjcEeKxsee0edLF7Q">
+    <children xmi:id="_kvMj0bjcEeKxsee0edLF7Q" type="KindLabel">
+      <children xmi:id="_kvMj07jcEeKxsee0edLF7Q" type="Stereotype"/>
+      <children xmi:id="_kvMj1bjcEeKxsee0edLF7Q" type="Kind"/>
+      <children xmi:id="_kvMj1LjcEeKxsee0edLF7Q" type="Name"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_kvMj0rjcEeKxsee0edLF7Q" y="-530"/>
+    </children>
+    <styles xmi:type="umlnotation:UMLConnectorStyle" xmi:id="_kvMjz7jcEeKxsee0edLF7Q" fontName="Segoe UI" lineWidth="1" showStereotype="Text"/>
+    <element xmi:type="uml:Usage" href="mmi:///#jdep%5Bjsrctype%5Ename=BbvaHibernateDAO%5Bjcu%5Ename=BbvaHibernateDAO.java%5Bjpack%5Ename=mx.com.bbva.bancomer.commons.persistence.dao%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=BbvaBancomerCommons%5D%5D%5D%5D%5D%5Bjsrctype%5Ename=BbvaDataBaseException%5Bjcu%5Ename=BbvaDataBaseException.java%5Bjpack%5Ename=mx.com.bbva.bancomer.commons.exception%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=BbvaBancomerCommons%5D%5D%5D%5D%5D$uml.Usage"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_kvMj0LjcEeKxsee0edLF7Q" points="[1, 0, -6223, -2062]$[6224, 2062, 0, 0]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_kyUwNLjcEeKxsee0edLF7Q" id="(0.33316952,1.0)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_kyUwNbjcEeKxsee0edLF7Q" id="(0.37495023,0.0)"/>
+  </edges>
+  <edges xmi:id="_kvMj1rjcEeKxsee0edLF7Q" source="_kp1isbjcEeKxsee0edLF7Q" target="_kpint7jcEeKxsee0edLF7Q">
+    <children xmi:id="_kvMj2bjcEeKxsee0edLF7Q" type="NameLabel">
+      <children xmi:id="_kvMj27jcEeKxsee0edLF7Q" type="Stereotype"/>
+      <children xmi:id="_kvMj3LjcEeKxsee0edLF7Q" type="Name"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_kvMj2rjcEeKxsee0edLF7Q" y="-186"/>
+    </children>
+    <styles xmi:type="umlnotation:UMLConnectorStyle" xmi:id="_kvMj17jcEeKxsee0edLF7Q" fontName="Segoe UI" lineWidth="1" showStereotype="Text"/>
+    <element xmi:type="uml:Generalization" href="mmi:///#jgen%5Bjsrctype%5Ename=BbvaDataBaseException%5Bjcu%5Ename=BbvaDataBaseException.java%5Bjpack%5Ename=mx.com.bbva.bancomer.commons.exception%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=BbvaBancomerCommons%5D%5D%5D%5D%5D%5Bjsrctype%5Ename=BbvaException%5Bjcu%5Ename=BbvaException.java%5Bjpack%5Ename=mx.com.bbva.bancomer.commons.exception%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=BbvaBancomerCommons%5D%5D%5D%5D%5D$uml.Generalization"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_kvMj2LjcEeKxsee0edLF7Q" points="[1, 0, 6203, 2614]$[-3950, -840, 2252, 1774]$[-6202, -2614, 0, 0]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_kyd6MbjcEeKxsee0edLF7Q" id="(0.12485066,0.0)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_kyd6MrjcEeKxsee0edLF7Q" id="(0.50029707,1.0)"/>
+  </edges>
+</notation:Diagram>
