@@ -14,7 +14,7 @@
 
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 <!-- Excepciones -->
- 	<bean id="bbvaException" class="mx.com.bbva.bancomer.commons.exception.BbvaException">
+ 	<bean id="bbvaException" class="mx.com.bbva.bancomer.commons.exception.BbvaDataBaseException">
   		<property name="errorProperties" ref="errorProperties" />
 	</bean>
 </beans>

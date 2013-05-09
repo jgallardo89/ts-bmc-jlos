@@ -43,7 +43,7 @@ public 	abstract class 		BbvaAbstractValueObject
 		{
 		//	En este nivel solo se debe permitir registro de bitacora a nivel de depuracion.
 		//	Un nivel mas alto puede interferir en el desempeño de la aplicacion.
-		logger.debug( "Entrada toString -- OK" );
+		logger.trace( "Entrada toString -- OK" );
 
 		//	Creamos un buffer para la representacion texto plano del objeto actual.
 		//	En primer lugar imprimimos el nombre de la clase.
@@ -60,7 +60,7 @@ public 	abstract class 		BbvaAbstractValueObject
 				if ( method.getName()
 				           .startsWith( "get" ) )
 					try	{
-						logger.debug( "Agregando atributo --" + method.getName().substring( 3 ) + "--" );
+						logger.trace( "Agregando atributo --" + method.getName().substring( 3 ) + "--" );
 						stringBuffer.append( method.getName().substring( 3 ) + "=" + method.invoke( this ) + "," );
 						}
 					catch ( Exception exception ) 
@@ -71,8 +71,8 @@ public 	abstract class 		BbvaAbstractValueObject
 
 			//	La cadena se construyo exitosamente.
 			stringBuffer.append( "]" );
-			logger.debug( "Datos de Salida toString -- " + stringBuffer.toString().replaceFirst( ",]", "]" ) );
-			logger.debug( "Salida toString          -- OK" );
+			logger.trace( "Datos de Salida toString -- " + stringBuffer.toString().replaceFirst( ",]", "]" ) );
+			logger.trace( "Salida toString          -- OK" );
 			} 
 		catch ( SecurityException securityException ) 
 			{

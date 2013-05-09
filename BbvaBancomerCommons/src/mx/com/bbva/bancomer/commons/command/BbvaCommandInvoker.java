@@ -31,7 +31,8 @@ import org.apache.log4j.Logger;
  *              Consultoria
  *              
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-public class BbvaAbstractCommandInvoker 
+public 	class 		BbvaCommandInvoker 
+		implements 	BbvaICommandInvoker 
 	{
 	//  Atributos     - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 	//	Privados|estaticos
@@ -47,59 +48,65 @@ public class BbvaAbstractCommandInvoker
 //	public java.util.Map<java.lang.String, java.lang.String> getDtoMap()
 //		{	return dtoMap;					}
 	public void setDtoMap( final java.util.Properties dtoMap )
-		{	if ( BbvaAbstractCommandInvoker.dtoMap == null ) BbvaAbstractCommandInvoker.dtoMap = dtoMap;			}
+		{	if ( BbvaCommandInvoker.dtoMap == null ) BbvaCommandInvoker.dtoMap = dtoMap;			}
 
 //	public java.util.Map<java.lang.String, mx.com.bbva.bancomer.commons.business.BbvaIBusinessObject> getBoMap()
 //		{	return boMap;					}
 	public void setBoMap( final java.util.Map< java.lang.String, mx.com.bbva.bancomer.commons.business.BbvaIBusinessObject > boMap )
-		{	if ( BbvaAbstractCommandInvoker.boMap == null ) BbvaAbstractCommandInvoker.boMap = boMap;				}
+		{	if ( BbvaCommandInvoker.boMap == null ) BbvaCommandInvoker.boMap = boMap;				}
 
 //	public java.util.Map<java.lang.String, java.lang.String> getCmdMap()
 //		{	return cmdMap;					}
 	public void setCmdMap( final java.util.Properties cmdMap )
-		{	if ( BbvaAbstractCommandInvoker.dtoMap == null ) BbvaAbstractCommandInvoker.cmdMap = cmdMap;			}
+		{	if ( BbvaCommandInvoker.dtoMap == null ) BbvaCommandInvoker.cmdMap = cmdMap;			}
 
 	//  Constructor   - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 	//	
 	/**
-	 * <b>BbvaAbstractCommandInvoker</b>
+	 * <b>BbvaCommandInvoker</b>
+	 */
+	public BbvaCommandInvoker ( )
+		{
+		logger.info ( "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -" );
+		logger.info ( "Constructor BbvaCommandInvoker -- OK" );
+		logger.info ( "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -" );
+		}
+	/**
+	 * <b>BbvaCommandInvoker</b>
 	 * @param dtoMap
 	 * @param cmdMap
 	 * @param boMap
 	 */
-	public BbvaAbstractCommandInvoker (	final java.util.Properties dtoMap,
-	                                    final java.util.Properties cmdMap,
-	                                    final java.util.Map< java.lang.String, mx.com.bbva.bancomer.commons.business.BbvaIBusinessObject > boMap )
+	public BbvaCommandInvoker (	final java.util.Properties dtoMap,
+	                            final java.util.Properties cmdMap,
+	                            final java.util.Map< java.lang.String, mx.com.bbva.bancomer.commons.business.BbvaIBusinessObject > boMap )
 		{
-		logger.info ( "Constructor BbvaAbstractCommandInvoker -- OK" );
-		if ( BbvaAbstractCommandInvoker.dtoMap == null )
+		logger.info ( "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -" );
+		logger.info ( "Constructor BbvaCommandInvoker -- OK" );
+		if ( BbvaCommandInvoker.dtoMap == null )
 			{
 			logger.debug( "Datos de Entrada                       -- " + dtoMap );
-			BbvaAbstractCommandInvoker.dtoMap = dtoMap;
+			BbvaCommandInvoker.dtoMap = dtoMap;
 			}
 
-		if ( BbvaAbstractCommandInvoker.cmdMap == null )
+		if ( BbvaCommandInvoker.cmdMap == null )
 			{
 			logger.debug( "Datos de Entrada                       -- " + cmdMap );
-			BbvaAbstractCommandInvoker.cmdMap = cmdMap;
+			BbvaCommandInvoker.cmdMap = cmdMap;
 			}
 
-		if ( BbvaAbstractCommandInvoker.boMap == null )
+		if ( BbvaCommandInvoker.boMap == null )
 			{
 			logger.debug( "Datos de Entrada                       -- " + boMap );
-			BbvaAbstractCommandInvoker.boMap = boMap;
+			BbvaCommandInvoker.boMap = boMap;
 			}
+		logger.info ( "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -" );
 		}
 
 	//  Metodos       - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 	//	
-	/**
-	 * <b>invoke</b>
-	 * Invocacion generica de un Objeto de Negocio -POJO, EJB, WS, RMI- identificado mediante la relacion de la firma de sus metodos.
-	 * 
-	 * @param <T> - bbvaAbstractDataTransferObject - Bean contenedor especifico para cada caso de uso.
-	 * @return mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject
-	 * @throws mx.com.bbva.bancomer.commons.exception.BbvaBusinessException
+	/* (non-Javadoc)
+	 * @see mx.com.bbva.bancomer.commons.command.BbvaICommandInvoker#invoke(T)
 	 */
 	@SuppressWarnings("unchecked")
 	public < T extends BbvaAbstractDataTransferObject > T invoke ( final T bbvaAbstractDataTransferObject )
@@ -116,12 +123,12 @@ public class BbvaAbstractCommandInvoker
 																.getSimpleName();
 		//	Buscamos dentro de nuestro mapeo DTO - BO.
 		//	Primero obtenemos el ID del Objeto de Negocio. Con ese ID obtenemos el BO. 
-		final	String 				boId				= (String)BbvaAbstractCommandInvoker.dtoMap.get( dtoName );
-		final	BbvaIBusinessObject bbvaIBusinessObject	= BbvaAbstractCommandInvoker.boMap.get	( boId	  );
+		final	String 				boId				= (String)BbvaCommandInvoker.dtoMap.get( dtoName );
+		final	BbvaIBusinessObject bbvaIBusinessObject	= BbvaCommandInvoker.boMap.get	( boId	  );
 		logger.debug( "Objeto de Negocio       -- " + bbvaIBusinessObject.getClass() );
 		try {
 			//	Obtenemos la accion que se debe ejecutar.
-			final	String	commandAction	= (String)BbvaAbstractCommandInvoker.cmdMap.get( bbvaAbstractDataTransferObject.getCommandId().toString() );
+			final	String	commandAction	= (String)BbvaCommandInvoker.cmdMap.get( bbvaAbstractDataTransferObject.getCommandId().toString() );
 
 			//	Obtenemos el metodo que se debe ejecutar.
 			final	Method method	= bbvaIBusinessObject.getClass()
@@ -133,7 +140,7 @@ public class BbvaAbstractCommandInvoker
 
 			//	Si la respuesta es diferente de 0000 construimos una excepcion de negocio y la lanzamos.
 			if ( !bbvaAbstractDTO.getErrorCode().equals( BbvaAbstractDataTransferObject.RESPONSECODEOK ) )	
-				throw new BbvaBusinessException( bbvaAbstractDTO.getErrorCode() + "|BbvaAbstractCommandInvoker|invoke"  );
+				throw new BbvaBusinessException( bbvaAbstractDTO.getErrorCode() + "|BbvaCommandInvoker|invoke"  );
 
 			//	Regresamos a la capa de presentacion.
 			logger.debug( "Datos de Salida invoke -- " + bbvaAbstractDTO.toString() );
@@ -152,7 +159,7 @@ public class BbvaAbstractCommandInvoker
 			if ( exception instanceof IllegalAccessException 	)	errorCode= "8896" ;
 			if ( exception instanceof InvocationTargetException )	errorCode= "8896" ;
 
-			throw new BbvaBusinessException( errorCode + "|BbvaAbstractCommandInvoker|invoke", exception );
+			throw new BbvaBusinessException( errorCode + "|BbvaCommandInvoker|invoke", exception );
 			} 
 		}
-	}	
+	}

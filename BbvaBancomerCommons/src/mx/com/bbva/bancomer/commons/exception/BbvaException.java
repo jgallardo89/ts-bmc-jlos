@@ -23,12 +23,12 @@ import org.apache.log4j.Logger;
  *              Consultoria
  *              
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-public 	class 	BbvaException 
-		extends java.lang.Exception 
+public 	abstract class	 BbvaException 
+				 extends java.lang.Exception 
 	{
 	//  Atributos     - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 	//	Privados|estaticos
-	private static final long serialVersionUID = -2912558963068489575L;
+	private static final long 						serialVersionUID = -2912558963068489575L;
 	private static final org.apache.log4j.Logger 	logger			 = Logger.getLogger( BbvaException.class );
 
 	//	Privados

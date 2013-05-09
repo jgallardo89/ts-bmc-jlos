@@ -73,15 +73,15 @@ public 	abstract	class 	BbvaAbstractDataTransferObject
 		{
 		//	En este nivel solo se debe permitir registro de bitacora a nivel de depuracion.
 		//	Un nivel mas alto puede interferir en el desempeño de la aplicacion.
-		logger.debug( "Entrada toString(String)          -- OK" );
-		logger.debug( "Datos de Entrada toString(String) -- " + stringType );
+		logger.trace( "Entrada toString(String)          -- OK" );
+		logger.trace( "Datos de Entrada toString(String) -- " + stringType );
 
 		try {
 			//	Convierte el objeto actual en su representacion JSON.
 			if ( stringType.equals( BbvaAbstractDataTransferObject.JSON ) ) 
 				{
-				logger.debug( "Datos de Salida toString(String) -- " + JSONSerializer.toJSON( this ).toString() );
-				logger.debug( "Salida toString(String)          -- OK" );
+				logger.trace( "Datos de Salida toString(String) -- " + JSONSerializer.toJSON( this ).toString() );
+				logger.trace( "Salida toString(String)          -- OK" );
 				return JSONSerializer.toJSON( this )
 				                     .toString();
 				}
@@ -95,8 +95,8 @@ public 	abstract	class 	BbvaAbstractDataTransferObject
 					serializer.write( this, byteArrayOutputStream );
 
 			//	Agregamos encabezado.
-			logger.debug( "Datos de Salida toString(String) -- " + BbvaAbstractDataTransferObject.XMLHEADER + byteArrayOutputStream.toString() );
-			logger.debug( "Salida toString(String)          -- OK" );
+			logger.trace( "Datos de Salida toString(String) -- " + BbvaAbstractDataTransferObject.XMLHEADER + byteArrayOutputStream.toString() );
+			logger.trace( "Salida toString(String)          -- OK" );
 			return BbvaAbstractDataTransferObject.XMLHEADER + byteArrayOutputStream.toString();
 			} 
 		catch ( Exception exception ) 

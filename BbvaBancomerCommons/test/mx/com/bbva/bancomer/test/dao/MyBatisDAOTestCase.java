@@ -179,8 +179,7 @@ public class MyBatisDAOTestCase
 	public final void testQueryForListString() 
 		{
 		try {
-			final	List<BbvaUsuarioVO> 
-					list = bbvaIDataAccessObject.queryForList( "MantenimientoCatalogoMapper|readBbvaUsuarioVOList" );
+			final	List<BbvaUsuarioVO> list = bbvaIDataAccessObject.queryForList( "MantenimientoCatalogoMapper|readBbvaUsuarioVOList" );
 
 			System.out.println( list );
 			} 
@@ -227,13 +226,11 @@ public class MyBatisDAOTestCase
 				list.add( bbvaUsuarioVO );
 				}
 			
-			final	List<BbvaUsuarioVO>
-					resultList	= bbvaIDataAccessObject.queryForList( "MantenimientoCatalogoMapper|createBbvaUsuarioVO", list );
+			final	List<BbvaUsuarioVO>	resultList	= bbvaIDataAccessObject.queryForList( "MantenimientoCatalogoMapper|createBbvaUsuarioVO", list );
 			System.out.println( resultList );
 		
 			System.out.println( "Consulta  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -" );
-			final	List<BbvaUsuarioVO>
-					searchList	= bbvaIDataAccessObject.queryForList( "MantenimientoCatalogoMapper|readBbvaUsuarioVOList" );
+			final	List<BbvaUsuarioVO> searchList	= bbvaIDataAccessObject.queryForList( "MantenimientoCatalogoMapper|readBbvaUsuarioVOList" );
 			System.out.println( searchList );
 		
 			System.out.println( "Eliminacion   - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -" );
