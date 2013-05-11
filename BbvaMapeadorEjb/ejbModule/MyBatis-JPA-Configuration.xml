@@ -3,10 +3,18 @@
 <configuration>
     <environments default="development">
         <environment id="development">
-            <transactionManager type="JDBC"/>
+            <!-- transactionManager type="JDBC"/>
             <dataSource type="JNDI" >
-                <property  name="data_source" value="jdbc/MAPEADOR"/>               
-            </dataSource>
+                <property  name="data_source" value="jdbc/MAPEADOR"/>
+            </dataSource -->
+            
+             <transactionManager type = "JDBC"/>
+                <dataSource type = "POOLED">
+                        <property name = "driver" value = "oracle.jdbc.driver.OracleDriver" />
+                        <property name="url" value = "jdbc:oracle:thin:@localhost:1521:xe" />
+                        <property name = "username" value = "MAPEADOR"  />
+                        <property name = "password" value = "admin" />
+                </dataSource>
         </environment>
     </environments>    
     <mappers>
@@ -17,5 +25,8 @@
     	<mapper resource="mappers/cliente/MapCliente.xml"/>
     	<mapper resource="mappers/usuario/MapUsuario.xml"/>
     	<mapper resource="mappers/perfil/MapPerfil.xml"/>
+    	<mapper resource="mappers/flujo/MapFlujo.xml"/>
+    	<mapper resource="mappers/palabracomodin/MapPalabraComodin.xml"/>
+    	<mapper resource="mappers/mensajesalida/MapMensajeSalida.xml"/>
     </mappers>
 </configuration>
