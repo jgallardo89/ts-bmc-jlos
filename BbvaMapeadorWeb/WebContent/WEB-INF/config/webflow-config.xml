@@ -31,7 +31,7 @@
 		<webflow:flow-location id="admonFlujos"  path="/WEB-INF/flows/admonFlujos/admonFlujos.xml" /> <!-- AKFG -->
 		<webflow:flow-location id="mapa"  path="/WEB-INF/flows/mapa/mapa.xml" /> <!-- AKFG -->
 			<!-- Mensajes de Notificacion -->
-		<webflow:flow-location id="mensajes"  path="/WEB-INF/flows/palabraComodin/palabraComodin.xml" /> <!-- AKFG -->
+		<webflow:flow-location id="mensajes"  path="/WEB-INF/flows/mensajes/mensajes.xml" /> <!-- AKFG -->
 		<webflow:flow-location id="palabraComodin"  path="/WEB-INF/flows/palabraComodin/palabraComodin.xml" /> <!-- AKFG -->
 			<!-- Fin de Mensajes de Notificacion -->
 		<webflow:flow-location id="usuarioNotificacion"  path="/WEB-INF/flows/usuarioNotificacion/usuarioNotificacion.xml" /> <!-- AKFG -->
