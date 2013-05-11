@@ -1,27 +1,34 @@
 package mx.com.bbva.bancomer.bussinnes.model.vo;
 
-import java.math.BigDecimal;
 import mx.com.bbva.bancomer.commons.model.vo.BbvaAbstractValueObject;
 
 public class PantallaVO extends BbvaAbstractValueObject {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5820561995974556157L;
 	private long idPantalla;	
 	private String nombrePantalla;
-	private BigDecimal numeroOrdenPantalla;
+	private long numeroOrdenPantalla;
 	private long idPantallaPadre;	
-	private String descripcionPantalla;
+	private String descripcionUrlPantalla;
 	private String descripcionUrlIcon;
+	private long estatusPantalla;
+	private String nombreEstatusObjeto;
+	private String nombrePantallaPadre;
+	
 	/**
-	 * @return the descripcionPantalla
+	 * @return the descripcionUrlPantalla
 	 */
-	public final String getDescripcionPantalla() {
-		return descripcionPantalla;
+	public String getDescripcionUrlPantalla() {
+		return descripcionUrlPantalla;
 	}
 	/**
-	 * @param descripcionPantalla the descripcionPantalla to set
+	 * @param descripcionUrlPantalla the descripcionUrlPantalla to set
 	 */
-	public final void setDescripcionPantalla(String descripcionPantalla) {
-		this.descripcionPantalla = descripcionPantalla;
+	public void setDescripcionUrlPantalla(String descripcionUrlPantalla) {
+		this.descripcionUrlPantalla = descripcionUrlPantalla;
 	}
 	/**
 	 * @return the descripcionUrlIcon
@@ -46,8 +53,7 @@ public class PantallaVO extends BbvaAbstractValueObject {
 	 */
 	public final void setEstatusPantalla(long estatusPantalla) {
 		this.estatusPantalla = estatusPantalla;
-	}
-	private long estatusPantalla;	
+	}	
 	/**
 	 * @return the idPantalla
 	 */
@@ -75,13 +81,13 @@ public class PantallaVO extends BbvaAbstractValueObject {
 	/**
 	 * @return the numeroOrdenPantalla
 	 */
-	public BigDecimal getNumeroOrdenPantalla() {
+	public long getNumeroOrdenPantalla() {
 		return numeroOrdenPantalla;
 	}
 	/**
 	 * @param numeroOrdenPantalla the numeroOrdenPantalla to set
 	 */
-	public void setNumeroOrdenPantalla(BigDecimal numeroOrdenPantalla) {
+	public void setNumeroOrdenPantalla(long numeroOrdenPantalla) {
 		this.numeroOrdenPantalla = numeroOrdenPantalla;
 	}
 	/**
@@ -96,4 +102,33 @@ public class PantallaVO extends BbvaAbstractValueObject {
 	public void setIdPantallaPadre(long idPantallaPadre) {
 		this.idPantallaPadre = idPantallaPadre;
 	}
+	/**
+	 * @return the nombreEstatusObjeto
+	 */
+	public String getNombreEstatusObjeto() {
+		return nombreEstatusObjeto;
+	}
+	/**
+	 * @param nombreEstatusObjeto the nombreEstatusObjeto to set
+	 */
+	public void setNombreEstatusObjeto(String nombreEstatusObjeto) {
+		this.nombreEstatusObjeto = nombreEstatusObjeto;
+	}
+	/**
+	 * @return the descripcionPantallaPadre
+	 */
+	/**
+	 * @return the nombrePantallaPadre
+	 */
+	public String getNombrePantallaPadre() {
+		return nombrePantallaPadre;
+	}
+	/**
+	 * @param nombrePantallaPadre the nombrePantallaPadre to set
+	 */
+	public void setNombrePantallaPadre(String nombrePantallaPadre) {
+		this.nombrePantallaPadre = nombrePantallaPadre;
+	}
+
+	
 }
