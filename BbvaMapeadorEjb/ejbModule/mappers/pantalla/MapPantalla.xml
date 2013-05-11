@@ -3,19 +3,73 @@
 <mapper namespace="mappers.pantalla.MapPantalla">
 	<select id="obtenerPantallas" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.PantallaVO"
 		resultType="mx.com.bbva.bancomer.bussinnes.model.vo.PantallaVO">
-			  SELECT Pantalla.Cd_Pantalla idPantalla,
-				  Pantalla.Cd_Fk_Pantalla idPantallaPadre,
-				  Pantalla.Nb_Pantalla nombrePantalla,
-				  Pantalla.Tx_Url_Pantalla descripcionPantalla,
-				  Pantalla.Tx_Url_Icon descripcionUrlIcon,
-				  Pantalla.Nu_Ord_Pantalla numeroOrdenPantalla,
-				  Pantalla.St_Pantalla estatusPantalla				  
-				FROM Tgm501_Pantalla Pantalla,
-				  Tgm534_St_Objeto Statusobjeto,
-				  Tgm509_St_Clave statusClave
-				WHERE Pantalla.St_Pantalla   = Statusobjeto.Cd_St_Objeto
-				AND Statusobjeto.Cd_St_Clave = Statusclave.Cd_St_Clave
-				AND Statusclave.Cd_St_Clave  = 1
-				ORDER BY Pantalla.Nb_Pantalla
+		SELECT 
+			P.CD_PANTALLA idPantalla, 
+			P.CD_FK_PANTALLA idPantallaPadre,  
+			P.NB_PANTALLA nombrePantalla, 
+			P.TX_URL_PANTALLA descripcionUrlPantalla, 
+			P.TX_URL_ICON descripcionUrlIcon, 
+			P.NU_ORD_PANTALLA numeroOrdenPantalla, 
+			P.ST_PANTALLA estatusPantalla, 
+			PD.NB_PANTALLA nombrePantallaPadre,
+			O.NB_ST_OBJETO AS nombreEstatusObjeto
+		FROM 
+			TGM501_PANTALLA P,
+			TGM501_PANTALLA PD,
+			TGM534_ST_OBJETO O
+		WHERE 
+		    PD.CD_PANTALLA = P.CD_FK_PANTALLA AND
+			P.ST_PANTALLA = O.CD_ST_OBJETO
+			
+			<if test="idPantallaPadre != null and idPantallaPadre != 0">
+				AND P.CD_FK_PANTALLA = #{idPantallaPadre}
+			</if>
+			<if test="nombrePantalla != null">
+				AND P.NB_PANTALLA LIKE #{nombrePantalla}
+			</if>
+			<if test="descripcionUrlPantalla != null ">
+				AND P.TX_URL_PANTALLA LIKE #{descripcionUrlPantalla}
+			</if>						  
+			<if test="descripcionUrlIcon != null ">
+				AND  P.TX_URL_ICON LIKE #{descripcionUrlIcon}
+			</if>		 
+			<if test="numeroOrdenPantalla != null and numeroOrdenPantalla != 0">
+				AND  P.NU_ORD_PANTALLA = #{numeroOrdenPantalla}
+			</if>
+			<if test="estatusPantalla != null and estatusPantalla != 0">
+				AND  P.ST_PANTALLA = #{estatusPantalla}
+			</if>	
+				ORDER BY P.CD_PANTALLA
 	</select>
+	<insert id="crearPantalla" keyProperty="idPantalla" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.PantallaVO">
+		<selectKey keyProperty="idPantalla" resultType="int" order="BEFORE"> 
+			<![CDATA[ select SQ_PANTALLA.nextval as idPantalla from dual ]]> 
+		</selectKey>
+			INSERT INTO TGM501_PANTALLA (
+			CD_PANTALLA, 
+			CD_FK_PANTALLA, 
+			NB_PANTALLA, 
+			TX_URL_PANTALLA, 
+			TX_URL_ICON, 
+			NU_ORD_PANTALLA,
+			ST_PANTALLA) VALUES (
+			#{idPantalla}, 
+			#{idPantallaPadre},  
+			#{nombrePantalla}, 
+			#{descripcionUrlPantalla}, 
+			#{descripcionUrlIcon}, 
+			#{numeroOrdenPantalla}, 
+			#{estatusPantalla})
+	</insert>
+	<update id="actualizarPantalla" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.PantallaVO">
+		UPDATE TGM501_PANTALLA SET  
+			CD_FK_PANTALLA = #{idPantallaPadre}, 
+			NB_PANTALLA = #{nombrePantalla}, 
+			TX_URL_PANTALLA = #{descripcionUrlPantalla}, 
+			TX_URL_ICON = #{descripcionUrlIcon}, 
+			NU_ORD_PANTALLA = #{numeroOrdenPantalla},  
+			ST_PANTALLA = #{estatusPantalla}
+		WHERE 
+		CD_PANTALLA = #{idPantalla}
+	</update>
 </mapper>

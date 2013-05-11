@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mappers.componente.MapComponente">
+	<select id="obtenerComponentes" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.ComponenteVO"
+		resultType="mx.com.bbva.bancomer.bussinnes.model.vo.ComponenteVO">
+		SELECT 
+			C.CD_PANTALLA idPantalla, 
+			C.CD_COMPONENTE idComponente, 
+			C.NB_COMPONENTE nombreComponente, 
+			C.TP_COMPONENTE tipoComponente, 
+			C.CD_DEFAULT idDefault, 	
+			C.ST_COMPONENTE estatusComponente,
+			P.NB_PANTALLA nombrePantalla
+		FROM 
+			TGM502_COMPONENTE C,
+			TGM501_PANTALLA P,
+			TGM534_ST_OBJETO O
+			
+		WHERE 
+			C.CD_PANTALLA = P.CD_PANTALLA  AND
+			C.ST_COMPONENTE = O.CD_ST_OBJETO
+			<if test="idPantalla != null  and idPantalla != 0">
+				AND C.CD_PANTALLA = #{idPantalla}
+			</if>						  
+			<if test="nombreComponente != null ">
+				AND  C.NB_COMPONENTE LIKE #{nombreComponente}
+			</if>			
+			<if test="tipoComponente != null ">
+				AND  C.TP_COMPONENTE LIKE #{tipoComponente}
+			</if>	
+				ORDER BY C.CD_COMPONENTE
+	</select>
+	<insert id="crearComponente" keyProperty="idComponente" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.ComponenteVO">
+		<selectKey keyProperty="idComponente" resultType="int" order="BEFORE"> 
+			<![CDATA[ select SQ_COMPONENTE.nextval as idComponente from dual ]]> 
+		</selectKey>
+			INSERT INTO TGM502_COMPONENTE (
+				CD_COMPONENTE, 
+				CD_PANTALLA, 
+				NB_COMPONENTE, 
+				TP_COMPONENTE, 
+				CD_DEFAULT, 
+				ST_COMPONENTE) VALUES (
+				#{idComponente},
+				#{idPantalla}, 
+				#{nombreComponente}, 
+				#{tipoComponente},
+				' ', 
+				1)
+	</insert>
+	<update id="actualizarComponente" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.ComponenteVO">
+		UPDATE TGM502_COMPONENTE SET  
+			CD_PANTALLA = #{idPantalla}, 
+			NB_COMPONENTE = #{nombreComponente}, 
+			TP_COMPONENTE = #{tipoComponente}
+		WHERE 
+			CD_COMPONENTE = #{idComponente}
+	</update>
+	<delete id="eliminarComponente" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.ComponenteVO">
+		DELETE FROM TGM502_COMPONENTE WHERE CD_COMPONENTE = #{idComponente}
+	</delete>
+</mapper>
