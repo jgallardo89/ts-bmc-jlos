@@ -4,20 +4,21 @@ import java.util.List;
 
 import javax.ejb.Stateless;
 
-import mappers.pantalla.MapPantalla;
-import mx.com.bbva.bancomer.bussinnes.model.vo.PantallaVO;
+import mappers.componente.MapComponente;
+import mx.com.bbva.bancomer.bussinnes.model.vo.ComponenteVO;
 import mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject;
-import mx.com.bbva.bancomer.pantalla.dto.PantallaDTO;
+import mx.com.bbva.bancomer.componente.dto.ComponenteDTO;
 import mx.com.bbva.mapeador.oralce.session.MapeadorSessionFactory;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.log4j.Logger;
 
-@Stateless(mappedName="pantallaBO")
-public class PantallaBO implements mx.com.bbva.bancomer.commons.business.BbvaIBusinessObject {
+@Stateless(mappedName="componenteBO")
+public class ComponenteBO implements mx.com.bbva.bancomer.commons.business.BbvaIBusinessObject {
+
 	//  Atributos     - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 	//	Privados|estaticos
-	private static final org.apache.log4j.Logger 	logger			 = Logger.getLogger(PantallaBO.class);
+	private static final org.apache.log4j.Logger 	logger			 = Logger.getLogger(ComponenteBO.class);
 	
 	//  Atributos     - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 	//	Privados	
@@ -29,7 +30,6 @@ public class PantallaBO implements mx.com.bbva.bancomer.commons.business.BbvaIBu
 	public final mx.com.bbva.bancomer.commons.persistence.dao.BbvaIDataAccessObject getBbvaIDataAccessObject() {
 		return bbvaIDataAccessObject;
 	}
-
 	//	Propiedades
 	//	public final mx.com.bbva.bancomer.commons.persistence.dao.BbvaIDataAccessObject getBbvaIDataAccessObject() 
 	//		{	return bbvaIDataAccessObject;							}
@@ -41,13 +41,13 @@ public class PantallaBO implements mx.com.bbva.bancomer.commons.business.BbvaIBu
 			T bbvaAbstractDataTransferObject) {		
 		logger.debug( "Entrada createCommand          -- OK" );
 		logger.debug( "Datos de Entrada createCommand -- " + bbvaAbstractDataTransferObject.toString() );
-		PantallaVO pantallaVO = ((PantallaDTO)bbvaAbstractDataTransferObject).getPantallaVO();
+		ComponenteVO componenteVO = ((ComponenteDTO)bbvaAbstractDataTransferObject).getComponenteVO();
 		SqlSession session = MapeadorSessionFactory.getSqlSessionFactory()
 				.openSession();
-		MapPantalla mapPantalla = session
-				.getMapper(MapPantalla.class);
+		MapComponente mapComponente = session
+				.getMapper(MapComponente.class);
 		try {
-			mapPantalla.crearPantalla(pantallaVO);
+			mapComponente.crearComponente(componenteVO);
 			session.commit();
 		} catch (Exception ex) {
 			session.rollback();
@@ -67,17 +67,17 @@ public class PantallaBO implements mx.com.bbva.bancomer.commons.business.BbvaIBu
 			logger.debug( "Entrada createCommand          -- OK" );
 			logger.debug( "Datos de Entrada createCommand -- " + bbvaAbstractDataTransferObject.toString() );					
 			try {
-				List<PantallaVO> result = null;
-				PantallaVO pantallaVO = ((PantallaDTO)bbvaAbstractDataTransferObject).getPantallaVO();
+				List<ComponenteVO> result = null;
+				ComponenteVO componenteVO = ((ComponenteDTO)bbvaAbstractDataTransferObject).getComponenteVO();
 				SqlSession session = MapeadorSessionFactory.getSqlSessionFactory()
 						.openSession();
-				MapPantalla mapPantalla = session
-						.getMapper(MapPantalla.class);
-				if(pantallaVO != null) {
-					logger.debug(":::::::::::::::::::::" + pantallaVO.toString());
+				MapComponente mapComponente = session
+						.getMapper(MapComponente.class);
+				if(componenteVO != null) {
+					logger.debug(":::::::::::::::::::::" + componenteVO.toString());
 				}
 				try {
-					result = mapPantalla.obtenerPantallas(pantallaVO);
+					result = mapComponente.obtenerComponentes(componenteVO);
 					
 					session.commit();
 				} catch (Exception ex) {
@@ -86,8 +86,7 @@ public class PantallaBO implements mx.com.bbva.bancomer.commons.business.BbvaIBu
 				} finally {
 					session.close();
 				}
-				((PantallaDTO)bbvaAbstractDataTransferObject).setPantallaVOs(result);
-				((PantallaDTO)bbvaAbstractDataTransferObject).setPantallaPadreVOs(result);
+				((ComponenteDTO)bbvaAbstractDataTransferObject).setComponenteVOs(result); 
 				logger.debug("result: " + result + " -- **fin**");
 				logger.debug( "Datos de Salida invoke -- " + bbvaAbstractDataTransferObject.toString() );
 				logger.debug( "Salida invoke          -- OK" );
@@ -109,13 +108,13 @@ public class PantallaBO implements mx.com.bbva.bancomer.commons.business.BbvaIBu
 			T bbvaAbstractDataTransferObject) {
 		logger.debug( "Entrada updateCommand          -- OK" );
 		logger.debug( "Datos de Entrada updateCommand -- " + bbvaAbstractDataTransferObject.toString() );
-		PantallaVO pantallaVO = ((PantallaDTO)bbvaAbstractDataTransferObject).getPantallaVO();
+		ComponenteVO componenteVO = ((ComponenteDTO)bbvaAbstractDataTransferObject).getComponenteVO();
 		SqlSession session = MapeadorSessionFactory.getSqlSessionFactory()
 				.openSession();
-		MapPantalla mapPantalla = session
-				.getMapper(MapPantalla.class);
+		MapComponente mapComponente = session
+				.getMapper(MapComponente.class);
 		try {
-			mapPantalla.actualizarPantalla(pantallaVO);
+			mapComponente.actualizarComponente(componenteVO);
 			session.commit();
 		} catch (Exception ex) {
 			session.rollback();
@@ -131,8 +130,24 @@ public class PantallaBO implements mx.com.bbva.bancomer.commons.business.BbvaIBu
 	@Override
 	public <T extends BbvaAbstractDataTransferObject> T deleteCommand(
 			T bbvaAbstractDataTransferObject) {
-		// TODO Auto-generated method stub
-		return null;
+		logger.debug( "Entrada deleteCommand          -- OK" );
+		logger.debug( "Datos de Entrada deleteCommand -- " + bbvaAbstractDataTransferObject.toString() );
+		ComponenteVO componenteVO = ((ComponenteDTO)bbvaAbstractDataTransferObject).getComponenteVO();
+		SqlSession session = MapeadorSessionFactory.getSqlSessionFactory()
+				.openSession();
+		MapComponente mapComponente = session.getMapper(MapComponente.class);
+		try {
+			mapComponente.eliminarComponente(componenteVO);
+			session.commit();
+		} catch (Exception ex) {
+			session.rollback();
+			ex.printStackTrace();
+		} finally {
+			session.close();
+		}
+		logger.debug( "Datos de Salida invoke -- " + bbvaAbstractDataTransferObject.toString() );
+		logger.debug( "Salida invoke          -- OK" );
+		return bbvaAbstractDataTransferObject;	
 	}
 
 }
