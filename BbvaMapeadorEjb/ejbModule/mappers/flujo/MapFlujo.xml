@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mappers.flujo.MapFlujo">
+	<select id="obtenerFlujos" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.FlujoVO"
+		resultType="mx.com.bbva.bancomer.bussinnes.model.vo.FlujoVO">
+				SELECT
+					FLUJO.CD_FLUJO idFlujo,
+					FLUJO.NB_FLUJO nombreFlujo,
+					FLUJO.TX_FLUJO descripcionFlujo,
+					FLUJO.TX_URL_IMAGEN descripcionUrlImagen,
+					FLUJO.TM_ALTA fechaAlta,
+					FLUJO.TM_MODIFICACION fechaModificacion,
+					ETAPA.TX_ETAPA descripcionEtapa,
+					OBJETO.CD_ST_OBJETO idEstatusObjeto,
+					OBJETO.NB_ST_OBJETO nombreEstatusObjeto
+				FROM
+					TGM513_FLUJO FLUJO,
+					TGM534_ST_OBJETO OBJETO,
+					TGM517_ETAPA ETAPA,
+					TGM518_FLUJOETAPA FLUET
+				WHERE 
+					FLUJO.CD_ST_OBJETO = OBJETO.CD_ST_OBJETO
+					AND ETAPA.CD_ST_OBJETO = OBJETO.CD_ST_OBJETO
+					AND FLUJO.CD_FLUJO = FLUET.CD_FLUJO
+					AND ETAPA.CD_ETAPA = FLUET.CD_ETAPA
+				<if test="nombreFlujo != null">
+					AND FLUJO.NB_FLUJO LIKE #{nombreFlujo}
+				</if>
+				<if test="descripcionFlujo != null">
+					AND FLUJO.TX_FLUJO LIKE #{descripcionFlujo}
+				</if>
+				<if test="idEstatusObjeto != null and idEstatusObjeto != 0">
+					AND OBJETO.CD_ST_OBJETO = #{idEstatusObjeto}
+				</if>
+				ORDER BY FLUET.NU_ORDEN_ETAPA
+	</select>
+	<update id="actualizarFlujo" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.FlujoVO">
+	    UPDATE TGM513_FLUJO 
+		    SET NB_FLUJO = #{nombreFlujo},
+			TX_FLUJO = #{descripcionFlujo},
+			CD_ST_OBJETO = #{idEstatusObjeto},
+			TM_MODIFICACION = CURRENT_DATE
+		WHERE
+			CD_FLUJO = #{idFlujo}
+	</update>
+</mapper>

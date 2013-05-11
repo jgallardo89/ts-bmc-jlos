@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mappers.mensajesalida.MapMensajeSalida">
+	<select id="obtenerMensajesSalida" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.MensajeSalidaVO"
+		resultType="mx.com.bbva.bancomer.bussinnes.model.vo.MensajeSalidaVO">
+				SELECT
+					MENSAJE.CD_MENSAJE_SALIDA idMensajeSalida,
+					MENSAJE.NB_MENSAJE_SALIDA nombreMensajeSalida,
+					MENSAJE.TX_MENSAJE_SALIDA descripcionMensajeSalida,
+					MENSAJE.TM_ALTA fechaAlta,
+					MENSAJE.TM_MODIFICACION fechaModificacion,
+					OBJETO.CD_ST_OBJETO idEstatusObjeto,
+					OBJETO.NB_ST_OBJETO nombreEstatusObjeto
+				FROM
+					TGM516_MENSAJE_SAL MENSAJE,
+					TGM534_ST_OBJETO OBJETO
+				WHERE
+					MENSAJE.CD_ST_OBJETO = OBJETO.CD_ST_OBJETO
+				<if test="nombreMensajeSalida != null">
+					AND MENSAJE.NB_MENSAJE_SALIDA LIKE #{nombreMensajeSalida}
+				</if>
+				<if test="descripcionMensajeSalida != null">
+					AND MENSAJE.TX_MENSAJE_SALIDA LIKE #{descripcionMensajeSalida}
+				</if>
+				<if test="idEstatusObjeto != null and idEstatusObjeto != 0">
+					AND MENSAJE.CD_ST_OBJETO = #{idEstatusObjeto}
+				</if>
+				ORDER BY CD_MENSAJE_SALIDA
+	</select>
+	<insert id="crearMensajeSalida" keyProperty="idMensajeSalida" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.MensajeSalidaVO">
+		<selectKey keyProperty="idCanal" resultType="int" order="BEFORE"> 
+			<![CDATA[ select SQ_MENSAJESALIDA.nextval as idMensajeSalida from dual ]]> 
+		</selectKey>
+		INSERT INTO TGM516_MENSAJE_SAL
+			(CD_MENSAJE_SALIDA,
+			NB_MENSAJE_SALIDA,
+			TX_MENSAJE_SALIDA,
+			CD_ST_OBJETO,
+			TM_ALTA)
+		VALUES
+			(#{idMensajeSalida},
+			#{nombreMensajeSalida},
+			#{descripcionMensajeSalida},
+			#{idEstatusObjeto},
+			CURRENT_DATE)
+	</insert>
+	<update id="actualizarMensajeSalida" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.MensajeSalidaVO">
+	    UPDATE TGM516_MENSAJE_SAL
+		SET
+			NB_MENSAJE_SALIDA = #{nombreMensajeSalida},
+			TX_MENSAJE_SALIDA = #{descripcionMensajeSalida},
+			CD_ST_OBJETO = #{idEstatusObjeto},
+			TM_MODIFICACION = CURRENT_DATE
+		WHERE
+			CD_MENSAJE_SALIDA = #{idMensajeSalida}
+	</update>
+</mapper>

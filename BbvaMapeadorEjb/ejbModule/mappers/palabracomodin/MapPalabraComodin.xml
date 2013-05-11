@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mappers.palabracomodin.MapPalabraComodin">
+	<select id="obtenerPalabrasComodin" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.PalabraComodinVO"
+		resultType="mx.com.bbva.bancomer.bussinnes.model.vo.PalabraComodinVO">
+				SELECT 
+					CD_PALABRA_COMODIN idPalabraComodin,
+					NB_PALABRA_COMODIN nombrePalabraComodin,
+					TX_PALABRA_COMODIN descripcionPalabraComodin
+				FROM
+					TGM521_PBA_COMODIN
+				<if test="nombrePalabraComodin != null">
+					WHERE NB_PALABRA_COMODIN LIKE  #{nombrePalabraComodin}
+				</if>
+				<if test="descripcionPalabraComodin != null">
+					AND TX_PALABRA_COMODIN LIKE  #{descripcionPalabraComodin}
+				</if>
+				ORDER BY CD_PALABRA_COMODIN
+	</select>
+</mapper>
