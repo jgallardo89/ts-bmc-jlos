@@ -14,6 +14,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import mx.com.bbva.bancomer.bussinnes.model.vo.UsuarioVO;
+import mx.com.bbva.bancomer.estatusobjeto.dto.UsuarioDTO;
+import mx.com.bbva.bancomer.mapper.business.UsuarioBO;
+
 import org.apache.log4j.Logger;
 
 public class SessionFilterTam implements Filter{
@@ -41,7 +45,7 @@ public class SessionFilterTam implements Filter{
 	      logger.debug("headerName:"+headerName);
 	      logger.debug("headerNameValue:"+request.getHeader(headerName));
 	      
-	      sessionValues.put(headerName, request.getHeader(headerName));
+	      sessionValues.put(headerName, request.getHeader(headerName).toUpperCase());
 	      
 	      
 	    }
@@ -49,13 +53,20 @@ public class SessionFilterTam implements Filter{
 	    logger.debug("SessionId:"+httpSession.getId());	    
 	    httpSession.setAttribute("sessionValues", sessionValues);
 	    if(sessionValues.get("iv-user") != null){
-	    	chain.doFilter(req, res);
-	    }
-	    else{
-	    	logger.debug("No hay session valida");
-	    	response.sendRedirect("https://localhost/bbva/mapeador/app/menu");
-	    	chain.doFilter(req, res);
-	    }
+	    	UsuarioBO usuarioBO = new UsuarioBO();
+			UsuarioVO usuarioVO = new UsuarioVO();		
+			usuarioVO.setIdCveUsuario(sessionValues.get("iv-user").toString());
+			UsuarioDTO usuarioDTO = new UsuarioDTO();
+			usuarioDTO.setUsuarioVO(usuarioVO);
+			usuarioDTO = usuarioBO.readCommand(usuarioDTO);
+			if(usuarioDTO.getUsuarioVOs().size()==1){
+	    		chain.doFilter(req, res);
+			}else{
+    	    	logger.debug("No hay session valida");
+    	    	response.sendRedirect("https://localhost/bbva/mapeador/app/menu");
+    	    	chain.doFilter(req, res);
+    	    }
+	    }	    
 	}
 
 	@Override
