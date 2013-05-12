@@ -1,5 +1,19 @@
 package mx.com.bbva.mapeador.ui.commons.viewmodel.perfil;
 
+import java.util.List;
+
+import mx.com.bbva.bancomer.bussinnes.model.vo.EstatusObjetoVO;
+import mx.com.bbva.bancomer.bussinnes.model.vo.PantallaVO;
+import mx.com.bbva.bancomer.bussinnes.model.vo.PerfilVO;
+import mx.com.bbva.bancomer.commons.command.CommandConstants;
+import mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject;
+import mx.com.bbva.bancomer.commons.model.vo.BbvaAbstractValueObject;
+import mx.com.bbva.bancomer.estatusobjeto.dto.EstatusObjetoDTO;
+import mx.com.bbva.bancomer.estatusobjeto.dto.UsuarioDTO;
+import mx.com.bbva.bancomer.mapper.business.EstatusObjetoBO;
+import mx.com.bbva.bancomer.mapper.business.PantallaBO;
+import mx.com.bbva.bancomer.mapper.business.PerfilBO;
+import mx.com.bbva.bancomer.estatusobjeto.dto.PerfilDTO;
 import mx.com.bbva.mapeador.ui.commons.controller.IController;
 import mx.com.bbva.mapeador.ui.commons.viewmodel.perfil.PerfilController;
 import mx.com.bbva.mapeador.ui.commons.viewmodel.support.ControllerSupport;
@@ -47,6 +61,22 @@ public class PerfilController extends ControllerSupport implements  IController{
 	private String strPantalla;
 	
 	private String strStatus;
+	
+	private PerfilDTO perfilDTO = (PerfilDTO)this.read(); 
+
+	/**
+	 * @return the perfilDTO
+	 */
+	public final PerfilDTO getPerfilDTO() {
+		return perfilDTO;
+	}
+
+	/**
+	 * @param perfilDTO the perfilDTO to set
+	 */
+	public final void setPerfilDTO(PerfilDTO perfilDTO) {
+		this.perfilDTO = perfilDTO;
+	}
 
 	@AfterCompose
     public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
@@ -87,8 +117,34 @@ public class PerfilController extends ControllerSupport implements  IController{
 
 	@Override
 	public Object read() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		PerfilDTO perfilDTO = new PerfilDTO();
+		perfilDTO.setCommandId(CommandConstants.ESTATUS_OBJETO);
+		PerfilVO perfilVO = new PerfilVO();
+		logger.debug("*estatusObjetoVO*");
+		EstatusObjetoDTO estatusObjetoDTO = new EstatusObjetoDTO();
+		estatusObjetoDTO.setCommandId(CommandConstants.ESTATUS_OBJETO);
+		EstatusObjetoVO estatusObjetoVO = new EstatusObjetoVO();
+		estatusObjetoVO.setNombreTabla(CommandConstants.NOMBRE_TABLA_PERFIL);		
+		EstatusObjetoBO estatusObjetoBO = new EstatusObjetoBO();
+		estatusObjetoDTO.setEstatusObjetoVO(estatusObjetoVO);
+		estatusObjetoDTO.toString(BbvaAbstractDataTransferObject.XML);
+		estatusObjetoDTO = estatusObjetoBO.readCommand(estatusObjetoDTO);
+		estatusObjetoDTO.toString(BbvaAbstractDataTransferObject.XML);
+		logger.debug("*pantallaVO*");
+		PantallaVO pantallaVO = new PantallaVO();
+		PantallaBO pantallaBO = new PantallaBO();
+		estatusObjetoDTO.setPantallaVO(pantallaVO);
+		estatusObjetoDTO.toString(BbvaAbstractDataTransferObject.XML);	
+		List<PantallaVO> pantallaVOs = pantallaBO.readCommand(estatusObjetoDTO).getPantallaVOs();
+		estatusObjetoDTO.setPantallaVOs(pantallaVOs);
+		estatusObjetoDTO.toString(BbvaAbstractDataTransferObject.XML);
+		PerfilBO perfilBO = new PerfilBO();
+		perfilDTO.setEstatusObjetoVOs(estatusObjetoDTO.getEstatusObjetoVOs());
+		perfilDTO.setPantallaVOs(estatusObjetoDTO.getPantallaVOs());
+		perfilDTO = perfilBO.readCommand(perfilDTO);
+		
+		return perfilDTO;
 	}
 
 	@Override
