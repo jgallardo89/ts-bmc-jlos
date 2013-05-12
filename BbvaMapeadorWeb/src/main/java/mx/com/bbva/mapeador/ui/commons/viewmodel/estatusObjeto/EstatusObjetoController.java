@@ -124,6 +124,7 @@ public class EstatusObjetoController extends SelectorComposer<Component> impleme
 		statusClave.setValue(null);
 		idEstatusClave.setValue(null);
 		idPantalla.setValue(null);
+		idEstatusObjeto.setValue(null);
 	}
 
 	@Override
@@ -144,6 +145,9 @@ public class EstatusObjetoController extends SelectorComposer<Component> impleme
 							EstatusObjetoBO estatusObjetoBO = new EstatusObjetoBO();
 							estatusObjetoDTO.toString(BbvaAbstractDataTransferObject.XML);
 							estatusObjetoBO.deleteCommand(estatusObjetoDTO);
+							Messagebox.show("!El registro fue eliminado!",
+									"Información", Messagebox.OK,
+									Messagebox.INFORMATION);
 							clean();
 							BindUtils
 									.postGlobalCommand(
