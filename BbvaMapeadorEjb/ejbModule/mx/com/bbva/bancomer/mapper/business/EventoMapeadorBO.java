@@ -4,21 +4,22 @@ import java.util.List;
 
 import javax.ejb.Stateless;
 
-import mappers.bitacora.MapBitacora;
+import mappers.evento.MapEvento;
 import mx.com.bbva.bancomer.bitacora.dto.BitacoraDTO;
-import mx.com.bbva.bancomer.bussinnes.model.vo.BitacoraVO;
+import mx.com.bbva.bancomer.bussinnes.model.vo.EventoMapeadorVO;
 import mx.com.bbva.bancomer.commons.business.BbvaIBusinessObject;
 import mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject;
+import mx.com.bbva.bancomer.evento.dto.EventoMapeadorDTO;
 import mx.com.bbva.mapeador.oralce.session.MapeadorSessionFactory;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.log4j.Logger;
 
-@Stateless(mappedName = "bitacoraBO")
-public class BitacoraBO implements BbvaIBusinessObject { 
+@Stateless(mappedName = "eventoMapeadorBO")
+public class EventoMapeadorBO implements BbvaIBusinessObject { 
 
 	private static final org.apache.log4j.Logger logger = Logger
-			.getLogger(BitacoraBO.class);
+			.getLogger(EventoMapeadorBO.class);
 	
 	@Override
 	public <T extends BbvaAbstractDataTransferObject> T createCommand(
@@ -32,17 +33,15 @@ public class BitacoraBO implements BbvaIBusinessObject {
 			T bbvaAbstractDataTransferObject) {
 		try {
 			logger.debug("Entrada readCommand          -- OK");
-			logger.debug("Datos de Entrada createCommand -- "
+			logger.debug("Datos de Entrada readCommand -- "
 					+ bbvaAbstractDataTransferObject.toString());
 			try {
-				List<BitacoraVO> result = null;
-				BitacoraVO BitacoraVO = ((BitacoraDTO) bbvaAbstractDataTransferObject)
-						.getBitacoraVO();
+				List<EventoMapeadorVO> result = null;
 				SqlSession session = MapeadorSessionFactory
 						.getSqlSessionFactory().openSession();
-				MapBitacora mapBitacora = session.getMapper(MapBitacora.class);
+				MapEvento mapEvento = session.getMapper(MapEvento.class);
 				try {
-					result = mapBitacora.obtenerBitacora(BitacoraVO);
+					result = mapEvento.obtenerEventoMapeador();
 					session.commit();
 				} catch (Exception ex) {
 					session.rollback();
@@ -50,45 +49,7 @@ public class BitacoraBO implements BbvaIBusinessObject {
 				} finally {
 					session.close();
 				}
-				((BitacoraDTO) bbvaAbstractDataTransferObject).setBitacoraVOs(result);
-				logger.debug("result: " + result + " -- **fin**");
-				logger.debug("Datos de Salida invoke -- "
-						+ bbvaAbstractDataTransferObject.toString());
-				logger.debug("Salida invoke          -- OK");
-				return bbvaAbstractDataTransferObject;
-			} catch (Exception ex) {
-				ex.printStackTrace();
-				return bbvaAbstractDataTransferObject;
-			}
-		} catch (Exception exception) {
-			exception.printStackTrace();
-			return bbvaAbstractDataTransferObject;
-		}
-	}
-	
-	public <T extends BbvaAbstractDataTransferObject> T readCommandParameters(
-			T bbvaAbstractDataTransferObject) {
-		try {
-			logger.debug("Entrada readCommand          -- OK");
-			logger.debug("Datos de Entrada createCommand -- "
-					+ bbvaAbstractDataTransferObject.toString());
-			try {
-				String result = null;
-				BitacoraVO BitacoraVO = ((BitacoraDTO) bbvaAbstractDataTransferObject)
-						.getBitacoraVO();
-				SqlSession session = MapeadorSessionFactory
-						.getSqlSessionFactory().openSession();
-				MapBitacora mapBitacora = session.getMapper(MapBitacora.class);
-				try {
-					result = mapBitacora.obtenerDetalleBitacora(BitacoraVO).getDescripcionBitacora();
-					session.commit();
-				} catch (Exception ex) {
-					session.rollback();
-					ex.printStackTrace();
-				} finally {
-					session.close();
-				}
-				((BitacoraDTO) bbvaAbstractDataTransferObject).setXml(result);
+				((EventoMapeadorDTO) bbvaAbstractDataTransferObject).setEventoMapeadorVOs(result);
 				logger.debug("result: " + result + " -- **fin**");
 				logger.debug("Datos de Salida invoke -- "
 						+ bbvaAbstractDataTransferObject.toString());

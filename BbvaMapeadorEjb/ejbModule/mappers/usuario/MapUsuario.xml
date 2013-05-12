@@ -80,4 +80,13 @@
 			Cd_Perfil= #{idPerfil}
 		where cd_usuario = #{idUsuario}
 	</update>
+	<select id="obtenerUsuariosBitacora" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.UsuarioVO"
+		resultType="mx.com.bbva.bancomer.bussinnes.model.vo.UsuarioVO">
+		SELECT
+		  USUARIO.CD_USUARIO idUsuario,
+		  USUARIO.NB_USUARIO nombreUsuario
+		FROM
+		  TGM503_USUARIO USUARIO
+		ORDER BY USUARIO.CD_USUARIO
+	</select>
 </mapper>

@@ -127,6 +127,33 @@ public class UsuarioBO implements mx.com.bbva.bancomer.commons.business.BbvaIBus
 		} 					
 	}
 
+	public List<UsuarioVO> readCommand() {
+		logger.debug( "Entrada createCommand          -- OK" );
+		List<UsuarioVO> result = null;
+		try {					
+			SqlSession session = MapeadorSessionFactory.getSqlSessionFactory()
+					.openSession();
+			MapUsuario mapUsuario = session
+					.getMapper(MapUsuario.class);
+			try {
+				result = mapUsuario.obtenerUsuariosBitacora();
+			} catch (Exception ex) {
+				
+				ex.printStackTrace();
+			} finally {
+				session.close();
+			}
+			
+			logger.debug("result: " + result + " -- **fin**");
+			logger.debug( "Datos de Salida invoke -- " + result.toString() );
+			logger.debug( "Salida invoke          -- OK" );
+			return result;
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return result;
+		} 					
+	}
+	
 	@Override
 	public <T extends BbvaAbstractDataTransferObject> T updateCommand(
 			T bbvaAbstractDataTransferObject) {
