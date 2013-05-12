@@ -1,6 +1,6 @@
 package mx.com.bbva.mapeador.ui.commons.viewmodel.support;
 
-import mx.com.bbva.bancomer.commons.command.BbvaAbstractCommandInvoker;
+import mx.com.bbva.bancomer.commons.command.BbvaICommandInvoker;
 import mx.com.bbva.mapeador.security.session.user.SessionUser;
 
 import org.apache.log4j.Logger;
@@ -41,7 +41,7 @@ public class ControllerSupport extends SelectorComposer<Component>{
 	private static final long serialVersionUID = -6876680585065352357L;
 	
 	@Autowired
-	BbvaAbstractCommandInvoker invoker;
+	BbvaICommandInvoker invoker;
 	
 	public SessionUser getSessionUser(){
 		logger.debug( "Entrada getSessionUser          -- OK" );		
@@ -55,14 +55,14 @@ public class ControllerSupport extends SelectorComposer<Component>{
 	/**
 	 * @return the invoker
 	 */
-	public BbvaAbstractCommandInvoker getInvoker() {
+	public BbvaICommandInvoker getInvoker() {
 		return invoker;
 	}
 
 	/**
 	 * @param invoker the invoker to set
 	 */
-	public void setInvoker(BbvaAbstractCommandInvoker invoker) {
+	public void setInvoker(BbvaICommandInvoker invoker) {
 		this.invoker = invoker;
 	}
 }
