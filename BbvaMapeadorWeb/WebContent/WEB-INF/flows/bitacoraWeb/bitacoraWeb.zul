@@ -9,11 +9,125 @@
 		id="bitacoraWebWindows">
 		<include src="../../pages/styles.zul" />
 		<div sclass="BODY" height="100%">
-			<groupbox height="100%">			
-							
-			</groupbox>
-			<intbox value="@load(vm.strMonedaCbxId)" id="moneda" visible="false"></intbox>
-			<textbox value="@load(vm.strCdContrato)" id="cdContrato" visible="false"></textbox>
+			<groupbox height="100%">
+				<caption sclass="pageTitle" label="Sistema > Bitácora > Web"></caption>		
+					<portallayout maximizedMode="whole" id="portalLayoutBitacira"
+					width="100%" height="100%">
+					<portalchildren>
+						<panel width="100%" sclass="sectionPanelTitle" id="datosBitacira"
+							title="Catalogo" collapsible="true" style="margin-bottom:10px"
+							border="normal">
+							<caption sclass="sectionPanelTitle" label="Bitácora Web"></caption>
+							<panelchildren>
+								<div align="center">
+									<grid width="100%" style="border:0" oddRowSclass="row2">
+										<columns>
+											<column width="20%" />
+											<column width="25%" />
+											<column width="20%" />
+											<column width="25%" />
+										</columns>
+										<rows>
+											<row sclass="row2">
+												<div align="right">
+													<label width="100%" sclass="labelFill" value="Fecha inicio:  "></label>												
+												</div>
+												<datebox value="@load(vm.bitacoraDTO.bitacoraVO.fechaInicio) @converter('formatedDate', format='dd/MM/yyyy')" maxlength="50" width="100%" id="fechaInicio" readonly="true" buttonVisible="true" onCreate="self.value = new Date()" format="dd/MM/yyyy"></datebox>
+												<div align="right">
+													<label width="100%" sclass="labelFill" value="a: "></label>												
+												</div>
+												<datebox value="@load(vm.bitacoraDTO.bitacoraVO.fechaFin) @converter('formatedDate', format='dd/MM/yyyy')" maxlength="50" width="100%" id="fechaFin" readonly="true" buttonVisible="true" onCreate="self.value = new Date()" format="dd/MM/yyyy"></datebox>																												
+											</row>
+											<row sclass="row2">
+												<div align="right">
+													<label width="100%" sclass="labelFill" value="Identificador de Mensaje:  "></label>
+												</div>
+												<combobox sclass="textboxUpperCase" readonly="true" onChange="selectedValueEventoMapeador()"
+													id="tipoEvento" width="70%" model="@load(vm.eventoMapeadorDTO.eventoMapeadorVOs)" autodrop="true">		
+													<template name="model">										
+														<comboitem value="@load(each.idEventoMapeador)" label="@load(each.nombreEventoMapeador)" height="100%"/>
+													</template>																								
+												</combobox>
+												<div align="right">
+													<label width="100%" sclass="labelFill" value="Usuario:  "></label>
+												</div>
+												<combobox sclass="textboxUpperCase" readonly="true" onChange="selectedValueUsuario()"
+													id="usuario" width="70%" model="@load(vm.usuarioVOs)" autodrop="true">		
+													<template name="model">										
+														<comboitem value="@load(each.idUsuario)" label="@load(each.nombreUsuario)" height="100%"/>
+													</template>																								
+												</combobox>																										
+											</row>
+											<row sclass="row2">
+												<div align="right">
+												</div>										
+												<!--  div align="right" width="82%">
+													<button sclass="button" label="Limpiar" id="limpiarBtn" onClick="@command('clean')" ></button>
+												</div-->
+												<div align="right" width="82%">
+													<button sclass="button" label="Consultar" id="consultarBtn" onClick="@command('readWithFilters')"></button>
+												</div>
+												<div align="right">
+												</div>
+												<div align="right">
+												</div>
+											</row>
+										</rows>								
+									</grid>
+								</div>
+							</panelchildren>										
+						</panel>
+					</portalchildren>
+					<portalchildren width="100%" style="padding: 5px">
+						<panel sclass="sectionPanelTitle" width="100%" id="panelBitacora"
+							title="Resultados Bitacora" collapsible="true"
+							style="margin-bottom:10px">
+							<caption sclass="sectionPanelTitle" label="Lista de Flujos"></caption>
+							<panelchildren>
+								<grid width="99.7%" id="bitacoraGrid" mold="paging"
+									model="@load(vm.bitacoraVOs)" pagingPosition="both" pageSize="5"
+									vflex="true" height="100%">									
+									<columns sizable="true" menupopup="auto">
+										<column hflex="1" label="Fecha y Hora" width="10%"
+											sort="auto(vm.bitacoraDTO.bitacoraVO.fechaBitacora)"></column>
+										<column hflex="1" label="Usuario" width="10%"
+											sort="auto(vm.bitacoraDTO.bitacoraVO.nombreUsuario)"></column>
+										<column hflex="1" label="Tipo Evento" width="10%"
+											sort="auto(vm.bitacoraDTO.bitacoraVO.nombreEventoMapeador)"></column>
+										<column hflex="0" align="center" label="Detalle" width="5%"></column>						
+									</columns>
+									<template name="model">
+										<row>
+											<label hflex="1" value="@load(each.fechaBitacora)  @converter('formatedDate', format='dd/MM/yyyy  HH:MM:SS')"></label>
+											<label hflex="1" value="@load(each.nombreUsuario)"></label>
+											<label hflex="1" value="@load(each.nombreEventoMapeador)"></label>
+											<image src="/img/detalle.jpg" onClick="@command('readEventDetail',idBitacora=each)"></image>																					
+										</row>
+									</template>									
+								</grid>
+							</panelchildren>
+						</panel>
+					</portalchildren>
+				</portallayout>								
+			</groupbox>	
+			<textbox id="idUsuario" value="@load(vm.bitacoraDTO.bitacoraVO.idUsuario)" visible="false"></textbox>
+			<textbox id="idEventoMapeador" value="@load(vm.bitacoraDTO.bitacoraVO.idEventoMapeador)" visible="false"></textbox>
 		</div>
+		<zscript>
+			public void selectedValueEventoMapeador(){
+				try{
+					idEventoMapeador.setValue(tipoEvento.getSelectedItem().getValue().toString());
+				}catch(Exception ex){
+					idEventoMapeador.setValue(null);
+				}
+			}
+			public void selectedValueUsuario(){
+				try{
+					idUsuario.setValue(usuario.getSelectedItem().getValue().toString());
+				}catch(Exception ex){
+					idUsuario.setValue(null);
+				}
+			}
+		</zscript>
 	</window>
 </zk>

@@ -1,6 +1,5 @@
 package mx.com.bbva.mt101.ui.commons.viewmodel.admonFlujos;
 
-import java.util.Date;
 import java.util.List;
 
 import org.zkoss.bind.annotation.AfterCompose;
