@@ -24,7 +24,7 @@
 											<column width="20%" />
 											<column width="20%" />
 											<column width="20%" />
-											<column width="3%" />
+											<column width="5%" />
 											<column width="20%" />
 										</columns>
 										<rows>
@@ -46,10 +46,10 @@
 												<div align="right">
 													<label width="100%" sclass="labelFill" value="Status:"></label>												
 												</div>
-												<combobox sclass="textboxUpperCase" onChange=""
-													id="status" width="70%" model="@load(vm.strStatus)" autodrop="true">		
+												<combobox sclass="textboxUpperCase"
+													id="status" width="70%" model="@load(vm.perfilDTO.estatusObjetoVOs)" autodrop="true">		
 													<template name="model">										
-														<comboitem  value="" label="" />
+														<comboitem value="@load(each.idEstatusObjeto)" label="@load(each.nombreEstatusObjeto)" height="100%"/>
 													</template>																								
 												</combobox>		
 												<div align="right">
@@ -65,9 +65,9 @@
 												</div>
 												<div style="vertical-align:top;">
 													<combobox sclass="textboxUpperCase" onChange=""
-														id="pantalla" width="70%" model="@load(vm.strPantalla)" autodrop="true">		
+														id="pantalla" width="70%" model="@load(vm.perfilDTO.pantallaVOs)" autodrop="true">		
 														<template name="model">										
-															<comboitem  value="" label="" />
+															<comboitem value="@load(each.idPantalla)" label="@load(each.nombrePantalla)" height="100%"/>
 														</template>																								
 													</combobox>
 												</div>		
@@ -78,11 +78,11 @@
 																<label value="Componentes Pantalla:"></label>																
 															</listheader>																										
 														</listhead>
-														<!--template name="model"-->
+														<template name="model">
 												            <listitem>												            	
 												            	<listcell autag="" label="Algo"></listcell>												                												               
 												            </listitem>
-												        <!--/template-->		
+												        </template>		
 													</listbox>
 												</div>
 												<div width="15%">
@@ -102,8 +102,7 @@
 														</listhead>
 														<!--template name="model"-->
 												            <listitem>												            	
-												            	<listcell>
-												            		<label value="Algo" id="sa1"></label>
+												            	<listcell>												            	
 												            	</listcell>												                												               
 												            </listitem>
 												        <!--/template-->		
@@ -127,16 +126,16 @@
 													<label width="100%" sclass="labelFill" value=""></label>													
 												</div>	
 												<div align="center" width="100%">
-													<button sclass="button" label="Limpiar" id="limpiarBtn" onClick="@command('reenviarArchivo')" ></button>																										
+													<button sclass="button" image="/img/clear.png" label="Limpiar" id="limpiarBtn" onClick="@command('reenviarArchivo')" ></button>																										
 												</div>
 												<div align="center" width="100%">
-													<button sclass="button" label="Guardar" id="guardarUsuarioBtn" onClick="@command('reenviarArchivo')"></button>													
+													<button sclass="button" image="/img/save.png" label="Guardar" id="guardarUsuarioBtn" onClick="@command('reenviarArchivo')"></button>													
 												</div>	
 												<div align="center" width="100%">													
-													<button sclass="button" label="Consultar" id="consultarUsuarioBtn" onClick="@command('reenviarArchivo')"></button>												
+													<button sclass="button" image="/img/search.png" label="Consultar" id="consultarUsuarioBtn" onClick="@command('reenviarArchivo')"></button>												
 												</div>	
 												<div align="center" width="100%">													
-													<button sclass="button" label="Duplicar" id="duplicarBtn" onClick="@command('reenviarArchivo')"></button>
+													<button sclass="button" image="/img/copy.png" label="Duplicar" id="duplicarBtn" onClick="@command('reenviarArchivo')"></button>
 												</div>			
 												<div align="center" width="100%">
 													<label width="100%" sclass="labelFill" value=""></label>
