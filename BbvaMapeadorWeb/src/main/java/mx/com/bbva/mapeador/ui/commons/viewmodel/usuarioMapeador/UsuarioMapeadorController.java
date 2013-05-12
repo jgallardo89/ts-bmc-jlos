@@ -4,6 +4,7 @@ import java.util.List;
 
 import mx.com.bbva.bancomer.bussinnes.model.vo.EstatusObjetoVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.UsuarioVO;
+import mx.com.bbva.bancomer.commons.command.CommandConstants;
 import mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject;
 import mx.com.bbva.bancomer.estatusobjeto.dto.EstatusObjetoDTO;
 import mx.com.bbva.bancomer.estatusobjeto.dto.PerfilDTO;
@@ -21,6 +22,7 @@ import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.NotifyChange;
+import org.zkoss.zhtml.Messagebox;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
@@ -41,6 +43,9 @@ public class UsuarioMapeadorController extends ControllerSupport implements ICon
 
 	@Wire
 	private Combobox perfilesDisponibles;
+	
+	@Wire
+	private Textbox idUsuario;
 
 	@Wire
 	private Combobox status;
@@ -75,17 +80,20 @@ public class UsuarioMapeadorController extends ControllerSupport implements ICon
 	}
 
 	@Override
-	public Object read() {
-		UsuarioDTO usuarioDTO = new UsuarioDTO();
+	public Object read() {		
 		EstatusObjetoDTO estatusObjetoDTO = new EstatusObjetoDTO();
-		estatusObjetoDTO.setCommandId(2);
-		UsuarioBO usuarioBO = new UsuarioBO();
+		estatusObjetoDTO.setCommandId(CommandConstants.ESTATUS_OBJETO);
+		EstatusObjetoVO estatusObjetoVO = new EstatusObjetoVO();
+		estatusObjetoVO.setNombreTabla(CommandConstants.NOMBRE_TABLA_USUARIO);		
 		EstatusObjetoBO estatusObjetoBO = new EstatusObjetoBO();
-		usuarioDTO = usuarioBO.readCommand(usuarioDTO);
+		estatusObjetoDTO.setEstatusObjetoVO(estatusObjetoVO);
 		estatusObjetoDTO = estatusObjetoBO.readCommand(estatusObjetoDTO);
+		usuarioDTO = new UsuarioDTO();		
+		UsuarioBO usuarioBO = new UsuarioBO();
+		usuarioDTO = usuarioBO.readCommand(usuarioDTO);
 		usuarioDTO.setEstatusObjetoVOs(estatusObjetoDTO.getEstatusObjetoVOs());
 		PerfilDTO perfilDTO = new PerfilDTO();
-		PerfilBO perfilBO = new PerfilBO();
+		PerfilBO perfilBO = new PerfilBO();		
 		perfilDTO = perfilBO.readCommand(perfilDTO);
 		usuarioDTO.setPerfilVOs(perfilDTO.getPerfilVOs());
 		return usuarioDTO;
@@ -125,12 +133,12 @@ public class UsuarioMapeadorController extends ControllerSupport implements ICon
 
 	@Override
 	@Command
+	@NotifyChange({ "usuarioVOs" })
 	public void save() {
 		boolean errorGuardar = false;
 		if (perfilesDisponibles.getSelectedItem() == null
 				|| perfilesDisponibles.getSelectedItem().getValue() == null
 				|| perfilesDisponibles.getSelectedItem().getValue().toString().isEmpty()) {
-			idPerfil = perfilesDisponibles.getSelectedItem().getValue();
 			perfilesDisponibles.setErrorMessage("Favor de seleccionar el perfil.");
 			errorGuardar = true;
 		}
@@ -145,14 +153,71 @@ public class UsuarioMapeadorController extends ControllerSupport implements ICon
 			errorGuardar = true;
 		}
 		if(!errorGuardar){
-			UsuarioDTO usuarioDTO = new UsuarioDTO();
-			UsuarioVO usuarioVO = new UsuarioVO();
-			usuarioVO.setEstatusUsuario( status.getSelectedIndex() );
-			usuarioVO.setIdCveUsuario( identificadorUsuario.getValue() );
-			usuarioVO.setIdPerfil( perfilesDisponibles.getSelectedIndex());
-			usuarioVO.setNombreUsuario( nombreUsuario.getValue() );
-			usuarioDTO.setUsuarioVO(usuarioVO);
-			usuarioDTO.toString(BbvaAbstractDataTransferObject.XML);
+			if(idUsuario.getValue().isEmpty()){
+				UsuarioDTO usuarioDTO = new UsuarioDTO();
+				UsuarioVO usuarioVO = new UsuarioVO();
+				usuarioVO.setEstatusUsuario( Integer.parseInt(status.getSelectedItem().getValue().toString()));
+				usuarioVO.setIdCveUsuario( identificadorUsuario.getValue().toUpperCase() );
+				usuarioVO.setIdPerfil(Integer.parseInt(perfilesDisponibles.getSelectedItem().getValue().toString()));			
+				usuarioVO.setNombreUsuario( nombreUsuario.getValue().toUpperCase() );
+				usuarioDTO.setUsuarioVO(usuarioVO);
+				usuarioDTO.toString(BbvaAbstractDataTransferObject.XML);
+				UsuarioBO usuarioBO = new UsuarioBO();
+				usuarioDTO = usuarioBO.createCommand(usuarioDTO);
+				if(usuarioDTO.getErrorCode().equals("0001")){
+					Messagebox.show("!"+usuarioDTO.getErrorDescription()+"!",
+							"Error", Messagebox.OK,
+							Messagebox.ERROR);
+				}else{
+					clean();
+					usuarioBO = new UsuarioBO();
+					usuarioDTO = new UsuarioDTO();
+					usuarioVO = new UsuarioVO();		
+					usuarioVO.setNombreUsuario(nombreUsuario.getValue().isEmpty()?null:"%"+nombreUsuario.getValue().toUpperCase()+"%");
+					usuarioVO.setIdCveUsuario(identificadorUsuario.getValue().isEmpty()?null:"%"+identificadorUsuario.getValue().toUpperCase()+"%");
+					usuarioVO.setIdPerfil(Integer.parseInt(idPerfil.getValue().isEmpty()?"0":idPerfil.getValue()));
+					usuarioVO.setEstatusUsuario(Integer.parseInt(idEstatusObjeto.getValue().isEmpty()?"0":idEstatusObjeto.getValue()));
+					usuarioDTO.setUsuarioVO(usuarioVO);
+					usuarioDTO.toString(BbvaAbstractDataTransferObject.XML);		
+					usuarioDTO = usuarioBO.readCommand(usuarioDTO);
+					logger.debug("size:"+usuarioDTO.getUsuarioVOs().size());
+					usuarioVOs = usuarioDTO.getUsuarioVOs();
+					Messagebox.show("!El registro del usuario fue exitoso!",
+							"Información", Messagebox.OK,
+							Messagebox.INFORMATION);
+				}
+			}else{
+				UsuarioDTO usuarioDTO = new UsuarioDTO();
+				UsuarioVO usuarioVO = new UsuarioVO();
+				usuarioVO.setEstatusUsuario( Integer.parseInt(status.getSelectedItem().getValue().toString()));
+				usuarioVO.setIdCveUsuario( identificadorUsuario.getValue().toUpperCase() );
+				usuarioVO.setIdPerfil(Integer.parseInt(perfilesDisponibles.getSelectedItem().getValue().toString()));			
+				usuarioVO.setNombreUsuario( nombreUsuario.getValue().toUpperCase() );
+				usuarioVO.setIdUsuario(Integer.parseInt(idUsuario.getValue()));
+				usuarioDTO.setUsuarioVO(usuarioVO);
+				usuarioDTO.toString(BbvaAbstractDataTransferObject.XML);
+				UsuarioBO usuarioBO = new UsuarioBO();
+				usuarioBO.updateCommand(usuarioDTO);
+				
+				clean();
+				usuarioBO = new UsuarioBO();
+				usuarioDTO = new UsuarioDTO();
+				usuarioVO = new UsuarioVO();		
+				usuarioVO.setNombreUsuario(nombreUsuario.getValue().isEmpty()?null:"%"+nombreUsuario.getValue().toUpperCase()+"%");
+				usuarioVO.setIdCveUsuario(identificadorUsuario.getValue().isEmpty()?null:"%"+identificadorUsuario.getValue().toUpperCase()+"%");
+				usuarioVO.setIdPerfil(Integer.parseInt(idPerfil.getValue().isEmpty()?"0":idPerfil.getValue()));
+				usuarioVO.setEstatusUsuario(Integer.parseInt(idEstatusObjeto.getValue().isEmpty()?"0":idEstatusObjeto.getValue()));
+				
+				usuarioDTO.setUsuarioVO(usuarioVO);
+				usuarioDTO.toString(BbvaAbstractDataTransferObject.XML);		
+				usuarioDTO = usuarioBO.readCommand(usuarioDTO);
+				logger.debug("size:"+usuarioDTO.getUsuarioVOs().size());
+				usuarioVOs = usuarioDTO.getUsuarioVOs();
+				
+				Messagebox.show("!La actualizacón del usuario fue exitosa!",
+						"Información", Messagebox.OK,
+						Messagebox.INFORMATION);
+			}
 		}
 		
 	}
@@ -173,6 +238,7 @@ public class UsuarioMapeadorController extends ControllerSupport implements ICon
 		idEstatusObjeto.setValue(null);
 		identificadorUsuario.setValue(null);
 		nombreUsuario.setValue(null);
+		idUsuario.setValue(null);
 	}
 
 	@Command
@@ -185,6 +251,7 @@ public class UsuarioMapeadorController extends ControllerSupport implements ICon
 		idEstatusObjeto.setValue(Integer.toString(usuarioVO.getEstatusUsuario()));
 		identificadorUsuario.setValue(usuarioVO.getIdCveUsuario());
 		nombreUsuario.setValue(usuarioVO.getNombreUsuario());
+		idUsuario.setValue(Integer.toString(usuarioVO.getIdUsuario()));
 		
 	}
 	
