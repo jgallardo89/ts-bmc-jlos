@@ -13,7 +13,7 @@
         .complex-layout-header-label { 
         position:relative; 
         top: -18px; 
-        padding-left: 800px; 
+        padding-left: 700px; 
         font-size: 14px;
         color: #0047B6;         
         } 
@@ -37,7 +37,7 @@
             <north size="70px" border="0">
                 <div>                   
                     <image  width="15%" src="/img/logo_comun.png" />                    
-              		<label sclass="complex-layout-header-label" value="José Luis Ortiz Salazar - Administrador" width="60%" />              		             		    	
+              		<label sclass="complex-layout-header-label" value="@load(vm.name)" width="60%" />              		             		    	
               		<div sclass="barraHorizontal" align="right">              			
               			<a label="Cerrar Sesión" href="https://localhost/pkmslogout.form" ></a>               			
               		</div>              		              	
