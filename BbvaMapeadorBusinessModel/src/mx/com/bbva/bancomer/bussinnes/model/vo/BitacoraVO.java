@@ -1,9 +1,6 @@
 package mx.com.bbva.bancomer.bussinnes.model.vo;
 
-import java.sql.Clob;
 import java.util.Date;
-
-import oracle.sql.CLOB;
 
 import mx.com.bbva.bancomer.commons.model.vo.BbvaAbstractValueObject;
 
@@ -16,13 +13,15 @@ public class BitacoraVO extends BbvaAbstractValueObject {
 	private static final long serialVersionUID = 8324523900377713166L;
 	private int idBitacora;
 	private int idUsuario;
+	private String nombreUsuario;
 	private String nombreBitacora;
-	private Clob descripcionBitacora;
+	private String descripcionBitacora;
 	private Date horaBitacora;
 	private Date fechaBitacora;
 	private int idEventoMapeador;
-	private Date fechaInicio;
-	private Date fechaFin;
+	private String nombreEventoMapeador;
+	private String fechaInicio;
+	private String fechaFin;
 	
 	/**
 	 * @return the idBitacora
@@ -64,19 +63,13 @@ public class BitacoraVO extends BbvaAbstractValueObject {
 	/**
 	 * @return the descripcionBitacora
 	 */
-	public Clob getDescripcionBitacora() {
+	public String getDescripcionBitacora() {
 		return descripcionBitacora;
 	}
 	/**
 	 * @param descripcionBitacora the descripcionBitacora to set
 	 */
-	public void setDescripcionBitacora(Clob descripcionBitacora) {
-		this.descripcionBitacora = descripcionBitacora;
-	}
-	/**
-	 * @param descripcionBitacora the descripcionBitacora to set
-	 */
-	public void setDescripcionBitacora(CLOB descripcionBitacora) {
+	public void setDescripcionBitacora(String descripcionBitacora) {
 		this.descripcionBitacora = descripcionBitacora;
 	}
 	/**
@@ -116,27 +109,51 @@ public class BitacoraVO extends BbvaAbstractValueObject {
 		this.fechaBitacora = fechaBitacora;
 	}
 	/**
+	 * @return the nombreUsuario
+	 */
+	public String getNombreUsuario() {
+		return nombreUsuario;
+	}
+	/**
+	 * @param nombreUsuario the nombreUsuario to set
+	 */
+	public void setNombreUsuario(String nombreUsuario) {
+		this.nombreUsuario = nombreUsuario;
+	}
+	/**
+	 * @return the nombreEventoMapeador
+	 */
+	public String getNombreEventoMapeador() {
+		return nombreEventoMapeador;
+	}
+	/**
+	 * @param nombreEventoMapeador the nombreEventoMapeador to set
+	 */
+	public void setNombreEventoMapeador(String nombreEventoMapeador) {
+		this.nombreEventoMapeador = nombreEventoMapeador;
+	}
+	/**
 	 * @return the fechaInicio
 	 */
-	public Date getFechaInicio() {
+	public String getFechaInicio() {
 		return fechaInicio;
 	}
 	/**
 	 * @param fechaInicio the fechaInicio to set
 	 */
-	public void setFechaInicio(Date fechaInicio) {
+	public void setFechaInicio(String fechaInicio) {
 		this.fechaInicio = fechaInicio;
 	}
 	/**
 	 * @return the fechaFin
 	 */
-	public Date getFechaFin() {
+	public String getFechaFin() {
 		return fechaFin;
 	}
 	/**
 	 * @param fechaFin the fechaFin to set
 	 */
-	public void setFechaFin(Date fechaFin) {
+	public void setFechaFin(String fechaFin) {
 		this.fechaFin = fechaFin;
 	}
 	

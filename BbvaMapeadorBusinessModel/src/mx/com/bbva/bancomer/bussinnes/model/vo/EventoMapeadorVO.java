@@ -6,7 +6,7 @@ import mx.com.bbva.bancomer.commons.model.vo.BbvaAbstractValueObject;
  * @author Julio Morales
  *
  */
-public class EventoMapeador extends BbvaAbstractValueObject {
+public class EventoMapeadorVO extends BbvaAbstractValueObject {
 
 	private static final long serialVersionUID = 206366534004792211L;
 	private int idEventoMapeador;
