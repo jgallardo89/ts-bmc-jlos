@@ -3,7 +3,9 @@ package mx.com.bbva.mt101.ui.commons.viewmodel.canales;
 import java.util.List;
 
 import mx.com.bbva.bancomer.bussinnes.model.vo.CanalVO;
+import mx.com.bbva.bancomer.bussinnes.model.vo.EstatusObjetoVO;
 import mx.com.bbva.bancomer.canal.dto.CanalDTO;
+import mx.com.bbva.bancomer.commons.command.CommandConstants;
 import mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject;
 import mx.com.bbva.bancomer.estatusobjeto.dto.EstatusObjetoDTO;
 import mx.com.bbva.bancomer.mapper.business.CanalBO;
@@ -64,7 +66,10 @@ public class CanalesController extends ControllerSupport implements IController 
 		canalDTO = new CanalDTO();
 		EstatusObjetoBO estatusObjetoBO = new EstatusObjetoBO();
 		EstatusObjetoDTO estatusObjetoDTO = new EstatusObjetoDTO();
-	    estatusObjetoDTO.setCommandId(2);
+	    estatusObjetoDTO.setCommandId(CommandConstants.ESTATUS_OBJETO);
+	    EstatusObjetoVO estatusObjetoVO = new EstatusObjetoVO();
+	    estatusObjetoVO.setNombreTabla("CANALES");
+	    estatusObjetoDTO.setEstatusObjetoVO(estatusObjetoVO);
 	    estatusObjetoDTO = estatusObjetoBO.readCommand(estatusObjetoDTO);
 	    canalDTO.setEstatusObjetoVOs(estatusObjetoDTO.getEstatusObjetoVOs());
 	    
