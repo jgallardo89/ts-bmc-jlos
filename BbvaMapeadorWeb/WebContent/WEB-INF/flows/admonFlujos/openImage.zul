@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?page title="Log Eventos" contentType="text/html;charset=UTF-8"?>
+<?meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7"?>
+<?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
+<zk>
+	<window closable="true" position="center,center"
+		border="0" width="75%" height="35%"
+		apply="mx.com.bbva.mt101.ui.commons.viewmodel.admonFlujos.AdmonFlujosController"
+		id="detalleBitacoraWindow">
+		<include src="../../pages/styles.zul" />
+		<div apply="org.zkoss.bind.BindComposer" sclass="BODY" height="100%" 
+		viewModel="@id('vm') @init('mx.com.bbva.mt101.ui.commons.viewmodel.admonFlujos.AdmonFlujosController')">
+			<groupbox height="100%">
+				<caption sclass="pageTitle" label="Flujo"></caption>
+				<div align="center">		
+					<image src="@load(arg.descripcionUrlImagen)"></image>
+				</div>
+				<div align="center">
+					<button id="closeBtn" sclass="button" label="Cerrar"/>	
+				</div>							
+			</groupbox>
+		</div>
+	</window>
+</zk>

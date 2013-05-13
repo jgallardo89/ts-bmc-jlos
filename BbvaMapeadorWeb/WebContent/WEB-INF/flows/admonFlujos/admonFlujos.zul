@@ -114,7 +114,7 @@
 											<label hflex="1" value="@load(each.fechaModificacion)  @converter('formatedDate', format='dd/MM/yyyy  HH:MM:SS')"></label>
 											<label hflex="1" value="@load(each.descripcionEtapa)"></label>
 											<label hflex="1" value="@load(each.nombreEstatusObjeto)"></label>
-											<label hflex="1" value="@load(each.descripcionUrlImagen)"></label>																						
+											<image src="/img/flujo.gif" onClick="@command('openImage',descripcionUrlImagen=each)"></image>
 										</row>
 									</template>									
 								</grid>
