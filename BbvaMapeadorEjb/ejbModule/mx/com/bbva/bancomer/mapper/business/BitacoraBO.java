@@ -5,8 +5,12 @@ import java.util.List;
 import javax.ejb.Stateless;
 
 import mappers.bitacora.MapBitacora;
+import mappers.canal.MapCanal;
 import mx.com.bbva.bancomer.bitacora.dto.BitacoraDTO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.BitacoraVO;
+import mx.com.bbva.bancomer.bussinnes.model.vo.CanalVO;
+import mx.com.bbva.bancomer.bussinnes.model.vo.ProductoVO;
+import mx.com.bbva.bancomer.canal.dto.CanalDTO;
 import mx.com.bbva.bancomer.commons.business.BbvaIBusinessObject;
 import mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject;
 import mx.com.bbva.mapeador.oralce.session.MapeadorSessionFactory;
@@ -23,8 +27,24 @@ public class BitacoraBO implements BbvaIBusinessObject {
 	@Override
 	public <T extends BbvaAbstractDataTransferObject> T createCommand(
 			T bbvaAbstractDataTransferObject) {
-		// TODO Auto-generated method stub
-		return null;
+		logger.debug( "Entrada createCommand          -- OK" );
+		logger.debug( "Datos de Entrada createCommand -- " + bbvaAbstractDataTransferObject.toString() );
+		BitacoraVO canalVO = ((BitacoraDTO)bbvaAbstractDataTransferObject).getBitacoraVO();
+		SqlSession session = MapeadorSessionFactory.getSqlSessionFactory()
+				.openSession();
+		MapBitacora mapBitacora = session.getMapper(MapBitacora.class);
+		try {
+			mapBitacora.crearBitacora(canalVO);
+			session.commit();
+		} catch (Exception ex) {
+			session.rollback();
+			ex.printStackTrace();
+		} finally {
+			session.close();
+		}
+		logger.debug( "Datos de Salida invoke -- " + bbvaAbstractDataTransferObject.toString() );
+		logger.debug( "Salida invoke          -- OK" );
+		return bbvaAbstractDataTransferObject;			
 	}
 	
 	@Override
