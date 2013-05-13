@@ -66,6 +66,33 @@ public class FlujoBO implements BbvaIBusinessObject {
 		}
 	}
 	
+	public List<FlujoVO> readCommand() {
+		List<FlujoVO> result = null;
+		try {
+			try {				
+				SqlSession session = MapeadorSessionFactory
+						.getSqlSessionFactory().openSession();
+				MapFlujo mapFlujo = session.getMapper(MapFlujo.class);
+				try {
+					result = mapFlujo.obtenerCBFlujos();
+					session.commit();
+				} catch (Exception ex) {
+					session.rollback();
+					ex.printStackTrace();
+				} finally {
+					session.close();
+				}
+				return result;
+			} catch (Exception ex) {
+				ex.printStackTrace();
+				return result;
+			}
+		} catch (Exception exception) {
+			exception.printStackTrace();
+			return result;
+		}
+	}
+	
 	@Override
 	public <T extends BbvaAbstractDataTransferObject> T updateCommand(
 			T bbvaAbstractDataTransferObject) {

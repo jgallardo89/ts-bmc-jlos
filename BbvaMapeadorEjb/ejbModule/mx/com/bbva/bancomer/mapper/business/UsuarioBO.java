@@ -4,13 +4,9 @@ import java.util.List;
 
 import javax.ejb.Stateless;
 
-import mappers.estatusobjeto.MapEstatusObjeto;
 import mappers.usuario.MapUsuario;
-import mx.com.bbva.bancomer.bussinnes.model.vo.EstatusObjetoVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.UsuarioVO;
 import mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject;
-import mx.com.bbva.bancomer.commons.model.vo.BbvaAbstractValueObject;
-import mx.com.bbva.bancomer.estatusobjeto.dto.EstatusObjetoDTO;
 import mx.com.bbva.bancomer.estatusobjeto.dto.UsuarioDTO;
 import mx.com.bbva.mapeador.oralce.session.MapeadorSessionFactory;
 

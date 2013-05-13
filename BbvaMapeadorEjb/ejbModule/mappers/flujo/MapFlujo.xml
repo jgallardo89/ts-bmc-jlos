@@ -43,4 +43,13 @@
 		WHERE
 			CD_FLUJO = #{idFlujo}
 	</update>
+	<select id="obtenerCBFlujos" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.FlujoVO"
+		resultType="mx.com.bbva.bancomer.bussinnes.model.vo.FlujoVO">
+			SELECT
+				CD_FLUJO idFlujo,
+				NB_FLUJO nombreFlujo
+			FROM
+				TGM513_FLUJO FLUJO
+			ORDER BY CD_FLUJO
+	</select>
 </mapper>
