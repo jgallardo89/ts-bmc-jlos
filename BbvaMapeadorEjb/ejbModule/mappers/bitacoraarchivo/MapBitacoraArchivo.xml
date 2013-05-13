@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mappers.bitacoraarchivo.MapBitacoraArchivo">
+    
+	<select id="obtenerBitacoraArchivos" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.BitacoraArchivoVO"
+		resultType="mx.com.bbva.bancomer.bussinnes.model.vo.BitacoraArchivoVO">
+		SELECT 
+			B.CD_BITACORA idBitacora, 
+			B.CD_USUARIO idUsuario, 
+			B.NB_BITACORA nombreBitacora, 
+			B.TX_BITACORA descripcionBitacora, 
+			B.TM_BITACORA horaBitacora, 
+			B.FH_BITACORA fechaBitacora, 
+			B.CD_EVENTO_MAPEADOR idEventoMapeador,
+			EM.NB_EVENTO_MAPEADOR nombreEventoMapeador
+		FROM 
+			TGM507_BITACORA B,
+			TGM508_EVENTO_MAPA EM
+		WHERE 
+			B.CD_EVENTO_MAPEADOR = EM.CD_EVENTO_MAPEADOR
+			<if test="idEventoMapeador != null and idEventoMapeador != 0">
+				AND B.CD_EVENTO_MAPEADOR = #{idEventoMapeador}
+			</if>
+			<if test="fechaInicio != null and fechaFin != null">    
+				AND B.FH_BITACORA BETWEEN #{fechaInicio} AND #{fechaFin}
+			</if>
+			<if test="nombreBitacora != null ">
+				AND B.NB_BITACORA LIKE #{nombreBitacora}
+			</if>						  
+		ORDER BY B.CD_BITACORA	
+			    
+	</select>
+</mapper>

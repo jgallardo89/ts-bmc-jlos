@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mappers.mapagmm.MapMapaGmm">
+	<select id="obtenerMapaGmms" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.MapaGmmVO"
+		resultType="mx.com.bbva.bancomer.bussinnes.model.vo.MapaGmmVO">
+		SELECT 
+			M.CD_MAPA_GMM idMapaGmm, 
+			M.NB_MAPA_GMM nombreMapaGmm, 
+			M.TX_MAPA_GMM descripcionMapaGmm, 
+			M.TM_ALTA fechaAlta, 
+			M.TM_MODIFICACION fechaModificacion, 
+			M.NB_PROCESO_SI nombreProcesoSi, 
+			M.CD_ST_OBJETO idEstatusObjeto,
+			O.NB_ST_OBJETO nombreEstatusObjeto
+		FROM 
+			TGM514_MAPA_GMM M,
+			TGM534_ST_OBJETO O
+		WHERE 
+			M.CD_ST_OBJETO = O.CD_ST_OBJETO
+			<if test="nombreMapaGmm != null">
+				AND M.NB_MAPA_GMM LIKE #{nombreMapaGmm}
+			</if>
+			<if test="descripcionMapaGmm != null">
+				AND M.TX_MAPA_GMM LIKE #{descripcionMapaGmm}
+			</if>
+			<if test="fechaAlta != null ">
+				AND M.TM_ALTA like  TO_DATE(TO_CHAR( #{fechaAlta}, 'YYYY-MM-DD'), 'YYYY-MM-DD')
+			</if>						  
+			<if test="fechaModificacion != null ">
+				AND  M.TM_MODIFICACION like TO_DATE(TO_CHAR( #{fechaModificacion}, 'YYYY-MM-DD'), 'YYYY-MM-DD')
+			</if>			
+			<if test="idEstatusObjeto != null and idEstatusObjeto != 0">
+				AND M.CD_ST_OBJETO = #{idEstatusObjeto}
+			</if>	
+		ORDER BY M.CD_MAPA_GMM
+		
+	</select>
+	<insert id="crearMapaGmm" keyProperty="idMapaGmm" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.MapaGmmVO">
+		<selectKey keyProperty="idMapaGmm" resultType="int" order="BEFORE"> 
+			<![CDATA[ select SQ_MAPAGMM.nextval as idMapaGmm from dual ]]> 
+		</selectKey>
+		INSERT INTO TGM514_MAPA_GMM (
+			CD_MAPA_GMM, 
+			NB_MAPA_GMM, 
+			TX_MAPA_GMM, 
+			TM_ALTA, 
+			TM_MODIFICACION, 
+			NB_PROCESO_SI, 
+			CD_ST_OBJETO)
+		VALUES (
+			#{idMapaGmm},
+			#{nombreMapaGmm},
+			#{descripcionMapaGmm}, 
+			CURRENT_DATE, 
+			CURRENT_DATE,
+			' ',
+			#{idEstatusObjeto})
+		
+	</insert>
+	<update id="actualizarMapaGmm" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.MapaGmmVO">
+		UPDATE TGM514_MAPA_GMM SET  
+			NB_MAPA_GMM = #{nombreMapaGmm},
+			TX_MAPA_GMM = #{descripcionMapaGmm},   
+			TM_MODIFICACION = CURRENT_DATE, 
+			CD_ST_OBJETO = #{idEstatusObjeto}
+		WHERE 
+			CD_MAPA_GMM = #{idMapaGmm}
+	</update>
+</mapper>
