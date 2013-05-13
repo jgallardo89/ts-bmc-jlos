@@ -1,6 +1,13 @@
 package mx.com.bbva.mt101.ui.commons.viewmodel.admonFlujos;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.BindingParam;
@@ -9,15 +16,25 @@ import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.Executions;
+import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.select.Selectors;
+import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Textbox;
+import org.zkoss.zul.Window;
 
+import com.wutka.jox.JOXBeanInputStream;
+
+import mx.com.bbva.bancomer.bitacora.dto.BitacoraDTO;
+import mx.com.bbva.bancomer.bitacora.dto.CampoDTO;
+import mx.com.bbva.bancomer.bussinnes.model.vo.BitacoraVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.FlujoVO;
 import mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject;
 import mx.com.bbva.bancomer.estatusobjeto.dto.EstatusObjetoDTO;
 import mx.com.bbva.bancomer.flujo.dto.FlujoDTO;
+import mx.com.bbva.bancomer.mapper.business.BitacoraBO;
 import mx.com.bbva.bancomer.mapper.business.FlujoBO;
 import mx.com.bbva.bancomer.mapper.business.EstatusObjetoBO;
 import mx.com.bbva.bancomer.utils.StringUtil;
@@ -169,7 +186,26 @@ public class AdmonFlujosController extends ControllerSupport implements IControl
     public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
         Selectors.wireComponents(view, this, false);        
     }
-
+	
+	
+	@Command
+	public void openImage(@BindingParam("descripcionUrlImagen") final FlujoVO flujoVO) {
+		Map<String, Object> mapDatos = new HashMap<String, Object>();
+		mapDatos.put("descripcionUrlImagen", flujoVO.getDescripcionUrlImagen());
+		System.out.println("**************" + flujoVO.getDescripcionUrlImagen());
+		Window window = (Window) Executions.createComponents(
+				"/WEB-INF/flows/admonFlujos/openImage.zul",this.getSelf(), mapDatos);
+		window.doModal();
+	}
+	
+	@Wire
+    Window detalleBitacoraWindow;
+	
+	@Listen("onClick = #closeBtn")
+    public void showModal(Event e) {
+		detalleBitacoraWindow.detach();
+    }
+	
 	/**
 	 * @return the flagBtnGuardar
 	 */
