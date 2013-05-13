@@ -9,10 +9,16 @@
 		<display-name>ZK Session cleaner</display-name>
 		<listener-class>org.zkoss.zk.ui.http.HttpSessionListener</listener-class>
 	</listener>
-	<!-- filter> <filter-name>SessionFilterTam</filter-name> <filter-class>mx.com.bbva.mapeador.security.session.SessionFilterTam</filter-class> 
-		<init-param> <param-name>avoid-urls</param-name> <param-value>index.jsp</param-value> 
-		</init-param> </filter> <filter-mapping> <filter-name>SessionFilterTam</filter-name> 
-		<url-pattern>/app/*</url-pattern> </filter-mapping -->
+	<filter> 
+		<filter-name>SessionFilterTam</filter-name> 
+		<filter-class>mx.com.bbva.mapeador.security.session.filter.SessionFilterTam</filter-class> 
+		<init-param> 
+			<param-name>avoid-urls</param-name> 
+			<param-value>index.jsp</param-value> 
+		</init-param> 
+	</filter> 
+	<filter-mapping> <filter-name>SessionFilterTam</filter-name> 
+		<url-pattern>/app/*</url-pattern> </filter-mapping>
 	<servlet>
 		<description>
 		The ZK loader for ZUML pages</description>
