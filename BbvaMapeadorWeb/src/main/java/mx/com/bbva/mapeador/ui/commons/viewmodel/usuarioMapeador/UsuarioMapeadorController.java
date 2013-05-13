@@ -40,6 +40,22 @@ public class UsuarioMapeadorController extends ControllerSupport implements ICon
 			.getLogger(UsuarioMapeadorController.class);
 
 	private UsuarioDTO	usuarioDTO = (UsuarioDTO)this.read();	
+	
+	private boolean executePermissionSet = this.applyPermission();
+
+	/**
+	 * @return the executePermissionSet
+	 */
+	public final boolean isExecutePermissionSet() {
+		return executePermissionSet;
+	}
+
+	/**
+	 * @param executePermissionSet the executePermissionSet to set
+	 */
+	public final void setExecutePermissionSet(boolean executePermissionSet) {
+		this.executePermissionSet = executePermissionSet;
+	}
 
 	@Wire
 	private Combobox perfilesDisponibles;
@@ -77,6 +93,14 @@ public class UsuarioMapeadorController extends ControllerSupport implements ICon
 	 */
 	public void setUsuarioVOs(List<UsuarioVO> usuarioVOs) {
 		this.usuarioVOs = usuarioVOs;
+	}
+	
+	public boolean applyPermission(){
+		List<Component> components = this.getSelf().getChildren();
+		for (Component component : components) {
+			logger.debug("Componente type="+component.getDefinition().getClass().getName());
+		}
+		return true;
 	}
 
 	@Override
