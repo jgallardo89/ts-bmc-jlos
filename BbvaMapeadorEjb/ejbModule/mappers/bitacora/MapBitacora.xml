@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="mappers.bitacora.MapBitacora">
-    
 	<select id="obtenerBitacora" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.BitacoraVO"
 		resultType="mx.com.bbva.bancomer.bussinnes.model.vo.BitacoraVO">
 				SELECT
@@ -41,4 +40,23 @@
 				WHERE
 					CD_BITACORA = #{idBitacora}
 	</select>
+	<insert id="crearBitacora" keyProperty="idBitacora" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.BitacoraVO">
+		<selectKey keyProperty="idBitacora" resultType="int" order="BEFORE"> 
+			<![CDATA[ select SQ_BITACORA.nextval as idBitacora from dual ]]> 
+		</selectKey>
+		INSERT INTO TGM507_BITACORA
+			(CD_BITACORA,
+			CD_USUARIO,
+			NB_BITACORA,
+			TX_BITACORA,
+			TM_BITACORA,
+			CD_EVENTO_MAPEADOR)
+		VALUES
+			(#{idBitacora},
+			#{idUsuario},
+			#{nombreBitacora},
+			#{descripcionBitacora},
+			CURRENT_DATE,
+			#{idEventoMapeador})
+	</insert>
 </mapper>
