@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans	xmlns			= "http://www.springframework.org/schema/beans"
+  	   	xmlns:xsi		= "http://www.w3.org/2001/XMLSchema-instance"
+     	xmlns:aop		= "http://www.springframework.org/schema/aop"
+     	xmlns:tx		= "http://www.springframework.org/schema/tx"
+     	xmlns:jdbc		= "http://www.springframework.org/schema/jdbc"
+     	xmlns:context	= "http://www.springframework.org/schema/context"
+     	xmlns:mybatis	= "http://mybatis.org/schema/mybatis-spring"
+        xmlns:util		= "http://www.springframework.org/schema/util"
+     	xsi:schemaLocation	="http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+     						  http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+     						  http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.0.xsd
+     						  http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+     						  http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+     						  http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring.xsd
+     						  http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<!-- Recursos de Texto -->
+	<!-- Catalago de Errores 
+	<util:properties id = "errorProperties"      location="classpath:mx/com/bbva/bancomer/mapper/resources/exception-properties.properties" />
+	-->
+	<!-- Relacion Data Transfer Object - Business Object
+	<util:properties id = "dtoMappingProperties" location="classpath:mx/com/bbva/bancomer/mapper/resources/dtomapping-properties.properties" />
+	-->
+	<!-- Relacion accion - Command Invoker 
+	<util:properties id = "cmdMappingProperties" location="classpath:mx/com/bbva/bancomer/mapper/resources/cmdmapping-properties.properties" />
+	-->
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<!-- Excepciones 
+ 	<bean id="bbvaException" class="mx.com.bbva.bancomer.commons.exception.BbvaException">
+  		<property name="errorProperties" ref="errorProperties" />
+	</bean>
+-->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<!-- Fuentes de Datos -->
+	<!-- Datasource en memoria temporal -->
+	<!-- bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
+		<property name="url" value="jdbc:oracle:thin:@localhost:1521:XE" />
+		<property name="username" value="SYSTEM" />
+		<property name="password" value="sysadmin" />
+	</bean -->
+
+	<!-- Datasource en servidor de aplicaciones -->
+	<bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+   		<property name="jndiName" value="jdbc/MAPEADOR" />
+	</bean>
+<!-- Fin Fuentes de Datos -->
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<!-- Gestor de Transacciones  -->
+	<!-- Transaction manager, use DataSourceTransactionManager for global tx -->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+<!-- Fin Gestor de Transacciones  -->
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<!-- Configuracion de MyBatis -->
+	<!-- define the SqlSessionFactory -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+
+	<!-- scan for mappers and let them be autowired -->
+	<mybatis:scan base-package="mx.com.bbva.bancomer.mapper.persistence.sqlmapping" />
+<!-- Fin Configuracion de MyBatis -->
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<!-- Configuracion de Hibernate -->
+	<!-- bean id="sqlSessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"/>
+		<property name="mappingResources">
+			<list>
+				<value>package.file.hbm.xml</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<value>hibernate.dialect=org.hibernate.dialect.HSQLDialect</value>
+		</property>
+	</bean-->
+<!-- Fin Configuracion de Hibernate -->
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<!-- Objetos de Acceso a Datos -->
+	<!-- MyBatis -->
+ 	<bean id="bbvaMyBatisDAO" class="mx.com.bbva.bancomer.commons.persistence.dao.BbvaMyBatisDAO">
+  		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
+		
+
+	<!-- Hibernate -->
+ 	<!-- bean id="bbvaHibernateDAO" class="mx.com.bbva.bancomer.commons.persistence.dao.BbvaHibernateDAO">
+  		<property name="sessionFactory" ref="sqlSessionFactory" />
+	</bean--> 
+
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<!-- EJBs 
+	<bean id="bbvaUsuarioBO" class="org.springframework.ejb.access.LocalStatelessSessionProxyFactoryBean">
+		<property name="jndiName" value="java:comp/env/ejb/bbvaUsuarioBO"/>
+		<property name="businessInterface" value="mx.com.bbva.bancomer.commons.business.BbvaIBusinessObject"/>
+		<property name="bbvaIDataAccessObject" ref="bbvaMyBatisDAO"/>
+	</bean>
+
+ 	<bean id="estatusObjetoBO" class="org.springframework.ejb.access.LocalStatelessSessionProxyFactoryBean">
+		<property name="jndiName" value="java:estatusObjetoBO"/>
+		<property name="businessInterface" value="mx.com.bbva.bancomer.commons.business.BbvaIBusinessObject"/>		
+	</bean>
+	<bean id="bbvaXxxxxxxxBO" class="org.springframework.ejb.access.LocalStatelessSessionProxyFactoryBean">
+		<property name="jndiName" value="java:comp/env/ejb/bbvaXxxxxxxBO"/>
+		<property name="businessInterface" value="mx.com.bbva.bancomer.commons.business.BbvaIBusinessObject"/>
+		<property name="bbvaIDataAccessObject" ref="bbvaMyBatisDAO"/>
+	</bean-->
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<!-- Command Invoker  
+	<util:map id="boMappingProperties">
+		<entry key="BbvaUsuarioBO"><ref bean="bbvaUsuarioBO"/></entry>
+		<entry key="BbvaXxxxxxxxxBO"><ref bean="bbvaXxxxxxxxxBO"/></entry>
+	</util:map>
+
+ 	<bean id="bbvaAbstractCommandInvoker" class="mx.com.bbva.bancomer.commons.command.BbvaAbstractCommandInvoker">
+  		<property name="dtoMap" ref="dtoMappingProperties" />
+  		<property name="dtoMap" ref="dtoMappingProperties" />
+  		<property name="boMap" ref="boMappingProperties" />
+	</bean>
+-->
+</beans>
