@@ -8,7 +8,7 @@
                 <property  name="data_source" value="jdbc/MAPEADOR"/>
             </dataSource>
         </environment>
-    </environments>    
+    </environments>
     <mappers>
     	<mapper resource="mappers/estatusobjeto/MapEstatusObjeto.xml"/>
     	<mapper resource="mappers/canal/MapCanal.xml"/>
@@ -23,5 +23,6 @@
     	<mapper resource="mappers/bitacora/MapBitacora.xml"/>
     	<mapper resource="mappers/evento/MapEvento.xml"/>
     	<mapper resource="mappers/componente/MapComponente.xml"/>
+    	<mapper resource="mappers/producto/MapProducto.xml"/>
     </mappers>
 </configuration>
