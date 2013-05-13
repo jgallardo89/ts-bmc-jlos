@@ -5,24 +5,25 @@
         <environment id="development">
             <transactionManager type="JDBC"/>
             <dataSource type="JNDI" >
-                <property  name="data_source" value="jdbc/MAPEADOR"/>
+                <property  name="data_source" value="jdbc/MAPEADORAC"/>
             </dataSource>
         </environment>
-    </environments>
+    </environments>    
     <mappers>
     	<mapper resource="mappers/estatusobjeto/MapEstatusObjeto.xml"/>
     	<mapper resource="mappers/canal/MapCanal.xml"/>
-    	<mapper resource="mappers/pantalla/MapPantalla.xml"/>
-    	<mapper resource="mx/com/bbva/mapeador/entity/tgm501pantalla/MapTgm501Pantalla.xml"/>
+    	<mapper resource="mappers/pantalla/MapPantalla.xml"/>    	
     	<mapper resource="mappers/cliente/MapCliente.xml"/>
     	<mapper resource="mappers/usuario/MapUsuario.xml"/>
     	<mapper resource="mappers/perfil/MapPerfil.xml"/>
     	<mapper resource="mappers/flujo/MapFlujo.xml"/>
     	<mapper resource="mappers/palabracomodin/MapPalabraComodin.xml"/>
     	<mapper resource="mappers/mensajesalida/MapMensajeSalida.xml"/>
+    	<mapper resource="mappers/componente/MapComponente.xml"/>
+    	<mapper resource="mappers/pantalla/MapPantalla.xml"/>
+    	<mapper resource="mx/com/bbva/mapeador/entity/tgm501pantalla/MapTgm501Pantalla.xml"/>
     	<mapper resource="mappers/bitacora/MapBitacora.xml"/>
     	<mapper resource="mappers/evento/MapEvento.xml"/>
-    	<mapper resource="mappers/componente/MapComponente.xml"/>
     	<mapper resource="mappers/producto/MapProducto.xml"/>
     </mappers>
 </configuration>
