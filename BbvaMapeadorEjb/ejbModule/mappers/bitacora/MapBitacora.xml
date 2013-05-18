@@ -50,13 +50,15 @@
 			NB_BITACORA,
 			TX_BITACORA,
 			TM_BITACORA,
-			CD_EVENTO_MAPEADOR)
+			CD_EVENTO_MAPEADOR,
+			FH_BITACORA)
 		VALUES
 			(#{idBitacora},
 			#{idUsuario},
 			#{nombreBitacora},
 			#{descripcionBitacora},
 			CURRENT_DATE,
-			#{idEventoMapeador})
+			#{idEventoMapeador},
+			CURRENT_DATE)
 	</insert>
 </mapper>
