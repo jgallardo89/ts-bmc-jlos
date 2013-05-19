@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mappers.usuarionotificacion.MapUsuarioNotificacion">
+	<select id="obtenerUsuariosNotificacion" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.UsuarioNotificacionVO"
+		resultType="mx.com.bbva.bancomer.bussinnes.model.vo.UsuarioNotificacionVO">
+		SELECT 
+			UN.CD_USUA_NOTIFICADO idUsuarioNotificado, 
+			UN.NB_USUA_NOTIFICADO nombreUsuarioNotificado, 
+			UN.TX_EMAIL descripcionEmail, 
+			UN.CD_ST_OBJETO idEstatusObjeto,
+			O.NB_ST_OBJETO AS nombreEstatusObjeto
+		FROM 
+			TGM510_USUA_NOTIFI UN,
+			TGM534_ST_OBJETO O
+		WHERE
+			UN.CD_ST_OBJETO = O.CD_ST_OBJETO
+		<if test="nombreUsuarioNotificado != null">
+			AND UN.NB_USUA_NOTIFICADO LIKE  #{nombreUsuarioNotificado}
+		</if>
+		<if test="descripcionEmail != null">
+			AND UN.TX_EMAIL LIKE #{descripcionEmail}
+		</if>
+		<if test="idEstatusObjeto != null and idEstatusObjeto != 0">
+			AND UN.CD_ST_OBJETO = #{idEstatusObjeto}
+		</if>			
+	    ORDER BY UN.CD_USUA_NOTIFICADO
+	</select>
+	<insert id="crearUsuarioNotificacion" keyProperty="idUsuario" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.UsuarioNotificacionVO">
+		<selectKey keyProperty="idUsuarioNotificado" resultType="int" order="BEFORE"> 
+			<![CDATA[ select SQ_USUA_NOTIFI.nextval as idUsuarioNotificado from dual ]]> 
+		</selectKey>
+		INSERT INTO 
+			TGM510_USUA_NOTIFI (
+			CD_USUA_NOTIFICADO, 
+			NB_USUA_NOTIFICADO, 
+			TX_EMAIL, 
+			CD_ST_OBJETO) 
+		VALUES (
+			#{idUsuarioNotificado},
+			#{nombreUsuarioNotificado},
+			#{descripcionEmail},
+			#{idEstatusObjeto})
+	</insert>
+	<update id="actualizarUsuarioNotificacion" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.UsuarioNotificacionVO">
+		UPDATE TGM510_USUA_NOTIFI SET  
+			NB_USUA_NOTIFICADO = #{nombreUsuarioNotificado},
+			TX_EMAIL = #{descripcionEmail},
+			CD_ST_OBJETO = #{idEstatusObjeto}
+		WHERE 
+			CD_USUA_NOTIFICADO = #{idUsuarioNotificado}
+	</update>
+</mapper>
