@@ -15,7 +15,7 @@ import org.apache.log4j.Logger;
 
 @Stateless(mappedName="usuarioNotificacionBO")
 public class UsuarioNotificacionBO implements mx.com.bbva.bancomer.commons.business.BbvaIBusinessObject {
-	private static final org.apache.log4j.Logger logger	 = Logger.getLogger(UsuarioBO.class );
+	private static final org.apache.log4j.Logger logger	 = Logger.getLogger(UsuarioNotificacionBO.class );
 	@Override
 	public <T extends BbvaAbstractDataTransferObject> T createCommand(
 			T bbvaAbstractDataTransferObject) {		
