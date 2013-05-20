@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mappers.estadistico.MapEstadistico">
+	<select id="obtenerEstadisticoVO" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.EstadisticoVO"
+		resultType="mx.com.bbva.bancomer.bussinnes.model.vo.EstadisticoVO">
+		SELECT 
+			CAN.CD_CANAL idCanal,
+			CAN.NB_CANAL nombreCanal,
+			CLIENTE.CD_CLIENTE idCliente,
+			CLIENTE.CD_IDENTIFICADOR idIdentificador,
+			PRODUCTO.CD_PRODUCTO idProducto,
+			PRODUCTO.NB_PRODUCTO nombreProducto,
+			ARCHIVO.CD_REG_ARCH_ENTRA idRegArchEntra,
+			ARCHIVO.NB_REG_ARCH_ENTRA nombreRegArchEntra,
+			E.NU_OPERACIONES numeroOperacione,
+			P.FH_ST_PROCESO fechaStatusProceso
+		FROM TGM539_ESTADISTICA E 
+			LEFT OUTER JOIN TGM522_ST_PROCESO P ON 
+			E.CD_CONTRATACION = P.CD_CONTRATACION AND  
+			E.CD_FLUJO = P.CD_FLUJO AND 
+			E.CD_ETAPA = P.CD_ETAPA
+			LEFT OUTER JOIN TGM536_REG_ARCH_EN ARCHIVO ON 
+			P.CD_REG_ARCH_ENTRA = ARCHIVO.CD_REG_ARCH_ENTRA
+			LEFT OUTER JOIN TGM520_CONTRAT_MAP CM ON 
+			P.CD_CONTRATACION = CM.CD_CONTRATACION AND  
+			P.CD_FLUJO = CM.CD_FLUJO AND 
+			P.CD_ETAPA = CM.CD_ETAPA
+			LEFT OUTER JOIN TGM519_CONTRATACION C ON 
+			CM.CD_CONTRATACION = C.CD_CONTRATACION
+			LEFT OUTER JOIN TGM511_CANAL CAN ON
+			C.CD_CANAL = CAN.CD_CANAL
+			LEFT OUTER JOIN TGM515_PRODUCTO PRODUCTO ON
+			C.CD_PRODUCTO = PRODUCTO.CD_PRODUCTO
+			LEFT OUTER JOIN TGM512_CLIENTE CLIENTE ON
+			C.CD_CLIENTE = CLIENTE.CD_CLIENTE
+		WHERE 
+			E.CD_CONTRATACION IS NOT NULL  
+		<if test="idCanal != null and idCanal != 0">
+			AND CAN.CD_CANAL = #{idCanal}
+		</if>		
+		<if test="idCliente != null and idCliente != 0">
+			AND CLIENTE.CD_CLIENTE = #{idCliente}
+		</if>	
+		<if test="idProducto != null and idProducto != 0">
+			AND PRODUCTO.CD_PRODUCTO = #{idProducto}
+		</if>	
+		<if test="fechaInicio != null and fechaFin != null">    
+			AND BITACORA.TM_BITACORA BETWEEN #{fechaInicio} AND #{fechaFin}
+		</if>
+		ORDER BY CAN.CD_CANAL
+	</select>
+</mapper>
