@@ -9,7 +9,7 @@
 			U.NB_USUARIO AS nombreUsuario, 			
 			U.TM_ALTA AS fechaAlta, 
 			U.TM_MODIFICACION AS fechaModificacion, 
-			U.FH_USUARIO AS fechaUsuario, 					
+			U.FH_USUARIO AS fechaUsuario, 
 			U.ST_USUARIO AS estatusUsuario, 
 			U.CD_PERFIL AS idPerfil,
 			P.NB_PERFIL AS descripcionPerfil,
@@ -43,13 +43,10 @@
 		(
 			Cd_Usuario,
 			CD_CVE_USUARIO,
-			NB_USUARIO,
-			Tx_Password_Usr,
+			NB_USUARIO,			
 			TM_ALTA,
 			Tm_Modificacion,
 			FH_USUARIO,
-			Tm_Cambio_Pws,
-			NU_INTENTOS,
 			St_Usuario,
 			CD_PERFIL
 		)
@@ -57,13 +54,10 @@
 		(
 			#{idUsuario},
 			#{idCveUsuario},
-			#{nombreUsuario},
-			'--',
+			#{nombreUsuario},			
 			sysdate,
 			null,
-			sysdate,
-			sysdate,
-			0,
+			sysdate,			
 			#{estatusUsuario},
 			#{idPerfil}						
 		)	
