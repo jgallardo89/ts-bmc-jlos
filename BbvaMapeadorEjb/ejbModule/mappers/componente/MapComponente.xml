@@ -3,30 +3,26 @@
 <mapper namespace="mappers.componente.MapComponente">
 	<select id="obtenerComponentes" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.ComponenteVO"
 		resultType="mx.com.bbva.bancomer.bussinnes.model.vo.ComponenteVO">
-		SELECT 
-			C.CD_PANTALLA idPantalla, 
-			C.CD_COMPONENTE idComponente, 
-			C.NB_COMPONENTE nombreComponente, 
-			C.TP_COMPONENTE tipoComponente, 
-			C.CD_DEFAULT idDefault, 	
-			C.ST_COMPONENTE estatusComponente,
-			P.NB_PANTALLA nombrePantalla
-		FROM 
-			TGM502_COMPONENTE C,
-			TGM501_PANTALLA P,
-			TGM534_ST_OBJETO O
-			
-		WHERE 
-			C.CD_PANTALLA = P.CD_PANTALLA  AND
-			C.ST_COMPONENTE = O.CD_ST_OBJETO
+		SELECT C.CD_PANTALLA idPantalla,
+		  C.CD_COMPONENTE idComponente,
+		  C.Nb_Componente nombreComponente,
+		  C.Cd_Tp_Componen idtipoComponente,
+		  C.Cd_Default idDefault,
+		  Tp.Nb_Tp_Componen nombreTipoComponente,
+		  P.NB_PANTALLA nombrePantalla
+		FROM Tgm502_Componente C,
+		  Tgm501_Pantalla P,
+		  Tgm506_Tp_Componen Tp
+		WHERE C.Cd_Pantalla   = P.Cd_Pantalla
+		AND Tp.Cd_Tp_Componen = C.Cd_Tp_Componen	
 			<if test="idPantalla != null  and idPantalla != 0">
 				AND C.CD_PANTALLA = #{idPantalla}
 			</if>						  
 			<if test="nombreComponente != null ">
 				AND  C.NB_COMPONENTE LIKE #{nombreComponente}
 			</if>			
-			<if test="tipoComponente != null ">
-				AND  C.TP_COMPONENTE LIKE #{tipoComponente}
+			<if test="idTipoComponente != 0 and idTipoComponente != null">
+				AND  C.TP_COMPONENTE LIKE #{idTipoComponente}
 			</if>	
 				ORDER BY C.CD_COMPONENTE
 	</select>
@@ -38,21 +34,53 @@
 				CD_COMPONENTE, 
 				CD_PANTALLA, 
 				NB_COMPONENTE, 
-				TP_COMPONENTE, 
-				CD_DEFAULT, 
-				ST_COMPONENTE) VALUES (
+				CD_TP_COMPONEN, 
+				CD_DEFAULT) VALUES (
 				#{idComponente},
 				#{idPantalla}, 
 				#{nombreComponente}, 
-				#{tipoComponente},
-				' ', 
-				1)
+				#{idTipoComponente},
+				' ')
 	</insert>
+	<select id="obtenerComponentesPantalla" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.ComponenteVO"
+		resultType="mx.com.bbva.bancomer.bussinnes.model.vo.ComponenteVO">					
+		Select Componente.Cd_Pantalla idPantalla,
+		Componente.Cd_Componente idComponente,
+		Componente.Nb_Componente nombreComponente,		
+		Componente.Cd_Default idDefault
+		From Tgm502_Componente Componente    
+		Where Componente.Cd_Default = 'F'    
+		And Componente.Cd_Pantalla = #{idPantalla}
+		minus      
+		Select Componente.Cd_Pantalla idPantalla,
+		Componente.Cd_Componente idComponente,
+		Componente.Nb_Componente nombreComponente,		
+		Componente.Cd_Default idDefault
+		From Tgm502_Componente Componente,
+    	tgm505_ctrlpermiso control
+		Where Componente.Cd_Default = 'F'    
+		And Componente.Cd_Pantalla = #{idPantalla}
+		And Control.Cd_Perfil = #{idPerfil}
+    	And Control.Cd_Componente = componente.cd_componente    
+	</select>
+	<select id="obtenerComponentesPantallaPerfil" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.ComponenteVO"
+		resultType="mx.com.bbva.bancomer.bussinnes.model.vo.ComponenteVO">	
+		Select Componente.Cd_Pantalla idPantalla,
+		Componente.Cd_Componente idComponente,
+		Componente.Nb_Componente nombreComponente,		
+		Componente.Cd_Default idDefault
+		From Tgm502_Componente Componente,
+    	tgm505_ctrlpermiso control
+		Where Componente.Cd_Default = 'F'    		
+    	And Control.Cd_Componente = componente.cd_componente
+    	And Componente.Cd_Pantalla = #{idPantalla}
+    	And Control.Cd_Perfil = #{idPerfil}
+	</select>
 	<update id="actualizarComponente" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.ComponenteVO">
 		UPDATE TGM502_COMPONENTE SET  
 			CD_PANTALLA = #{idPantalla}, 
 			NB_COMPONENTE = #{nombreComponente}, 
-			TP_COMPONENTE = #{tipoComponente}
+			CD_TP_COMPONEN = #{idTipoComponente}
 		WHERE 
 			CD_COMPONENTE = #{idComponente}
 	</update>
