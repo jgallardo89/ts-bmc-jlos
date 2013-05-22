@@ -4,6 +4,7 @@ import java.util.List;
 
 import mx.com.bbva.bancomer.bussinnes.model.vo.ComponenteVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.PantallaVO;
+import mx.com.bbva.bancomer.bussinnes.model.vo.TipoComponenteVO;
 import mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject;
 import mx.com.bbva.bancomer.componente.dto.ComponenteDTO;
 import mx.com.bbva.bancomer.estatusobjeto.dto.EstatusObjetoDTO;
@@ -64,7 +65,7 @@ public class ComponenteController extends ControllerSupport implements  IControl
 	private Textbox nombreComponente;
 	
 	@Wire
-	private Textbox tipoComponente;
+	private Combobox tipoComponente;
 	
 	private ComponenteDTO componenteDTO =  (ComponenteDTO) this.read();
 	
@@ -86,10 +87,9 @@ public class ComponenteController extends ControllerSupport implements  IControl
 		PantallaDTO pantallaDTO = new PantallaDTO();
 		PantallaVO pantallaVO = new PantallaVO();
 		pantallaDTO.setPantallaVO(pantallaVO);
-		PantallaBO pantallaBO = new PantallaBO();
-		ComponenteBO componenteBO = new ComponenteBO();
-		EstatusObjetoBO estatusObjetoBO = new EstatusObjetoBO();
-		componenteDTO = componenteBO.readCommand(componenteDTO);
+		PantallaBO pantallaBO = new PantallaBO();		
+		ComponenteBO componenteBO = new ComponenteBO();		
+		componenteDTO = componenteBO.readCommand(componenteDTO);		
 		logger.info("::::::::::::::SIZE::::::::::" + componenteDTO.getComponenteVOs());
 		pantallaDTO = pantallaBO.readCommand(pantallaDTO);
 		componenteDTO.setPantallaVOs(pantallaDTO.getPantallaVOs());
@@ -106,7 +106,7 @@ public class ComponenteController extends ControllerSupport implements  IControl
 		componenteVO.toString();
 		pantalla.setValue(componenteVO.getNombrePantalla());
 		nombreComponente.setValue(componenteVO.getNombreComponente());
-		tipoComponente.setValue(componenteVO.getTipoComponente());
+		tipoComponente.setValue(componenteVO.getNombreTipoComponente());
 		idComponente.setValue(String.valueOf(componenteVO.getIdComponente()));
 	}
 	
@@ -115,11 +115,10 @@ public class ComponenteController extends ControllerSupport implements  IControl
 	@NotifyChange({ "componenteVOs" })
 	public void readWithFilters() {
 		ComponenteDTO componenteDTO = new ComponenteDTO();
-		ComponenteVO componenteVO = new ComponenteVO();
-		EstatusObjetoDTO estatusObjetoDTO = new EstatusObjetoDTO();	
+		ComponenteVO componenteVO = new ComponenteVO();			
 		//Textbox
-		componenteVO.setNombreComponente(nombreComponente.getValue().isEmpty()?"%":"%"+nombreComponente.getValue().toUpperCase()+"%");
-		componenteVO.setTipoComponente(tipoComponente.getValue().isEmpty()?"%":"%"+tipoComponente.getValue().toUpperCase()+"%"); 
+		componenteVO.setNombreComponente(nombreComponente.getValue().isEmpty()?"%":"%"+nombreComponente.getValue()+"%");
+		componenteVO.setIdTipoComponente(Integer.parseInt(tipoComponente.getSelectedItem().getValue().toString())); 
 		
 		//Combos Validar el nombre de los parametros en HTML VS Controller
 		componenteVO.setIdPantalla((Integer.parseInt(idPantalla.getValue().isEmpty()?"0":idPantalla.getValue())));
@@ -179,10 +178,10 @@ public class ComponenteController extends ControllerSupport implements  IControl
 				ComponenteDTO componenteDTO = new ComponenteDTO();
 				ComponenteVO componenteVO = new ComponenteVO();
 				componenteVO.setIdComponente(Integer.parseInt(idComponente.getValue().isEmpty()?"0":idComponente.getValue()));
-				componenteVO.setIdPantalla(Integer.parseInt(idPantalla.getValue().isEmpty()?"1":idPantalla.getValue()));
+				componenteVO.setIdPantalla(Integer.parseInt(pantalla.getSelectedItem().getValue().toString()));
 				
-				componenteVO.setNombreComponente(nombreComponente.getValue().toUpperCase());
-				componenteVO.setTipoComponente(tipoComponente.getValue().toUpperCase());
+				componenteVO.setNombreComponente(nombreComponente.getValue());
+				componenteVO.setIdTipoComponente(Integer.parseInt(tipoComponente.getSelectedItem().getValue().toString()));
 							
 				//Seteo de VO a DTO 
 				componenteDTO.setComponenteVO(componenteVO);
@@ -193,12 +192,9 @@ public class ComponenteController extends ControllerSupport implements  IControl
 				clean();			
 				
 				//Textbox
-				componenteVO.setNombreComponente(nombreComponente.getValue().isEmpty()?"%":"%"+nombreComponente.getValue().toUpperCase()+"%");
-				componenteVO.setTipoComponente(tipoComponente.getValue().isEmpty()?"%":"%"+tipoComponente.getValue().toUpperCase()+"%"); 
-				
-				//Combos Validar el nombre de los parametros en HTML VS Controller
-				componenteVO.setIdPantalla((Integer.parseInt(idPantalla.getValue().isEmpty()?"0":idPantalla.getValue())));
-				
+				componenteVO.setNombreComponente(null);
+				componenteVO.setIdTipoComponente(0); 			
+				componenteVO.setIdPantalla(0);
 				//Consulta Parametrizada
 	
 				componenteDTO.setComponenteVO(componenteVO);
@@ -218,10 +214,9 @@ public class ComponenteController extends ControllerSupport implements  IControl
 				ComponenteDTO componenteDTO = new ComponenteDTO();
 				ComponenteVO componenteVO = new ComponenteVO();
 				componenteVO.setIdComponente(Integer.parseInt(idComponente.getValue().isEmpty()?"0":idComponente.getValue()));
-				componenteVO.setIdPantalla(Integer.parseInt(idPantalla.getValue().isEmpty()?"1":idPantalla.getValue()));
-				
-				componenteVO.setNombreComponente(nombreComponente.getValue().toUpperCase());
-				componenteVO.setTipoComponente(tipoComponente.getValue().toUpperCase());
+				componenteVO.setIdPantalla(Integer.parseInt(pantalla.getSelectedItem().getValue().toString()));
+				componenteVO.setNombreComponente(nombreComponente.getValue());
+				componenteVO.setIdTipoComponente(Integer.parseInt(tipoComponente.getSelectedItem().getValue().toString()));
 							
 				//Seteo de VO a DTO 
 				componenteDTO.setComponenteVO(componenteVO);
@@ -231,11 +226,11 @@ public class ComponenteController extends ControllerSupport implements  IControl
 				componenteBO.createCommand(componenteDTO);
 				clean();	
 				//Textbox
-				componenteVO.setNombreComponente(nombreComponente.getValue().isEmpty()?"%":"%"+nombreComponente.getValue().toUpperCase()+"%");
-				componenteVO.setTipoComponente(tipoComponente.getValue().isEmpty()?"%":"%"+tipoComponente.getValue().toUpperCase()+"%"); 
-				
+				componenteVO.setNombreComponente(null);
+				componenteVO.setIdTipoComponente(0); 
+				componenteVO.setIdPantalla(0);
 				//Combos Validar el nombre de los parametros en HTML VS Controller
-				componenteVO.setIdPantalla((Integer.parseInt(idPantalla.getValue().isEmpty()?"0":idPantalla.getValue())));
+
 				
 				//Consulta Parametrizada
 	
@@ -244,15 +239,12 @@ public class ComponenteController extends ControllerSupport implements  IControl
 				
 				//Asignacion resultado de consulta al mismo DTO de Componente
 				componenteDTO = componenteBO.readCommand(componenteDTO);
-				Messagebox.show("Registro creo con exito!!",
+				
+				componenteVOs = componenteDTO.getComponenteVOs();
+				
+				Messagebox.show("Registro creado con exito!!",
 						"Confirmación", Messagebox.OK,
-						Messagebox.INFORMATION);
-				BindUtils
-				.postGlobalCommand(
-						null,
-						null,
-						"resetGridEstatusObjetos",
-						null);
+						Messagebox.INFORMATION);				
 			}
 		}
 	}
@@ -364,13 +356,13 @@ public class ComponenteController extends ControllerSupport implements  IControl
 	/**
 	 * @return the tipoComponente
 	 */
-	public Textbox getTipoComponente() {
+	public Combobox getTipoComponente() {
 		return tipoComponente;
 	}
 	/**
 	 * @param tipoComponente the tipoComponente to set
 	 */
-	public void setTipoComponente(Textbox tipoComponente) {
+	public void setTipoComponente(Combobox tipoComponente) {
 		this.tipoComponente = tipoComponente;
 	}
 	/**
