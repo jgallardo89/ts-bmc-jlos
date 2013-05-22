@@ -34,7 +34,34 @@ public	class 	PerfilVO
 	private java.lang.String	descripcionPerfil;	//	300 caracteres 
 	private java.lang.Integer 	estatusPerfil; 		//	Llave foranea [TGM534_ST_OBJETO] - 5 digitos [00000 - 99999 ]	
 	private java.lang.Integer 	idPerfil;			//	Llave primaria[TGM504_PERFIL] - 3 digitos [000 - 999 ]
-	private java.lang.String	nombrebPerfil;		//	30 caracteres 
+	private java.lang.String	nombrebPerfil;		//	30 caracteres
+	private java.lang.String	descipcionEstatus;
+	private java.util.List<ControlPermisoVO> controlPermisoVOs;
+	/**
+	 * @return the controPermisoVOs
+	 */
+	public final java.util.List<ControlPermisoVO> getControlPermisoVOs() {
+		return controlPermisoVOs;
+	}
+	/**
+	 * @param controPermisoVOs the controPermisoVOs to set
+	 */
+	public final void setControlPermisoVOs(
+			java.util.List<ControlPermisoVO> controPermisoVOs) {
+		this.controlPermisoVOs = controPermisoVOs;
+	}
+	/**
+	 * @return the descipcionEstatus
+	 */
+	public final java.lang.String getDescipcionEstatus() {
+		return descipcionEstatus;
+	}
+	/**
+	 * @param descipcionEstatus the descipcionEstatus to set
+	 */
+	public final void setDescipcionEstatus(java.lang.String descipcionEstatus) {
+		this.descipcionEstatus = descipcionEstatus;
+	}
 	/**
 	 * @return the descripcionPerfil
 	 */
