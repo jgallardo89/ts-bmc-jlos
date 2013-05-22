@@ -58,14 +58,14 @@ public class ProductosController extends ControllerSupport implements IControlle
 	@Override
 	public Object read() {
 		productoDTO = new ProductoDTO();
-		EstatusObjetoBO estatusObjetoBO = new EstatusObjetoBO();
 		EstatusObjetoDTO estatusObjetoDTO = new EstatusObjetoDTO();
-	    estatusObjetoDTO.setCommandId(CommandConstants.ESTATUS_OBJETO);
-	    EstatusObjetoVO estatusObjetoVO = new EstatusObjetoVO();
-	    //estatusObjetoVO.setNombreTabla("PRODUCTOS");
-	    estatusObjetoDTO.setEstatusObjetoVO(estatusObjetoVO);
-	    estatusObjetoDTO = estatusObjetoBO.readCommand(estatusObjetoDTO);
-	    productoDTO.setEstatusObjetoVOs(estatusObjetoDTO.getEstatusObjetoVOs());
+		estatusObjetoDTO.setCommandId(CommandConstants.ESTATUS_OBJETO);
+		EstatusObjetoVO estatusObjetoVO = new EstatusObjetoVO();
+		estatusObjetoVO.setNombreTabla(CommandConstants.NOMBRE_TABLA_PRODUCTOS);		
+		EstatusObjetoBO estatusObjetoBO = new EstatusObjetoBO();
+		estatusObjetoDTO.setEstatusObjetoVO(estatusObjetoVO);
+		estatusObjetoDTO = estatusObjetoBO.readCommand(estatusObjetoDTO);
+		productoDTO.setEstatusObjetoVOs(estatusObjetoDTO.getEstatusObjetoVOs());
 	    
 	    FlujoBO flujoBO = new FlujoBO();
 	    flujoVOs = flujoBO.readCommand();

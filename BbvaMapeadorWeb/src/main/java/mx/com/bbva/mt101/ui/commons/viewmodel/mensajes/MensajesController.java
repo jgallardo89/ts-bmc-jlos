@@ -14,7 +14,9 @@ import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Textbox;
 
+import mx.com.bbva.bancomer.bussinnes.model.vo.EstatusObjetoVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.MensajeSalidaVO;
+import mx.com.bbva.bancomer.commons.command.CommandConstants;
 import mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject;
 import mx.com.bbva.bancomer.estatusobjeto.dto.EstatusObjetoDTO;
 import mx.com.bbva.bancomer.mapper.business.EstatusObjetoBO;
@@ -50,10 +52,13 @@ public class MensajesController extends ControllerSupport implements IController
 	@Override
 	public Object read() {
 		mensajeSalidaDTO = new MensajeSalidaDTO();
-		EstatusObjetoBO estatusObjetoBO = new EstatusObjetoBO();
 		EstatusObjetoDTO estatusObjetoDTO = new EstatusObjetoDTO();
-	    estatusObjetoDTO.setCommandId(2);
-	    estatusObjetoDTO = estatusObjetoBO.readCommand(estatusObjetoDTO);
+		estatusObjetoDTO.setCommandId(CommandConstants.ESTATUS_OBJETO);
+		EstatusObjetoVO estatusObjetoVO = new EstatusObjetoVO();
+		estatusObjetoVO.setNombreTabla(CommandConstants.NOMBRE_TABLA_MAPA);		
+		EstatusObjetoBO estatusObjetoBO = new EstatusObjetoBO();
+		estatusObjetoDTO.setEstatusObjetoVO(estatusObjetoVO);
+		estatusObjetoDTO = estatusObjetoBO.readCommand(estatusObjetoDTO);
 	    mensajeSalidaDTO.setEstatusObjetoVOs(estatusObjetoDTO.getEstatusObjetoVOs());
 	    
 		MensajeSalidaBO MensajeSalidaBO = new MensajeSalidaBO();

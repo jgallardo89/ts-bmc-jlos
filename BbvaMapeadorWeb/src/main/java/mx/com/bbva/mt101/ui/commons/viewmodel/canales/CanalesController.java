@@ -116,21 +116,21 @@ public class CanalesController extends ControllerSupport implements IController 
 		}
 		if(!errorGuardar){
 			if(idCanal.getValue().isEmpty()){
-				CanalDTO canalDTO = new CanalDTO();
-				CanalVO canalVO = new CanalVO();
-				canalVO.setNombreCanal(nombreCanal.getValue().toUpperCase());
-				canalVO.setDescripcionCanal(descripcionCanal.getValue().toUpperCase());
-				canalVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue()));
-				canalDTO.setCanalVO(canalVO);
-				canalBO.createCommand(canalDTO);
-				canalDTO.toString(BbvaAbstractDataTransferObject.XML);
-				clean();
-				canalVO.setNombreCanal(StringUtil.validaLike(nombreCanal.getValue()));
-				canalVO.setDescripcionCanal(StringUtil.validaLike(descripcionCanal.getValue()));
-				canalVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue().isEmpty()?"0":idEstatusObjeto.getValue()));
-				canalVO.toString();
-				canalDTO.setCanalVO(canalVO);
-				canalesVOs = canalBO.readCommand(canalDTO).getCanalVOs();
+//				CanalDTO canalDTO = new CanalDTO();
+//				CanalVO canalVO = new CanalVO();
+//				canalVO.setNombreCanal(nombreCanal.getValue().toUpperCase());
+//				canalVO.setDescripcionCanal(descripcionCanal.getValue().toUpperCase());
+//				canalVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue()));
+//				canalDTO.setCanalVO(canalVO);
+//				canalBO.createCommand(canalDTO);
+//				canalDTO.toString(BbvaAbstractDataTransferObject.XML);
+//				clean();
+//				canalVO.setNombreCanal(StringUtil.validaLike(nombreCanal.getValue()));
+//				canalVO.setDescripcionCanal(StringUtil.validaLike(descripcionCanal.getValue()));
+//				canalVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue().isEmpty()?"0":idEstatusObjeto.getValue()));
+//				canalVO.toString();
+//				canalDTO.setCanalVO(canalVO);
+//				canalesVOs = canalBO.readCommand(canalDTO).getCanalVOs();
 				
 			} else {
 				CanalDTO canalDTO = new CanalDTO();

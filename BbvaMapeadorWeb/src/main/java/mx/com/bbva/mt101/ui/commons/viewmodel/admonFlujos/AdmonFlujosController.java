@@ -25,12 +25,14 @@ import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
 
+import mx.com.bbva.bancomer.bussinnes.model.vo.EstatusObjetoVO;
 import com.wutka.jox.JOXBeanInputStream;
 
 import mx.com.bbva.bancomer.bitacora.dto.BitacoraDTO;
 import mx.com.bbva.bancomer.bitacora.dto.CampoDTO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.BitacoraVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.FlujoVO;
+import mx.com.bbva.bancomer.commons.command.CommandConstants;
 import mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject;
 import mx.com.bbva.bancomer.estatusobjeto.dto.EstatusObjetoDTO;
 import mx.com.bbva.bancomer.flujo.dto.FlujoDTO;
@@ -73,10 +75,13 @@ public class AdmonFlujosController extends ControllerSupport implements IControl
 	@Override
 	public Object read() {
 		flujoDTO = new FlujoDTO();
-		EstatusObjetoBO estatusObjetoBO = new EstatusObjetoBO();
 		EstatusObjetoDTO estatusObjetoDTO = new EstatusObjetoDTO();
-	    estatusObjetoDTO.setCommandId(2);
-	    estatusObjetoDTO = estatusObjetoBO.readCommand(estatusObjetoDTO);
+		estatusObjetoDTO.setCommandId(CommandConstants.ESTATUS_OBJETO);
+		EstatusObjetoVO estatusObjetoVO = new EstatusObjetoVO();
+		estatusObjetoVO.setNombreTabla(CommandConstants.NOMBRE_TABLA_FLUJOS);		
+		EstatusObjetoBO estatusObjetoBO = new EstatusObjetoBO();
+		estatusObjetoDTO.setEstatusObjetoVO(estatusObjetoVO);
+		estatusObjetoDTO = estatusObjetoBO.readCommand(estatusObjetoDTO);		
 	    flujoDTO.setEstatusObjetoVOs(estatusObjetoDTO.getEstatusObjetoVOs());
 	    
 		FlujoBO FlujoBO = new FlujoBO();
