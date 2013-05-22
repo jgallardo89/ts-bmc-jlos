@@ -13,8 +13,8 @@
 			From 	Tgm501_Pantalla Pantalla,
 					Tgm504_Perfil Perfil,
 					Tgm503_Usuario Usuario
-			Where 	St_Pantalla = 2
-					And St_Perfil = 1
+			Where 	St_Pantalla = 1
+					And St_Perfil = 17
 					And St_Usuario = 3
 					And Usuario.Cd_Cve_Usuario = #{cdCveUsuario}
 					And Pantalla.Cd_Fk_Pantalla = #{cdFkPantalla}
