@@ -22,7 +22,7 @@
 				AND B.CD_EVENTO_MAPEADOR = #{idEventoMapeador}
 			</if>
 			<if test="fechaInicio != null and fechaFin != null">    
-				AND B.FH_BITACORA BETWEEN #{fechaInicio} AND #{fechaFin}
+				AND B.FH_BITACORA BETWEEN to_date(#{fechaInicio},'dd-MM-rrrr') AND to_date(#{fechaFin},'dd-MM-rrrr')				
 			</if>
 			<if test="nombreBitacora != null ">
 				AND B.NB_BITACORA LIKE #{nombreBitacora}
