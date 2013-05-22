@@ -4,6 +4,7 @@ import java.util.List;
 
 import mx.com.bbva.bancomer.bussinnes.model.vo.EstatusObjetoVO; 
 import mx.com.bbva.bancomer.bussinnes.model.vo.PantallaVO;
+import mx.com.bbva.bancomer.bussinnes.model.vo.TipoComponenteVO;
 import mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject;
 import mx.com.bbva.bancomer.bussinnes.model.vo.ComponenteVO;
 
@@ -14,7 +15,48 @@ public class ComponenteDTO extends BbvaAbstractDataTransferObject {
 	 */
 	private static final long serialVersionUID = -3144516741620752172L;
 	private ComponenteVO ComponenteVO;  
-	private List<ComponenteVO> ComponenteVOs; 
+	private List<ComponenteVO> ComponenteVOs;
+	private List<ComponenteVO> componentePantallaVOs;
+	private List<ComponenteVO> ComponentePantallaPerfilVOs;
+	private List<TipoComponenteVO> tipoComponenteVOs;
+	/**
+	 * @return the tipoComponenteVOs
+	 */
+	public final List<TipoComponenteVO> getTipoComponenteVOs() {
+		return tipoComponenteVOs;
+	}
+	/**
+	 * @param tipoComponenteVOs the tipoComponenteVOs to set
+	 */
+	public final void setTipoComponenteVOs(List<TipoComponenteVO> tipoComponenteVOs) {
+		this.tipoComponenteVOs = tipoComponenteVOs;
+	}
+	/**
+	 * @return the componentePantallaVOs
+	 */
+	public final List<ComponenteVO> getComponentePantallaVOs() {
+		return componentePantallaVOs;
+	}
+	/**
+	 * @param componentePantallaVOs the componentePantallaVOs to set
+	 */
+	public final void setComponentePantallaVOs(
+			List<ComponenteVO> componentePantallaVOs) {
+		this.componentePantallaVOs = componentePantallaVOs;
+	}
+	/**
+	 * @return the componentePantallaPerfilVOs
+	 */
+	public final List<ComponenteVO> getComponentePantallaPerfilVOs() {
+		return ComponentePantallaPerfilVOs;
+	}
+	/**
+	 * @param componentePantallaPerfilVOs the componentePantallaPerfilVOs to set
+	 */
+	public final void setComponentePantallaPerfilVOs(
+			List<ComponenteVO> componentePantallaPerfilVOs) {
+		ComponentePantallaPerfilVOs = componentePantallaPerfilVOs;
+	}
 	private List<EstatusObjetoVO> estatusObjetoVOs;
 	private List<PantallaVO> pantallaVOs;
 	/**
