@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mappers.tipocomponente.MapTipoComponente">
+	<select id="obtenerTiposComponentes" resultType="mx.com.bbva.bancomer.bussinnes.model.vo.TipoComponenteVO">
+		Select Cd_Tp_Componen idTipoComponente,
+		Nb_Tp_Componen nombreTipoComponente
+		from Tgm506_Tp_Componen
+	</select>
+	<insert id="crearPantalla" keyProperty="idPantalla" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.PantallaVO">
+		<selectKey keyProperty="idPantalla" resultType="int" order="BEFORE"> 
+			<![CDATA[ select SQ_PANTALLA.nextval as idPantalla from dual ]]> 
+		</selectKey>
+			INSERT INTO TGM501_PANTALLA (
+			CD_PANTALLA, 
+			CD_FK_PANTALLA, 
+			NB_PANTALLA, 
+			TX_URL_PANTALLA, 
+			TX_URL_ICON, 
+			NU_ORD_PANTALLA,
+			ST_PANTALLA) VALUES (
+			#{idPantalla}, 
+			#{idPantallaPadre},  
+			#{nombrePantalla}, 
+			#{descripcionUrlPantalla}, 
+			#{descripcionUrlIcon}, 
+			#{numeroOrdenPantalla}, 
+			#{estatusPantalla})
+	</insert>
+	<update id="actualizarPantalla" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.PantallaVO">
+		UPDATE TGM501_PANTALLA SET  
+			CD_FK_PANTALLA = #{idPantallaPadre}, 
+			NB_PANTALLA = #{nombrePantalla}, 
+			TX_URL_PANTALLA = #{descripcionUrlPantalla}, 
+			TX_URL_ICON = #{descripcionUrlIcon}, 
+			NU_ORD_PANTALLA = #{numeroOrdenPantalla},  
+			ST_PANTALLA = #{estatusPantalla}
+		WHERE 
+		CD_PANTALLA = #{idPantalla}
+	</update>
+</mapper>
