@@ -11,11 +11,37 @@ public class ComponenteVO extends BbvaAbstractValueObject {
 	public long idPantalla;
 	public long idComponente;
 	public String nombreComponente;
-	public String tipoComponente;
+	public int idTipoComponente;	
 	public String idDefault;
 	public long estatusComponen;
 	public String nombrePantalla;
 	public String nombreEstatus;
+	public long idPerfil;
+	public String nombreTipoComponente;
+	/**
+	 * @return the nombreTipoComponente
+	 */
+	public final String getNombreTipoComponente() {
+		return nombreTipoComponente;
+	}
+	/**
+	 * @param nombreTipoComponente the nombreTipoComponente to set
+	 */
+	public final void setNombreTipoComponente(String nombreTipoComponente) {
+		this.nombreTipoComponente = nombreTipoComponente;
+	}
+	/**
+	 * @return the idPerfil
+	 */
+	public final long getIdPerfil() {
+		return idPerfil;
+	}
+	/**
+	 * @param idPerfil the idPerfil to set
+	 */
+	public final void setIdPerfil(long idPerfil) {
+		this.idPerfil = idPerfil;
+	}
 	/**
 	 * @param idPantalla
 	 * @param idComponente
@@ -27,13 +53,13 @@ public class ComponenteVO extends BbvaAbstractValueObject {
 	 * @param nombreEstatus
 	 */
 	public ComponenteVO(long idPantalla, long idComponente,
-			String nombreComponente, String tipoComponente, String idDefault,
+			String nombreComponente, int idTipoComponente, String idDefault,
 			long estatusComponen, String nombrePantalla, String nombreEstatus) {
 		super();
 		this.idPantalla = idPantalla;
 		this.idComponente = idComponente;
 		this.nombreComponente = nombreComponente;
-		this.tipoComponente = tipoComponente;
+		this.idTipoComponente = idTipoComponente;
 		this.idDefault = idDefault;
 		this.estatusComponen = estatusComponen;
 		this.nombrePantalla = nombrePantalla;
@@ -85,14 +111,14 @@ public class ComponenteVO extends BbvaAbstractValueObject {
 	/**
 	 * @return the tipoComponente
 	 */
-	public String getTipoComponente() {
-		return tipoComponente;
+	public int getIdTipoComponente() {
+		return idTipoComponente;
 	}
 	/**
 	 * @param tipoComponente the tipoComponente to set
 	 */
-	public void setTipoComponente(String tipoComponente) {
-		this.tipoComponente = tipoComponente;
+	public void setIdTipoComponente(int idTipoComponente) {
+		this.idTipoComponente = idTipoComponente;
 	}
 	/**
 	 * @return the idDefault
