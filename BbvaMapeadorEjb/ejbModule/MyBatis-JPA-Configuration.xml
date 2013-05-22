@@ -20,10 +20,13 @@
     	<mapper resource="mappers/palabracomodin/MapPalabraComodin.xml"/>
     	<mapper resource="mappers/mensajesalida/MapMensajeSalida.xml"/>
     	<mapper resource="mappers/componente/MapComponente.xml"/>
-    	<mapper resource="mappers/pantalla/MapPantalla.xml"/>
-    	<mapper resource="mx/com/bbva/mapeador/entity/tgm501pantalla/MapTgm501Pantalla.xml"/>
+    	<mapper resource="mappers/pantalla/MapPantalla.xml"/>    	
     	<mapper resource="mappers/bitacora/MapBitacora.xml"/>
+    	<mapper resource="mappers/bitacoraarchivo/MapBitacoraArchivo.xml"/>
     	<mapper resource="mappers/evento/MapEvento.xml"/>
-    	<mapper resource="mappers/producto/MapProducto.xml"/>
+    	<mapper resource="mappers/producto/MapProducto.xml"/>    	
+    	<mapper resource="mappers/mapagmm/MapMapaGmm.xml"/>
+    	<mapper resource="mappers/tipocomponente/MapTipoComponente.xml"/>
+    	<mapper resource="mx/com/bbva/mapeador/entity/tgm501pantalla/MapTgm501Pantalla.xml"/>
     </mappers>
 </configuration>
