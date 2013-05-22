@@ -3,6 +3,8 @@ package mx.com.bbva.bancomer.bitacoraarchivo.dto;
 import java.util.List;
 
 import mx.com.bbva.bancomer.bussinnes.model.vo.BitacoraArchivoVO;
+import mx.com.bbva.bancomer.bussinnes.model.vo.EstatusClaveVO;
+import mx.com.bbva.bancomer.bussinnes.model.vo.EstatusObjetoVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.EventoMapeadorVO;
 import mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject;
 
@@ -15,9 +17,21 @@ public class BitacoraArchivoDTO extends BbvaAbstractDataTransferObject {
 	private BitacoraArchivoVO bitacoraArchivoVO;
 	private List<BitacoraArchivoVO> bitacoraArchivoVOs;
 	private List<EventoMapeadorVO> eventoMapeadorVOs;
+	private List<EstatusObjetoVO> estatusObjetoVOs;
+	
+	
 	/**
-	 * @return the bitacoraArchivoVO
+	 * @return the estatusObjetoVOs
 	 */
+	public final List<EstatusObjetoVO> getEstatusObjetoVOs() {
+		return estatusObjetoVOs;
+	}
+	/**
+	 * @param estatusObjetoVOs the estatusObjetoVOs to set
+	 */
+	public final void setEstatusObjetoVOs(List<EstatusObjetoVO> estatusObjetoVOs) {
+		this.estatusObjetoVOs = estatusObjetoVOs;
+	}
 	public BitacoraArchivoVO getBitacoraArchivoVO() {
 		return bitacoraArchivoVO;
 	}
