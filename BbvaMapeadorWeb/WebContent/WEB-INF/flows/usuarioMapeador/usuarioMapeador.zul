@@ -3,29 +3,28 @@
 <?meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7"?>
 <?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
 <zk>
-	<window border="0" width="100%" height="70%"
+	<window border="0" width="100%" height="100%"
 		apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('mx.com.bbva.mapeador.ui.commons.viewmodel.usuarioMapeador.UsuarioMapeadorController')"
 		id="usuarioMapeadorWindows">
 		<include src="../../pages/styles.zul" />
-		<div sclass="BODY" height="100%">
+		<div sclass="BODY" width="100%" height="100%">
 			<groupbox height="100%">
 				<caption sclass="pageTitle" label="Seguridad > Usuario Mapeador > Catálogo de Usuarios Webc	"></caption>		
 					<portallayout maximizedMode="whole" id="portalLayoutUsuarioMapeador"
 					width="100%" height="100%">
-					 <portalchildren>
-						<panel width="100%" sclass="sectionPanelTitle" id="datosOpeDup"
+					<portalchildren>
+						<panel width="100%" height="23%" sclass="sectionPanelTitle" id="datosOpeDup"
 							title="Catalogo" collapsible="true" style="margin-bottom:10px"
 							border="normal">
 							<caption sclass="sectionPanelTitle" label="Usuario Mapeador"></caption>
-							<panelchildren>
-								<div align="center">
+							<panelchildren>								
 									<grid width="100%" style="border:0" oddRowSclass="row2">
 										<columns>
 											<column width="20%" />
-											<column width="25%" />
+											<column width="30%" />
 											<column width="20%" />
-											<column width="25%" />
+											<column width="30%" />
 										</columns>
 										<rows>
 											<row sclass="row2">
@@ -44,48 +43,51 @@
 												<div align="right">
 													<label width="100%" sclass="labelFill" value="Perfiles Disponibles:"></label>
 												</div>
-												<combobox id="perfilesDisponibles" model="@load(vm.usuarioDTO.perfilVOs)"  width="100%" height="100%">		
+												<combobox width="100%"  id="perfilesDisponibles" model="@load(vm.usuarioDTO.perfilVOs)">		
 													<template name="model">										
-														<comboitem value="@load(each.idPerfil)" label="@load(each.nombrebPerfil)" height="100%"/>
+														<comboitem value="@load(each.idPerfil)" label="@load(each.nombrebPerfil)"/>
 													</template>																								
 												</combobox>													
 												<div align="right">
 													<label width="100%" sclass="labelFill" value="Status:"></label>												
 												</div>
-												<combobox sclass="textboxUpperCase" 
-													id="status" width="70%" model="@load(vm.usuarioDTO.estatusObjetoVOs)" autodrop="true">		
+												<!--combobox width="100%" id="status" model="@load(vm.usuarioDTO.estatusObjetoVOs)">		
 													<template name="model">										
-														<comboitem  value="@load(each.idEstatusObjeto)" label="@load(each.nombreEstatusObjeto)" />
+														<comboitem value="@load(each.idEstatusObjeto)" label="@load(each.nombreEstatusObjeto)" />
 													</template>																								
-												</combobox>																														
+												</combobox -->
+												<div>
+													<combobox>
+														<comboitem height="100px">algo</comboitem>
+													</combobox>
+												</div>																														
 											</row>
-											<row sclass="row2">	
-												<div align="right" width="70%">													
+											<row sclass="row2" align="center">	
+												<div>													
 												</div>											
-												<div align="right" width="70%">
+												<div>
 													<button sclass="button" image="/img/clear.png" label="Limpiar" id="limpiarBtn" onClick="@command('clean')" ></button>
 												</div>	
-												<div align="right" width="70%">
+												<div>
 													<button sclass="button" image="/img/disk.png" label="Guardar" id="guardarBtn" onClick="@command('save')"></button>
 												</div>
-												<div align="right" width="70%">
+												<div>
 													<button sclass="button" image="/img/search.png" label="Consultar" id="consultarBtn" onClick="@command('readWithFilters')"></button>
 												</div>
 											</row>
 										</rows>
 								
-									</grid>
-								</div>
+									</grid>								
 							</panelchildren>										
 						</panel>
 					</portalchildren>
-					<portalchildren width="100%" style="padding: 5px">
-						<panel sclass="sectionPanelTitle" width="100%" id="panelUsuarioMapeador"
+					<portalchildren width="100%">
+						<panel height="73%" sclass="sectionPanelTitle" width="100%" id="panelUsuarioMapeador"
 							title="Resultados Usuario Mapeador" collapsible="true"
 							style="margin-bottom:10px">
 							<caption sclass="sectionPanelTitle" label="Lista de Usuarios"></caption>
 							<panelchildren>
-								<grid width="99.7%" id="usuariosGrid" mold="paging"
+								<grid width="99.8%" id="usuariosGrid" mold="paging"
 									model="@load(vm.usuarioVOs)" pagingPosition="both" pageSize="5"
 									vflex="true" height="100%">
 									<columns sizable="true" menupopup="auto">

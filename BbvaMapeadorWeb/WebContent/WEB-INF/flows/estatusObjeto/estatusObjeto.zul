@@ -3,18 +3,18 @@
 <?meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7"?>
 <?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
 <zk>
-	<window border="0" width="100%" height="70%"
+	<window border="0" width="100%" height="100%"
 		apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('mx.com.bbva.mapeador.ui.commons.viewmodel.estatusObjeto.EstatusObjetoController')"
 		id="estatusObjetoWindows">
 		<include src="../../pages/styles.zul" />
-		<div sclass="BODY" height="100%">
+		<div sclass="BODY" height="100%" width="100%">
 			<groupbox height="100%">
 				<caption sclass="pageTitle" label="Sistema > Estatus Objeto > Catálogo de Estatus"></caption>		
 					<portallayout maximizedMode="whole" id="portalLayoutEstatusObjeto"
 					width="100%" height="100%">
 					<portalchildren>
-						<panel width="100%" sclass="sectionPanelTitle" id="datosEstatusObjeto"
+						<panel height="20%" width="100%" sclass="sectionPanelTitle" id="datosEstatusObjeto"
 							title="Catalogo" collapsible="true" style="margin-bottom:10px"
 							border="normal">
 							<caption sclass="sectionPanelTitle" label="Estatus Objeto"></caption>
@@ -80,13 +80,13 @@
 						</panel>
 					</portalchildren>
 					<portalchildren width="100%" style="padding: 5px">
-						<panel sclass="sectionPanelTitle" width="100%" id="panelUsuarioMapeador"
+						<panel height="77%" sclass="sectionPanelTitle" width="100%" id="panelUsuarioMapeador"
 							title="Resultados Usuario Mapeador" collapsible="true"
 							style="margin-bottom:10px">
 							<caption sclass="sectionPanelTitle" label="Lista de Usuarios"></caption>
 							<panelchildren>
 								<grid width="99.7%" id="estatusObjetosGrid" mold="paging"
-									model="@load(vm.estatusObjetoVOs)" pagingPosition="both" pageSize="5"
+									model="@load(vm.estatusObjetoVOs)" pagingPosition="both" pageSize="11"
 									vflex="true" height="100%">									
 									<columns sizable="true" menupopup="auto">
 										<column hflex="0" align="center" image="/img/pencil-small.png" 

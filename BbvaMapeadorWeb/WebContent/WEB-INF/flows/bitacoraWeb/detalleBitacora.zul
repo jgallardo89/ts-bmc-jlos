@@ -4,49 +4,34 @@
 <?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
 <zk>
 	<window closable="true" position="center,center"
-		border="0" width="75%" height="35%"
+		border="0" width="75%" height="60%"
 		apply="mx.com.bbva.mt101.ui.commons.viewmodel.bitacoraWeb.BitacoraWebController"
 		id="detalleBitacoraWindow">
 		<include src="../../pages/styles.zul" />
 		<div apply="org.zkoss.bind.BindComposer" sclass="BODY" height="100%" 
-		viewModel="@id('vm') @init('mx.com.bbva.mt101.ui.commons.viewmodel.bitacoraWeb.BitacoraWebController')">
-			<groupbox height="100%">
-				<caption sclass="pageTitle" label="Sistema > Bitácora > Web > Detalle"></caption>		
-					<portallayout maximizedMode="whole" id="portalLayoutBitacira"
-					width="100%" height="100%">
-					<portalchildren width="100%" style="padding: 5px">
-						<panel sclass="sectionPanelTitle" width="100%" id="panelDetalleBitacora"
-							title="Detalle Bitácora" collapsible="true"
-							style="margin-bottom:10px">
-							<caption sclass="sectionPanelTitle" label="Lista de Detalle"></caption>
-							<panelchildren>
-								<grid width="99.7%" id="detalleGrid" mold="paging"
-									model="@load(arg.campoDTOs)" pagingPosition="both" pageSize="5"
-									vflex="true" height="100%">									
-									<columns sizable="true" menupopup="auto">
-										<column hflex="1" label="Campo" width="10%"
-											sort="auto(vm.bitacoraDTO.campoDTO.nombre_campo)"></column>
-										<column hflex="1" label="Valor Anterior" width="10%"
-											sort="auto(vm.bitacoraDTO.campoDTO.valor_anterior)"></column>
-										<column hflex="1" label="Nuevo Valor" width="10%"
-											sort="auto(vm.bitacoraDTO.campoDTO.valor_nuevo)"></column>				
-									</columns>
-									<template name="model">
-										<row>
-											<label hflex="1" value="@load(each.nombre_campo)"></label>
-											<label hflex="1" value="@load(each.valor_anterior)"></label>
-											<label hflex="1" value="@load(each.valor_nuevo)"></label>																	
-										</row>
-									</template>									
-								</grid>
-								<div align="center">
-									<button id="closeBtn" sclass="button" label="Cerrar"/>	
-								</div>	
-							</panelchildren>
-						</panel>
-					</portalchildren>
-				</portallayout>								
-			</groupbox>
+		viewModel="@id('vm') @init('mx.com.bbva.mt101.ui.commons.viewmodel.bitacoraWeb.BitacoraWebController')">			
+			<grid width="99.7%" id="detalleGrid" mold="paging"
+				model="@load(arg.campoDTOs)" pagingPosition="both" pageSize="5"
+				vflex="true" height="100%">									
+				<columns sizable="true" menupopup="auto">
+					<column hflex="1" label="Campo" width="10%"
+						sort="auto(vm.bitacoraDTO.campoDTO.nombre_campo)"></column>
+					<column hflex="1" label="Valor Anterior" width="10%"
+						sort="auto(vm.bitacoraDTO.campoDTO.valor_anterior)"></column>
+					<column hflex="1" label="Nuevo Valor" width="10%"
+						sort="auto(vm.bitacoraDTO.campoDTO.valor_nuevo)"></column>				
+				</columns>
+				<template name="model">
+					<row>
+						<label hflex="1" value="@load(each.nombre_campo)"></label>
+						<label hflex="1" value="@load(each.valor_anterior)"></label>
+						<label hflex="1" value="@load(each.valor_nuevo)"></label>																	
+					</row>
+				</template>									
+			</grid>
+			<div align="center">
+				<button id="closeBtn" image="/img/button_cancel.png" sclass="button" label="Cerrar"/>	
+			</div>								
 		</div>
 	</window>
 </zk>

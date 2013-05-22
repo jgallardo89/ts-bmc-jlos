@@ -3,18 +3,18 @@
 <?meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7"?>
 <?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
 <zk>
-	<window border="0" width="100%" height="70%"
+	<window border="0" width="100%" height="100%"
 		apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('mx.com.bbva.mt101.ui.commons.viewmodel.palabraComodin.PalabraComodinController')"
 		id="palabraComodinWindows">
 		<include src="../../pages/styles.zul" />
 		<div sclass="BODY" height="100%">
-			<groupbox height="100%">
+			<groupbox height="100%" width="100%">
 				<caption sclass="pageTitle" label="Sistema > Catálogos > Palabras Comodín"></caption>		
 					<portallayout maximizedMode="whole" id="portalLayoutPalabraComodin"
 					width="100%" height="100%">
 					<portalchildren>
-						<panel width="100%" sclass="sectionPanelTitle" id="datosPalabrasComodín"
+						<panel height="17%" width="100%" sclass="sectionPanelTitle" id="datosPalabrasComodín"
 							title="Catalogo" collapsible="true" style="margin-bottom:10px"
 							border="normal" >
 							<caption sclass="sectionPanelTitle" label="Catálogo Palabras Comodín"></caption>
@@ -42,10 +42,10 @@
 												<div align="right">
 												</div>												
 												<div align="right" width="82%">
-													<button sclass="button" label="Limpiar" id="limpiarBtn" onClick="@command('clean')" ></button>
+													<button sclass="button" image="/img/clear.png" label="Limpiar" id="limpiarBtn" onClick="@command('clean')" ></button>
 												</div>
 												<div align="right" width="82%">
-													<button sclass="button" label="Consultar" id="consultarBtn" onClick="@command('readWithFilters')"></button>
+													<button sclass="button" image="/img/search.png" label="Consultar" id="consultarBtn" onClick="@command('readWithFilters')"></button>
 												</div>
 												<div align="right">
 												</div>
@@ -57,13 +57,13 @@
 						</panel>
 					</portalchildren>
 					<portalchildren width="100%" style="padding: 5px">
-						<panel sclass="sectionPanelTitle" width="100%" id="panelPalabraComodin"
+						<panel height="80%" sclass="sectionPanelTitle" width="100%" id="panelPalabraComodin"
 							title="Resultados Flujos Mapeador" collapsible="true"
 							style="margin-bottom:10px">
 							<caption sclass="sectionPanelTitle" label="Lista de Flujos"></caption>
 							<panelchildren>
 								<grid width="99.7%" id="palabraComodinGrid" mold="paging"
-									model="@load(vm.comodinVOs)" pagingPosition="both" pageSize="5"
+									model="@load(vm.comodinVOs)" pagingPosition="both" pageSize="13"
 									vflex="true" height="100%">									
 									<columns sizable="true" menupopup="auto">
 										<column hflex="1" label="Nombre Palabra Comodín" style="text-wrap: normal;"

@@ -3,18 +3,18 @@
 <?meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7"?>
 <?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
 <zk>
-	<window border="0" width="100%" height="70%"
+	<window border="0" width="100%" height="100%"
 		apply="org.zkoss.bind.BindComposer" 
 		viewModel="@id('vm') @init('mx.com.bbva.mapeador.ui.commons.viewmodel.perfil.PerfilController')"
 		id="perfilWindows">
 		<include src="../../pages/styles.zul" />
-		<div sclass="BODY" height="100%">
+		<div sclass="BODY" height="100%" width="100%">
 			<groupbox height="100%">
 				<caption sclass="pageTitle" label="Seguridad > Perfil"></caption>		
 					<portallayout maximizedMode="whole" id="portalLayoutPerfil"
 					width="100%" height="100%">
 					 <portalchildren>
-						<panel width="100%" sclass="sectionPanelTitle" id="datosPerfil"
+						<panel height="50%" width="100%" sclass="sectionPanelTitle" id="datosPerfil"
 							title="Perfil" collapsible="true" style="margin-bottom:10px"
 							border="normal">							
 							<panelchildren>
@@ -64,48 +64,43 @@
 													<label width="100%" sclass="labelFill" value="Pantalla:"></label>												
 												</div>
 												<div style="vertical-align:top;">
-													<combobox sclass="textboxUpperCase" onChange=""
-														id="pantalla" width="70%" model="@load(vm.perfilDTO.pantallaVOs)" autodrop="true">		
+													<combobox sclass="textboxUpperCase" disabled="true" readonly="true" onChange="@command('readComponentesPantalla')"
+														id="pantallas" width="70%" model="@load(vm.perfilDTO.pantallaVOs)" autodrop="true">		
 														<template name="model">										
 															<comboitem value="@load(each.idPantalla)" label="@load(each.nombrePantalla)" height="100%"/>
 														</template>																								
 													</combobox>
 												</div>		
 												<div align="center">																		
-													<listbox id="componentesPantalla" height="150px" model="@load(vm.strStatus)">														
+													<listbox id="componentesPantalla" height="150px" model="@load(vm.componentePantallaDTO.componentePantallaVOs)">														
 														<listhead>
 															<listheader>																
 																<label value="Componentes Pantalla:"></label>																
 															</listheader>																										
 														</listhead>
 														<template name="model">
-												            <listitem>												            	
-												            	<listcell autag="" label="Algo"></listcell>												                												               
-												            </listitem>
+												            <listitem value="@load(each.idComponente)" label="@load(each.nombreComponente)"/>												            													            													                												              												            
 												        </template>		
 													</listbox>
 												</div>
 												<div width="15%">
 													<vbox spacing="2px" width="100%">
-												        <image style="cursor:pointer" id="chooseAllBtn" src="/img/rightrightarrow_g.png" />
-												        <image style="cursor:pointer" id="chooseBtn" src="/img/rightarrow_g.png" onClick="@command('choose')" />
-												        <image style="cursor:pointer" id="removeBtn" src="/img/leftarrow_g.png" />
-												        <image style="cursor:pointer" id="removeAllBtn" src="/img/leftleftarrow_g.png" />
+												        <image style="cursor:pointer" id="chooseAllBtn" src="/img/rightrightarrow_g.png" onClick="@command('chooseAll')" />
+												        <image style="cursor:pointer" id="chooseBtn" src="/img/rightarrow_g.png" onClick="@command('chooseOne')" />
+												        <image style="cursor:pointer" id="removeBtn" src="/img/leftarrow_g.png" onClick="@command('removeOne')"/>
+												        <image style="cursor:pointer" id="removeAllBtn" src="/img/leftleftarrow_g.png" onClick="@command('removeAll')"/>
    													</vbox>		
    												</div>
    												<div>
-   													<listbox id="componentesPerfil" height="150px">														
+   													<listbox id="componentesPerfil" height="150px" model="@load(vm.componentePantallaPerfilDTO.componentePantallaPerfilVOs)">														
 														<listhead>
 															<listheader>																
-																<label value="Componentes Pantalla:"></label>																
+																<label value="Componentes Pantalla - Perfil:"></label>																
 															</listheader>																										
 														</listhead>
-														<!--template name="model"-->
-												            <listitem>												            	
-												            	<listcell>												            	
-												            	</listcell>												                												               
-												            </listitem>
-												        <!--/template-->		
+														<template name="model">
+												            <listitem value="@load(each.idComponente)" label="@load(each.nombreComponente)"/>												            													            													                												              												            
+												        </template>		
 													</listbox>																									
 												</div>																																							
 											</row>										
@@ -126,16 +121,16 @@
 													<label width="100%" sclass="labelFill" value=""></label>													
 												</div>	
 												<div align="center" width="100%">
-													<button sclass="button" image="/img/clear.png" label="Limpiar" id="limpiarBtn" onClick="@command('reenviarArchivo')" ></button>																										
+													<button sclass="button" image="/img/clear.png" label="Limpiar" id="limpiarBtn" onClick="@command('clean')" ></button>																										
 												</div>
 												<div align="center" width="100%">
-													<button sclass="button" image="/img/save.png" label="Guardar" id="guardarUsuarioBtn" onClick="@command('reenviarArchivo')"></button>													
+													<button sclass="button" image="/img/disk.png" label="Guardar" id="guardarUsuarioBtn" onClick="@command('save')"></button>													
 												</div>	
 												<div align="center" width="100%">													
 													<button sclass="button" image="/img/search.png" label="Consultar" id="consultarUsuarioBtn" onClick="@command('reenviarArchivo')"></button>												
 												</div>	
 												<div align="center" width="100%">													
-													<button sclass="button" image="/img/copy.png" label="Duplicar" id="duplicarBtn" onClick="@command('reenviarArchivo')"></button>
+													<button sclass="button" image="/img/page_copy.png" label="Duplicar" id="duplicarBtn" onClick="@command('reenviarArchivo')"></button>
 												</div>			
 												<div align="center" width="100%">
 													<label width="100%" sclass="labelFill" value=""></label>
@@ -147,56 +142,32 @@
 							</panelchildren>										
 						</panel>
 					</portalchildren>
-					<portalchildren width="100%" style="padding: 5px">
-						<panel sclass="sectionPanelTitle" width="100%" id="panelUsuarioMapeador"
+					<portalchildren width="100%">
+						<panel height="50%" sclass="sectionPanelTitle" width="100%" id="panelUsuarioMapeador"
 							title="Resultados Usuario Mapeador" collapsible="true"
 							style="margin-bottom:10px">
 							<caption sclass="sectionPanelTitle" label="Lista de Usuarios"></caption>
 							<panelchildren>
-								<grid width="99.7%" style="border:1">
-									<auxhead style="border:1">
-										<auxheader hflex="0" align="center" colspan="1">
-											<image  src="/img/refresh.png" width="16px" height="16px" onClick=""></image>
-										</auxheader>
-										<auxheader colspan="1">
-										</auxheader>
-										<auxheader colspan="2" align="center" label="Envío">
-										</auxheader>
-										<auxheader colspan="2" align="center" label="Último Envío">
-										</auxheader>
-										<auxheader colspan="2" align="center" label="Regreso Cash">
-										</auxheader>
-										<auxheader colspan="2">
-										</auxheader>
-									</auxhead>
-									<columns>										
-										<column hflex="1" label="Nombre del Perfil" sort="auto(strNombrePerfil)"></column>
-										<column hflex="1" label="Descripcion del Perfil" sort="auto(strDescripcion)"></column>										
-										<column hflex="1" label="Status" sort="auto(strStatus)"></column>	
-										<column hflex="1" label="Detalle" sort="auto(strDetalle)"></column>									
+								<grid width="99.7%" id="perfilGrid" mold="paging"
+									model="@load(vm.perfilVOs)" pagingPosition="both" pageSize="9"
+									vflex="true" height="100%">								
+									<columns sizable="true" menupopup="auto">
+										<column hflex="0" align="center" image="/img/pencil-small.png" 
+											width="5%"></column>
+										<column hflex="1" label="Nombre Perfil" style="text-wrap: normal;"/>
+										<column hflex="1" label="Descripción Perfil" style="text-wrap: normal;"/>
+										<column hflex="1" label="Estatus" style="text-wrap: normal;"/>												
+										<column width="80px" label="Detalle" style="text-wrap: normal;"/>							
 									</columns>
 									<template name="model">
-										<row>											
-											<label hflex="1" value=""></label>
-											<label hflex="1" value=""></label>
-											<label hflex="1" value=""/>											
-											<label hflex="1" value=""></label>									
-											<cell>
-												<div align="center">
-													<image src="/img/list.png" onClick="">														
-													</image>
-												</div>
-											</cell>
+										<row>
+											<image src="/img/pencil-small.png" onClick="@command('readSelected',idPerfil=each)"></image>
+											<label hflex="1" value="@load(each.nombrebPerfil)"></label>											
+											<label hflex="1" value="@load(each.descripcionPerfil)"></label>
+											<label hflex="1" value="@load(each.descipcionEstatus)"></label>
+											<image src="/img/detalle.jpg"  />																														
 										</row>
-									</template>
-									<foot>
-										<footer span="9">											
-												<div align="right">											
-													<label value="Cantidad Registros: "></label>																			
-													<label value="@load(vm.cantidadRegistros)"></label>
-												</div>																							
-										</footer>
-									</foot>
+									</template>									
 								</grid>
 							</panelchildren>
 						</panel>
@@ -204,5 +175,6 @@
 				</portallayout>								
 			</groupbox>			
 		</div>
+		<textbox id="idPerfil" visible="false"></textbox>
 	</window>
 </zk>

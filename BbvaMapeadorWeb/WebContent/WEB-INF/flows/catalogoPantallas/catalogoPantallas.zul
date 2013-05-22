@@ -3,18 +3,18 @@
 <?meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7"?>
 <?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
 <zk>
-	<window border="0" width="100%" height="70%"
+	<window border="0" width="100%" height="100%"
 		apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('mx.com.bbva.mapeador.ui.commons.viewmodel.pantalla.PantallaController')"
 		id="catalogoPantallasWindows">
 		<include src="../../pages/styles.zul" />
-		<div sclass="BODY" height="100%">
+		<div sclass="BODY" height="100%" width="100%">
 			<groupbox height="100%">
 				<caption sclass="pageTitle" label="Sistema > Sistema > Catálogo de Pantallas"></caption>		
 					<portallayout maximizedMode="whole" id="portalLayoutEstatusObjeto"
 					width="100%" height="100%">
 					<portalchildren>
-						<panel width="100%" sclass="sectionPanelTitle" id="datosPantalla"
+						<panel height="30%" width="100%" sclass="sectionPanelTitle" id="datosPantalla"
 							title="Catalogo" collapsible="true" style="margin-bottom:10px"
 							border="normal">
 							<caption sclass="sectionPanelTitle" label="Catalogo Pantalla"></caption>
@@ -41,7 +41,26 @@
 													<label width="100%" sclass="labelFill" value="Nombre Pantalla:"></label>												
 												</div>
 												<textbox sclass="textboxUpperCase" maxlength="50"
-													id="nombrePantalla" value="@load(vm.strNombrePantalla)" width="100%"></textbox>		
+													id="nombrePantalla" value="@load(vm.strNombrePantalla)" width="100%"></textbox>																																								
+											</row>
+											<row sclass="row2">											
+												<div align="right">
+													<label width="100%" sclass="labelFill" value="URL:"></label>												
+												</div>
+												<textbox maxlength="50"
+													id="url" value="@load(vm.strUrl)" width="100%"></textbox>		
+												<div align="right">
+													<label width="100%" sclass="labelFill" value="Icono:"></label>												
+												</div>
+												<textbox sclass="textboxUpperCase" maxlength="50"
+													id="icono" value="@load(vm.strIcono)" width="100%"></textbox>																																							
+											</row>
+											<row>
+												<div align="right">
+													<label width="100%" sclass="labelFill" value="Orden:"></label>												
+												</div>
+												<textbox sclass="textboxUpperCase" maxlength="50"
+													id="orden" value="@load(vm.strOrden)" width="100%"></textbox>
 												<div align="right">
 													<label width="100%" sclass="labelFill" value="Status:"></label>												
 												</div>
@@ -50,34 +69,18 @@
 													<template name="model">										
 														<comboitem value="@load(each.idEstatusObjeto)" label="@load(each.nombreEstatusObjeto)" height="100%"/>
 													</template>																								
-												</combobox>																												
+												</combobox>		
 											</row>
-											<row sclass="row2">											
-												<div align="right">
-													<label width="100%" sclass="labelFill" value="URL:"></label>												
-												</div>
-												<textbox sclass="textboxUpperCase" maxlength="50"
-													id="url" value="@load(vm.strUrl)" width="100%"></textbox>		
-												<div align="right">
-													<label width="100%" sclass="labelFill" value="Icono:"></label>												
-												</div>
-												<textbox sclass="textboxUpperCase" maxlength="50"
-													id="icono" value="@load(vm.strIcono)" width="100%"></textbox>	
-												<div align="right">
-													<label width="100%" sclass="labelFill" value="Orden:"></label>												
-												</div>
-												<textbox sclass="textboxUpperCase" maxlength="50"
-													id="orden" value="@load(vm.strOrden)" width="100%"></textbox>																											
-											</row>
-											<row sclass="row2">												
+											<row sclass="row2">	
+												<div></div>											
 												<div align="right" width="70%">
-													<button sclass="button" label="Limpiar" id="limpiarBtn" onClick="@command('clean')" ></button>
+													<button sclass="button" image="/img/clear.png" label="Limpiar" id="limpiarBtn" onClick="@command('clean')" ></button>
 												</div>	
 												<div align="right" width="70%">
-													<button sclass="button" label="Guardar" id="guardarBtn" onClick="@command('save')"></button>
+													<button sclass="button" image="/img/disk.png" label="Guardar" id="guardarBtn" onClick="@command('save')"></button>
 												</div>
 												<div align="right" width="70%">
-													<button sclass="button" label="Consultar" id="consultarBtn" onClick="@command('readWithFilters')"></button>
+													<button sclass="button" image="/img/search.png" label="Consultar" id="consultarBtn" onClick="@command('readWithFilters')"></button>
 												</div>
 											</row>
 										</rows>								
@@ -87,13 +90,13 @@
 						</panel>
 					</portalchildren>
 					<portalchildren width="100%" style="padding: 5px">
-						<panel sclass="sectionPanelTitle" width="100%" id="panelCatalogoPantallas"
+						<panel height="67%" sclass="sectionPanelTitle" width="100%" id="panelCatalogoPantallas"
 							title="Resultados Catalogo Pantalla" collapsible="true"
 							style="margin-bottom:10px">
 							<caption sclass="sectionPanelTitle" label="Lista de Pantallas"></caption>
 							<panelchildren>
 								<grid width="99.7%" id="pantallasGrid" mold="paging"
-									model="@load(vm.pantallaVOs)" pagingPosition="both" pageSize="5"
+									model="@load(vm.pantallaVOs)" pagingPosition="both" pageSize="9"
 									vflex="true" height="100%">									
 									<columns sizable="true" menupopup="auto">
 										<column hflex="0" align="center" image="/img/pencil-small.png" 

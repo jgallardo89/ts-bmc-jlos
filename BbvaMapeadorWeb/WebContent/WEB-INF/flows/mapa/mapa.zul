@@ -3,21 +3,21 @@
 <?meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7"?>
 <?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
 <zk>
-	<window border="0" width="100%" height="70%"
+	<window border="0" width="100%" height="100%"
 		apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('mx.com.bbva.mapeador.ui.commons.viewmodel.mapagmm.MapaGmmController')"
 		id="mapaGmmWindows">
 		<include src="../../pages/styles.zul" />
-		<div sclass="BODY" height="100%">
+		<div sclass="BODY" height="100%" width="100%">
 			<groupbox height="100%">
-				<caption sclass="pageTitle" label="Sistema > Sistema > Catálogo de Componentes"></caption>		
+				<caption sclass="pageTitle" label="Sistema > Catálogos > Mapa"></caption>		
 					<portallayout maximizedMode="whole" id="portalLayoutEstatusObjeto"
 					width="100%" height="100%">
 					<portalchildren>
-						<panel width="100%" sclass="sectionPanelTitle" id="datosComponente"
+						<panel height="30%" width="100%" sclass="sectionPanelTitle" id="datosComponente"
 							title="Catalogo" collapsible="true" style="margin-bottom:10px"
 							border="normal">
-							<caption sclass="sectionPanelTitle" label="Catalogo Componente"></caption>
+							<caption sclass="sectionPanelTitle" label="Mapa"></caption>
 							<panelchildren>
 								<div align="center">
 									<grid width="100%" style="border:0" oddRowSclass="row2">
@@ -37,18 +37,18 @@
 												<div align="right">
 													<label width="100%" sclass="labelFill" value="Fecha alta:"></label>												
 												</div>
-												<datebox value="@load(vm.mapaGmmDTO.mapaGmmVO.fechaAlta) @converter('formatedDate', format='dd/MM/yyyy')" maxlength="50" width="100%" id="fechaAlta" readonly="true" buttonVisible="true" onCreate="self.value = new Date()" format="dd/MM/yyyy"></datebox>
-												<div align="right">
-													<label width="100%" sclass="labelFill" value="Fecha modificación:"></label>												
-												</div>
-												<datebox value="@load(vm.mapaGmmDTO.mapaGmmVO.fechaModificacion) @converter('formatedDate', format='dd/MM/yyyy')" maxlength="50" width="100%" id="fechaModificacion" readonly="true" buttonVisible="true" onCreate="self.value = new Date()" format="dd/MM/yyyy"></datebox>																									
+												<datebox value="@load(vm.mapaGmmDTO.mapaGmmVO.fechaAlta) @converter('formatedDate', format='dd/MM/yyyy')" maxlength="50" width="100%" id="fechaAlta" readonly="true" buttonVisible="true" onCreate="self.value = new Date()" format="dd/MM/yyyy"></datebox>																																					
 											</row>
 											<row sclass="row2">											
 												<div align="right">
 													<label width="100%" sclass="labelFill" value="Descripción Mapa :"></label>												
 												</div>
 												<textbox sclass="textboxUpperCase" maxlength="50"
-													id="descripcionMapa" value="@load(vm.strDescripcionMapa)" width="100%"></textbox>																										
+													id="descripcionMapa" value="@load(vm.strDescripcionMapa)" width="100%"></textbox>
+												<div align="right">
+													<label width="100%" sclass="labelFill" value="Fecha modificación:"></label>												
+												</div>
+												<datebox value="@load(vm.mapaGmmDTO.mapaGmmVO.fechaModificacion) @converter('formatedDate', format='dd/MM/yyyy')" maxlength="50" width="100%" id="fechaModificacion" readonly="true" buttonVisible="true" onCreate="self.value = new Date()" format="dd/MM/yyyy"></datebox>																										
 											</row>
 											<row sclass="row2">											
 												<div align="right">
@@ -60,15 +60,16 @@
 													</template>																								
 												</combobox>																											
 											</row>
-											<row sclass="row2">												
+											<row sclass="row2">		
+											<div></div>										
 												<div align="right" width="70%">
-													<button sclass="button" label="Limpiar" id="limpiarBtn" onClick="@command('clean')" ></button>
+													<button sclass="button" image="/img/clear.png" label="Limpiar" id="limpiarBtn" onClick="@command('clean')" ></button>
 												</div>	
 												<div align="right" width="70%">
-													<button sclass="button" label="Guardar" id="guardarBtn" onClick="@command('save')"></button>
+													<button sclass="button" image="/img/disk.png" label="Guardar" id="guardarBtn" onClick="@command('save')"></button>
 												</div>
 												<div align="right" width="70%">
-													<button sclass="button" label="Consultar" id="consultarBtn" onClick="@command('readWithFilters')"></button>
+													<button sclass="button" image="/img/search.png" label="Consultar" id="consultarBtn" onClick="@command('readWithFilters')"></button>
 												</div>
 											</row>
 										</rows>								
@@ -78,13 +79,13 @@
 						</panel>
 					</portalchildren>
 					<portalchildren width="100%" style="padding: 5px">
-						<panel sclass="sectionPanelTitle" width="100%" id="panelmapaGmm"
+						<panel height="67%" sclass="sectionPanelTitle" width="100%" id="panelmapaGmm"
 							title="Resultados Catalogo Mapa" collapsible="true"
 							style="margin-bottom:10px">
 							<caption sclass="sectionPanelTitle" label="Lista de Mapas"></caption>
 							<panelchildren>
 								<grid width="99.7%" id="mapaGmmsGrid" mold="paging"
-									model="@load(vm.mapaGmmVOs)" pagingPosition="both" pageSize="5"
+									model="@load(vm.mapaGmmVOs)" pagingPosition="both" pageSize="9"
 									vflex="true" height="100%">									
 									<columns sizable="true" menupopup="auto">
 										<column hflex="0" align="center" image="/img/pencil-small.png" 
@@ -108,8 +109,8 @@
 											<label hflex="1" value="@load(each.idMapaGmm)"></label>											
 											<label hflex="1" value="@load(each.nombreMapaGmm)"></label>
 											<label hflex="1" value="@load(each.descripcionMapaGmm)"></label>
-											<label hflex="1" value="@load(each.fechaAlta)"></label>
-											<label hflex="1" value="@load(each.fechaModificacion)"></label> 		
+											<label hflex="1" value="@load(each.fechaAlta) @converter('formatedDate', format='dd/MM/yyyy  HH:MM')"></label>
+											<label hflex="1" value="@load(each.fechaModificacion) @converter('formatedDate', format='dd/MM/yyyy  HH:MM')"></label> 		
 											<label hflex="1" value="@load(each.nombreEstatusObjeto)"></label> 		 																				
 										</row>
 									</template>									

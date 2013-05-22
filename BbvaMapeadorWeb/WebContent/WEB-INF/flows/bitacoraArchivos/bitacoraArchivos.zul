@@ -3,18 +3,18 @@
 <?meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7"?>
 <?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
 <zk>
-	<window border="0" width="100%" height="70%"
+	<window border="0" width="100%" height="100%"
 		apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('mx.com.bbva.mapeador.ui.commons.viewmodel.bitacioraarchivo.BitacioraArchivoController')"
 		id="bitacoraWebWindows">
 		<include src="../../pages/styles.zul" />
-		<div sclass="BODY" height="100%">
+		<div sclass="BODY" height="100%"  width="100%">
 			<groupbox height="100%">
-				<caption sclass="pageTitle" label="Sistema > Bitácora > Arcivo"></caption>		
+				<caption sclass="pageTitle" label="Sistema > Bitácora > Archivo"></caption>		
 					<portallayout maximizedMode="whole" id="portalLayoutBitacira"
 					width="100%" height="100%">
 					<portalchildren>
-						<panel width="100%" sclass="sectionPanelTitle" id="datosBitacira"
+						<panel height="20%" width="100%" sclass="sectionPanelTitle" id="datosBitacira"
 							title="Catalogo" collapsible="true" style="margin-bottom:10px"
 							border="normal">
 							<caption sclass="sectionPanelTitle" label="Bitácora Web"></caption>
@@ -32,17 +32,17 @@
 												<div align="right">
 													<label width="100%" sclass="labelFill" value="Fecha inicio:  "></label>												
 												</div>
-												<datebox value="@load(vm.bitacoraArchivoDTO.bitacoraArchivoVO.fechaInicio) @converter('formatedDate', format='dd/MM/yyyy')" maxlength="50" width="100%" id="fechaInicio" readonly="true" buttonVisible="true" onCreate="self.value = new Date()" format="dd/MM/yyyy"></datebox>
+												<datebox height="20px" value="@load(vm.bitacoraArchivoDTO.bitacoraArchivoVO.fechaInicio) @converter('formatedDate', format='dd/MM/yyyy')" maxlength="50" width="100%" id="fechaInicio" readonly="true" buttonVisible="true" onCreate="self.value = new Date()" format="dd/MM/yyyy"></datebox>
 												<div align="right">
 													<label width="100%" sclass="labelFill" value="Fecha fin: "></label>												
 												</div>
-												<datebox value="@load(vm.bitacoraArchivoDTO.bitacoraArchivoVO.fechaFin) @converter('formatedDate', format='dd/MM/yyyy')" maxlength="50" width="100%" id="fechaFin" readonly="true" buttonVisible="true" onCreate="self.value = new Date()" format="dd/MM/yyyy"></datebox>																												
+												<datebox height="20px" value="@load(vm.bitacoraArchivoDTO.bitacoraArchivoVO.fechaFin) @converter('formatedDate', format='dd/MM/yyyy')" maxlength="50" width="100%" id="fechaFin" readonly="true" buttonVisible="true" onCreate="self.value = new Date()" format="dd/MM/yyyy"></datebox>																												
 											</row>
 											<row sclass="row2">
 												<div align="right">
 													<label width="100%" sclass="labelFill" value="Estado Archivo:  "></label>
 												</div>
-												<combobox sclass="textboxUpperCase" readonly="true" onChange="selectedValueEventoMapeador()"
+												<combobox readonly="false" onChange="selectedValueEventoMapeador()"
 													id="eventoMapeador" width="70%" model="@load(vm.bitacoraArchivoDTO.eventoMapeadorVOs)" autodrop="true">		
 													<template name="model">										
 														<comboitem value="@load(each.idEventoMapeador)" label="@load(each.nombreEventoMapeador)" height="100%"/>
@@ -61,7 +61,7 @@
 													<button sclass="button" label="Limpiar" id="limpiarBtn" onClick="@command('clean')" ></button>
 												</div-->
 												<div align="right" width="82%">
-													<button sclass="button" label="Consultar" id="consultarBtn" onClick="@command('readWithFilters')"></button>
+													<button sclass="button" image="/img/search.png" label="Consultar" id="consultarBtn" onClick="@command('readWithFilters')"></button>
 												</div>
 												<div align="right">
 												</div>
@@ -75,10 +75,10 @@
 						</panel>
 					</portalchildren>
 					<portalchildren width="100%" style="padding: 5px">
-						<panel sclass="sectionPanelTitle" width="100%" id="panelbitacoraArchivo"
+						<panel height="77%" sclass="sectionPanelTitle" width="100%" id="panelbitacoraArchivo"
 							title="Resultados Bitacora Archivo" collapsible="true"
 							style="margin-bottom:10px">
-							<caption sclass="sectionPanelTitle" label="Lista de Flujos"></caption>
+							<caption sclass="sectionPanelTitle" label="Lista de Archivos"></caption>
 							<panelchildren>
 								<grid width="99.7%" id="bitacoraArchivoGrid" mold="paging"
 									model="@load(vm.bitacoraArchivoVOs)" pagingPosition="both" pageSize="5"
@@ -96,7 +96,7 @@
 									<template name="model">
 										<row>
 											<label hflex="1" value="@load(each.idBitacora)"></label>
-											<label hflex="1" value="@load(each.fechaBitacora)"></label>
+											<label hflex="1" value="@load(each.fechaBitacora) @converter('formatedDate', format='dd/MM/yyyy')"></label>
 											<label hflex="1" value="@load(each.nombreBitacora)"></label>
 											<label hflex="1" value="@load(each.nombreEventoMapeador)"></label>																					
 										</row>

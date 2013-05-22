@@ -4,21 +4,21 @@
 <?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
 <zk>
 	<window closable="true" position="center,center"
-		border="0" width="75%" height="35%"
+		border="0" width="75%" height="60%"
 		apply="mx.com.bbva.mt101.ui.commons.viewmodel.admonFlujos.AdmonFlujosController"
 		id="detalleBitacoraWindow">
 		<include src="../../pages/styles.zul" />
-		<div apply="org.zkoss.bind.BindComposer" sclass="BODY" height="100%" 
+		<div apply="org.zkoss.bind.BindComposer" sclass="BODY" height="95%" 
 		viewModel="@id('vm') @init('mx.com.bbva.mt101.ui.commons.viewmodel.admonFlujos.AdmonFlujosController')">
 			<groupbox height="100%">
 				<caption sclass="pageTitle" label="Flujo"></caption>
 				<div align="center">		
 					<image src="@load(arg.descripcionUrlImagen)"></image>
-				</div>
-				<div align="center">
-					<button id="closeBtn" sclass="button" label="Cerrar"/>	
-				</div>							
+				</div>										
 			</groupbox>
 		</div>
+		<div align="center">
+					<button id="closeBtn" sclass="button" label="Cerrar"/>	
+		</div>	
 	</window>
 </zk>
