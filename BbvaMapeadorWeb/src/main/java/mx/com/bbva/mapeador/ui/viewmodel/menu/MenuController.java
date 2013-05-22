@@ -15,11 +15,24 @@ import mx.com.bbva.bancomer.mapper.business.PerfilBO;
 import mx.com.bbva.bancomer.mapper.business.UsuarioBO;
 import mx.com.bbva.mapeador.entity.tgm503usuario.Tgm503Usuario;
 
+import org.zkoss.bind.annotation.AfterCompose;
+import org.zkoss.bind.annotation.BindingParam;
+import org.zkoss.bind.annotation.Command;
+import org.zkoss.bind.annotation.ContextParam;
+import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.zul.DefaultTreeModel;
 
+import org.apache.ibatis.annotations.Param;
 import org.apache.log4j.Logger;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.select.SelectorComposer;
+import org.zkoss.zk.ui.select.Selectors;
+import org.zkoss.zk.ui.select.annotation.Wire;
+import org.zkoss.zul.Div;
+import org.zkoss.zul.Iframe;
+import org.zkoss.zul.Tab;
+import org.zkoss.zul.Tabbox;
+import org.zkoss.zul.Tabpanel;
 import org.zkoss.zul.TreeModel;
 import org.zkoss.zul.TreeNode;
 
@@ -28,6 +41,13 @@ public class MenuController extends SelectorComposer<Component>{
 	private String userName;
 	private String name;
 	private String perfilName;
+	
+	@Wire
+	private Tabbox bodyTab;
+	
+	@Wire
+	private Tab tabNohome;
+	
 	UsuarioDTO usuarioDTO = (UsuarioDTO)read();
 	/**
 	 * @return the usuarioDTO
@@ -121,4 +141,28 @@ public class MenuController extends SelectorComposer<Component>{
 		name = userId + " --- " + userName + " --- " + perfilName;
 		return usuarioDTO;
 	}
+	
+	@Command
+	public void createTab(@BindingParam("url") MenuData menuData){
+		if(menuData.getUrl()!=null){
+			Tab newTab = new Tab(menuData.getDescription());
+			newTab.setClosable(true);		
+	        newTab.setSelected(true);
+	        Tabpanel newTabpanel = new Tabpanel();
+	        newTabpanel.setWidth("100%");
+	        newTabpanel.setHeight("100%");
+	        Iframe iframe = new Iframe(menuData.getUrl());
+	        iframe.setWidth("100%");
+	        iframe.setHeight("100%");
+	        newTabpanel.appendChild(iframe);
+	        bodyTab.getTabs().insertBefore(newTab, tabNohome);
+	        newTabpanel.setParent(bodyTab.getTabpanels());
+		}
+	}
+	
+	@AfterCompose
+    public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
+        Selectors.wireComponents(view, this, false);        
+    }
+
 }
