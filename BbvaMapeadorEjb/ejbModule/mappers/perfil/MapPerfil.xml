@@ -2,14 +2,65 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="mappers.perfil.MapPerfil">
 	<select id="obtenerPerfiles" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.PerfilVO"
-		resultType="mx.com.bbva.bancomer.bussinnes.model.vo.PerfilVO">
-		SELECT 
-		P.TX_PERFIL AS descripcionPerfil, 
-		P.ST_PERFIL AS estatusPerfil,
-		P.CD_PERFIL AS idPerfil, 
-		P.NB_PERFIL AS nombrebPerfil
-		FROM 
-		TGM504_PERFIL P
-		where st_perfil = 1		
-	</select>	
+		resultType="mx.com.bbva.bancomer.bussinnes.model.vo.PerfilVO">		
+		SELECT P.TX_PERFIL AS descripcionPerfil,
+		  P.ST_PERFIL      AS estatusPerfil,
+		  P.Cd_Perfil      As idPerfil,
+		  P.Nb_Perfil      As nombrebPerfil,
+		  O.Nb_St_Objeto As descipcionEstatus
+		From Tgm504_Perfil P,
+		  Tgm534_St_Objeto o
+		Where P.St_Perfil  = O.Cd_St_Objeto
+		<if test="descipcionEstatus != null and descipcionEstatus!=0">
+			and St_Perfil = #{descipcionEstatus}	
+		</if>
+	</select>
+	<insert id="insertarPermiso" keyProperty="idPantalla" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.ControlPermisoVO">
+		<selectKey keyProperty="idControlPermiso" resultType="int" order="BEFORE"> 
+			<![CDATA[ select SQ_CTRLPERMISO.nextval as idControlPermiso from dual ]]> 
+		</selectKey>
+		Insert Into Tgm505_Ctrlpermiso
+		(
+		  Cd_Perfil,
+		  Cd_Componente,
+		  Cd_Ctrl_Permiso
+		)
+		Values
+		(
+		  #{idPerfil},
+		  #{idComponente},
+		  #{idControlPermiso}
+		)
+	</insert>
+	<update id="actualizarPerfil" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.PerfilVO">
+		Update Tgm504_Perfil Set 
+			Nb_Perfil = #{nombrebPerfil},
+			Tx_Perfil = #{descripcionPerfil},
+			St_Perfil = #{estatusPerfil}
+		where Cd_Perfil = #{idPerfil}
+	</update>
+	<delete id="eliminarPermisos" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.ControlPermisoVO">
+		Delete Tgm505_Ctrlpermiso
+		Where Cd_Componente = #{idComponente} 
+			  and Cd_Perfil = #{idPerfil}
+	</delete>
+	<insert id="insertarPerfil" keyProperty="idPantalla" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.PerfilVO">
+		<selectKey keyProperty="idPerfil" resultType="int" order="BEFORE"> 
+			<![CDATA[ select SQ_PERFIL.nextval as idPerfil from dual ]]> 
+		</selectKey>
+		Insert Into Tgm504_Perfil
+		(
+			Cd_Perfil,
+			Nb_Perfil,
+			Tx_Perfil,
+			St_Perfil
+		)
+		Values 
+		(
+			#{idPerfil},
+			#{nombrePerfil},
+			#{descripcionPerfil},
+			#{estatusPerfil}
+		)
+	</insert>		
 </mapper>
