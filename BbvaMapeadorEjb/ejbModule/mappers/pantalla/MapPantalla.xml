@@ -29,10 +29,7 @@
 			</if>
 			<if test="descripcionUrlPantalla != null ">
 				AND P.TX_URL_PANTALLA LIKE #{descripcionUrlPantalla}
-			</if>						  
-			<if test="descripcionUrlIcon != null ">
-				AND  P.TX_URL_ICON LIKE #{descripcionUrlIcon}
-			</if>		 
+			</if>						  				
 			<if test="numeroOrdenPantalla != null and numeroOrdenPantalla != 0">
 				AND  P.NU_ORD_PANTALLA = #{numeroOrdenPantalla}
 			</if>

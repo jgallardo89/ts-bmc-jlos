@@ -8,8 +8,7 @@
 			M.NB_MAPA_GMM nombreMapaGmm, 
 			M.TX_MAPA_GMM descripcionMapaGmm, 
 			M.TM_ALTA fechaAlta, 
-			M.TM_MODIFICACION fechaModificacion, 
-			M.NB_PROCESO_SI nombreProcesoSi, 
+			M.TM_MODIFICACION fechaModificacion, 			
 			M.CD_ST_OBJETO idEstatusObjeto,
 			O.NB_ST_OBJETO nombreEstatusObjeto
 		FROM 
@@ -44,16 +43,14 @@
 			NB_MAPA_GMM, 
 			TX_MAPA_GMM, 
 			TM_ALTA, 
-			TM_MODIFICACION, 
-			NB_PROCESO_SI, 
+			TM_MODIFICACION, 			
 			CD_ST_OBJETO)
 		VALUES (
 			#{idMapaGmm},
 			#{nombreMapaGmm},
 			#{descripcionMapaGmm}, 
 			CURRENT_DATE, 
-			CURRENT_DATE,
-			' ',
+			CURRENT_DATE,			
 			#{idEstatusObjeto})
 		
 	</insert>

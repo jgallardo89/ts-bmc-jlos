@@ -26,6 +26,87 @@
 				</if>				
 				ORDER BY Statusobjeto.Nb_Tabla
 	</select>
+	<select id="existEstatusObjeto" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.EstatusObjetoVO"
+		resultType="mx.com.bbva.bancomer.bussinnes.model.vo.EstatusObjetoVO">
+			Select Unique Idestatusobjeto
+			from (
+			SELECT unique (Statusobjeto.Cd_St_Objeto) idEstatusObjeto
+			From Tgm534_St_Objeto Statusobjeto
+			  ,Tgm501_Pantalla
+			Where Statusobjeto.Cd_St_Objeto  = Tgm501_Pantalla.St_Pantalla 
+			union
+			Select Unique (Statusobjeto.Cd_St_Objeto) Idestatusobjeto
+			From Tgm534_St_Objeto Statusobjeto
+			  ,Tgm503_Usuario
+			Where Statusobjeto.Cd_St_Objeto  = Tgm503_Usuario.St_Usuario
+			union
+			Select Unique (Statusobjeto.Cd_St_Objeto) Idestatusobjeto
+			From Tgm534_St_Objeto Statusobjeto
+			  ,Tgm504_Perfil
+			Where Statusobjeto.Cd_St_Objeto  = Tgm504_Perfil.St_Perfil
+			union
+			Select Unique (Statusobjeto.Cd_St_Objeto) Idestatusobjeto
+			From Tgm534_St_Objeto Statusobjeto
+			  ,Tgm510_Usua_Notifi
+			Where Statusobjeto.Cd_St_Objeto  = Tgm510_Usua_Notifi.Cd_St_Objeto
+			union
+			SELECT unique (Statusobjeto.Cd_St_Objeto) idEstatusObjeto
+			From Tgm534_St_Objeto Statusobjeto
+			  ,Tgm511_Canal
+			Where Statusobjeto.Cd_St_Objeto  = Tgm511_Canal.Cd_St_Objeto
+			union
+			Select Unique (Statusobjeto.Cd_St_Objeto) Idestatusobjeto
+			From Tgm534_St_Objeto Statusobjeto  
+			  ,Tgm512_Cliente
+			Where Statusobjeto.Cd_St_Objeto  = Tgm512_Cliente.Cd_St_Objeto
+			union
+			Select Unique (Statusobjeto.Cd_St_Objeto) Idestatusobjeto
+			From Tgm534_St_Objeto Statusobjeto  
+			  ,Tgm513_Flujo
+			Where Statusobjeto.Cd_St_Objeto  = Tgm513_Flujo.Cd_St_Objeto
+			Union
+			Select Unique (Statusobjeto.Cd_St_Objeto) Idestatusobjeto
+			From Tgm534_St_Objeto Statusobjeto  
+			  ,Tgm514_Mapa_Gmm
+			Where Statusobjeto.Cd_St_Objeto  = Tgm514_Mapa_Gmm.Cd_St_Objeto
+			Union
+			Select Unique (Statusobjeto.Cd_St_Objeto) Idestatusobjeto
+			From Tgm534_St_Objeto Statusobjeto  
+			  ,Tgm515_Producto
+			Where Statusobjeto.Cd_St_Objeto  = Tgm515_Producto.Cd_St_Objeto
+			Union
+			Select Unique (Statusobjeto.Cd_St_Objeto) Idestatusobjeto
+			From Tgm534_St_Objeto Statusobjeto  
+			  ,Tgm516_Mensaje_Sal
+			Where Statusobjeto.Cd_St_Objeto  = Tgm516_Mensaje_Sal.Cd_St_Objeto
+			Union
+			Select Unique (Statusobjeto.Cd_St_Objeto) Idestatusobjeto
+			From Tgm534_St_Objeto Statusobjeto  
+			  ,Tgm517_Etapa
+			Where Statusobjeto.Cd_St_Objeto  = Tgm517_Etapa.Cd_St_Objeto
+			Union
+			Select Unique (Statusobjeto.Cd_St_Objeto) Idestatusobjeto
+			From Tgm534_St_Objeto Statusobjeto  
+			  ,Tgm519_Contratacion
+			Where Statusobjeto.Cd_St_Objeto  = Tgm519_Contratacion.Cd_St_Objeto
+			union
+			Select Unique (Statusobjeto.Cd_St_Objeto) Idestatusobjeto
+			From Tgm534_St_Objeto Statusobjeto    
+			  ,Tgm522_St_Proceso
+			Where Statusobjeto.Cd_St_Objeto  = Tgm522_St_Proceso.Cd_St_Mapeador
+			Union
+			Select Unique (Statusobjeto.Cd_St_Objeto) Idestatusobjeto
+			From Tgm534_St_Objeto Statusobjeto  
+			  ,Tgm531_Define_Mapa
+			Where Statusobjeto.Cd_St_Objeto  = Tgm531_Define_Mapa.Cd_St_Objeto
+			union
+			Select Unique (Statusobjeto.Cd_St_Objeto) Idestatusobjeto
+			From Tgm534_St_Objeto Statusobjeto  
+			  ,Tgm537_Edo_Archivo
+			Where Statusobjeto.Cd_St_Objeto  = Tgm537_Edo_Archivo.Cd_St_Objeto
+			)
+			where idEstatusObjeto = #{idEstatusObjeto}
+	</select>	
 	<select id="obtenerEstatusClave" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.EstatusClaveVO"
 		resultType="mx.com.bbva.bancomer.bussinnes.model.vo.EstatusClaveVO">
 		SELECT Statusclave.Cd_St_Clave idEstatusClave,
@@ -62,7 +143,8 @@
 		where Cd_St_Objeto = #{idEstatusObjeto}
 	</update>
 	<delete id="eliminarEstatusObjeto" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.EstatusObjetoVO">
-		Delete From Tgm534_St_Objeto 
-		Where Cd_St_Objeto = #{idEstatusObjeto}
+		update Tgm534_St_Objeto
+		Set Cd_St_Clave = 3,			
+		where Cd_St_Objeto = #{idEstatusObjeto}
 	</delete>
 </mapper>
