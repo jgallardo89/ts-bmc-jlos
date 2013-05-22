@@ -113,8 +113,7 @@ public class UsuarioBO implements mx.com.bbva.bancomer.commons.business.BbvaIBus
 				session.close();
 			}
 			
-			logger.debug("result: " + result + " -- **fin**");
-			logger.debug( "Datos de Salida invoke -- " + result.toString() );
+			logger.debug("result: " + result + " -- **fin**");			
 			logger.debug( "Salida invoke          -- OK" );
 			return result;
 		} catch (Exception ex) {

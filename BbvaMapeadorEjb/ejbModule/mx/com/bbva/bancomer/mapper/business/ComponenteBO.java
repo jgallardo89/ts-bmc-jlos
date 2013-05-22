@@ -5,13 +5,18 @@ import java.util.List;
 import javax.ejb.Stateless;
 
 import mappers.componente.MapComponente;
+import mappers.tipocomponente.MapTipoComponente;
 import mx.com.bbva.bancomer.bussinnes.model.vo.ComponenteVO;
+import mx.com.bbva.bancomer.bussinnes.model.vo.TipoComponenteVO;
+import mx.com.bbva.bancomer.commons.command.CommandConstants;
 import mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject;
 import mx.com.bbva.bancomer.componente.dto.ComponenteDTO;
 import mx.com.bbva.mapeador.oralce.session.MapeadorSessionFactory;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.log4j.Logger;
+
+import com.ibm.jsse2.bb;
 
 @Stateless(mappedName="componenteBO")
 public class ComponenteBO implements mx.com.bbva.bancomer.commons.business.BbvaIBusinessObject {
@@ -67,7 +72,8 @@ public class ComponenteBO implements mx.com.bbva.bancomer.commons.business.BbvaI
 			logger.debug( "Entrada createCommand          -- OK" );
 			logger.debug( "Datos de Entrada createCommand -- " + bbvaAbstractDataTransferObject.toString() );					
 			try {
-				List<ComponenteVO> result = null;
+				List<ComponenteVO> componenteVOs= null;
+				List<TipoComponenteVO> tipoComponenteVOs= null;
 				ComponenteVO componenteVO = ((ComponenteDTO)bbvaAbstractDataTransferObject).getComponenteVO();
 				SqlSession session = MapeadorSessionFactory.getSqlSessionFactory()
 						.openSession();
@@ -77,17 +83,28 @@ public class ComponenteBO implements mx.com.bbva.bancomer.commons.business.BbvaI
 					logger.debug(":::::::::::::::::::::" + componenteVO.toString());
 				}
 				try {
-					result = mapComponente.obtenerComponentes(componenteVO);
-					
+					if(bbvaAbstractDataTransferObject.getCommandId()!=null && bbvaAbstractDataTransferObject.getCommandId().equals(CommandConstants.COMPONENTE_PANTALLA)){
+						componenteVOs = mapComponente.obtenerComponentesPantalla(componenteVO);
+						((ComponenteDTO)bbvaAbstractDataTransferObject).setComponentePantallaVOs(componenteVOs);
+					}else if(bbvaAbstractDataTransferObject.getCommandId()!=null && bbvaAbstractDataTransferObject.getCommandId().equals(CommandConstants.COMPONENTE_PANTALLA_PERFIL)){
+						logger.debug("bbvaAbstractDataTransferObject.getCommandId():"+bbvaAbstractDataTransferObject.getCommandId());
+						logger.debug("bbvaAbstractDataTransferObject.getCommandId().equals(CommandConstants.COMPONENTE_PANTALLA_PERFIL):"+bbvaAbstractDataTransferObject.getCommandId().equals(CommandConstants.COMPONENTE_PANTALLA_PERFIL));
+						componenteVOs = mapComponente.obtenerComponentesPantallaPerfil(componenteVO);
+						((ComponenteDTO)bbvaAbstractDataTransferObject).setComponentePantallaPerfilVOs(componenteVOs);
+					}else{
+						MapTipoComponente mapTipoComponente = session.getMapper(MapTipoComponente.class);
+						componenteVOs = mapComponente.obtenerComponentes(componenteVO);
+						tipoComponenteVOs = mapTipoComponente.obtenerTiposComponentes();
+						((ComponenteDTO)bbvaAbstractDataTransferObject).setComponenteVOs(componenteVOs);
+						((ComponenteDTO)bbvaAbstractDataTransferObject).setTipoComponenteVOs(tipoComponenteVOs);
+					}
 					session.commit();
 				} catch (Exception ex) {
 					session.rollback();
 					ex.printStackTrace();
 				} finally {
 					session.close();
-				}
-				((ComponenteDTO)bbvaAbstractDataTransferObject).setComponenteVOs(result); 
-				logger.debug("result: " + result + " -- **fin**");
+				}								
 				logger.debug( "Datos de Salida invoke -- " + bbvaAbstractDataTransferObject.toString() );
 				logger.debug( "Salida invoke          -- OK" );
 				return bbvaAbstractDataTransferObject;
