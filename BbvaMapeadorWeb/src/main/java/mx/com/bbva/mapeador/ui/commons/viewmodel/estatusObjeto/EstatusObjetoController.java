@@ -30,6 +30,7 @@ import mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject;
 import mx.com.bbva.bancomer.estatusobjeto.dto.EstatusObjetoDTO;
 import mx.com.bbva.bancomer.mapper.business.EstatusObjetoBO;
 import mx.com.bbva.bancomer.mapper.business.PantallaBO;
+import mx.com.bbva.bancomer.pantalla.dto.PantallaDTO;
 import mx.com.bbva.mapeador.security.session.user.SessionUser;
 import mx.com.bbva.mapeador.ui.commons.controller.IController;
 
@@ -144,17 +145,30 @@ public class EstatusObjetoController extends SelectorComposer<Component> impleme
 							estatusObjetoDTO.setEstatusObjetoVO(estatusObjetoVO);
 							EstatusObjetoBO estatusObjetoBO = new EstatusObjetoBO();
 							estatusObjetoDTO.toString(BbvaAbstractDataTransferObject.XML);
-							estatusObjetoBO.deleteCommand(estatusObjetoDTO);
-							Messagebox.show("!El registro fue eliminado!",
-									"Información", Messagebox.OK,
-									Messagebox.INFORMATION);
-							clean();
-							BindUtils
-									.postGlobalCommand(
-											null,
-											null,
-											"resetGridEstatusObjetos",
-											null);
+							estatusObjetoDTO = estatusObjetoBO.deleteCommand(estatusObjetoDTO);
+							if(estatusObjetoDTO.getErrorCode().equals("0002")){
+								Messagebox.show(estatusObjetoDTO.getErrorDescription(),
+										"Error", Messagebox.OK,
+										Messagebox.ERROR);
+								clean();
+								BindUtils
+										.postGlobalCommand(
+												null,
+												null,
+												"resetGridEstatusObjetos",
+												null);
+							}else{
+								Messagebox.show("!El registro fue eliminado!",
+										"Información", Messagebox.OK,
+										Messagebox.INFORMATION);
+								clean();
+								BindUtils
+										.postGlobalCommand(
+												null,
+												null,
+												"resetGridEstatusObjetos",
+												null);
+							}
 						}
 					});
 		}else{
@@ -259,8 +273,10 @@ public class EstatusObjetoController extends SelectorComposer<Component> impleme
 		PantallaVO pantallaVO = new PantallaVO();
 		PantallaBO pantallaBO = new PantallaBO();
 		estatusObjetoDTO.setPantallaVO(pantallaVO);
-		estatusObjetoDTO.toString(BbvaAbstractDataTransferObject.XML);	
-		List<PantallaVO> pantallaVOs = pantallaBO.readCommand(estatusObjetoDTO).getPantallaVOs();
+		estatusObjetoDTO.toString(BbvaAbstractDataTransferObject.XML);
+		PantallaDTO pantallaDTO = new PantallaDTO();
+		pantallaDTO.setPantallaVO(pantallaVO);
+		List<PantallaVO> pantallaVOs = pantallaBO.readCommand(pantallaDTO).getPantallaVOs();
 		estatusObjetoDTO.setPantallaVOs(pantallaVOs);
 		logger.debug("*estatusClaveVO*");
 		estatusObjetoDTO.setCommandId(CommandConstants.ESTATUS_CLAVE);

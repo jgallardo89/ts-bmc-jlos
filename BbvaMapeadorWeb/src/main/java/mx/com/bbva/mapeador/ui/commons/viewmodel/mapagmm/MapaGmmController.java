@@ -6,8 +6,10 @@ import java.util.Date;
 import java.util.List;
 
 import mx.com.bbva.bancomer.bussinnes.model.vo.ComponenteVO;
+import mx.com.bbva.bancomer.bussinnes.model.vo.EstatusObjetoVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.MapaGmmVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.PantallaVO;
+import mx.com.bbva.bancomer.commons.command.CommandConstants;
 import mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject;
 import mx.com.bbva.bancomer.componente.dto.ComponenteDTO;
 import mx.com.bbva.bancomer.estatusobjeto.dto.EstatusObjetoDTO;
@@ -95,8 +97,11 @@ public class MapaGmmController  extends ControllerSupport implements  IControlle
 	public Object read() {
 		//Catalogo Estatus
 		EstatusObjetoDTO estatusObjetoDTO = new EstatusObjetoDTO();
-		estatusObjetoDTO.setCommandId(2);
+		estatusObjetoDTO.setCommandId(CommandConstants.ESTATUS_OBJETO);
+		EstatusObjetoVO estatusObjetoVO = new EstatusObjetoVO();
+		estatusObjetoVO.setNombreTabla(CommandConstants.NOMBRE_TABLA_MAPA);		
 		EstatusObjetoBO estatusObjetoBO = new EstatusObjetoBO();
+		estatusObjetoDTO.setEstatusObjetoVO(estatusObjetoVO);
 		estatusObjetoDTO = estatusObjetoBO.readCommand(estatusObjetoDTO);
 		
 		MapaGmmDTO mapaGmmDTO = new MapaGmmDTO();
@@ -170,7 +175,7 @@ public class MapaGmmController  extends ControllerSupport implements  IControlle
 
 	@Override
 	@Command
-	@NotifyChange({ "componenteVOs" })
+	@NotifyChange({ "mapaGmmVOs" })
 	public void save() {
 		//Validar Todos Los campos de pantalla
 		boolean errorGuardar = false; 
@@ -196,7 +201,7 @@ public class MapaGmmController  extends ControllerSupport implements  IControlle
 				MapaGmmDTO mapaGmmDTO = new MapaGmmDTO();
 				MapaGmmVO mapaGmmVO = new MapaGmmVO();
 				mapaGmmVO.setIdMapaGmm(Integer.parseInt(idMapaGmm.getValue().isEmpty()?"0":idMapaGmm.getValue()));
-				mapaGmmVO.setIdEstatusObjeto(Integer.parseInt(idStatus.getValue().isEmpty()?"1":idStatus.getValue()));
+				mapaGmmVO.setIdEstatusObjeto(Integer.parseInt(status.getSelectedItem().getValue().toString().isEmpty()?"1":status.getSelectedItem().getValue().toString()));
 				
 				mapaGmmVO.setNombreMapaGmm(identificadorMapa.getValue().toUpperCase());
 				mapaGmmVO.setDescripcionMapaGmm(descripcionMapa.getValue().toUpperCase());
@@ -210,16 +215,7 @@ public class MapaGmmController  extends ControllerSupport implements  IControlle
 				clean();			
 				
 				//Textbox
-				mapaGmmVO.setNombreMapaGmm(identificadorMapa.getValue().isEmpty()?"%":"%"+identificadorMapa.getValue().toUpperCase()+"%");
-				mapaGmmVO.setDescripcionMapaGmm(descripcionMapa.getValue().isEmpty()?"%":"%"+descripcionMapa.getValue().toUpperCase()+"%");
-				//Fechas
-				DateFormat dateFormat= new SimpleDateFormat("yyyy-MM-dd");
-				logger.debug(" :::::::::::: "+dateFormat.format(fechaAlta.getValue()));
-				mapaGmmVO.setFechaAlta(fechaAlta.getValue());
-				mapaGmmVO.setFechaModificacion(fechaModificacion.getValue());
-				
-				//Combos Validar el nombre de los parametros en HTML VS Controller
-				mapaGmmVO.setIdEstatusObjeto((Integer.parseInt(idStatus.getValue().isEmpty()?"0":idStatus.getValue())));
+				mapaGmmVO = new MapaGmmVO();
 				
 				//Consulta Parametrizada
 
@@ -239,50 +235,41 @@ public class MapaGmmController  extends ControllerSupport implements  IControlle
 				
 				mapaGmmVOs = mapaGmmDTO.getMapaGmmVOs();
 			}else{ 
-				logger.info("::::::Crear::::"); 
-				MapaGmmDTO mapaGmmDTO = new MapaGmmDTO();
-				MapaGmmVO mapaGmmVO = new MapaGmmVO();
-				mapaGmmVO.setIdMapaGmm(Integer.parseInt(idMapaGmm.getValue().isEmpty()?"0":idMapaGmm.getValue()));
-				mapaGmmVO.setIdEstatusObjeto(Integer.parseInt((idStatus.getValue().isEmpty())?"1":idStatus.getValue()));
-				
-				mapaGmmVO.setNombreMapaGmm(identificadorMapa.getValue().toUpperCase());
-				mapaGmmVO.setDescripcionMapaGmm(descripcionMapa.getValue().toUpperCase());
-							
-				//Seteo de VO a DTO 
-				mapaGmmDTO.setMapaGmmVO(mapaGmmVO);
-				mapaGmmDTO.toString(BbvaAbstractDataTransferObject.XML);	
-				
-				MapaGmmBO mapaGmmBO = new MapaGmmBO();
-				mapaGmmBO.createCommand(mapaGmmDTO);
-				clean();			
-				
-				//Textbox
-				mapaGmmVO.setNombreMapaGmm(identificadorMapa.getValue().isEmpty()?"%":"%"+identificadorMapa.getValue().toUpperCase()+"%");
-				mapaGmmVO.setDescripcionMapaGmm(descripcionMapa.getValue().isEmpty()?"%":"%"+descripcionMapa.getValue().toUpperCase()+"%");
-				//Fechas
-				DateFormat dateFormat= new SimpleDateFormat("yyyy-MM-dd");
-				logger.debug(" :::::::::::: "+dateFormat.format(fechaAlta.getValue()));
-				mapaGmmVO.setFechaAlta(fechaAlta.getValue());
-				mapaGmmVO.setFechaModificacion(fechaModificacion.getValue());
-				
-				//Combos Validar el nombre de los parametros en HTML VS Controller
-				mapaGmmVO.setIdEstatusObjeto((Integer.parseInt(idStatus.getValue().isEmpty()?"0":idStatus.getValue())));
-				
-				//Consulta Parametrizada
-
-				mapaGmmDTO.setMapaGmmVO(mapaGmmVO);
-				mapaGmmDTO.toString(BbvaAbstractDataTransferObject.XML);	
-				
-				//LLamada a BO  MapaGmm para consulta por criterio
-				MapaGmmBO MapaGmmBO = new MapaGmmBO();
-				
-				//Asignacion resultado de consulta al mismo DTO de MapaGmm
-				mapaGmmDTO = MapaGmmBO.readCommand(mapaGmmDTO);
-				
-				
-				Messagebox.show("Registro creo con exito!!",
-						"Confirmación", Messagebox.OK,
-						Messagebox.INFORMATION);
+				logger.info("::::::NO Crea::::"); 
+//				MapaGmmDTO mapaGmmDTO = new MapaGmmDTO();
+//				MapaGmmVO mapaGmmVO = new MapaGmmVO();
+//				mapaGmmVO.setIdMapaGmm(Integer.parseInt(idMapaGmm.getValue().isEmpty()?"0":idMapaGmm.getValue()));
+//				mapaGmmVO.setIdEstatusObjeto(Integer.parseInt((status.getSelectedItem().getValue().toString().isEmpty())?"1":status.getSelectedItem().getValue().toString()));
+//				
+//				mapaGmmVO.setNombreMapaGmm(identificadorMapa.getValue().toUpperCase());
+//				mapaGmmVO.setDescripcionMapaGmm(descripcionMapa.getValue().toUpperCase());
+//							
+//				//Seteo de VO a DTO 
+//				mapaGmmDTO.setMapaGmmVO(mapaGmmVO);
+//				mapaGmmDTO.toString(BbvaAbstractDataTransferObject.XML);	
+//				
+//				MapaGmmBO mapaGmmBO = new MapaGmmBO();
+//				mapaGmmBO.createCommand(mapaGmmDTO);
+//				clean();			
+//				
+//				//Textbox
+//				mapaGmmVO = new MapaGmmVO();
+//				//Consulta Parametrizada
+//
+//				mapaGmmDTO.setMapaGmmVO(mapaGmmVO);
+//				mapaGmmDTO.toString(BbvaAbstractDataTransferObject.XML);	
+//				
+//				//LLamada a BO  MapaGmm para consulta por criterio
+//				MapaGmmBO MapaGmmBO = new MapaGmmBO();
+//				
+//				//Asignacion resultado de consulta al mismo DTO de MapaGmm
+//				mapaGmmDTO = MapaGmmBO.readCommand(mapaGmmDTO);
+//				
+//				
+//				Messagebox.show("Registro creo con exito!!",
+//						"Confirmación", Messagebox.OK,
+//						Messagebox.INFORMATION);
+//				mapaGmmVOs = mapaGmmDTO.getMapaGmmVOs();
 			}
 		}
 	}

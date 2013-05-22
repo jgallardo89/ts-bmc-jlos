@@ -5,7 +5,9 @@ package mx.com.bbva.mapeador.ui.commons.viewmodel.pantalla;
 
 import java.util.List;
 
+import mx.com.bbva.bancomer.bussinnes.model.vo.EstatusObjetoVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.PantallaVO;
+import mx.com.bbva.bancomer.commons.command.CommandConstants;
 import mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject;
 import mx.com.bbva.bancomer.estatusobjeto.dto.EstatusObjetoDTO;
 import mx.com.bbva.bancomer.mapper.business.EstatusObjetoBO;
@@ -109,11 +111,16 @@ public class PantallaController extends ControllerSupport implements  IControlle
 	private String strOrden;
 	@Override
 	public Object read() {
-		PantallaDTO pantallaDTO = new PantallaDTO();
 		EstatusObjetoDTO estatusObjetoDTO = new EstatusObjetoDTO();
-		estatusObjetoDTO.setCommandId(2);
-		PantallaBO pantallaBO = new PantallaBO();
+		estatusObjetoDTO.setCommandId(CommandConstants.ESTATUS_OBJETO);
+		EstatusObjetoVO estatusObjetoVO = new EstatusObjetoVO();
+		estatusObjetoVO.setNombreTabla(CommandConstants.NOMBRE_TABLA_PANTALLA);		
 		EstatusObjetoBO estatusObjetoBO = new EstatusObjetoBO();
+		estatusObjetoDTO.setEstatusObjetoVO(estatusObjetoVO);
+		estatusObjetoDTO = estatusObjetoBO.readCommand(estatusObjetoDTO);
+		PantallaDTO pantallaDTO = new PantallaDTO();		
+		PantallaBO pantallaBO = new PantallaBO();		
+		pantallaDTO.setEstatusObjetoVO(estatusObjetoVO);
 		pantallaDTO = pantallaBO.readCommand(pantallaDTO);
 		logger.info("::::::::::::::SIZE::::::::::" + pantallaDTO.getPantallaVOs());
 		estatusObjetoDTO = estatusObjetoBO.readCommand(estatusObjetoDTO);
@@ -134,7 +141,7 @@ public class PantallaController extends ControllerSupport implements  IControlle
 		EstatusObjetoDTO estatusObjetoDTO = new EstatusObjetoDTO();	
 		//Textbox
 		pantallaVO.setNombrePantalla(nombrePantalla.getValue().isEmpty()?"%":"%"+nombrePantalla.getValue().toUpperCase()+"%");
-		pantallaVO.setDescripcionUrlPantalla(url.getValue().isEmpty()?"%":"%"+url.getValue().toUpperCase()+"%");
+		pantallaVO.setDescripcionUrlPantalla(url.getValue().isEmpty()?"%":"%"+url.getValue().toLowerCase()+"%");
 		pantallaVO.setDescripcionUrlIcon(icono.getValue().isEmpty()?"%":"%"+icono.getValue().toUpperCase()+"%");
 		
 		//Combos Validar el nombre de los parametros en HTML VS Controller
@@ -184,7 +191,7 @@ public class PantallaController extends ControllerSupport implements  IControlle
 	
 	@Override
 	@Command
-	@NotifyChange({ "pantallaVOs" })
+	@NotifyChange({ "pantallaVOs"})
 	public void save() {
 		//Validar Todos Los campos de pantalla
 		boolean errorGuardar = false; 
@@ -225,15 +232,13 @@ public class PantallaController extends ControllerSupport implements  IControlle
 				logger.info("::::::Actualizar::::");
 				PantallaDTO pantallaDTO = new PantallaDTO();
 				PantallaVO pantallaVO = new PantallaVO();
-				pantallaVO.setIdPantalla(Integer.parseInt(idPantalla.getValue().isEmpty()?"1":idPantalla.getValue()));
-				pantallaVO.setIdPantallaPadre(Integer.parseInt(idPantallaPadre.getValue().isEmpty()?"1":idPantallaPadre.getValue()));
-				pantallaVO.setEstatusPantalla(Integer.parseInt(idEstatusObjeto.getValue().isEmpty()?"1":idEstatusObjeto.getValue()));
-				pantallaVO.setNumeroOrdenPantalla(Integer.parseInt(orden.getValue().isEmpty()?"1":orden.getValue()));
-				
-				
-				pantallaVO.setNombrePantalla(nombrePantalla.getValue().toUpperCase());
-				pantallaVO.setDescripcionUrlPantalla(url.getValue().toUpperCase());
-				pantallaVO.setDescripcionUrlIcon(icono.getValue().toUpperCase());
+				pantallaVO.setIdPantalla(Integer.parseInt(idPantalla.getValue().toString()));
+				pantallaVO.setIdPantallaPadre(Integer.parseInt(idPantallaPadre.getValue()));
+				pantallaVO.setEstatusPantalla(Integer.parseInt(status.getSelectedItem().getValue().toString()));
+				pantallaVO.setNumeroOrdenPantalla(Integer.parseInt(orden.getValue()));								
+				pantallaVO.setNombrePantalla(nombrePantalla.getValue().toUpperCase().trim());
+				pantallaVO.setDescripcionUrlPantalla(url.getValue().trim());
+				pantallaVO.setDescripcionUrlIcon(icono.getValue().toUpperCase().trim());
 				
 				//Seteo de VO a DTO 
 				pantallaDTO.setPantallaVO(pantallaVO);
@@ -242,17 +247,7 @@ public class PantallaController extends ControllerSupport implements  IControlle
 				PantallaBO pantallaBO = new PantallaBO();
 				pantallaBO.updateCommand(pantallaDTO);
 				clean();			
-				
-				
-				//Textbox
-				pantallaVO.setNombrePantalla(nombrePantalla.getValue().isEmpty()?"%":"%"+nombrePantalla.getValue().toUpperCase()+"%");
-				pantallaVO.setDescripcionUrlPantalla(url.getValue().isEmpty()?"%":"%"+url.getValue().toUpperCase()+"%");
-				pantallaVO.setDescripcionUrlIcon(icono.getValue().isEmpty()?"%":"%"+icono.getValue().toUpperCase()+"%");
-				
-				//Combos Validar el nombre de los parametros en HTML VS Controller
-				pantallaVO.setIdPantallaPadre((Integer.parseInt(idPantallaPadre.getValue().isEmpty()?"0":idPantallaPadre.getValue())));
-				pantallaVO.setEstatusPantalla((Integer.parseInt(idEstatusObjeto.getValue().isEmpty()?"0":idEstatusObjeto.getValue())));
-				pantallaVO.setNumeroOrdenPantalla(Integer.parseInt(orden.getValue().isEmpty()?"0":orden.getValue()));
+				pantallaVO = new PantallaVO();							
 				//Consulta Parametrizada
 //				pantallaDTO.setCommandId(CommandConstants.ESTATUS_OBJETO_COMBO_PANTALLAS);
 				//Seteo de VO a DTO 
@@ -266,18 +261,19 @@ public class PantallaController extends ControllerSupport implements  IControlle
 				Messagebox.show("Registro actualizado con exito!!",
 						"Confirmación", Messagebox.OK,
 						Messagebox.INFORMATION);
+				this.pantallaDTO = pantallaDTO;
+				pantallaVOs = pantallaDTO.getPantallaVOs();								
 				
-				pantallaVOs = pantallaDTO.getPantallaVOs();
 			}else{ 
 				logger.info("::::::Crear::::");
 				PantallaDTO pantallaDTO = new PantallaDTO();
 				PantallaVO pantallaVO = new PantallaVO();
-				pantallaVO.setIdPantallaPadre(Integer.parseInt(idPantallaPadre.getValue().isEmpty()?"1":idPantallaPadre.getValue()));
-				pantallaVO.setEstatusPantalla(Integer.parseInt(idEstatusObjeto.getValue().isEmpty()?"1":idEstatusObjeto.getValue()));
-				pantallaVO.setEstatusPantalla(Integer.parseInt(orden.getValue().isEmpty()?"1":orden.getValue()));
+				pantallaVO.setIdPantallaPadre(Integer.parseInt(pantallaPadre.getSelectedItem().getValue().toString()));
+				pantallaVO.setEstatusPantalla(Integer.parseInt(status.getSelectedItem().getValue().toString()));
+				pantallaVO.setNumeroOrdenPantalla(Integer.parseInt(orden.getValue()));
 				
 				pantallaVO.setNombrePantalla(nombrePantalla.getValue().toUpperCase());
-				pantallaVO.setDescripcionUrlPantalla(url.getValue().toUpperCase());
+				pantallaVO.setDescripcionUrlPantalla(url.getValue().toLowerCase());
 				pantallaVO.setDescripcionUrlIcon(icono.getValue().toUpperCase());
 				
 				//Seteo de VO a DTO 
@@ -286,8 +282,17 @@ public class PantallaController extends ControllerSupport implements  IControlle
 				
 				PantallaBO pantallaBO = new PantallaBO();
 				pantallaBO.createCommand(pantallaDTO);
-				clean();			
-				Messagebox.show("Registro creo con exito!!",
+				clean();	
+				pantallaVO = new PantallaVO();
+				pantallaDTO.setPantallaVO(pantallaVO);
+				pantallaDTO.toString(BbvaAbstractDataTransferObject.XML);
+				
+				//Asignacion resultado de consulta al mismo DTO de pantalla
+				pantallaDTO = pantallaBO.readCommand(pantallaDTO);
+				this.pantallaDTO = pantallaDTO;
+				pantallaVOs = pantallaDTO.getPantallaVOs();
+				
+				Messagebox.show("Registro creado con exito!!",
 						"Confirmación", Messagebox.OK,
 						Messagebox.INFORMATION);
 			}

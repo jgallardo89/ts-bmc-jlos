@@ -96,10 +96,10 @@ public class UsuarioMapeadorController extends ControllerSupport implements ICon
 	}
 	
 	public boolean applyPermission(){
-		List<Component> components = this.getSelf().getChildren();
-		for (Component component : components) {
-			logger.debug("Componente type="+component.getDefinition().getClass().getName());
-		}
+//		List<Component> components = this.getSelf().getChildren();
+//		for (Component component : components) {
+//			logger.debug("Componente type="+component.getDefinition().getClass().getName());
+//		}
 		return true;
 	}
 
