@@ -1,19 +1,155 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?page title="Estadisticos" contentType="text/html;charset=UTF-8"?>
+<?page title="Catalogo Productos" contentType="text/html;charset=UTF-8"?>
 <?meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7"?>
 <?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
 <zk>
-	<window border="0" width="100%" height="70%"
+	<window border="0" width="100%" height="100%"
 		apply="org.zkoss.bind.BindComposer"
-		viewModel="@id('vm') @init('mx.com.bbva.mt101.ui.commons.viewmodel.estadisticos.EstadisticosController')"
-		id="estadisticosWindows">
+		viewModel="@id('vm') @init('mx.com.bbva.mapeador.ui.commons.viewmodel.estadistico.EstadisticoController')"
+		id="estadisticoWindows">
 		<include src="../../pages/styles.zul" />
-		<div sclass="BODY" height="100%">
-			<groupbox height="100%">			
-							
-			</groupbox>
-			<intbox value="@load(vm.strMonedaCbxId)" id="moneda" visible="false"></intbox>
-			<textbox value="@load(vm.strCdContrato)" id="cdContrato" visible="false"></textbox>
+		<div sclass="BODY" height="100%" width="100%">
+			<groupbox height="100%">
+				<caption sclass="pageTitle" label="Sistema > Estadistico"></caption>		
+					<portallayout maximizedMode="whole" id="portalLayoutEstadistico"
+					width="100%" height="100%">
+					<portalchildren>
+						<panel height="30%" width="100%" sclass="sectionPanelTitle" id="datosEstadistico"
+							title="Catalogo" collapsible="true" style="margin-bottom:10px"
+							border="normal">
+							<caption sclass="sectionPanelTitle" label="Estadistico"></caption>
+							<panelchildren>
+								<div align="center">
+									<grid width="100%" style="border:0" oddRowSclass="row2">
+										<columns>
+											<column width="20%" />
+											<column width="25%" />
+											<column width="20%" />
+											<column width="25%" />
+										</columns>
+										<rows>
+											<row sclass="row2">
+												<div align="right">
+													<label width="100%" sclass="labelFill" value="Canal: "></label>
+												</div>
+												<combobox sclass="textboxUpperCase" onChange="selectedValueCanal()"
+													id="canal" width="70%" model="@load(vm.estadisticoDTO.canalVOs)" autodrop="true">		
+													<template name="model">										
+														<comboitem value="@load(each.idCanal)" label="@load(each.nombreCanal)" height="100%"/>
+													</template>																								
+												</combobox>
+												<div align="right">
+													<label width="100%" sclass="labelFill" value="Identificador Cliente: "></label>
+												</div>
+												<combobox sclass="textboxUpperCase" onChange="selectedValueCliente()"
+													id="cliente" width="70%" model="@load(vm.estadisticoDTO.clienteVOs)" autodrop="true">		
+													<template name="model">										
+														<comboitem value="@load(each.idCliente)" label="@load(each.idIdentificador)" height="100%"/>
+													</template>																								
+												</combobox>																											
+											</row>
+											<row sclass="row2">
+												<div align="right">
+													<label width="100%" sclass="labelFill" value="Clave Producto: "></label>												
+												</div>
+												<combobox sclass="textboxUpperCase" onChange="selectedValueProducto()"
+													id="producto" width="70%" model="@load(vm.estadisticoDTO.productoVOs)" autodrop="true">		
+													<template name="model">										
+														<comboitem value="@load(each.idProducto)" label="@load(each.nombreProducto)" height="100%"/>
+													</template>																								
+												</combobox>																														
+											</row>
+											<row sclass="row2">
+												<div align="right">
+													<label width="100%" sclass="labelFill" value="Fecha alta: "></label>												
+												</div>
+												<datebox value="@load(vm.estadisticoDTO.estadisticoVO.fechaInicio)"  maxlength="50"  width="100%" id="fechaInicio" readonly="true" buttonVisible="true" onCreate="self.value = new Date()" format="dd/MM/yyyy HH:MM:SS"></datebox>
+												<div align="right">
+													<label width="100%" sclass="labelFill" value="a: "></label>												
+												</div>
+												<datebox value="@load(vm.estadisticoDTO.estadisticoVO.fechaFin)"  maxlength="50"  width="100%" id="fechaFin" readonly="true" buttonVisible="true" onCreate="self.value = new Date()" format="dd/MM/yyyy HH:MM:SS"></datebox>
+											</row>
+											<row sclass="row2">
+												<div align="right" width="70%">
+												</div>												
+												<div align="right" width="70%">
+													<button sclass="button" image="/img/clear.png"  label="Limpiar" id="limpiarBtn" onClick="@command('clean')" ></button>
+												</div>	
+												<div align="right" width="70%">
+													<button sclass="button" image="/img/search.png" label="Consultar" id="consultarBtn" onClick="@command('readWithFilters')"></button>
+												</div>
+											</row>
+										</rows>								
+									</grid>
+								</div>
+							</panelchildren>										
+						</panel>
+					</portalchildren>
+					<portalchildren width="100%" style="padding: 5px">
+						<panel height="67%" sclass="sectionPanelTitle" width="100%" id="panelEstadistico"
+							title="Resultados" collapsible="true"
+							style="margin-bottom:10px">
+							<caption sclass="sectionPanelTitle" label="Lista de Resultados"></caption>
+							<panelchildren>
+								<grid width="99.7%" id="productosGrid" mold="paging"
+									model="@load(vm.estadisticoVOs)" pagingPosition="both" pageSize="11"
+									vflex="true" height="100%">									
+									<columns sizable="true" menupopup="auto">
+										<column hflex="1" label="Canal" style="text-wrap: normal;"
+											width="10%" sort="auto(vm.estadisticoDTO.estadisticoVO.nombreCanal)"></column>
+										<column hflex="1" label="Cliente" width="20%"
+											sort="auto(vm.estadisticoDTO.estadisticoVO.idIdentificador)"></column>
+										<column hflex="1" label="Fecha" width="20%"
+											sort="auto(vm.estadisticoDTO.estadisticoVO.fechaStatusProceso)"></column>
+										<column hflex="1" label="Producto" width="10%"
+											sort="auto(vm.estadisticoDTO.estadisticoVO.nombreProducto)"></column>
+										<column hflex="1" label="Nombre Archivo" width="10%"
+											sort="auto(vm.estadisticoDTO.estadisticoVO.nombreRegArchEntra)"></column>
+										<column hflex="1" label="Operaciones" width="10%"
+											sort="auto(vm.estadisticoDTO.estadisticoVO.numeroOperacione)"></column>								
+									</columns>	
+									<template name="model">
+										<row>
+											<label hflex="1" value="@load(each.nombreCanal)"></label>											
+											<label hflex="1" value="@load(each.idIdentificador)"></label>
+											<label hflex="1" value="@load(each.fechaStatusProceso)"></label>
+											<label hflex="1" value="@load(each.nombreProducto)"></label>
+											<label hflex="1" value="@load(each.nombreRegArchEntra)"></label> 		
+											<label hflex="1" value="@load(each.numeroOperacione)"></label> 		 																				
+										</row>
+									</template>						
+								</grid>
+							</panelchildren>
+						</panel>
+					</portalchildren>
+				</portallayout>								
+			</groupbox>	
+			<textbox id="idCanal" value="@load(vm.estadisticoDTO.estadisticoVO.idCanal)" visible="false"></textbox>
+			<textbox id="idCliente" value="@load(vm.estadisticoDTO.estadisticoVO.idCliente)" visible="false"></textbox>
+			<textbox id="idProducto" value="@load(vm.estadisticoDTO.estadisticoVO.idProducto)" visible="false"></textbox>
 		</div>
+		<zscript>
+			public void selectedValueCanal(){
+				try{
+					idCanal.setValue(canal.getSelectedItem().getValue().toString());
+				}catch(Exception ex){
+					idCanal.setValue(null);
+				}
+			}
+			public void selectedValueCliente(){
+				try{
+					idCliente.setValue(cliente.getSelectedItem().getValue().toString());
+				}catch(Exception ex){
+					idCliente.setValue(null);
+				}
+			}
+			public void selectedValueProducto(){
+				try{
+					idProducto.setValue(producto.getSelectedItem().getValue().toString());
+				}catch(Exception ex){
+					idProducto.setValue(null);
+				}
+			}
+		</zscript>
 	</window>
 </zk>
