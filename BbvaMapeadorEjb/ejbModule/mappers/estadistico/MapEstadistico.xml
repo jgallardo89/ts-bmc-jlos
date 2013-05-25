@@ -13,7 +13,7 @@
 			ARCHIVO.CD_REG_ARCH_ENTRA idRegArchEntra,
 			ARCHIVO.NB_REG_ARCH_ENTRA nombreRegArchEntra,
 			E.NU_OPERACIONES numeroOperacione,
-			P.FH_ST_PROCESO fechaStatusProceso
+			E.FH_ESTADISTICA fechaStatusProceso
 		FROM TGM539_ESTADISTICA E 
 			LEFT OUTER JOIN TGM522_ST_PROCESO P ON 
 			E.CD_CONTRATACION = P.CD_CONTRATACION AND  
@@ -45,7 +45,7 @@
 			AND PRODUCTO.CD_PRODUCTO = #{idProducto}
 		</if>	
 		<if test="fechaInicio != null and fechaFin != null">    
-			AND BITACORA.TM_BITACORA BETWEEN #{fechaInicio} AND #{fechaFin}
+			AND E.FH_ESTADISTICA BETWEEN #{fechaInicio} AND #{fechaFin}
 		</if>
 		ORDER BY CAN.CD_CANAL
 	</select>
