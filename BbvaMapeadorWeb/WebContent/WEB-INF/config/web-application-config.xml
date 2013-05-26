@@ -14,5 +14,5 @@
 	<import resource="webmvc-config.xml" />
 	<import resource="webflow-config.xml" />
 	<import resource="bussiness-application-config.xml" /> 
-	<import resource="db-config.xml" />
+	<!--import resource="db-config.xml" /-->
 </beans>
