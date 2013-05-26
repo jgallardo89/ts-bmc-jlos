@@ -5,7 +5,7 @@
 		resultType="mx.com.bbva.bancomer.bussinnes.model.vo.PantallaVO">
 		SELECT 
 			P.CD_PANTALLA idPantalla, 
-			P.CD_FK_PANTALLA idPantallaPadre,  
+			P.CD_PANTALLA_PADRE idPantallaPadre,  
 			P.NB_PANTALLA nombrePantalla, 
 			P.TX_URL_PANTALLA descripcionUrlPantalla, 
 			P.TX_URL_ICON descripcionUrlIcon, 
@@ -18,11 +18,11 @@
 			TGM501_PANTALLA PD,
 			TGM534_ST_OBJETO O
 		WHERE 
-		    PD.CD_PANTALLA = P.CD_FK_PANTALLA AND
+		    PD.CD_PANTALLA = P.CD_PANTALLA_PADRE AND
 			P.ST_PANTALLA = O.CD_ST_OBJETO
 			
 			<if test="idPantallaPadre != null and idPantallaPadre != 0">
-				AND P.CD_FK_PANTALLA = #{idPantallaPadre}
+				AND P.CD_PANTALLA_PADRE = #{idPantallaPadre}
 			</if>
 			<if test="nombrePantalla != null">
 				AND P.NB_PANTALLA LIKE #{nombrePantalla}
@@ -44,7 +44,7 @@
 		</selectKey>
 			INSERT INTO TGM501_PANTALLA (
 			CD_PANTALLA, 
-			CD_FK_PANTALLA, 
+			CD_PANTALLA_PADRE, 
 			NB_PANTALLA, 
 			TX_URL_PANTALLA, 
 			TX_URL_ICON, 
@@ -60,7 +60,7 @@
 	</insert>
 	<update id="actualizarPantalla" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.PantallaVO">
 		UPDATE TGM501_PANTALLA SET  
-			CD_FK_PANTALLA = #{idPantallaPadre}, 
+			CD_PANTALLA_PADRE = #{idPantallaPadre}, 
 			NB_PANTALLA = #{nombrePantalla}, 
 			TX_URL_PANTALLA = #{descripcionUrlPantalla}, 
 			TX_URL_ICON = #{descripcionUrlIcon}, 
