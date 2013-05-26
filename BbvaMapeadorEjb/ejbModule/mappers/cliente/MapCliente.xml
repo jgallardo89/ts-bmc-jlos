@@ -60,4 +60,13 @@
 			CD_ST_OBJETO = #{idEstatusObjeto}
 		WHERE CD_CLIENTE = #{idCliente}
 	</update>
+	<select id="obtenerCmbClientes" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.ClienteVO"
+		resultType="mx.com.bbva.bancomer.bussinnes.model.vo.ClienteVO">
+		SELECT
+			CLIENTE.CD_CLIENTE idCliente,
+			CLIENTE.NB_CLIENTE nombreCliente
+		FROM 
+			TGM512_CLIENTE CLIENTE
+		ORDER BY CLIENTE.CD_CLIENTE
+	</select>
 </mapper>

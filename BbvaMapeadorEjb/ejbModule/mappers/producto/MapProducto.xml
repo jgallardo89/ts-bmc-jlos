@@ -3,36 +3,36 @@
 <mapper namespace="mappers.producto.MapProducto">
 	<select id="obtenerProductos" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.ProductoVO"
 		resultType="mx.com.bbva.bancomer.bussinnes.model.vo.ProductoVO">
-				SELECT 
-					PRODUCTO.CD_PRODUCTO idProducto,
-					PRODUCTO.CD_FLUJO idFlujo,
-					PRODUCTO.NB_PRODUCTO nombreProducto,
-					PRODUCTO.TX_PRODUCTO descripcionProducto,
-					PRODUCTO.TM_ALTA fechaAlta,
-					PRODUCTO.TM_MODIFICACION fechaModificacion,
-					PRODUCTO.CD_ST_OBJETO idEstatusObjeto,
-					FLUJO.NB_FLUJO nombreFlujo,
-					OBJETO.NB_ST_OBJETO nombreEstatusObjeto
-				FROM 
-					TGM515_PRODUCTO PRODUCTO,
-					TGM513_FLUJO FLUJO,
-					TGM534_ST_OBJETO OBJETO
-				WHERE
-					PRODUCTO.CD_FLUJO = FLUJO.CD_FLUJO
-					AND PRODUCTO.CD_ST_OBJETO = OBJETO.CD_ST_OBJETO
-				<if test="idFlujo != null and idFlujo != 0">
-					AND PRODUCTO.CD_FLUJO = #{idFlujo}
-				</if>
-				<if test="nombreProducto != null">
-					AND PRODUCTO.NB_PRODUCTO LIKE #{nombreProducto}
-				</if>
-				<if test="descripcionProducto != null">
-					AND PRODUCTO.TX_PRODUCTO LIKE #{descripcionProducto}
-				</if>
-				<if test="idEstatusObjeto != null and idEstatusObjeto != 0">
-					AND OBJETO.CD_ST_OBJETO = #{idEstatusObjeto}
-				</if>
-				ORDER BY PRODUCTO.CD_PRODUCTO
+		SELECT 
+			PRODUCTO.CD_PRODUCTO idProducto,
+			PRODUCTO.CD_FLUJO idFlujo,
+			PRODUCTO.NB_PRODUCTO nombreProducto,
+			PRODUCTO.TX_PRODUCTO descripcionProducto,
+			PRODUCTO.TM_ALTA fechaAlta,
+			PRODUCTO.TM_MODIFICACION fechaModificacion,
+			PRODUCTO.CD_ST_OBJETO idEstatusObjeto,
+			FLUJO.NB_FLUJO nombreFlujo,
+			OBJETO.NB_ST_OBJETO nombreEstatusObjeto
+		FROM 
+			TGM515_PRODUCTO PRODUCTO,
+			TGM513_FLUJO FLUJO,
+			TGM534_ST_OBJETO OBJETO
+		WHERE
+			PRODUCTO.CD_FLUJO = FLUJO.CD_FLUJO
+			AND PRODUCTO.CD_ST_OBJETO = OBJETO.CD_ST_OBJETO
+		<if test="idFlujo != null and idFlujo != 0">
+			AND PRODUCTO.CD_FLUJO = #{idFlujo}
+		</if>
+		<if test="nombreProducto != null">
+			AND PRODUCTO.NB_PRODUCTO LIKE #{nombreProducto}
+		</if>
+		<if test="descripcionProducto != null">
+			AND PRODUCTO.TX_PRODUCTO LIKE #{descripcionProducto}
+		</if>
+		<if test="idEstatusObjeto != null and idEstatusObjeto != 0">
+			AND OBJETO.CD_ST_OBJETO = #{idEstatusObjeto}
+		</if>
+		ORDER BY PRODUCTO.CD_PRODUCTO
 	</select>
 	<insert id="crearProducto" keyProperty="idProducto" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.ProductoVO">
 		<selectKey keyProperty="idProducto" resultType="int" order="BEFORE"> 
@@ -62,4 +62,13 @@
 			CD_ST_OBJETO = #{idEstatusObjeto}
 		where CD_PRODUCTO = #{idProducto}
 	</update>
+	<select id="obtenerCmbProductos" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.ProductoVO"
+		resultType="mx.com.bbva.bancomer.bussinnes.model.vo.ProductoVO">
+		SELECT 
+			PRODUCTO.CD_PRODUCTO idProducto,
+			PRODUCTO.NB_PRODUCTO nombreProducto
+		FROM 
+			TGM515_PRODUCTO PRODUCTO
+		ORDER BY PRODUCTO.CD_PRODUCTO
+	</select>
 </mapper>

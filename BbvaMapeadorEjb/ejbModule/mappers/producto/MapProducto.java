@@ -8,4 +8,5 @@ public abstract interface MapProducto {
 	public abstract List<ProductoVO> obtenerProductos(ProductoVO productoVO);
 	public abstract void crearProducto(ProductoVO productoVO);
 	public abstract void actualizarProducto(ProductoVO productoVO);
+	public abstract List<ProductoVO> obtenerCmbProductos();
 }

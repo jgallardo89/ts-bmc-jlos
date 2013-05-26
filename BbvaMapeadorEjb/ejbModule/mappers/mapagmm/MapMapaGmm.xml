@@ -63,4 +63,14 @@
 		WHERE 
 			CD_MAPA_GMM = #{idMapaGmm}
 	</update>
+	<select id="obtenerCmbMapaGmms" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.MapaGmmVO"
+		resultType="mx.com.bbva.bancomer.bussinnes.model.vo.MapaGmmVO">
+		SELECT 
+			M.CD_MAPA_GMM idMapaGmm, 
+			M.NB_MAPA_GMM nombreMapaGmm,
+			M.TX_MAPA_GMM descripcionMapaGmm
+		FROM 
+			TGM514_MAPA_GMM M
+		ORDER BY M.CD_MAPA_GMM
+	</select>
 </mapper>

@@ -54,4 +54,16 @@
 		WHERE
 			CD_MENSAJE_SALIDA = #{idMensajeSalida}
 	</update>
+	<select id="obtenerMensajesCmbSalida" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.MensajeSalidaVO"
+		resultType="mx.com.bbva.bancomer.bussinnes.model.vo.MensajeSalidaVO">
+		SELECT
+			MENSAJE.CD_MENSAJE_SALIDA idMensajeSalida,
+			MENSAJE.NB_MENSAJE_SALIDA nombreMensajeSalida,
+			MENSAJE.TX_MENSAJE_SALIDA descripcionMensajeSalida
+		FROM
+			TGM516_MENSAJE_SAL MENSAJE
+		WHERE
+			TP_NOTIFICACION = 'N'
+		ORDER BY CD_MENSAJE_SALIDA
+	</select>
 </mapper>

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mappers.contratacion.MapContratacion">
+	<select id="obtenerContrataciones" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.ContratacionVO"
+		resultType="mx.com.bbva.bancomer.bussinnes.model.vo.ContratacionVO">
+				SELECT 
+					CONTRATACION.CD_CONTRATACION idContratacion,
+					CONTRATACION.CD_CANAL idCanal,
+					CANAL.NB_CANAL nombreCanal,
+					CONTRATACION.CD_CLIENTE idCliente,
+					CLIENTE.NB_CLIENTE nombreCliente,
+					CONTRATACION.CD_PRODUCTO idProducto,
+					PRODUCTO.NB_PRODUCTO nombreProducto,
+					CONTRATACION.CD_CANAL_SALIDA idCanalSalida,
+					CANAL.NB_CANAL nombreCanalSalida,
+					CONTRATACION.TM_ALTA fechaAlta,
+					CONTRATACION.TM_MODIFICACION fechaModificacion,
+					CONTRATACION.CD_ST_OBJETO idEstatusObjeto,
+					OBJETO.NB_ST_OBJETO nombreEstatusObjeto
+				FROM
+					TGM519_CONTRATACION CONTRATACION,
+					TGM511_CANAL CANAL,
+					TGM512_CLIENTE CLIENTE,
+					TGM515_PRODUCTO PRODUCTO,
+					TGM534_ST_OBJETO OBJETO
+				WHERE
+					CONTRATACION.CD_CANAL = CANAL.CD_CANAL
+					AND CONTRATACION.CD_CANAL_SALIDA = CANAL.CD_CANAL
+					AND CONTRATACION.CD_CLIENTE = CLIENTE.CD_CLIENTE
+					AND CONTRATACION.CD_PRODUCTO = PRODUCTO.CD_PRODUCTO
+					AND CONTRATACION.CD_ST_OBJETO = OBJETO.CD_ST_OBJETO
+				<if test="idCanal != null and idCanal != 0">
+					AND CONTRATACION.CD_CANAL = #{idCanal}
+				</if>
+				<if test="idCanalSalida != null and idCanalSalida != 0">
+					AND CONTRATACION.CD_CANAL_SALIDA = #{idCanalSalida}
+				</if>
+				<if test="idCliente != null and idCliente != 0">
+					AND CONTRATACION.CD_CLIENTE = #{idCliente}
+				</if>
+				<if test="idProducto != null and idProducto != 0">
+					AND CONTRATACION.CD_PRODUCTO = #{idProducto}
+				</if>
+				<if test="idEstatusObjeto != null and idEstatusObjeto != 0">
+					AND CONTRATACION.CD_ST_OBJETO = #{idEstatusObjeto}
+				</if>
+				ORDER BY CONTRATACION.CD_CONTRATACION
+	</select>
+	<select id="obtenerContratacionEtapas" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.ContratacionVO"
+		resultType="mx.com.bbva.bancomer.bussinnes.model.vo.ContratacionVO">
+				SELECT
+					ETAPA.CD_ETAPA idEtapa,
+					ETAPA.NB_ETAPA nombreEtapa
+				FROM
+					TGM515_PRODUCTO PRODUCTO,
+					TGM513_FLUJO FLUJO,
+					TGM518_FLUJOETAPA FLUJOETAPA,
+					TGM517_ETAPA ETAPA,
+					TGM534_ST_OBJETO OBJETO
+				WHERE
+					FLUJO.CD_FLUJO = PRODUCTO.CD_FLUJO
+					AND PRODUCTO.CD_FLUJO = FLUJOETAPA.CD_FLUJO
+					AND ETAPA.CD_ETAPA = FLUJOETAPA.CD_ETAPA
+					AND OBJETO.CD_ST_OBJETO = PRODUCTO.CD_ST_OBJETO
+					AND PRODUCTO.CD_PRODUCTO = #{idProducto}
+				ORDER BY NU_ORDEN_ETAPA
+	</select>
+	<insert id="crearCanal" keyProperty="idCanal" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.CanalVO">
+		<selectKey keyProperty="idCanal" resultType="int" order="BEFORE"> 
+			<![CDATA[ select SQ_CANAL.nextval as idCanal from dual ]]> 
+		</selectKey>
+		INSERT INTO TGM511_CANAL
+			(CD_CANAL,
+			NB_CANAL,
+			TX_CANAL,
+			TX_RUTA_CANAL_ENT,
+			TX_RUTA_CANAL_SAL, 	
+			TM_ALTA,
+			CD_ST_OBJETO)
+		VALUES
+			(#{idCanal},
+			#{nombreCanal},
+			#{descripcionCanal},
+			'-',
+			'-',
+			CURRENT_DATE,
+			#{idEstatusObjeto})
+	</insert>
+	<update id="actualizarContratacion" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.ContratacionVO">
+	    UPDATE TGM519_CONTRATACION
+		Set CD_ST_OBJETO = #{idEstatusObjeto}
+		where CD_CONTRATACION = #{idContratacion}
+	</update>
+	<select id="obtenerCmbCanales" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.CanalVO"
+		resultType="mx.com.bbva.bancomer.bussinnes.model.vo.CanalVO">
+			SELECT
+				CANAL.CD_CANAL idCanal,
+				CANAL.NB_CANAL nombreCanal
+			FROM
+				TGM511_CANAL CANAL
+			ORDER BY CANAL.CD_CANAL
+	</select>
+</mapper>

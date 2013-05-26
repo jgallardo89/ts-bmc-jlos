@@ -56,4 +56,13 @@
 			CD_ST_OBJETO = #{idEstatusObjeto}
 		where CD_CANAL = #{idCanal}
 	</update>
+	<select id="obtenerCmbCanales" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.CanalVO"
+		resultType="mx.com.bbva.bancomer.bussinnes.model.vo.CanalVO">
+			SELECT
+				CANAL.CD_CANAL idCanal,
+				CANAL.NB_CANAL nombreCanal
+			FROM
+				TGM511_CANAL CANAL
+			ORDER BY CANAL.CD_CANAL
+	</select>
 </mapper>

@@ -8,4 +8,5 @@ public abstract interface MapCliente {
 	public abstract List<ClienteVO> obtenerClientes(ClienteVO ClienteVO);
 	public abstract void crearCliente(ClienteVO ClienteVO);
 	public abstract void actualizarCliente(ClienteVO ClienteVO);
+	public abstract List<ClienteVO> obtenerCmbClientes();
 }

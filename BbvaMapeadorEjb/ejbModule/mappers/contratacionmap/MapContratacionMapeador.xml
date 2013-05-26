@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mappers.contratacionmap.MapContratacionMapeador">
+	<select id="obtenerContratacionesMap" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.ContratacionMapVO"
+		resultType="mx.com.bbva.bancomer.bussinnes.model.vo.ContratacionMapVO">
+				SELECT
+					CONTRATACION.CD_CONTRATACION idContratacion,
+					ETAPA.CD_ETAPA idEtapa,
+					ETAPA.NB_ETAPA nombreEtapa,
+					FLUJO.CD_FLUJO idFlujo,
+					FLUJO.NB_FLUJO nombreFlujo,
+					FLUJOETAPA.NU_ORDEN_ETAPA numeroOrdenEtapa,
+					MAPA.CD_MAPA_GMM idMapaGmm,
+					MAPA.NB_MAPA_GMM nombreMapaGmm,
+					MAPA.TX_MAPA_GMM descripcionMapaGmm,
+					MENSAJE.CD_MENSAJE_SALIDA idMensajeSalida,
+					MENSAJE.NB_MENSAJE_SALIDA nombreMensajeSalida,
+					MENSAJE.TX_MENSAJE_SALIDA descripcionMensajeSalida,
+					CONTRAT_MAP.TX_ID_USUARIOS descripcionIdUsuarios,
+					CONTRAT_MAP.ST_NOTIFICACION estatusNotificacion
+				FROM
+					TGM519_CONTRATACION CONTRATACION,
+					TGM520_CONTRAT_MAP CONTRAT_MAP,
+					TGM518_FLUJOETAPA FLUJOETAPA,
+					TGM513_FLUJO FLUJO,
+					TGM517_ETAPA ETAPA,
+					TGM514_MAPA_GMM MAPA,
+					TGM516_MENSAJE_SAL MENSAJE
+				WHERE 
+					CONTRAT_MAP.CD_FLUJO = FLUJO.CD_FLUJO
+					AND CONTRAT_MAP.CD_ETAPA = ETAPA.CD_ETAPA
+					AND CONTRAT_MAP.CD_MAPA_GMM = MAPA.CD_MAPA_GMM
+					AND CONTRAT_MAP.CD_MENSAJE_SALIDA = MENSAJE.CD_MENSAJE_SALIDA (+)
+					AND CONTRAT_MAP.CD_FLUJO = FLUJOETAPA.CD_FLUJO
+					AND CONTRAT_MAP.CD_ETAPA = FLUJOETAPA.CD_ETAPA
+					AND CONTRAT_MAP.CD_CONTRATACION = CONTRATACION.CD_CONTRATACION
+					AND ETAPA.CD_ETAPA = FLUJOETAPA.CD_ETAPA
+					AND CONTRATACION.CD_CONTRATACION =  #{idContratacion}
+				ORDER BY FLUJOETAPA.NU_ORDEN_ETAPA
+	</select>
+	<insert id="crearContratacionMap" keyProperty="idCanal" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.ContratacionMapVO">
+		<selectKey keyProperty="idContratacion" resultType="int" order="BEFORE"> 
+			<![CDATA[ select SQ_CONTRAT_MAP.nextval as idContratacion from dual ]]> 
+		</selectKey>
+			INSERT INTO TGM520_CONTRAT_MAP
+				(CD_CONTRATACION,
+				CD_FLUJO,
+				CD_ETAPA,
+				CD_MAPA_GMM,
+				ST_NOTIFICACION,
+				CD_MENSAJE_SALIDA,
+				TX_ID_USUARIOS) 
+			VALUES
+				(#{idContratacion},
+				#{idFlujo},
+				#{idEtapa},
+				#{idMapaGmm},
+				#{estatusNotificacion},
+				#{idMensajeSalida},
+				#{descripcionIdUsuarios})
+	</insert>
+	<update id="actualizarContratacionMap" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.ContratacionMapVO">
+		    UPDATE TGM520_CONTRAT_MAP 
+			SET CD_MAPA_GMM = #{idMapaGmm},
+				ST_NOTIFICACION = #{estatusNotificacion},
+				<if test="idMensajeSalida != null">
+					CD_MENSAJE_SALIDA = #{idMensajeSalida},
+				</if>
+				<if test="idMensajeSalida == null">
+				    CD_MENSAJE_SALIDA = NULL,
+				</if>
+				<if test="descripcionIdUsuarios != null">
+					TX_ID_USUARIOS = #{descripcionIdUsuarios}
+				</if>
+				<if test="descripcionIdUsuarios == null">
+				    TX_ID_USUARIOS = NULL
+				</if>
+			WHERE
+				CD_CONTRATACION = #{idContratacion}
+			AND CD_FLUJO = #{idFlujo}
+			AND CD_ETAPA = #{idEtapa}
+	</update>
+</mapper>

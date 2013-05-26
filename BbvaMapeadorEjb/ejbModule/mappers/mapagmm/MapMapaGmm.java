@@ -8,4 +8,5 @@ public interface MapMapaGmm {
 	public abstract List<MapaGmmVO> obtenerMapaGmms(MapaGmmVO mapaGmmVO);
 	public abstract void crearMapaGmm(MapaGmmVO mapaGmmVO);
 	public abstract void actualizarMapaGmm(MapaGmmVO mapaGmmVO);
+	public abstract List<MapaGmmVO> obtenerCmbMapaGmms();
 }
