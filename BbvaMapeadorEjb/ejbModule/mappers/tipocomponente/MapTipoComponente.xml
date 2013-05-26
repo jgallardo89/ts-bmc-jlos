@@ -12,7 +12,7 @@
 		</selectKey>
 			INSERT INTO TGM501_PANTALLA (
 			CD_PANTALLA, 
-			CD_FK_PANTALLA, 
+			CD_PANTALLA_PADRE, 
 			NB_PANTALLA, 
 			TX_URL_PANTALLA, 
 			TX_URL_ICON, 
@@ -28,7 +28,7 @@
 	</insert>
 	<update id="actualizarPantalla" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.PantallaVO">
 		UPDATE TGM501_PANTALLA SET  
-			CD_FK_PANTALLA = #{idPantallaPadre}, 
+			CD_PANTALLA_PADRE = #{idPantallaPadre}, 
 			NB_PANTALLA = #{nombrePantalla}, 
 			TX_URL_PANTALLA = #{descripcionUrlPantalla}, 
 			TX_URL_ICON = #{descripcionUrlIcon}, 
