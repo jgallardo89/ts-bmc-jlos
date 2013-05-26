@@ -2,15 +2,15 @@ package mx.com.bbva.bancomer.bussinnes.model.vo;
 
 public class UsuarioNotificacionVO extends mx.com.bbva.bancomer.commons.model.vo.BbvaAbstractValueObject {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 8480678918746525659L;
 	private long idUsuarioNotificado;
 	private String nombreUsuarioNotificado;
 	private String descripcionEmail;
 	private long idEstatusObjeto;
 	private String nombreEstatusObjeto;
+	private String descripcionIdUsuarios;
+	private int[] IdUsuarios;
+	private String tipoNotificacion;
 	/**
 	 * 
 	 */
@@ -95,6 +95,41 @@ public class UsuarioNotificacionVO extends mx.com.bbva.bancomer.commons.model.vo
 	public void setNombreEstatusObjeto(String nombreEstatusObjeto) {
 		this.nombreEstatusObjeto = nombreEstatusObjeto;
 	}
-	
+	/**
+	 * @return the descripcionIdUsuarios
+	 */
+	public String getDescripcionIdUsuarios() {
+		return descripcionIdUsuarios;
+	}
+	/**
+	 * @param descripcionIdUsuarios the descripcionIdUsuarios to set
+	 */
+	public void setDescripcionIdUsuarios(String descripcionIdUsuarios) {
+		this.descripcionIdUsuarios = descripcionIdUsuarios;
+	}
+	/**
+	 * @return the idUsuarios
+	 */
+	public int[] getIdUsuarios() {
+		return IdUsuarios;
+	}
+	/**
+	 * @param idUsuarios the idUsuarios to set
+	 */
+	public void setIdUsuarios(int[] idUsuarios) {
+		IdUsuarios = idUsuarios;
+	}
+	/**
+	 * @return the tipoNotificacion
+	 */
+	public String getTipoNotificacion() {
+		return tipoNotificacion;
+	}
+	/**
+	 * @param tipoNotificacion the tipoNotificacion to set
+	 */
+	public void setTipoNotificacion(String tipoNotificacion) {
+		this.tipoNotificacion = tipoNotificacion;
+	}	
 	
 }

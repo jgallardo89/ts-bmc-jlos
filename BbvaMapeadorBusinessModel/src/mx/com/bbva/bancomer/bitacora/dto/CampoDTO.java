@@ -1,8 +1,8 @@
 package mx.com.bbva.bancomer.bitacora.dto;
 
-import mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject;
+import java.io.Serializable;
 
-public class CampoDTO extends BbvaAbstractDataTransferObject {
+public class CampoDTO implements Serializable {
 
 	private static final long serialVersionUID = 5345154030968378742L;
 	private String nombre_campo;
