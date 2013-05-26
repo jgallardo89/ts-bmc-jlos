@@ -1,6 +1,13 @@
 package mx.com.bbva.mapeador.ui.commons.viewmodel.support;
 
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
+import mx.com.bbva.bancomer.bitacora.dto.BitacoraDTO;
+import mx.com.bbva.bancomer.bussinnes.model.vo.BitacoraVO;
 import mx.com.bbva.bancomer.commons.command.BbvaICommandInvoker;
+import mx.com.bbva.bancomer.mapper.business.BitacoraBO;
 import mx.com.bbva.mapeador.security.session.user.SessionUser;
 
 import org.apache.log4j.Logger;
@@ -46,11 +53,28 @@ public class ControllerSupport extends SelectorComposer<Component>{
 	public SessionUser getSessionUser(){
 		logger.debug( "Entrada getSessionUser          -- OK" );		
 		String cveUsuario = null;
+		Map<String, Object> sessionValues = (HashMap<String, Object>)this.getPage().getDesktop().getSession().getAttribute("sessionValues");
+		if(sessionValues==null && sessionValues.get("iv-user")==null){
+			cveUsuario = "prueba desarrollo";
+		}else{
+			cveUsuario = sessionValues.get("iv-user").toString();
+		}
 		logger.debug( "Datos de usuario -- " + cveUsuario);
 		SessionUser sessionUser = new SessionUser();
 		sessionUser.setCveUsuario(cveUsuario);
 		logger.debug( "Salida getSessionUser          -- OK" );
 		return sessionUser;
+	}
+	
+	public void registraEvento(BitacoraDTO dto, String nombreBitacora, int idEventoMapeador){
+		BitacoraVO bitacoraVO= new BitacoraVO();
+		BitacoraBO bo = new BitacoraBO();
+		bitacoraVO.setNombreUsuario(this.getSessionUser().getCveUsuario());
+		bitacoraVO.setNombreBitacora(nombreBitacora);
+		bitacoraVO.setFechaBitacora(new Date());
+		bitacoraVO.setIdEventoMapeador(idEventoMapeador);
+		dto.setBitacoraVO(bitacoraVO);
+		bo.createCommand(dto);
 	}
 	/**
 	 * @return the invoker
