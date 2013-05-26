@@ -4,7 +4,7 @@
 	<select id="obtenerPantallasPorUsuario" parameterType="mx.com.bbva.mapeador.entity.tgm501pantalla.Tgm501Pantalla"
 		resultType="mx.com.bbva.mapeador.entity.tgm501pantalla.Tgm501Pantalla">
 		   select  Cd_Pantalla cdPantalla,
-					Cd_Fk_Pantalla cdFkPantalla,
+					CD_PANTALLA_PADRE cdFkPantalla,
 					NB_PANTALLA nbPantalla,
 					Tx_Url_Pantalla txUrlPantalla,
 					TX_URL_ICON txUrlIcon,
@@ -17,7 +17,7 @@
 					And St_Perfil = 17
 					And St_Usuario = 3
 					And Usuario.Cd_Cve_Usuario = #{cdCveUsuario}
-					And Pantalla.Cd_Fk_Pantalla = #{cdFkPantalla}
+					And Pantalla.CD_PANTALLA_PADRE = #{cdFkPantalla}
 					And Pantalla.Cd_Pantalla != 1
 					And Pantalla.Cd_Perfil = Perfil.Cd_Perfil
 					and Perfil.Cd_Perfil = Usuario.Cd_Perfil
