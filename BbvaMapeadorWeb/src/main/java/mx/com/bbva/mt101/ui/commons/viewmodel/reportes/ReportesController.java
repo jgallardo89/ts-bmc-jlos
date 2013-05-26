@@ -35,6 +35,7 @@ public class ReportesController extends ControllerSupport {
         	parameters.put("parameter" + contador++, header);
         }
         parameters.put("dataSource", source);
+        parameters.put("imagen", "C:/Temp/workspace_map/BbvaMapeadorWeb/WebContent/WEB-INF/reportes/Bancomer.jpg");
         report.setSrc("/WEB-INF/reportes/reporteGenerico_NumColumnas_"+headersReport.size()+".jasper");
         report.setParameters(parameters);
         report.setType(typeReport);
