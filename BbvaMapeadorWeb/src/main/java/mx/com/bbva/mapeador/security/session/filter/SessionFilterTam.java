@@ -43,12 +43,14 @@ public class SessionFilterTam implements Filter{
 	    while(headerNames.hasMoreElements()) {
 	      String headerName = (String)headerNames.nextElement();
 	      logger.debug("headerName:"+headerName);
-	      logger.debug("headerNameValue:"+request.getHeader(headerName));
-	      
+	      logger.debug("headerNameValue:"+request.getHeader(headerName));	      
 	      sessionValues.put(headerName, request.getHeader(headerName).toUpperCase());
-	      
-	      
 	    }
+	    //Linea para pasar sin tam
+	    logger.debug("request.getSession().getAttribute(iv-user):"+request.getSession().getAttribute("iv-user"));
+	    if(request.getSession().getAttribute("iv-user")!=null)
+	    	sessionValues.put("iv-user", request.getSession().getAttribute("iv-user"));
+	    
 	    HttpSession httpSession = request.getSession();
 	    logger.debug("SessionId:"+httpSession.getId());	    
 	    httpSession.setAttribute("sessionValues", sessionValues);
@@ -59,7 +61,8 @@ public class SessionFilterTam implements Filter{
 			UsuarioDTO usuarioDTO = new UsuarioDTO();
 			usuarioDTO.setUsuarioVO(usuarioVO);
 			usuarioDTO = usuarioBO.readCommand(usuarioDTO);
-			if(usuarioDTO.getUsuarioVOs().size()==1){
+			logger.debug("usuarioDTO.getUsuarioVOs().size():"+usuarioDTO.getUsuarioVOs().size());
+			if(usuarioDTO.getUsuarioVOs().size()==1){				
 	    		chain.doFilter(req, res);
 			}else{
     	    	logger.debug("No hay session valida");
