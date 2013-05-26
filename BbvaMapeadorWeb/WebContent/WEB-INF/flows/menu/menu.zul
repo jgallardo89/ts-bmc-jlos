@@ -44,10 +44,10 @@
                 </div>                 
             </north>
             <!-- Sidebar -->           
-            <west width="15%" border="0" flex="true" splittable="true" 
+            <west width="15%" border="0"  splittable="true" 
                 margins="0,5,0,0" style="background: #FFFFFF">
-                <vlayout spacing="0" height="100%" style="border:0">                                          
-                    <div height="100%" style="background: #FFFFFF">                    	
+                <vlayout  spacing="0" height="100%" vflex="1" style="border:0">                                          
+                    <div height="100%" vflex="1" style="background: #FFFFFF">                    	
                     	<groupbox id="grpMenu" closable="false" mold='3d' height="100%">						    
 						    <tree id="tree" hflex="1" model="@load(vm.treeModel)">
 						        <treecols>
