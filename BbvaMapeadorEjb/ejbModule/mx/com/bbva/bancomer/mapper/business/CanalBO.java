@@ -95,6 +95,40 @@ public class CanalBO implements
 			return bbvaAbstractDataTransferObject;
 		}
 	}
+	
+	public <T extends BbvaAbstractDataTransferObject> T readCommand() {
+		CanalDTO canalDTO = new CanalDTO();
+		try {
+			logger.debug("Entrada readCmbCommand -- OK");
+			try {
+				List<CanalVO> result = null;
+				SqlSession session = MapeadorSessionFactory
+						.getSqlSessionFactory().openSession();
+				MapCanal mapCanal = session.getMapper(MapCanal.class);
+				try {
+					result = mapCanal.obtenerCmbCanales();
+					session.commit();
+				} catch (Exception ex) {
+					session.rollback();
+					ex.printStackTrace();
+				} finally {
+					session.close();
+				}
+				canalDTO.setCanalVOs(result);
+				logger.debug("result: " + result + " -- **fin**");
+				logger.debug("Datos de Salida invoke -- "
+						+ canalDTO.toString());
+				logger.debug("Salida invoke          -- OK");
+				return (T) canalDTO;
+			} catch (Exception ex) {
+				ex.printStackTrace();
+				return (T) canalDTO;
+			}
+		} catch (Exception exception) {
+			exception.printStackTrace();
+			return (T) canalDTO;
+		}
+	}
 
 	@Override
 	public <T extends BbvaAbstractDataTransferObject> T updateCommand(

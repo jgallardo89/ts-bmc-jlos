@@ -16,7 +16,6 @@ import mx.com.bbva.mapeador.oralce.session.MapeadorSessionFactory;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.log4j.Logger;
 
-import com.ibm.jsse2.bb;
 
 @Stateless(mappedName="componenteBO")
 public class ComponenteBO implements mx.com.bbva.bancomer.commons.business.BbvaIBusinessObject {

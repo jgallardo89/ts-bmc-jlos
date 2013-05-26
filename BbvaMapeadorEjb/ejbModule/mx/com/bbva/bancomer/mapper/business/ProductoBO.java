@@ -7,8 +7,11 @@ import javax.ejb.Stateless;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.log4j.Logger;
 
+import mappers.cliente.MapCliente;
 import mappers.producto.MapProducto;
+import mx.com.bbva.bancomer.bussinnes.model.vo.ClienteVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.ProductoVO;
+import mx.com.bbva.bancomer.cliente.dto.ClienteDTO;
 import mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject;
 import mx.com.bbva.bancomer.producto.dto.ProductoDTO;
 import mx.com.bbva.mapeador.oralce.session.MapeadorSessionFactory;
@@ -93,6 +96,40 @@ public class ProductoBO implements
 		} catch (Exception exception) {
 			exception.printStackTrace();
 			return bbvaAbstractDataTransferObject;
+		}
+	}
+	
+	public <T extends BbvaAbstractDataTransferObject> T readCommand() {
+		ProductoDTO productoDTO = new ProductoDTO();
+		try {
+			logger.debug("Entrada readCmbCommand -- OK");
+			try {
+				List<ProductoVO> result = null;
+				SqlSession session = MapeadorSessionFactory
+						.getSqlSessionFactory().openSession();
+				MapProducto mapProducto = session.getMapper(MapProducto.class);
+				try {
+					result = mapProducto.obtenerCmbProductos();
+					session.commit();
+				} catch (Exception ex) {
+					session.rollback();
+					ex.printStackTrace();
+				} finally {
+					session.close();
+				}
+				productoDTO.setProductoVOs(result);
+				logger.debug("result: " + result + " -- **fin**");
+				logger.debug("Datos de Salida invoke -- "
+						+ productoDTO.toString());
+				logger.debug("Salida invoke          -- OK");
+				return (T) productoDTO;
+			} catch (Exception ex) {
+				ex.printStackTrace();
+				return (T) productoDTO;
+			}
+		} catch (Exception exception) {
+			exception.printStackTrace();
+			return (T) productoDTO;
 		}
 	}
 

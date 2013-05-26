@@ -4,23 +4,20 @@ import java.util.List;
 
 import javax.ejb.Stateless;
 
+import mappers.contratacionmap.MapContratacionMapeador;
+import mx.com.bbva.bancomer.bussinnes.model.vo.ContratacionMapVO;
+import mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject;
+import mx.com.bbva.bancomer.contratacionmap.dto.ContratacionMapDTO;
+import mx.com.bbva.mapeador.oralce.session.MapeadorSessionFactory;
+
 import org.apache.ibatis.session.SqlSession;
 import org.apache.log4j.Logger;
 
-import mappers.canal.MapCanal;
-import mappers.cliente.MapCliente;
-import mx.com.bbva.bancomer.bussinnes.model.vo.CanalVO;
-import mx.com.bbva.bancomer.bussinnes.model.vo.ClienteVO;
-import mx.com.bbva.bancomer.canal.dto.CanalDTO;
-import mx.com.bbva.bancomer.cliente.dto.ClienteDTO;
-import mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject;
-import mx.com.bbva.mapeador.oralce.session.MapeadorSessionFactory;
-
-@Stateless(mappedName = "clienteBO")
-public class ClienteBO implements
+@Stateless(mappedName = "contratacionMapeadorBO")
+public class ContratacionMapeadorBO implements
 		mx.com.bbva.bancomer.commons.business.BbvaIBusinessObject {
 	private static final org.apache.log4j.Logger logger = Logger
-			.getLogger(ClienteBO.class);
+			.getLogger(ContratacionMapeadorBO.class);
 
 	// @Autowired
 	private mx.com.bbva.bancomer.commons.persistence.dao.BbvaIDataAccessObject bbvaIDataAccessObject;
@@ -42,12 +39,12 @@ public class ClienteBO implements
 			T bbvaAbstractDataTransferObject) {		
 			logger.debug( "Entrada createCommand          -- OK" );
 			logger.debug( "Datos de Entrada createCommand -- " + bbvaAbstractDataTransferObject.toString() );
-			ClienteVO ClienteVO = ((ClienteDTO)bbvaAbstractDataTransferObject).getClienteVO();
+			ContratacionMapVO contratacionMapVO = ((ContratacionMapDTO)bbvaAbstractDataTransferObject).getContratacionMapVO();
 			SqlSession session = MapeadorSessionFactory.getSqlSessionFactory()
 					.openSession();
-			MapCliente mapCliente = session.getMapper(MapCliente.class);
+			MapContratacionMapeador mapContratacion = session.getMapper(MapContratacionMapeador.class);
 			try {
-				mapCliente.crearCliente(ClienteVO);
+				mapContratacion.crearContratacionMap(contratacionMapVO);
 				session.commit();
 			} catch (Exception ex) {
 				session.rollback();
@@ -64,18 +61,18 @@ public class ClienteBO implements
 	public <T extends BbvaAbstractDataTransferObject> T readCommand(
 			T bbvaAbstractDataTransferObject) {
 		try {
-			logger.debug("Entrada createCommand          -- OK");
-			logger.debug("Datos de Entrada createCommand -- "
+			logger.debug("Entrada readCommand          -- OK");
+			logger.debug("Datos de Entrada readCommand -- "
 					+ bbvaAbstractDataTransferObject.toString());
 			try {
-				List<ClienteVO> result = null;
-				ClienteVO clienteVO = ((ClienteDTO) bbvaAbstractDataTransferObject)
-						.getClienteVO();
+				List<ContratacionMapVO> result = null;
+				ContratacionMapVO contratacionMapVO = ((ContratacionMapDTO) bbvaAbstractDataTransferObject)
+						.getContratacionMapVO();
 				SqlSession session = MapeadorSessionFactory
 						.getSqlSessionFactory().openSession();
-				MapCliente mapCliente = session.getMapper(MapCliente.class);
+				MapContratacionMapeador contratacionMapeador 	= session.getMapper(MapContratacionMapeador.class);
 				try {
-					result = mapCliente.obtenerClientes(clienteVO);
+					result = contratacionMapeador.obtenerContratacionesMap(contratacionMapVO);
 					session.commit();
 				} catch (Exception ex) {
 					session.rollback();
@@ -83,7 +80,7 @@ public class ClienteBO implements
 				} finally {
 					session.close();
 				}
-				((ClienteDTO) bbvaAbstractDataTransferObject).setClienteVOs(result);
+				((ContratacionMapDTO) bbvaAbstractDataTransferObject).setContratacionMapVOs(result);
 				logger.debug("result: " + result + " -- **fin**");
 				logger.debug("Datos de Salida invoke -- "
 						+ bbvaAbstractDataTransferObject.toString());
@@ -98,52 +95,18 @@ public class ClienteBO implements
 			return bbvaAbstractDataTransferObject;
 		}
 	}
-	
-	public <T extends BbvaAbstractDataTransferObject> T readCommand() {
-		ClienteDTO clienteDTO = new ClienteDTO();
-		try {
-			logger.debug("Entrada readCmbCommand -- OK");
-			try {
-				List<ClienteVO> result = null;
-				SqlSession session = MapeadorSessionFactory
-						.getSqlSessionFactory().openSession();
-				MapCliente mapCliente = session.getMapper(MapCliente.class);
-				try {
-					result = mapCliente.obtenerCmbClientes();
-					session.commit();
-				} catch (Exception ex) {
-					session.rollback();
-					ex.printStackTrace();
-				} finally {
-					session.close();
-				}
-				clienteDTO.setClienteVOs(result);
-				logger.debug("result: " + result + " -- **fin**");
-				logger.debug("Datos de Salida invoke -- "
-						+ clienteDTO.toString());
-				logger.debug("Salida invoke          -- OK");
-				return (T) clienteDTO;
-			} catch (Exception ex) {
-				ex.printStackTrace();
-				return (T) clienteDTO;
-			}
-		} catch (Exception exception) {
-			exception.printStackTrace();
-			return (T) clienteDTO;
-		}
-	}
 
 	@Override
 	public <T extends BbvaAbstractDataTransferObject> T updateCommand(
 			T bbvaAbstractDataTransferObject) {
 		logger.debug( "Entrada updateCommand          -- OK" );
 		logger.debug( "Datos de Entrada updateCommand -- " + bbvaAbstractDataTransferObject.toString() );
-		ClienteVO ClienteVO = ((ClienteDTO) bbvaAbstractDataTransferObject).getClienteVO();
+		ContratacionMapVO contratacionMapVO  = ((ContratacionMapDTO) bbvaAbstractDataTransferObject).getContratacionMapVO();
 		SqlSession session = MapeadorSessionFactory.getSqlSessionFactory()
 				.openSession();
-		MapCliente mapCliente = session.getMapper(MapCliente.class);
+		MapContratacionMapeador mapContratacion = session.getMapper(MapContratacionMapeador.class);
 		try {
-			mapCliente.actualizarCliente(ClienteVO);
+			mapContratacion.actualizarContratacionMap(contratacionMapVO);
 			session.commit();
 		} catch (Exception ex) {
 			session.rollback();

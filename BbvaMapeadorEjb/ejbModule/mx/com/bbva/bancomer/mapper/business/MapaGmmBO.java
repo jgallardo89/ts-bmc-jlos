@@ -82,6 +82,40 @@ public class MapaGmmBO implements BbvaIBusinessObject {
 			return bbvaAbstractDataTransferObject;
 		}
 	}
+	
+	public <T extends BbvaAbstractDataTransferObject> T readCommand() {
+		MapaGmmDTO mapaGmmDTO = new MapaGmmDTO();
+		try {
+			logger.debug("Entrada readCmbCommand -- OK");
+			try {
+				List<MapaGmmVO> result = null;
+				SqlSession session = MapeadorSessionFactory
+						.getSqlSessionFactory().openSession();
+				MapMapaGmm mapMapaGmm = session.getMapper(MapMapaGmm.class);
+				try {
+					result = mapMapaGmm.obtenerCmbMapaGmms();
+					session.commit();
+				} catch (Exception ex) {
+					session.rollback();
+					ex.printStackTrace();
+				} finally {
+					session.close();
+				}
+				mapaGmmDTO.setMapaGmmVOs(result);
+				logger.debug("result: " + result + " -- **fin**");
+				logger.debug("Datos de Salida invoke -- "
+						+ mapaGmmDTO.toString());
+				logger.debug("Salida invoke          -- OK");
+				return (T) mapaGmmDTO;
+			} catch (Exception ex) {
+				ex.printStackTrace();
+				return (T) mapaGmmDTO;
+			}
+		} catch (Exception exception) {
+			exception.printStackTrace();
+			return (T) mapaGmmDTO;
+		}
+	}
 
 	@Override
 	public <T extends BbvaAbstractDataTransferObject> T updateCommand(

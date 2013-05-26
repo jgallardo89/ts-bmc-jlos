@@ -4,8 +4,11 @@ import java.util.List;
 
 import javax.ejb.Stateless;
 
+import mappers.cliente.MapCliente;
 import mappers.mensajesalida.MapMensajeSalida;
+import mx.com.bbva.bancomer.bussinnes.model.vo.ClienteVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.MensajeSalidaVO;
+import mx.com.bbva.bancomer.cliente.dto.ClienteDTO;
 import mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject;
 import mx.com.bbva.bancomer.mensajesalida.dto.MensajeSalidaDTO;
 import mx.com.bbva.mapeador.oralce.session.MapeadorSessionFactory;
@@ -93,6 +96,40 @@ public class MensajeSalidaBO implements
 		} catch (Exception exception) {
 			exception.printStackTrace();
 			return bbvaAbstractDataTransferObject;
+		}
+	}
+	
+	public <T extends BbvaAbstractDataTransferObject> T readCommand() {
+		MensajeSalidaDTO mensajeSalidaDTO = new MensajeSalidaDTO();
+		try {
+			logger.debug("Entrada readCmbCommand -- OK");
+			try {
+				List<MensajeSalidaVO> result = null;
+				SqlSession session = MapeadorSessionFactory
+						.getSqlSessionFactory().openSession();
+				MapMensajeSalida mapMensajeSalida = session.getMapper(MapMensajeSalida.class);
+				try {
+					result = mapMensajeSalida.obtenerMensajesCmbSalida();
+					session.commit();
+				} catch (Exception ex) {
+					session.rollback();
+					ex.printStackTrace();
+				} finally {
+					session.close();
+				}
+				mensajeSalidaDTO.setMensajeSalidaVOs(result);
+				logger.debug("result: " + result + " -- **fin**");
+				logger.debug("Datos de Salida invoke -- "
+						+ mensajeSalidaDTO.toString());
+				logger.debug("Salida invoke          -- OK");
+				return (T) mensajeSalidaDTO;
+			} catch (Exception ex) {
+				ex.printStackTrace();
+				return (T) mensajeSalidaDTO;
+			}
+		} catch (Exception exception) {
+			exception.printStackTrace();
+			return (T) mensajeSalidaDTO;
 		}
 	}
 
