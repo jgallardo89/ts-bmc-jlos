@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?page title="Procesos" contentType="text/html;charset=UTF-8"?>
+<?meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7"?>
+<?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
+<zk>
+	<window border="0" width="100%" height="100%"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('mx.com.bbva.mt101.ui.commons.viewmodel.contratacion.FlujoContratacionController')"
+		id="contratacionTabWindows">
+		<include src="../../pages/styles.zul" />
+		<div sclass="BODY" height="100%">
+			<panel width="100%" height="100%" sclass="sectionPanelTitle" id="datosContratacion"
+					title="@load(vm.titulo)" collapsible="true" style="margin-bottom:10px"
+					border="normal">
+				<panelchildren>
+					<div align="center" height="98%">
+						<grid width="100%" style="border:0" oddRowSclass="row2">
+							<columns>
+								<column width="20%" />
+								<column width="20%" />
+								<column width="30%" />
+								<column width="30%" />
+							</columns>
+							<rows>
+								<row sclass="row2">
+									<cell align="right">
+										<label width="100%" sclass="labelFill" value="Mapa: "></label>
+									</cell>
+									<cell align="left">
+										<combobox sclass="textboxUpperCase" onChange="@command('readMapaGmm')" onSelect="selectedValueMapaGmm()"
+											id="mapaGMM" width="70%" model="@load(vm.contratacionDTO.mapaGmmVOs)" autodrop="true">		
+											<template name="model">							
+												<comboitem value="@load(each.idMapaGmm)" label="@load(each.nombreMapaGmm)" height="100%" />
+											</template>																								
+										</combobox>
+									</cell>
+									<cell colspan="2" align="left">
+										<textbox sclass="textboxUpperCase" maxlength="50"
+													id="descripcionMapaGmm"  width="95%"></textbox>
+									</cell>																													
+								</row>	
+							</rows>								
+						</grid>
+						
+				 <groupbox mold="3d" height="95%" width="98%">
+                    <caption image="/img/list.png" label="Notificaciones" />
+						
+						<grid width="98%" height="98%" style="border:0" oddRowSclass="row2">
+							<columns>
+								<column width="30%" />
+								<column width="20%" />
+								<column width="30%" />
+								<column width="30%" />
+							</columns>
+							<rows>
+								<row>
+									<cell align="left">
+										<radiogroup id="notificacion">
+											<radio id="radioS" label="Si" onCheck="@command('enabledNotificacion')"/>
+											<radio id="radioN" label="No" onCheck="@command('disabledNotificacion')"/>
+										</radiogroup>
+									</cell>
+									<cell align="right">
+									</cell>
+									<cell align="right">
+									</cell>
+									<cell align="right">
+									</cell>
+								</row>
+								<row>
+									<cell align="left" colspan="3">
+										<label width="100%" sclass="labelFill" value="Notificación en Caso de Error: "></label>
+										<label width="100%" sclass="labelFill" value="____________________________________"></label>
+									</cell>
+									<cell align="right">
+									</cell>
+								</row>
+								<row>
+									<cell align="left" colspan="3">
+										<label width="100%" sclass="labelFill" value="Mensaje: "></label>
+										<combobox disabled="@load(vm.flagDisabled)" sclass="textboxUpperCase"  onChange="@command('readMensajeSalida')" onSelect="selectedMensajeSalida()"
+											id="nombreMensajeSalida" value="@load(vm.strNombreMensajeSalida)" width="70%" model="@load(vm.contratacionDTO.mensajeSalidaVOs)" autodrop="true">		
+											<template name="model">										
+												<comboitem value="@load(each.idMensajeSalida)" label="@load(each.nombreMensajeSalida)" height="100%"/>
+											</template>																								
+										</combobox>
+									</cell>
+									<cell align="right">
+									</cell>
+								</row>
+								<row>
+									<cell align="left" colspan="4">
+										<label width="100%" sclass="labelFill" value="Descripción del Mensaje en Caso de Error: "></label>
+									</cell>
+								</row>
+								<row>
+									<cell align="left" colspan="3">
+										<textbox disabled="@load(vm.flagDisabled)" sclass="textboxUpperCase" id="descripcionMensajeSalida" value="@load(vm.strDescripcionMensajeSalida)" rows="6" width="370px;" tabindex="11" />
+									</cell>
+									<cell align="right">
+									</cell>
+								</row>
+								<row>
+									<div align="center">																		
+										<listbox disabled="@load(vm.flagDisabled)" id="usuariosNotificacion" height="150px" model="@load(vm.contratacionDTO.usuarioNotificacionVOs)">														
+											<listhead>
+												<listheader>																
+													<label value="Usuarios No Notificados"></label>																
+												</listheader>																										
+											</listhead>
+											<template name="model">
+										            <listitem disabled="@load(vm.flagDisabled)" value="@load(each.idUsuarioNotificado)" label="@load(each.nombreUsuarioNotificado)"/>												            													            													                												              												            
+									        </template>	
+										</listbox>
+									</div>
+									<div width="15%">
+										<vbox spacing="2px" width="100%">
+									        <image style="cursor:pointer" id="chooseAllBtn" src="/img/rightrightarrow_g.png" onClick="@command('chooseAll')"/>
+									        <image style="cursor:pointer" id="chooseBtn" src="/img/rightarrow_g.png" onClick="@command('chooseOne')"/>
+									        <image style="cursor:pointer" id="removeBtn" src="/img/leftarrow_g.png" onClick="@command('removeOne')"/>
+									        <image style="cursor:pointer" id="removeAllBtn" src="/img/leftleftarrow_g.png" onClick="@command('removeAll')"/>
+										</vbox>		
+									</div>
+									<div>
+										<listbox disabled="@load(vm.flagDisabled)" id="usuariosNotificacionActivo" height="150px" model="@load(vm.contratacionUsuariosDTO.usuarioNotificacionContrataMapVOs)">														
+											<listhead>
+												<listheader>																
+													<label value="Usuarios Notificados"></label>																
+												</listheader>																										
+											</listhead>
+											<template name="model">
+										            <listitem disabled="@load(vm.flagDisabled)" value="@load(each.idUsuarioNotificado)" label="@load(each.nombreUsuarioNotificado)"/>												            													            													                												              												            
+									        </template>	
+										</listbox>																									
+									</div>	
+									 <cell align="right">
+									</cell>
+								</row>
+								<row align="center" width="70%">
+									<div align="center"/>
+									<div align="center">
+										<button sclass="button" image="/img/disk.png" label="Guardar" id="guardaBtn" onClick="@command('save') @global-command('closeModal')"></button>
+									</div>
+									<div align="right" width="70%" visible="false">
+										<button disabled="@load(vm.flagDisabled)" sclass="button" image="/img/clear.png"  label="Limpiar" id="limpiarBtn" onClick="@command('clean')" ></button>
+									</div>
+									<div align="center">
+									<textbox id="idContratacion" value="@load(vm.idStrContratacion)" visible="false"></textbox>
+									<textbox id="idFlujo" value="@load(vm.idStrFlujo)" visible="false"/>
+									<textbox id="idMensajeSalida" value="@load(vm.idStrMensajeSalida)" visible="false"/>
+									<textbox id="idMapaGmm" value="@load(vm.idStrMapaGmm)" visible="false"/>
+									<textbox id="idEtapa" value="@load(vm.idStrEtapa)" visible="false"/>
+									</div>
+									<div align="center"/>
+								</row>
+							</rows>
+						</grid>
+					</groupbox>
+					
+					</div>
+				</panelchildren>										
+			</panel>
+		</div>
+		<zscript>
+		public void selectedValueMapaGmm(){
+				try{
+					idMapaGmm.setValue(mapaGMM.getSelectedItem().getValue().toString());
+				}catch(Exception ex){
+					idMapaGmm.setValue(null);
+				}
+			}
+			public void selectedMensajeSalida(){
+				try{
+					idMensajeSalida.setValue(nombreMensajeSalida.getSelectedItem().getValue().toString());
+				}catch(Exception ex){
+					idMensajeSalida.setValue(null);
+				}
+			}
+		</zscript>
+	</window>
+</zk>

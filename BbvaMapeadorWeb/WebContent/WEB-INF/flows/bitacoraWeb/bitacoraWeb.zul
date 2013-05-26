@@ -61,9 +61,9 @@
 											<row sclass="row2">
 												<div align="right">
 												</div>										
-												<!--  div align="right" width="82%">
-													<button sclass="button" label="Limpiar" id="limpiarBtn" onClick="@command('clean')" ></button>
-												</div-->
+												<div align="right" width="70%">
+													<button sclass="button" image="/img/excel.png"  label="Reporte" id="reporteBtn"  onClick="@command('onShowReport',type='xls')" ></button>
+												</div>	
 												<div align="right" width="82%">
 													<button sclass="button" image="/img/search.png" label="Consultar" id="consultarBtn" onClick="@command('readWithFilters')"></button>
 												</div>
@@ -129,5 +129,6 @@
 				}
 			}
 		</zscript>
+		<jasperreport id="report" height="50px" />
 	</window>
 </zk>

@@ -9,9 +9,196 @@
 		id="contratacionWindows">
 		<include src="../../pages/styles.zul" />
 		<div sclass="BODY" height="100%">
-			<groupbox height="100%">			
-							
-			</groupbox>			
+			<groupbox height="100%" apply="mx.com.bbva.mt101.ui.commons.viewmodel.contratacion.ContratacionController">
+				<caption sclass="pageTitle" label="Contratación"></caption>		
+					<portallayout maximizedMode="whole" id="portalLayoutContratacion"
+					width="100%" height="100%">
+					<portalchildren>
+						<panel width="100%" sclass="sectionPanelTitle" id="datosContratacion"
+							title="Contratacion" collapsible="true" style="margin-bottom:10px"
+							border="normal">
+							<caption sclass="sectionPanelTitle" label="Contratación"></caption>
+							<panelchildren>
+								<div align="center">
+									<grid width="100%" style="border:0" oddRowSclass="row2">
+										<columns>
+											<column width="20%" />
+											<column width="25%" />
+											<column width="20%" />
+											<column width="25%" />
+										</columns>
+										<rows>
+											<row sclass="row2">
+												<div align="right">
+													<label width="100%" sclass="labelFill" value="Canal Entrada: "></label>
+												</div>
+												<combobox sclass="textboxUpperCase" onChange="selectedValueCanal()"
+													id="canal" width="70%" model="@load(vm.contratacionDTO.canalVOs)" autodrop="true">		
+													<template name="model">										
+														<comboitem value="@load(each.idCanal)" label="@load(each.nombreCanal)" height="100%"/>
+													</template>																								
+												</combobox>	
+												<div align="right">
+													<label width="100%" sclass="labelFill" value="Canal Salida: "></label>												
+												</div>
+												<combobox sclass="textboxUpperCase" onChange="selectedValueCanalSalida()"
+													id="canalSalida" width="70%" model="@load(vm.contratacionDTO.canalVOs)" autodrop="true">		
+													<template name="model">										
+														<comboitem value="@load(each.idCanal)" label="@load(each.nombreCanal)" height="100%"/>
+													</template>																								
+												</combobox> 																													
+											</row>
+											<row sclass="row2">
+												<div align="right">
+													<label width="100%" sclass="labelFill" value="Cliente: "></label>
+												</div>
+												<combobox sclass="textboxUpperCase" onChange="selectedValueCliente()"
+													id="cliente" width="70%" model="@load(vm.contratacionDTO.clienteVOs)" autodrop="true">		
+													<template name="model">										
+														<comboitem value="@load(each.idCliente)" label="@load(each.nombreCliente)" height="100%"/>
+													</template>																								
+												</combobox>	
+												<div align="right">
+													<label width="100%" sclass="labelFill" value="Producto:"></label>												
+												</div>
+												<combobox sclass="textboxUpperCase" onChange="selectedValueProducto()"
+													id="producto" width="70%" model="@load(vm.contratacionDTO.productoVOs)" autodrop="true">		
+													<template name="model">										
+														<comboitem value="@load(each.idProducto)" label="@load(each.nombreProducto)" height="100%"/>
+													</template>																								
+												</combobox> 																													
+											</row>
+											<row sclass="row2">
+												<div align="right">
+													<label width="100%" sclass="labelFill" value="Fecha Alta: "></label>												
+												</div>
+												<datebox value="@load(vm.contratacionDTO.contratacionVO.fechaAlta)"  maxlength="50"  width="100%" id="fechaAlta" readonly="true" buttonVisible="false" onCreate="self.value = new Date()" format="dd/MM/yyyy HH:MM:SS"></datebox>
+												<div align="right">
+													<label width="100%" sclass="labelFill" value="Fecha Modificaciôn: "></label>												
+												</div>
+												<datebox value="@load(vm.contratacionDTO.contratacionVO.fechaModificacion)"  maxlength="50"  width="100%" id="fechaModificacion" readonly="true" buttonVisible="false" onCreate="self.value = new Date()" format="dd/MM/yyyy HH:MM:SS"></datebox>																														
+											</row>
+											<row sclass="row2">
+												<div align="right">
+													<label width="100%" sclass="labelFill" value="Status: "></label>												
+												</div>
+												<combobox sclass="textboxUpperCase" onChange="selectedValueStatusObjeto()"
+													id="estatusObjeto" width="70%" model="@load(vm.contratacionDTO.estatusObjetoVOs)" autodrop="true">		
+													<template name="model">										
+														<comboitem value="@load(each.idEstatusObjeto)" label="@load(each.nombreEstatusObjeto)" height="100%"/>
+													</template>																								
+												</combobox>																												
+											</row>
+											<row sclass="row2">
+																							
+												<div align="right" width="70%">
+													<button sclass="button" image="/img/clear.png"  label="Limpiar" id="limpiarBtn" onClick="@command('clean')" ></button>
+												</div>
+												<div align="right" width="70%">
+													<button sclass="button" image="/img/search.png" label="Consultar" id="consultarBtn" onClick="@command('readWithFilters')"></button>
+												</div>
+												<div align="right" width="70%">
+													<button sclass="button" image="/img/disk.png" label="Editar" id="editarBtn" disabled="@load(vm.botonEditar)" onClick="@command('readEventEdit')"></button>
+												</div>
+												<div align="right" width="70%">
+													<button sclass="button" image="/img/disk.png" disabled="false" label="Nueva" id="nuevaBtn" onClick="@command('nuevaContratacion',contratacion='nueva')"></button>
+												</div>
+												
+											</row>
+										</rows>								
+									</grid>
+								</div>
+							</panelchildren>										
+						</panel>
+					</portalchildren>
+					<portalchildren width="100%" style="padding: 5px">
+						<panel sclass="sectionPanelTitle" width="100%" id="panelContratacion"
+							title="Contrataciôn" collapsible="true"
+							style="margin-bottom:10px">
+							<caption sclass="sectionPanelTitle" label="Lista de Contrataciôn"></caption>
+							<panelchildren>
+								<grid width="99.7%" id="contratacionGrid" mold="paging"
+									model="@load(vm.contratacionVOs)" pagingPosition="both" pageSize="5"
+									vflex="true" height="100%">									
+									<columns sizable="true" menupopup="auto">
+										<column hflex="0" align="center" image="/img/pencil-small.png" 
+											width="5%"></column>
+										<column hflex="1" label="Canal Entrada" style="text-wrap: normal;"
+											width="10%" sort="auto(vm.contratacionDTO.contratacionVO.nombreCanal)"></column>
+										<column hflex="1" label="Cliente" width="20%"
+											sort="auto(vm.contratacionDTO.contratacionVO.nombreCliente)"></column>
+										<column hflex="1" label="Producto" width="10%"
+											sort="auto(vm.contratacionDTO.contratacionVO.nombreProducto)"></column>
+										<column hflex="1" label="Canal Salida" width="10%"
+											sort="auto(vm.contratacionDTO.contratacionVO.nombreCanalSalida)"></column>
+										<column hflex="1" label="Fecha Alta" width="10%"
+											sort="auto(vm.contratacionDTO.contratacionVO.fechaAlta)"></column>
+										<column hflex="1" label="Fecha Modificaciôn" width="10%"
+											sort="auto(vm.contratacionDTO.contratacionVO.fechaModificacion)"></column>
+										<column hflex="1" label="Status" width="10%"
+											sort="auto(vm.contratacionDTO.contratacionVO.nombreEstatusObjet)"></column>								
+									</columns>
+									<template name="model">
+										<row>
+											<image src="/img/pencil-small.png" onClick="@command('readSelected',idContratacion=each)"></image>											
+											<label hflex="1" value="@load(each.nombreCanal)"></label>
+											<label hflex="1" value="@load(each.nombreCliente)"></label>
+											<label hflex="1" value="@load(each.nombreProducto)"></label>	
+											<label hflex="1" value="@load(each.nombreCanalSalida)"></label>
+											<label hflex="1" value="@load(each.fechaAlta) @converter('formatedDate', format='dd/MM/yyyy  HH:MM:SS')"></label>
+											<label hflex="1" value="@load(each.fechaModificacion) @converter('formatedDate', format='dd/MM/yyyy  HH:MM:SS')"></label>
+											<label hflex="1" value="@load(each.nombreEstatusObjeto)"></label>																					
+										</row>
+									</template>									
+								</grid>
+							</panelchildren>
+						</panel>
+					</portalchildren>
+				</portallayout>								
+			</groupbox>	
+			<textbox id="idEstatusObjeto" value="@load(vm.contratacionDTO.contratacionVO.idEstatusObjeto)" visible="true"/>
+			<textbox id="idCanal" value="@load(vm.contratacionDTO.contratacionVO.idCanal)" visible="true"/>
+			<textbox id="idCanalSalida" value="@load(vm.contratacionDTO.contratacionVO.idCanalSalida)" visible="true"/>
+			<textbox id="idCliente" value="@load(vm.contratacionDTO.contratacionVO.idCliente)" visible="true"/>
+			<textbox id="idProducto" value="@load(vm.contratacionDTO.contratacionVO.idProducto)" visible="true"/>
+			<textbox id="idContratacion" value="@load(vm.contratacionDTO.contratacionVO.idContratacion)" visible="true"/>
 		</div>
+		<zscript>
+		public void selectedValueStatusObjeto(){
+				try{
+					idEstatusObjeto.setValue(estatusObjeto.getSelectedItem().getValue().toString());
+				}catch(Exception ex){
+					idEstatusObjeto.setValue(null);
+				}
+			}
+			public void selectedValueCanal(){
+				try{
+					idCanal.setValue(canal.getSelectedItem().getValue().toString());
+				}catch(Exception ex){
+					idCanal.setValue(null);
+				}
+			}
+			public void selectedValueCanalSalida(){
+				try{
+					idCanalSalida.setValue(canalSalida.getSelectedItem().getValue().toString());
+				}catch(Exception ex){
+					idCanalSalida.setValue(null);
+				}
+			}
+			public void selectedValueCliente(){
+				try{
+					idCliente.setValue(cliente.getSelectedItem().getValue().toString());
+				}catch(Exception ex){
+					idCliente.setValue(null);
+				}
+			}
+			public void selectedValueProducto(){
+				try{
+					idProducto.setValue(producto.getSelectedItem().getValue().toString());
+				}catch(Exception ex){
+					idProducto.setValue(null);
+				}
+			}
+		</zscript>
 	</window>
 </zk>

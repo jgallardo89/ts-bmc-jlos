@@ -3,6 +3,7 @@
 <?meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7"?>
 <?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
 <zk>
+
 	<window border="0" width="100%" height="100%"
 		apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('mx.com.bbva.mt101.ui.commons.viewmodel.canales.CanalesController')"
@@ -18,8 +19,10 @@
 							title="Catalogo" collapsible="true" style="margin-bottom:10px"
 							border="normal">
 							<caption sclass="sectionPanelTitle" label="Catálogo Canales"></caption>
+								
 							<panelchildren>
 								<div align="center">
+								
 									<grid width="100%" style="border:0" oddRowSclass="row2">
 										<columns>
 											<column width="20%" />
@@ -57,6 +60,7 @@
 											</row>
 											<row sclass="row2">
 												<div align="right" width="70%">
+													<button sclass="button" image="/img/excel.png"  label="Reporte" id="reporteBtn"  onClick="@command('onShowReport',type='csv')" ></button>
 												</div>												
 												<div align="right" width="70%">
 													<button sclass="button" image="/img/clear.png"  label="Limpiar" id="limpiarBtn" onClick="@command('clean')" ></button>
@@ -122,5 +126,6 @@
 				}
 			}
 		</zscript>
+		<jasperreport id="report" height="50px" />
 	</window>
 </zk>
