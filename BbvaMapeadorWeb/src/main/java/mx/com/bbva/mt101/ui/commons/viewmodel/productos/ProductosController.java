@@ -1,5 +1,8 @@
 package mx.com.bbva.mt101.ui.commons.viewmodel.productos;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.zkoss.bind.annotation.AfterCompose;
@@ -11,12 +14,15 @@ import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
+import org.zkoss.zkex.zul.Jasperreport;
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Textbox;
 
+import mx.com.bbva.bancomer.bussinnes.model.vo.ClienteVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.FlujoVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.ProductoVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.EstatusObjetoVO;
+import mx.com.bbva.bancomer.canal.dto.BeanGenerico;
 import mx.com.bbva.bancomer.commons.command.CommandConstants;
 import mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject;
 import mx.com.bbva.bancomer.estatusobjeto.dto.EstatusObjetoDTO;
@@ -27,6 +33,7 @@ import mx.com.bbva.bancomer.producto.dto.ProductoDTO;
 import mx.com.bbva.bancomer.utils.StringUtil;
 import mx.com.bbva.mapeador.ui.commons.controller.IController;
 import mx.com.bbva.mapeador.ui.commons.viewmodel.support.ControllerSupport;
+import mx.com.bbva.mt101.ui.commons.viewmodel.reportes.ReportesController;
 
 public class ProductosController extends ControllerSupport implements IController  {
 
@@ -45,6 +52,8 @@ public class ProductosController extends ControllerSupport implements IControlle
 	private Combobox estatusObjeto;
 	@Wire
 	private Combobox flujo;
+	@Wire
+	private Jasperreport report;
 	
 	private ProductoDTO productoDTO;
 	private List<ProductoVO> productoVOs;
@@ -199,6 +208,41 @@ public class ProductosController extends ControllerSupport implements IControlle
 		idEstatusObjeto.setValue(Integer.toString(productoVO.getIdEstatusObjeto()));
 		flujo.setValue(productoVO.getNombreFlujo());
 		estatusObjeto.setValue(productoVO.getNombreEstatusObjeto());
+	}
+	
+	@Command
+	public void onShowReport(@BindingParam("type") final String type) {
+		ReportesController controller = new ReportesController();
+		ArrayList<String> headersReport = new ArrayList<String>();
+		String titleReport = "Catálogo Productos";
+		headersReport.add("Identificador Producto");
+		headersReport.add("Nombre del Producto");
+		headersReport.add("Identificador del Flujo");
+		headersReport.add("Fecha Alta");
+		headersReport.add("Fecha Modificación");
+		headersReport.add("Estatus");
+		controller.createReport(generaLista(), headersReport, titleReport, report, type);
+	}	
+	
+	private ArrayList<BeanGenerico> generaLista() {
+		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+		ArrayList<BeanGenerico> beanGenericos = new ArrayList<BeanGenerico>();
+		BeanGenerico beanGenerico = null;
+		for(ProductoVO productoVO: productoVOs) {
+			beanGenerico = new BeanGenerico();
+			beanGenerico.setValor1(productoVO.getNombreProducto());
+			beanGenerico.setValor2(productoVO.getDescripcionProducto());
+			beanGenerico.setValor3(productoVO.getNombreFlujo());
+			beanGenerico.setValor4(dateFormat.format(productoVO.getFechaAlta()));
+			if(productoVO.getFechaModificacion()==null) {
+				beanGenerico.setValor5("");
+			} else {
+				beanGenerico.setValor5(dateFormat.format(productoVO.getFechaModificacion()));
+			}
+			beanGenerico.setValor6(productoVO.getNombreEstatusObjeto());
+			beanGenericos.add(beanGenerico);
+		}
+		return beanGenericos;
 	}
 
 	@AfterCompose

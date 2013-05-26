@@ -4,6 +4,8 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -21,6 +23,7 @@ import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.Wire;
+import org.zkoss.zkex.zul.Jasperreport;
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
@@ -31,7 +34,9 @@ import com.wutka.jox.JOXBeanInputStream;
 import mx.com.bbva.bancomer.bitacora.dto.BitacoraDTO;
 import mx.com.bbva.bancomer.bitacora.dto.CampoDTO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.BitacoraVO;
+import mx.com.bbva.bancomer.bussinnes.model.vo.CanalVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.FlujoVO;
+import mx.com.bbva.bancomer.canal.dto.BeanGenerico;
 import mx.com.bbva.bancomer.commons.command.CommandConstants;
 import mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject;
 import mx.com.bbva.bancomer.estatusobjeto.dto.EstatusObjetoDTO;
@@ -42,6 +47,7 @@ import mx.com.bbva.bancomer.mapper.business.EstatusObjetoBO;
 import mx.com.bbva.bancomer.utils.StringUtil;
 import mx.com.bbva.mapeador.ui.commons.controller.IController;
 import mx.com.bbva.mapeador.ui.commons.viewmodel.support.ControllerSupport;
+import mx.com.bbva.mt101.ui.commons.viewmodel.reportes.ReportesController;
 
 /**
  * @author Julio Morales
@@ -61,6 +67,8 @@ public class AdmonFlujosController extends ControllerSupport implements IControl
 	private Textbox idEstatusObjeto;
 	@Wire
 	private Combobox statusObjeto;
+	@Wire
+	private Jasperreport report;
 	
 	private boolean flagBtnGuardar;
 	private FlujoDTO flujoDTO;
@@ -210,6 +218,40 @@ public class AdmonFlujosController extends ControllerSupport implements IControl
     public void showModal(Event e) {
 		detalleBitacoraWindow.detach();
     }
+	
+	@Command
+	public void onShowReport(@BindingParam("type") final String type) {
+		ReportesController controller = new ReportesController();
+		ArrayList<String> headersReport = new ArrayList<String>();
+		String titleReport = "Catálogo Flujos";
+		headersReport.add("Identificador del Flujo");
+		headersReport.add("Descripción Flujo");
+		headersReport.add("Fecha y Hora de Alta");
+		headersReport.add("Fecha y Hora de Modificación");
+		headersReport.add("Etapas del Flujo");
+		headersReport.add("Estatus");
+		headersReport.add("Diagrama");
+		controller.createReport(generaLista(), headersReport, titleReport, report, type);
+	}	
+	
+	private ArrayList<BeanGenerico> generaLista() {
+		ArrayList<BeanGenerico> beanGenericos = new ArrayList<BeanGenerico>();
+		BeanGenerico beanGenerico = null;
+		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+		
+		for(FlujoVO flujoVO: flujoVOs) {
+			beanGenerico = new BeanGenerico();
+			beanGenerico.setValor1(flujoVO.getNombreFlujo());
+			beanGenerico.setValor2(flujoVO.getDescripcionFlujo());
+			beanGenerico.setValor3(dateFormat.format(flujoVO.getFechaAlta()));
+			beanGenerico.setValor4(dateFormat.format(flujoVO.getFechaModificacion()));
+			beanGenerico.setValor5(flujoVO.getDescripcionEtapa());
+			beanGenerico.setValor6(flujoVO.getNombreEstatusObjeto());
+			beanGenerico.setValor7(flujoVO.getDescripcionUrlImagen());
+			beanGenericos.add(beanGenerico);
+		}
+		return beanGenericos;
+	}
 	
 	/**
 	 * @return the flagBtnGuardar

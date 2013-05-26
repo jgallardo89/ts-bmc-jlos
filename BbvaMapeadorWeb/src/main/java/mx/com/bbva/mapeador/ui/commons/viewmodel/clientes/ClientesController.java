@@ -1,5 +1,8 @@
 package mx.com.bbva.mapeador.ui.commons.viewmodel.clientes;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.zkoss.bind.annotation.AfterCompose;
@@ -11,11 +14,14 @@ import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
+import org.zkoss.zkex.zul.Jasperreport;
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Textbox;
 
+import mx.com.bbva.bancomer.bussinnes.model.vo.BitacoraVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.ClienteVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.EstatusObjetoVO;
+import mx.com.bbva.bancomer.canal.dto.BeanGenerico;
 import mx.com.bbva.bancomer.cliente.dto.ClienteDTO;
 import mx.com.bbva.bancomer.commons.command.CommandConstants;
 import mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject;
@@ -25,6 +31,7 @@ import mx.com.bbva.bancomer.mapper.business.EstatusObjetoBO;
 import mx.com.bbva.bancomer.utils.StringUtil;
 import mx.com.bbva.mapeador.ui.commons.controller.IController;
 import mx.com.bbva.mapeador.ui.commons.viewmodel.support.ControllerSupport;
+import mx.com.bbva.mt101.ui.commons.viewmodel.reportes.ReportesController;
 
 /**
  * @author Julio Morales
@@ -46,6 +53,8 @@ public class ClientesController extends ControllerSupport implements IController
 	private Textbox idEstatusObjeto;
 	@Wire
 	private Combobox statusObjeto;
+	@Wire
+	private Jasperreport report;
 	
 	private ClienteDTO clienteDTO;
 	private List<ClienteVO> clientesVOs;
@@ -207,6 +216,37 @@ public class ClientesController extends ControllerSupport implements IController
 		statusObjeto.setValue(clienteVO.getNombreEstatusObjeto());
 		idCliente.setValue(Integer.toString(clienteVO.getIdCliente()));
 		idEstatusObjeto.setValue(Integer.toString(clienteVO.getIdEstatusObjeto()));
+	}
+	
+	@Command
+	public void onShowReport(@BindingParam("type") final String type) {
+		ReportesController controller = new ReportesController();
+		ArrayList<String> headersReport = new ArrayList<String>();
+		String titleReport = "Catálogo Clientes";
+		headersReport.add("Identificador");
+		headersReport.add("Nombre Cliente");
+		headersReport.add("Descripcion Cliente");
+		headersReport.add("Fecha y Hora de Alta");
+		headersReport.add("Fecha y Hora de Modificación");
+		headersReport.add("Estatus");
+		controller.createReport(generaLista(), headersReport, titleReport, report, type);
+	}	
+	
+	private ArrayList<BeanGenerico> generaLista() {
+		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
+		ArrayList<BeanGenerico> beanGenericos = new ArrayList<BeanGenerico>();
+		BeanGenerico beanGenerico = null;
+		for(ClienteVO clienteVO: clientesVOs) {
+			beanGenerico = new BeanGenerico();
+			beanGenerico.setValor1(clienteVO.getIdIdentificador());
+			beanGenerico.setValor2(clienteVO.getNombreCliente());
+			beanGenerico.setValor3(clienteVO.getNombreCortoCliente());
+			beanGenerico.setValor4(dateFormat.format(clienteVO.getFechaAlta()));
+			beanGenerico.setValor5(dateFormat.format(clienteVO.getFechaModificacion()));
+			beanGenerico.setValor6(clienteVO.getNombreEstatusObjeto());
+			beanGenericos.add(beanGenerico);
+		}
+		return beanGenericos;
 	}
 	
 	@AfterCompose

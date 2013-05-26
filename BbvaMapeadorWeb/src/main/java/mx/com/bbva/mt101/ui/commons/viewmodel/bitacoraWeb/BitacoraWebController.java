@@ -23,6 +23,7 @@ import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.Wire;
+import org.zkoss.zkex.zul.Jasperreport;
 import org.zkoss.zul.Datebox;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
@@ -32,13 +33,16 @@ import com.wutka.jox.JOXBeanInputStream;
 import mx.com.bbva.bancomer.bitacora.dto.BitacoraDTO;
 import mx.com.bbva.bancomer.bitacora.dto.CampoDTO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.BitacoraVO;
+import mx.com.bbva.bancomer.bussinnes.model.vo.CanalVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.UsuarioVO;
+import mx.com.bbva.bancomer.canal.dto.BeanGenerico;
 import mx.com.bbva.bancomer.evento.dto.EventoMapeadorDTO;
 import mx.com.bbva.bancomer.mapper.business.BitacoraBO;
 import mx.com.bbva.bancomer.mapper.business.EventoMapeadorBO;
 import mx.com.bbva.bancomer.mapper.business.UsuarioBO;
 import mx.com.bbva.mapeador.ui.commons.controller.IController;
 import mx.com.bbva.mapeador.ui.commons.viewmodel.support.ControllerSupport;
+import mx.com.bbva.mt101.ui.commons.viewmodel.reportes.ReportesController;
 
 /**
  * @author Julio Morales
@@ -56,6 +60,8 @@ public class BitacoraWebController extends ControllerSupport implements IControl
 	private Datebox fechaInicio;
 	@Wire
 	private Datebox fechaFin;
+	@Wire
+	private Jasperreport report;
 	
 	private BitacoraDTO bitacoraDTO;
 	private List<BitacoraVO> bitacoraVOs;
@@ -145,6 +151,31 @@ public class BitacoraWebController extends ControllerSupport implements IControl
 		detalleBitacoraWindow.detach();
     }
 
+	@Command
+	public void onShowReport(@BindingParam("type") final String type) {
+		ReportesController controller = new ReportesController();
+		ArrayList<String> headersReport = new ArrayList<String>();
+		String titleReport = "Bitácora Web";
+		headersReport.add("Fecha y Hora");
+		headersReport.add("Usuario");
+		headersReport.add("Tipo Evento");
+		controller.createReport(generaLista(), headersReport, titleReport, report, type);
+	}	
+	
+	private ArrayList<BeanGenerico> generaLista() {
+		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
+		ArrayList<BeanGenerico> beanGenericos = new ArrayList<BeanGenerico>();
+		BeanGenerico beanGenerico = null;
+		for(BitacoraVO bitacoraVO: bitacoraVOs) {
+			beanGenerico = new BeanGenerico();
+			beanGenerico.setValor1(dateFormat.format(bitacoraVO.getFechaBitacora()));
+			beanGenerico.setValor2(bitacoraVO.getNombreUsuario());
+			beanGenerico.setValor3(bitacoraVO.getNombreEventoMapeador());
+			beanGenericos.add(beanGenerico);
+		}
+		return beanGenericos;
+	}
+	
 	@Override
 	public Object read(Object t) {
 		// TODO Auto-generated method stub

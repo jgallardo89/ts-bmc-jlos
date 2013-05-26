@@ -1,9 +1,13 @@
 package mx.com.bbva.mt101.ui.commons.viewmodel.canales;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import mx.com.bbva.bancomer.bussinnes.model.vo.CanalVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.EstatusObjetoVO;
+import mx.com.bbva.bancomer.canal.dto.BeanGenerico;
 import mx.com.bbva.bancomer.canal.dto.CanalDTO;
 import mx.com.bbva.bancomer.commons.command.CommandConstants;
 import mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject;
@@ -13,6 +17,9 @@ import mx.com.bbva.bancomer.mapper.business.EstatusObjetoBO;
 import mx.com.bbva.bancomer.utils.StringUtil;
 import mx.com.bbva.mapeador.ui.commons.controller.IController;
 import mx.com.bbva.mapeador.ui.commons.viewmodel.support.ControllerSupport;
+import mx.com.bbva.mt101.ui.commons.viewmodel.reportes.ReportesController;
+import net.sf.jasperreports.engine.JRDataSource;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.BindingParam;
@@ -23,6 +30,7 @@ import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
+import org.zkoss.zkex.zul.Jasperreport;
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Textbox;
 
@@ -48,6 +56,9 @@ public class CanalesController extends ControllerSupport implements IController 
 	
 	@Wire
 	private Combobox statusObjeto;
+	
+	@Wire
+	private Jasperreport report;
 	
 	private CanalDTO canalDTO;
 	private String strIdCanal;
@@ -243,4 +254,30 @@ public class CanalesController extends ControllerSupport implements IController 
     public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
         Selectors.wireComponents(view, this, false);        
     }
+	
+	@Command
+	public void onShowReport(@BindingParam("type") final String type) {
+		ReportesController controller = new ReportesController();
+		ArrayList<String> headersReport = new ArrayList<String>();
+		String titleReport = "Catálogo Canales";
+		headersReport.add("Clave");
+		headersReport.add("Descripción canal");
+		headersReport.add("Fecha y Hora alta");
+		headersReport.add("Status");
+		controller.createReport(generaLista(), headersReport, titleReport, report, type);
+	}	
+	
+	private ArrayList<BeanGenerico> generaLista() {
+		ArrayList<BeanGenerico> beanGenericos = new ArrayList<BeanGenerico>();
+		BeanGenerico beanGenerico = null;
+		for(CanalVO canalVO: canalesVOs) {
+			beanGenerico = new BeanGenerico();
+			beanGenerico.setValor1(canalVO.getNombreCanal());
+			beanGenerico.setValor2(canalVO.getDescripcionCanal());
+			beanGenerico.setValor3(canalVO.getFechaAlta().toString());
+			beanGenerico.setValor4(canalVO.getNombreEstatusObjeto());
+			beanGenericos.add(beanGenerico);
+		}
+		return beanGenericos;
+	}
 }
