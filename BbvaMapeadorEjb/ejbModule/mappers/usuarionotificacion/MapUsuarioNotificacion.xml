@@ -22,7 +22,17 @@
 		</if>
 		<if test="idEstatusObjeto != null and idEstatusObjeto != 0">
 			AND UN.CD_ST_OBJETO = #{idEstatusObjeto}
-		</if>			
+		</if>
+		<if test="idUsuarios != null">
+			AND UN.CD_USUA_NOTIFICADO NOT IN 
+			<foreach item="item" index="index" collection="idUsuarios"
+	             open="(" separator="," close=")">
+	        		#{item}
+	   		</foreach>
+	   	</if>
+	   	<if test="tipoNotificacion != null and tipoNotificacion != ''">
+	   		AND UN.TP_NOTIFICACION = #{tipoNotificacion}
+	   	</if>
 	    ORDER BY UN.CD_USUA_NOTIFICADO
 	</select>
 	<insert id="crearUsuarioNotificacion" keyProperty="idUsuario" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.UsuarioNotificacionVO">
@@ -49,4 +59,20 @@
 		WHERE 
 			CD_USUA_NOTIFICADO = #{idUsuarioNotificado}
 	</update>
+	<select id="obtenerListUsuarios" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.UsuarioNotificacionVO"
+		resultType="mx.com.bbva.bancomer.bussinnes.model.vo.UsuarioNotificacionVO">
+		SELECT
+		  USUARIO.CD_USUA_NOTIFICADO idUsuarioNotificado,
+		  USUARIO.NB_USUA_NOTIFICADO nombreUsuarioNotificado
+		FROM
+		  TGM510_USUA_NOTIFI USUARIO
+		<if test="idUsuarios.length != 0">
+			WHERE USUARIO.CD_USUA_NOTIFICADO IN 
+			<foreach item="item" index="index" collection="idUsuarios"
+	             open="(" separator="," close=")">
+	        		#{item}
+	   		</foreach>
+   		</if>
+		ORDER BY USUARIO.CD_USUA_NOTIFICADO
+	</select>
 </mapper>

@@ -4,18 +4,37 @@ import java.util.List;
 
 import javax.ejb.Stateless;
 
-import mappers.usuarionotificacion.MapUsuarioNotificacion;
-import mx.com.bbva.bancomer.bussinnes.model.vo.UsuarioNotificacionVO;
-import mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject;
-import mx.com.bbva.bancomer.usuarionotificacion.dto.UsuarioNotificacionDTO;
-import mx.com.bbva.mapeador.oralce.session.MapeadorSessionFactory;
-
 import org.apache.ibatis.session.SqlSession;
 import org.apache.log4j.Logger;
 
-@Stateless(mappedName="usuarioNotificacionBO")
-public class UsuarioNotificacionBO implements mx.com.bbva.bancomer.commons.business.BbvaIBusinessObject {
-	private static final org.apache.log4j.Logger logger	 = Logger.getLogger(UsuarioNotificacionBO.class );
+import mappers.usuarionotificacion.MapUsuarioNotificacion;
+import mx.com.bbva.bancomer.bussinnes.model.vo.UsuarioNotificacionVO;
+import mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject;
+import mx.com.bbva.bancomer.contratacion.dto.ContratacionDTO;
+import mx.com.bbva.bancomer.usuarionotificacion.dto.UsuarioNotificacionDTO;
+import mx.com.bbva.mapeador.oralce.session.MapeadorSessionFactory;
+
+@Stateless(mappedName = "usuarioNotificacionBO")
+public class UsuarioNotificacionBO implements
+		mx.com.bbva.bancomer.commons.business.BbvaIBusinessObject {
+	private static final org.apache.log4j.Logger logger = Logger
+			.getLogger(UsuarioNotificacionBO.class);
+
+	// @Autowired
+	private mx.com.bbva.bancomer.commons.persistence.dao.BbvaIDataAccessObject bbvaIDataAccessObject;
+
+	/**
+	 * @return the bbvaIDataAccessObject
+	 */
+	public final mx.com.bbva.bancomer.commons.persistence.dao.BbvaIDataAccessObject getBbvaIDataAccessObject() {
+		return bbvaIDataAccessObject;
+	}
+
+	public void setBbvaIDataAccessObject(
+			mx.com.bbva.bancomer.commons.persistence.dao.BbvaIDataAccessObject bbvaIDataAccessObject) {
+		this.bbvaIDataAccessObject = bbvaIDataAccessObject;
+	}
+
 	@Override
 	public <T extends BbvaAbstractDataTransferObject> T createCommand(
 			T bbvaAbstractDataTransferObject) {		
@@ -84,6 +103,43 @@ public class UsuarioNotificacionBO implements mx.com.bbva.bancomer.commons.busin
 		{
 			exception.printStackTrace();
 			return bbvaAbstractDataTransferObject;
+		}
+	}
+	
+	public <T extends BbvaAbstractDataTransferObject> T readCommand(int[] idUsuarios) {
+		ContratacionDTO contratacionDTO = new ContratacionDTO();
+		try {
+			logger.debug("Entrada readCmbCommand -- OK");
+			try {
+				UsuarioNotificacionVO usuarioNotificacionVO = new UsuarioNotificacionVO();
+				List<UsuarioNotificacionVO> result = null;
+				SqlSession session = MapeadorSessionFactory
+						.getSqlSessionFactory().openSession();
+				MapUsuarioNotificacion mapUsuarioNotificacion = session.getMapper(MapUsuarioNotificacion.class);
+				try {
+					usuarioNotificacionVO.setIdUsuarios(idUsuarios);
+					usuarioNotificacionVO.setTipoNotificacion("N");
+					result = mapUsuarioNotificacion.obtenerListUsuarios(usuarioNotificacionVO);
+					session.commit();
+				} catch (Exception ex) {
+					session.rollback();
+					ex.printStackTrace();
+				} finally {
+					session.close();
+				}
+				contratacionDTO.setUsuarioNotificacionVOs(result);
+				logger.debug("result: " + result + " -- **fin**");
+				logger.debug("Datos de Salida invoke -- "
+						+ contratacionDTO.toString());
+				logger.debug("Salida invoke          -- OK");
+				return (T) contratacionDTO;
+			} catch (Exception ex) {
+				ex.printStackTrace();
+				return (T) contratacionDTO;
+			}
+		} catch (Exception exception) {
+			exception.printStackTrace();
+			return (T) contratacionDTO;
 		}
 	}
 
