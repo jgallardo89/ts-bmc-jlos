@@ -73,8 +73,8 @@
 							</panelchildren>										
 						</panel>
 					</portalchildren>
-					<portalchildren width="100%" style="padding: 5px">
-						<panel height="77%" sclass="sectionPanelTitle" width="100%" id="panelCatalogoComponentes"
+					<portalchildren width="100%">
+						<panel height="70%" sclass="sectionPanelTitle" width="100%" id="panelCatalogoComponentes"
 							title="Resultados Catalogo Componente" collapsible="true"
 							style="margin-bottom:10px">
 							<caption sclass="sectionPanelTitle" label="Lista de Componentes"></caption>
@@ -83,7 +83,7 @@
 									model="@load(vm.componenteVOs)" pagingPosition="both" pageSize="11"
 									vflex="true" height="100%">									
 									<columns sizable="true" menupopup="auto">
-										<column hflex="0" align="center" image="/img/pencil-small.png" 
+										<column hflex="0" image="/img/pencil-small.png" 
 											width="5%"></column>
 										<column hflex="1" label="ID Componente" style="text-wrap: normal;"
 											width="10%" sort="auto(vm.componenteDTO.componenteVO.idComponente)"></column>
