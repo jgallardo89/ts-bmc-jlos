@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?page title="Log Eventos" contentType="text/html;charset=UTF-8"?>
+<?meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7"?>
+<?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
+<zk>
+	<window closable="true" position="center,center" border="0"
+		width="75%" height="60%"
+		apply="mx.com.bbva.mapeador.ui.commons.viewmodel.monitoreoprocesos.MonitoreoProcesosController"
+		id="detalleProcesoWindow">
+		<include src="../../pages/styles.zul" />
+		<div apply="org.zkoss.bind.BindComposer" sclass="BODY"
+			height="100%"
+			viewModel="@id('vm') @init('mx.com.bbva.mapeador.ui.commons.viewmodel.monitoreoprocesos.MonitoreoProcesosController')">
+			<div sclass="BODY" height="100%" width="100%">
+				<groupbox height="100%">
+					<portallayout maximizedMode="whole"
+						id="portalLayoutMonitoreoProcesos" width="100%" height="100%">
+						<portalchildren>
+							<panel height="30%" width="100%"
+								sclass="sectionPanelTitle" id="datosMonitoreoProcesos"
+								title="Terminar Etapa" collapsible="true"
+								style="margin-bottom:10px" border="normal">
+								<panelchildren>
+									<div align="center">
+										<grid width="100%"
+											style="border:0" oddRowSclass="row2">
+											<columns>
+												<column width="20%" />
+												<column width="25%" />
+												<column width="20%" />
+												<column width="25%" />
+											</columns>
+											<rows>
+												<row sclass="row">
+													<div />
+													<div
+														align="right">
+														<label
+															width="100%" sclass="labelFill"
+															value="¿ Desea dar por finalizado el proceso ? ">
+														</label>
+													</div>
+
+												</row>
+												<row>
+													<div
+														align="right">
+														<label
+															width="100%" sclass="labelFill" value="Etapa: ">
+														</label>
+													</div>
+													<textbox
+														sclass="textboxUpperCase" maxlength="50" id="lote"
+														value="@load(arg.monitoreoProcesosVO.nombreEtapa)" disabled="true" width="100%">
+													</textbox>
+												</row>
+												<row>
+													<div
+														align="right">
+														<label
+															width="100%" sclass="labelFill" value="Archivo: ">
+														</label>
+													</div>
+													<textbox
+														sclass="textboxUpperCase" maxlength="50" id="archivo"
+														value="@load(arg.monitoreoProcesosVO.nombreRegArchEntra)" disabled="true" width="100%">
+													</textbox>
+												</row>
+												<row>
+													<div
+														align="right">
+														<label
+															width="100%" sclass="labelFill" value="Folio:">
+														</label>
+													</div>
+													<textbox
+														sclass="textboxUpperCase" maxlength="50" id="folio"
+														value="@load(arg.monitoreoProcesosVO.numeroLote)" disabled="true" width="100%">
+													</textbox>
+												</row>
+												<row sclass="row2">
+													<div align="right"
+														width="70%">
+													</div>
+													<div align="right"
+														width="70%">
+														<button
+															sclass="button"  label="Cerrar"
+															id="closeBtn">
+														</button>
+													</div>
+													<div align="right"
+														width="70%">
+														<button sclass="button" image="/img/disk.png" label="Aceptar" id="guardarBtn" onClick="@command('save') @global-command('read')"></button>
+													</div>
+												</row>
+											</rows>
+										</grid>
+									</div>
+								</panelchildren>
+							</panel>
+						</portalchildren>
+					</portallayout>
+				</groupbox>
+				<textbox id="idContratacion" value="@load(arg.monitoreoProcesosVO.numeroLote)" visible="false"></textbox>
+				<textbox id="idFlujo" value="@load(arg.monitoreoProcesosVO.numeroLote)" visible="false"></textbox>
+				<textbox id="idEtapa" value="@load(arg.monitoreoProcesosVO.numeroLote)" visible="false"></textbox>
+			</div>
+		</div>
+	</window>
+</zk>

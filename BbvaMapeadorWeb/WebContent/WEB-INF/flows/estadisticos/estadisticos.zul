@@ -71,7 +71,8 @@
 											</row>
 											<row sclass="row2">
 												<div align="right" width="70%">
-												</div>												
+													<button sclass="button" image="/img/excel.png"  label="Reporte" id="reporteBtn"  onClick="@command('onShowReport',type='xls')" ></button>
+												</div>													
 												<div align="right" width="70%">
 													<button sclass="button" image="/img/clear.png"  label="Limpiar" id="limpiarBtn" onClick="@command('clean')" ></button>
 												</div>	
@@ -112,7 +113,7 @@
 										<row>
 											<label hflex="1" value="@load(each.nombreCanal)"></label>											
 											<label hflex="1" value="@load(each.idIdentificador)"></label>
-											<label hflex="1" value="@load(each.fechaStatusProceso)"></label>
+											<label hflex="1" value="@load(each.fechaStatusProceso) @converter('formatedDate', format='dd/MM/yyyy')"></label>
 											<label hflex="1" value="@load(each.nombreProducto)"></label>
 											<label hflex="1" value="@load(each.nombreRegArchEntra)"></label> 		
 											<label hflex="1" value="@load(each.numeroOperacione)"></label> 		 																				
@@ -151,5 +152,6 @@
 				}
 			}
 		</zscript>
+		<jasperreport id="report" height="50px" />
 	</window>
 </zk>

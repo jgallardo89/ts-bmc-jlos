@@ -72,7 +72,9 @@
 												</combobox>		
 											</row>
 											<row sclass="row2">	
-												<div></div>											
+												<div align="right" width="70%">
+													<button sclass="button" image="/img/excel.png"  label="Reporte" id="reporteBtn"  onClick="@command('onShowReport',type='xls')" ></button>
+												</div>										
 												<div align="right" width="70%">
 													<button sclass="button" image="/img/clear.png" label="Limpiar" id="limpiarBtn" onClick="@command('clean')" ></button>
 												</div>	
@@ -101,8 +103,6 @@
 									<columns sizable="true" menupopup="auto">
 										<column hflex="0" align="center" image="/img/pencil-small.png" 
 											width="5%"></column>
-										<column hflex="1" label="ID Pantalla" style="text-wrap: normal;"
-											width="10%" sort="auto(vm.pantallaDTO.pantallaVO.idPantalla)"></column>
 										<column hflex="1" label="Pantalla Padre" style="text-wrap: normal;"
 											width="10%" sort="auto(vm.pantallaDTO.pantallaVO.nombrePantallaPadre)"></column>
 										<column hflex="1" label="Pantalla" width="20%"
@@ -118,8 +118,7 @@
 									</columns>
 									<template name="model">
 										<row>
-											<image src="/img/pencil-small.png" onClick="@command('readSelected',idPantalla=each)"></image>
-											<label hflex="1" value="@load(each.idPantalla)"></label>											
+											<image src="/img/pencil-small.png" onClick="@command('readSelected',idPantalla=each)"></image>											
 											<label hflex="1" value="@load(each.nombrePantallaPadre)"></label>
 											<label hflex="1" value="@load(each.nombrePantalla)"></label>
 											<label hflex="1" value="@load(each.descripcionUrlPantalla)"></label>
@@ -154,5 +153,6 @@
 				}
 			}			
 		</zscript>
+		<jasperreport id="report" height="50px" />
 	</window>
 </zk>
