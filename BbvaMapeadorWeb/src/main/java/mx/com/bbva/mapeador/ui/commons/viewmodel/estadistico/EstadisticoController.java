@@ -2,12 +2,14 @@ package mx.com.bbva.mapeador.ui.commons.viewmodel.estadistico;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 import mx.com.bbva.bancomer.bussinnes.model.vo.CanalVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.ClienteVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.EstadisticoVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.ProductoVO;
+import mx.com.bbva.bancomer.canal.dto.BeanGenerico;
 import mx.com.bbva.bancomer.canal.dto.CanalDTO;
 import mx.com.bbva.bancomer.cliente.dto.ClienteDTO;
 import mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject;
@@ -19,9 +21,11 @@ import mx.com.bbva.bancomer.mapper.business.ProductoBO;
 import mx.com.bbva.bancomer.producto.dto.ProductoDTO;
 import mx.com.bbva.mapeador.ui.commons.controller.IController;
 import mx.com.bbva.mapeador.ui.commons.viewmodel.support.ControllerSupport;
+import mx.com.bbva.mt101.ui.commons.viewmodel.reportes.ReportesController;
 
 import org.apache.log4j.Logger;
 import org.zkoss.bind.annotation.AfterCompose;
+import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
@@ -29,6 +33,7 @@ import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
+import org.zkoss.zkex.zul.Jasperreport;
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Datebox;
 import org.zkoss.zul.Textbox;
@@ -59,7 +64,8 @@ public class EstadisticoController extends ControllerSupport implements  IContro
 	private Textbox idCliente;
 	@Wire
 	private Textbox idProducto;
-	
+	@Wire
+	private Jasperreport report;
 	private EstadisticoDTO estadisticoDTO = (EstadisticoDTO) this.read();
 	
 	private List<EstadisticoVO> estadisticoVOs = estadisticoDTO.getEstadisticoVOs();
@@ -180,6 +186,38 @@ public class EstadisticoController extends ControllerSupport implements  IContro
 		idCliente.setValue(null);
 		idProducto.setValue(null);
 		
+	}
+	
+	@Command
+	public void onShowReport(@BindingParam("type") final String type) {
+		ReportesController controller = new ReportesController();
+		ArrayList<String> headersReport = new ArrayList<String>();
+		String titleReport = "Estadístico";
+		headersReport.add("Canal");
+		headersReport.add("Cliente");
+		headersReport.add("Fecha");
+		headersReport.add("Producto"); 
+		headersReport.add("Nombre Archivo"); 
+		headersReport.add("Operaciones"); 
+		controller.createReport(generaLista(), headersReport, titleReport, report, type);
+	}	
+	
+	private ArrayList<BeanGenerico> generaLista() {
+		ArrayList<BeanGenerico> beanGenericos = new ArrayList<BeanGenerico>();
+		BeanGenerico beanGenerico = null;
+		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+		for(EstadisticoVO estadisticoVO: estadisticoVOs) {
+			beanGenerico = new BeanGenerico();
+			beanGenerico.setValor1(estadisticoVO.getNombreCanal());
+			beanGenerico.setValor2(estadisticoVO.getIdIdentificador());
+			beanGenerico.setValor3(dateFormat.format(estadisticoVO.getFechaStatusProceso()));
+			beanGenerico.setValor4(estadisticoVO.getNombreProducto()); 
+			beanGenerico.setValor5(estadisticoVO.getNombreRegArchEntra()); 
+			beanGenerico.setValor6(String.valueOf(estadisticoVO.getNumeroOperacione())); 
+			
+			beanGenericos.add(beanGenerico);
+		}
+		return beanGenericos;
 	}
 	@Override
 	public Object read(Object t) {
@@ -505,6 +543,20 @@ public class EstadisticoController extends ControllerSupport implements  IContro
 	 */
 	public void setStrIdProducto(String strIdProducto) {
 		this.strIdProducto = strIdProducto;
+	}
+
+	/**
+	 * @return the report
+	 */
+	public Jasperreport getReport() {
+		return report;
+	}
+
+	/**
+	 * @param report the report to set
+	 */
+	public void setReport(Jasperreport report) {
+		this.report = report;
 	}
 
 }

@@ -2,13 +2,16 @@ package mx.com.bbva.mapeador.ui.commons.viewmodel.mapagmm;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import mx.com.bbva.bancomer.bussinnes.model.vo.ComponenteVO;
+import mx.com.bbva.bancomer.bussinnes.model.vo.EstadisticoVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.EstatusObjetoVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.MapaGmmVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.PantallaVO;
+import mx.com.bbva.bancomer.canal.dto.BeanGenerico;
 import mx.com.bbva.bancomer.commons.command.CommandConstants;
 import mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject;
 import mx.com.bbva.bancomer.componente.dto.ComponenteDTO;
@@ -23,6 +26,7 @@ import mx.com.bbva.mapeador.security.session.user.SessionUser;
 import mx.com.bbva.mapeador.ui.commons.controller.IController;
 import mx.com.bbva.mapeador.ui.commons.viewmodel.pantalla.PantallaController;
 import mx.com.bbva.mapeador.ui.commons.viewmodel.support.ControllerSupport;
+import mx.com.bbva.mt101.ui.commons.viewmodel.reportes.ReportesController;
 
 import org.apache.log4j.Logger;
 import org.zkoss.bind.BindUtils;
@@ -37,6 +41,7 @@ import org.zkoss.zhtml.Messagebox;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
+import org.zkoss.zkex.zul.Jasperreport;
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Datebox;
 import org.zkoss.zul.Textbox;
@@ -73,7 +78,8 @@ public class MapaGmmController  extends ControllerSupport implements  IControlle
 	private Textbox idStatus;
 	@Wire
 	private Textbox idMapaGmm;
-	
+	@Wire
+	private Jasperreport report;
 	
 	private MapaGmmDTO mapaGmmDTO =  (MapaGmmDTO) this.read();
 	
@@ -300,7 +306,35 @@ public class MapaGmmController  extends ControllerSupport implements  IControlle
 		// TODO Auto-generated method stub
 		
 	}
-
+	@Command
+	public void onShowReport(@BindingParam("type") final String type) {
+		ReportesController controller = new ReportesController();
+		ArrayList<String> headersReport = new ArrayList<String>();
+		String titleReport = "Catálogo Mapas";
+		headersReport.add("Identificador Mapa");
+		headersReport.add("Descripción");
+		headersReport.add("Fecha Alta");
+		headersReport.add("Fecha modificación"); 
+		headersReport.add("Estatus");  
+		controller.createReport(generaLista(), headersReport, titleReport, report, type);
+	}	
+	
+	private ArrayList<BeanGenerico> generaLista() {
+		ArrayList<BeanGenerico> beanGenericos = new ArrayList<BeanGenerico>();
+		BeanGenerico beanGenerico = null;
+		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+		for(MapaGmmVO mapaGmmVO: mapaGmmVOs) {
+			beanGenerico = new BeanGenerico();
+			beanGenerico.setValor1(mapaGmmVO.getNombreMapaGmm());
+			beanGenerico.setValor2(mapaGmmVO.getDescripcionMapaGmm());
+			beanGenerico.setValor3(dateFormat.format(mapaGmmVO.getFechaAlta()));
+			beanGenerico.setValor4(dateFormat.format(mapaGmmVO.getFechaModificacion())); 
+			beanGenerico.setValor5(mapaGmmVO.getNombreEstatusObjeto());  
+			
+			beanGenericos.add(beanGenerico);
+		}
+		return beanGenericos;
+	}
 	
 	/**
 	 * @return the identificadorMapa
@@ -527,6 +561,20 @@ public class MapaGmmController  extends ControllerSupport implements  IControlle
 	 */
 	public void setStrIdMapaGmm(String strIdMapaGmm) {
 		this.strIdMapaGmm = strIdMapaGmm;
+	}
+
+	/**
+	 * @return the report
+	 */
+	public Jasperreport getReport() {
+		return report;
+	}
+
+	/**
+	 * @param report the report to set
+	 */
+	public void setReport(Jasperreport report) {
+		this.report = report;
 	}
 
 }

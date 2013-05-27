@@ -2,20 +2,21 @@ package mx.com.bbva.mapeador.ui.commons.viewmodel.bitacioraarchivo;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
-import mx.com.bbva.bancomer.bitacora.dto.BitacoraDTO;
 import mx.com.bbva.bancomer.bitacoraarchivo.dto.BitacoraArchivoDTO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.BitacoraArchivoVO;
-import mx.com.bbva.bancomer.bussinnes.model.vo.BitacoraVO;
+import mx.com.bbva.bancomer.canal.dto.BeanGenerico;
 import mx.com.bbva.bancomer.evento.dto.EventoMapeadorDTO;
 import mx.com.bbva.bancomer.mapper.business.BitacoraArchivoBO;
-import mx.com.bbva.bancomer.mapper.business.BitacoraBO;
 import mx.com.bbva.bancomer.mapper.business.EventoMapeadorBO;
 import mx.com.bbva.mapeador.ui.commons.controller.IController;
 import mx.com.bbva.mapeador.ui.commons.viewmodel.support.ControllerSupport;
+import mx.com.bbva.mt101.ui.commons.viewmodel.reportes.ReportesController;
 
 import org.zkoss.bind.annotation.AfterCompose;
+import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
@@ -23,6 +24,7 @@ import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
+import org.zkoss.zkex.zul.Jasperreport;
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Datebox;
 import org.zkoss.zul.Textbox;
@@ -40,6 +42,8 @@ public class BitacioraArchivoController extends ControllerSupport implements  IC
 	private Datebox fechaInicio;
 	@Wire
 	private Datebox fechaFin;
+	@Wire
+	private Jasperreport report;
 	
 	private BitacoraArchivoDTO bitacoraArchivoDTO = (BitacoraArchivoDTO) this.read();
 	
@@ -103,7 +107,30 @@ public class BitacioraArchivoController extends ControllerSupport implements  IC
 		idEventoMapeador.setValue(null);
 		nombreArchivo.setValue(null);
 	}
+	@Command
+	public void onShowReport(@BindingParam("type") final String type) {
+		ReportesController controller = new ReportesController();
+		ArrayList<String> headersReport = new ArrayList<String>();
+		String titleReport = "Bitácora Archivos";
+		headersReport.add("Fecha y Hora");
+		headersReport.add("Archivo");
+		headersReport.add("Estado de archivo"); 
+		controller.createReport(generaLista(), headersReport, titleReport, report, type);
+	}	
 	
+	private ArrayList<BeanGenerico> generaLista() {
+		ArrayList<BeanGenerico> beanGenericos = new ArrayList<BeanGenerico>();
+		BeanGenerico beanGenerico = null;
+		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+		for(BitacoraArchivoVO bitacoraArchivoVO: bitacoraArchivoVOs) {
+			beanGenerico = new BeanGenerico();
+			beanGenerico.setValor1(dateFormat.format(bitacoraArchivoVO.getFechaBitacora()));
+			beanGenerico.setValor2(bitacoraArchivoVO.getNombreBitacora());
+			beanGenerico.setValor3(bitacoraArchivoVO.getNombreEventoMapeador()); 
+			beanGenericos.add(beanGenerico);
+		}
+		return beanGenericos;
+	}
 	@Override
 	public Object read(Object t) {
 		// TODO Auto-generated method stub
@@ -279,6 +306,18 @@ public class BitacioraArchivoController extends ControllerSupport implements  IC
 	 */
 	public void setIdBitacora(Textbox idBitacora) {
 		this.idBitacora = idBitacora;
+	}
+	/**
+	 * @return the report
+	 */
+	public Jasperreport getReport() {
+		return report;
+	}
+	/**
+	 * @param report the report to set
+	 */
+	public void setReport(Jasperreport report) {
+		this.report = report;
 	}
 
 }

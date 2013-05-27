@@ -3,10 +3,12 @@
  */
 package mx.com.bbva.mapeador.ui.commons.viewmodel.pantalla;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import mx.com.bbva.bancomer.bussinnes.model.vo.EstatusObjetoVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.PantallaVO;
+import mx.com.bbva.bancomer.canal.dto.BeanGenerico;
 import mx.com.bbva.bancomer.commons.command.CommandConstants;
 import mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject;
 import mx.com.bbva.bancomer.estatusobjeto.dto.EstatusObjetoDTO;
@@ -16,6 +18,7 @@ import mx.com.bbva.bancomer.pantalla.dto.PantallaDTO;
 import mx.com.bbva.mapeador.security.session.user.SessionUser;
 import mx.com.bbva.mapeador.ui.commons.controller.IController;
 import mx.com.bbva.mapeador.ui.commons.viewmodel.support.ControllerSupport;
+import mx.com.bbva.mt101.ui.commons.viewmodel.reportes.ReportesController;
 
 import org.apache.log4j.Logger;
 import org.zkoss.bind.annotation.AfterCompose;
@@ -28,6 +31,7 @@ import org.zkoss.zhtml.Messagebox;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
+import org.zkoss.zkex.zul.Jasperreport;
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Textbox;
 
@@ -79,6 +83,8 @@ public class PantallaController extends ControllerSupport implements  IControlle
 	@Wire
 	private Textbox orden;
 	
+	@Wire
+	private Jasperreport report;
 	private PantallaDTO pantallaDTO =  (PantallaDTO) this.read();
 	
 	private List<PantallaVO> pantallaVOs = pantallaDTO.getPantallaVOs();
@@ -138,7 +144,7 @@ public class PantallaController extends ControllerSupport implements  IControlle
 	public void readWithFilters() {
 		PantallaDTO pantallaDTO = new PantallaDTO();
 		PantallaVO pantallaVO = new PantallaVO();
-		EstatusObjetoDTO estatusObjetoDTO = new EstatusObjetoDTO();	
+//		EstatusObjetoDTO estatusObjetoDTO = new EstatusObjetoDTO();	
 		//Textbox
 		pantallaVO.setNombrePantalla(nombrePantalla.getValue().isEmpty()?"%":"%"+nombrePantalla.getValue().toUpperCase()+"%");
 		pantallaVO.setDescripcionUrlPantalla(url.getValue().isEmpty()?"%":"%"+url.getValue().toLowerCase()+"%");
@@ -329,7 +335,34 @@ public class PantallaController extends ControllerSupport implements  IControlle
 		idPantallaPadre.setValue(null);
 		idEstatusObjeto.setValue(null);
 	}
-
+	@Command
+	public void onShowReport(@BindingParam("type") final String type) {
+		ReportesController controller = new ReportesController();
+		ArrayList<String> headersReport = new ArrayList<String>();
+		String titleReport = "Catálogo Pantallas";
+		headersReport.add("Pantalla Padre");
+		headersReport.add("Pantalla");
+		headersReport.add("URL Pantalla");
+		headersReport.add("URL Icono");
+		headersReport.add("Orden");
+		headersReport.add("Estatus"); 
+		controller.createReport(generaLista(), headersReport, titleReport, report, type);
+	}	
+	
+	private ArrayList<BeanGenerico> generaLista() { 
+		ArrayList<BeanGenerico> beanGenericos = new ArrayList<BeanGenerico>();
+		BeanGenerico beanGenerico = null;
+		for(PantallaVO pantallaVO: pantallaVOs) {
+			beanGenerico = new BeanGenerico();
+			beanGenerico.setValor1(pantallaVO.getNombrePantallaPadre());
+			beanGenerico.setValor2(pantallaVO.getNombrePantalla());
+			beanGenerico.setValor3(pantallaVO.getDescripcionUrlPantalla());
+			beanGenerico.setValor4(pantallaVO.getDescripcionUrlIcon()); 
+			beanGenerico.setValor5(pantallaVO.getNombreEstatusObjeto());  
+			beanGenericos.add(beanGenerico);
+		}
+		return beanGenericos;
+	}
 	/**
 	 * @return the pantallaPadre
 	 */
@@ -662,6 +695,20 @@ public class PantallaController extends ControllerSupport implements  IControlle
 	 */
 	public void setIdPantalla(Textbox idPantalla) {
 		this.idPantalla = idPantalla;
+	}
+
+	/**
+	 * @return the report
+	 */
+	public Jasperreport getReport() {
+		return report;
+	}
+
+	/**
+	 * @param report the report to set
+	 */
+	public void setReport(Jasperreport report) {
+		this.report = report;
 	}
 
 }
