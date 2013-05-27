@@ -40,26 +40,26 @@
 												<div align="right">
 													<label width="100%" sclass="labelFill" value="Nombre Pantalla:"></label>												
 												</div>
-												<textbox sclass="textboxUpperCase" maxlength="50"
+												<textbox sclass="textboxUpperCase" maxlength="30"
 													id="nombrePantalla" value="@load(vm.strNombrePantalla)" width="100%"></textbox>																																								
 											</row>
 											<row sclass="row2">											
 												<div align="right">
 													<label width="100%" sclass="labelFill" value="URL:"></label>												
 												</div>
-												<textbox maxlength="50"
+												<textbox maxlength="300"
 													id="url" value="@load(vm.strUrl)" width="100%"></textbox>		
 												<div align="right">
 													<label width="100%" sclass="labelFill" value="Icono:"></label>												
 												</div>
-												<textbox sclass="textboxUpperCase" maxlength="50"
+												<textbox sclass="textboxUpperCase" maxlength="300"
 													id="icono" value="@load(vm.strIcono)" width="100%"></textbox>																																							
 											</row>
 											<row>
 												<div align="right">
 													<label width="100%" sclass="labelFill" value="Orden:"></label>												
 												</div>
-												<textbox sclass="textboxUpperCase" maxlength="50"
+												<textbox sclass="textboxUpperCase" maxlength="5"  constraint="/^[0-9]*$/: Por favor ingresa números"
 													id="orden" value="@load(vm.strOrden)" width="100%"></textbox>
 												<div align="right">
 													<label width="100%" sclass="labelFill" value="Status:"></label>												
