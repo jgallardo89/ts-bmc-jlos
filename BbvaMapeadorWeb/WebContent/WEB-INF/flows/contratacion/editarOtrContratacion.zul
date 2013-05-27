@@ -69,10 +69,10 @@
 								<row sclass="row2">
 									<div align="right">												
 									</div>
-									<div align="right">	
+									<div align="right" visible="@load(vm.comboEstatus)">	
 										<label width="100%" sclass="labelFill" value="Status: "></label>										
 									</div>
-									<combobox sclass="textboxUpperCase" onChange="selectedValueStatusObjeto()"
+									<combobox visible="@load(vm.comboEstatus)" sclass="textboxUpperCase" onChange="selectedValueStatusObjeto()"
 										id="estatusObjeto" width="80%" model="@load(vm.contratacionDTO.estatusObjetoVOs)" autodrop="true">		
 										<template name="model">										
 											<comboitem value="@load(each.idEstatusObjeto)" label="@load(each.nombreEstatusObjeto)" height="100%"/>
@@ -101,12 +101,12 @@
 				</panelchildren>										
 			</panel>
 		</groupbox>
-		<textbox id="idEstatusObjeto" value="@load(vm.contratacionDTO.contratacionVO.idEstatusObjeto)" visible="false"></textbox>
-		<textbox id="idCanal" value="@load(vm.contratacionDTO.contratacionVO.idCanal)" visible="false"></textbox>
-		<textbox id="idCanalSalida" value="@load(vm.contratacionDTO.contratacionVO.idCanalSalida)" visible="false"></textbox>
-		<textbox id="idCliente" value="@load(vm.contratacionDTO.contratacionVO.idCliente)" visible="false"></textbox>
-		<textbox id="idProducto" value="@load(vm.contratacionDTO.contratacionVO.idProducto)" visible="false"></textbox>
-		<textbox id="idContratacion" value="@load(vm.contratacionDTO.contratacionVO.idContratacion)" visible="false"></textbox>
+		<textbox id="idEstatusObjeto" value="@load(vm.contratacionDTO.contratacionVO.idEstatusObjeto)" visible="true"></textbox>
+		<textbox id="idCanal" value="@load(vm.contratacionDTO.contratacionVO.idCanal)" visible="true"></textbox>
+		<textbox id="idCanalSalida" value="@load(vm.contratacionDTO.contratacionVO.idCanalSalida)" visible="true"></textbox>
+		<textbox id="idCliente" value="@load(vm.contratacionDTO.contratacionVO.idCliente)" visible="true"></textbox>
+		<textbox id="idProducto" value="@load(vm.contratacionDTO.contratacionVO.idProducto)" visible="true"></textbox>
+		<textbox id="idContratacion" value="@load(vm.contratacionDTO.contratacionVO.idContratacion)" visible="true"></textbox>
 		<separator height="5px"></separator>
 		<groupbox mold="3d" height="72%" width="100%">
 			<caption sclass="pageTitle" label="Contratación"></caption>		

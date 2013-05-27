@@ -39,7 +39,8 @@
 													id="descripcionPalabraComodin" value="@load(vm.palabraComodinDTO.palabraComodinVO.descripcionPalabraComodin)" width="70%"></textbox> 																													
 											</row>
 											<row sclass="row2">
-												<div align="right">
+												<div align="right" width="70%">
+													<button sclass="button" image="/img/excel.png"  label="Reporte" id="reporteBtn"  onClick="@command('onShowReport',type='xls')" ></button>
 												</div>												
 												<div align="right" width="82%">
 													<button sclass="button" image="/img/clear.png" label="Limpiar" id="limpiarBtn" onClick="@command('clean')" ></button>
@@ -84,5 +85,6 @@
 				</portallayout>								
 			</groupbox>
 		</div>
+		<jasperreport id="report" height="50px" />
 	</window>
 </zk>

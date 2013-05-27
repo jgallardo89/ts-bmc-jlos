@@ -3,7 +3,7 @@
 <?meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7"?>
 <?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
 <zk>
-	<window border="0" width="100%" height="70%"
+	<window border="0" width="100%" height="100%"
 		apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('mx.com.bbva.mt101.ui.commons.viewmodel.contratacion.ContratacionController')"
 		id="contratacionWindows">
@@ -59,9 +59,9 @@
 													</template>																								
 												</combobox>	
 												<div align="right">
-													<label width="100%" sclass="labelFill" value="Producto:"></label>												
+													<label width="100%" sclass="labelFill" value="Producto:"></label>											
 												</div>
-												<combobox sclass="textboxUpperCase" onChange="selectedValueProducto()"
+												<combobox sclass="textboxUpperCase" onChange="@command('seleccionaProducto')" selectedItem="@bind(vm.identificadorProducto)"
 													id="producto" width="70%" model="@load(vm.contratacionDTO.productoVOs)" autodrop="true">		
 													<template name="model">										
 														<comboitem value="@load(each.idProducto)" label="@load(each.nombreProducto)" height="100%"/>
@@ -90,7 +90,14 @@
 												</combobox>																												
 											</row>
 											<row sclass="row2">
-																							
+											<div align="right" width="70%">
+											<textbox id="idEstatusObjeto" value="@load(vm.contratacionDTO.contratacionVO.idEstatusObjeto)" visible="true"/>
+									<textbox id="idCanal" value="@load(vm.contratacionDTO.contratacionVO.idCanal)" visible="true"/>
+									<textbox id="idCanalSalida" value="@load(vm.contratacionDTO.contratacionVO.idCanalSalida)" visible="true"/>
+									<textbox id="idCliente" value="@load(vm.contratacionDTO.contratacionVO.idCliente)" visible="true"/>
+									<textbox id="idProducto" value="@load(vm.contratacionDTO.contratacionVO.idProducto)" visible="true"/>
+									<textbox id="idContratacion" value="@load(vm.contratacionDTO.contratacionVO.idContratacion)" visible="true"/>
+									</div>
 												<div align="right" width="70%">
 													<button sclass="button" image="/img/clear.png"  label="Limpiar" id="limpiarBtn" onClick="@command('clean')" ></button>
 												</div>
@@ -98,15 +105,15 @@
 													<button sclass="button" image="/img/search.png" label="Consultar" id="consultarBtn" onClick="@command('readWithFilters')"></button>
 												</div>
 												<div align="right" width="70%">
-													<button sclass="button" image="/img/disk.png" label="Editar" id="editarBtn" disabled="@load(vm.botonEditar)" onClick="@command('readEventEdit')"></button>
+													<button sclass="button" image="/img/disk.png" label="Editar" id="editarBtn" disabled="@load(vm.botonEditar)" onClick="@command('editaContratacion')"></button>
 												</div>
 												<div align="right" width="70%">
-													<button sclass="button" image="/img/disk.png" disabled="false" label="Nueva" id="nuevaBtn" onClick="@command('nuevaContratacion',contratacion='nueva')"></button>
+													<button sclass="button" image="/img/disk.png" disabled="@load(vm.botonGuardar)" label="Nueva" id="nuevaBtn" onClick="@command('nuevaContratacion',contratacion='nueva')"></button>
 												</div>
-												
 											</row>
 										</rows>								
 									</grid>
+									
 								</div>
 							</panelchildren>										
 						</panel>
@@ -155,13 +162,7 @@
 						</panel>
 					</portalchildren>
 				</portallayout>								
-			</groupbox>	
-			<textbox id="idEstatusObjeto" value="@load(vm.contratacionDTO.contratacionVO.idEstatusObjeto)" visible="true"/>
-			<textbox id="idCanal" value="@load(vm.contratacionDTO.contratacionVO.idCanal)" visible="true"/>
-			<textbox id="idCanalSalida" value="@load(vm.contratacionDTO.contratacionVO.idCanalSalida)" visible="true"/>
-			<textbox id="idCliente" value="@load(vm.contratacionDTO.contratacionVO.idCliente)" visible="true"/>
-			<textbox id="idProducto" value="@load(vm.contratacionDTO.contratacionVO.idProducto)" visible="true"/>
-			<textbox id="idContratacion" value="@load(vm.contratacionDTO.contratacionVO.idContratacion)" visible="true"/>
+			</groupbox>
 		</div>
 		<zscript>
 		public void selectedValueStatusObjeto(){
