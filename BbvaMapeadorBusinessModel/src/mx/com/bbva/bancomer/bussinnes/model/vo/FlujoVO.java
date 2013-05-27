@@ -19,6 +19,7 @@ public class FlujoVO extends BbvaAbstractValueObject {
 	private int idEstatusObjeto;
 	private String nombreEstatusObjeto;
 	private String descripcionEtapa;
+	private int idBaja;
 	/**
 	 * @return the idFlujo
 	 */
@@ -126,6 +127,18 @@ public class FlujoVO extends BbvaAbstractValueObject {
 	 */
 	public void setFechaModificacion(Date fechaModificacion) {
 		this.fechaModificacion = fechaModificacion;
+	}
+	/**
+	 * @return the idBaja
+	 */
+	public int getIdBaja() {
+		return idBaja;
+	}
+	/**
+	 * @param idBaja the idBaja to set
+	 */
+	public void setIdBaja(int idBaja) {
+		this.idBaja = idBaja;
 	}
 	
 }

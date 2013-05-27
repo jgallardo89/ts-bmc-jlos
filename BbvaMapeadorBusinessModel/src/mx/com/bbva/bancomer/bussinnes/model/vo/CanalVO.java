@@ -16,7 +16,7 @@ public class CanalVO extends BbvaAbstractValueObject  {
 	private String rutaCanalSalida;
 	private String nombreEstatusObjeto;
 	private int idEstatusObjeto;
-	
+	private int idBaja;
 	/**
 	 * @return the idCanal
 	 */
@@ -112,6 +112,18 @@ public class CanalVO extends BbvaAbstractValueObject  {
 	 */
 	public void setIdEstatusObjeto(int idEstatusObjeto) {
 		this.idEstatusObjeto = idEstatusObjeto;
+	}
+	/**
+	 * @return the idBaja
+	 */
+	public int getIdBaja() {
+		return idBaja;
+	}
+	/**
+	 * @param idBaja the idBaja to set
+	 */
+	public void setIdBaja(int idBaja) {
+		this.idBaja = idBaja;
 	}
 	
 }

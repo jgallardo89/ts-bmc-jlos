@@ -20,7 +20,7 @@ public class ClienteVO extends BbvaAbstractValueObject {
 	private Date fechaModificacion;
 	private int idEstatusObjeto;
 	private String nombreEstatusObjeto;
-	
+	private int idBaja;
 	/**
 	 * @return the idCliente
 	 */
@@ -116,6 +116,18 @@ public class ClienteVO extends BbvaAbstractValueObject {
 	 */
 	public void setNombreEstatusObjeto(String nombreEstatusObjeto) {
 		this.nombreEstatusObjeto = nombreEstatusObjeto;
+	}
+	/**
+	 * @return the idBaja
+	 */
+	public int getIdBaja() {
+		return idBaja;
+	}
+	/**
+	 * @param idBaja the idBaja to set
+	 */
+	public void setIdBaja(int idBaja) {
+		this.idBaja = idBaja;
 	}
 	
 }

@@ -16,6 +16,7 @@ public class ProductoVO extends BbvaAbstractValueObject  {
 	private int idEstatusObjeto;
 	private String nombreEstatusObjeto;
 	private String nombreFlujo;
+	private int idBaja;
 	/**
 	 * @return the idProducto
 	 */
@@ -123,6 +124,18 @@ public class ProductoVO extends BbvaAbstractValueObject  {
 	 */
 	public void setNombreFlujo(String nombreFlujo) {
 		this.nombreFlujo = nombreFlujo;
+	}
+	/**
+	 * @return the idBaja
+	 */
+	public int getIdBaja() {
+		return idBaja;
+	}
+	/**
+	 * @param idBaja the idBaja to set
+	 */
+	public void setIdBaja(int idBaja) {
+		this.idBaja = idBaja;
 	}
 	
 }
