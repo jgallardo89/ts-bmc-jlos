@@ -16,6 +16,7 @@ public abstract interface CommandConstants {
 	public static final String NOMBRE_TABLA_MAPA = "MAPA";
 	public static final String NOMBRE_TABLA_PRODUCTOS = "PRODUCTOS";
 	public static final String NOMBRE_TABLA_FLUJOS = "FLUJOS";
+	public static final String NOMBRE_TABLA_PROCESO = "TGM522_ST_PROCESO";
 	
 }
 
