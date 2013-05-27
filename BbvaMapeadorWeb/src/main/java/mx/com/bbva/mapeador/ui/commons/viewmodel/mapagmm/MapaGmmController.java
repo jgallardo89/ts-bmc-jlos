@@ -132,6 +132,8 @@ public class MapaGmmController  extends ControllerSupport implements  IControlle
 		identificadorMapa.setValue(mapaGmmVO.getNombreMapaGmm());
 		descripcionMapa.setValue(mapaGmmVO.getDescripcionMapaGmm());
 		idMapaGmm.setValue(String.valueOf(mapaGmmVO.getIdMapaGmm()));
+		
+		identificadorMapa.setDisabled(true);
 	}
 	
 	//Cambiar al objeto que pertenezca el componente en este caso mapaGmmVOs
@@ -240,6 +242,7 @@ public class MapaGmmController  extends ControllerSupport implements  IControlle
 						Messagebox.INFORMATION);
 				
 				mapaGmmVOs = mapaGmmDTO.getMapaGmmVOs();
+				identificadorMapa.setDisabled(false);
 			}else{ 
 				logger.info("::::::NO Crea::::"); 
 //				MapaGmmDTO mapaGmmDTO = new MapaGmmDTO();
@@ -299,6 +302,8 @@ public class MapaGmmController  extends ControllerSupport implements  IControlle
 		//Setear IDs Invisibles
 		idMapaGmm.setValue(null);
 		idStatus.setValue(null);
+		
+		identificadorMapa.setDisabled(false);
 		
 	}
 	@Override
