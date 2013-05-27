@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mappers.monitoreoprocesos.MapMonitoreoProcesos">
+	<select id="obtenerMonitoreoProcesosVO" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.MonitoreoProcesosVO"
+		resultType="mx.com.bbva.bancomer.bussinnes.model.vo.MonitoreoProcesosVO">
+		SELECT 
+			P.CD_CONTRATACION idContratacion,
+	        CAN.CD_CANAL idCanal,
+	        CAN.NB_CANAL nombreCanal,
+	        CLIENTE.CD_CLIENTE idCliente,
+	        CLIENTE.CD_IDENTIFICADOR idIdentificador,
+	        PRODUCTO.CD_PRODUCTO idProducto,
+	        PRODUCTO.NB_PRODUCTO nombreProducto,
+	        P.NU_LOTE numeroLote,
+	        ARCHIVO.FH_REG_ARCH_ENTRA fechaLote,
+	        ARCHIVO.CD_REG_ARCH_ENTRA idRegArchEntra,
+	        ARCHIVO.NB_REG_ARCH_ENTRA nombreRegArchEntra,
+	        P.TM_ST_PROCESO_INI horaProcesoIni,
+	        P.TM_ST_PROCESO_FIN horaProcesoFin,
+			P.FH_ST_PROCESO fechaStatusProceso,
+			FLUJO.CD_FLUJO idFlujo,
+			FLUJO.NB_FLUJO nombreFlujo,
+			ETAPA.CD_ETAPA idEtapa,
+			ETAPA.NB_ETAPA nombreEtapa,
+			P.CD_ST_MAPEADOR idEstatusMapeador,
+			ESTATUS.NB_ST_OBJETO nombreEstatusMapeador
+		FROM  TGM522_ST_PROCESO P 
+	        LEFT OUTER JOIN TGM536_REG_ARCH_EN ARCHIVO ON 
+	        P.CD_REG_ARCH_ENTRA = ARCHIVO.CD_REG_ARCH_ENTRA 
+			LEFT OUTER JOIN TGM534_ST_OBJETO ESTATUS ON 
+	        P.CD_ST_MAPEADOR = ESTATUS.CD_ST_OBJETO 
+	        LEFT OUTER JOIN TGM520_CONTRAT_MAP CM ON 
+	        P.CD_CONTRATACION = CM.CD_CONTRATACION AND  
+	        P.CD_FLUJO = CM.CD_FLUJO AND 
+	        P.CD_ETAPA = CM.CD_ETAPA
+	        LEFT OUTER JOIN TGM518_FLUJOETAPA FE ON 
+	        CM.CD_FLUJO = FE.CD_FLUJO AND
+	        CM.CD_ETAPA = CM.CD_ETAPA
+	        LEFT OUTER JOIN  TGM513_FLUJO FLUJO ON
+	        FE.CD_FLUJO = FLUJO.CD_FLUJO
+	        LEFT OUTER JOIN  TGM517_ETAPA ETAPA ON
+	        FE.CD_ETAPA = ETAPA.CD_ETAPA
+	        LEFT OUTER JOIN TGM519_CONTRATACION C ON 
+	        CM.CD_CONTRATACION = C.CD_CONTRATACION
+	        LEFT OUTER JOIN TGM511_CANAL CAN ON
+	        C.CD_CANAL = CAN.CD_CANAL
+	        LEFT OUTER JOIN TGM515_PRODUCTO PRODUCTO ON
+	        C.CD_PRODUCTO = PRODUCTO.CD_PRODUCTO
+	        LEFT OUTER JOIN TGM512_CLIENTE CLIENTE ON
+	        C.CD_CLIENTE = CLIENTE.CD_CLIENTE
+		WHERE 
+	        P.CD_CONTRATACION IS NOT NULL  
+		<if test="idCanal != null and idCanal != 0">
+			AND CAN.CD_CANAL = #{idCanal}
+		</if>		
+		<if test="idCliente != null and idCliente != 0">
+			AND CLIENTE.CD_CLIENTE = #{idCliente}
+		</if>	
+		<if test="idProducto != null and idProducto != 0">
+			AND PRODUCTO.CD_PRODUCTO = #{idProducto}
+		</if>	
+		<if test="numeroLote != null and numeroLote != 0">
+			AND P.NU_LOTE = #{numeroLote}
+		</if>
+		<if test="idEstatusMapeador != null and idEstatusMapeador != 0">
+			AND P.CD_ST_MAPEADOR = #{idEstatusMapeador} 
+		</if>
+		<if test="fechaInicio != null and fechaFin != null">    
+			AND P.FH_ST_PROCESO BETWEEN #{fechaInicio} AND #{fechaFin}
+		</if>
+		ORDER BY CAN.CD_CANAL
+	</select>
+	<select id="obtenerRegistrosProceso" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.MonitoreoProcesosVO"
+		resultType="mx.com.bbva.bancomer.bussinnes.model.vo.MonitoreoProcesosVO">
+		SELECT 
+			P.CD_CONTRATACION idContratacion,
+	        CAN.CD_CANAL idCanal,
+	        CAN.NB_CANAL nombreCanal,
+	        CLIENTE.CD_CLIENTE idCliente,
+	        CLIENTE.CD_IDENTIFICADOR idIdentificador,
+	        PRODUCTO.CD_PRODUCTO idProducto,
+	        PRODUCTO.NB_PRODUCTO nombreProducto,
+	        P.NU_LOTE numeroLote,
+	        ARCHIVO.FH_REG_ARCH_ENTRA fechaLote,
+	        ARCHIVO.CD_REG_ARCH_ENTRA idRegArchEntra,
+	        ARCHIVO.NB_REG_ARCH_ENTRA nombreRegArchEntra,
+	        P.TM_ST_PROCESO_INI horaProcesoIni,
+	        P.TM_ST_PROCESO_FIN horaProcesoFin,
+			P.FH_ST_PROCESO fechaStatusProceso,
+			FLUJO.CD_FLUJO idFlujo,
+			FLUJO.NB_FLUJO nombreFlujo,
+			ETAPA.CD_ETAPA idEtapa,
+			ETAPA.NB_ETAPA nombreEtapa,
+			P.CD_ST_MAPEADOR idEstatusMapeador,
+			ESTATUS.NB_ST_OBJETO nombreEstatusMapeador
+		FROM  TGM522_ST_PROCESO P 
+	        LEFT OUTER JOIN TGM536_REG_ARCH_EN ARCHIVO ON 
+	        P.CD_REG_ARCH_ENTRA = ARCHIVO.CD_REG_ARCH_ENTRA 
+			LEFT OUTER JOIN TGM534_ST_OBJETO ESTATUS ON 
+	        P.CD_ST_MAPEADOR = ESTATUS.CD_ST_OBJETO 
+	        LEFT OUTER JOIN TGM520_CONTRAT_MAP CM ON 
+	        P.CD_CONTRATACION = CM.CD_CONTRATACION AND  
+	        P.CD_FLUJO = CM.CD_FLUJO AND 
+	        P.CD_ETAPA = CM.CD_ETAPA
+	        LEFT OUTER JOIN TGM518_FLUJOETAPA FE ON 
+	        CM.CD_FLUJO = FE.CD_FLUJO AND
+	        CM.CD_ETAPA = CM.CD_ETAPA
+	        LEFT OUTER JOIN  TGM513_FLUJO FLUJO ON
+	        FE.CD_FLUJO = FLUJO.CD_FLUJO
+	        LEFT OUTER JOIN  TGM517_ETAPA ETAPA ON
+	        FE.CD_ETAPA = ETAPA.CD_ETAPA
+	        LEFT OUTER JOIN TGM519_CONTRATACION C ON 
+	        CM.CD_CONTRATACION = C.CD_CONTRATACION
+	        LEFT OUTER JOIN TGM511_CANAL CAN ON
+	        C.CD_CANAL = CAN.CD_CANAL
+	        LEFT OUTER JOIN TGM515_PRODUCTO PRODUCTO ON
+	        C.CD_PRODUCTO = PRODUCTO.CD_PRODUCTO
+	        LEFT OUTER JOIN TGM512_CLIENTE CLIENTE ON
+	        C.CD_CLIENTE = CLIENTE.CD_CLIENTE
+		WHERE 
+	        P.CD_CONTRATACION = #{idContratacion} AND
+	        P.CD_FLUJO =  #{idFlujo} AND 
+	        P.CD_ETAPA = #{idEtapa}
+	</select>
+	<select id="obtenerEdosArchivoVO" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.MonitoreoProcesosVO"
+		resultType="mx.com.bbva.bancomer.bussinnes.model.vo.EdoArchivoVO">
+		SELECT 
+			EDO.CD_REG_ARCH_ENTRA idRegArchEntra, 
+			EDO.CD_EDO_ARCHIVO idEdoArchivo, 
+			EDO.CD_ESTADO_ARCHIVO idEstadoArchivo, 
+			EDO.TM_ESTADO_ARCHIVO horaEstadoArchivo, 
+			EDO.FH_ESTADO_ARCHIVO fechaEstadoArchivo, 
+			EDO.CD_ST_OBJETO idEstatusObjeto,
+			O.NB_ST_OBJETO nombreEstatusObjeto,
+			ESTADO.NB_ESTADO_ARCHIVO nombreEstadoArchivo
+		FROM 
+			TGM537_EDO_ARCHIVO EDO 
+			INNER JOIN TGM538_ESTADO_ARCH ESTADO 
+			ON EDO.CD_ESTADO_ARCHIVO = ESTADO.CD_ESTADO_ARCHIVO 
+			INNER JOIN TGM534_ST_OBJETO O 
+			ON EDO.CD_ST_OBJETO = O.CD_ST_OBJETO
+		WHERE
+		    EDO.CD_REG_ARCH_ENTRA =  #{idRegArchEntra}
+		    
+	</select>
+	<update id="actualizarEstatusProceso" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.MonitoreoProcesosVO">
+		UPDATE TGM522_ST_PROCESO 
+		SET 
+			CD_ST_MAPEADOR = #{idEstatusMapeador}
+		WHERE 
+			CD_CONTRATACION = #{idContratacion} and 
+			CD_FLUJO =  #{idFlujo} and 
+			CD_ETAPA = #{idEtapa}
+	</update>
+</mapper>
