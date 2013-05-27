@@ -20,6 +20,7 @@
 		WHERE
 			PRODUCTO.CD_FLUJO = FLUJO.CD_FLUJO
 			AND PRODUCTO.CD_ST_OBJETO = OBJETO.CD_ST_OBJETO
+			AND PRODUCTO.CD_ST_OBJETO != #{idBaja} 
 		<if test="idFlujo != null and idFlujo != 0">
 			AND PRODUCTO.CD_FLUJO = #{idFlujo}
 		</if>

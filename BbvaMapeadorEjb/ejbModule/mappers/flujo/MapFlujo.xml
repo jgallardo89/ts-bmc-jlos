@@ -22,6 +22,7 @@
 					FLUJO.CD_ST_OBJETO = OBJETO.CD_ST_OBJETO					
 					AND FLUJO.CD_FLUJO = FLUET.CD_FLUJO
 					AND ETAPA.CD_ETAPA = FLUET.CD_ETAPA
+					AND FLUJO.CD_ST_OBJETO != #{idBaja}
 				<if test="nombreFlujo != null">
 					AND FLUJO.NB_FLUJO LIKE #{nombreFlujo}
 				</if>

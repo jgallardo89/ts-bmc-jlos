@@ -17,6 +17,7 @@
 					TGM534_ST_OBJETO OBJETO
 				WHERE
 					CLIENTE.CD_ST_OBJETO = OBJETO.CD_ST_OBJETO
+				AND CLIENTE.CD_ST_OBJETO != #{idBaja}
 				<if test="idIdentificador != null">
 					AND CLIENTE.CD_IDENTIFICADOR LIKE #{idIdentificador}
 					</if>

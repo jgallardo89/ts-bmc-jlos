@@ -16,6 +16,7 @@
 					TGM534_ST_OBJETO OBJETO
 				WHERE
 					MENSAJE.CD_ST_OBJETO = OBJETO.CD_ST_OBJETO
+					AND MENSAJE.CD_ST_OBJETO != #{idBaja} 
 				<if test="nombreMensajeSalida != null">
 					AND MENSAJE.NB_MENSAJE_SALIDA LIKE #{nombreMensajeSalida}
 				</if>
