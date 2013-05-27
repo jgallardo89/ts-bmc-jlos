@@ -25,10 +25,10 @@
 					TGM534_ST_OBJETO OBJETO
 				WHERE
 					CONTRATACION.CD_CANAL = CANAL.CD_CANAL
-					AND CONTRATACION.CD_CANAL_SALIDA = CANAL.CD_CANAL
 					AND CONTRATACION.CD_CLIENTE = CLIENTE.CD_CLIENTE
 					AND CONTRATACION.CD_PRODUCTO = PRODUCTO.CD_PRODUCTO
 					AND CONTRATACION.CD_ST_OBJETO = OBJETO.CD_ST_OBJETO
+					AND CONTRATACION.CD_ST_OBJETO != 5
 				<if test="idCanal != null and idCanal != 0">
 					AND CONTRATACION.CD_CANAL = #{idCanal}
 				</if>
@@ -65,26 +65,26 @@
 					AND PRODUCTO.CD_PRODUCTO = #{idProducto}
 				ORDER BY NU_ORDEN_ETAPA
 	</select>
-	<insert id="crearCanal" keyProperty="idCanal" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.CanalVO">
-		<selectKey keyProperty="idCanal" resultType="int" order="BEFORE"> 
-			<![CDATA[ select SQ_CANAL.nextval as idCanal from dual ]]> 
+	<insert id="crearContratacion" keyProperty="idContratacion" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.ContratacionVO">
+		<selectKey keyProperty="idContratacion" resultType="int" order="BEFORE"> 
+			<![CDATA[ select SQ_CONTRATACION.nextval as idContratacion from dual ]]> 
 		</selectKey>
-		INSERT INTO TGM511_CANAL
-			(CD_CANAL,
-			NB_CANAL,
-			TX_CANAL,
-			TX_RUTA_CANAL_ENT,
-			TX_RUTA_CANAL_SAL, 	
-			TM_ALTA,
-			CD_ST_OBJETO)
-		VALUES
-			(#{idCanal},
-			#{nombreCanal},
-			#{descripcionCanal},
-			'-',
-			'-',
-			CURRENT_DATE,
-			#{idEstatusObjeto})
+			INSERT INTO TGM519_CONTRATACION(
+				CD_CONTRATACION,
+				CD_CANAL,
+				CD_CLIENTE,
+				CD_PRODUCTO,
+				CD_CANAL_SALIDA,
+				TM_ALTA,
+				CD_ST_OBJETO)
+			VALUES(
+				#{idContratacion},
+				#{idCanal},
+				#{idCliente},
+				#{idProducto},
+				#{idCanalSalida},
+				CURRENT_DATE,
+				#{idEstatusObjeto})
 	</insert>
 	<update id="actualizarContratacion" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.ContratacionVO">
 	    UPDATE TGM519_CONTRATACION

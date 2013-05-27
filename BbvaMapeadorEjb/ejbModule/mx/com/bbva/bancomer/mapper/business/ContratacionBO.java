@@ -49,6 +49,7 @@ public class ContratacionBO implements
 			try {
 				mapContratacion.crearContratacion(contratacionVO);
 				session.commit();
+				((ContratacionDTO)bbvaAbstractDataTransferObject).setContratacionVO(contratacionVO);
 			} catch (Exception ex) {
 				session.rollback();
 				ex.printStackTrace();
