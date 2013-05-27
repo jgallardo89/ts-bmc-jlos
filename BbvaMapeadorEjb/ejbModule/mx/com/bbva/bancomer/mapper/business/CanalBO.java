@@ -10,6 +10,7 @@ import org.apache.log4j.Logger;
 import mappers.canal.MapCanal;
 import mx.com.bbva.bancomer.bussinnes.model.vo.CanalVO;
 import mx.com.bbva.bancomer.canal.dto.CanalDTO;
+import mx.com.bbva.bancomer.commons.command.CommandConstants;
 import mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject;
 import mx.com.bbva.mapeador.oralce.session.MapeadorSessionFactory;
 
@@ -70,6 +71,7 @@ public class CanalBO implements
 						.getCanalVO();
 				SqlSession session = MapeadorSessionFactory
 						.getSqlSessionFactory().openSession();
+				canalVO.setIdBaja(CommandConstants.ESTATUS_OBJETO_BAJA);
 				MapCanal mapCanal = session.getMapper(MapCanal.class);
 				try {
 					result = mapCanal.obtenerCanales(canalVO);

@@ -12,6 +12,7 @@ import mappers.producto.MapProducto;
 import mx.com.bbva.bancomer.bussinnes.model.vo.ClienteVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.ProductoVO;
 import mx.com.bbva.bancomer.cliente.dto.ClienteDTO;
+import mx.com.bbva.bancomer.commons.command.CommandConstants;
 import mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject;
 import mx.com.bbva.bancomer.producto.dto.ProductoDTO;
 import mx.com.bbva.mapeador.oralce.session.MapeadorSessionFactory;
@@ -75,6 +76,7 @@ public class ProductoBO implements
 						.getSqlSessionFactory().openSession();
 				MapProducto mapProducto = session.getMapper(MapProducto.class);
 				try {
+					ProductoVO.setIdBaja(CommandConstants.ESTATUS_OBJETO_BAJA);
 					result = mapProducto.obtenerProductos(ProductoVO);
 					session.commit();
 				} catch (Exception ex) {

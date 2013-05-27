@@ -7,6 +7,7 @@ import javax.ejb.Stateless;
 import mappers.flujo.MapFlujo;
 import mx.com.bbva.bancomer.bussinnes.model.vo.FlujoVO;
 import mx.com.bbva.bancomer.commons.business.BbvaIBusinessObject;
+import mx.com.bbva.bancomer.commons.command.CommandConstants;
 import mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject;
 import mx.com.bbva.bancomer.flujo.dto.FlujoDTO;
 import mx.com.bbva.mapeador.oralce.session.MapeadorSessionFactory;
@@ -42,6 +43,7 @@ public class FlujoBO implements BbvaIBusinessObject {
 						.getSqlSessionFactory().openSession();
 				MapFlujo mapFlujo = session.getMapper(MapFlujo.class);
 				try {
+					FlujoVO.setIdBaja(CommandConstants.ESTATUS_OBJETO_BAJA);
 					result = mapFlujo.obtenerFlujos(FlujoVO);
 					session.commit();
 				} catch (Exception ex) {

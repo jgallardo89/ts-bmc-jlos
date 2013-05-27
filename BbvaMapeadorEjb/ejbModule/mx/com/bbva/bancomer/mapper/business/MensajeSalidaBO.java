@@ -9,6 +9,7 @@ import mappers.mensajesalida.MapMensajeSalida;
 import mx.com.bbva.bancomer.bussinnes.model.vo.ClienteVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.MensajeSalidaVO;
 import mx.com.bbva.bancomer.cliente.dto.ClienteDTO;
+import mx.com.bbva.bancomer.commons.command.CommandConstants;
 import mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject;
 import mx.com.bbva.bancomer.mensajesalida.dto.MensajeSalidaDTO;
 import mx.com.bbva.mapeador.oralce.session.MapeadorSessionFactory;
@@ -75,6 +76,7 @@ public class MensajeSalidaBO implements
 						.getSqlSessionFactory().openSession();
 				MapMensajeSalida mapMensajeSalida = session.getMapper(MapMensajeSalida.class);
 				try {
+					mensajeSalidaVO.setIdBaja(CommandConstants.ESTATUS_OBJETO_BAJA);
 					result = mapMensajeSalida.obtenerMensajesSalida(mensajeSalidaVO);
 					session.commit();
 				} catch (Exception ex) {

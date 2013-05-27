@@ -13,6 +13,7 @@ import mx.com.bbva.bancomer.bussinnes.model.vo.CanalVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.ClienteVO;
 import mx.com.bbva.bancomer.canal.dto.CanalDTO;
 import mx.com.bbva.bancomer.cliente.dto.ClienteDTO;
+import mx.com.bbva.bancomer.commons.command.CommandConstants;
 import mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject;
 import mx.com.bbva.mapeador.oralce.session.MapeadorSessionFactory;
 
@@ -74,6 +75,7 @@ public class ClienteBO implements
 				SqlSession session = MapeadorSessionFactory
 						.getSqlSessionFactory().openSession();
 				MapCliente mapCliente = session.getMapper(MapCliente.class);
+				clienteVO.setIdBaja(CommandConstants.ESTATUS_OBJETO_BAJA);
 				try {
 					result = mapCliente.obtenerClientes(clienteVO);
 					session.commit();
