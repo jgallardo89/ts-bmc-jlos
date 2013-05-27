@@ -32,12 +32,12 @@
 												<div align="right">
 													<label width="100%" sclass="labelFill" value="Identificador: "></label>
 												</div>
-												<textbox sclass="textboxUpperCase" maxlength="50"
+												<textbox sclass="textboxUpperCase" maxlength="30"
 													id="idIdentificador" value="@load(vm.clienteDTO.clienteVO.idIdentificador)" width="100%"></textbox>
 												<div align="right">
 													<label width="100%" sclass="labelFill" value="Nombre Cliente: "></label>
 												</div>
-												<textbox sclass="textboxUpperCase" maxlength="50"
+												<textbox sclass="textboxUpperCase" maxlength="200"
 													id="nombreCliente" value="@load(vm.clienteDTO.clienteVO.nombreCliente)" width="100%"></textbox> 																													
 											</row>
 											<row sclass="row2">
@@ -48,7 +48,7 @@
 												<div align="right">
 													<label width="100%" sclass="labelFill" value="Descripción Cliente: "></label>												
 												</div>
-												<textbox sclass="textboxUpperCase" maxlength="50"
+												<textbox sclass="textboxUpperCase" maxlength="30"
 													id="nombreCortoCliente" value="@load(vm.clienteDTO.clienteVO.nombreCortoCliente)" width="100%"></textbox>																											
 											</row>
 											<row sclass="row2">
@@ -68,7 +68,8 @@
 											</row>
 											<row sclass="row2">	
 												<div align="right" width="70%">
-													<button sclass="button" image="/img/excel.png"  label="Reporte" id="reporteBtn"  onClick="@command('onShowReport',type='xls')" ></button>
+													<image src="/img/xls.png" onClick="@command('onShowReport',type='xls')" />
+													<image src="/img/csv.png" onClick="@command('onShowReport',type='csv')" />
 												</div>											
 												<div align="right" width="82%">
 													<button sclass="button" image="/img/clear.png" label="Limpiar" id="limpiarBtn" onClick="@command('clean')" ></button>

@@ -62,8 +62,9 @@
 												<div align="right">
 												</div>										
 												<div align="right" width="70%">
-													<button sclass="button" image="/img/excel.png"  label="Reporte" id="reporteBtn"  onClick="@command('onShowReport',type='xls')" ></button>
-												</div>	
+													<image src="/img/xls.png" onClick="@command('onShowReport',type='xls')" />
+													<image src="/img/csv.png" onClick="@command('onShowReport',type='csv')" />
+												</div>		
 												<div align="right" width="82%">
 													<button sclass="button" image="/img/search.png" label="Consultar" id="consultarBtn" onClick="@command('readWithFilters')"></button>
 												</div>

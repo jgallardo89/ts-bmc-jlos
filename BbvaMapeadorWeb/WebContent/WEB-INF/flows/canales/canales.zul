@@ -3,7 +3,6 @@
 <?meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7"?>
 <?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
 <zk>
-
 	<window border="0" width="100%" height="100%"
 		apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('mx.com.bbva.mt101.ui.commons.viewmodel.canales.CanalesController')"
@@ -36,7 +35,7 @@
 													<label width="100%" sclass="labelFill" value="Clave: "></label>
 												</div>
 												<textbox sclass="textboxUpperCase" maxlength="5"
-													id="nombreCanal" value="@load(vm.canalDTO.canalVO.nombreCanal)" width="100%"></textbox>
+													id="nombreCanal" value="@load(vm.canalDTO.canalVO.nombreCanal)" width="98%"></textbox>
 												<div align="right">
 													<label width="100%" sclass="labelFill" value="Fecha y Hora de Alta:"></label>												
 												</div>
@@ -46,8 +45,8 @@
 												<div align="right">
 													<label width="100%" sclass="labelFill" value="Descripción Canal:"></label>												
 												</div>
-												<textbox sclass="textboxUpperCase" maxlength="50"
-													id="descripcionCanal" value="@load(vm.canalDTO.canalVO.descripcionCanal)" width="100%"></textbox>
+												<textbox sclass="textboxUpperCase"
+													id="descripcionCanal" value="@load(vm.canalDTO.canalVO.descripcionCanal)" width="98%" maxlength="300"></textbox>
 												<div align="right">
 													<label width="100%" sclass="labelFill" value="Status:"></label>												
 												</div>
@@ -60,7 +59,8 @@
 											</row>
 											<row sclass="row2">
 												<div align="right" width="70%">
-													<button sclass="button" image="/img/excel.png"  label="Reporte" id="reporteBtn"  onClick="@command('onShowReport',type='csv')" ></button>
+													<image src="/img/xls.png" onClick="@command('onShowReport',type='xls')" />
+													<image src="/img/csv.png" onClick="@command('onShowReport',type='csv')" />
 												</div>												
 												<div align="right" width="70%">
 													<button sclass="button" image="/img/clear.png"  label="Limpiar" id="limpiarBtn" onClick="@command('clean')" ></button>
