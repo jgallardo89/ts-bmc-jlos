@@ -129,7 +129,7 @@ public class FlujoContratacionController extends Div  implements IController, Id
 	@Override
 	@Command
 	public void save() {
-		if(idContratacion.getValue().isEmpty()) {
+		if(idContratacion.getValue().isEmpty() || idContratacion.getValue().equals("0")) {
 			
 		} else {
 			contratacionMapVO = new ContratacionMapVO();
@@ -173,6 +173,7 @@ public class FlujoContratacionController extends Div  implements IController, Id
         contratacionUsuariosDTO = new ContratacionDTO();
         System.out.println("******************************3*******************************");
         if(Sessions.getCurrent().getAttribute("idProducto") == null) {
+        	 System.out.println("******************************4*******************************");
 	        mapaGMM.setValue(Executions.getCurrent().getParameter("nombreMapaGmm"));
 	        descripcionMapaGmm.setValue(Executions.getCurrent().getParameter("descripcionMapaGmm"));
 	        if(Executions.getCurrent().getParameter("nombreMensajeSalida") != null)
@@ -210,7 +211,16 @@ public class FlujoContratacionController extends Div  implements IController, Id
 	        UsuarioNotificacionBO usuarioNotificacionBO  = new UsuarioNotificacionBO();
 		    contratacionUsuariosDTO.setUsuarioNotificacionContrataMapVOs(((ContratacionDTO) usuarioNotificacionBO.readCommand(idUsuarios)).getUsuarioNotificacionVOs());
 		    contratacionDTO.setUsuarioNotificacionVOs(((UsuarioNotificacionDTO) usuarioNotificacionBO.readCommand(usuarios)).getUsuarioNotificacionVOs());
+		} else {
+			UsuarioNotificacionDTO usuarios = new UsuarioNotificacionDTO();
+	        UsuarioNotificacionVO usuarioNotificacionVO = new UsuarioNotificacionVO();
+	        usuarioNotificacionVO.setIdUsuarios(null);
+	        usuarioNotificacionVO.setTipoNotificacion("N");
+	        usuarios.setUsuarioNotificacionVO(usuarioNotificacionVO);
+	        UsuarioNotificacionBO usuarioNotificacionBO  = new UsuarioNotificacionBO();
+		    contratacionDTO.setUsuarioNotificacionVOs(((UsuarioNotificacionDTO) usuarioNotificacionBO.readCommand(usuarios)).getUsuarioNotificacionVOs());
 		}
+        
     }
 	
 	private int[] generarUsuarios(String descripcionIdUsuarios) {

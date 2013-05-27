@@ -1,8 +1,10 @@
 package mx.com.bbva.mt101.ui.commons.viewmodel.palabraComodin;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.zkoss.bind.annotation.AfterCompose;
+import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
@@ -10,14 +12,18 @@ import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
+import org.zkoss.zkex.zul.Jasperreport;
 import org.zkoss.zul.Textbox;
 
+import mx.com.bbva.bancomer.bussinnes.model.vo.CanalVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.PalabraComodinVO;
+import mx.com.bbva.bancomer.canal.dto.BeanGenerico;
 import mx.com.bbva.bancomer.mapper.business.PalabraComodinBO;
 import mx.com.bbva.bancomer.palabracomodin.dto.PalabraComodinDTO;
 import mx.com.bbva.bancomer.utils.StringUtil;
 import mx.com.bbva.mapeador.ui.commons.controller.IController;
 import mx.com.bbva.mapeador.ui.commons.viewmodel.support.ControllerSupport;
+import mx.com.bbva.mt101.ui.commons.viewmodel.reportes.ReportesController;
 
 /**
  * @author Julio Morales
@@ -28,11 +34,11 @@ public class PalabraComodinController extends ControllerSupport implements ICont
 	private static final long serialVersionUID = -1115200714153449567L;
 
 	@Wire
-	private Textbox idPalabraComodin;
-	@Wire
 	private Textbox nombrePalabraComodin;
 	@Wire
 	private Textbox descripcionPalabraComodin;
+	@Wire
+	private Jasperreport report;
 	
 	private PalabraComodinDTO palabraComodinDTO;
 	private List<PalabraComodinVO> comodinVOs;
@@ -92,6 +98,28 @@ public class PalabraComodinController extends ControllerSupport implements ICont
 		nombrePalabraComodin.clearErrorMessage();
 		descripcionPalabraComodin.setValue(null);
 		nombrePalabraComodin.setValue(null);
+	}
+	
+	@Command
+	public void onShowReport(@BindingParam("type") final String type) {
+		ReportesController controller = new ReportesController();
+		ArrayList<String> headersReport = new ArrayList<String>();
+		String titleReport = "Palabras Comodín";
+		headersReport.add("Nombre Palabra Comodín");
+		headersReport.add("Descripción Palabra Comodín");
+		controller.createReport(generaLista(), headersReport, titleReport, report, type);
+	}	
+	
+	private ArrayList<BeanGenerico> generaLista() {
+		ArrayList<BeanGenerico> beanGenericos = new ArrayList<BeanGenerico>();
+		BeanGenerico beanGenerico = null;
+		for(PalabraComodinVO palabraComodinVO: comodinVOs) {
+			beanGenerico = new BeanGenerico();
+			beanGenerico.setValor1(palabraComodinVO.getNombrePalabraComodin());
+			beanGenerico.setValor2(palabraComodinVO.getDescripcionPalabraComodin());
+			beanGenericos.add(beanGenerico);
+		}
+		return beanGenericos;
 	}
 	
 	@AfterCompose
