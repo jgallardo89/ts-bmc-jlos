@@ -28,5 +28,8 @@
     	<mapper resource="mappers/mapagmm/MapMapaGmm.xml"/>
     	<mapper resource="mappers/tipocomponente/MapTipoComponente.xml"/>
     	<mapper resource="mx/com/bbva/mapeador/entity/tgm501pantalla/MapTgm501Pantalla.xml"/>
+    	<mapper resource="mappers/usuarionotificacion/MapUsuarioNotificacion.xml"/> 
+    	<mapper resource="mappers/estadistico/MapEstadistico.xml"/>
+    	<mapper resource="mappers/monitoreoprocesos/MapMonitoreoProcesos.xml"/>
     </mappers>
 </configuration>
