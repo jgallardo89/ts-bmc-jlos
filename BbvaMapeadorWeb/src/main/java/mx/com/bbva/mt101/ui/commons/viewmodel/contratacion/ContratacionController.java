@@ -59,31 +59,21 @@ public class ContratacionController extends ControllerSupport implements IContro
 	@Wire
 	private Textbox idCanal;
 	@Wire
-	private Textbox nombreCanal;
-	@Wire
 	private Combobox canal;
 	@Wire
 	private Textbox idCliente;
-	@Wire
-	private Textbox nombreCliente;
 	@Wire
 	private Combobox cliente;
 	@Wire
 	private Textbox idProducto;
 	@Wire
-	private Textbox nombreProducto;
-	@Wire
 	private Combobox producto;
 	@Wire
 	private Textbox idCanalSalida;
 	@Wire
-	private Textbox nombreCanalSalida;
-	@Wire
 	private Combobox canalSalida;
 	@Wire
 	private Textbox idEstatusObjeto;
-	@Wire
-	private Textbox nombreEstatusObjeto;
 	@Wire
 	private Combobox estatusObjeto;
 	
