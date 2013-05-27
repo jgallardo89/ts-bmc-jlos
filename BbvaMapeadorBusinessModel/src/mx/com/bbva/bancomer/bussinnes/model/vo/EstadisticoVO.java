@@ -13,7 +13,7 @@ public class EstadisticoVO  extends BbvaAbstractValueObject {
 	public long idCanal;
 	public String nombreCanal;
 	public long idCliente;
-	public long idIdentificador;
+	public String idIdentificador;
 	public long idProducto;
 	public String nombreProducto;
 	public long idRegArchEntra;
@@ -44,7 +44,7 @@ public class EstadisticoVO  extends BbvaAbstractValueObject {
 	 * @param fechaFin
 	 */
 	public EstadisticoVO(long idCanal, String nombreCanal, long idCliente,
-			long idIdentificador, long idProducto, String nombreProducto,
+			String idIdentificador, long idProducto, String nombreProducto,
 			long idRegArchEntra, String nombreRegArchEntra,
 			long numeroOperacione, Date fechaStatusProceso, String fechaInicio,
 			String fechaFin) {
@@ -101,13 +101,13 @@ public class EstadisticoVO  extends BbvaAbstractValueObject {
 	/**
 	 * @return the idIdentificador
 	 */
-	public long getIdIdentificador() {
+	public String getIdIdentificador() {
 		return idIdentificador;
 	}
 	/**
 	 * @param idIdentificador the idIdentificador to set
 	 */
-	public void setIdIdentificador(long idIdentificador) {
+	public void setIdIdentificador(String idIdentificador) {
 		this.idIdentificador = idIdentificador;
 	}
 	/**
@@ -206,5 +206,5 @@ public class EstadisticoVO  extends BbvaAbstractValueObject {
 	public void setFechaFin(String fechaFin) {
 		this.fechaFin = fechaFin;
 	}
-	
+		
 }
