@@ -15,6 +15,7 @@ public class BeanGenerico implements Serializable{
 	private String valor8;
 	private String valor9;
 	private String valor10;
+	private int color;
 	
 	/**
 	 * @return the valor1
@@ -135,6 +136,18 @@ public class BeanGenerico implements Serializable{
 	 */
 	public void setValor10(String valor10) {
 		this.valor10 = valor10;
+	}
+	/**
+	 * @return the color
+	 */
+	public int getColor() {
+		return color;
+	}
+	/**
+	 * @param color the color to set
+	 */
+	public void setColor(int color) {
+		this.color = color;
 	}
 	
 }
