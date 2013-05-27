@@ -1,10 +1,13 @@
 package mx.com.bbva.mapeador.ui.commons.viewmodel.mapagmm;
 
+import java.lang.reflect.Field;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import mx.com.bbva.bancomer.bitacora.dto.BitacoraDTO;
+import mx.com.bbva.bancomer.bitacora.dto.CampoDTO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.EstatusObjetoVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.MapaGmmVO;
 import mx.com.bbva.bancomer.canal.dto.BeanGenerico;
@@ -163,6 +166,17 @@ public class MapaGmmController  extends ControllerSupport implements  IControlle
 		}
 		//Asignacion de la lista a la variable global de la clase
 		mapaGmmVOs = mapaGmmDTO.getMapaGmmVOs();
+		List<CampoDTO> campoDTOs = new ArrayList<CampoDTO>(); 
+		BitacoraDTO dto = new BitacoraDTO();
+		Field[] atributos = mapaGmmVO.getClass().getFields(); 
+		for (int i = 0; i < atributos.length; i++) {
+			CampoDTO campo = new CampoDTO();
+			campo.setNombre_campo(atributos[i].getName()); 
+			campoDTOs.add(campo);
+		}
+		dto.setCampoDTOs(campoDTOs);
+		registraEvento(dto, "Catálogo de Mapa", 2);
+
 		
 	}
 	@Override
