@@ -9,7 +9,7 @@ public class EstatusObjetoVO extends BbvaAbstractValueObject {
 	private String descripcionEstatusObjeto;
 	private String nombreStatusClave;
 	private String nombrePantalla;
-	
+	private String imagenEstatus;
 	/**
 	 * @return the nombrePantalla
 	 */
@@ -95,4 +95,17 @@ public class EstatusObjetoVO extends BbvaAbstractValueObject {
 		this.nombreTabla = nombreTabla;
 	}
 	private String nombreTabla;
+	/**
+	 * @return the imagenEstatus
+	 */
+	public String getImagenEstatus() {
+		return imagenEstatus;
+	}
+	/**
+	 * @param imagenEstatus the imagenEstatus to set
+	 */
+	public void setImagenEstatus(String imagenEstatus) {
+		this.imagenEstatus = imagenEstatus;
+	}
+	
 }
