@@ -15,6 +15,7 @@ import mx.com.bbva.bancomer.bussinnes.model.vo.ProductoVO;
 import mx.com.bbva.bancomer.canal.dto.BeanGenerico;
 import mx.com.bbva.bancomer.canal.dto.CanalDTO;
 import mx.com.bbva.bancomer.cliente.dto.ClienteDTO;
+import mx.com.bbva.bancomer.commons.command.CommandConstants;
 import mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject;
 import mx.com.bbva.bancomer.estatusobjeto.dto.EstatusObjetoDTO;
 import mx.com.bbva.bancomer.mapper.business.CanalBO;
@@ -50,6 +51,7 @@ import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
 
 public class MonitoreoProcesosController extends ControllerSupport implements  IController{
+	
 	/**
 	 * 
 	 */
@@ -132,7 +134,7 @@ public class MonitoreoProcesosController extends ControllerSupport implements  I
 		ClienteVO clienteVO = new ClienteVO();
 		ProductoVO productoVO = new ProductoVO();
 		EstatusObjetoVO estatusObjetoVO = new EstatusObjetoVO();
-		
+		estatusObjetoVO.setNombreEstatusObjeto(CommandConstants.NOMBRE_TABLA_PROCESO);
 		monitoreoProcesosDTO.setMonitoreoProcesosVO(monitoreoProcesosVO);
 		canalDTO.setCanalVO(canalVO);
 		clienteDTO.setClienteVO(clienteVO);
@@ -166,7 +168,7 @@ public class MonitoreoProcesosController extends ControllerSupport implements  I
 			estatusObjeto.setImagenEstatus("/img/u276_normal.png");
 			estatusObjetoVOs.add(estatusObjeto);
 			for (EstatusObjetoVO estatus : estatusObjetoDTO.getEstatusObjetoVOs()) {
-				if(estatus.getNombreTabla().equals("TGM522_ST_PROCESO")){
+				if(estatus.getNombreTabla().equals(CommandConstants.NOMBRE_TABLA_PROCESO)){
 					if(estatus.getIdEstatusObjeto() == 8) {
 						estatus.setImagenEstatus("/img/verde-exito.png");
 					} else if(estatus.getIdEstatusObjeto() == 9) {
