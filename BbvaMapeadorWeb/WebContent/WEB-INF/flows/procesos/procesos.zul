@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?page title="Catalogo Productos" contentType="text/html;charset=UTF-8"?>
+
 <?meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7"?>
 <?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
 <zk>
@@ -28,7 +29,7 @@
 											<column width="25%" />
 										</columns>
 										<rows>
-											<row sclass="row2">
+											<row sclass="row1">
 												<div align="right">
 													<label width="100%" sclass="labelFill" value="Canal: "></label>
 												</div>
@@ -46,16 +47,7 @@
 													<template name="model">										
 														<comboitem value="@load(each.idCliente)" label="@load(each.idIdentificador)" height="100%"/>
 													</template>																								
-												</combobox>			
-												<div align="right">
-													<label width="100%" sclass="labelFill" value="Estatus: "></label>
-												</div>
-												<combobox sclass="textboxUpperCase" onChange="selectedValueEstatus()"
-													id="estatus" width="70%" model="@load(vm.monitoreoProcesosDTO.estatusObjetoVOs)" autodrop="true">		
-													<template name="model">										
-														<comboitem value="@load(each.idEstatusObjeto)" image="@load(each.imagenEstatus)" label="@load(each.nombreEstatusObjeto)" height="100%"/>
-													</template>																								
-												</combobox>																							
+												</combobox>																						
 											</row>
 											<row sclass="row2"> 
 												<div align="right">
@@ -66,7 +58,16 @@
 													<template name="model">										
 														<comboitem value="@load(each.idProducto)" label="@load(each.nombreProducto)" height="100%"/>
 													</template>																								
-												</combobox>																														
+												</combobox>		
+												<div align="right">
+													<label width="100%" sclass="labelFill" value="Estatus: "></label>
+												</div>
+												<combobox sclass="textboxUpperCase" onChange="selectedValueEstatus()"
+													id="estatus" width="70%" model="@load(vm.monitoreoProcesosDTO.estatusObjetoVOs)" autodrop="true">		
+													<template name="model">										
+														<comboitem value="@load(each.idEstatusObjeto)" image="@load(each.imagenEstatus)" label="@load(each.nombreEstatusObjeto)" height="100%"/>
+													</template>																								
+												</combobox>																																
 											</row>
 											<row sclass="row2">
 												<div align="right">
@@ -82,7 +83,7 @@
 												<div align="right">
 													<label width="100%" sclass="labelFill" value="Lote: "></label>												
 												</div>
-												<textbox sclass="textboxUpperCase" maxlength="50"
+												<textbox sclass="textboxUpperCase" maxlength="5" constraint="/^[0-9]*$/: Por favor ingresa números"
 													id="lote" value="@load(vm.strLote)" width="100%"></textbox>
 											</row>
 											<row sclass="row2">
@@ -164,6 +165,7 @@
 			<textbox id="idEstatus" value="@load(vm.monitoreoProcesosDTO.monitoreoProcesosVO.idEstatusMapeador)" visible="false"></textbox>
 		</div>
 		<zscript>
+
 			public void selectedValueCanal(){
 				try{
 					idCanal.setValue(canal.getSelectedItem().getValue().toString());
