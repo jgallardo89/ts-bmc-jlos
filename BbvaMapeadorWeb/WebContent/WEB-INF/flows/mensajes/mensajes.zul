@@ -63,7 +63,10 @@
 												<datebox height="20px" value="@load(vm.mensajeSalidaDTO.mensajeSalidaVO.fechaModificacion)" maxlength="50" width="100%" id="fechaModificacion" readonly="true" buttonVisible="false" onCreate="self.value = new Date()" format="dd/MM/yyyy HH:MM"></datebox>																										
 											</row>
 											<row sclass="row2">	
-												<div></div>											
+												<div align="right" width="70%">
+													<image src="/img/xls.png" onClick="@command('onShowReport',type='xls')" />
+													<image src="/img/csv.png" onClick="@command('onShowReport',type='csv')" />
+												</div>										
 												<div align="right" width="82%">
 													<button sclass="button" image="/img/clear.png" label="Limpiar" id="limpiarBtn" onClick="@command('clean')" ></button>
 												</div>	
@@ -131,5 +134,6 @@
 				}
 			}
 		</zscript>
+		<jasperreport id="report" height="50px" />
 	</window>
 </zk>

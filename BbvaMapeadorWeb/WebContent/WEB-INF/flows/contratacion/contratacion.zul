@@ -90,14 +90,10 @@
 												</combobox>																												
 											</row>
 											<row sclass="row2">
-											<div align="right" width="70%">
-											<textbox id="idEstatusObjeto" value="@load(vm.contratacionDTO.contratacionVO.idEstatusObjeto)" visible="true"/>
-									<textbox id="idCanal" value="@load(vm.contratacionDTO.contratacionVO.idCanal)" visible="true"/>
-									<textbox id="idCanalSalida" value="@load(vm.contratacionDTO.contratacionVO.idCanalSalida)" visible="true"/>
-									<textbox id="idCliente" value="@load(vm.contratacionDTO.contratacionVO.idCliente)" visible="true"/>
-									<textbox id="idProducto" value="@load(vm.contratacionDTO.contratacionVO.idProducto)" visible="true"/>
-									<textbox id="idContratacion" value="@load(vm.contratacionDTO.contratacionVO.idContratacion)" visible="true"/>
-									</div>
+												<div align="right" width="70%">
+													<image src="/img/xls.png" onClick="@command('onShowReport',type='xls')" />
+													<image src="/img/csv.png" onClick="@command('onShowReport',type='csv')" />
+												</div>
 												<div align="right" width="70%">
 													<button sclass="button" image="/img/clear.png"  label="Limpiar" id="limpiarBtn" onClick="@command('clean')" ></button>
 												</div>
@@ -113,7 +109,12 @@
 											</row>
 										</rows>								
 									</grid>
-									
+									<textbox id="idEstatusObjeto" value="@load(vm.contratacionDTO.contratacionVO.idEstatusObjeto)" visible="false"/>
+									<textbox id="idCanal" value="@load(vm.contratacionDTO.contratacionVO.idCanal)" visible="false"/>
+									<textbox id="idCanalSalida" value="@load(vm.contratacionDTO.contratacionVO.idCanalSalida)" visible="false"/>
+									<textbox id="idCliente" value="@load(vm.contratacionDTO.contratacionVO.idCliente)" visible="false"/>
+									<textbox id="idProducto" value="@load(vm.contratacionDTO.contratacionVO.idProducto)" visible="false"/>
+									<textbox id="idContratacion" value="@load(vm.contratacionDTO.contratacionVO.idContratacion)" visible="false"/>
 								</div>
 							</panelchildren>										
 						</panel>
@@ -201,5 +202,6 @@
 				}
 			}
 		</zscript>
+		<jasperreport id="report" height="50px" />
 	</window>
 </zk>
