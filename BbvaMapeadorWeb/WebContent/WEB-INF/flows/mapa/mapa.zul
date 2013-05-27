@@ -32,7 +32,7 @@
 												<div align="right">
 													<label width="100%" sclass="labelFill" value="Identificador Mapa:"></label>												
 												</div>
-												<textbox sclass="textboxUpperCase" maxlength="50" 
+												<textbox sclass="textboxUpperCase" maxlength="30" 
 													id="identificadorMapa" value="@load(vm.strIdentificadorMapa)" width="100%"></textbox>		
 												<div align="right">
 													<label width="100%" sclass="labelFill" value="Fecha alta:"></label>												
@@ -43,7 +43,7 @@
 												<div align="right">
 													<label width="100%" sclass="labelFill" value="Descripción Mapa :"></label>												
 												</div>
-												<textbox sclass="textboxUpperCase" maxlength="50"
+												<textbox sclass="textboxUpperCase" maxlength="200"
 													id="descripcionMapa" value="@load(vm.strDescripcionMapa)" width="100%"></textbox>
 												<div align="right">
 													<label width="100%" sclass="labelFill" value="Fecha modificación:"></label>												
