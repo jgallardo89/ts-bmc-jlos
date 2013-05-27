@@ -69,6 +69,7 @@ public class ClientesController extends ControllerSupport implements IController
 	
 	@Override
 	public Object read() {
+		ClienteVO clienteVO = new ClienteVO();
 		clienteDTO = new ClienteDTO();
 		EstatusObjetoBO estatusObjetoBO = new EstatusObjetoBO();
 		EstatusObjetoDTO estatusObjetoDTO = new EstatusObjetoDTO();
@@ -79,6 +80,8 @@ public class ClientesController extends ControllerSupport implements IController
 	    estatusObjetoDTO = estatusObjetoBO.readCommand(estatusObjetoDTO);
 	    clienteDTO.setEstatusObjetoVOs(estatusObjetoDTO.getEstatusObjetoVOs());
 	    
+	   
+	    clienteDTO.setClienteVO(clienteVO);
 		ClienteBO clienteBO = new ClienteBO();
 		clienteBO.readCommand(clienteDTO);
 		return clienteDTO;

@@ -91,7 +91,8 @@ public class AdmonFlujosController extends ControllerSupport implements IControl
 		estatusObjetoDTO.setEstatusObjetoVO(estatusObjetoVO);
 		estatusObjetoDTO = estatusObjetoBO.readCommand(estatusObjetoDTO);		
 	    flujoDTO.setEstatusObjetoVOs(estatusObjetoDTO.getEstatusObjetoVOs());
-	    
+	    FlujoVO flujoVO = new FlujoVO();
+	    flujoDTO.setFlujoVO(flujoVO);
 		FlujoBO FlujoBO = new FlujoBO();
 		FlujoBO.readCommand(flujoDTO);
 		return flujoDTO;

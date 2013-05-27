@@ -228,12 +228,14 @@ public class ProductosController extends ControllerSupport implements IControlle
 		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 		ArrayList<BeanGenerico> beanGenericos = new ArrayList<BeanGenerico>();
 		BeanGenerico beanGenerico = null;
+		int i = 1;
 		for(ProductoVO productoVO: productoVOs) {
 			beanGenerico = new BeanGenerico();
 			beanGenerico.setValor1(productoVO.getNombreProducto());
 			beanGenerico.setValor2(productoVO.getDescripcionProducto());
 			beanGenerico.setValor3(productoVO.getNombreFlujo());
 			beanGenerico.setValor4(dateFormat.format(productoVO.getFechaAlta()));
+			beanGenerico.setColor(i++);
 			if(productoVO.getFechaModificacion()==null) {
 				beanGenerico.setValor5("");
 			} else {

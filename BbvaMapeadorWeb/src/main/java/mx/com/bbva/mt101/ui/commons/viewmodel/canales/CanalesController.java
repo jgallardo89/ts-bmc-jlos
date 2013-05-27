@@ -83,7 +83,8 @@ public class CanalesController extends ControllerSupport implements IController 
 	    estatusObjetoDTO.setEstatusObjetoVO(estatusObjetoVO);
 	    estatusObjetoDTO = estatusObjetoBO.readCommand(estatusObjetoDTO);
 	    canalDTO.setEstatusObjetoVOs(estatusObjetoDTO.getEstatusObjetoVOs());
-	    
+	    CanalVO canalVO = new CanalVO();
+	    canalDTO.setCanalVO(canalVO);
 		CanalBO canalBO = new CanalBO();
 		canalBO.readCommand(canalDTO);
 		return canalDTO;

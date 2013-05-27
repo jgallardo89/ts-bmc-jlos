@@ -1,5 +1,8 @@
 package mx.com.bbva.mt101.ui.commons.viewmodel.mensajes;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.zkoss.bind.annotation.AfterCompose;
@@ -11,11 +14,14 @@ import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
+import org.zkoss.zkex.zul.Jasperreport;
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Textbox;
 
 import mx.com.bbva.bancomer.bussinnes.model.vo.EstatusObjetoVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.MensajeSalidaVO;
+import mx.com.bbva.bancomer.bussinnes.model.vo.PalabraComodinVO;
+import mx.com.bbva.bancomer.canal.dto.BeanGenerico;
 import mx.com.bbva.bancomer.commons.command.CommandConstants;
 import mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject;
 import mx.com.bbva.bancomer.estatusobjeto.dto.EstatusObjetoDTO;
@@ -25,6 +31,7 @@ import mx.com.bbva.bancomer.mensajesalida.dto.MensajeSalidaDTO;
 import mx.com.bbva.bancomer.utils.StringUtil;
 import mx.com.bbva.mapeador.ui.commons.controller.IController;
 import mx.com.bbva.mapeador.ui.commons.viewmodel.support.ControllerSupport;
+import mx.com.bbva.mt101.ui.commons.viewmodel.reportes.ReportesController;
 
 public class MensajesController extends ControllerSupport implements IController {
 
@@ -40,6 +47,8 @@ public class MensajesController extends ControllerSupport implements IController
 	private Textbox idEstatusObjeto;
 	@Wire
 	private Combobox statusObjeto;
+	@Wire
+	private Jasperreport report;
 	
 	private MensajeSalidaDTO mensajeSalidaDTO;
 	private List<MensajeSalidaVO> mensajeSalidaVOs;
@@ -61,6 +70,8 @@ public class MensajesController extends ControllerSupport implements IController
 		estatusObjetoDTO = estatusObjetoBO.readCommand(estatusObjetoDTO);
 	    mensajeSalidaDTO.setEstatusObjetoVOs(estatusObjetoDTO.getEstatusObjetoVOs());
 	    
+	    MensajeSalidaVO mensajeSalidaVO = new MensajeSalidaVO();
+	    mensajeSalidaDTO.setMensajeSalidaVO(mensajeSalidaVO);
 		MensajeSalidaBO MensajeSalidaBO = new MensajeSalidaBO();
 		MensajeSalidaBO.readCommand(mensajeSalidaDTO);
 		return mensajeSalidaDTO;
@@ -185,6 +196,36 @@ public class MensajesController extends ControllerSupport implements IController
         Selectors.wireComponents(view, this, false);        
     }
 
+	@Command
+	public void onShowReport(@BindingParam("type") final String type) {
+		ReportesController controller = new ReportesController();
+		ArrayList<String> headersReport = new ArrayList<String>();
+		String titleReport = "Palabras Comodín";
+		headersReport.add("Identificador del Mensaje");
+		headersReport.add("Texto del Mensaje");
+		headersReport.add("Fecha y Hora de Alta");
+		headersReport.add("Fecha y Hora de Modificacion");
+		headersReport.add("Estatus");
+		controller.createReport(generaLista(), headersReport, titleReport, report, type);
+	}	
+	
+	private ArrayList<BeanGenerico> generaLista() {
+		ArrayList<BeanGenerico> beanGenericos = new ArrayList<BeanGenerico>();
+		BeanGenerico beanGenerico = null;
+		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+		for(MensajeSalidaVO mensajeSalidaVO: mensajeSalidaVOs) {
+			beanGenerico = new BeanGenerico();
+			beanGenerico.setValor1(mensajeSalidaVO.getNombreMensajeSalida());
+			beanGenerico.setValor2(mensajeSalidaVO.getDescripcionMensajeSalida());
+			if (mensajeSalidaVO.getFechaAlta() != null)
+				beanGenerico.setValor3(dateFormat.format(mensajeSalidaVO.getFechaAlta()));				
+			if (mensajeSalidaVO.getFechaModificacion() != null)
+				beanGenerico.setValor4(dateFormat.format(mensajeSalidaVO.getFechaModificacion()));
+			beanGenerico.setValor5(mensajeSalidaVO.getNombreEstatusObjeto());
+			beanGenericos.add(beanGenerico);
+		}
+		return beanGenericos;
+	}
 	/**
 	 * @return the mensajeSalidaDTO
 	 */

@@ -1,5 +1,8 @@
 package mx.com.bbva.mt101.ui.commons.viewmodel.contratacion;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 import mx.com.bbva.bancomer.bussinnes.model.vo.CanalVO;
@@ -7,7 +10,9 @@ import mx.com.bbva.bancomer.bussinnes.model.vo.ClienteVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.ContratacionMapVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.ContratacionVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.EstatusObjetoVO;
+import mx.com.bbva.bancomer.bussinnes.model.vo.PalabraComodinVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.ProductoVO;
+import mx.com.bbva.bancomer.canal.dto.BeanGenerico;
 import mx.com.bbva.bancomer.canal.dto.CanalDTO;
 import mx.com.bbva.bancomer.cliente.dto.ClienteDTO;
 import mx.com.bbva.bancomer.commons.command.CommandConstants;
@@ -23,6 +28,7 @@ import mx.com.bbva.bancomer.mapper.business.ProductoBO;
 import mx.com.bbva.bancomer.producto.dto.ProductoDTO;
 import mx.com.bbva.mapeador.ui.commons.controller.IController;
 import mx.com.bbva.mapeador.ui.commons.viewmodel.support.ControllerSupport;
+import mx.com.bbva.mt101.ui.commons.viewmodel.reportes.ReportesController;
 
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.BindingParam;
@@ -39,6 +45,7 @@ import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.Wire;
+import org.zkoss.zkex.zul.Jasperreport;
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Iframe;
 import org.zkoss.zul.Tab;
@@ -76,6 +83,8 @@ public class ContratacionController extends ControllerSupport implements IContro
 	private Textbox idEstatusObjeto;
 	@Wire
 	private Combobox estatusObjeto;
+	@Wire
+	private Jasperreport report;
 	
 	private boolean botonEditar;
 	private boolean botonGuardar;
@@ -416,6 +425,39 @@ public class ContratacionController extends ControllerSupport implements IContro
 		
 	}
 	
+	@Command
+	public void onShowReport(@BindingParam("type") final String type) {
+		ReportesController controller = new ReportesController();
+		ArrayList<String> headersReport = new ArrayList<String>();
+		String titleReport = "";
+		headersReport.add("Canal Entrada");
+		headersReport.add("Cliente");
+		headersReport.add("Producto");
+		headersReport.add("Canal salida");
+		headersReport.add("Fecha Alta");
+		headersReport.add("Fecha Modificacion");
+		headersReport.add("Estatus");
+		controller.createReport(generaLista(), headersReport, titleReport, report, type);
+	}	
+	
+	private ArrayList<BeanGenerico> generaLista() {
+		ArrayList<BeanGenerico> beanGenericos = new ArrayList<BeanGenerico>();
+		BeanGenerico beanGenerico = null;
+		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+		for(ContratacionVO contratacionVO: contratacionVOs) {
+			beanGenerico = new BeanGenerico();
+			beanGenerico.setValor1(contratacionVO.getNombreCanal());
+			beanGenerico.setValor2(contratacionVO.getNombreCliente());
+			beanGenerico.setValor3(contratacionVO.getNombreProducto());
+			beanGenerico.setValor4(contratacionVO.getNombreCanalSalida());
+			beanGenerico.setValor5(dateFormat.format(contratacionVO.getFechaAlta()));
+			if(contratacionVO.getFechaModificacion() != null)
+			beanGenerico.setValor6(dateFormat.format(contratacionVO.getFechaModificacion()));
+			beanGenerico.setValor7(contratacionVO.getNombreEstatusObjeto());
+			beanGenericos.add(beanGenerico);
+		}
+		return beanGenericos;
+	}
 	
 	@Command
 	@NotifyChange({ "botonGuardar" })
