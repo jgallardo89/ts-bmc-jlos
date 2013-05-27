@@ -1,13 +1,20 @@
 <?page title="Auto Generated index.zul"?>
 <zk>
+	<label value="Usuario"></label>
+	<textbox id="usuario"></textbox>
+	<button id="submit" label="Sumbit" onClick="subitUser()"></button>
 	<zscript>
+	public void subitUser(){
+		System.out.println(usuario.getValue());
+		execution.getSession().setAttribute("iv-user",usuario.getValue().toUpperCase());
 		Iterable  headersNames = execution.getHeaderNames();
 		String headerName;
 		for(Iterator i = headersNames.iterator();i.hasNext();){
 			headerName = i.next();
         	System.out.println(headerName);
         	System.out.println(execution.getHeader(headerName));
-     	}		
-		execution.sendRedirect("/app/menu");
+        	execution.sendRedirect("http://localhost:9080/mapeador/app/menu");
+     	}				
+    }
 	</zscript>
 </zk>
