@@ -6,4 +6,5 @@ public interface IController {
 	public void save();
 	public void delete();	
 	public void clean();
+	public boolean applyPermision();
 }
