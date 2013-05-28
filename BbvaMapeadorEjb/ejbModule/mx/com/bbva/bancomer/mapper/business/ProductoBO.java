@@ -70,14 +70,14 @@ public class ProductoBO implements
 					+ bbvaAbstractDataTransferObject.toString());
 			try {
 				List<ProductoVO> result = null;
-				ProductoVO ProductoVO = ((ProductoDTO) bbvaAbstractDataTransferObject)
+				ProductoVO productoVO = ((ProductoDTO) bbvaAbstractDataTransferObject)
 						.getProductoVO();
 				SqlSession session = MapeadorSessionFactory
 						.getSqlSessionFactory().openSession();
 				MapProducto mapProducto = session.getMapper(MapProducto.class);
 				try {
-					ProductoVO.setIdBaja(CommandConstants.ESTATUS_OBJETO_BAJA);
-					result = mapProducto.obtenerProductos(ProductoVO);
+					productoVO.setIdBaja(CommandConstants.ESTATUS_OBJETO_BAJA);
+					result = mapProducto.obtenerProductos(productoVO);
 					session.commit();
 				} catch (Exception ex) {
 					session.rollback();
