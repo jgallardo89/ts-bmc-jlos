@@ -87,7 +87,7 @@
 							</panelchildren>										
 						</panel>
 					</portalchildren>
-					<portalchildren width="100%" style="padding: 5px">
+					<portalchildren width="100%" height="85%" style="padding: 5px">
 						<panel height="80%" sclass="sectionPanelTitle" width="100%" id="panelCanalMapeador"
 							title="Resultados Clientes Mapeador" collapsible="true"
 							style="margin-bottom:10px">
@@ -100,17 +100,17 @@
 										<column hflex="0" align="center" image="/img/pencil-small.png" 
 											width="5%"></column>
 										<column hflex="1" label="Identificador" style="text-wrap: normal;"
-											width="10%" sort="auto(vm.clienteDTO.clienteVO.idIdentificador)"></column>
+											width="10%" sort="auto(idIdentificador)"></column>
 										<column hflex="1" label="Nombre Cliente" width="20%"
-											sort="auto(vm.clienteDTO.clienteVO.nombreCliente)"></column>
+											sort="auto(nombreCliente)"></column>
 										<column hflex="1" label="Descripción Cliente" width="10%"
-											sort="auto(vm.clienteDTO.clienteVO.nombreCortoCliente)"></column>
+											sort="auto(nombreCortoCliente)"></column>
 										<column hflex="1" label="Fecha y Hora de Alta" width="10%"
-											sort="auto(vm.clienteDTO.clienteVO.fechaAlta)"></column>
+											sort="auto(fechaAlta)"></column>
 										<column hflex="1" label="Fecha y Hora de Modificación" width="10%"
-											sort="auto(vm.clienteDTO.clienteVO.fechaModificacion)"></column>	
+											sort="auto(fechaModificacion)"></column>	
 										<column hflex="1" label="Status" width="10%"
-											sort="auto(vm.clienteDTO.clienteVO.nombreEstatusObjeto)"></column>								
+											sort="auto(nombreEstatusObjeto)"></column>								
 									</columns>
 									<template name="model">
 										<row>

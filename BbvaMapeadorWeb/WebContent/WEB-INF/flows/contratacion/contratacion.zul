@@ -126,25 +126,25 @@
 							<caption sclass="sectionPanelTitle" label="Lista de Contrataciôn"></caption>
 							<panelchildren>
 								<grid width="99.7%" id="contratacionGrid" mold="paging"
-									model="@load(vm.contratacionVOs)" pagingPosition="both" pageSize="5"
+									model="@load(vm.contratacionVOs)" pagingPosition="both" pageSize="12"
 									vflex="true" height="100%">									
 									<columns sizable="true" menupopup="auto">
 										<column hflex="0" align="center" image="/img/pencil-small.png" 
 											width="5%"></column>
 										<column hflex="1" label="Canal Entrada" style="text-wrap: normal;"
-											width="10%" sort="auto(vm.contratacionDTO.contratacionVO.nombreCanal)"></column>
+											width="10%" sort="auto(nombreCanal)"></column>
 										<column hflex="1" label="Cliente" width="20%"
-											sort="auto(vm.contratacionDTO.contratacionVO.nombreCliente)"></column>
+											sort="auto(nombreCliente)"></column>
 										<column hflex="1" label="Producto" width="10%"
-											sort="auto(vm.contratacionDTO.contratacionVO.nombreProducto)"></column>
+											sort="auto(nombreProducto)"></column>
 										<column hflex="1" label="Canal Salida" width="10%"
-											sort="auto(vm.contratacionDTO.contratacionVO.nombreCanalSalida)"></column>
+											sort="auto(nombreCanalSalida)"></column>
 										<column hflex="1" label="Fecha Alta" width="10%"
-											sort="auto(vm.contratacionDTO.contratacionVO.fechaAlta)"></column>
+											sort="auto(fechaAlta)"></column>
 										<column hflex="1" label="Fecha Modificaciôn" width="10%"
-											sort="auto(vm.contratacionDTO.contratacionVO.fechaModificacion)"></column>
+											sort="auto(fechaModificacion)"></column>
 										<column hflex="1" label="Status" width="10%"
-											sort="auto(vm.contratacionDTO.contratacionVO.nombreEstatusObjet)"></column>								
+											sort="auto(nombreEstatusObjeto)"></column>								
 									</columns>
 									<template name="model">
 										<row>

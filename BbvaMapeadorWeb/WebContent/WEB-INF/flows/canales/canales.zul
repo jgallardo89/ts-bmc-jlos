@@ -91,13 +91,13 @@
 										<column hflex="0" align="center" image="/img/pencil-small.png" 
 											width="5%"></column>
 										<column hflex="1" label="Nombre Canal" style="text-wrap: normal;"
-											width="10%" sort="auto(vm.canalDTO.canalVO.nombreCanal)"></column>
+											width="10%" sort="auto(nombreCanal)"></column>
 										<column hflex="1" label="Descripción Canal" width="20%"
-											sort="auto(vm.canalDTO.canalVO.descripcionCanal)"></column>
+											sort="auto(descripcionCanal)"></column>
 										<column hflex="1" label="Fecha y Hora de Alta" width="10%"
-											sort="auto(vm.canalDTO.canalVO.fechaAlta)"></column>
+											sort="auto(fechaAlta)"></column>
 										<column hflex="1" label="Status" width="10%"
-											sort="auto(vm.canalDTO.canalVO.nombreEstatusObjeto)"></column>								
+											sort="auto(nombreEstatusObjeto)"></column>								
 									</columns>
 									<template name="model">
 										<row>

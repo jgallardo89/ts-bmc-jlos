@@ -95,19 +95,19 @@
 										<column hflex="0" align="center" image="/img/pencil-small.png" 
 											width="5%"></column>
 										<column hflex="1" label="Identificador de Fluijo" style="text-wrap: normal;"
-											width="10%" sort="auto(vm.flujoDTO.flujoVO.nombreFlujo)"></column>
+											width="10%" sort="auto(nombreFlujo)"></column>
 										<column hflex="1" label="Descripción flujo" width="20%"
-											sort="auto(vm.flujoDTO.flujoVO.descripcionFlujo)"></column>
+											sort="auto(descripcionFlujo)"></column>
 										<column hflex="1" label="Fecha y Hora de Alta" width="10%"
-											sort="auto(vm.flujoDTO.flujoVO.fechaAlta)"></column>
+											sort="auto(fechaAlta)"></column>
 										<column hflex="1" label="Fecha y Hora de Modificación" width="10%"
-											sort="auto(vm.flujoDTO.flujoVO.fechaModificacion)"></column>
+											sort="auto(fechaModificacion)"></column>
 										<column hflex="1" label="Etapas del Flujo" width="10%"
-											sort="auto(vm.flujoDTO.flujoVO.descripcionEtapa)"></column>	
+											sort="auto(descripcionEtapa)"></column>	
 										<column hflex="1" label="Status" width="10%"
-											sort="auto(vm.flujoDTO.flujoVO.nombreEstatusObjeto)"></column>
+											sort="auto(nombreEstatusObjeto)"></column>
 										<column hflex="1" label="Diagrama" width="10%"
-											sort="auto(vm.flujoDTO.flujoVO.descripcionUrlImagen)"></column>								
+											sort="auto(descripcionUrlImagen)"></column>								
 									</columns>
 									<template name="model">
 										<row>

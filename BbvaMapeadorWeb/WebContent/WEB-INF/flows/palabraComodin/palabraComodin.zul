@@ -69,9 +69,9 @@
 									vflex="true" height="100%">									
 									<columns sizable="true" menupopup="auto">
 										<column hflex="1" label="Nombre Palabra Comodín" style="text-wrap: normal;"
-											width="10%" sort="auto(vm.palabraComodinDTO.palabraComodinVO.nombrePalabraComodin)"></column>
+											width="10%" sort="auto(nombrePalabraComodin)"></column>
 										<column hflex="1" label="Descripcion Palabra Comodín" width="20%"
-											sort="auto(vm.palabraComodinDTO.palabraComodinVO.descripcionPalabraComodin)"></column>								
+											sort="auto(descripcionPalabraComodin)"></column>								
 									</columns>
 									<template name="model">
 										<row>

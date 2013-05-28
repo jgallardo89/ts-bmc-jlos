@@ -95,15 +95,15 @@
 										<column hflex="0" align="center" image="/img/pencil-small.png" 
 											width="5%"></column>
 										<column hflex="1" label="Identificador del Mensaje" style="text-wrap: normal;"
-											width="10%" sort="auto(vm.mensajeSalidaDTO.mensajeSalidaVO.nombreMensajeSalida)"></column>
+											width="10%" sort="auto(nombreMensajeSalida)"></column>
 										<column hflex="1" label="Texto del Mensaje" width="20%"
-											sort="auto(vm.mensajeSalidaDTO.mensajeSalidaVO.descripcionMensajeSalida)"></column>
+											sort="auto(descripcionMensajeSalida)"></column>
 										<column hflex="1" label="Fecha y Hora de Alta" width="10%"
-											sort="auto(vm.mensajeSalidaDTO.mensajeSalidaVO.fechaAlta)"></column>
+											sort="auto(fechaAlta)"></column>
 										<column hflex="1" label="Fecha y Hora de Modificación" width="10%"
-											sort="auto(vm.mensajeSalidaDTO.mensajeSalidaVO.fechaModificacion)"></column>
+											sort="auto(fechaModificacion)"></column>
 										<column hflex="1" label="Status" width="10%"
-											sort="auto(vm.flujoDTO.flujoVO.nombreEstatusObjeto)"></column>						
+											sort="auto(nombreEstatusObjeto)"></column>						
 									</columns>
 									<template name="model">
 										<row>

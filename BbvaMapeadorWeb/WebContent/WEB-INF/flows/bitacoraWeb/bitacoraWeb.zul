@@ -90,11 +90,11 @@
 									vflex="true" height="100%">									
 									<columns sizable="true" menupopup="auto">
 										<column hflex="1" label="Fecha y Hora" width="10%"
-											sort="auto(vm.bitacoraDTO.bitacoraVO.fechaBitacora)"></column>
+											sort="auto(fechaBitacora)"></column>
 										<column hflex="1" label="Usuario" width="10%"
-											sort="auto(vm.bitacoraDTO.bitacoraVO.nombreUsuario)"></column>
+											sort="auto(nombreUsuario)"></column>
 										<column hflex="1" label="Tipo Evento" width="10%"
-											sort="auto(vm.bitacoraDTO.bitacoraVO.nombreEventoMapeador)"></column>
+											sort="auto(nombreEventoMapeador)"></column>
 										<column hflex="0" align="center" label="Detalle" width="5%"></column>						
 									</columns>
 									<template name="model">

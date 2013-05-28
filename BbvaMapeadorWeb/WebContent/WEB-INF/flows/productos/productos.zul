@@ -104,17 +104,17 @@
 										<column hflex="0" align="center" image="/img/pencil-small.png" 
 											width="5%"></column>
 										<column hflex="1" label="Idenificador Producto" style="text-wrap: normal;"
-											width="10%" sort="auto(vm.productoDTO.productoVO.nombreProducto)"></column>
+											width="10%" sort="auto(nombreProducto)"></column>
 										<column hflex="1" label="Nombre del Producto" width="20%"
-											sort="auto(vm.productoDTO.productoVO.descripcionProducto)"></column>
+											sort="auto(descripcionProducto)"></column>
 										<column hflex="1" label="Identificador del Flujo" width="20%"
-											sort="auto(vm.productoDTO.productoVO.nombreFlujo)"></column>
+											sort="auto(nombreFlujo)"></column>
 										<column hflex="1" label="Fecha Alta" width="10%"
-											sort="auto(vm.productoDTO.productoVO.fechaAlta)"></column>
+											sort="auto(fechaAlta)"></column>
 										<column hflex="1" label="Fecha Modificación" width="10%"
-											sort="auto(vm.productoDTO.productoVO.fechaModificacion)"></column>
+											sort="auto(fechaModificacion)"></column>
 										<column hflex="1" label="Status" width="10%"
-											sort="auto(vm.productoDTO.productoVO.nombreEstatusObjeto)"></column>								
+											sort="auto(nombreEstatusObjeto)"></column>								
 									</columns>
 									<template name="model">
 										<row>
