@@ -46,7 +46,7 @@ public class ReportesController extends ControllerSupport {
         report.setType(typeReport);
     }
 	
-	public void registrarEvento(Object nuevo, Object anterior, int idEvento){
+	public void registrarEvento(Object nuevo, Object anterior, int idEvento, String nombreBitacora){
 		List<CampoDTO> campoDTOs = new ArrayList<CampoDTO>(); 
 		BitacoraDTO dto = new BitacoraDTO(); 
 		Field[] fieldsNuevo = nuevo.getClass().getDeclaredFields(); 
@@ -97,7 +97,7 @@ public class ReportesController extends ControllerSupport {
 			e.printStackTrace();
 		} 
 		dto.setCampoDTOs(campoDTOs);
-		super.registraEvento(dto, "Catálogo Canal", idEvento);
+		super.registraEvento(dto, nombreBitacora, idEvento);
 	}
 	
 	@AfterCompose
