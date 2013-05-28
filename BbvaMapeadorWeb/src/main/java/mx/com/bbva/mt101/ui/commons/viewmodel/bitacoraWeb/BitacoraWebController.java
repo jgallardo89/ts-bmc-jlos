@@ -291,5 +291,11 @@ public class BitacoraWebController extends ControllerSupport implements IControl
 	public void setCampoDTO(CampoDTO campoDTO) {
 		this.campoDTO = campoDTO;
 	}
+
+	@Override
+	public boolean applyPermision() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 	
 }
