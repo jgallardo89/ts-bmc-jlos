@@ -62,7 +62,12 @@ public class SessionFilterTam implements Filter{
 			usuarioDTO.setUsuarioVO(usuarioVO);
 			usuarioDTO = usuarioBO.readCommand(usuarioDTO);
 			logger.debug("usuarioDTO.getUsuarioVOs().size():"+usuarioDTO.getUsuarioVOs().size());
-			if(usuarioDTO.getUsuarioVOs().size()==1){				
+			if(usuarioDTO.getUsuarioVOs().size()==1){
+				logger.debug(usuarioDTO.getUsuarioVOs().get(0).getIdPerfil());
+				logger.debug(usuarioDTO.getUsuarioVOs().get(0).getIdUsuario());
+				sessionValues.put("id-perfil", usuarioDTO.getUsuarioVOs().get(0).getIdPerfil());
+				sessionValues.put("id-usuario", usuarioDTO.getUsuarioVOs().get(0).getIdUsuario());
+				httpSession.setAttribute("sessionValues", sessionValues);				
 	    		chain.doFilter(req, res);
 			}else{
     	    	logger.debug("No hay session valida");
