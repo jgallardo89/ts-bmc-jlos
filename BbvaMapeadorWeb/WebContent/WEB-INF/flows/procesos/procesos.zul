@@ -88,8 +88,9 @@
 											</row>
 											<row sclass="row2">
 												<div align="right" width="70%">
-													<button sclass="button" image="/img/excel.png"  label="Reporte" id="reporteBtn"  onClick="@command('onShowReport',type='xls')" ></button>
-												</div>												
+													<image src="/img/xls.png" onClick="@command('onShowReport',type='xls')" />
+													<image src="/img/csv.png" onClick="@command('onShowReport',type='csv')" />
+												</div>											
 												<div align="right" width="70%">
 													<button sclass="button" image="/img/clear.png"  label="Limpiar" id="limpiarBtn" onClick="@command('clean')" ></button>
 												</div>	
