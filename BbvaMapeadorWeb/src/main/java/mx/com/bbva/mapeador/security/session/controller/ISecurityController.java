@@ -1,17 +1,14 @@
 package mx.com.bbva.mapeador.security.session.controller;
 
 import java.lang.reflect.Field;
+import java.util.HashMap;
 
 import mx.com.bbva.mapeador.ui.commons.viewmodel.support.ControllerSupport;
 
 import org.zkoss.zk.ui.AbstractComponent;
+import org.zkoss.zk.ui.Component;
 
-public class SecurityController {
+public interface ISecurityController {
 
-	public ControllerSupport applyPermission(ControllerSupport controllerSupport){
-		
-		Field[] fields = controllerSupport.getClass().getFields();
-		
-		return controllerSupport;
-	}
+	public abstract boolean applyPermission(int idPantalla, HashMap<String, Component> componentes);
 }
