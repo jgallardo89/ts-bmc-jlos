@@ -1,6 +1,8 @@
 package mx.com.bbva.mapeador.ui.commons.viewmodel.mapagmm;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -102,13 +104,14 @@ public class MapaGmmController  extends ControllerSupport implements  IControlle
 		EstatusObjetoBO estatusObjetoBO = new EstatusObjetoBO();
 		estatusObjetoDTO.setEstatusObjetoVO(estatusObjetoVO);
 		estatusObjetoDTO = estatusObjetoBO.readCommand(estatusObjetoDTO);
-		
+		MapaGmmVO mapaGmmVO = new MapaGmmVO();
 		MapaGmmDTO mapaGmmDTO = new MapaGmmDTO();
 		MapaGmmBO mapaGmmBO = new MapaGmmBO();
 		mapaGmmDTO = mapaGmmBO.readCommand(mapaGmmDTO);
 		logger.info("::::::::::::::SIZE::::::::::" + mapaGmmDTO.getMapaGmmVOs());
 		//Seteo Catalogo de Estatus
 		mapaGmmDTO.setEstatusObjetoVOs(estatusObjetoDTO.getEstatusObjetoVOs());
+		registrarEvento(mapaGmmVO, 2);
 		return mapaGmmDTO;
 	}
 
@@ -166,16 +169,7 @@ public class MapaGmmController  extends ControllerSupport implements  IControlle
 		}
 		//Asignacion de la lista a la variable global de la clase
 		mapaGmmVOs = mapaGmmDTO.getMapaGmmVOs();
-		List<CampoDTO> campoDTOs = new ArrayList<CampoDTO>(); 
-		BitacoraDTO dto = new BitacoraDTO();
-		Field[] atributos = mapaGmmVO.getClass().getFields(); 
-		for (int i = 0; i < atributos.length; i++) {
-			CampoDTO campo = new CampoDTO();
-			campo.setNombre_campo(atributos[i].getName()); 
-			campoDTOs.add(campo);
-		}
-		dto.setCampoDTOs(campoDTOs);
-		registraEvento(dto, "Catálogo de Mapa", 2);
+		registrarEvento(mapaGmmVO, 2);
 
 		
 	}
@@ -247,6 +241,7 @@ public class MapaGmmController  extends ControllerSupport implements  IControlle
 				
 				mapaGmmVOs = mapaGmmDTO.getMapaGmmVOs();
 				identificadorMapa.setDisabled(false);
+				registrarEvento(mapaGmmVO, 4);
 			}else{ 
 				logger.info("::::::NO Crea::::"); 
 //				MapaGmmDTO mapaGmmDTO = new MapaGmmDTO();
@@ -345,6 +340,44 @@ public class MapaGmmController  extends ControllerSupport implements  IControlle
 		return beanGenericos;
 	}
 	
+	private void registrarEvento(MapaGmmVO  mapaGmmVO, int idEvento){
+		List<CampoDTO> campoDTOs = new ArrayList<CampoDTO>(); 
+		BitacoraDTO dto = new BitacoraDTO(); 
+		Field[] fields = mapaGmmVO.getClass().getDeclaredFields(); 
+		for(Field f : fields){
+			CampoDTO campo = new CampoDTO(); 
+			try {
+				String field = f.getName(); 
+				campo.setNombre_campo(field); 
+				Method getter;
+				if (!field.equals("serialVersionUID")){
+					getter = mapaGmmVO.getClass().getMethod("get" + String.valueOf(field.charAt(0)).toUpperCase() +
+							field.substring(1)); 
+			        Object value = getter.invoke(mapaGmmVO, new Object[0]);
+			        campo.setValor_nuevo(value != null ? value.toString() : null);
+			     }
+			} catch (SecurityException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (NoSuchMethodException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IllegalArgumentException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (InvocationTargetException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} 
+			campoDTOs.add(campo); 
+		}
+		dto.setCampoDTOs(campoDTOs);
+		super.registraEvento(dto, "Catálogo de Mapa", idEvento);
+		
+	}
 	/**
 	 * @return the identificadorMapa
 	 */
