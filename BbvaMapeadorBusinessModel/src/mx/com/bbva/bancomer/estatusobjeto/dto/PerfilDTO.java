@@ -2,6 +2,7 @@ package mx.com.bbva.bancomer.estatusobjeto.dto;
 
 import java.util.List;
 
+import mx.com.bbva.bancomer.bussinnes.model.vo.ControlPermisoVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.EstatusClaveVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.EstatusObjetoVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.PantallaVO;
@@ -24,6 +25,32 @@ public class PerfilDTO extends BbvaAbstractDataTransferObject {
 	private List<PantallaVO> pantallaVOs;
 	private EstatusObjetoVO estatusObjetoVO;
 	private List<EstatusObjetoVO> estatusObjetoVOs;
+	private ControlPermisoVO controlPermisoVO;
+	private List<ControlPermisoVO> controlPermisoVOs;
+	/**
+	 * @return the controlPermisoVO
+	 */
+	public final ControlPermisoVO getControlPermisoVO() {
+		return controlPermisoVO;
+	}
+	/**
+	 * @param controlPermisoVO the controlPermisoVO to set
+	 */
+	public final void setControlPermisoVO(ControlPermisoVO controlPermisoVO) {
+		this.controlPermisoVO = controlPermisoVO;
+	}
+	/**
+	 * @return the controlPermisoVOs
+	 */
+	public final List<ControlPermisoVO> getControlPermisoVOs() {
+		return controlPermisoVOs;
+	}
+	/**
+	 * @param controlPermisoVOs the controlPermisoVOs to set
+	 */
+	public final void setControlPermisoVOs(List<ControlPermisoVO> controlPermisoVOs) {
+		this.controlPermisoVOs = controlPermisoVOs;
+	}
 	/**
 	 * @return the estatusObjetoVOs
 	 */
