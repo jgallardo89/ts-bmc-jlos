@@ -15,6 +15,12 @@ public class BeanGenerico implements Serializable{
 	private String valor8;
 	private String valor9;
 	private String valor10;
+	private String valor11;
+	private String valor12;
+	private String valor13;
+	private String valor14;
+	private String valor15;
+	private String valor16;
 	private int color;
 	
 	/**
@@ -138,6 +144,78 @@ public class BeanGenerico implements Serializable{
 		this.valor10 = valor10;
 	}
 	/**
+	 * @return the valor11
+	 */
+	public String getValor11() {
+		return valor11;
+	}
+	/**
+	 * @param valor11 the valor11 to set
+	 */
+	public void setValor11(String valor11) {
+		this.valor11 = valor11;
+	}
+	/**
+	 * @return the valor12
+	 */
+	public String getValor12() {
+		return valor12;
+	}
+	/**
+	 * @param valor12 the valor12 to set
+	 */
+	public void setValor12(String valor12) {
+		this.valor12 = valor12;
+	}
+	/**
+	 * @return the valor13
+	 */
+	public String getValor13() {
+		return valor13;
+	}
+	/**
+	 * @param valor13 the valor13 to set
+	 */
+	public void setValor13(String valor13) {
+		this.valor13 = valor13;
+	}
+	/**
+	 * @return the valor14
+	 */
+	public String getValor14() {
+		return valor14;
+	}
+	/**
+	 * @param valor14 the valor14 to set
+	 */
+	public void setValor14(String valor14) {
+		this.valor14 = valor14;
+	}
+	/**
+	 * @return the valor15
+	 */
+	public String getValor15() {
+		return valor15;
+	}
+	/**
+	 * @param valor15 the valor15 to set
+	 */
+	public void setValor15(String valor15) {
+		this.valor15 = valor15;
+	}
+	/**
+	 * @return the valor16
+	 */
+	public String getValor16() {
+		return valor16;
+	}
+	/**
+	 * @param valor16 the valor16 to set
+	 */
+	public void setValor16(String valor16) {
+		this.valor16 = valor16;
+	}
+		/**
 	 * @return the color
 	 */
 	public int getColor() {
@@ -149,5 +227,4 @@ public class BeanGenerico implements Serializable{
 	public void setColor(int color) {
 		this.color = color;
 	}
-	
 }
