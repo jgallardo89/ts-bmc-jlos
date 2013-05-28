@@ -1,6 +1,5 @@
 package mx.com.bbva.mt101.ui.commons.viewmodel.productos;
 
-import java.lang.reflect.Field;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -12,6 +11,7 @@ import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.NotifyChange;
+import org.zkoss.zhtml.Messagebox;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
@@ -159,6 +159,9 @@ public class ProductosController extends ControllerSupport implements IControlle
 				productoVO.toString();
 				productoDTO.setProductoVO(productoVO);
 				productoVOs = productoBO.readCommand(productoDTO).getProductoVOs();
+				Messagebox.show("!El Registro del Producto fue exitoso!",
+						"Información", Messagebox.OK,
+						Messagebox.INFORMATION);
 			} else {
 				ProductoDTO productoDTO = new ProductoDTO();
 				ProductoVO productoVO = new ProductoVO();
@@ -179,6 +182,9 @@ public class ProductosController extends ControllerSupport implements IControlle
 				productoVO.toString();
 				productoDTO.setProductoVO(productoVO);
 				productoVOs = productoBO.readCommand(productoDTO).getProductoVOs();
+				Messagebox.show("!La Actualización del Producto fue exitoso!",
+						"Información", Messagebox.OK,
+						Messagebox.INFORMATION);
 			}
 		}
 		flagEstatus = true;

@@ -1,6 +1,5 @@
 package mx.com.bbva.mt101.ui.commons.viewmodel.admonFlujos;
 
-import java.lang.reflect.Field;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -14,6 +13,7 @@ import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.NotifyChange;
+import org.zkoss.zhtml.Messagebox;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
@@ -150,6 +150,9 @@ public class AdmonFlujosController extends ControllerSupport implements IControl
 			flujoVO.toString();
 			FlujoDTO.setFlujoVO(flujoVO);
 			flujoVOs = flujoBO.readCommand(FlujoDTO).getFlujoVOs();
+			Messagebox.show("!La Actualización del Flujo fue exitoso!",
+					"Información", Messagebox.OK,
+					Messagebox.INFORMATION);
 		}
 	}
 

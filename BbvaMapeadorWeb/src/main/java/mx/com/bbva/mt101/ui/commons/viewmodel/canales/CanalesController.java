@@ -23,6 +23,7 @@ import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.NotifyChange;
+import org.zkoss.zhtml.Messagebox;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
@@ -109,7 +110,7 @@ public class CanalesController extends ControllerSupport implements IController 
 	
 	@Override
 	@Command
-	@NotifyChange({ "canalesVOs", "btnGuardar" })
+	@NotifyChange({ "canalesVOs", "btnGuardar", "flagClave" })
 	public void save() {
 		CanalBO canalBO = new CanalBO();
 		ReportesController controller = new ReportesController();
@@ -169,9 +170,13 @@ public class CanalesController extends ControllerSupport implements IController 
 				canalDTO.setCanalVO(canalVO);
 				canalesVOs = canalBO.readCommand(canalDTO).getCanalVOs();
 				btnGuardar = true;
+				Messagebox.show("!La Actualización del Canal fue exitoso!",
+						"Información", Messagebox.OK,
+						Messagebox.INFORMATION);
 				//registraBitacora(canalVO,4);
 			}
 		}
+		flagClave = false;
 	}
 	
 	@Override

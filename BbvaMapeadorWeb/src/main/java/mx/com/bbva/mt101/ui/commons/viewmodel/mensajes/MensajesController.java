@@ -12,6 +12,7 @@ import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.NotifyChange;
+import org.zkoss.zhtml.Messagebox;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
@@ -161,6 +162,9 @@ public class MensajesController extends ControllerSupport implements IController
 				mensajeSalidaVO.toString();
 				mensajeSalidaDTO.setMensajeSalidaVO(mensajeSalidaVO);
 				mensajeSalidaVOs = mensajeSalidaBO.readCommand(mensajeSalidaDTO).getMensajeSalidaVOs();
+				Messagebox.show("!El Registro del Mensaje fue exitoso!",
+						"Información", Messagebox.OK,
+						Messagebox.INFORMATION);
 			} else {
 				MensajeSalidaDTO mensajeSalidaDTO = new MensajeSalidaDTO();
 				MensajeSalidaVO mensajeSalidaVO = new MensajeSalidaVO();
@@ -179,6 +183,9 @@ public class MensajesController extends ControllerSupport implements IController
 				mensajeSalidaVO.toString();
 				mensajeSalidaDTO.setMensajeSalidaVO(mensajeSalidaVO);
 				mensajeSalidaVOs = mensajeSalidaBO.readCommand(mensajeSalidaDTO).getMensajeSalidaVOs();
+				Messagebox.show("!La Actualización del Mensaje fue exitoso!",
+						"Información", Messagebox.OK,
+						Messagebox.INFORMATION);
 			}
 		}
 		flagMensaje = false;

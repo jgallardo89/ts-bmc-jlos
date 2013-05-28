@@ -11,6 +11,7 @@ import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.NotifyChange;
+import org.zkoss.zhtml.Messagebox;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
@@ -162,7 +163,9 @@ public class ClientesController extends ControllerSupport implements IController
 				clienteVO.toString();
 				clienteDTO.setClienteVO(clienteVO);
 				clientesVOs = clienteBO.readCommand(clienteDTO).getClienteVOs();
-				
+				Messagebox.show("!El Registro del Cliente fue exitoso!",
+						"Información", Messagebox.OK,
+						Messagebox.INFORMATION);
 			} else {
 				ClienteDTO clienteDTO = new ClienteDTO();
 				ClienteVO clienteVO = new ClienteVO();
@@ -186,7 +189,9 @@ public class ClientesController extends ControllerSupport implements IController
 				clienteDTO.setClienteVO(clienteVO);
 				clientesVOs = clienteBO.readCommand(clienteDTO).getClienteVOs();
 				
-				
+				Messagebox.show("!La Actualización del Cliente fue exitoso!",
+						"Información", Messagebox.OK,
+						Messagebox.INFORMATION);
 			}
 		}
 		btnGuardar = true;
