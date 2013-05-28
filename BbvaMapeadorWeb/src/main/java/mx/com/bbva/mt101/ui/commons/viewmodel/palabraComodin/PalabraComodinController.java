@@ -1,5 +1,6 @@
 package mx.com.bbva.mt101.ui.commons.viewmodel.palabraComodin;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,9 +16,12 @@ import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zkex.zul.Jasperreport;
 import org.zkoss.zul.Textbox;
 
-import mx.com.bbva.bancomer.bussinnes.model.vo.CanalVO;
+import mx.com.bbva.bancomer.bitacora.dto.BitacoraDTO;
+import mx.com.bbva.bancomer.bitacora.dto.CampoDTO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.PalabraComodinVO;
+import mx.com.bbva.bancomer.bussinnes.model.vo.ProductoVO;
 import mx.com.bbva.bancomer.canal.dto.BeanGenerico;
+import mx.com.bbva.bancomer.commons.command.CommandConstants;
 import mx.com.bbva.bancomer.mapper.business.PalabraComodinBO;
 import mx.com.bbva.bancomer.palabracomodin.dto.PalabraComodinDTO;
 import mx.com.bbva.bancomer.utils.StringUtil;
@@ -63,6 +67,7 @@ public class PalabraComodinController extends ControllerSupport implements ICont
 	@NotifyChange({ "comodinVOs" })
 	public void readWithFilters() {
 		palabraComodinDTO = new PalabraComodinDTO();
+		ReportesController controller = new ReportesController();
 		PalabraComodinVO palabraComodinVO = new PalabraComodinVO();
 		PalabraComodinBO palabraComodinBO = new PalabraComodinBO();
 		
@@ -71,6 +76,8 @@ public class PalabraComodinController extends ControllerSupport implements ICont
 		palabraComodinVO.toString();
 		palabraComodinDTO.setPalabraComodinVO(palabraComodinVO);
 		comodinVOs = palabraComodinBO.readCommand(palabraComodinDTO).getPalabraComodinVOs();
+		
+		controller.registrarEvento(null, null, CommandConstants.CONSULTAR, "Catálogo Palabra Comodín");
 	}
 	
 	@Override
@@ -107,6 +114,12 @@ public class PalabraComodinController extends ControllerSupport implements ICont
 		String titleReport = "Palabras Comodín";
 		headersReport.add("Nombre Palabra Comodín");
 		headersReport.add("Descripción Palabra Comodín");
+		
+		if(type.equals("xls")) {
+			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_EXCEL,"Catálogo Palabra Comodín");
+		} else {
+			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_TEXTO,"Catálogo Palabra Comodín");
+		}
 		controller.createReport(generaLista(), headersReport, titleReport, report, type);
 	}	
 	

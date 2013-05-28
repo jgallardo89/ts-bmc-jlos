@@ -1,5 +1,6 @@
 package mx.com.bbva.mt101.ui.commons.viewmodel.productos;
 
+import java.lang.reflect.Field;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -18,7 +19,6 @@ import org.zkoss.zkex.zul.Jasperreport;
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Textbox;
 
-import mx.com.bbva.bancomer.bussinnes.model.vo.ClienteVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.FlujoVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.ProductoVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.EstatusObjetoVO;
@@ -57,7 +57,9 @@ public class ProductosController extends ControllerSupport implements IControlle
 	
 	private ProductoDTO productoDTO;
 	private List<ProductoVO> productoVOs;
+	private ProductoVO productoVO;
 	private List<FlujoVO> flujoVOs;
+	private boolean flagEstatus;
 	
 	public ProductosController() {
 		this.read();
@@ -67,10 +69,11 @@ public class ProductosController extends ControllerSupport implements IControlle
 	@Override
 	public Object read() {
 		productoDTO = new ProductoDTO();
+		ProductoVO productoVO = new ProductoVO();
 		EstatusObjetoDTO estatusObjetoDTO = new EstatusObjetoDTO();
-		estatusObjetoDTO.setCommandId(CommandConstants.ESTATUS_OBJETO);
+		//estatusObjetoDTO.setCommandId(CommandConstants.ESTATUS_OBJETO);
 		EstatusObjetoVO estatusObjetoVO = new EstatusObjetoVO();
-		estatusObjetoVO.setNombreTabla(CommandConstants.NOMBRE_TABLA_PRODUCTOS);		
+		//estatusObjetoVO.setNombreTabla(CommandConstants.NOMBRE_TABLA_PRODUCTOS);		
 		EstatusObjetoBO estatusObjetoBO = new EstatusObjetoBO();
 		estatusObjetoDTO.setEstatusObjetoVO(estatusObjetoVO);
 		estatusObjetoDTO = estatusObjetoBO.readCommand(estatusObjetoDTO);
@@ -78,15 +81,19 @@ public class ProductosController extends ControllerSupport implements IControlle
 	    
 	    FlujoBO flujoBO = new FlujoBO();
 	    flujoVOs = flujoBO.readCommand();
-	    
+	    productoDTO.setProductoVO(productoVO);
 		ProductoBO productoBO = new ProductoBO();
 		productoBO.readCommand(productoDTO);
+		
+		flagEstatus = true;
+		
 		return productoDTO;
 	}
 	
 	@Command
-	@NotifyChange({ "productoVOs" })
+	@NotifyChange({ "productoVOs","flagEstatus"})
 	public void readWithFilters() {
+		ReportesController controller = new ReportesController();
 		productoDTO = new ProductoDTO();
 		ProductoVO productoVO = new ProductoVO();
 		productoVO.setIdFlujo(Integer.parseInt(idFlujo.getValue().isEmpty()?"0":idFlujo.getValue()));
@@ -98,7 +105,10 @@ public class ProductosController extends ControllerSupport implements IControlle
 	
 		ProductoBO productoBO = new ProductoBO();
 		productoVOs = productoBO.readCommand(productoDTO).getProductoVOs();
+		controller.registrarEvento(productoVO, productoVO, CommandConstants.CONSULTAR, "Catálogo de Productos");
+		flagEstatus = false;
 	}
+	
 	
 	@Override
 	public Object read(Object t) {
@@ -108,16 +118,11 @@ public class ProductosController extends ControllerSupport implements IControlle
 	
 	@Override
 	@Command
-	@NotifyChange({ "productoVOs" })
+	@NotifyChange({ "productoVOs","flagEstatus"})
 	public void save() {
+		ReportesController controller = new ReportesController();
 		ProductoBO productoBO = new ProductoBO();
 		boolean errorGuardar = false;
-		if (estatusObjeto.getSelectedItem() == null
-				|| estatusObjeto.getSelectedItem().getValue() == null
-				|| estatusObjeto.getSelectedItem().getValue().toString().isEmpty()) {
-			estatusObjeto.setErrorMessage("Favor de seleccionar el Estatus");
-			errorGuardar = true;
-		}
 		if (flujo.getSelectedItem() == null
 				|| flujo.getSelectedItem().getValue() == null
 				|| flujo.getSelectedItem().getValue().toString().isEmpty()) {
@@ -135,16 +140,17 @@ public class ProductosController extends ControllerSupport implements IControlle
 			errorGuardar = true;
 		}
 		if(!errorGuardar){
-			if(idProducto.getValue().isEmpty()){
+			if(idProducto.getValue().isEmpty() || idProducto.getValue().equals("0")){
 				ProductoDTO productoDTO = new ProductoDTO();
 				ProductoVO productoVO = new ProductoVO();
 				productoVO.setNombreProducto(nombreProducto.getValue().toUpperCase());
 				productoVO.setDescripcionProducto(descripcionProducto.getValue().toUpperCase());
-				productoVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue()));
+				productoVO.setIdEstatusObjeto(CommandConstants.ESTATUS_OBJETO_ACTIVO);
 				productoVO.setIdFlujo(Integer.parseInt(idFlujo.getValue()));
 				productoDTO.setProductoVO(productoVO);
 				productoBO.createCommand(productoDTO);
 				productoDTO.toString(BbvaAbstractDataTransferObject.XML);
+				controller.registrarEvento(productoVO, productoVO, CommandConstants.ALTA, "Catálogo de Productos");
 				clean();
 				productoVO.setIdFlujo(Integer.parseInt(idFlujo.getValue().isEmpty()?"0":idFlujo.getValue()));
 				productoVO.setNombreProducto(StringUtil.validaLike(nombreProducto.getValue()));
@@ -164,6 +170,7 @@ public class ProductosController extends ControllerSupport implements IControlle
 				productoDTO.setProductoVO(productoVO);
 				productoBO.updateCommand(productoDTO);
 				productoDTO.toString(BbvaAbstractDataTransferObject.XML);
+				controller.registrarEvento(productoVO, this.productoVO, CommandConstants.MODIFICACION, "Catálogo de Productos");
 				clean();
 				productoVO.setIdFlujo(Integer.parseInt(idFlujo.getValue().isEmpty()?"0":idFlujo.getValue()));
 				productoVO.setNombreProducto(StringUtil.validaLike(nombreProducto.getValue()));
@@ -174,6 +181,7 @@ public class ProductosController extends ControllerSupport implements IControlle
 				productoVOs = productoBO.readCommand(productoDTO).getProductoVOs();
 			}
 		}
+		flagEstatus = true;
 	}
 	
 	@Override
@@ -183,6 +191,7 @@ public class ProductosController extends ControllerSupport implements IControlle
 	}
 	@Override
 	@Command
+	@NotifyChange({"flagEstatus"})
 	public void clean() {
 		nombreProducto.clearErrorMessage();
 		descripcionProducto.clearErrorMessage();
@@ -195,11 +204,14 @@ public class ProductosController extends ControllerSupport implements IControlle
 		nombreProducto.setValue(null);
 		descripcionProducto.setValue(null);
 		estatusObjeto.setValue(null);
-		flujo.setValue(null);	
+		flujo.setValue(null);
+		flagEstatus = true;
 	}
 	
 	@Command
+	@NotifyChange({"flagEstatus"})
 	public void readSelected(@BindingParam("idProducto") final ProductoVO productoVO){
+		this.productoVO = productoVO;
 		productoVO.toString();
 		idProducto.setValue(Integer.toString(productoVO.getIdProducto()));
 		idFlujo.setValue(Integer.toString(productoVO.getIdFlujo()));
@@ -208,6 +220,7 @@ public class ProductosController extends ControllerSupport implements IControlle
 		idEstatusObjeto.setValue(Integer.toString(productoVO.getIdEstatusObjeto()));
 		flujo.setValue(productoVO.getNombreFlujo());
 		estatusObjeto.setValue(productoVO.getNombreEstatusObjeto());
+		flagEstatus = false;
 	}
 	
 	@Command
@@ -221,6 +234,11 @@ public class ProductosController extends ControllerSupport implements IControlle
 		headersReport.add("Fecha Alta");
 		headersReport.add("Fecha Modificación");
 		headersReport.add("Estatus");
+		if(type.equals("xls")) {
+			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_EXCEL,"Catálogo Clientes");
+		} else {
+			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_TEXTO,"Catálogo Clientes");
+		}
 		controller.createReport(generaLista(), headersReport, titleReport, report, type);
 	}	
 	
@@ -292,6 +310,34 @@ public class ProductosController extends ControllerSupport implements IControlle
 	 */
 	public void setFlujoVOs(List<FlujoVO> flujoVOs) {
 		this.flujoVOs = flujoVOs;
+	}
+
+	/**
+	 * @return the productoVO
+	 */
+	public ProductoVO getProductoVO() {
+		return productoVO;
+	}
+
+	/**
+	 * @param productoVO the productoVO to set
+	 */
+	public void setProductoVO(ProductoVO productoVO) {
+		this.productoVO = productoVO;
+	}
+
+	/**
+	 * @return the flagEstatus
+	 */
+	public boolean isFlagEstatus() {
+		return flagEstatus;
+	}
+
+	/**
+	 * @param flagEstatus the flagEstatus to set
+	 */
+	public void setFlagEstatus(boolean flagEstatus) {
+		this.flagEstatus = flagEstatus;
 	}
 	
 }
