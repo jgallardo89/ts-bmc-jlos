@@ -130,6 +130,7 @@ public class MonitoreoProcesosController extends ControllerSupport implements  I
 	@Override
 	@GlobalCommand
 	public Object read() {
+		ReportesController controller = new ReportesController();
 		MonitoreoProcesosDTO monitoreoProcesosDTO = new MonitoreoProcesosDTO();
 		CanalDTO canalDTO = new CanalDTO();
 		ClienteDTO clienteDTO = new ClienteDTO();
@@ -210,7 +211,7 @@ public class MonitoreoProcesosController extends ControllerSupport implements  I
 				
 			}
 		}
-		registrarEvento(monitoreoProcesosVO, monitoreoProcesosVO, 2);
+		controller.registrarEvento(monitoreoProcesosVO, monitoreoProcesosVO, CommandConstants.CONSULTAR, "Monitoreo de Procesos");
 		return monitoreoProcesosDTO;
 	}
 	
@@ -223,6 +224,7 @@ public class MonitoreoProcesosController extends ControllerSupport implements  I
 	@GlobalCommand
 	@NotifyChange({ "monitoreoProcesosVOs" })
 	public void readWithFilters() {
+		ReportesController controller = new ReportesController();
 		MonitoreoProcesosDTO monitoreoProcesosDTO = new MonitoreoProcesosDTO();
 		MonitoreoProcesosVO monitoreoProcesosVO = new MonitoreoProcesosVO(); 
 		
@@ -270,7 +272,7 @@ public class MonitoreoProcesosController extends ControllerSupport implements  I
 		}
 		//Asignacion de la lista a la variable global de la clase
 		monitoreoProcesosVOs = monitoreoProcesosDTO.getMonitoreoProcesosVOs();
-		registrarEvento(monitoreoProcesosVO, monitoreoProcesosVO, 2);
+		controller.registrarEvento(monitoreoProcesosVO, monitoreoProcesosVO, CommandConstants.CONSULTAR,"Monitoreo de Procesos");
 	}
 	
 	@Command 
@@ -301,6 +303,7 @@ public class MonitoreoProcesosController extends ControllerSupport implements  I
 	@Command
 	@NotifyChange({ "monitoreoProcesosVOs"})
 	public void save() {
+		ReportesController controller = new ReportesController();
 		//LLamada a BO  MonitoreoProcesosBO para consulta por criterio
 		MonitoreoProcesosBO monitoreoProcesosBO = new MonitoreoProcesosBO();
 		MonitoreoProcesosVO monitoreoProcesosVO = new MonitoreoProcesosVO();
@@ -310,7 +313,7 @@ public class MonitoreoProcesosController extends ControllerSupport implements  I
 		monitoreoProcesosDTO.setMonitoreoProcesosVO(monitoreoProcesosVO);
 		//Asignacion resultado de consulta al mismo DTO de MonitoreoProcesos
 		monitoreoProcesosDTO = monitoreoProcesosBO.updateCommand(monitoreoProcesosDTO);
-		registrarEvento(monitoreoProcesosVO, monitoreoProcesosVO, 4);
+		controller.registrarEvento(monitoreoProcesosVO, this.monitoreoProcesosVO, CommandConstants.MODIFICACION,"Monitoreo de Procesos");
 		Messagebox.show("Registro actualizado con exito!!",
 				"Confirmación", Messagebox.OK,
 				Messagebox.INFORMATION);
@@ -355,7 +358,12 @@ public class MonitoreoProcesosController extends ControllerSupport implements  I
 		headersReport.add("Fecha Inicio");
 		headersReport.add("Hora inicio");
 		headersReport.add("Hora fin");
-		headersReport.add("Estatus"); 
+		headersReport.add("Estatus");
+		if(type.equals("xls")) {
+			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_EXCEL,"Monitoreo de Procesos");
+		} else {
+			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_TEXTO,"Monitoreo de Procesos");
+		}
 		controller.createReport(generaLista(), headersReport, titleReport, report, type);
 	}	
 	
@@ -383,57 +391,6 @@ public class MonitoreoProcesosController extends ControllerSupport implements  I
 		return beanGenericos;
 	}
 	
-	private void registrarEvento(MonitoreoProcesosVO nuevo, MonitoreoProcesosVO anterior, int idEvento){
-		List<CampoDTO> campoDTOs = new ArrayList<CampoDTO>(); 
-		BitacoraDTO dto = new BitacoraDTO(); 
-		Field[] fieldsNuevo = nuevo.getClass().getDeclaredFields(); 
-		Field[] fieldsAnterior = anterior.getClass().getDeclaredFields(); 
-		try {
-			for(Field f : fieldsNuevo){
-				String field = f.getName(); 
-				if (!field.equals("serialVersionUID")){
-					CampoDTO campo = new CampoDTO(); 
-					campo.setNombre_campo(field); 
-					Method getter;
-					getter = nuevo.getClass().getMethod("get" + String.valueOf(field.charAt(0)).toUpperCase() +
-							field.substring(1)); 
-			        Object value = getter.invoke(nuevo, new Object[0]);
-			        campo.setValor_nuevo((value != null && (!value.toString().equals("%") && !value.toString().equals("0")))? value.toString() : null);
-			        for(Field f1 : fieldsAnterior){ 
-							String field1 = f1.getName(); 
-							if (!field1.equals("serialVersionUID")){ 
-								 if(field.equals(field1)){
-									Method getter1;
-									getter1 = anterior.getClass().getMethod("get" + String.valueOf(field.charAt(0)).toUpperCase() +
-											field.substring(1)); 
-							        Object value1 = getter1.invoke(anterior, new Object[0]);
-							        campo.setValor_anterior((value1 != null && (!value1.toString().equals("%") && !value1.toString().equals("0")))? value1.toString() : null);
-								 }
-						     }
-					}
-			        campoDTOs.add(campo); 
-			     }
-			}
-		} catch (SecurityException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (NoSuchMethodException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalArgumentException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InvocationTargetException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} 
-		dto.setCampoDTOs(campoDTOs);
-		super.registraEvento(dto, "Catálogo de Mapa", idEvento);
-		
-	}
 	/**
 	 * @return the criterio
 	 */
@@ -829,5 +786,9 @@ public class MonitoreoProcesosController extends ControllerSupport implements  I
 	public void setMonitoreoProcesosVO(MonitoreoProcesosVO monitoreoProcesosVO) {
 		this.monitoreoProcesosVO = monitoreoProcesosVO;
 	}
-
+	@Override
+	public boolean applyPermision() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

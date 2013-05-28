@@ -349,5 +349,9 @@ public class ClientesController extends ControllerSupport implements IController
 	public void setFlagEstatus(boolean flagEstatus) {
 		this.flagEstatus = flagEstatus;
 	}
-	
+	@Override
+	public boolean applyPermision() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

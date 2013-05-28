@@ -17,6 +17,7 @@ import mx.com.bbva.bancomer.bussinnes.model.vo.ProductoVO;
 import mx.com.bbva.bancomer.canal.dto.BeanGenerico;
 import mx.com.bbva.bancomer.canal.dto.CanalDTO;
 import mx.com.bbva.bancomer.cliente.dto.ClienteDTO;
+import mx.com.bbva.bancomer.commons.command.CommandConstants;
 import mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject;
 import mx.com.bbva.bancomer.estadistico.dto.EstadisticoDTO;
 import mx.com.bbva.bancomer.mapper.business.CanalBO;
@@ -107,6 +108,7 @@ public class EstadisticoController extends ControllerSupport implements  IContro
 	
 	@Override
 	public Object read() {
+		ReportesController controller = new ReportesController();
 		EstadisticoDTO estadisticoDTO = new EstadisticoDTO();
 		CanalDTO canalDTO = new CanalDTO();
 		ClienteDTO clienteDTO = new ClienteDTO();
@@ -138,7 +140,7 @@ public class EstadisticoController extends ControllerSupport implements  IContro
 		estadisticoDTO.setCanalVOs(canalDTO.getCanalVOs());
 		estadisticoDTO.setClienteVOs(clienteDTO.getClienteVOs());
 		estadisticoDTO.setProductoVOs(productoDTO.getProductoVOs());
-		registrarEvento(estadisticoVO, estadisticoVO, 2);
+		controller.registrarEvento(estadisticoVO, estadisticoVO, CommandConstants.CONSULTAR, "Estadístico");
 		return estadisticoDTO;
 	}
 	
@@ -151,6 +153,7 @@ public class EstadisticoController extends ControllerSupport implements  IContro
 	@Command
 	@NotifyChange({ "estadisticoVOs" })
 	public void readWithFilters() {
+		ReportesController controller = new ReportesController();
 		EstadisticoDTO estadisticoDTO = new EstadisticoDTO();
 		EstadisticoVO estadisticoVO = new EstadisticoVO(); 
 		
@@ -181,7 +184,7 @@ public class EstadisticoController extends ControllerSupport implements  IContro
 		}
 		//Asignacion de la lista a la variable global de la clase
 		estadisticoVOs = estadisticoDTO.getEstadisticoVOs();
-		registrarEvento(estadisticoVO, estadisticoVO, 2);
+		controller.registrarEvento(estadisticoVO, estadisticoVO, CommandConstants.CONSULTAR, "Estadístico");
 	}
 	@Override
 	@Command
@@ -214,6 +217,11 @@ public class EstadisticoController extends ControllerSupport implements  IContro
 		headersReport.add("Producto"); 
 		headersReport.add("Nombre Archivo"); 
 		headersReport.add("Operaciones"); 
+		if(type.equals("xls")) {
+			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_EXCEL,"Estadístico");
+		} else {
+			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_TEXTO,"Estadístico");
+		}
 		controller.createReport(generaLista(), headersReport, titleReport, report, type);
 	}	
 	
@@ -235,57 +243,6 @@ public class EstadisticoController extends ControllerSupport implements  IContro
 		return beanGenericos;
 	}
 	
-	private void registrarEvento(EstadisticoVO nuevo, EstadisticoVO anterior, int idEvento){
-		List<CampoDTO> campoDTOs = new ArrayList<CampoDTO>(); 
-		BitacoraDTO dto = new BitacoraDTO(); 
-		Field[] fieldsNuevo = nuevo.getClass().getDeclaredFields(); 
-		Field[] fieldsAnterior = anterior.getClass().getDeclaredFields(); 
-		try {
-			for(Field f : fieldsNuevo){
-				String field = f.getName(); 
-				if (!field.equals("serialVersionUID")){
-					CampoDTO campo = new CampoDTO(); 
-					campo.setNombre_campo(field); 
-					Method getter;
-					getter = nuevo.getClass().getMethod("get" + String.valueOf(field.charAt(0)).toUpperCase() +
-							field.substring(1)); 
-			        Object value = getter.invoke(nuevo, new Object[0]);
-			        campo.setValor_nuevo((value != null && (!value.toString().equals("%") && !value.toString().equals("0")))? value.toString() : null);
-			        for(Field f1 : fieldsAnterior){ 
-							String field1 = f1.getName(); 
-							if (!field1.equals("serialVersionUID")){ 
-								 if(field.equals(field1)){
-									Method getter1;
-									getter1 = anterior.getClass().getMethod("get" + String.valueOf(field.charAt(0)).toUpperCase() +
-											field.substring(1)); 
-							        Object value1 = getter1.invoke(anterior, new Object[0]);
-							        campo.setValor_anterior((value1 != null && (!value1.toString().equals("%") && !value1.toString().equals("0")))? value1.toString() : null);
-								 }
-						     }
-					}
-			        campoDTOs.add(campo); 
-			     }
-			}
-		} catch (SecurityException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (NoSuchMethodException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalArgumentException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InvocationTargetException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} 
-		dto.setCampoDTOs(campoDTOs);
-		super.registraEvento(dto, "Estadístico", idEvento);
-		
-	}
 	@Override
 	public Object read(Object t) {
 		// TODO Auto-generated method stub
@@ -625,5 +582,9 @@ public class EstadisticoController extends ControllerSupport implements  IContro
 	public void setReport(Jasperreport report) {
 		this.report = report;
 	}
-
+	@Override
+	public boolean applyPermision() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

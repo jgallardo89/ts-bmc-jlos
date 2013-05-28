@@ -472,4 +472,9 @@ public class EstatusObjetoController extends SelectorComposer<Component> impleme
 		estatusObjetoVOs = estatusObjetoDTO.getEstatusObjetoVOs();
 		//operacionesDudosasGrid.invalidate();
 	}
+	@Override
+	public boolean applyPermision() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

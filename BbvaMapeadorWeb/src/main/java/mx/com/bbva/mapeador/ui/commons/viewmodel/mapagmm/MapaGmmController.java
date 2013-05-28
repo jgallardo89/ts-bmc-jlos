@@ -99,6 +99,7 @@ public class MapaGmmController  extends ControllerSupport implements  IControlle
 	@Override
 	public Object read() {
 		//Catalogo Estatus
+		ReportesController controller = new ReportesController();
 		EstatusObjetoDTO estatusObjetoDTO = new EstatusObjetoDTO();
 		estatusObjetoDTO.setCommandId(CommandConstants.ESTATUS_OBJETO);
 		EstatusObjetoVO estatusObjetoVO = new EstatusObjetoVO();
@@ -113,7 +114,7 @@ public class MapaGmmController  extends ControllerSupport implements  IControlle
 		logger.info("::::::::::::::SIZE::::::::::" + mapaGmmDTO.getMapaGmmVOs());
 		//Seteo Catalogo de Estatus
 		mapaGmmDTO.setEstatusObjetoVOs(estatusObjetoDTO.getEstatusObjetoVOs());
-		registrarEvento(mapaGmmVO, mapaGmmVO, 2);
+		controller.registrarEvento(mapaGmmVO, mapaGmmVO, CommandConstants.CONSULTAR,"Catálogo de Mapa");
 		return mapaGmmDTO;
 	}
 
@@ -139,6 +140,7 @@ public class MapaGmmController  extends ControllerSupport implements  IControlle
 	@Command
 	@NotifyChange({ "mapaGmmVOs" })
 	public void readWithFilters() {
+		ReportesController controller = new ReportesController();
 		MapaGmmDTO mapaGmmDTO = new MapaGmmDTO();
 		MapaGmmVO mapaGmmVO = new MapaGmmVO(); 
 		//Textbox
@@ -172,7 +174,7 @@ public class MapaGmmController  extends ControllerSupport implements  IControlle
 		}
 		//Asignacion de la lista a la variable global de la clase
 		mapaGmmVOs = mapaGmmDTO.getMapaGmmVOs();
-		registrarEvento(mapaGmmVO, mapaGmmVO,  2);
+		controller.registrarEvento(mapaGmmVO, mapaGmmVO,  CommandConstants.CONSULTAR,"Catálogo de Mapa");
 
 		
 	}
@@ -186,6 +188,7 @@ public class MapaGmmController  extends ControllerSupport implements  IControlle
 	@Command
 	@NotifyChange({ "mapaGmmVOs" })
 	public void save() {
+		ReportesController controller = new ReportesController();
 		//Validar Todos Los campos de pantalla
 		boolean errorGuardar = false; 
 		if (status.getSelectedItem() == null
@@ -221,7 +224,7 @@ public class MapaGmmController  extends ControllerSupport implements  IControlle
 				
 				MapaGmmBO mapaGmmBO = new MapaGmmBO();
 				mapaGmmBO.updateCommand(mapaGmmDTO);
-				registrarEvento(mapaGmmVO, this.mapaGmmVO, 4);
+				controller.registrarEvento(mapaGmmVO, this.mapaGmmVO, CommandConstants.MODIFICACION,"Catálogo de Mapa");
 				clean();			
 				
 				//Textbox
@@ -323,7 +326,12 @@ public class MapaGmmController  extends ControllerSupport implements  IControlle
 		headersReport.add("Descripción");
 		headersReport.add("Fecha Alta");
 		headersReport.add("Fecha modificación"); 
-		headersReport.add("Estatus");  
+		headersReport.add("Estatus");
+		if(type.equals("xls")) {
+			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_EXCEL,"Catálogo de Mapa");
+		} else {
+			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_TEXTO,"Catálogo de Mapa");
+		}
 		controller.createReport(generaLista(), headersReport, titleReport, report, type);
 	}	
 	
@@ -344,57 +352,6 @@ public class MapaGmmController  extends ControllerSupport implements  IControlle
 		return beanGenericos;
 	}
 	
-	private void registrarEvento(MapaGmmVO nuevo, MapaGmmVO anterior, int idEvento){
-		List<CampoDTO> campoDTOs = new ArrayList<CampoDTO>(); 
-		BitacoraDTO dto = new BitacoraDTO(); 
-		Field[] fieldsNuevo = nuevo.getClass().getDeclaredFields(); 
-		Field[] fieldsAnterior = anterior.getClass().getDeclaredFields(); 
-		try {
-			for(Field f : fieldsNuevo){
-				String field = f.getName(); 
-				if (!field.equals("serialVersionUID")){
-					CampoDTO campo = new CampoDTO(); 
-					campo.setNombre_campo(field); 
-					Method getter;
-					getter = nuevo.getClass().getMethod("get" + String.valueOf(field.charAt(0)).toUpperCase() +
-							field.substring(1)); 
-			        Object value = getter.invoke(nuevo, new Object[0]);
-			        campo.setValor_nuevo((value != null && (!value.toString().equals("%") && !value.toString().equals("0")))? value.toString() : null);
-			        for(Field f1 : fieldsAnterior){ 
-							String field1 = f1.getName(); 
-							if (!field1.equals("serialVersionUID")){ 
-								 if(field.equals(field1)){
-									Method getter1;
-									getter1 = anterior.getClass().getMethod("get" + String.valueOf(field.charAt(0)).toUpperCase() +
-											field.substring(1)); 
-							        Object value1 = getter1.invoke(anterior, new Object[0]);
-							        campo.setValor_anterior((value1 != null && (!value1.toString().equals("%") && !value1.toString().equals("0")))? value1.toString() : null);
-								 }
-						     }
-					}
-			        campoDTOs.add(campo); 
-			     }
-			}
-		} catch (SecurityException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (NoSuchMethodException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalArgumentException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InvocationTargetException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} 
-		dto.setCampoDTOs(campoDTOs);
-		super.registraEvento(dto, "Catálogo de Mapa", idEvento);
-		
-	}
 	/**
 	 * @return the identificadorMapa
 	 */
@@ -649,5 +606,9 @@ public class MapaGmmController  extends ControllerSupport implements  IControlle
 	public void setMapaGmmVO(MapaGmmVO mapaGmmVO) {
 		this.mapaGmmVO = mapaGmmVO;
 	}
-
+	@Override
+	public boolean applyPermision() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

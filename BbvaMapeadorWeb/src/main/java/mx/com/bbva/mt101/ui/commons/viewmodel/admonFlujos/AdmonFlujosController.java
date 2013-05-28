@@ -312,4 +312,10 @@ public class AdmonFlujosController extends ControllerSupport implements IControl
 		this.flujoVO = flujoVO;
 	}
 
+	@Override
+	public boolean applyPermision() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

@@ -462,5 +462,9 @@ public class ComponenteController extends ControllerSupport implements  IControl
 		this.strTipoComponente = strTipoComponente;
 	}
 
-	
+	@Override
+	public boolean applyPermision() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

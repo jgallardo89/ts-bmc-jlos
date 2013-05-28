@@ -390,4 +390,9 @@ public class PerfilController extends ControllerSupport implements  IController{
 		componenteBO = new ComponenteBO();		
 		componentePantallaPerfilDTO = componenteBO.readCommand(componentePantallaPerfilDTO);
 	}	
+	@Override
+	public boolean applyPermision() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

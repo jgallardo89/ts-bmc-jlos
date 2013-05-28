@@ -3,14 +3,9 @@
  */
 package mx.com.bbva.mapeador.ui.commons.viewmodel.pantalla;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
-import mx.com.bbva.bancomer.bitacora.dto.BitacoraDTO;
-import mx.com.bbva.bancomer.bitacora.dto.CampoDTO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.EstatusObjetoVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.PantallaVO;
 import mx.com.bbva.bancomer.canal.dto.BeanGenerico;
@@ -125,6 +120,7 @@ public class PantallaController extends ControllerSupport implements  IControlle
 	private String strOrden;
 	@Override
 	public Object read() {
+		ReportesController controller = new ReportesController();
 		PantallaVO pantallaVO = new PantallaVO();
 		EstatusObjetoDTO estatusObjetoDTO = new EstatusObjetoDTO();
 		estatusObjetoDTO.setCommandId(CommandConstants.ESTATUS_OBJETO);
@@ -140,7 +136,7 @@ public class PantallaController extends ControllerSupport implements  IControlle
 		logger.info("::::::::::::::SIZE::::::::::" + pantallaDTO.getPantallaVOs());
 		estatusObjetoDTO = estatusObjetoBO.readCommand(estatusObjetoDTO);
 		pantallaDTO.setEstatusObjetoVOs(estatusObjetoDTO.getEstatusObjetoVOs());
-		registrarEvento(pantallaVO, pantallaVO, 2);
+		controller.registrarEvento(pantallaVO, pantallaVO, CommandConstants.CONSULTAR,"Catálogo Pantalla");
 		return pantallaDTO;
 	}
 	
@@ -152,6 +148,7 @@ public class PantallaController extends ControllerSupport implements  IControlle
 	@Command
 	@NotifyChange({ "pantallaVOs" })
 	public void readWithFilters() {
+		ReportesController controller = new ReportesController();
 		PantallaDTO pantallaDTO = new PantallaDTO();
 		PantallaVO pantallaVO = new PantallaVO();
 //		EstatusObjetoDTO estatusObjetoDTO = new EstatusObjetoDTO();	
@@ -184,7 +181,7 @@ public class PantallaController extends ControllerSupport implements  IControlle
 		}
 		//Asignacion de la lista a la variable global de la clase
 		pantallaVOs = pantallaDTO.getPantallaVOs();
-		registrarEvento(pantallaVO, pantallaVO, 2);
+		controller.registrarEvento(pantallaVO, pantallaVO, CommandConstants.CONSULTAR,"Catálogo Pantalla");
 	}
 	@Override
 	public Object read(Object t) {
@@ -211,6 +208,7 @@ public class PantallaController extends ControllerSupport implements  IControlle
 	@Command
 	@NotifyChange({ "pantallaVOs"})
 	public void save() {
+		ReportesController controller = new ReportesController();
 		//Validar Todos Los campos de pantalla
 		boolean errorGuardar = false; 
 		if (pantallaPadre.getSelectedItem() == null
@@ -274,7 +272,7 @@ public class PantallaController extends ControllerSupport implements  IControlle
 				
 				//Asignacion resultado de consulta al mismo DTO de pantalla
 				pantallaDTO = pantallaBO.readCommand(pantallaDTO);
-				registrarEvento(pantallaVO, this.pantallaVO, 4);
+				controller.registrarEvento(pantallaVO, this.pantallaVO, CommandConstants.MODIFICACION, "Catálogo Pantallas");
 				
 				Messagebox.show("Registro actualizado con exito!!",
 						"Confirmación", Messagebox.OK,
@@ -300,7 +298,7 @@ public class PantallaController extends ControllerSupport implements  IControlle
 				
 				PantallaBO pantallaBO = new PantallaBO();
 				pantallaBO.createCommand(pantallaDTO);
-				registrarEvento(pantallaVO, pantallaVO, 3);
+				controller.registrarEvento(pantallaVO, pantallaVO, CommandConstants.ALTA,"Catálogo Pantallas");
 				clean();	
 				pantallaVO = new PantallaVO();
 				pantallaDTO.setPantallaVO(pantallaVO);
@@ -358,7 +356,12 @@ public class PantallaController extends ControllerSupport implements  IControlle
 		headersReport.add("URL Pantalla");
 		headersReport.add("URL Icono");
 		headersReport.add("Orden");
-		headersReport.add("Estatus"); 
+		headersReport.add("Estatus");
+		if(type.equals("xls")) {
+			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_EXCEL,"Catálogo Pantalla");
+		} else {
+			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_TEXTO,"Catálogo Pantalla");
+		}
 		controller.createReport(generaLista(), headersReport, titleReport, report, type);
 	}	
 	
@@ -375,57 +378,6 @@ public class PantallaController extends ControllerSupport implements  IControlle
 			beanGenericos.add(beanGenerico);
 		}
 		return beanGenericos;
-	}
-	private void registrarEvento(PantallaVO nuevo, PantallaVO anterior, int idEvento){
-		List<CampoDTO> campoDTOs = new ArrayList<CampoDTO>(); 
-		BitacoraDTO dto = new BitacoraDTO(); 
-		Field[] fieldsNuevo = nuevo.getClass().getDeclaredFields(); 
-		Field[] fieldsAnterior = anterior.getClass().getDeclaredFields(); 
-		try {
-			for(Field f : fieldsNuevo){
-				String field = f.getName(); 
-				if (!field.equals("serialVersionUID")){
-					CampoDTO campo = new CampoDTO(); 
-					campo.setNombre_campo(field); 
-					Method getter;
-					getter = nuevo.getClass().getMethod("get" + String.valueOf(field.charAt(0)).toUpperCase() +
-							field.substring(1)); 
-			        Object value = getter.invoke(nuevo, new Object[0]);
-			        campo.setValor_nuevo((value != null && (!value.toString().equals("%") && !value.toString().equals("0")))? value.toString() : null);
-			        for(Field f1 : fieldsAnterior){ 
-							String field1 = f1.getName(); 
-							if (!field1.equals("serialVersionUID")){ 
-								 if(field.equals(field1)){
-									Method getter1;
-									getter1 = anterior.getClass().getMethod("get" + String.valueOf(field.charAt(0)).toUpperCase() +
-											field.substring(1)); 
-							        Object value1 = getter1.invoke(anterior, new Object[0]);
-							        campo.setValor_anterior((value1 != null && (!value1.toString().equals("%") && !value1.toString().equals("0")))? value1.toString() : null);
-								 }
-						     }
-					}
-			        campoDTOs.add(campo); 
-			     }
-			}
-		} catch (SecurityException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (NoSuchMethodException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalArgumentException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InvocationTargetException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} 
-		dto.setCampoDTOs(campoDTOs);
-		super.registraEvento(dto, "Catálogo Pantallas", idEvento);
-		
 	}
 	/**
 	 * @return the pantallaPadre
@@ -788,5 +740,9 @@ public class PantallaController extends ControllerSupport implements  IControlle
 	public void setPantallaVO(PantallaVO pantallaVO) {
 		this.pantallaVO = pantallaVO;
 	}
-
+	@Override
+	public boolean applyPermision() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }
