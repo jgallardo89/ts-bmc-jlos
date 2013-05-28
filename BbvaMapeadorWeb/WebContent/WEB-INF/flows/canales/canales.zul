@@ -34,7 +34,7 @@
 												<div align="right">
 													<label width="100%" sclass="labelFill" value="Clave: "></label>
 												</div>
-												<textbox sclass="textboxUpperCase" maxlength="5" disabled="true"
+												<textbox sclass="textboxUpperCase" maxlength="5" disabled="@load(vm.flagClave)"
 													id="nombreCanal" value="@load(vm.canalDTO.canalVO.nombreCanal)" width="98%"></textbox>
 												<div align="right">
 													<label width="100%" sclass="labelFill" value="Fecha y Hora de Alta:"></label>												

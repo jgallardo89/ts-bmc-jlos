@@ -57,6 +57,7 @@ public class CanalesController extends ControllerSupport implements IController 
 	private Jasperreport report;
 	
 	private boolean btnGuardar;
+	private boolean flagClave;
 	private CanalDTO canalDTO;
 	private String strIdCanal;
 	private List<CanalVO> canalesVOs;
@@ -175,7 +176,7 @@ public class CanalesController extends ControllerSupport implements IController 
 	
 	@Override
 	@Command
-	@NotifyChange({"btnGuardar" })
+	@NotifyChange({"btnGuardar", "flagClave" })
 	public void clean() {
 		nombreCanal.clearErrorMessage();
 		descripcionCanal.clearErrorMessage();
@@ -188,10 +189,11 @@ public class CanalesController extends ControllerSupport implements IController 
 		idCanal.setValue(null);
 		idEstatusObjeto.setValue(null);
 		btnGuardar = true;
+		flagClave = false;
 	}
 	
 	@Command
-	@NotifyChange({"btnGuardar"})
+	@NotifyChange({"btnGuardar","flagClave"})
 	public void readSelected(@BindingParam("idCanal") final CanalVO canalVO){
 		canalesVO = canalVO;
 		canalVO.toString();
@@ -201,6 +203,7 @@ public class CanalesController extends ControllerSupport implements IController 
 		idCanal.setValue(Integer.toString(canalVO.getIdCanal()));
 		idEstatusObjeto.setValue(Integer.toString(canalVO.getIdEstatusObjeto()));
 		btnGuardar = false;
+		flagClave = true;
 	}
 	
 	@Override
@@ -321,5 +324,20 @@ public class CanalesController extends ControllerSupport implements IController 
 	public void setCanalesVO(CanalVO canalesVO) {
 		this.canalesVO = canalesVO;
 	}
+
+	/**
+	 * @return the flagClave
+	 */
+	public boolean isFlagClave() {
+		return flagClave;
+	}
+
+	/**
+	 * @param flagClave the flagClave to set
+	 */
+	public void setFlagClave(boolean flagClave) {
+		this.flagClave = flagClave;
+	}
+	
 	
 }
