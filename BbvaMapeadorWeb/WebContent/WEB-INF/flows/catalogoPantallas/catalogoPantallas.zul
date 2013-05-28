@@ -105,17 +105,17 @@
 										<column hflex="0" align="center" image="/img/pencil-small.png" 
 											width="5%"></column>
 										<column hflex="1" label="Pantalla Padre" style="text-wrap: normal;"
-											width="10%" sort="auto(vm.pantallaDTO.pantallaVO.nombrePantallaPadre)"></column>
+											width="10%" sort="auto(nombrePantallaPadre)"></column>
 										<column hflex="1" label="Pantalla" width="20%"
-											sort="vm.pantallaDTO.pantallaVO.nombrePantalla"></column>
+											sort="sort(nombrePantalla)"></column>
 										<column hflex="1" label="URL Pantalla" width="10%"
-											sort="auto(vm.pantallaDTO.pantallaVO.descripcionUrlPantalla)"></column>
+											sort="auto(descripcionUrlPantalla)"></column>
 										<column hflex="1" label="URL Icono" width="10%"
-											sort="auto(vm.pantallaDTO.estatusObjetoVO.descripcionUrlIcon)"></column>	
+											sort="auto(descripcionUrlIcon)"></column>	
 										<column hflex="1" label="Orden" width="10%"
-											sort="auto(vm.pantallaDTO.estatusObjetoVO.numeroOrdenPantalla)"></column>
+											sort="auto(numeroOrdenPantalla)"></column>
 										<column hflex="1" label="Status" width="10%"
-											sort="auto(vm.pantallaDTO.estatusObjetoVO.nombreEstatusObjeto)"></column>									
+											sort="auto(nombreEstatusObjeto)"></column>									
 									</columns>
 									<template name="model">
 										<row>

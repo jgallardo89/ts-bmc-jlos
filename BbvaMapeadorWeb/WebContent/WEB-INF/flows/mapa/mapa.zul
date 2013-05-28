@@ -94,17 +94,17 @@
 										<column hflex="0" align="center" image="/img/pencil-small.png" 
 											width="5%"></column>
 										<column hflex="1" label="ID Mapa" style="text-wrap: normal;"
-											width="10%" sort="auto(vm.mapaGmmDTO.mapaGmmVO.idMapaGmm)"></column>
+											width="10%" sort="auto(idMapaGmm)"></column>
 										<column hflex="1" label="Identificador Mapa" width="20%"
-											sort="vm.mapaGmmDTO.mapaGmmVO.nombreMapaGmm"></column>
+											sort="auto(nombreMapaGmm)"></column>
 										<column hflex="1" label="Descripcion" style="text-wrap: normal;"
-											width="10%" sort="auto(vm.mapaGmmDTO.mapaGmmVO.descripcionMapaGmm)"></column>
+											width="10%" sort="auto(descripcionMapaGmm)"></column>
 										<column hflex="1" label="Fecha Alta" width="10%"
-											sort="auto(vm.mapaGmmDTO.mapaGmmVO.fechaAlta)"></column>	
+											sort="auto(fechaAlta)"></column>	
 										<column hflex="1" label="Fecha modificación" width="10%"
-											sort="auto(vm.mapaGmmDTO.mapaGmmVO.fechaModificacion)"></column>	
+											sort="auto(fechaModificacion)"></column>	
 										<column hflex="1" label="Status" width="10%"
-											sort="auto(vm.mapaGmmDTO.mapaGmmVO.nombreEstatusObjeto)"></column>									
+											sort="auto(nombreEstatusObjeto)"></column>									
 									</columns>
 									<template name="model">
 										<row>

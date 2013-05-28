@@ -87,13 +87,13 @@
 									vflex="true" height="100%">									
 									<columns sizable="true" menupopup="auto">
 									<column hflex="1" label="ID Bitacora" width="10%"
-											sort="auto(vm.bitacoraArchivoDTO.bitacoraArchivoVO.idBitacora)"></column>
+											sort="auto(idBitacora)"></column>
 										<column hflex="1" label="Fecha y Hora" width="10%"
-											sort="auto(vm.bitacoraArchivoDTO.bitacoraArchivoVO.fechaBitacora)"></column>
+											sort="auto(fechaBitacora)"></column>
 										<column hflex="1" label="Archivo" width="10%"
-											sort="auto(vm.bitacoraArchivoDTO.bitacoraArchivoVO.nombreBitacora)"></column>
+											sort="auto(nombreBitacora)"></column>
 										<column hflex="1" label="Estado de archivo" width="10%"
-											sort="auto(vm.bitacoraArchivoDTO.bitacoraArchivoVO.nombreEventoMapeador)"></column>		
+											sort="auto(nombreEventoMapeador)"></column>		
 									</columns>
 									<template name="model">
 										<row>

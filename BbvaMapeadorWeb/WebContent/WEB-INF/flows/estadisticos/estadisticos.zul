@@ -98,17 +98,17 @@
 									vflex="true" height="100%">									
 									<columns sizable="true" menupopup="auto">
 										<column hflex="1" label="Canal" style="text-wrap: normal;"
-											width="10%" sort="auto(vm.estadisticoDTO.estadisticoVO.nombreCanal)"></column>
+											width="10%" sort="auto(nombreCanal)"></column>
 										<column hflex="1" label="Cliente" width="20%"
-											sort="auto(vm.estadisticoDTO.estadisticoVO.idIdentificador)"></column>
+											sort="auto(idIdentificador)"></column>
 										<column hflex="1" label="Fecha" width="20%"
-											sort="auto(vm.estadisticoDTO.estadisticoVO.fechaStatusProceso)"></column>
+											sort="auto(fechaStatusProceso)"></column>
 										<column hflex="1" label="Producto" width="10%"
-											sort="auto(vm.estadisticoDTO.estadisticoVO.nombreProducto)"></column>
+											sort="auto(nombreProducto)"></column>
 										<column hflex="1" label="Nombre Archivo" width="10%"
-											sort="auto(vm.estadisticoDTO.estadisticoVO.nombreRegArchEntra)"></column>
+											sort="auto(nombreRegArchEntra)"></column>
 										<column hflex="1" label="Operaciones" width="10%"
-											sort="auto(vm.estadisticoDTO.estadisticoVO.numeroOperacione)"></column>								
+											sort="auto(numeroOperacione)"></column>								
 									</columns>	
 									<template name="model">
 										<row>

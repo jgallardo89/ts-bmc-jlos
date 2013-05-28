@@ -117,25 +117,25 @@
 										<column hflex="1" label="Canal" style="text-wrap: normal;"
 											width="10%" sort="auto(vm.monitoreoProcesosDTO.monitoreoProcesosVO.nombreCanal)"></column>
 										<column hflex="1" label="Cliente" width="20%"
-											sort="auto(vm.monitoreoProcesosDTO.monitoreoProcesosVO.idIdentificador)"></column>
+											sort="auto(idIdentificador)"></column>
 										<column hflex="1" label="Producto" width="10%"
-											sort="auto(vm.estadisticoDTO.estadisticoVO.nombreProducto)"></column>
+											sort="auto(nombreProducto)"></column>
 										<column hflex="1" label="Estatus" width="10%"
-											sort="auto(vm.monitoreoProcesosDTO.monitoreoProcesosVO.nombreEstatusMapeador)"></column>	
+											sort="auto(nombreEstatusMapeador)"></column>	
 										<column hflex="1" label="Fecha Lote" width="20%"
-											sort="auto(vm.monitoreoProcesosDTO.monitoreoProcesosVO.fechaLote)"></column>
+											sort="auto(fechaLote)"></column>
 										<column hflex="1" label="Lote" width="10%"
-											sort="auto(vm.monitoreoProcesosDTO.monitoreoProcesosVO.numeroLote)"></column>
+											sort="auto(numeroLote)"></column>
 										<column hflex="1" label="Etapa" width="10%"
-											sort="auto(vm.monitoreoProcesosDTO.monitoreoProcesosVO.nombreEtapa)"></column>		
+											sort="auto(nombreEtapa)"></column>		
 										<column hflex="1" label="Nombre Archivo" width="10%"
-											sort="auto(vm.monitoreoProcesosDTO.monitoreoProcesosVO.nombreRegArchEntra)"></column>
+											sort="auto(nombreRegArchEntra)"></column>
 										<column hflex="1" label="Fecha Inicio" width="10%"
-											sort="auto(vm.monitoreoProcesosDTO.monitoreoProcesosVO.fechaStatusProceso)"></column>
+											sort="auto(fechaStatusProceso)"></column>
 										<column hflex="1" label="Hora inicio" width="10%"
-											sort="auto(vm.monitoreoProcesosDTO.monitoreoProcesosVO.horaProcesoIni)"></column>
+											sort="auto(horaProcesoIni)"></column>
 										<column hflex="1" label="Hora fin" width="10%"
-											sort="auto(vm.monitoreoProcesosDTO.monitoreoProcesosVO.horaProcesoFin)"></column>
+											sort="auto(horaProcesoFin)"></column>
 										<column hflex="0" align="center" label="Detalle" width="5%"></column>							
 									</columns>	
 									<template name="model">
