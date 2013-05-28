@@ -377,5 +377,10 @@ public class BitacioraArchivoController extends ControllerSupport implements  IC
 	public void setReport(Jasperreport report) {
 		this.report = report;
 	}
+	@Override
+	public boolean applyPermision() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 
 }
