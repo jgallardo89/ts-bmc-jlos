@@ -10,7 +10,7 @@
 		<include src="../../pages/styles.zul" />
 		<div sclass="BODY" height="100%" width="100%">
 			<groupbox height="100%">
-				<caption sclass="pageTitle" label="Sistema > Catálogos > Catálogo de Mensajes"></caption>		
+				<caption sclass="pageTitle" label="Sistema > Catálogos > Catálogo de Mensajes de Notificación"></caption>		
 					<portallayout maximizedMode="whole" id="portalLayoutFlujos"
 					width="100%" height="100%">
 					<portalchildren>
@@ -32,7 +32,7 @@
 												<div align="right">
 													<label width="100%" sclass="labelFill" value="Identificador de Mensaje:  "></label>
 												</div>
-												<textbox sclass="textboxUpperCase" maxlength="50"
+												<textbox sclass="textboxUpperCase" maxlength="50" disabled="@load(vm.flagMensaje)"
 													id="nombreMensajeSalida" value="@load(vm.mensajeSalidaDTO.mensajeSalidaVO.nombreMensajeSalida)" width="98%"></textbox>
 												<div align="right">
 													<label width="100%" sclass="labelFill" value="Status:"></label>												
@@ -49,7 +49,7 @@
 													<label width="100%" sclass="labelFill" value="Texto del Mensaje:  "></label>
 												</div>
 												<cell colspan="3">
-													<textbox sclass="textboxUpperCase" id="descripcionMensajeSalida" rows="6" value="@load(vm.mensajeSalidaDTO.mensajeSalidaVO.descripcionMensajeSalida)" width="100%" tabindex="11" />
+													<textbox sclass="textboxUpperCase"  maxlength="300" id="descripcionMensajeSalida" rows="6" value="@load(vm.mensajeSalidaDTO.mensajeSalidaVO.descripcionMensajeSalida)" width="100%" tabindex="11" />
 												</cell>																							
 											</row>
 											<row sclass="row2">
@@ -83,14 +83,13 @@
 							</panelchildren>										
 						</panel>
 					</portalchildren>
-					<portalchildren width="100%" style="padding: 5px">
-						<panel height="56%" sclass="sectionPanelTitle" width="100%" id="panelFlujoMapeador"
-							title="Resultados Flujos Mapeador" collapsible="true"
+					<portalchildren width="100%"  height="80%"  style="padding: 5px">
+						<panel height="68%" sclass="sectionPanelTitle" width="100%" id="panelFlujoMapeador"
+							title="Resultados de Mensajes de Notificación" collapsible="true"
 							style="margin-bottom:10px">
-							<caption sclass="sectionPanelTitle" label="Lista de Flujos"></caption>
 							<panelchildren>
 								<grid width="99.7%" id="mensajesGrid" mold="paging"
-									model="@load(vm.mensajeSalidaVOs)" pagingPosition="both" pageSize="7"
+									model="@load(vm.mensajeSalidaVOs)" pagingPosition="both" pageSize="12"
 									vflex="true" height="100%">									
 									<columns sizable="true" menupopup="auto">
 										<column hflex="0" align="center" image="/img/pencil-small.png" 

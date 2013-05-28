@@ -32,12 +32,12 @@
 												<div align="right">
 													<label width="100%" sclass="labelFill" value="Indicador del Flujo:  "></label>
 												</div>
-												<textbox sclass="textboxUpperCase" maxlength="50"
-													id="nombreFlujo" value="@load(vm.flujoDTO.flujoVO.nombreFlujo)" width="100%"></textbox>
+												<textbox sclass="textboxUpperCase" maxlength="50" 
+													id="nombreFlujo" value="@load(vm.flujoDTO.flujoVO.nombreFlujo)" width="100%" disabled="@load(!vm.flagBtnGuardar)"></textbox>
 												<div align="right">
 													<label width="100%" sclass="labelFill" value="Descripcion flujo: "></label>
 												</div>
-												<textbox sclass="textboxUpperCase" maxlength="50"
+												<textbox sclass="textboxUpperCase" maxlength="300"
 													id="descripcionFlujo" value="@load(vm.flujoDTO.flujoVO.descripcionFlujo)" width="100%"></textbox> 																													
 											</row>
 											<row sclass="row2">
@@ -70,7 +70,7 @@
 													<button sclass="button" image="/img/clear.png" label="Limpiar" id="limpiarBtn" onClick="@command('clean')" ></button>
 												</div>	
 												<div align="right" width="82%">
-													<button sclass="button" image="/img/disk.png" label="Guardar" id="guardarBtn" disabled="@load(vm.flagBtnGuardar)" onClick="@command('save')"></button>
+													<button sclass="button" image="/img/disk.png" label="Guardar" id="guardarBtn" onClick="@command('save')"></button>
 												</div>
 												<div align="right" width="82%">
 													<button sclass="button" image="/img/search.png" label="Consultar" id="consultarBtn" onClick="@command('readWithFilters')"></button>

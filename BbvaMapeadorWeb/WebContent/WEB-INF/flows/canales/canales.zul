@@ -10,7 +10,7 @@
 		<include src="../../pages/styles.zul" />
 		<div sclass="BODY" height="100%" width="100%">
 			<groupbox height="100%">
-				<caption sclass="pageTitle" label="Sistema > Catálogos > Catálogo de Canales"></caption>		
+				<caption sclass="pageTitle" label="Sistema > Catálogos > Catálogo Canal"></caption>		
 					<portallayout maximizedMode="whole" id="portalLayoutEstatusObjeto"
 					width="100%" height="100%">
 					<portalchildren>
@@ -34,7 +34,7 @@
 												<div align="right">
 													<label width="100%" sclass="labelFill" value="Clave: "></label>
 												</div>
-												<textbox sclass="textboxUpperCase" maxlength="5"
+												<textbox sclass="textboxUpperCase" maxlength="5" disabled="true"
 													id="nombreCanal" value="@load(vm.canalDTO.canalVO.nombreCanal)" width="98%"></textbox>
 												<div align="right">
 													<label width="100%" sclass="labelFill" value="Fecha y Hora de Alta:"></label>												
@@ -66,7 +66,7 @@
 													<button sclass="button" image="/img/clear.png"  label="Limpiar" id="limpiarBtn" onClick="@command('clean')" ></button>
 												</div>	
 												<div align="right" width="70%">
-													<button sclass="button" image="/img/disk.png" label="Guardar" id="guardarBtn" onClick="@command('save')"></button>
+													<button sclass="button" disabled="@load(vm.btnGuardar)" image="/img/disk.png" label="Guardar" id="guardarBtn" onClick="@command('save')"></button>
 												</div>
 												<div align="right" width="70%">
 													<button sclass="button" image="/img/search.png" label="Consultar" id="consultarBtn" onClick="@command('readWithFilters')"></button>
@@ -85,7 +85,7 @@
 							<caption sclass="sectionPanelTitle" label="Lista de Canales"></caption>
 							<panelchildren>
 								<grid width="99.7%" id="clientesGrid" mold="paging"
-									model="@load(vm.canalesVOs)" pagingPosition="both" pageSize="11"
+									model="@load(vm.canalesVOs)" pagingPosition="both" pageSize="12"
 									vflex="true" height="100%">									
 									<columns sizable="true" menupopup="auto">
 										<column hflex="0" align="center" image="/img/pencil-small.png" 
