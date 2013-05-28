@@ -1,15 +1,19 @@
 package mx.com.bbva.mt101.ui.commons.viewmodel.contratacion;
 
+import java.lang.reflect.Field;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import mx.com.bbva.bancomer.bitacora.dto.BitacoraDTO;
+import mx.com.bbva.bancomer.bitacora.dto.CampoDTO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.CanalVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.ClienteVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.ContratacionMapVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.ContratacionVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.EstatusObjetoVO;
+import mx.com.bbva.bancomer.bussinnes.model.vo.MensajeSalidaVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.PalabraComodinVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.ProductoVO;
 import mx.com.bbva.bancomer.canal.dto.BeanGenerico;
@@ -162,6 +166,20 @@ public class ContratacionController extends ControllerSupport implements IContro
 		ContratacionBO contratacionBO = new ContratacionBO();
 		contratacionVOs = contratacionBO.readCommand(contratacionDTO).getContratacionVOs();
 		botonEditar = true;
+		registraBitacora(contratacionVO, 2);
+	}
+	
+	private void registraBitacora(ContratacionVO contratacionVO, int evento) {
+		List<CampoDTO> campoDTOs = new ArrayList<CampoDTO>(); 
+		BitacoraDTO dto = new BitacoraDTO();
+		Field[] atributos = contratacionVO.getClass().getFields(); 
+		for (int i = 0; i < atributos.length; i++) {
+			CampoDTO campo = new CampoDTO();
+			campo.setNombre_campo(atributos[i].getName()); 
+			campoDTOs.add(campo);
+		}		
+		dto.setCampoDTOs(campoDTOs);
+		registraEvento(dto, "Contratación", evento);
 	}
 
 	@Override

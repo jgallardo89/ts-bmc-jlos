@@ -1,9 +1,7 @@
 package mx.com.bbva.mt101.ui.commons.viewmodel.canales;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import mx.com.bbva.bancomer.bussinnes.model.vo.CanalVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.EstatusObjetoVO;
@@ -18,8 +16,6 @@ import mx.com.bbva.bancomer.utils.StringUtil;
 import mx.com.bbva.mapeador.ui.commons.controller.IController;
 import mx.com.bbva.mapeador.ui.commons.viewmodel.support.ControllerSupport;
 import mx.com.bbva.mt101.ui.commons.viewmodel.reportes.ReportesController;
-import net.sf.jasperreports.engine.JRDataSource;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.BindingParam;
@@ -60,9 +56,11 @@ public class CanalesController extends ControllerSupport implements IController 
 	@Wire
 	private Jasperreport report;
 	
+	private boolean btnGuardar;
 	private CanalDTO canalDTO;
 	private String strIdCanal;
 	private List<CanalVO> canalesVOs;
+	private CanalVO canalesVO;
 	
 	/**
 	 * Constructor de CanalesController
@@ -70,6 +68,7 @@ public class CanalesController extends ControllerSupport implements IController 
 	public CanalesController() {
 		this.read();
 		this.canalesVOs = canalDTO.getCanalVOs();
+		btnGuardar = true;
 	}
 	
 	@Override
@@ -77,9 +76,9 @@ public class CanalesController extends ControllerSupport implements IController 
 		canalDTO = new CanalDTO();
 		EstatusObjetoBO estatusObjetoBO = new EstatusObjetoBO();
 		EstatusObjetoDTO estatusObjetoDTO = new EstatusObjetoDTO();
-	    estatusObjetoDTO.setCommandId(CommandConstants.ESTATUS_OBJETO);
+	    //estatusObjetoDTO.setCommandId(CommandConstants.ESTATUS_OBJETO);
 	    EstatusObjetoVO estatusObjetoVO = new EstatusObjetoVO();
-	    estatusObjetoVO.setNombreTabla("CANALES");
+	    //estatusObjetoVO.setNombreTabla("CANALES");
 	    estatusObjetoDTO.setEstatusObjetoVO(estatusObjetoVO);
 	    estatusObjetoDTO = estatusObjetoBO.readCommand(estatusObjetoDTO);
 	    canalDTO.setEstatusObjetoVOs(estatusObjetoDTO.getEstatusObjetoVOs());
@@ -93,6 +92,7 @@ public class CanalesController extends ControllerSupport implements IController 
 	@Command
 	@NotifyChange({ "canalesVOs" })
 	public void readWithFilters() {
+		ReportesController controller = new ReportesController();
 		CanalDTO canalDTO = new CanalDTO();
 		CanalVO canalVO = new CanalVO();
 		canalVO.setNombreCanal(StringUtil.validaLike(nombreCanal.getValue()));
@@ -102,13 +102,16 @@ public class CanalesController extends ControllerSupport implements IController 
 		canalDTO.setCanalVO(canalVO);
 		CanalBO canalBO = new CanalBO();
 		canalesVOs = canalBO.readCommand(canalDTO).getCanalVOs();
+		
+		controller.registrarEvento(canalVO, canalVO, CommandConstants.CONSULTAR, "Catálogo Canal");
 	}
 	
 	@Override
 	@Command
-	@NotifyChange({ "canalesVOs" })
+	@NotifyChange({ "canalesVOs", "btnGuardar" })
 	public void save() {
 		CanalBO canalBO = new CanalBO();
+		ReportesController controller = new ReportesController();
 		boolean errorGuardar = false;
 		if (statusObjeto.getSelectedItem() == null
 				|| statusObjeto.getSelectedItem().getValue() == null
@@ -147,54 +150,57 @@ public class CanalesController extends ControllerSupport implements IController 
 			} else {
 				CanalDTO canalDTO = new CanalDTO();
 				CanalVO canalVO = new CanalVO();
-				canalVO.setNombreCanal(nombreCanal.getValue().toUpperCase());
-				canalVO.setDescripcionCanal(descripcionCanal.getValue().toUpperCase());
+				canalVO.setNombreCanal(nombreCanal.getValue().toUpperCase().toUpperCase());
+				canalVO.setDescripcionCanal(descripcionCanal.getValue().toUpperCase().toUpperCase());
 				canalVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue()));
 				canalVO.setIdCanal(Integer.parseInt(idCanal.getValue()));
 				canalDTO.setCanalVO(canalVO);
 				canalBO.updateCommand(canalDTO);
 				canalDTO.toString(BbvaAbstractDataTransferObject.XML);
 				clean();
+				
+				controller.registrarEvento(canalVO, canalesVO, CommandConstants.MODIFICACION, "Catálogo Canal");
+				
 				canalVO.setNombreCanal(StringUtil.validaLike(nombreCanal.getValue()));
 				canalVO.setDescripcionCanal(StringUtil.validaLike(descripcionCanal.getValue()));
 				canalVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue().isEmpty()?"0":idEstatusObjeto.getValue()));
 				canalVO.toString();
 				canalDTO.setCanalVO(canalVO);
 				canalesVOs = canalBO.readCommand(canalDTO).getCanalVOs();
+				btnGuardar = true;
+				//registraBitacora(canalVO,4);
 			}
 		}
 	}
 	
 	@Override
 	@Command
+	@NotifyChange({"btnGuardar" })
 	public void clean() {
 		nombreCanal.clearErrorMessage();
 		descripcionCanal.clearErrorMessage();
-		//rutaCanalEntrada.clearErrorMessage();
-		//rutaCanalSalida.clearErrorMessage();
 		statusObjeto.clearErrorMessage();
 		
 		nombreCanal.setValue(null);
 		descripcionCanal.setValue(null);
-		//rutaCanalEntrada.setValue(null);
-		//rutaCanalSalida.setValue(null);
 		statusObjeto.setValue(null);
 		
 		idCanal.setValue(null);
 		idEstatusObjeto.setValue(null);
+		btnGuardar = true;
 	}
 	
 	@Command
+	@NotifyChange({"btnGuardar"})
 	public void readSelected(@BindingParam("idCanal") final CanalVO canalVO){
+		canalesVO = canalVO;
 		canalVO.toString();
 		nombreCanal.setValue(canalVO.getNombreCanal());
 		descripcionCanal.setValue(canalVO.getDescripcionCanal());
-		//rutaCanalEntrada.setValue(canalVO.getRutaCanalEntrada());
-		//rutaCanalSalida.setValue(canalVO.getRutaCanalSalida());
 		statusObjeto.setValue(canalVO.getNombreEstatusObjeto());
 		idCanal.setValue(Integer.toString(canalVO.getIdCanal()));
-		//idCanal.setValue(Integer.toString(canalVO.getIdCanal()));
 		idEstatusObjeto.setValue(Integer.toString(canalVO.getIdEstatusObjeto()));
+		btnGuardar = false;
 	}
 	
 	@Override
@@ -265,6 +271,12 @@ public class CanalesController extends ControllerSupport implements IController 
 		headersReport.add("Descripción canal");
 		headersReport.add("Fecha y Hora alta");
 		headersReport.add("Status");
+		if(type.equals("xls")) {
+			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_EXCEL,"Catálogo Canal");
+		} else {
+			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_TEXTO,"Catálogo Canal");
+		}
+		
 		controller.createReport(generaLista(), headersReport, titleReport, report, type);
 	}	
 	
@@ -281,4 +293,33 @@ public class CanalesController extends ControllerSupport implements IController 
 		}
 		return beanGenericos;
 	}
+	
+	/**
+	 * @return the btnGuardar
+	 */
+	public boolean isBtnGuardar() {
+		return btnGuardar;
+	}
+
+	/**
+	 * @param btnGuardar the btnGuardar to set
+	 */
+	public void setBtnGuardar(boolean btnGuardar) {
+		this.btnGuardar = btnGuardar;
+	}
+
+	/**
+	 * @return the canalesVO
+	 */
+	public CanalVO getCanalesVO() {
+		return canalesVO;
+	}
+
+	/**
+	 * @param canalesVO the canalesVO to set
+	 */
+	public void setCanalesVO(CanalVO canalesVO) {
+		this.canalesVO = canalesVO;
+	}
+	
 }

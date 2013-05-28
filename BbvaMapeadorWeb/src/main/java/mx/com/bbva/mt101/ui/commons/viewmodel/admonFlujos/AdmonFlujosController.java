@@ -1,9 +1,6 @@
 package mx.com.bbva.mt101.ui.commons.viewmodel.admonFlujos;
 
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Field;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -28,20 +25,16 @@ import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
 
-import mx.com.bbva.bancomer.bussinnes.model.vo.EstatusObjetoVO;
-import com.wutka.jox.JOXBeanInputStream;
-
 import mx.com.bbva.bancomer.bitacora.dto.BitacoraDTO;
 import mx.com.bbva.bancomer.bitacora.dto.CampoDTO;
-import mx.com.bbva.bancomer.bussinnes.model.vo.BitacoraVO;
-import mx.com.bbva.bancomer.bussinnes.model.vo.CanalVO;
+import mx.com.bbva.bancomer.bussinnes.model.vo.ClienteVO;
+import mx.com.bbva.bancomer.bussinnes.model.vo.EstatusObjetoVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.FlujoVO;
 import mx.com.bbva.bancomer.canal.dto.BeanGenerico;
 import mx.com.bbva.bancomer.commons.command.CommandConstants;
 import mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject;
 import mx.com.bbva.bancomer.estatusobjeto.dto.EstatusObjetoDTO;
 import mx.com.bbva.bancomer.flujo.dto.FlujoDTO;
-import mx.com.bbva.bancomer.mapper.business.BitacoraBO;
 import mx.com.bbva.bancomer.mapper.business.FlujoBO;
 import mx.com.bbva.bancomer.mapper.business.EstatusObjetoBO;
 import mx.com.bbva.bancomer.utils.StringUtil;
@@ -73,6 +66,7 @@ public class AdmonFlujosController extends ControllerSupport implements IControl
 	private boolean flagBtnGuardar;
 	private FlujoDTO flujoDTO;
 	private List<FlujoVO> flujoVOs;
+	private FlujoVO flujoVO;
 	
 	public AdmonFlujosController() {
 		this.read();
@@ -101,6 +95,7 @@ public class AdmonFlujosController extends ControllerSupport implements IControl
 	@Command
 	@NotifyChange({ "flujoVOs" })
 	public void readWithFilters() {
+		ReportesController controller = new ReportesController();
 		FlujoDTO flujoDTO = new FlujoDTO();
 		FlujoVO flujoVO = new FlujoVO();
 		flujoVO.setNombreFlujo(StringUtil.validaLike(nombreFlujo.getValue()));
@@ -110,7 +105,9 @@ public class AdmonFlujosController extends ControllerSupport implements IControl
 		flujoDTO.setFlujoVO(flujoVO);
 		FlujoBO FlujoBO = new FlujoBO();
 		flujoVOs = FlujoBO.readCommand(flujoDTO).getFlujoVOs();
+		controller.registrarEvento(null, null, CommandConstants.CONSULTAR, "Catálogo Flujos");
 	}
+	
 	
 	@Override
 	public Object read(Object t) {
@@ -122,14 +119,9 @@ public class AdmonFlujosController extends ControllerSupport implements IControl
 	@Command
 	@NotifyChange({ "flujoVOs","flagBtnGuardar" })
 	public void save() {
+		ReportesController controller = new ReportesController();
 		FlujoBO flujoBO = new FlujoBO();
 		boolean errorGuardar = false;
-		if (statusObjeto.getSelectedItem() == null
-				|| statusObjeto.getSelectedItem().getValue() == null
-				|| statusObjeto.getSelectedItem().getValue().toString().isEmpty()) {
-			statusObjeto.setErrorMessage("Favor de seleccionar el Estatus");
-			errorGuardar = true;
-		}
 		if (nombreFlujo.getValue().isEmpty()) {
 			nombreFlujo
 					.setErrorMessage("Favor de introducir el nombre del Flujo");
@@ -150,6 +142,7 @@ public class AdmonFlujosController extends ControllerSupport implements IControl
 			flujoDTO.setFlujoVO(flujoVO);
 			flujoBO.updateCommand(flujoDTO);
 			FlujoDTO.toString(BbvaAbstractDataTransferObject.XML);
+			controller.registrarEvento(flujoVO, this.flujoVO, CommandConstants.MODIFICACION, "Catálogo Flujos");
 			clean();
 			flujoVO.setNombreFlujo(StringUtil.validaLike(nombreFlujo.getValue()));
 			flujoVO.setDescripcionFlujo(StringUtil.validaLike(descripcionFlujo.getValue()));
@@ -186,6 +179,7 @@ public class AdmonFlujosController extends ControllerSupport implements IControl
 	@Command
 	@NotifyChange({"flagBtnGuardar"})
 	public void readSelected(@BindingParam("idFlujo") final FlujoVO flujoVO){
+		this.flujoVO = flujoVO;
 		flujoVO.toString();
 		nombreFlujo.setValue(flujoVO.getNombreFlujo());
 		descripcionFlujo.setValue(flujoVO.getDescripcionFlujo());
@@ -232,6 +226,11 @@ public class AdmonFlujosController extends ControllerSupport implements IControl
 		headersReport.add("Etapas del Flujo");
 		headersReport.add("Estatus");
 		headersReport.add("Diagrama");
+		if(type.equals("xls")) {
+			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_EXCEL,"Catálogo Clientes");
+		} else {
+			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_TEXTO,"Catálogo Clientes");
+		}
 		controller.createReport(generaLista(), headersReport, titleReport, report, type);
 	}	
 	
@@ -294,6 +293,20 @@ public class AdmonFlujosController extends ControllerSupport implements IControl
 	 */
 	public void setFlujoVOs(List<FlujoVO> flujoVOs) {
 		this.flujoVOs = flujoVOs;
+	}
+
+	/**
+	 * @return the flujoVO
+	 */
+	public FlujoVO getFlujoVO() {
+		return flujoVO;
+	}
+
+	/**
+	 * @param flujoVO the flujoVO to set
+	 */
+	public void setFlujoVO(FlujoVO flujoVO) {
+		this.flujoVO = flujoVO;
 	}
 
 }

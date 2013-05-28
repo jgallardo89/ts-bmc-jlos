@@ -126,8 +126,10 @@ public class BitacoraWebController extends ControllerSupport implements IControl
 			is = new ByteArrayInputStream(xml.getBytes("UTF-8"));
 			JOXBeanInputStream joxIn = new JOXBeanInputStream(is);
 			bitacoraDTO = (BitacoraDTO) joxIn.readObject(BitacoraDTO.class);
-			for (CampoDTO campo:bitacoraDTO.getCampo()) {
-				campoDTOs.add(campo);
+			if(bitacoraDTO.getCampo()!=null) {
+				for (CampoDTO campo:bitacoraDTO.getCampo()) {
+					campoDTOs.add(campo);
+				}
 			}
 			bitacoraDTO.setCampoDTOs(campoDTOs);
 			joxIn.close();			
