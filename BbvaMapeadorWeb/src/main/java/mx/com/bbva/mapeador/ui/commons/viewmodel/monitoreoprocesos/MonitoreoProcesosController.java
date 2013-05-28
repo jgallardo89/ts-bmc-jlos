@@ -1,5 +1,8 @@
 package mx.com.bbva.mapeador.ui.commons.viewmodel.monitoreoprocesos;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -7,6 +10,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import mx.com.bbva.bancomer.bitacora.dto.BitacoraDTO;
+import mx.com.bbva.bancomer.bitacora.dto.CampoDTO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.CanalVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.ClienteVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.EstatusObjetoVO;
@@ -120,6 +125,8 @@ public class MonitoreoProcesosController extends ControllerSupport implements  I
 	
 	private String strIdProducto;
 	
+	private MonitoreoProcesosVO monitoreoProcesosVO;
+	
 	@Override
 	@GlobalCommand
 	public Object read() {
@@ -203,6 +210,7 @@ public class MonitoreoProcesosController extends ControllerSupport implements  I
 				
 			}
 		}
+		registrarEvento(monitoreoProcesosVO, monitoreoProcesosVO, 2);
 		return monitoreoProcesosDTO;
 	}
 	
@@ -262,11 +270,12 @@ public class MonitoreoProcesosController extends ControllerSupport implements  I
 		}
 		//Asignacion de la lista a la variable global de la clase
 		monitoreoProcesosVOs = monitoreoProcesosDTO.getMonitoreoProcesosVOs();
-		
+		registrarEvento(monitoreoProcesosVO, monitoreoProcesosVO, 2);
 	}
 	
 	@Command 
 	public void readEventDetail(@BindingParam("idContratacion") final MonitoreoProcesosVO monitoreoProcesosVO) {
+		setMonitoreoProcesosVO(monitoreoProcesosVO);
 		Map<String, Object> mapDatos = new HashMap<String, Object>();
 		mapDatos.put("monitoreoProcesosVO", monitoreoProcesosVO); 
 		Window window = (Window) Executions.createComponents(
@@ -287,6 +296,7 @@ public class MonitoreoProcesosController extends ControllerSupport implements  I
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 	@Override
 	@Command
 	@NotifyChange({ "monitoreoProcesosVOs"})
@@ -300,9 +310,11 @@ public class MonitoreoProcesosController extends ControllerSupport implements  I
 		monitoreoProcesosDTO.setMonitoreoProcesosVO(monitoreoProcesosVO);
 		//Asignacion resultado de consulta al mismo DTO de MonitoreoProcesos
 		monitoreoProcesosDTO = monitoreoProcesosBO.updateCommand(monitoreoProcesosDTO);
+		registrarEvento(monitoreoProcesosVO, monitoreoProcesosVO, 4);
 		Messagebox.show("Registro actualizado con exito!!",
 				"Confirmación", Messagebox.OK,
-				Messagebox.INFORMATION); 
+				Messagebox.INFORMATION);
+		
 		
 	}
 	@Override
@@ -369,6 +381,58 @@ public class MonitoreoProcesosController extends ControllerSupport implements  I
 			beanGenericos.add(beanGenerico);
 		}
 		return beanGenericos;
+	}
+	
+	private void registrarEvento(MonitoreoProcesosVO nuevo, MonitoreoProcesosVO anterior, int idEvento){
+		List<CampoDTO> campoDTOs = new ArrayList<CampoDTO>(); 
+		BitacoraDTO dto = new BitacoraDTO(); 
+		Field[] fieldsNuevo = nuevo.getClass().getDeclaredFields(); 
+		Field[] fieldsAnterior = anterior.getClass().getDeclaredFields(); 
+		try {
+			for(Field f : fieldsNuevo){
+				String field = f.getName(); 
+				if (!field.equals("serialVersionUID")){
+					CampoDTO campo = new CampoDTO(); 
+					campo.setNombre_campo(field); 
+					Method getter;
+					getter = nuevo.getClass().getMethod("get" + String.valueOf(field.charAt(0)).toUpperCase() +
+							field.substring(1)); 
+			        Object value = getter.invoke(nuevo, new Object[0]);
+			        campo.setValor_nuevo((value != null && (!value.toString().equals("%") && !value.toString().equals("0")))? value.toString() : null);
+			        for(Field f1 : fieldsAnterior){ 
+							String field1 = f1.getName(); 
+							if (!field1.equals("serialVersionUID")){ 
+								 if(field.equals(field1)){
+									Method getter1;
+									getter1 = anterior.getClass().getMethod("get" + String.valueOf(field.charAt(0)).toUpperCase() +
+											field.substring(1)); 
+							        Object value1 = getter1.invoke(anterior, new Object[0]);
+							        campo.setValor_anterior((value1 != null && (!value1.toString().equals("%") && !value1.toString().equals("0")))? value1.toString() : null);
+								 }
+						     }
+					}
+			        campoDTOs.add(campo); 
+			     }
+			}
+		} catch (SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NoSuchMethodException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+		dto.setCampoDTOs(campoDTOs);
+		super.registraEvento(dto, "Catálogo de Mapa", idEvento);
+		
 	}
 	/**
 	 * @return the criterio
@@ -750,6 +814,20 @@ public class MonitoreoProcesosController extends ControllerSupport implements  I
 	 */
 	public void setReport(Jasperreport report) {
 		this.report = report;
+	}
+
+	/**
+	 * @return the monitoreoProcesosVO
+	 */
+	public MonitoreoProcesosVO getMonitoreoProcesosVO() {
+		return monitoreoProcesosVO;
+	}
+
+	/**
+	 * @param monitoreoProcesosVO the monitoreoProcesosVO to set
+	 */
+	public void setMonitoreoProcesosVO(MonitoreoProcesosVO monitoreoProcesosVO) {
+		this.monitoreoProcesosVO = monitoreoProcesosVO;
 	}
 
 }

@@ -1,10 +1,15 @@
 package mx.com.bbva.mapeador.ui.commons.viewmodel.bitacioraarchivo;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import mx.com.bbva.bancomer.bitacora.dto.BitacoraDTO;
+import mx.com.bbva.bancomer.bitacora.dto.CampoDTO;
 import mx.com.bbva.bancomer.bitacoraarchivo.dto.BitacoraArchivoDTO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.BitacoraArchivoVO;
 import mx.com.bbva.bancomer.canal.dto.BeanGenerico;
@@ -67,6 +72,7 @@ public class BitacioraArchivoController extends ControllerSupport implements  IC
 	@Override
 	public Object read() {
 		BitacoraArchivoDTO bitacoraArchivoDTO = new BitacoraArchivoDTO();
+		BitacoraArchivoVO bitacoraArchivoVO= new BitacoraArchivoVO();
 		EventoMapeadorDTO eventoMapeadorDTO = new EventoMapeadorDTO();
 		EventoMapeadorBO eventoMapeadorBO = new EventoMapeadorBO();
 		eventoMapeadorDTO.setCommandId(2);
@@ -74,7 +80,7 @@ public class BitacioraArchivoController extends ControllerSupport implements  IC
 		bitacoraArchivoDTO.setEventoMapeadorVOs(eventoMapeadorDTO.getEventoMapeadorVOs());
 		BitacoraArchivoBO bitacoraArchivoBO = new BitacoraArchivoBO();
 		bitacoraArchivoDTO = bitacoraArchivoBO.readCommand(bitacoraArchivoDTO);
-
+		registrarEvento(bitacoraArchivoVO, bitacoraArchivoVO, 2);
 		return bitacoraArchivoDTO;
 	}
 	@AfterCompose
@@ -98,6 +104,7 @@ public class BitacioraArchivoController extends ControllerSupport implements  IC
 		bitacoraArchivoDTO.setBitacoraArchivoVO(bitacoraArchivoVO);
 		BitacoraArchivoBO bitacoraArchivoBO = new BitacoraArchivoBO();
 		bitacoraArchivoVOs = bitacoraArchivoBO.readCommand(bitacoraArchivoDTO).getBitacoraArchivoVOs();
+		registrarEvento(bitacoraArchivoVO, bitacoraArchivoVO, 2);
 	}
 	
 	@Override
@@ -130,6 +137,57 @@ public class BitacioraArchivoController extends ControllerSupport implements  IC
 			beanGenericos.add(beanGenerico);
 		}
 		return beanGenericos;
+	}
+	private void registrarEvento(BitacoraArchivoVO nuevo, BitacoraArchivoVO anterior, int idEvento){
+		List<CampoDTO> campoDTOs = new ArrayList<CampoDTO>(); 
+		BitacoraDTO dto = new BitacoraDTO(); 
+		Field[] fieldsNuevo = nuevo.getClass().getDeclaredFields(); 
+		Field[] fieldsAnterior = anterior.getClass().getDeclaredFields(); 
+		try {
+			for(Field f : fieldsNuevo){
+				String field = f.getName(); 
+				if (!field.equals("serialVersionUID")){
+					CampoDTO campo = new CampoDTO(); 
+					campo.setNombre_campo(field); 
+					Method getter;
+					getter = nuevo.getClass().getMethod("get" + String.valueOf(field.charAt(0)).toUpperCase() +
+							field.substring(1)); 
+			        Object value = getter.invoke(nuevo, new Object[0]);
+			        campo.setValor_nuevo((value != null && (!value.toString().equals("%") && !value.toString().equals("0")))? value.toString() : null);
+			        for(Field f1 : fieldsAnterior){ 
+							String field1 = f1.getName(); 
+							if (!field1.equals("serialVersionUID")){ 
+								 if(field.equals(field1)){
+									Method getter1;
+									getter1 = anterior.getClass().getMethod("get" + String.valueOf(field.charAt(0)).toUpperCase() +
+											field.substring(1)); 
+							        Object value1 = getter1.invoke(anterior, new Object[0]);
+							        campo.setValor_anterior((value1 != null && (!value1.toString().equals("%") && !value1.toString().equals("0")))? value1.toString() : null);
+								 }
+						     }
+					}
+			        campoDTOs.add(campo); 
+			     }
+			}
+		} catch (SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NoSuchMethodException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+		dto.setCampoDTOs(campoDTOs);
+		super.registraEvento(dto, "Catálogo de Mapa", idEvento);
+		
 	}
 	@Override
 	public Object read(Object t) {

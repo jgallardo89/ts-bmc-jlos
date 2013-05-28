@@ -1,10 +1,15 @@
 package mx.com.bbva.mapeador.ui.commons.viewmodel.estadistico;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import mx.com.bbva.bancomer.bitacora.dto.BitacoraDTO;
+import mx.com.bbva.bancomer.bitacora.dto.CampoDTO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.CanalVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.ClienteVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.EstadisticoVO;
@@ -19,6 +24,7 @@ import mx.com.bbva.bancomer.mapper.business.ClienteBO;
 import mx.com.bbva.bancomer.mapper.business.EstadisticoBO;
 import mx.com.bbva.bancomer.mapper.business.ProductoBO;
 import mx.com.bbva.bancomer.producto.dto.ProductoDTO;
+import mx.com.bbva.mapeador.security.session.user.SessionUser;
 import mx.com.bbva.mapeador.ui.commons.controller.IController;
 import mx.com.bbva.mapeador.ui.commons.viewmodel.support.ControllerSupport;
 import mx.com.bbva.mt101.ui.commons.viewmodel.reportes.ReportesController;
@@ -40,6 +46,15 @@ import org.zkoss.zul.Textbox;
 
 public class EstadisticoController extends ControllerSupport implements  IController{
 	private static final Logger logger = Logger.getLogger(EstadisticoController.class);
+	public SessionUser getSessionUser(){
+		logger.debug( "Entrada getSessionUser          -- OK" );		
+		String cveUsuario = null;
+		logger.debug( "Datos de usuario -- " + cveUsuario);
+		SessionUser sessionUser = new SessionUser();
+		sessionUser.setCveUsuario(cveUsuario);
+		logger.debug( "Salida getSessionUser          -- OK" );
+		return sessionUser;
+	}
 	/**
 	 * 
 	 */
@@ -123,7 +138,7 @@ public class EstadisticoController extends ControllerSupport implements  IContro
 		estadisticoDTO.setCanalVOs(canalDTO.getCanalVOs());
 		estadisticoDTO.setClienteVOs(clienteDTO.getClienteVOs());
 		estadisticoDTO.setProductoVOs(productoDTO.getProductoVOs());
-		 
+		registrarEvento(estadisticoVO, estadisticoVO, 2);
 		return estadisticoDTO;
 	}
 	
@@ -166,7 +181,7 @@ public class EstadisticoController extends ControllerSupport implements  IContro
 		}
 		//Asignacion de la lista a la variable global de la clase
 		estadisticoVOs = estadisticoDTO.getEstadisticoVOs();
-		
+		registrarEvento(estadisticoVO, estadisticoVO, 2);
 	}
 	@Override
 	@Command
@@ -218,6 +233,58 @@ public class EstadisticoController extends ControllerSupport implements  IContro
 			beanGenericos.add(beanGenerico);
 		}
 		return beanGenericos;
+	}
+	
+	private void registrarEvento(EstadisticoVO nuevo, EstadisticoVO anterior, int idEvento){
+		List<CampoDTO> campoDTOs = new ArrayList<CampoDTO>(); 
+		BitacoraDTO dto = new BitacoraDTO(); 
+		Field[] fieldsNuevo = nuevo.getClass().getDeclaredFields(); 
+		Field[] fieldsAnterior = anterior.getClass().getDeclaredFields(); 
+		try {
+			for(Field f : fieldsNuevo){
+				String field = f.getName(); 
+				if (!field.equals("serialVersionUID")){
+					CampoDTO campo = new CampoDTO(); 
+					campo.setNombre_campo(field); 
+					Method getter;
+					getter = nuevo.getClass().getMethod("get" + String.valueOf(field.charAt(0)).toUpperCase() +
+							field.substring(1)); 
+			        Object value = getter.invoke(nuevo, new Object[0]);
+			        campo.setValor_nuevo((value != null && (!value.toString().equals("%") && !value.toString().equals("0")))? value.toString() : null);
+			        for(Field f1 : fieldsAnterior){ 
+							String field1 = f1.getName(); 
+							if (!field1.equals("serialVersionUID")){ 
+								 if(field.equals(field1)){
+									Method getter1;
+									getter1 = anterior.getClass().getMethod("get" + String.valueOf(field.charAt(0)).toUpperCase() +
+											field.substring(1)); 
+							        Object value1 = getter1.invoke(anterior, new Object[0]);
+							        campo.setValor_anterior((value1 != null && (!value1.toString().equals("%") && !value1.toString().equals("0")))? value1.toString() : null);
+								 }
+						     }
+					}
+			        campoDTOs.add(campo); 
+			     }
+			}
+		} catch (SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NoSuchMethodException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+		dto.setCampoDTOs(campoDTOs);
+		super.registraEvento(dto, "Estadístico", idEvento);
+		
 	}
 	@Override
 	public Object read(Object t) {
