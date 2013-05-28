@@ -62,5 +62,32 @@
 			#{descripcionPerfil},
 			#{estatusPerfil}
 		)
-	</insert>		
+	</insert>
+	<select id="obtenerPermisos" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.ControlPermisoVO"
+		resultType="mx.com.bbva.bancomer.bussinnes.model.vo.ControlPermisoVO">	
+			SELECT Componente.Nb_Componente nombreComponente,
+			  Componente.Cd_Default idDefault,
+			  'true' permiso
+			FROM Tgm505_Ctrlpermiso Control,
+			  Tgm503_Usuario Usuario,
+			  Tgm504_Perfil Perfil,
+			  Tgm502_Componente Componente,
+			  Tgm501_Pantalla Pantalla
+			WHERE Control.Cd_Perfil      = Perfil.Cd_Perfil
+			AND Usuario.Cd_Perfil        = Perfil.Cd_Perfil
+			AND Componente.Cd_Componente = Control.Cd_Componente
+			AND Componente.Cd_Pantalla   = Pantalla.Cd_Pantalla
+			AND Perfil.Cd_Perfil         = #{idPerfil}
+			AND Usuario.Cd_Usuario       = #{idUsuario}
+			AND Pantalla.Cd_Pantalla     = #{idPantalla}
+			UNION
+			SELECT Componente.Nb_Componente nombreComponente,
+			  Componente.Cd_Default idDefault,
+			  'true' ermiso
+			FROM Tgm502_Componente Componente,
+			  Tgm501_Pantalla Pantalla
+			Where Componente.Cd_Pantalla = Pantalla.Cd_Pantalla
+			And Pantalla.Cd_Pantalla   = {idPantalla}
+			And Componente.Cd_Default = 'T'	
+</select>
 </mapper>

@@ -11,4 +11,5 @@ public interface MapPerfil {
 	public abstract void eliminarPermisos(ControlPermisoVO controlPermisoVO);
 	public abstract void insertarPermiso(ControlPermisoVO controlPermisoVO);
 	public abstract void insertarPerfil(PerfilVO perfilVO);
+	public abstract List<ControlPermisoVO> obtenerPermisos(ControlPermisoVO controlPermisoVO);	
 }
