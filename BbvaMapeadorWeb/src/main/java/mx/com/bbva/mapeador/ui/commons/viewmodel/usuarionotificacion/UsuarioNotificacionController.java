@@ -447,4 +447,10 @@ public class UsuarioNotificacionController  extends ControllerSupport implements
 		this.strStatus = strStatus;
 	}
 
+	@Override
+	public boolean applyPermision() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }
