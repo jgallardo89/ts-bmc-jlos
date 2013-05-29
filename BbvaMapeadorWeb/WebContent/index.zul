@@ -2,9 +2,9 @@
 <zk>
 	<label value="Usuario"></label>
 	<textbox id="usuario"></textbox>
-	<button id="submit" label="Sumbit" onClick="subitUser()"></button>
+	<button id="submit" label="Sumbit" onClick="submitUser()"></button>
 	<zscript>
-	public void subitUser(){
+	public void submitUser(){
 		System.out.println(usuario.getValue());
 		execution.getSession().setAttribute("iv-user",usuario.getValue().toUpperCase());
 		Iterable  headersNames = execution.getHeaderNames();
@@ -17,4 +17,6 @@
      	}				
     }
 	</zscript>
+	<label value="You are using ZK version: ${desktop.webApp.version}"/>
+	
 </zk>
