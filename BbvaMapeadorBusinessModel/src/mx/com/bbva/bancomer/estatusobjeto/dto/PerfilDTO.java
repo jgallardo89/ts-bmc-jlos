@@ -1,5 +1,6 @@
 package mx.com.bbva.bancomer.estatusobjeto.dto;
 
+import java.util.HashMap;
 import java.util.List;
 
 import mx.com.bbva.bancomer.bussinnes.model.vo.ControlPermisoVO;
@@ -26,7 +27,7 @@ public class PerfilDTO extends BbvaAbstractDataTransferObject {
 	private EstatusObjetoVO estatusObjetoVO;
 	private List<EstatusObjetoVO> estatusObjetoVOs;
 	private ControlPermisoVO controlPermisoVO;
-	private List<ControlPermisoVO> controlPermisoVOs;
+	private HashMap<String, Boolean> controlPermisoVOs;
 	/**
 	 * @return the controlPermisoVO
 	 */
@@ -42,13 +43,13 @@ public class PerfilDTO extends BbvaAbstractDataTransferObject {
 	/**
 	 * @return the controlPermisoVOs
 	 */
-	public final List<ControlPermisoVO> getControlPermisoVOs() {
+	public final HashMap<String, Boolean> getControlPermisoVOs() {
 		return controlPermisoVOs;
 	}
 	/**
 	 * @param controlPermisoVOs the controlPermisoVOs to set
 	 */
-	public final void setControlPermisoVOs(List<ControlPermisoVO> controlPermisoVOs) {
+	public final void setControlPermisoVOs(HashMap<String, Boolean> controlPermisoVOs) {
 		this.controlPermisoVOs = controlPermisoVOs;
 	}
 	/**
