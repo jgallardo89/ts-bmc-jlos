@@ -569,6 +569,12 @@ public class EstadisticoController extends ControllerSupport implements  IContro
 		this.strIdProducto = strIdProducto;
 	}
 
+	@Override
+	public boolean applyPermision() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 	/**
 	 * @return the report
 	 */
@@ -581,10 +587,5 @@ public class EstadisticoController extends ControllerSupport implements  IContro
 	 */
 	public void setReport(Jasperreport report) {
 		this.report = report;
-	}
-	@Override
-	public boolean applyPermision() {
-		// TODO Auto-generated method stub
-		return false;
-	}
+	}	
 }
