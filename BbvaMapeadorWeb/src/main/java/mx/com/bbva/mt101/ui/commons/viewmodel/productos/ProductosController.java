@@ -71,9 +71,9 @@ public class ProductosController extends ControllerSupport implements IControlle
 		productoDTO = new ProductoDTO();
 		ProductoVO productoVO = new ProductoVO();
 		EstatusObjetoDTO estatusObjetoDTO = new EstatusObjetoDTO();
-		//estatusObjetoDTO.setCommandId(CommandConstants.ESTATUS_OBJETO);
+		estatusObjetoDTO.setCommandId(CommandConstants.ESTATUS_OBJETO);
 		EstatusObjetoVO estatusObjetoVO = new EstatusObjetoVO();
-		//estatusObjetoVO.setNombreTabla(CommandConstants.NOMBRE_TABLA_PRODUCTOS);		
+		estatusObjetoVO.setNombreTabla(CommandConstants.NOMBRE_TABLA_PRODUCTOS);		
 		EstatusObjetoBO estatusObjetoBO = new EstatusObjetoBO();
 		estatusObjetoDTO.setEstatusObjetoVO(estatusObjetoVO);
 		estatusObjetoDTO = estatusObjetoBO.readCommand(estatusObjetoDTO);
@@ -145,7 +145,7 @@ public class ProductosController extends ControllerSupport implements IControlle
 				ProductoVO productoVO = new ProductoVO();
 				productoVO.setNombreProducto(nombreProducto.getValue().toUpperCase());
 				productoVO.setDescripcionProducto(descripcionProducto.getValue().toUpperCase());
-				productoVO.setIdEstatusObjeto(CommandConstants.ESTATUS_OBJETO_ACTIVO);
+				productoVO.setIdEstatusObjeto(CommandConstants.ESTATUS_PRODUCTO_ACTIVO);
 				productoVO.setIdFlujo(Integer.parseInt(idFlujo.getValue()));
 				productoDTO.setProductoVO(productoVO);
 				productoBO.createCommand(productoDTO);
@@ -316,6 +316,12 @@ public class ProductosController extends ControllerSupport implements IControlle
 	 */
 	public void setFlujoVOs(List<FlujoVO> flujoVOs) {
 		this.flujoVOs = flujoVOs;
+	}
+
+	@Override
+	public boolean applyPermision() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 	/**
