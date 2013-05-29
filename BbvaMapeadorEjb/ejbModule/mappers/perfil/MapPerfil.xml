@@ -62,11 +62,9 @@
 			#{descripcionPerfil},
 			#{estatusPerfil}
 		)
-	</insert>
-	<select id="obtenerPermisos" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.ControlPermisoVO"
-		resultType="mx.com.bbva.bancomer.bussinnes.model.vo.ControlPermisoVO">	
-			SELECT Componente.Nb_Componente nombreComponente,
-			  Componente.Cd_Default idDefault,
+	</insert>		
+	<select id="obtenerPermisos" resultType="mx.com.bbva.bancomer.bussinnes.model.vo.ControlPermisoVO" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.ControlPermisoVO" >	
+			SELECT Componente.Nb_Componente nombreComponente,			  
 			  'true' permiso
 			FROM Tgm505_Ctrlpermiso Control,
 			  Tgm503_Usuario Usuario,
@@ -81,13 +79,29 @@
 			AND Usuario.Cd_Usuario       = #{idUsuario}
 			AND Pantalla.Cd_Pantalla     = #{idPantalla}
 			UNION
-			SELECT Componente.Nb_Componente nombreComponente,
-			  Componente.Cd_Default idDefault,
-			  'true' ermiso
+			SELECT Componente.Nb_Componente nombreComponente,			  
+			  'true' permiso
 			FROM Tgm502_Componente Componente,
 			  Tgm501_Pantalla Pantalla
 			Where Componente.Cd_Pantalla = Pantalla.Cd_Pantalla
-			And Pantalla.Cd_Pantalla   = {idPantalla}
+			And Pantalla.Cd_Pantalla   = #{idPantalla}
 			And Componente.Cd_Default = 'T'	
-</select>
+			 UNION
+			SELECT Componente.Nb_Componente nombreComponente,			  
+			  'false' permiso
+			FROM Tgm502_Componente Componente,
+			  Tgm501_Pantalla Pantalla
+			Where Componente.Cd_Pantalla = Pantalla.Cd_Pantalla
+			And Pantalla.Cd_Pantalla   = #{idPantalla}
+			And Componente.Cd_Default = 'F'	
+			AND Componente.Cd_Componente NOT IN
+			  (SELECT Control2.Cd_Componente
+			  FROM Tgm505_Ctrlpermiso control2,
+			    Tgm501_Pantalla Pantalla2,
+			    Tgm502_Componente Componente2
+			  WHERE Control2.Cd_Perfil     = #{idPerfil}
+			  AND Componente2.Cd_Componente = Control2.Cd_Componente
+			  AND Componente2.Cd_Pantalla   = Pantalla2.Cd_Pantalla
+			  AND Pantalla2.Cd_Pantalla     = #{idPantalla})
+	</select>
 </mapper>

@@ -1,5 +1,6 @@
 package mappers.perfil;
 
+import java.util.HashMap;
 import java.util.List;
 
 import mx.com.bbva.bancomer.bussinnes.model.vo.ControlPermisoVO;
