@@ -206,7 +206,7 @@ public class PerfilController extends ControllerSupport implements  IController{
 		PerfilDTO perfilDTO = new PerfilDTO();
 		perfilDTO.setCommandId(CommandConstants.ESTATUS_OBJETO);
 		PerfilVO perfilVO = new PerfilVO();
-		perfilVO.setEstatusPerfil(CommandConstants.ESTATUS_PERFIL);
+		perfilVO.setEstatusPerfil(CommandConstants.ESTATUS_PERFIL);			
 		logger.debug("*estatusObjetoVO*");
 		EstatusObjetoDTO estatusObjetoDTO = new EstatusObjetoDTO();
 		estatusObjetoDTO.setCommandId(CommandConstants.ESTATUS_OBJETO);
@@ -230,6 +230,7 @@ public class PerfilController extends ControllerSupport implements  IController{
 		perfilDTO.setEstatusObjetoVOs(estatusObjetoDTO.getEstatusObjetoVOs());
 		perfilDTO.setPantallaVOs(estatusObjetoDTO.getPantallaVOs());		
 		perfilDTO.setPerfilVO(perfilVO);
+		perfilDTO.setCommandId(CommandConstants.PERFIL_COMMAND_READ_ALL);
 		perfilDTO = perfilBO.readCommand(perfilDTO);
 		
 		return perfilDTO;
@@ -389,10 +390,11 @@ public class PerfilController extends ControllerSupport implements  IController{
 		componentePantallaPerfilDTO.setComponenteVO(componenteVO);
 		componenteBO = new ComponenteBO();		
 		componentePantallaPerfilDTO = componenteBO.readCommand(componentePantallaPerfilDTO);
-	}	
+	}
+
 	@Override
 	public boolean applyPermision() {
 		// TODO Auto-generated method stub
 		return false;
-	}
+	}	
 }
