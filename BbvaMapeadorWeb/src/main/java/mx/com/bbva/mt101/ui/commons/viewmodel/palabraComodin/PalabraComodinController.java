@@ -13,7 +13,6 @@ import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
-import org.zkoss.zkex.zul.Jasperreport;
 import org.zkoss.zul.Textbox;
 
 import mx.com.bbva.bancomer.bitacora.dto.BitacoraDTO;
@@ -40,9 +39,7 @@ public class PalabraComodinController extends ControllerSupport implements ICont
 	@Wire
 	private Textbox nombrePalabraComodin;
 	@Wire
-	private Textbox descripcionPalabraComodin;
-	@Wire
-	private Jasperreport report;
+	private Textbox descripcionPalabraComodin;	
 	
 	private PalabraComodinDTO palabraComodinDTO;
 	private List<PalabraComodinVO> comodinVOs;
@@ -119,8 +116,7 @@ public class PalabraComodinController extends ControllerSupport implements ICont
 			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_EXCEL,"Catálogo Palabra Comodín");
 		} else {
 			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_TEXTO,"Catálogo Palabra Comodín");
-		}
-		controller.createReport(generaLista(), headersReport, titleReport, report, type);
+		}		
 	}	
 	
 	private ArrayList<BeanGenerico> generaLista() {

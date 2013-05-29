@@ -85,7 +85,6 @@
 					</portalchildren>
 				</portallayout>								
 			</groupbox>
-		</div>
-		<jasperreport id="report" height="50px" />
+		</div>		
 	</window>
 </zk>

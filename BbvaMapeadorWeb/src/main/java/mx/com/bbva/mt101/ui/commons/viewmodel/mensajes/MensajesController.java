@@ -16,7 +16,6 @@ import org.zkoss.zhtml.Messagebox;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
-import org.zkoss.zkex.zul.Jasperreport;
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Textbox;
 
@@ -49,9 +48,7 @@ public class MensajesController extends ControllerSupport implements IController
 	@Wire
 	private Textbox idEstatusObjeto;
 	@Wire
-	private Combobox statusObjeto;
-	@Wire
-	private Jasperreport report;
+	private Combobox statusObjeto;	
 	
 	private boolean flagMensaje;
 	private MensajeSalidaDTO mensajeSalidaDTO;
@@ -246,7 +243,7 @@ public class MensajesController extends ControllerSupport implements IController
 		} else {
 			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_TEXTO,"Catálogo de Mensajes de Notificación");
 		}
-		controller.createReport(generaLista(), headersReport, titleReport, report, type);
+		controller.createReport(generaLista(), headersReport, titleReport, "MENSAJES");
 	}	
 	
 	private ArrayList<BeanGenerico> generaLista() {

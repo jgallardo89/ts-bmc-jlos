@@ -49,7 +49,6 @@ import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.Wire;
-import org.zkoss.zkex.zul.Jasperreport;
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Datebox;
 import org.zkoss.zul.Textbox;
@@ -93,9 +92,7 @@ public class MonitoreoProcesosController extends ControllerSupport implements  I
 	@Wire
 	private Textbox idFlujo;
 	@Wire
-	private Textbox idEtapa;
-	@Wire
-	private Jasperreport report;
+	private Textbox idEtapa;	
 	
 	private MonitoreoProcesosDTO monitoreoProcesosDTO = (MonitoreoProcesosDTO) this.read();
 	
@@ -364,7 +361,7 @@ public class MonitoreoProcesosController extends ControllerSupport implements  I
 		} else {
 			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_TEXTO,"Monitoreo de Procesos");
 		}
-		controller.createReport(generaLista(), headersReport, titleReport, report, type);
+		controller.createReport(generaLista(), headersReport, titleReport, "MONITOREO_PROCESOS");
 	}	
 	
 	private ArrayList<BeanGenerico> generaLista() {
@@ -757,21 +754,7 @@ public class MonitoreoProcesosController extends ControllerSupport implements  I
 	 */
 	public void setIdEtapa(Textbox idEtapa) {
 		this.idEtapa = idEtapa;
-	}
-
-	/**
-	 * @return the report
-	 */
-	public Jasperreport getReport() {
-		return report;
-	}
-
-	/**
-	 * @param report the report to set
-	 */
-	public void setReport(Jasperreport report) {
-		this.report = report;
-	}
+	}	
 
 	/**
 	 * @return the monitoreoProcesosVO

@@ -31,7 +31,6 @@ import org.zkoss.zhtml.Messagebox;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
-import org.zkoss.zkex.zul.Jasperreport;
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Textbox;
 
@@ -82,9 +81,6 @@ public class PantallaController extends ControllerSupport implements  IControlle
 	
 	@Wire
 	private Textbox orden;
-	
-	@Wire
-	private Jasperreport report;
 	
 	private PantallaVO pantallaVO;
 	
@@ -362,7 +358,7 @@ public class PantallaController extends ControllerSupport implements  IControlle
 		} else {
 			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_TEXTO,"Catálogo Pantalla");
 		}
-		controller.createReport(generaLista(), headersReport, titleReport, report, type);
+		controller.createReport(generaLista(), headersReport, titleReport, "PANTALLAS");
 	}	
 	
 	private ArrayList<BeanGenerico> generaLista() { 
@@ -717,21 +713,7 @@ public class PantallaController extends ControllerSupport implements  IControlle
 	public boolean applyPermision() {
 		// TODO Auto-generated method stub
 		return false;
-	}
-
-	/**
-	 * @return the report
-	 */
-	public Jasperreport getReport() {
-		return report;
-	}
-
-	/**
-	 * @param report the report to set
-	 */
-	public void setReport(Jasperreport report) {
-		this.report = report;
-	}
+	}	
 
 	/**
 	 * @return the pantallaVO

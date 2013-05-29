@@ -36,7 +36,6 @@ import org.zkoss.zhtml.Messagebox;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
-import org.zkoss.zkex.zul.Jasperreport;
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Datebox;
 import org.zkoss.zul.Textbox;
@@ -72,9 +71,7 @@ public class MapaGmmController  extends ControllerSupport implements  IControlle
 	@Wire
 	private Textbox idStatus;
 	@Wire
-	private Textbox idMapaGmm;
-	@Wire
-	private Jasperreport report;
+	private Textbox idMapaGmm;	
 	
 	private MapaGmmDTO mapaGmmDTO =  (MapaGmmDTO) this.read();
 	
@@ -332,7 +329,7 @@ public class MapaGmmController  extends ControllerSupport implements  IControlle
 		} else {
 			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_TEXTO,"Catálogo de Mapa");
 		}
-		controller.createReport(generaLista(), headersReport, titleReport, report, type);
+		controller.createReport(generaLista(), headersReport, titleReport, "MAPA");
 	}	
 	
 	private ArrayList<BeanGenerico> generaLista() {
@@ -585,20 +582,7 @@ public class MapaGmmController  extends ControllerSupport implements  IControlle
 		return false;
 	}
 
-	/**
-	 * @return the report
-	 */
-	public Jasperreport getReport() {
-		return report;
-	}
-
-	/**
-	 * @param report the report to set
-	 */
-	public void setReport(Jasperreport report) {
-		this.report = report;
-	}
-
+	
 	/**
 	 * @return the mapaGmmVO
 	 */

@@ -23,7 +23,6 @@ import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.Wire;
-import org.zkoss.zkex.zul.Jasperreport;
 import org.zkoss.zul.Datebox;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
@@ -60,9 +59,7 @@ public class BitacoraWebController extends ControllerSupport implements IControl
 	private Datebox fechaInicio;
 	@Wire
 	private Datebox fechaFin;
-	@Wire
-	private Jasperreport report;
-	
+
 	private BitacoraDTO bitacoraDTO;
 	private List<BitacoraVO> bitacoraVOs;
 	private List<CampoDTO> campoDTOs;
@@ -161,7 +158,7 @@ public class BitacoraWebController extends ControllerSupport implements IControl
 		headersReport.add("Fecha y Hora");
 		headersReport.add("Usuario");
 		headersReport.add("Tipo Evento");
-		controller.createReport(generaLista(), headersReport, titleReport, report, type);
+		controller.createReport(generaLista(), headersReport, titleReport, "BITACORA_WEB");
 	}	
 	
 	private ArrayList<BeanGenerico> generaLista() {

@@ -23,7 +23,6 @@ import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.Wire;
-import org.zkoss.zkex.zul.Jasperreport;
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
@@ -67,8 +66,7 @@ public class AdmonFlujosController extends ControllerSupport implements IControl
 	private Textbox idEstatusObjeto;
 	@Wire
 	private Combobox statusObjeto;
-	@Wire
-	private Jasperreport report;
+	
 	
 	private boolean flagBtnGuardar;
 	private FlujoDTO flujoDTO;
@@ -230,8 +228,8 @@ public class AdmonFlujosController extends ControllerSupport implements IControl
 		headersReport.add("Fecha y Hora de Modificación");
 		headersReport.add("Etapas del Flujo");
 		headersReport.add("Estatus");
-		headersReport.add("Diagrama");
-		controller.createReport(generaLista(), headersReport, titleReport, report, type);
+		headersReport.add("Diagrama");					
+		controller.createReport(generaLista(), headersReport, titleReport, "FLUJOS");
 	}	
 	
 	private ArrayList<BeanGenerico> generaLista() {
@@ -261,7 +259,7 @@ public class AdmonFlujosController extends ControllerSupport implements IControl
 	}
 
 	/**
-	 * @param flagBtnGuardar the flagBtnGuardar to set
+	 * @param flagBtnGuardar the flagBtnGuardar to set 
 	 */
 	public void setFlagBtnGuardar(boolean flagBtnGuardar) {
 		this.flagBtnGuardar = flagBtnGuardar;

@@ -129,7 +129,6 @@
 					idUsuario.setValue(null);
 				}
 			}
-		</zscript>
-		<jasperreport id="report" height="50px" />
+		</zscript>		
 	</window>
 </zk>

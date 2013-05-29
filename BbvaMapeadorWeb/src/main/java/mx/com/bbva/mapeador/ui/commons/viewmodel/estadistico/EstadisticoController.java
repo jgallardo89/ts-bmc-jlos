@@ -40,7 +40,6 @@ import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
-import org.zkoss.zkex.zul.Jasperreport;
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Datebox;
 import org.zkoss.zul.Textbox;
@@ -80,8 +79,7 @@ public class EstadisticoController extends ControllerSupport implements  IContro
 	private Textbox idCliente;
 	@Wire
 	private Textbox idProducto;
-	@Wire
-	private Jasperreport report;
+	
 	private EstadisticoDTO estadisticoDTO = (EstadisticoDTO) this.read();
 	
 	private List<EstadisticoVO> estadisticoVOs = estadisticoDTO.getEstadisticoVOs();
@@ -222,7 +220,7 @@ public class EstadisticoController extends ControllerSupport implements  IContro
 		} else {
 			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_TEXTO,"Estadístico");
 		}
-		controller.createReport(generaLista(), headersReport, titleReport, report, type);
+		controller.createReport(generaLista(), headersReport, titleReport, "ESTADISTICO");
 	}	
 	
 	private ArrayList<BeanGenerico> generaLista() {
@@ -573,19 +571,5 @@ public class EstadisticoController extends ControllerSupport implements  IContro
 	public boolean applyPermision() {
 		// TODO Auto-generated method stub
 		return false;
-	}
-
-	/**
-	 * @return the report
-	 */
-	public Jasperreport getReport() {
-		return report;
-	}
-
-	/**
-	 * @param report the report to set
-	 */
-	public void setReport(Jasperreport report) {
-		this.report = report;
 	}	
 }

@@ -49,7 +49,6 @@ import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.Wire;
-import org.zkoss.zkex.zul.Jasperreport;
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Iframe;
 import org.zkoss.zul.Tab;
@@ -86,9 +85,7 @@ public class ContratacionController extends ControllerSupport implements IContro
 	@Wire
 	private Textbox idEstatusObjeto;
 	@Wire
-	private Combobox estatusObjeto;
-	@Wire
-	private Jasperreport report;
+	private Combobox estatusObjeto;	
 	
 	private boolean botonEditar;
 	private boolean botonGuardar;
@@ -457,7 +454,7 @@ public class ContratacionController extends ControllerSupport implements IContro
 		headersReport.add("Fecha Alta");
 		headersReport.add("Fecha Modificacion");
 		headersReport.add("Estatus");
-		controller.createReport(generaLista(), headersReport, titleReport, report, type);
+		controller.createReport(generaLista(), headersReport, titleReport, "CONTRATACION");
 	}	
 	
 	private ArrayList<BeanGenerico> generaLista() {

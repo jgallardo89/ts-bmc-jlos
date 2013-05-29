@@ -20,7 +20,6 @@ import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.Wire;
-import org.zkoss.zkex.zul.Jasperreport;
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
@@ -60,8 +59,6 @@ public class AdmonFlujosController extends ControllerSupport implements IControl
 	private Textbox idEstatusObjeto;
 	@Wire
 	private Combobox statusObjeto;
-	@Wire
-	private Jasperreport report;
 	
 	private boolean flagBtnGuardar;
 	private FlujoDTO flujoDTO;
@@ -233,8 +230,7 @@ public class AdmonFlujosController extends ControllerSupport implements IControl
 			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_EXCEL,"Catálogo Clientes");
 		} else {
 			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_TEXTO,"Catálogo Clientes");
-		}
-		controller.createReport(generaLista(), headersReport, titleReport, report, type);
+		}		
 	}	
 	
 	private ArrayList<BeanGenerico> generaLista() {

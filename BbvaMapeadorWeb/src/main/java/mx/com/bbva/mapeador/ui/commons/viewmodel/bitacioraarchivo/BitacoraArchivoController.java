@@ -30,7 +30,6 @@ import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
-import org.zkoss.zkex.zul.Jasperreport;
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Datebox;
 import org.zkoss.zul.Textbox;
@@ -48,8 +47,6 @@ public class BitacoraArchivoController extends ControllerSupport implements  ICo
 	private Datebox fechaInicio;
 	@Wire
 	private Datebox fechaFin;
-	@Wire
-	private Jasperreport report;
 	
 	private BitacoraArchivoDTO bitacoraArchivoDTO = (BitacoraArchivoDTO) this.read();
 	
@@ -130,7 +127,7 @@ public class BitacoraArchivoController extends ControllerSupport implements  ICo
 		} else {
 			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_TEXTO,"Bitácora de Archivos");
 		}
-		controller.createReport(generaLista(), headersReport, titleReport, report, type);
+		controller.createReport(generaLista(), headersReport, titleReport, "BITACORA_ARCHIVOS");
 	}	
 	
 	private ArrayList<BeanGenerico> generaLista() {
@@ -325,16 +322,7 @@ public class BitacoraArchivoController extends ControllerSupport implements  ICo
 	}
 	/**
 	 * @return the report
-	 */
-	public Jasperreport getReport() {
-		return report;
-	}
-	/**
-	 * @param report the report to set
-	 */
-	public void setReport(Jasperreport report) {
-		this.report = report;
-	}
+	 */	
 	@Override
 	public boolean applyPermision() {
 		// TODO Auto-generated method stub

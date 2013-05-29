@@ -27,7 +27,6 @@ import org.zkoss.zhtml.Messagebox;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
-import org.zkoss.zkex.zul.Jasperreport;
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Textbox;
 
@@ -52,10 +51,7 @@ public class CanalesController extends ControllerSupport implements IController 
 	private Textbox idCanal;
 	
 	@Wire
-	private Combobox statusObjeto;
-	
-	@Wire
-	private Jasperreport report;
+	private Combobox statusObjeto;	
 	
 	private boolean btnGuardar;
 	private boolean flagClave;
@@ -285,7 +281,7 @@ public class CanalesController extends ControllerSupport implements IController 
 			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_TEXTO,"Catálogo Canal");
 		}
 		
-		controller.createReport(generaLista(), headersReport, titleReport, report, type);
+		
 	}	
 	
 	private ArrayList<BeanGenerico> generaLista() {
