@@ -57,6 +57,12 @@
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
+	<servlet>
+	    <description>motor de reportes</description>
+	    <display-name>motor</display-name>
+	    <servlet-name>ServletReport</servlet-name>
+	    <servlet-class>mx.com.bbva.mt101.ui.commons.viewmodel.reportes.ServletReport</servlet-class>
+  	</servlet>
 	<!-- Map all *.spring requests to the DispatcherServlet for handling -->
 	<servlet-mapping>
 		<servlet-name>Spring MVC Dispatcher Servlet</servlet-name>
@@ -77,6 +83,10 @@
 		<servlet-name>auEngine</servlet-name>
 		<url-pattern>/zkau/*</url-pattern>
 	</servlet-mapping>
+	<servlet-mapping>
+      <servlet-name>ServletReport</servlet-name>
+      <url-pattern>/ServletReport</url-pattern>
+  	</servlet-mapping>
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>/WEB-INF/config/web-application-config.xml</param-value>
