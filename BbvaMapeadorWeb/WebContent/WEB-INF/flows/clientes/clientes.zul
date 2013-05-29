@@ -59,7 +59,7 @@
 												<div align="right">
 													<label width="100%" sclass="labelFill" value="Status:"></label>												
 												</div>
-												<combobox sclass="textboxUpperCase"  onChange="selectedValueStatusObjeto()" disabled="@load(vm.flagEstatus)"
+												<combobox sclass="textboxUpperCase"  onChange="selectedValueStatusObjeto()"
 													id="statusObjeto" width="70%" model="@load(vm.clienteDTO.estatusObjetoVOs)" autodrop="true">		
 													<template name="model">										
 														<comboitem value="@load(each.idEstatusObjeto)" label="@load(each.nombreEstatusObjeto)" height="100%"/>
@@ -87,8 +87,8 @@
 							</panelchildren>										
 						</panel>
 					</portalchildren>
-					<portalchildren width="100%" height="85%" style="padding: 5px">
-						<panel height="80%" sclass="sectionPanelTitle" width="100%" id="panelCanalMapeador"
+					<portalchildren width="100%">
+						<panel height="60%" sclass="sectionPanelTitle" width="100%" id="panelCanalMapeador"
 							title="Resultados Clientes Mapeador" collapsible="true"
 							style="margin-bottom:10px">
 							<caption sclass="sectionPanelTitle" label="Lista de Clientes"></caption>
