@@ -1,5 +1,7 @@
 package mx.com.bbva.mapeador.ui.commons.viewmodel.usuarioMapeador;
 
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 import mx.com.bbva.bancomer.bussinnes.model.vo.EstatusObjetoVO;
@@ -12,10 +14,12 @@ import mx.com.bbva.bancomer.estatusobjeto.dto.UsuarioDTO;
 import mx.com.bbva.bancomer.mapper.business.EstatusObjetoBO;
 import mx.com.bbva.bancomer.mapper.business.PerfilBO;
 import mx.com.bbva.bancomer.mapper.business.UsuarioBO;
+import mx.com.bbva.mapeador.security.session.user.SessionUser;
 import mx.com.bbva.mapeador.ui.commons.controller.IController;
 import mx.com.bbva.mapeador.ui.commons.viewmodel.support.ControllerSupport;
 
 import org.apache.log4j.Logger;
+import org.apache.openjpa.jdbc.meta.strats.SuperclassDiscriminatorStrategy;
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
@@ -26,7 +30,10 @@ import org.zkoss.zhtml.Messagebox;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
+import org.zkoss.zul.Button;
 import org.zkoss.zul.Combobox;
+import org.zkoss.zul.Grid;
+import org.zkoss.zul.Label;
 import org.zkoss.zul.Textbox;
 
 public class UsuarioMapeadorController extends ControllerSupport implements IController{
@@ -41,7 +48,7 @@ public class UsuarioMapeadorController extends ControllerSupport implements ICon
 
 	private UsuarioDTO	usuarioDTO = (UsuarioDTO)this.read();	
 	
-	private boolean executePermissionSet = this.applyPermission();
+	private boolean executePermissionSet; 
 
 	/**
 	 * @return the executePermissionSet
@@ -57,6 +64,18 @@ public class UsuarioMapeadorController extends ControllerSupport implements ICon
 		this.executePermissionSet = executePermissionSet;
 	}
 
+	@Wire
+	private Label lblUsuario;
+	
+	@Wire
+	private Label lblNombreUsuario;
+	
+	@Wire
+	private Label lblPerfilesDisponibles;
+	
+	@Wire
+	private Label lblStatus;
+	
 	@Wire
 	private Combobox perfilesDisponibles;
 	
@@ -78,6 +97,18 @@ public class UsuarioMapeadorController extends ControllerSupport implements ICon
 	@Wire
 	private Textbox nombreUsuario;
 	
+	@Wire
+	private Button consultarBtn;
+	
+	@Wire
+	private Button guardarBtn;
+	
+	@Wire
+	private Button limpiarBtn;
+	
+	@Wire
+	private Grid usuariosGrid;
+	
 	private List<UsuarioVO> usuarioVOs = usuarioDTO.getUsuarioVOs();
 
 	
@@ -94,15 +125,7 @@ public class UsuarioMapeadorController extends ControllerSupport implements ICon
 	public void setUsuarioVOs(List<UsuarioVO> usuarioVOs) {
 		this.usuarioVOs = usuarioVOs;
 	}
-	
-	public boolean applyPermission(){
-//		List<Component> components = this.getSelf().getChildren();
-//		for (Component component : components) {
-//			logger.debug("Componente type="+component.getDefinition().getClass().getName());
-//		}
-		return true;
-	}
-
+		
 	@Override
 	public Object read() {		
 		EstatusObjetoDTO estatusObjetoDTO = new EstatusObjetoDTO();
@@ -118,8 +141,12 @@ public class UsuarioMapeadorController extends ControllerSupport implements ICon
 		usuarioDTO.setEstatusObjetoVOs(estatusObjetoDTO.getEstatusObjetoVOs());
 		PerfilDTO perfilDTO = new PerfilDTO();
 		PerfilBO perfilBO = new PerfilBO();		
+		perfilDTO.setCommandId(CommandConstants.PERFIL_COMMAND_READ_ALL);
 		perfilDTO = perfilBO.readCommand(perfilDTO);
 		usuarioDTO.setPerfilVOs(perfilDTO.getPerfilVOs());
+		
+		
+		
 		return usuarioDTO;
 	}
 
@@ -277,11 +304,12 @@ public class UsuarioMapeadorController extends ControllerSupport implements ICon
 		nombreUsuario.setValue(usuarioVO.getNombreUsuario());
 		idUsuario.setValue(Integer.toString(usuarioVO.getIdUsuario()));
 		
-	}
+	}	
 	
 	@AfterCompose
     public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
-        Selectors.wireComponents(view, this, false);        
+        Selectors.wireComponents(view, this, false);
+        executePermissionSet = this.applyPermision();
     }
 
 	/**
@@ -381,5 +409,25 @@ public class UsuarioMapeadorController extends ControllerSupport implements ICon
 	public void setNombreUsuario(Textbox nombreUsuario) {
 		this.nombreUsuario = nombreUsuario;
 	}
-	
+
+	@Override
+	public boolean applyPermision() {
+		boolean isApplied = false;
+		HashMap<String, Component> componentes = new HashMap<String, Component>();
+		logger.debug(identificadorUsuario.getValue());
+		componentes.put(lblUsuario.getId(), lblUsuario);
+		componentes.put(identificadorUsuario.getId(), identificadorUsuario);
+		componentes.put(lblNombreUsuario.getId(), lblNombreUsuario);
+		componentes.put(nombreUsuario.getId(), nombreUsuario);
+		componentes.put(lblPerfilesDisponibles.getId(), lblPerfilesDisponibles);
+		componentes.put(perfilesDisponibles.getId(), perfilesDisponibles);
+		componentes.put(lblStatus.getId(), lblStatus);
+		componentes.put(status.getId(), status);
+		componentes.put(consultarBtn.getId(),consultarBtn) ;
+		componentes.put(guardarBtn.getId(),guardarBtn);
+		componentes.put(limpiarBtn.getId(),limpiarBtn);
+		componentes.put(usuariosGrid.getId(),usuariosGrid); 
+		super.applyPermission(3, componentes);
+		return isApplied;
+	}	
 }
