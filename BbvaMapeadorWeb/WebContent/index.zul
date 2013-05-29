@@ -13,7 +13,7 @@
 			headerName = i.next();
         	System.out.println(headerName);
         	System.out.println(execution.getHeader(headerName));
-        	execution.sendRedirect("http://localhost:9080/mapeador/app/menu");
+        	execution.sendRedirect("/app/menu");
      	}				
     }
 	</zscript>
