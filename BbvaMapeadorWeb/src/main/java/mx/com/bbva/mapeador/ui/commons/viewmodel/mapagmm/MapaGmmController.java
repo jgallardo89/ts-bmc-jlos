@@ -579,6 +579,12 @@ public class MapaGmmController  extends ControllerSupport implements  IControlle
 		this.strIdMapaGmm = strIdMapaGmm;
 	}
 
+	@Override
+	public boolean applyPermision() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 	/**
 	 * @return the report
 	 */
@@ -605,10 +611,5 @@ public class MapaGmmController  extends ControllerSupport implements  IControlle
 	 */
 	public void setMapaGmmVO(MapaGmmVO mapaGmmVO) {
 		this.mapaGmmVO = mapaGmmVO;
-	}
-	@Override
-	public boolean applyPermision() {
-		// TODO Auto-generated method stub
-		return false;
 	}
 }
