@@ -78,9 +78,9 @@ public class ClientesController extends ControllerSupport implements IController
 		clienteDTO = new ClienteDTO();
 		EstatusObjetoBO estatusObjetoBO = new EstatusObjetoBO();
 		EstatusObjetoDTO estatusObjetoDTO = new EstatusObjetoDTO();
-	    //estatusObjetoDTO.setCommandId(CommandConstants.ESTATUS_OBJETO);
+	    estatusObjetoDTO.setCommandId(CommandConstants.ESTATUS_OBJETO);
 	    EstatusObjetoVO estatusObjetoVO = new EstatusObjetoVO();
-		//estatusObjetoVO.setNombreTabla(CommandConstants.NOMBRE_TABLA_CLIENTES);				
+		estatusObjetoVO.setNombreTabla(CommandConstants.NOMBRE_TABLA_CLIENTES);				
 		estatusObjetoDTO.setEstatusObjetoVO(estatusObjetoVO);
 	    estatusObjetoDTO = estatusObjetoBO.readCommand(estatusObjetoDTO);
 	    clienteDTO.setEstatusObjetoVOs(estatusObjetoDTO.getEstatusObjetoVOs());
@@ -110,7 +110,7 @@ public class ClientesController extends ControllerSupport implements IController
 		
 		controller.registrarEvento(null, null, CommandConstants.CONSULTAR, "Catálogo Clientes");
 	}
-	
+
 	@Override
 	@Command
 	public Object read(Object t) {
@@ -146,7 +146,7 @@ public class ClientesController extends ControllerSupport implements IController
 				clienteVO.setIdIdentificador(idIdentificador.getValue().toUpperCase());
 				clienteVO.setNombreCliente(nombreCliente.getValue().toUpperCase());
 				clienteVO.setNombreCortoCliente(nombreCortoCliente.getValue().toUpperCase());
-				clienteVO.setIdEstatusObjeto(CommandConstants.ESTATUS_OBJETO_ACTIVO);
+				clienteVO.setIdEstatusObjeto(CommandConstants.ESTATUS_OBJETO_ACTIVO_CLIENTES);
 				clienteDTO.setClienteVO(clienteVO);
 				ClienteBO clienteBO = new ClienteBO();
 				clienteBO.createCommand(clienteDTO);
@@ -308,50 +308,10 @@ public class ClientesController extends ControllerSupport implements IController
 		this.clientesVOs = clientesVOs;
 	}
 
-	/**
-	 * @return the btnGuardar
-	 */
-	public boolean isBtnGuardar() {
-		return btnGuardar;
-	}
-
-	/**
-	 * @param btnGuardar the btnGuardar to set
-	 */
-	public void setBtnGuardar(boolean btnGuardar) {
-		this.btnGuardar = btnGuardar;
-	}
-
-	/**
-	 * @return the clientesVO
-	 */
-	public ClienteVO getClientesVO() {
-		return clientesVO;
-	}
-
-	/**
-	 * @param clientesVO the clientesVO to set
-	 */
-	public void setClientesVO(ClienteVO clientesVO) {
-		this.clientesVO = clientesVO;
-	}
-
-	/**
-	 * @return the flagEstatus
-	 */
-	public boolean isFlagEstatus() {
-		return flagEstatus;
-	}
-
-	/**
-	 * @param flagEstatus the flagEstatus to set
-	 */
-	public void setFlagEstatus(boolean flagEstatus) {
-		this.flagEstatus = flagEstatus;
-	}
 	@Override
 	public boolean applyPermision() {
 		// TODO Auto-generated method stub
 		return false;
 	}
+	
 }
