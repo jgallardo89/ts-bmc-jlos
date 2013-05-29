@@ -78,9 +78,9 @@ public class CanalesController extends ControllerSupport implements IController 
 		canalDTO = new CanalDTO();
 		EstatusObjetoBO estatusObjetoBO = new EstatusObjetoBO();
 		EstatusObjetoDTO estatusObjetoDTO = new EstatusObjetoDTO();
-	    //estatusObjetoDTO.setCommandId(CommandConstants.ESTATUS_OBJETO);
+	    estatusObjetoDTO.setCommandId(CommandConstants.ESTATUS_OBJETO);
 	    EstatusObjetoVO estatusObjetoVO = new EstatusObjetoVO();
-	    //estatusObjetoVO.setNombreTabla("CANALES");
+	    estatusObjetoVO.setNombreTabla("CANALES");
 	    estatusObjetoDTO.setEstatusObjetoVO(estatusObjetoVO);
 	    estatusObjetoDTO = estatusObjetoBO.readCommand(estatusObjetoDTO);
 	    canalDTO.setEstatusObjetoVOs(estatusObjetoDTO.getEstatusObjetoVOs());
@@ -152,8 +152,8 @@ public class CanalesController extends ControllerSupport implements IController 
 			} else {
 				CanalDTO canalDTO = new CanalDTO();
 				CanalVO canalVO = new CanalVO();
-				canalVO.setNombreCanal(nombreCanal.getValue().toUpperCase().toUpperCase());
-				canalVO.setDescripcionCanal(descripcionCanal.getValue().toUpperCase().toUpperCase());
+				canalVO.setNombreCanal(nombreCanal.getValue().toUpperCase());
+				canalVO.setDescripcionCanal(descripcionCanal.getValue().toUpperCase());
 				canalVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue()));
 				canalVO.setIdCanal(Integer.parseInt(idCanal.getValue()));
 				canalDTO.setCanalVO(canalVO);
@@ -300,6 +300,12 @@ public class CanalesController extends ControllerSupport implements IController 
 			beanGenericos.add(beanGenerico);
 		}
 		return beanGenericos;
+	}
+
+	@Override
+	public boolean applyPermision() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 	
 	/**
