@@ -27,10 +27,11 @@ public class ReportesController extends ControllerSupport {
 
 	private static final long serialVersionUID = 1L;
 	
-	public void createReport(ArrayList<BeanGenerico> fieldsReport, ArrayList<String> headersReport,String typeReport) {
+	public void createReport(ArrayList<BeanGenerico> fieldsReport, ArrayList<String> headersReport,String typeReport, String nameReport) {
 		Sessions.getCurrent().setAttribute("listBeanGenerico", fieldsReport);
 		Sessions.getCurrent().setAttribute("headersReport", headersReport);
 		Sessions.getCurrent().setAttribute("typeReport", typeReport);
+		Sessions.getCurrent().setAttribute("nameReport", nameReport);
 		
 		Executions.sendRedirect("/ServletReport");
     }

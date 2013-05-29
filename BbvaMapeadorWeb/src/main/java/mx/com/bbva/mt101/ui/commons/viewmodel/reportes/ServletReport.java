@@ -6,11 +6,12 @@ package mx.com.bbva.mt101.ui.commons.viewmodel.reportes;
  */
 
 import java.io.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -18,16 +19,17 @@ import javax.servlet.http.*;
 import mx.com.bbva.bancomer.canal.dto.BeanGenerico;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRExporter;
 import net.sf.jasperreports.engine.JRExporterParameter;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.export.JRCsvExporter;
 import net.sf.jasperreports.engine.export.JRXlsExporter;
-
 
 /**
  *
- * @author usuario
+ * @author Julio Morales
  * @version 
  */
 public class ServletReport extends HttpServlet {
@@ -41,15 +43,17 @@ public class ServletReport extends HttpServlet {
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response)
 	throws ServletException, IOException {
 		ServletOutputStream ouputStream = response.getOutputStream();
+		DateFormat dateFormat = new SimpleDateFormat("ddMMyyyy");
+		JRExporter exporter = null;
+		JasperPrint jasperPrint = null;
+		int contador = 1;
 			try {
-				int contador = 1;
-				
 				HttpSession session = request.getSession();
-				
 				ArrayList<String> headersReport = (ArrayList<String>) session.getAttribute("headersReport");
-				String typeReport = (String) session.getAttribute("typeReport");
 				ArrayList<BeanGenerico> fieldsReport = (ArrayList<BeanGenerico>) session.getAttribute("listBeanGenerico");
-						
+				String typeReport = (String) session.getAttribute("typeReport");
+				String nameReport = (String) session.getAttribute("nameReport");
+				
 		        Map<String, Object> parameters = new HashMap<String, Object>();
 		        for(String header:headersReport) {
 		        	parameters.put("parameter" + contador++, header);
@@ -57,42 +61,33 @@ public class ServletReport extends HttpServlet {
 				JRDataSource source = new JRBeanCollectionDataSource(fieldsReport, false);
 				parameters.put("dataSource" ,source);
 				
-				System.out.println("aqui ando");
 				String webappBase = getServletContext().getRealPath("/");
 				InputStream input = new FileInputStream(webappBase + 
 						File.separator + "/WEB-INF/reportes/reporteGenerico_NumColumnas_"+headersReport.size()+".jasper");
-				JasperPrint jasperPrint;
-				System.out.println("voy aqui");
 				jasperPrint = JasperFillManager.fillReport(
 						input, parameters, source);
 				
-				System.out.println("ando aqui");
-				JRXlsExporter exporter = new JRXlsExporter();
+				if(typeReport.equals("xls")) {
+					response.setContentType("application/vnd.ms-excel");  
+					exporter = new JRXlsExporter();
+				} else {
+					response.setContentType("application/csv"); 
+					exporter = new JRCsvExporter();
+				}
 				ByteArrayOutputStream baos = new ByteArrayOutputStream();
-
 				exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
 				exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, baos );
 				exporter.exportReport();
-				
 				byte[] bytes = baos.toByteArray();
 				baos.close();
-				
 				response.setContentLength(bytes.length);
-				System.out.println("Tamaño" + bytes.length);
-				
-				if(typeReport.equals("xls")) {
-					response.setContentType("application/vnd.ms-excel");  
-					response.setHeader("Content-Disposition", "attachment;filename= Mapeador_"+new Date().toString()+".xls");
-				} else {
-					response.setContentType("application/octet-stream");  
-					response.setHeader("Content-Disposition", "attachment;filename= Mapeador_"+new Date().toString()+".csv");
-				}
+				response.setHeader("Content-Disposition", "attachment;filename= Reporte_"+
+												nameReport+"_"+dateFormat.format(new Date())+"."+typeReport);
 				ouputStream.write(bytes);
 				ouputStream.flush();
-				
-				System.out.println("servlet termino...");
 				session.removeAttribute("headersReport");
 				session.removeAttribute("typeReport");
+				session.removeAttribute("nameReport");
 				session.removeAttribute("listBeanGenerico");
 		} catch (JRException e) {
 			System.out.println("Error: " + e.getMessage());
@@ -106,7 +101,6 @@ public class ServletReport extends HttpServlet {
 		}
 	}
   
-  // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
   /** Handles the HTTP <code>GET</code> method.
    * @param request servlet request
    * @param response servlet response
@@ -130,5 +124,4 @@ public class ServletReport extends HttpServlet {
   public String getServletInfo() {
     return "Short description";
   }
-  // </editor-fold>
 }
