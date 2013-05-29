@@ -550,6 +550,12 @@ public class FlujoContratacionController extends Div  implements IController, Id
 	public void setStrNombreMensajeSalida(String strNombreMensajeSalida) {
 		this.strNombreMensajeSalida = strNombreMensajeSalida;
 	}
+
+	@Override
+	public boolean applyPermision() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 	
 }
 

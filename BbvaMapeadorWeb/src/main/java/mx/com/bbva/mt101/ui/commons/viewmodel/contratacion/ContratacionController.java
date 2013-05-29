@@ -166,7 +166,7 @@ public class ContratacionController extends ControllerSupport implements IContro
 		ContratacionBO contratacionBO = new ContratacionBO();
 		contratacionVOs = contratacionBO.readCommand(contratacionDTO).getContratacionVOs();
 		botonEditar = true;
-		registraBitacora(contratacionVO, 2);
+		registraBitacora(contratacionVO, 2);		
 	}
 	
 	private void registraBitacora(ContratacionVO contratacionVO, int evento) {
@@ -181,6 +181,8 @@ public class ContratacionController extends ControllerSupport implements IContro
 		dto.setCampoDTOs(campoDTOs);
 		registraEvento(dto, "Contratación", evento);
 	}
+	
+	
 
 	@Override
 	public Object read(Object t) {
@@ -623,6 +625,12 @@ public class ContratacionController extends ControllerSupport implements IContro
 	 */
 	public void setComboEstatus(boolean comboEstatus) {
 		this.comboEstatus = comboEstatus;
+	}
+
+	@Override
+	public boolean applyPermision() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }
