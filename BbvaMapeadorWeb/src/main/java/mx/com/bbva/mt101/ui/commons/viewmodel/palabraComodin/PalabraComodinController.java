@@ -168,4 +168,10 @@ public class PalabraComodinController extends ControllerSupport implements ICont
 		this.comodinVOs = comodinVOs;
 	}
 
+	@Override
+	public boolean applyPermision() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }
