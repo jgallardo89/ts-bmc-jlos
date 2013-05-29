@@ -68,9 +68,9 @@ public class MensajesController extends ControllerSupport implements IController
 	public Object read() {
 		mensajeSalidaDTO = new MensajeSalidaDTO();
 		EstatusObjetoDTO estatusObjetoDTO = new EstatusObjetoDTO();
-		//estatusObjetoDTO.setCommandId(CommandConstants.ESTATUS_OBJETO);
+		estatusObjetoDTO.setCommandId(CommandConstants.ESTATUS_OBJETO);
 		EstatusObjetoVO estatusObjetoVO = new EstatusObjetoVO();
-		//estatusObjetoVO.setNombreTabla(CommandConstants.NOMBRE_TABLA_MAPA);		
+		estatusObjetoVO.setNombreTabla(CommandConstants.NOMBRE_TABLA_MAPA);		
 		EstatusObjetoBO estatusObjetoBO = new EstatusObjetoBO();
 		estatusObjetoDTO.setEstatusObjetoVO(estatusObjetoVO);
 		estatusObjetoDTO = estatusObjetoBO.readCommand(estatusObjetoDTO);
@@ -292,6 +292,12 @@ public class MensajesController extends ControllerSupport implements IController
 	 */
 	public void setMensajeSalidaVOs(List<MensajeSalidaVO> mensajeSalidaVOs) {
 		this.mensajeSalidaVOs = mensajeSalidaVOs;
+	}
+
+	@Override
+	public boolean applyPermision() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 	/**
