@@ -1,5 +1,6 @@
 package mx.com.bbva.bancomer.mapper.business;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -14,6 +15,7 @@ import mx.com.bbva.bancomer.bussinnes.model.vo.ControlPermisoVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.PerfilVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.ProductoVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.UsuarioVO;
+import mx.com.bbva.bancomer.commons.command.CommandConstants;
 import mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject;
 import mx.com.bbva.bancomer.estatusobjeto.dto.PerfilDTO;
 import mx.com.bbva.bancomer.estatusobjeto.dto.UsuarioDTO;
@@ -63,24 +65,35 @@ public class PerfilBO implements mx.com.bbva.bancomer.commons.business.BbvaIBusi
 			T bbvaAbstractDataTransferObject) {
 		logger.debug( "Entrada createCommand          -- OK" );
 		logger.debug( "Datos de Entrada createCommand -- " + bbvaAbstractDataTransferObject.toString() );					
-		try {
-			List<PerfilVO> result = null;
-			PerfilVO perfilVO = ((PerfilDTO)bbvaAbstractDataTransferObject).getPerfilVO();
+		try {					
 			SqlSession session = MapeadorSessionFactory.getSqlSessionFactory()
 					.openSession();
 			MapPerfil mapPerfil = session
 					.getMapper(MapPerfil.class);
 			try {
-				result = mapPerfil.obtenerPerfiles(perfilVO);
+				if(bbvaAbstractDataTransferObject.getCommandId()==CommandConstants.PERFIL_COMMAND_READ_ALL){
+					PerfilVO perfilVO = ((PerfilDTO)bbvaAbstractDataTransferObject).getPerfilVO();
+					List<PerfilVO> result = null;				
+					result = mapPerfil.obtenerPerfiles(perfilVO);
+					((PerfilDTO)bbvaAbstractDataTransferObject).setPerfilVOs(result);
+				}
+				else if(bbvaAbstractDataTransferObject.getCommandId()==CommandConstants.PERFIL_COMMAND_READ_PERMISSION){
+					ControlPermisoVO controlPermisoVO = ((PerfilDTO)bbvaAbstractDataTransferObject).getControlPermisoVO();
+					List<ControlPermisoVO> controlPermisoVOs =mapPerfil.obtenerPermisos(controlPermisoVO);
+					HashMap<String, Boolean> result = new HashMap<String, Boolean>();							
+					for (ControlPermisoVO controlPermisoVO2 : controlPermisoVOs) {
+						logger.debug("controlPermisoVO2.getNombreComponente():"+controlPermisoVO2.getNombreComponente());
+						result.put(controlPermisoVO2.getNombreComponente(), new Boolean(controlPermisoVO2.isPermiso()));
+					}					
+					((PerfilDTO)bbvaAbstractDataTransferObject).setControlPermisoVOs(result);
+				}
 				session.commit();
 			} catch (Exception ex) {
 				session.rollback();
 				ex.printStackTrace();
 			} finally {
 				session.close();
-			}
-			((PerfilDTO)bbvaAbstractDataTransferObject).setPerfilVOs(result);
-			logger.debug("result: " + result + " -- **fin**");
+			}						
 			logger.debug( "Datos de Salida invoke -- " + bbvaAbstractDataTransferObject.toString() );
 			logger.debug( "Salida invoke          -- OK" );
 			return bbvaAbstractDataTransferObject;
