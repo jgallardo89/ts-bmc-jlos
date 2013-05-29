@@ -16,7 +16,7 @@ public class ControlPermisoVO extends BbvaAbstractValueObject {
 	private long idUsuario;
 	private String nombreComponente;
 	private String idDefault;
-	private boolean permiso;
+	private String permiso;
 	/**
 	 * @return the nombreComponente
 	 */
@@ -44,13 +44,13 @@ public class ControlPermisoVO extends BbvaAbstractValueObject {
 	/**
 	 * @return the permiso
 	 */
-	public final boolean isPermiso() {
+	public final String isPermiso() {
 		return permiso;
 	}
 	/**
 	 * @param permiso the permiso to set
 	 */
-	public final void setPermiso(boolean permiso) {
+	public final void setPermiso(String permiso) {
 		this.permiso = permiso;
 	}
 	/**
