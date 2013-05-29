@@ -713,6 +713,12 @@ public class PantallaController extends ControllerSupport implements  IControlle
 		this.idPantalla = idPantalla;
 	}
 
+	@Override
+	public boolean applyPermision() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 	/**
 	 * @return the report
 	 */
@@ -739,10 +745,5 @@ public class PantallaController extends ControllerSupport implements  IControlle
 	 */
 	public void setPantallaVO(PantallaVO pantallaVO) {
 		this.pantallaVO = pantallaVO;
-	}
-	@Override
-	public boolean applyPermision() {
-		// TODO Auto-generated method stub
-		return false;
 	}
 }
