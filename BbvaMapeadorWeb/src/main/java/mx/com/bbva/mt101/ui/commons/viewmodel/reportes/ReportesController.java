@@ -4,23 +4,20 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import mx.com.bbva.bancomer.bitacora.dto.BitacoraDTO;
 import mx.com.bbva.bancomer.bitacora.dto.CampoDTO;
 import mx.com.bbva.bancomer.canal.dto.BeanGenerico;
 import mx.com.bbva.mapeador.ui.commons.viewmodel.support.ControllerSupport;
-import net.sf.jasperreports.engine.JRDataSource;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.Executions;
+import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.select.Selectors;
-import org.zkoss.zkex.zul.Jasperreport;
 
 /**
  * @author Julio Morales
@@ -30,20 +27,12 @@ public class ReportesController extends ControllerSupport {
 
 	private static final long serialVersionUID = 1L;
 	
-	
-	public void createReport(ArrayList<BeanGenerico> fieldsReport, 
-			ArrayList<String> headersReport, String titleReport, Jasperreport report, String typeReport) {			
-		int contador = 1;
-		JRDataSource source = new JRBeanCollectionDataSource(fieldsReport, false);
-        Map<String, Object> parameters = new HashMap<String, Object>();
-        for(String header:headersReport) {
-        	parameters.put("parameter" + contador++, header);
-        }
-        parameters.put("dataSource", source);
-        report.setSrc("/WEB-INF/reportes/reporteGenerico_NumColumnas_"+headersReport.size()+".jasper");
-        report.setParameters(parameters);
-    
-        report.setType(typeReport);
+	public void createReport(ArrayList<BeanGenerico> fieldsReport, ArrayList<String> headersReport,String typeReport) {
+		Sessions.getCurrent().setAttribute("listBeanGenerico", fieldsReport);
+		Sessions.getCurrent().setAttribute("headersReport", headersReport);
+		Sessions.getCurrent().setAttribute("typeReport", typeReport);
+		
+		Executions.sendRedirect("/ServletReport");
     }
 	
 	public void registrarEvento(Object nuevo, Object anterior, int idEvento, String nombreBitacora){
