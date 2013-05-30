@@ -116,7 +116,7 @@ public class MenuController extends SelectorComposer<Component>{
 		HashMap<String, Object> htSession = null;
 		htSession = (HashMap<String, Object>)this.getPage().getDesktop().getSession().getAttribute("sessionValues");
 		userId = htSession.get("iv-user").toString();
-		logger.debug(userId);
+		logger.debug("userId:"+userId);
 	}
 	private static final long serialVersionUID = 1L;
 	private static final Logger logger = Logger
@@ -131,6 +131,7 @@ public class MenuController extends SelectorComposer<Component>{
 		UsuarioBO usuarioBO = new UsuarioBO();
 		UsuarioVO usuarioVO = new UsuarioVO();		
 		usuarioVO.setIdCveUsuario(userId);
+		logger.debug("userId:"+userId);
 		usuarioDTO = new UsuarioDTO();
 		usuarioDTO.setUsuarioVO(usuarioVO);
 		usuarioDTO = usuarioBO.readCommand(usuarioDTO);
