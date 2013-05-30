@@ -1,19 +1,16 @@
 package mx.com.bbva.mapeador.ui.commons.viewmodel.mapagmm;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
-import mx.com.bbva.bancomer.bitacora.dto.BitacoraDTO;
-import mx.com.bbva.bancomer.bitacora.dto.CampoDTO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.EstatusObjetoVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.MapaGmmVO;
 import mx.com.bbva.bancomer.canal.dto.BeanGenerico;
 import mx.com.bbva.bancomer.commons.command.CommandConstants;
+import mx.com.bbva.bancomer.commons.command.MapeadorConstants;
 import mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject;
 import mx.com.bbva.bancomer.estatusobjeto.dto.EstatusObjetoDTO;
 import mx.com.bbva.bancomer.mapper.business.EstatusObjetoBO;
@@ -36,8 +33,12 @@ import org.zkoss.zhtml.Messagebox;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
+import org.zkoss.zul.Button;
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Datebox;
+import org.zkoss.zul.Grid;
+import org.zkoss.zul.Image;
+import org.zkoss.zul.Label;
 import org.zkoss.zul.Textbox;
 
 public class MapaGmmController  extends ControllerSupport implements  IController{
@@ -73,6 +74,32 @@ public class MapaGmmController  extends ControllerSupport implements  IControlle
 	@Wire
 	private Textbox idMapaGmm;	
 	
+	
+	@Wire
+	private Label lblIdentificadorMapa;
+	@Wire
+	private Label lblFechaAlta;
+	@Wire
+	private Label lblDescricionMapa;
+	@Wire
+	private Label lblFechaModificacion;
+	@Wire
+	private Label lblEstatus;
+	@Wire
+	private Image reporteExcelBtn;
+	@Wire
+	private Image reporteCsvBtn;
+
+	@Wire
+	private Button limpiarBtn;
+	@Wire
+	private Button guardarBtn;
+	@Wire
+	private Button consultarBtn;
+
+	@Wire
+	private Grid mapaGmmsGrid;
+	
 	private MapaGmmDTO mapaGmmDTO =  (MapaGmmDTO) this.read();
 	
 	private List<MapaGmmVO> mapaGmmVOs = mapaGmmDTO.getMapaGmmVOs(); 
@@ -92,6 +119,7 @@ public class MapaGmmController  extends ControllerSupport implements  IControlle
 	private String strIdMapaGmm;
 
 	private MapaGmmVO mapaGmmVO;
+	private boolean executePermissionSet;
 	
 	@Override
 	public Object read() {
@@ -117,7 +145,8 @@ public class MapaGmmController  extends ControllerSupport implements  IControlle
 
 	@AfterCompose
     public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
-        Selectors.wireComponents(view, this, false);        
+        Selectors.wireComponents(view, this, false); 
+        executePermissionSet = this.applyPermision();
     }
 	
 	@Command
@@ -576,11 +605,41 @@ public class MapaGmmController  extends ControllerSupport implements  IControlle
 		this.strIdMapaGmm = strIdMapaGmm;
 	}
 
+	/**
+	 * @return the executePermissionSet
+	 */
+	public boolean isExecutePermissionSet() {
+		return executePermissionSet;
+	}
+	/**
+	 * @param executePermissionSet the executePermissionSet to set
+	 */
+	public void setExecutePermissionSet(boolean executePermissionSet) {
+		this.executePermissionSet = executePermissionSet;
+	}
 	@Override
 	public boolean applyPermision() {
-		// TODO Auto-generated method stub
-		return false;
-	}
+		boolean isApplied = false;
+		HashMap<String, Component> componentes = new HashMap<String, Component>();
+		componentes.put(lblIdentificadorMapa.getId(), lblIdentificadorMapa);
+		componentes.put(lblFechaAlta.getId(), lblFechaAlta);
+		componentes.put(lblDescricionMapa.getId(), lblDescricionMapa);
+		componentes.put(lblFechaModificacion.getId(), lblFechaModificacion);
+		componentes.put(lblEstatus.getId(), lblEstatus);
+		componentes.put(identificadorMapa.getId(), identificadorMapa);
+		componentes.put(descripcionMapa.getId(), descripcionMapa);
+		componentes.put(status.getId(), status);
+		componentes.put(fechaAlta.getId(), fechaAlta);
+		componentes.put(fechaModificacion.getId(), fechaModificacion);
+		componentes.put(reporteExcelBtn.getId(), reporteExcelBtn);
+		componentes.put(reporteCsvBtn.getId(), reporteCsvBtn);
+		componentes.put(limpiarBtn.getId(), limpiarBtn);
+		componentes.put(guardarBtn.getId(), guardarBtn);
+		componentes.put(consultarBtn.getId(), consultarBtn);
+		componentes.put(mapaGmmsGrid.getId(), mapaGmmsGrid);
+		super.applyPermission(MapeadorConstants.MAPAS, componentes);
+		return isApplied;
+	}	
 
 	
 	/**

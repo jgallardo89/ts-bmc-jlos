@@ -1,7 +1,21 @@
 package mx.com.bbva.mapeador.ui.commons.viewmodel.estatusObjeto;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+
+import mx.com.bbva.bancomer.bussinnes.model.vo.EstatusClaveVO;
+import mx.com.bbva.bancomer.bussinnes.model.vo.EstatusObjetoVO;
+import mx.com.bbva.bancomer.bussinnes.model.vo.PantallaVO;
+import mx.com.bbva.bancomer.commons.command.CommandConstants;
+import mx.com.bbva.bancomer.commons.command.MapeadorConstants;
+import mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject;
+import mx.com.bbva.bancomer.estatusobjeto.dto.EstatusObjetoDTO;
+import mx.com.bbva.bancomer.mapper.business.EstatusObjetoBO;
+import mx.com.bbva.bancomer.mapper.business.PantallaBO;
+import mx.com.bbva.bancomer.pantalla.dto.PantallaDTO;
+import mx.com.bbva.mapeador.security.session.user.SessionUser;
+import mx.com.bbva.mapeador.ui.commons.controller.IController;
+import mx.com.bbva.mapeador.ui.commons.viewmodel.support.ControllerSupport;
 
 import org.apache.log4j.Logger;
 import org.zkoss.bind.BindUtils;
@@ -19,22 +33,13 @@ import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
+import org.zkoss.zul.Button;
 import org.zkoss.zul.Combobox;
+import org.zkoss.zul.Grid;
+import org.zkoss.zul.Label;
 import org.zkoss.zul.Textbox;
 
-import mx.com.bbva.bancomer.bussinnes.model.vo.EstatusClaveVO;
-import mx.com.bbva.bancomer.bussinnes.model.vo.EstatusObjetoVO;
-import mx.com.bbva.bancomer.bussinnes.model.vo.PantallaVO;
-import mx.com.bbva.bancomer.commons.command.CommandConstants;
-import mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject;
-import mx.com.bbva.bancomer.estatusobjeto.dto.EstatusObjetoDTO;
-import mx.com.bbva.bancomer.mapper.business.EstatusObjetoBO;
-import mx.com.bbva.bancomer.mapper.business.PantallaBO;
-import mx.com.bbva.bancomer.pantalla.dto.PantallaDTO;
-import mx.com.bbva.mapeador.security.session.user.SessionUser;
-import mx.com.bbva.mapeador.ui.commons.controller.IController;
-
-public class EstatusObjetoController extends SelectorComposer<Component> implements IController{
+public class EstatusObjetoController extends ControllerSupport implements IController{
 	private static final Logger logger = Logger.getLogger(EstatusObjetoController.class);
 
 	private static final long serialVersionUID = 1L;
@@ -56,21 +61,32 @@ public class EstatusObjetoController extends SelectorComposer<Component> impleme
 	
 	@Wire
 	private Textbox idEstatusClave;
-	
 	@Wire
 	private Textbox idEstatusObjeto;
-	
 	@Wire
 	private Textbox idPantalla;
-	
 	@Wire
 	private Textbox nombreEstatusObjeto;
-	
 	@Wire
 	private Combobox pantallas;
-	
 	@Wire
 	private Combobox statusClave;
+	@Wire
+	private Label lblPantalla;
+	@Wire
+	private Label lblEstatusObjeto;
+	@Wire
+	private Button limpiarBtn;
+	@Wire
+	private Button guardarBtn;
+	@Wire
+	private Button consultarBtn;
+	@Wire
+	private Button eliminarBtn;
+	@Wire
+	private Grid estatusObjetosGrid;
+	@Wire
+	private Grid clientesGrid;
 		
 	List<EstatusObjetoVO> estatusObjetoVOs = estatusObjetoDTO.getEstatusObjetoVOs();
 	
@@ -101,6 +117,8 @@ public class EstatusObjetoController extends SelectorComposer<Component> impleme
 	private String strPantallas;
 
 	private String strStatusClave;
+	
+	private boolean executePermissionSet;
 
 	public EstatusObjetoController() {
 		super();
@@ -473,9 +491,34 @@ public class EstatusObjetoController extends SelectorComposer<Component> impleme
 		//operacionesDudosasGrid.invalidate();
 	}
 
+	/**
+	 * @return the executePermissionSet
+	 */
+	public boolean isExecutePermissionSet() {
+		return executePermissionSet;
+	}
+	/**
+	 * @param executePermissionSet the executePermissionSet to set
+	 */
+	public void setExecutePermissionSet(boolean executePermissionSet) {
+		this.executePermissionSet = executePermissionSet;
+	}
 	@Override
 	public boolean applyPermision() {
-		// TODO Auto-generated method stub
-		return false;
-	}
+		boolean isApplied = false;
+		HashMap<String, Component> componentes = new HashMap<String, Component>();
+		componentes.put(lblPantalla.getId(), lblPantalla);
+		componentes.put(lblEstatusObjeto.getId(), lblEstatusObjeto);
+		componentes.put(nombreEstatusObjeto.getId(), nombreEstatusObjeto);
+		componentes.put(descripcionEstatusObjeto.getId(), descripcionEstatusObjeto);
+		componentes.put(pantallas.getId(), pantallas);
+		componentes.put(statusClave.getId(), statusClave);
+		componentes.put(limpiarBtn.getId(), limpiarBtn);
+		componentes.put(guardarBtn.getId(), guardarBtn);
+		componentes.put(consultarBtn.getId(), consultarBtn);
+		componentes.put(eliminarBtn.getId(), eliminarBtn);
+		componentes.put(estatusObjetosGrid.getId(), estatusObjetosGrid);
+		super.applyPermission(MapeadorConstants.ESTATUS, componentes);
+		return isApplied;
+	}	
 }

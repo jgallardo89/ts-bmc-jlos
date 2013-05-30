@@ -3,7 +3,23 @@ package mx.com.bbva.mapeador.ui.commons.viewmodel.clientes;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+
+import mx.com.bbva.bancomer.bussinnes.model.vo.ClienteVO;
+import mx.com.bbva.bancomer.bussinnes.model.vo.EstatusObjetoVO;
+import mx.com.bbva.bancomer.canal.dto.BeanGenerico;
+import mx.com.bbva.bancomer.cliente.dto.ClienteDTO;
+import mx.com.bbva.bancomer.commons.command.CommandConstants;
+import mx.com.bbva.bancomer.commons.command.MapeadorConstants;
+import mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject;
+import mx.com.bbva.bancomer.estatusobjeto.dto.EstatusObjetoDTO;
+import mx.com.bbva.bancomer.mapper.business.ClienteBO;
+import mx.com.bbva.bancomer.mapper.business.EstatusObjetoBO;
+import mx.com.bbva.bancomer.utils.StringUtil;
+import mx.com.bbva.mapeador.ui.commons.controller.IController;
+import mx.com.bbva.mapeador.ui.commons.viewmodel.support.ControllerSupport;
+import mx.com.bbva.mt101.ui.commons.viewmodel.reportes.ReportesController;
 
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.BindingParam;
@@ -15,22 +31,13 @@ import org.zkoss.zhtml.Messagebox;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
+import org.zkoss.zul.Button;
 import org.zkoss.zul.Combobox;
+import org.zkoss.zul.Datebox;
+import org.zkoss.zul.Grid;
+import org.zkoss.zul.Image;
+import org.zkoss.zul.Label;
 import org.zkoss.zul.Textbox;
-
-import mx.com.bbva.bancomer.bussinnes.model.vo.ClienteVO;
-import mx.com.bbva.bancomer.bussinnes.model.vo.EstatusObjetoVO;
-import mx.com.bbva.bancomer.canal.dto.BeanGenerico;
-import mx.com.bbva.bancomer.cliente.dto.ClienteDTO;
-import mx.com.bbva.bancomer.commons.command.CommandConstants;
-import mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject;
-import mx.com.bbva.bancomer.estatusobjeto.dto.EstatusObjetoDTO;
-import mx.com.bbva.bancomer.mapper.business.ClienteBO;
-import mx.com.bbva.bancomer.mapper.business.EstatusObjetoBO;
-import mx.com.bbva.bancomer.utils.StringUtil;
-import mx.com.bbva.mapeador.ui.commons.controller.IController;
-import mx.com.bbva.mapeador.ui.commons.viewmodel.support.ControllerSupport;
-import mx.com.bbva.mt101.ui.commons.viewmodel.reportes.ReportesController;
 
 /**
  * @author Julio Morales
@@ -53,11 +60,41 @@ public class ClientesController extends ControllerSupport implements IController
 	@Wire
 	private Combobox statusObjeto;	
 	
+	@Wire
+	private Label lblIdentificador;
+	@Wire
+	private Label lblNombreCliente;
+	@Wire
+	private Label lblFechaAlta;
+	@Wire
+	private Label lblDescripcionCliente;
+	@Wire
+	private Label lblFechaModificacion;
+	@Wire
+	private Label lblEstatus;
+	@Wire
+	private Datebox fechaAlta;
+	@Wire
+	private Datebox fechaModificacion;
+	@Wire
+	private Image reporteExcelBtn;
+	@Wire
+	private Image reporteCsvBtn;
+	@Wire
+	private Button limpiarBtn;
+	@Wire
+	private Button guardarBtn;
+	@Wire
+	private Button consultarBtn;
+	@Wire
+	private Grid clientesGrid;
+	
 	private ClienteDTO clienteDTO;
 	private List<ClienteVO> clientesVOs;
 	private ClienteVO clientesVO;
 	private boolean btnGuardar;
 	private boolean flagEstatus;
+	private boolean executePermissionSet;
 	
 	/**
 	 * Constructor de CanalesController
@@ -274,7 +311,8 @@ public class ClientesController extends ControllerSupport implements IController
 	
 	@AfterCompose
     public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
-        Selectors.wireComponents(view, this, false);        
+        Selectors.wireComponents(view, this, false);   
+        executePermissionSet = this.applyPermision();
     }
 
 	/**
@@ -305,10 +343,42 @@ public class ClientesController extends ControllerSupport implements IController
 		this.clientesVOs = clientesVOs;
 	}
 
+	/**
+	 * @return the executePermissionSet
+	 */
+	public boolean isExecutePermissionSet() {
+		return executePermissionSet;
+	}
+	/**
+	 * @param executePermissionSet the executePermissionSet to set
+	 */
+	public void setExecutePermissionSet(boolean executePermissionSet) {
+		this.executePermissionSet = executePermissionSet;
+	}
 	@Override
 	public boolean applyPermision() {
-		// TODO Auto-generated method stub
-		return false;
-	}
+		boolean isApplied = false;
+		HashMap<String, Component> componentes = new HashMap<String, Component>();
+		componentes.put(lblIdentificador.getId(), lblIdentificador);
+		componentes.put(lblNombreCliente.getId(), lblNombreCliente);
+		componentes.put(lblFechaAlta.getId(), lblFechaAlta);
+		componentes.put(lblDescripcionCliente.getId(), lblDescripcionCliente);
+		componentes.put(lblFechaModificacion.getId(), lblFechaModificacion);
+		componentes.put(lblEstatus.getId(), lblEstatus);
+		componentes.put(idIdentificador.getId(), idIdentificador);
+		componentes.put(nombreCliente.getId(), nombreCliente);
+		componentes.put(nombreCortoCliente.getId(), nombreCortoCliente);
+		componentes.put(fechaAlta.getId(), fechaAlta);
+		componentes.put(fechaModificacion.getId(), fechaModificacion);
+		componentes.put(statusObjeto.getId(), statusObjeto);
+		componentes.put(reporteExcelBtn.getId(), reporteExcelBtn);
+		componentes.put(reporteCsvBtn.getId(), reporteCsvBtn);
+		componentes.put(limpiarBtn.getId(), limpiarBtn);
+		componentes.put(guardarBtn.getId(), guardarBtn);
+		componentes.put(consultarBtn.getId(), consultarBtn);
+		componentes.put(clientesGrid.getId(), clientesGrid);
+		super.applyPermission(MapeadorConstants.CLIENTES, componentes);
+		return isApplied;
+	}	
 	
 }

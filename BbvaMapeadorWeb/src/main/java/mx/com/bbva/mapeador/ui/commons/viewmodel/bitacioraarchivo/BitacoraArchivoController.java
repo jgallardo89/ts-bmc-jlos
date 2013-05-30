@@ -1,19 +1,16 @@
 package mx.com.bbva.mapeador.ui.commons.viewmodel.bitacioraarchivo;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
-import mx.com.bbva.bancomer.bitacora.dto.BitacoraDTO;
-import mx.com.bbva.bancomer.bitacora.dto.CampoDTO;
 import mx.com.bbva.bancomer.bitacoraarchivo.dto.BitacoraArchivoDTO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.BitacoraArchivoVO;
 import mx.com.bbva.bancomer.canal.dto.BeanGenerico;
 import mx.com.bbva.bancomer.commons.command.CommandConstants;
+import mx.com.bbva.bancomer.commons.command.MapeadorConstants;
 import mx.com.bbva.bancomer.evento.dto.EventoMapeadorDTO;
 import mx.com.bbva.bancomer.mapper.business.BitacoraArchivoBO;
 import mx.com.bbva.bancomer.mapper.business.EventoMapeadorBO;
@@ -30,8 +27,12 @@ import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
+import org.zkoss.zul.Button;
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Datebox;
+import org.zkoss.zul.Grid;
+import org.zkoss.zul.Image;
+import org.zkoss.zul.Label;
 import org.zkoss.zul.Textbox;
 
 public class BitacoraArchivoController extends ControllerSupport implements  IController{
@@ -48,19 +49,31 @@ public class BitacoraArchivoController extends ControllerSupport implements  ICo
 	@Wire
 	private Datebox fechaFin;
 	
+	@Wire
+	private Label lblFechaInicio;
+	@Wire
+	private Label lblFechaFin;
+	@Wire
+	private Label lblEstadoArchivo;
+	@Wire
+	private Label lblNombreArchivo;
+	@Wire
+	private Image reporteExcelBtn;
+	@Wire
+	private Image reporteCsvBtn;
+	@Wire
+	private Button consultarBtn;
+	@Wire
+	private Grid bitacoraArchivoGrid;
+	
 	private BitacoraArchivoDTO bitacoraArchivoDTO = (BitacoraArchivoDTO) this.read();
-	
 	private List<BitacoraArchivoVO> bitacoraArchivoVOs = bitacoraArchivoDTO.getBitacoraArchivoVOs();
-	
 	private String strEventoMapeador;
-	
 	private String strIdEventoMapeador;
-	
 	private String strNombreArchivo;
-	
 	private String strFechaInicio;
-	
 	private String strFechaFin;
+	private boolean executePermissionSet;
 	
 	/**
 	 * 
@@ -84,7 +97,8 @@ public class BitacoraArchivoController extends ControllerSupport implements  ICo
 	}
 	@AfterCompose
     public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
-        Selectors.wireComponents(view, this, false);        
+        Selectors.wireComponents(view, this, false);
+        executePermissionSet = this.applyPermision();
     }
 	
 	@Command
@@ -320,12 +334,39 @@ public class BitacoraArchivoController extends ControllerSupport implements  ICo
 	public void setIdBitacora(Textbox idBitacora) {
 		this.idBitacora = idBitacora;
 	}
+	
+	/**
+	 * @return the executePermissionSet
+	 */
+	public boolean isExecutePermissionSet() {
+		return executePermissionSet;
+	}
+	/**
+	 * @param executePermissionSet the executePermissionSet to set
+	 */
+	public void setExecutePermissionSet(boolean executePermissionSet) {
+		this.executePermissionSet = executePermissionSet;
+	}
 	/**
 	 * @return the report
 	 */	
 	@Override
 	public boolean applyPermision() {
-		// TODO Auto-generated method stub
-		return false;
-	}
+		boolean isApplied = false;
+		HashMap<String, Component> componentes = new HashMap<String, Component>();
+		componentes.put(lblFechaInicio.getId(), lblFechaInicio);
+		componentes.put(lblFechaFin.getId(), lblFechaFin);
+		componentes.put(lblEstadoArchivo.getId(), lblEstadoArchivo);
+		componentes.put(lblNombreArchivo.getId(), lblNombreArchivo);
+		componentes.put(fechaInicio.getId(), fechaInicio);
+		componentes.put(fechaFin.getId(), fechaFin);
+		componentes.put(eventoMapeador.getId(), eventoMapeador);
+		componentes.put(nombreArchivo.getId(), nombreArchivo);
+		componentes.put(reporteExcelBtn.getId(), reporteExcelBtn);
+		componentes.put(reporteCsvBtn.getId(), reporteCsvBtn);
+		componentes.put(consultarBtn.getId(), consultarBtn);
+		componentes.put(bitacoraArchivoGrid.getId(), bitacoraArchivoGrid);
+		super.applyPermission(MapeadorConstants.BITACORA_ARCHIVOS, componentes);
+		return isApplied;
+	}	
 }

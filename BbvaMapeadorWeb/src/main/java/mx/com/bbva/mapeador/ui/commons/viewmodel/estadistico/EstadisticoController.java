@@ -1,15 +1,11 @@
 package mx.com.bbva.mapeador.ui.commons.viewmodel.estadistico;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
-import mx.com.bbva.bancomer.bitacora.dto.BitacoraDTO;
-import mx.com.bbva.bancomer.bitacora.dto.CampoDTO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.CanalVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.ClienteVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.EstadisticoVO;
@@ -18,6 +14,7 @@ import mx.com.bbva.bancomer.canal.dto.BeanGenerico;
 import mx.com.bbva.bancomer.canal.dto.CanalDTO;
 import mx.com.bbva.bancomer.cliente.dto.ClienteDTO;
 import mx.com.bbva.bancomer.commons.command.CommandConstants;
+import mx.com.bbva.bancomer.commons.command.MapeadorConstants;
 import mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject;
 import mx.com.bbva.bancomer.estadistico.dto.EstadisticoDTO;
 import mx.com.bbva.bancomer.mapper.business.CanalBO;
@@ -40,8 +37,12 @@ import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
+import org.zkoss.zul.Button;
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Datebox;
+import org.zkoss.zul.Grid;
+import org.zkoss.zul.Image;
+import org.zkoss.zul.Label;
 import org.zkoss.zul.Textbox;
 
 public class EstadisticoController extends ControllerSupport implements  IController{
@@ -80,6 +81,33 @@ public class EstadisticoController extends ControllerSupport implements  IContro
 	@Wire
 	private Textbox idProducto;
 	
+	@Wire
+	private Label lblCanal;
+	@Wire
+	private Label lblIdCliente;
+	@Wire
+	private Label lblProducto;
+	@Wire
+	private Label lblFechaAlta;
+	@Wire
+	private Label lblA;
+	@Wire
+	private Combobox scanal;
+	@Wire
+	private Combobox scliente;
+	@Wire
+	private Combobox sproducto;
+	@Wire
+	private Image reporteExcelBtn;
+	@Wire
+	private Image reporteCsvBtn;
+	@Wire
+	private Button limpiarBtn;
+	@Wire
+	private Button consultarBtn;
+	@Wire
+	private Grid estadisticosGrid;
+	
 	private EstadisticoDTO estadisticoDTO = (EstadisticoDTO) this.read();
 	
 	private List<EstadisticoVO> estadisticoVOs = estadisticoDTO.getEstadisticoVOs();
@@ -103,6 +131,8 @@ public class EstadisticoController extends ControllerSupport implements  IContro
 	private String strIdCliente;
 	
 	private String strIdProducto;
+	
+	private boolean executePermissionSet;
 	
 	@Override
 	public Object read() {
@@ -145,6 +175,7 @@ public class EstadisticoController extends ControllerSupport implements  IContro
 	@AfterCompose
     public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
         Selectors.wireComponents(view, this, false);        
+        executePermissionSet = this.applyPermision();
     }
 	
 	//Cambiar al objeto que pertenezca el componente en este caso estadisticoVOs
@@ -567,9 +598,38 @@ public class EstadisticoController extends ControllerSupport implements  IContro
 		this.strIdProducto = strIdProducto;
 	}
 
+	/**
+	 * @return the executePermissionSet
+	 */
+	public boolean isExecutePermissionSet() {
+		return executePermissionSet;
+	}
+	/**
+	 * @param executePermissionSet the executePermissionSet to set
+	 */
+	public void setExecutePermissionSet(boolean executePermissionSet) {
+		this.executePermissionSet = executePermissionSet;
+	}
 	@Override
 	public boolean applyPermision() {
-		// TODO Auto-generated method stub
-		return false;
+		boolean isApplied = false;
+		HashMap<String, Component> componentes = new HashMap<String, Component>();
+		componentes.put(lblCanal.getId(), lblCanal);
+		componentes.put(lblIdCliente.getId(), lblIdCliente);
+		componentes.put(lblProducto.getId(), lblProducto);
+		componentes.put(lblFechaAlta.getId(), lblFechaAlta);
+		componentes.put(lblA.getId(), lblA);
+		componentes.put(canal.getId(), canal);
+		componentes.put(cliente.getId(), cliente);
+		componentes.put(producto.getId(), producto);
+		componentes.put(fechaInicio.getId(), fechaInicio);
+		componentes.put(fechaFin.getId(), fechaFin);
+		componentes.put(reporteExcelBtn.getId(), reporteExcelBtn);
+		componentes.put(reporteCsvBtn.getId(), reporteCsvBtn);
+		componentes.put(limpiarBtn.getId(), limpiarBtn);
+		componentes.put(consultarBtn.getId(), consultarBtn);
+		componentes.put(estadisticosGrid.getId(), estadisticosGrid);
+		super.applyPermission(MapeadorConstants.ESTADISTICO, componentes);
+		return isApplied;
 	}	
 }

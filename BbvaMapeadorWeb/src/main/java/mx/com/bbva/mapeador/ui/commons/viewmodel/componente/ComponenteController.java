@@ -1,13 +1,13 @@
 package mx.com.bbva.mapeador.ui.commons.viewmodel.componente;
 
+import java.util.HashMap;
 import java.util.List;
 
 import mx.com.bbva.bancomer.bussinnes.model.vo.ComponenteVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.PantallaVO;
-import mx.com.bbva.bancomer.bussinnes.model.vo.TipoComponenteVO;
+import mx.com.bbva.bancomer.commons.command.MapeadorConstants;
 import mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject;
 import mx.com.bbva.bancomer.componente.dto.ComponenteDTO;
-import mx.com.bbva.bancomer.estatusobjeto.dto.EstatusObjetoDTO;
 import mx.com.bbva.bancomer.mapper.business.ComponenteBO;
 import mx.com.bbva.bancomer.mapper.business.EstatusObjetoBO;
 import mx.com.bbva.bancomer.mapper.business.PantallaBO;
@@ -32,14 +32,14 @@ import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
+import org.zkoss.zul.Button;
 import org.zkoss.zul.Combobox;
+import org.zkoss.zul.Grid;
+import org.zkoss.zul.Label;
 import org.zkoss.zul.Textbox;
 
 public class ComponenteController extends ControllerSupport implements  IController{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -3505275489025917085L;
 	private static final Logger logger = Logger.getLogger(PantallaController.class);
 	
@@ -54,18 +54,31 @@ public class ComponenteController extends ControllerSupport implements  IControl
 	}
 	@Wire
 	private Textbox idComponente;
-	
 	@Wire
 	private Textbox idPantalla;
-	
 	@Wire
 	private Combobox pantalla;
-	
 	@Wire
 	private Textbox nombreComponente;
-	
 	@Wire
 	private Combobox tipoComponente;
+	
+	@Wire
+	private Label lblPantalla;
+	@Wire
+	private Label lblNombreComponente;
+	@Wire
+	private Label lblTipoComponente;
+	@Wire
+	private Button limpiarBtn;
+	@Wire
+	private Button guardarBtn;
+	@Wire
+	private Button consultarBtn;
+	@Wire
+	private Button eliminarBtn;
+	@Wire
+	private Grid componentesGrid;
 	
 	private ComponenteDTO componenteDTO =  (ComponenteDTO) this.read();
 	
@@ -80,6 +93,8 @@ public class ComponenteController extends ControllerSupport implements  IControl
 	private String strNombreComponente;
 	
 	private String strTipoComponente;
+	
+	private boolean executePermissionSet;
 	
 	@Override
 	public Object read() {
@@ -97,7 +112,8 @@ public class ComponenteController extends ControllerSupport implements  IControl
 	}
 	@AfterCompose
     public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
-        Selectors.wireComponents(view, this, false);        
+        Selectors.wireComponents(view, this, false);      
+        executePermissionSet = this.applyPermision();
     }
 	
 	@Command
@@ -461,11 +477,36 @@ public class ComponenteController extends ControllerSupport implements  IControl
 	public void setStrTipoComponente(String strTipoComponente) {
 		this.strTipoComponente = strTipoComponente;
 	}
+	/**
+	 * @return the executePermissionSet
+	 */
+	public boolean isExecutePermissionSet() {
+		return executePermissionSet;
+	}
+	/**
+	 * @param executePermissionSet the executePermissionSet to set
+	 */
+	public void setExecutePermissionSet(boolean executePermissionSet) {
+		this.executePermissionSet = executePermissionSet;
+	}
 	@Override
 	public boolean applyPermision() {
-		// TODO Auto-generated method stub
-		return false;
-	}
+		boolean isApplied = false;
+		HashMap<String, Component> componentes = new HashMap<String, Component>();
+		componentes.put(lblPantalla.getId(), lblPantalla);
+		componentes.put(lblNombreComponente.getId(), lblNombreComponente);
+		componentes.put(lblTipoComponente.getId(), lblTipoComponente);
+		componentes.put(pantalla.getId(), pantalla);
+		componentes.put(tipoComponente.getId(), tipoComponente);
+		componentes.put(nombreComponente.getId(), nombreComponente);
+		componentes.put(limpiarBtn.getId(), limpiarBtn);
+		componentes.put(guardarBtn.getId(), guardarBtn);
+		componentes.put(consultarBtn.getId(), consultarBtn);
+		componentes.put(eliminarBtn.getId(), eliminarBtn);
+		componentes.put(componentesGrid.getId(), componentesGrid);
+		super.applyPermission(MapeadorConstants.CANALES, componentes);
+		return isApplied;
+	}	
 
 	
 }
