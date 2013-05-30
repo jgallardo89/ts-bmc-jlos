@@ -1,8 +1,19 @@
 package mx.com.bbva.mt101.ui.commons.viewmodel.palabraComodin;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+
+import mx.com.bbva.bancomer.bussinnes.model.vo.PalabraComodinVO;
+import mx.com.bbva.bancomer.canal.dto.BeanGenerico;
+import mx.com.bbva.bancomer.commons.command.CommandConstants;
+import mx.com.bbva.bancomer.commons.command.MapeadorConstants;
+import mx.com.bbva.bancomer.mapper.business.PalabraComodinBO;
+import mx.com.bbva.bancomer.palabracomodin.dto.PalabraComodinDTO;
+import mx.com.bbva.bancomer.utils.StringUtil;
+import mx.com.bbva.mapeador.ui.commons.controller.IController;
+import mx.com.bbva.mapeador.ui.commons.viewmodel.support.ControllerSupport;
+import mx.com.bbva.mt101.ui.commons.viewmodel.reportes.ReportesController;
 
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.BindingParam;
@@ -13,20 +24,11 @@ import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
+import org.zkoss.zul.Button;
+import org.zkoss.zul.Grid;
+import org.zkoss.zul.Image;
+import org.zkoss.zul.Label;
 import org.zkoss.zul.Textbox;
-
-import mx.com.bbva.bancomer.bitacora.dto.BitacoraDTO;
-import mx.com.bbva.bancomer.bitacora.dto.CampoDTO;
-import mx.com.bbva.bancomer.bussinnes.model.vo.PalabraComodinVO;
-import mx.com.bbva.bancomer.bussinnes.model.vo.ProductoVO;
-import mx.com.bbva.bancomer.canal.dto.BeanGenerico;
-import mx.com.bbva.bancomer.commons.command.CommandConstants;
-import mx.com.bbva.bancomer.mapper.business.PalabraComodinBO;
-import mx.com.bbva.bancomer.palabracomodin.dto.PalabraComodinDTO;
-import mx.com.bbva.bancomer.utils.StringUtil;
-import mx.com.bbva.mapeador.ui.commons.controller.IController;
-import mx.com.bbva.mapeador.ui.commons.viewmodel.support.ControllerSupport;
-import mx.com.bbva.mt101.ui.commons.viewmodel.reportes.ReportesController;
 
 /**
  * @author Julio Morales
@@ -39,10 +41,25 @@ public class PalabraComodinController extends ControllerSupport implements ICont
 	@Wire
 	private Textbox nombrePalabraComodin;
 	@Wire
-	private Textbox descripcionPalabraComodin;	
+	private Textbox descripcionPalabraComodin;
+	@Wire
+	private Label lblNombrePalabraComodin;
+	@Wire
+	private Label lblDescripcionPalabraComodin;
+	@Wire
+	private Image reporteExcelBtn;
+	@Wire
+	private Image reporteCsvBtn;
+	@Wire
+	private Button limpiarBtn;
+	@Wire
+	private Button consultarBtn;
+	@Wire
+	private Grid palabraComodinGrid;
 	
 	private PalabraComodinDTO palabraComodinDTO;
 	private List<PalabraComodinVO> comodinVOs;
+	private boolean executePermissionSet;
 	
 	public PalabraComodinController() {
 		this.read();
@@ -133,7 +150,8 @@ public class PalabraComodinController extends ControllerSupport implements ICont
 	
 	@AfterCompose
     public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
-        Selectors.wireComponents(view, this, false);        
+        Selectors.wireComponents(view, this, false);       
+        executePermissionSet = this.applyPermision();
     }
 
 	/**
@@ -164,10 +182,33 @@ public class PalabraComodinController extends ControllerSupport implements ICont
 		this.comodinVOs = comodinVOs;
 	}
 
+	/**
+	 * @return the executePermissionSet
+	 */
+	public boolean isExecutePermissionSet() {
+		return executePermissionSet;
+	}
+	/**
+	 * @param executePermissionSet the executePermissionSet to set
+	 */
+	public void setExecutePermissionSet(boolean executePermissionSet) {
+		this.executePermissionSet = executePermissionSet;
+	}
 	@Override
 	public boolean applyPermision() {
-		// TODO Auto-generated method stub
-		return false;
-	}
+		boolean isApplied = false;
+		HashMap<String, Component> componentes = new HashMap<String, Component>();
+		componentes.put(lblNombrePalabraComodin.getId(), lblNombrePalabraComodin);
+		componentes.put(lblDescripcionPalabraComodin.getId(), lblDescripcionPalabraComodin);
+		componentes.put(nombrePalabraComodin.getId(), nombrePalabraComodin);
+		componentes.put(descripcionPalabraComodin.getId(), descripcionPalabraComodin);
+		componentes.put(reporteExcelBtn.getId(), reporteExcelBtn);
+		componentes.put(reporteCsvBtn.getId(), reporteCsvBtn);
+		componentes.put(limpiarBtn.getId(), limpiarBtn);
+		componentes.put(consultarBtn.getId(), consultarBtn);
+		componentes.put(palabraComodinGrid.getId(), palabraComodinGrid);
+		super.applyPermission(MapeadorConstants.PALABRAS_COMODIN, componentes);
+		return isApplied;
+	}	
 
 }

@@ -4,7 +4,25 @@ import java.lang.reflect.Field;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+
+import mx.com.bbva.bancomer.bitacora.dto.BitacoraDTO;
+import mx.com.bbva.bancomer.bitacora.dto.CampoDTO;
+import mx.com.bbva.bancomer.bussinnes.model.vo.EstatusObjetoVO;
+import mx.com.bbva.bancomer.bussinnes.model.vo.MensajeSalidaVO;
+import mx.com.bbva.bancomer.canal.dto.BeanGenerico;
+import mx.com.bbva.bancomer.commons.command.CommandConstants;
+import mx.com.bbva.bancomer.commons.command.MapeadorConstants;
+import mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject;
+import mx.com.bbva.bancomer.estatusobjeto.dto.EstatusObjetoDTO;
+import mx.com.bbva.bancomer.mapper.business.EstatusObjetoBO;
+import mx.com.bbva.bancomer.mapper.business.MensajeSalidaBO;
+import mx.com.bbva.bancomer.mensajesalida.dto.MensajeSalidaDTO;
+import mx.com.bbva.bancomer.utils.StringUtil;
+import mx.com.bbva.mapeador.ui.commons.controller.IController;
+import mx.com.bbva.mapeador.ui.commons.viewmodel.support.ControllerSupport;
+import mx.com.bbva.mt101.ui.commons.viewmodel.reportes.ReportesController;
 
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.BindingParam;
@@ -16,24 +34,13 @@ import org.zkoss.zhtml.Messagebox;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
+import org.zkoss.zul.Button;
 import org.zkoss.zul.Combobox;
+import org.zkoss.zul.Datebox;
+import org.zkoss.zul.Grid;
+import org.zkoss.zul.Image;
+import org.zkoss.zul.Label;
 import org.zkoss.zul.Textbox;
-
-import mx.com.bbva.bancomer.bitacora.dto.BitacoraDTO;
-import mx.com.bbva.bancomer.bitacora.dto.CampoDTO;
-import mx.com.bbva.bancomer.bussinnes.model.vo.EstatusObjetoVO;
-import mx.com.bbva.bancomer.bussinnes.model.vo.MensajeSalidaVO;
-import mx.com.bbva.bancomer.canal.dto.BeanGenerico;
-import mx.com.bbva.bancomer.commons.command.CommandConstants;
-import mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject;
-import mx.com.bbva.bancomer.estatusobjeto.dto.EstatusObjetoDTO;
-import mx.com.bbva.bancomer.mapper.business.EstatusObjetoBO;
-import mx.com.bbva.bancomer.mapper.business.MensajeSalidaBO;
-import mx.com.bbva.bancomer.mensajesalida.dto.MensajeSalidaDTO;
-import mx.com.bbva.bancomer.utils.StringUtil;
-import mx.com.bbva.mapeador.ui.commons.controller.IController;
-import mx.com.bbva.mapeador.ui.commons.viewmodel.support.ControllerSupport;
-import mx.com.bbva.mt101.ui.commons.viewmodel.reportes.ReportesController;
 
 public class MensajesController extends ControllerSupport implements IController {
 
@@ -48,9 +55,37 @@ public class MensajesController extends ControllerSupport implements IController
 	@Wire
 	private Textbox idEstatusObjeto;
 	@Wire
-	private Combobox statusObjeto;	
+	private Combobox statusObjeto;
+	
+	@Wire
+	private Label lblIdentificadorMensaje;
+	@Wire
+	private Label lblEstatus;
+	@Wire
+	private Label lblTextoMensaje;
+	@Wire
+	private Label lblFechaAlta;
+	@Wire
+	private Label lblFechaModificacion;
+	@Wire
+	private Datebox fechaAlta;
+	@Wire
+	private Datebox fechaModificacion;
+	@Wire
+	private Image reporteExcelBtn;
+	@Wire
+	private Image reporteCsvBtn;
+	@Wire
+	private Button limpiarBtn;
+	@Wire
+	private Button guardarBtn;
+	@Wire
+	private Button consultarBtn;
+	@Wire
+	private Grid mensajesGrid;
 	
 	private boolean flagMensaje;
+	private boolean executePermissionSet;
 	private MensajeSalidaDTO mensajeSalidaDTO;
 	private List<MensajeSalidaVO> mensajeSalidaVOs;
 	private MensajeSalidaVO mensajeSalidaVO;
@@ -225,7 +260,8 @@ public class MensajesController extends ControllerSupport implements IController
 	
 	@AfterCompose
     public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
-        Selectors.wireComponents(view, this, false);        
+        Selectors.wireComponents(view, this, false);   
+        executePermissionSet = this.applyPermision();
     }
 
 	@Command
@@ -291,11 +327,41 @@ public class MensajesController extends ControllerSupport implements IController
 		this.mensajeSalidaVOs = mensajeSalidaVOs;
 	}
 
+	/**
+	 * @return the executePermissionSet
+	 */
+	public boolean isExecutePermissionSet() {
+		return executePermissionSet;
+	}
+	/**
+	 * @param executePermissionSet the executePermissionSet to set
+	 */
+	public void setExecutePermissionSet(boolean executePermissionSet) {
+		this.executePermissionSet = executePermissionSet;
+	}
 	@Override
 	public boolean applyPermision() {
-		// TODO Auto-generated method stub
-		return false;
-	}
+		boolean isApplied = false;
+		HashMap<String, Component> componentes = new HashMap<String, Component>();
+		componentes.put(lblIdentificadorMensaje.getId(), lblIdentificadorMensaje);
+		componentes.put(lblEstatus.getId(), lblEstatus);
+		componentes.put(lblTextoMensaje.getId(), lblTextoMensaje);
+		componentes.put(lblFechaAlta.getId(), lblFechaAlta);
+		componentes.put(lblFechaModificacion.getId(), lblFechaModificacion);
+		componentes.put(nombreMensajeSalida.getId(), nombreMensajeSalida);
+		componentes.put(descripcionMensajeSalida.getId(), descripcionMensajeSalida);
+		componentes.put(statusObjeto.getId(), statusObjeto);
+		componentes.put(fechaAlta.getId(), fechaAlta);
+		componentes.put(fechaModificacion.getId(), fechaModificacion);
+		componentes.put(reporteExcelBtn.getId(), reporteExcelBtn);
+		componentes.put(reporteCsvBtn.getId(), reporteCsvBtn);
+		componentes.put(limpiarBtn.getId(), limpiarBtn);
+		componentes.put(guardarBtn.getId(), guardarBtn);
+		componentes.put(consultarBtn.getId(), consultarBtn);
+		componentes.put(mensajesGrid.getId(), mensajesGrid);
+		super.applyPermission(MapeadorConstants.MENSAJES_SISTEMA, componentes);
+		return isApplied;
+	}	
 
 	/**
 	 * @return the flagMensaje

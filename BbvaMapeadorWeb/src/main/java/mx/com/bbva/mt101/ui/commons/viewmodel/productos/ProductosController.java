@@ -3,7 +3,25 @@ package mx.com.bbva.mt101.ui.commons.viewmodel.productos;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+
+import mx.com.bbva.bancomer.bussinnes.model.vo.EstatusObjetoVO;
+import mx.com.bbva.bancomer.bussinnes.model.vo.FlujoVO;
+import mx.com.bbva.bancomer.bussinnes.model.vo.ProductoVO;
+import mx.com.bbva.bancomer.canal.dto.BeanGenerico;
+import mx.com.bbva.bancomer.commons.command.CommandConstants;
+import mx.com.bbva.bancomer.commons.command.MapeadorConstants;
+import mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject;
+import mx.com.bbva.bancomer.estatusobjeto.dto.EstatusObjetoDTO;
+import mx.com.bbva.bancomer.mapper.business.EstatusObjetoBO;
+import mx.com.bbva.bancomer.mapper.business.FlujoBO;
+import mx.com.bbva.bancomer.mapper.business.ProductoBO;
+import mx.com.bbva.bancomer.producto.dto.ProductoDTO;
+import mx.com.bbva.bancomer.utils.StringUtil;
+import mx.com.bbva.mapeador.ui.commons.controller.IController;
+import mx.com.bbva.mapeador.ui.commons.viewmodel.support.ControllerSupport;
+import mx.com.bbva.mt101.ui.commons.viewmodel.reportes.ReportesController;
 
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.BindingParam;
@@ -15,24 +33,13 @@ import org.zkoss.zhtml.Messagebox;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
+import org.zkoss.zul.Button;
 import org.zkoss.zul.Combobox;
+import org.zkoss.zul.Datebox;
+import org.zkoss.zul.Grid;
+import org.zkoss.zul.Image;
+import org.zkoss.zul.Label;
 import org.zkoss.zul.Textbox;
-
-import mx.com.bbva.bancomer.bussinnes.model.vo.FlujoVO;
-import mx.com.bbva.bancomer.bussinnes.model.vo.ProductoVO;
-import mx.com.bbva.bancomer.bussinnes.model.vo.EstatusObjetoVO;
-import mx.com.bbva.bancomer.canal.dto.BeanGenerico;
-import mx.com.bbva.bancomer.commons.command.CommandConstants;
-import mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject;
-import mx.com.bbva.bancomer.estatusobjeto.dto.EstatusObjetoDTO;
-import mx.com.bbva.bancomer.mapper.business.FlujoBO;
-import mx.com.bbva.bancomer.mapper.business.ProductoBO;
-import mx.com.bbva.bancomer.mapper.business.EstatusObjetoBO;
-import mx.com.bbva.bancomer.producto.dto.ProductoDTO;
-import mx.com.bbva.bancomer.utils.StringUtil;
-import mx.com.bbva.mapeador.ui.commons.controller.IController;
-import mx.com.bbva.mapeador.ui.commons.viewmodel.support.ControllerSupport;
-import mx.com.bbva.mt101.ui.commons.viewmodel.reportes.ReportesController;
 
 public class ProductosController extends ControllerSupport implements IController  {
 
@@ -52,11 +59,40 @@ public class ProductosController extends ControllerSupport implements IControlle
 	@Wire
 	private Combobox flujo;	
 	
+	@Wire
+	private Label lblIdentificadorFlujo;
+	@Wire
+	private Label lblIdentificadorProducto;
+	@Wire
+	private Label lblNombreProducto;
+	@Wire
+	private Label lblEstatus;
+	@Wire
+	private Label lblFechaMod;
+	@Wire
+	private Image reporteExcelBtn;
+	@Wire
+	private Image reporteCsvBtn;
+	@Wire
+	private Button limpiarBtn;
+	@Wire
+	private Button guardarBtn;
+	@Wire
+	private Button consultarBtn;
+	@Wire
+	private Datebox fechaAlta;
+	@Wire
+	private Datebox fechaModificacion;
+
+	@Wire
+	private Grid productosGrid;
+	
 	private ProductoDTO productoDTO;
 	private List<ProductoVO> productoVOs;
 	private ProductoVO productoVO;
 	private List<FlujoVO> flujoVOs;
 	private boolean flagEstatus;
+	private boolean executePermissionSet;
 	
 	public ProductosController() {
 		this.read();
@@ -230,7 +266,6 @@ public class ProductosController extends ControllerSupport implements IControlle
 	public void onShowReport(@BindingParam("type") final String type) {
 		ReportesController controller = new ReportesController();
 		ArrayList<String> headersReport = new ArrayList<String>();
-		String titleReport = "Catálogo Productos";
 		headersReport.add("Identificador Producto");
 		headersReport.add("Nombre del Producto");
 		headersReport.add("Identificador del Flujo");
@@ -238,10 +273,11 @@ public class ProductosController extends ControllerSupport implements IControlle
 		headersReport.add("Fecha Modificación");
 		headersReport.add("Estatus");
 		if(type.equals("xls")) {
-			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_EXCEL,"Catálogo Clientes");
+			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_EXCEL,"Catálogo Producto");
 		} else {
-			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_TEXTO,"Catálogo Clientes");
-		}		
+			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_TEXTO,"Catálogo Producto");
+		}
+		controller.createReport(generaLista(), headersReport, type, "PRODUCTO");
 	}	
 	
 	private ArrayList<BeanGenerico> generaLista() {
@@ -270,6 +306,7 @@ public class ProductosController extends ControllerSupport implements IControlle
 	@AfterCompose
     public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
         Selectors.wireComponents(view, this, false);        
+        executePermissionSet = this.applyPermision();
     }
 
 	/**
@@ -314,10 +351,41 @@ public class ProductosController extends ControllerSupport implements IControlle
 		this.flujoVOs = flujoVOs;
 	}
 
+	/**
+	 * @return the executePermissionSet
+	 */
+	public boolean isExecutePermissionSet() {
+		return executePermissionSet;
+	}
+	/**
+	 * @param executePermissionSet the executePermissionSet to set
+	 */
+	public void setExecutePermissionSet(boolean executePermissionSet) {
+		this.executePermissionSet = executePermissionSet;
+	}
 	@Override
 	public boolean applyPermision() {
-		// TODO Auto-generated method stub
-		return false;
+		boolean isApplied = false;
+		HashMap<String, Component> componentes = new HashMap<String, Component>();
+		componentes.put(lblIdentificadorFlujo.getId(), lblIdentificadorFlujo);
+		componentes.put(lblIdentificadorProducto.getId(), lblIdentificadorProducto);
+		componentes.put(lblNombreProducto.getId(), lblNombreProducto);
+		componentes.put(lblEstatus.getId(), lblEstatus);
+		componentes.put(lblFechaMod.getId(), lblFechaMod);
+		componentes.put(reporteExcelBtn.getId(), reporteExcelBtn);
+		componentes.put(reporteCsvBtn.getId(), reporteCsvBtn);
+		componentes.put(limpiarBtn.getId(), limpiarBtn);
+		componentes.put(guardarBtn.getId(), guardarBtn);
+		componentes.put(consultarBtn.getId(), consultarBtn);
+		componentes.put(flujo.getId(), flujo);
+		componentes.put(estatusObjeto.getId(), estatusObjeto);
+		componentes.put(nombreProducto.getId(), nombreProducto);
+		componentes.put(descripcionProducto.getId(), descripcionProducto);
+		componentes.put(fechaAlta.getId(), fechaAlta);
+		componentes.put(fechaModificacion.getId(), fechaModificacion);
+		componentes.put(productosGrid.getId(), productosGrid);
+		super.applyPermission(MapeadorConstants.PRODUCTOS, componentes);
+		return isApplied;
 	}
 
 	/**
