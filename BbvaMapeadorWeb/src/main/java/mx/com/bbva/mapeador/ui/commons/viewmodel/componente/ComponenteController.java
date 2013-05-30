@@ -504,7 +504,7 @@ public class ComponenteController extends ControllerSupport implements  IControl
 		componentes.put(consultarBtn.getId(), consultarBtn);
 		componentes.put(eliminarBtn.getId(), eliminarBtn);
 		componentes.put(componentesGrid.getId(), componentesGrid);
-		super.applyPermission(MapeadorConstants.CANALES, componentes);
+		super.applyPermission(MapeadorConstants.COMPONENTES, componentes);
 		return isApplied;
 	}	
 
