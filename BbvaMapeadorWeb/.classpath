@@ -23,5 +23,6 @@
 	</classpathentry>
 	<classpathentry combineaccessrules="false" kind="src" path="/BbvaBancomerCommons"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/BbvaMapeadorEjb"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/BbvaMapeadorBusinessModel"/>
 	<classpathentry kind="output" path="WebContent/WEB-INF/classes"/>
 </classpath>

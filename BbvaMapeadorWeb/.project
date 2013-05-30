@@ -4,6 +4,9 @@
 	<comment></comment>
 	<projects>
 		<project>BbvaMapeadorEjb</project>
+		<project>BbvaMapeadorReports</project>
+		<project>BbvaMapeadorBusinessModel</project>
+		<project>BbvaBancomerCommons</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
@@ -31,6 +34,11 @@
 			<arguments>
 			</arguments>
 		</buildCommand>
+		<buildCommand>
+			<name>net.sf.jasperreports.builder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
 	</buildSpec>
 	<natures>
 		<nature>org.springframework.ide.eclipse.core.springnature</nature>
@@ -40,5 +48,6 @@
 		<nature>org.eclipse.wst.common.project.facet.core.nature</nature>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 		<nature>org.eclipse.wst.jsdt.core.jsNature</nature>
+		<nature>net.sf.jasperreports.nature</nature>
 	</natures>
 </projectDescription>

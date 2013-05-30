@@ -102,7 +102,7 @@ public class CanalesController extends ControllerSupport implements IController 
 		EstatusObjetoDTO estatusObjetoDTO = new EstatusObjetoDTO();
 	    estatusObjetoDTO.setCommandId(CommandConstants.ESTATUS_OBJETO);
 	    EstatusObjetoVO estatusObjetoVO = new EstatusObjetoVO();
-	    estatusObjetoVO.setNombreTabla("CANALES");
+	    estatusObjetoVO.setNombreTabla(CommandConstants.NOMBRE_TABLA_CANALES);
 	    estatusObjetoDTO.setEstatusObjetoVO(estatusObjetoVO);
 	    estatusObjetoDTO = estatusObjetoBO.readCommand(estatusObjetoDTO);
 	    canalDTO.setEstatusObjetoVOs(estatusObjetoDTO.getEstatusObjetoVOs());
@@ -174,8 +174,8 @@ public class CanalesController extends ControllerSupport implements IController 
 			} else {
 				CanalDTO canalDTO = new CanalDTO();
 				CanalVO canalVO = new CanalVO();
-				canalVO.setNombreCanal(nombreCanal.getValue().toUpperCase().toUpperCase());
-				canalVO.setDescripcionCanal(descripcionCanal.getValue().toUpperCase().toUpperCase());
+				canalVO.setNombreCanal(nombreCanal.getValue().toUpperCase());
+				canalVO.setDescripcionCanal(descripcionCanal.getValue().toUpperCase());
 				canalVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue()));
 				canalVO.setIdCanal(Integer.parseInt(idCanal.getValue()));
 				canalDTO.setCanalVO(canalVO);
@@ -297,6 +297,7 @@ public class CanalesController extends ControllerSupport implements IController 
 	public void onShowReport(@BindingParam("type") final String type) {
 		ReportesController controller = new ReportesController();
 		ArrayList<String> headersReport = new ArrayList<String>();
+		String titleReport = "Catálogo Canales";
 		headersReport.add("Clave");
 		headersReport.add("Descripción canal");
 		headersReport.add("Fecha y Hora alta");

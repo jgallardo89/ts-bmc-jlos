@@ -10,6 +10,7 @@
 		<config>WebContent/WEB-INF/config/web-application-config.xml</config>
 		<config>WebContent/WEB-INF/config/webmvc-config.xml</config>
 		<config>WebContent/WEB-INF/config/bussiness-application-config.xml</config>
+		<config>WebContent/WEB-INF/config/dabase-config.xml</config>
 	</configs>
 	<configSets>
 	</configSets>

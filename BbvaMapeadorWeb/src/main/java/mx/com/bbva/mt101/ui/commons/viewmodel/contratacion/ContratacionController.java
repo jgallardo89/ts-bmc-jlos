@@ -195,7 +195,7 @@ public class ContratacionController extends ControllerSupport implements IContro
 			ContratacionDTO contratacionDTO = new ContratacionDTO();
 			ContratacionVO contratacionVO = new ContratacionVO();
 			ContratacionBO contratacionBO = new ContratacionBO();
-			contratacionVO.setIdEstatusObjeto(CommandConstants.ESTATUS_OBJETO_ACTIVO);
+			contratacionVO.setIdEstatusObjeto(CommandConstants.ESTATUS_OBJETO_CONTRATACION_ACTIVO);
 			contratacionVO.setIdCanal(Integer.parseInt(idCanal.getValue()));
 			contratacionVO.setIdCanalSalida(Integer.parseInt(idCanalSalida.getValue()));
 			contratacionVO.setIdCliente(Integer.parseInt(idCliente.getValue()));
