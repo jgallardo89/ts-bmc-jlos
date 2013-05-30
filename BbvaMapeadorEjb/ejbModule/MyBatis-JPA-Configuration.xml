@@ -31,5 +31,6 @@
     	<mapper resource="mappers/usuarionotificacion/MapUsuarioNotificacion.xml"/> 
     	<mapper resource="mappers/estadistico/MapEstadistico.xml"/>
     	<mapper resource="mappers/monitoreoprocesos/MapMonitoreoProcesos.xml"/>
+    	<mapper resource="mappers/monitoreoarchivos/MapMonitoreoArchivos.xml"/>
     </mappers>
 </configuration>
