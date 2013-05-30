@@ -493,7 +493,7 @@ public class UsuarioNotificacionController  extends ControllerSupport implements
 		componentes.put(limpiarBtn.getId(), limpiarBtn);
 		componentes.put(consultarBtn.getId(), consultarBtn);
 		componentes.put(guardarBtn.getId(), guardarBtn);
-		super.applyPermission(MapeadorConstants.CANALES, componentes);
+		super.applyPermission(MapeadorConstants.NOTIFICACIONES, componentes);
 		return isApplied;
 	}	
 
