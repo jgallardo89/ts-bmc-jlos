@@ -7,7 +7,6 @@
 			PAPA.CD_REG_ARCH_ENTRA idRegArchEntraPapa, 
 			PAPA.CD_REG_ARCH_CIR idRegArchCirPapa,
 			PAPA.NB_REG_ARCH_ENTRA nombreArchEntraPapa, 
-			PAPA.NU_LOTE numeroLotePapa, 
 			PAPA.FH_REG_ARCH_ENTRA fechaRegArchEntraPapa,
 			ESTADO.CD_ESTADO_ARCHIVO idEstadoArchivoPapa,
 			ESTADO.NB_ESTADO_ARCHIVO nombreEstadoArchivoPapa,
