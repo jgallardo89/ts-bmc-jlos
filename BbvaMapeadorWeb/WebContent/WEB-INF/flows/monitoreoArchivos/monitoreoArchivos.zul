@@ -30,7 +30,7 @@
 										<rows>
 											<row sclass="row2">
 												<div align="right">
-													<label width="100%" sclass="labelFill" value="HDR Status:  "></label>
+													<label id="lblHDRStatus" width="100%" sclass="labelFill" value="HDR Status:  "></label>
 												</div>
 												<combobox readonly="false" onChange="selectedValueStatusPapa()"
 													id="statusPapa" width="70%" model="@load(vm.monitoreoArchivosDTO.estadoArchivoVOs)" autodrop="true">		
@@ -39,7 +39,7 @@
 													</template>																								
 												</combobox>
 												<div align="right">
-													<label width="100%" sclass="labelFill" value="DATA Status:  "></label>
+													<label id="lblDataEstatus" width="100%" sclass="labelFill" value="DATA Status:  "></label>
 												</div>
 												<combobox readonly="false" onChange="selectedValueStatusHijo()"
 													id="statusHijo" width="70%" model="@load(vm.monitoreoArchivosDTO.estadoArchivoVOs)" autodrop="true">		

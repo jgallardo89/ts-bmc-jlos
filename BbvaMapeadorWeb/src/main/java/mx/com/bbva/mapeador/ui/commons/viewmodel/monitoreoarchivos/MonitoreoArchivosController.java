@@ -1,9 +1,11 @@
 package mx.com.bbva.mapeador.ui.commons.viewmodel.monitoreoarchivos;
 
+import java.util.HashMap;
 import java.util.List;
 
 import mx.com.bbva.bancomer.bussinnes.model.vo.EstadoArchivoVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.MonitoreoArchivosVO;
+import mx.com.bbva.bancomer.commons.command.MapeadorConstants;
 import mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject;
 import mx.com.bbva.bancomer.estadoarchivo.dto.EstadoArchivoDTO;
 import mx.com.bbva.bancomer.mapper.business.EstadoArchivoBO;
@@ -22,7 +24,10 @@ import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
+import org.zkoss.zul.Button;
 import org.zkoss.zul.Combobox;
+import org.zkoss.zul.Grid;
+import org.zkoss.zul.Label;
 import org.zkoss.zul.Textbox;
 
 public class MonitoreoArchivosController extends ControllerSupport implements  IController{
@@ -52,6 +57,18 @@ public class MonitoreoArchivosController extends ControllerSupport implements  I
 	private String strIdEstatusPapa;
 	@Wire
 	private String strIdEstatusHijo;
+	private boolean executePermissionSet;
+	
+	@Wire
+	private Label lblHDRStatus;
+	@Wire
+	private Label lblDataEstatus;
+	@Wire
+	private Button limpiarBtn;
+	@Wire
+	private Button consultarBtn;
+	@Wire
+	private Grid archivoGrid;
 	
 	@Override
 	public Object read() {
@@ -80,6 +97,7 @@ public class MonitoreoArchivosController extends ControllerSupport implements  I
 	@AfterCompose
     public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
         Selectors.wireComponents(view, this, false);        
+        executePermissionSet = this.applyPermision();
     } 
 
 	@Command
@@ -264,5 +282,31 @@ public class MonitoreoArchivosController extends ControllerSupport implements  I
 	public void setStrIdEstatusHijo(String strIdEstatusHijo) {
 		this.strIdEstatusHijo = strIdEstatusHijo;
 	}
+	/**
+	 * @return the executePermissionSet
+	 */
+	public boolean isExecutePermissionSet() {
+		return executePermissionSet;
+	}
+	/**
+	 * @param executePermissionSet the executePermissionSet to set
+	 */
+	public void setExecutePermissionSet(boolean executePermissionSet) {
+		this.executePermissionSet = executePermissionSet;
+	}
+	@Override
+	public boolean applyPermision() {
+		boolean isApplied = false;
+		HashMap<String, Component> componentes = new HashMap<String, Component>();
+		componentes.put(lblHDRStatus.getId(), lblHDRStatus);
+		componentes.put(lblDataEstatus.getId(), lblDataEstatus);
+		componentes.put(statusPapa.getId(), statusPapa);
+		componentes.put(statusHijo.getId(), statusHijo);
+		componentes.put(limpiarBtn.getId(), limpiarBtn);
+		componentes.put(consultarBtn.getId(), consultarBtn);
+		componentes.put(archivoGrid.getId(), archivoGrid);
+		super.applyPermission(MapeadorConstants.MONITOREO_ARCHIVOS, componentes);
+		return isApplied;
+	}	
 
 }
