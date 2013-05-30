@@ -30,12 +30,12 @@
 										<rows>
 											<row sclass="row2">
 												<div align="right">
-													<label width="100%" sclass="labelFill" value="Nombre del Perfil:"></label>
+													<label id="lblNombrePerfil" width="100%" sclass="labelFill" value="Nombre del Perfil:"></label>
 												</div>
 												<textbox sclass="textboxUpperCase" maxlength="30"
 													id="nombrePerfil" value="@load(vm.strNombrePerfil)" width="70%"></textbox>
 												<div align="right">
-													<label width="100%" sclass="labelFill" value="Descipción del Perfil:"></label>												
+													<label id="lblDescripcionPerfil" width="100%" sclass="labelFill" value="Descipción del Perfil:"></label>												
 												</div>
 												<cell colspan="2">
 												<textbox sclass="textboxUpperCase" maxlength="300"
@@ -44,7 +44,7 @@
 											</row>
 											<row sclass="row2">												
 												<div align="right">
-													<label width="100%" sclass="labelFill" value="Status:"></label>												
+													<label id="lblEstatus" width="100%" sclass="labelFill" value="Status:"></label>												
 												</div>
 												<combobox sclass="textboxUpperCase"
 													id="status" width="70%" model="@load(vm.perfilDTO.estatusObjetoVOs)" autodrop="true">		
@@ -61,7 +61,7 @@
 											</row>
 											<row sclass="row2" style="vertical-align:top;">												
 												<div align="right">
-													<label width="100%" sclass="labelFill" value="Pantalla:"></label>												
+													<label id="lblPantalla" width="100%" sclass="labelFill" value="Pantalla:"></label>												
 												</div>
 												<div style="vertical-align:top;">
 													<combobox sclass="textboxUpperCase" disabled="true" readonly="true" onChange="@command('readComponentesPantalla')"

@@ -30,17 +30,17 @@
 										<rows>
 											<row sclass="row2">
 												<div align="right">
-													<label width="100%" sclass="labelFill" value="Fecha inicio:  "></label>												
+													<label id="lblFechaInicio" width="100%" sclass="labelFill" value="Fecha inicio:  "></label>												
 												</div>
 												<datebox height="20px" value="@load(vm.bitacoraArchivoDTO.bitacoraArchivoVO.fechaInicio) @converter('formatedDate', format='dd/MM/yyyy')" maxlength="50" width="100%" id="fechaInicio" readonly="true" buttonVisible="true" onCreate="self.value = new Date()" format="dd/MM/yyyy"></datebox>
 												<div align="right">
-													<label width="100%" sclass="labelFill" value="Fecha fin: "></label>												
+													<label id="lblFechaFin" width="100%" sclass="labelFill" value="Fecha fin: "></label>												
 												</div>
 												<datebox height="20px" value="@load(vm.bitacoraArchivoDTO.bitacoraArchivoVO.fechaFin) @converter('formatedDate', format='dd/MM/yyyy')" maxlength="50" width="100%" id="fechaFin" readonly="true" buttonVisible="true" onCreate="self.value = new Date()" format="dd/MM/yyyy"></datebox>																												
 											</row>
 											<row sclass="row2">
 												<div align="right">
-													<label width="100%" sclass="labelFill" value="Estado Archivo:  "></label>
+													<label id="lblEstadoArchivo" width="100%" sclass="labelFill" value="Estado Archivo:  "></label>
 												</div>
 												<combobox readonly="false" onChange="selectedValueEventoMapeador()"
 													id="eventoMapeador" width="70%" model="@load(vm.bitacoraArchivoDTO.eventoMapeadorVOs)" autodrop="true">		
@@ -49,19 +49,16 @@
 													</template>																								
 												</combobox>
 												<div align="right">
-													<label width="100%" sclass="labelFill" value="Nombre de Archivo:  "></label>
+													<label id="lblNombreArchivo" width="100%" sclass="labelFill" value="Nombre de Archivo:  "></label>
 												</div>
 												<textbox sclass="textboxUpperCase" maxlength="50"
 													id="nombreArchivo" value="@load(vm.strNombreArchivo)" width="100%"></textbox>																									
 											</row>
 											<row sclass="row2">
 												<div align="right" width="70%">
-													<image src="/img/xls.png" onClick="@command('onShowReport',type='xls')" />
-													<image src="/img/csv.png" onClick="@command('onShowReport',type='csv')" />
-												</div>									
-												<!--  div align="right" width="82%">
-													<button sclass="button" label="Limpiar" id="limpiarBtn" onClick="@command('clean')" ></button>
-												</div-->
+													<image id="reporteExcelBtn" src="/img/xls.png" onClick="@command('onShowReport',type='xls')" />
+													<image id="reporteCsvBtn" src="/img/csv.png" onClick="@command('onShowReport',type='csv')" />
+												</div>
 												<div align="right" width="82%">
 													<button sclass="button" image="/img/search.png" label="Consultar" id="consultarBtn" onClick="@command('readWithFilters')"></button>
 												</div>

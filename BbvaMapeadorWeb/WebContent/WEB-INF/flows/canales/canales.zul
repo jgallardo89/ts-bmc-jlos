@@ -32,23 +32,23 @@
 										<rows>
 											<row sclass="row2">
 												<div align="right">
-													<label width="100%" sclass="labelFill" value="Clave: "></label>
+													<label id="lblClave" width="100%" sclass="labelFill" value="Clave: "></label>
 												</div>
 												<textbox sclass="textboxUpperCase" maxlength="5" disabled="@load(vm.flagClave)"
 													id="nombreCanal" value="@load(vm.canalDTO.canalVO.nombreCanal)" width="98%"></textbox>
 												<div align="right">
-													<label width="100%" sclass="labelFill" value="Fecha y Hora de Alta:"></label>												
+													<label id="lblFechaHoraAlta" width="100%" sclass="labelFill" value="Fecha y Hora de Alta:"></label>												
 												</div>
 												<datebox value="@load(vm.canalDTO.canalVO.fechaAlta)"  maxlength="50"  width="100%" id="fechaAlta" readonly="true" buttonVisible="false" onCreate="self.value = new Date()" format="dd/MM/yyyy HH:MM"></datebox> 																													
 											</row>
 											<row sclass="row2">
 												<div align="right">
-													<label width="100%" sclass="labelFill" value="Descripción Canal:"></label>												
+													<label id="lblDescripcionCanal" width="100%" sclass="labelFill" value="Descripción Canal:"></label>												
 												</div>
 												<textbox sclass="textboxUpperCase"
 													id="descripcionCanal" value="@load(vm.canalDTO.canalVO.descripcionCanal)" width="98%" maxlength="300"></textbox>
 												<div align="right">
-													<label width="100%" sclass="labelFill" value="Status:"></label>												
+													<label id="lblEstatus" width="100%" sclass="labelFill" value="Status:"></label>												
 												</div>
 												<combobox sclass="textboxUpperCase" onChange="selectedValueStatusObjeto()"
 													id="statusObjeto" width="70%" model="@load(vm.canalDTO.estatusObjetoVOs)" autodrop="true">		
@@ -59,9 +59,9 @@
 											</row>
 											<row sclass="row2">
 												<div align="right" width="70%">
-													<image src="/img/xls.png" onClick="@command('onShowReport',type='xls')" />
-													<image src="/img/csv.png" onClick="@command('onShowReport',type='csv')" />
-												</div>												
+													<image id="reporteExcelBtn" src="/img/xls.png" onClick="@command('onShowReport',type='xls')" />
+													<image id="reporteCsvBtn" src="/img/csv.png" onClick="@command('onShowReport',type='csv')" />
+												</div>													
 												<div align="right" width="70%">
 													<button sclass="button" image="/img/clear.png"  label="Limpiar" id="limpiarBtn" onClick="@command('clean')" ></button>
 												</div>	
@@ -84,7 +84,7 @@
 							style="margin-bottom:10px">
 							<caption sclass="sectionPanelTitle" label="Lista de Canales"></caption>
 							<panelchildren>
-								<grid width="99.7%" id="clientesGrid" mold="paging"
+								<grid width="99.7%" id="canalesGrid" mold="paging"
 									model="@load(vm.canalesVOs)" pagingPosition="both" pageSize="12"
 									vflex="true" height="100%">									
 									<columns sizable="true" menupopup="auto">

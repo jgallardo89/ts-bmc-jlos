@@ -30,7 +30,7 @@
 										<rows>
 											<row sclass="row2">
 												<div align="right">
-													<label width="100%" sclass="labelFill" value="Identificador de Flujo: "></label>
+													<label id="lblIdentificadorFlujo" width="100%" sclass="labelFill" value="Identificador de Flujo: "></label>
 												</div>
 												<combobox sclass="textboxUpperCase" onChange="selectedValueFlujo()"
 													id="flujo" width="70%" model="@load(vm.flujoVOs)" autodrop="true">		
@@ -39,19 +39,19 @@
 													</template>																								
 												</combobox>
 												<div align="right">
-													<label width="100%" sclass="labelFill" value="Identificador de Producto:"></label>												
+													<label id="lblIdentificadorProducto" width="100%" sclass="labelFill" value="Identificador de Producto:"></label>												
 												</div>
 												<textbox sclass="textboxUpperCase" maxlength="30"
 													id="nombreProducto" value="@load(vm.productoDTO.productoVO.nombreProducto)" width="100%"></textbox>																											
 											</row>
 											<row sclass="row2">
 												<div align="right">
-													<label width="100%" sclass="labelFill" value="Nombre de Producto:"></label>												
+													<label id="lblNombreProducto" width="100%" sclass="labelFill" value="Nombre de Producto:"></label>												
 												</div>
 												<textbox sclass="textboxUpperCase" maxlength="200"
 													id="descripcionProducto" value="@load(vm.productoDTO.productoVO.descripcionProducto)" width="100%"></textbox>
 												<div align="right">
-													<label width="100%" sclass="labelFill" value="Status:"></label>												
+													<label id="lblEstatus" width="100%" sclass="labelFill" value="Status:"></label>												
 												</div>
 												<combobox sclass="textboxUpperCase" onChange="selectedValueStatusObjeto()" disabled="@load(vm.flagEstatus)"
 													id="estatusObjeto" width="70%" model="@load(vm.productoDTO.estatusObjetoVOs)" autodrop="true">		
@@ -62,19 +62,19 @@
 											</row>
 											<row sclass="row2">
 												<div align="right">
-													<label width="100%" sclass="labelFill" value="Fecha alta:"></label>												
+													<label id="lblFechaAlta" width="100%" sclass="labelFill" value="Fecha alta:"></label>												
 												</div>
 												<datebox value="@load(vm.productoDTO.productoVO.fechaAlta)"  maxlength="50"  width="100%" id="fechaAlta" readonly="true" buttonVisible="false" onCreate="self.value = new Date()" format="dd/MM/yyyy HH:MM:SS"></datebox>
 												<div align="right">
-													<label width="100%" sclass="labelFill" value="Fecha modificación:"></label>												
+													<label id="lblFechaMod" width="100%" sclass="labelFill" value="Fecha modificación:"></label>												
 												</div>
 												<datebox value="@load(vm.productoDTO.productoVO.fechaModificacion)"  maxlength="50"  width="100%" id="fechaModificacion" readonly="true" buttonVisible="false" onCreate="self.value = new Date()" format="dd/MM/yyyy HH:MM:SS"></datebox>
 											</row>
 											<row sclass="row2">
 												<div align="right" width="70%">
-													<image src="/img/xls.png" onClick="@command('onShowReport',type='xls')" />
-													<image src="/img/csv.png" onClick="@command('onShowReport',type='csv')" />
-												</div>											
+													<image id="reporteExcelBtn" src="/img/xls.png" onClick="@command('onShowReport',type='xls')" />
+													<image id="reporteCsvBtn" src="/img/csv.png" onClick="@command('onShowReport',type='csv')" />
+												</div>													
 												<div align="right" width="70%">
 													<button sclass="button" image="/img/clear.png"  label="Limpiar" id="limpiarBtn" onClick="@command('clean')" ></button>
 												</div>	

@@ -31,7 +31,7 @@
 										<rows>
 											<row sclass="row1">
 												<div align="right">
-													<label width="100%" sclass="labelFill" value="Canal: "></label>
+													<label id="lblCanal" width="100%" sclass="labelFill" value="Canal: "></label>
 												</div>
 												<combobox sclass="textboxUpperCase" onChange="selectedValueCanal()"
 													id="canal" width="70%" model="@load(vm.monitoreoProcesosDTO.canalVOs)" autodrop="true">		
@@ -40,7 +40,7 @@
 													</template>																								
 												</combobox>
 												<div align="right">
-													<label width="100%" sclass="labelFill" value="Identificador Cliente: "></label>
+													<label id="lblCliente" width="100%" sclass="labelFill" value="Identificador Cliente: "></label>
 												</div>
 												<combobox sclass="textboxUpperCase" onChange="selectedValueCliente()"
 													id="cliente" width="70%" model="@load(vm.monitoreoProcesosDTO.clienteVOs)" autodrop="true">		
@@ -51,7 +51,7 @@
 											</row>
 											<row sclass="row2"> 
 												<div align="right">
-													<label width="100%" sclass="labelFill" value="Clave Producto: "></label>												
+													<label id="lblProducto" width="100%" sclass="labelFill" value="Clave Producto: "></label>												
 												</div>
 												<combobox sclass="textboxUpperCase" onChange="selectedValueProducto()"
 													id="producto" width="70%" model="@load(vm.monitoreoProcesosDTO.productoVOs)" autodrop="true">		
@@ -60,7 +60,7 @@
 													</template>																								
 												</combobox>		
 												<div align="right">
-													<label width="100%" sclass="labelFill" value="Estatus: "></label>
+													<label id="lblEstatus" width="100%" sclass="labelFill" value="Estatus: "></label>
 												</div>
 												<combobox sclass="textboxUpperCase" onChange="selectedValueEstatus()"
 													id="estatus" width="70%" model="@load(vm.monitoreoProcesosDTO.estatusObjetoVOs)" autodrop="true">		
@@ -71,25 +71,25 @@
 											</row>
 											<row sclass="row2">
 												<div align="right">
-													<label width="100%" sclass="labelFill" value="Fecha Lote: "></label>												
+													<label id="lblFechaLote" width="100%" sclass="labelFill" value="Fecha Lote: "></label>												
 												</div>
 												<datebox value="@load(vm.monitoreoProcesosDTO.monitoreoProcesosVO.fechaInicio)"  maxlength="50"  width="100%" id="fechaInicio" readonly="true" buttonVisible="true" onCreate="self.value = new Date()" format="dd/MM/yyyy HH:MM:SS"></datebox>
 												<div align="right">
-													<label width="100%" sclass="labelFill" value="a: "></label>												
+													<label id="lblA" width="100%" sclass="labelFill" value="a: "></label>												
 												</div>
 												<datebox value="@load(vm.monitoreoProcesosDTO.monitoreoProcesosVO.fechaFin)"  maxlength="50"  width="100%" id="fechaFin" readonly="true" buttonVisible="true" onCreate="self.value = new Date()" format="dd/MM/yyyy HH:MM:SS"></datebox>
 											</row>
 											<row sclass="row2">
 												<div align="right">
-													<label width="100%" sclass="labelFill" value="Lote: "></label>												
+													<label id="lblLote" width="100%" sclass="labelFill" value="Lote: "></label>												
 												</div>
 												<textbox sclass="textboxUpperCase" maxlength="5" constraint="/^[0-9]*$/: Por favor ingresa números"
 													id="lote" value="@load(vm.strLote)" width="100%"></textbox>
 											</row>
 											<row sclass="row2">
 												<div align="right" width="70%">
-													<image src="/img/xls.png" onClick="@command('onShowReport',type='xls')" />
-													<image src="/img/csv.png" onClick="@command('onShowReport',type='csv')" />
+													<image id="reporteExcelBtn" src="/img/xls.png" onClick="@command('onShowReport',type='xls')" />
+													<image id="reporteCsvBtn" src="/img/csv.png" onClick="@command('onShowReport',type='csv')" />
 												</div>											
 												<div align="right" width="70%">
 													<button sclass="button" image="/img/clear.png"  label="Limpiar" id="limpiarBtn" onClick="@command('clean')" ></button>
@@ -110,7 +110,7 @@
 							style="margin-bottom:10px">
 							<caption sclass="sectionPanelTitle" label="Lista de Resultados"></caption>
 							<panelchildren>
-								<grid width="99.7%" id="productosGrid" mold="paging"
+								<grid width="99.7%" id="procesosGrid" mold="paging"
 									model="@load(vm.monitoreoProcesosVOs)" pagingPosition="both" pageSize="11"
 									vflex="true" height="100%">									
 									<columns sizable="true" menupopup="auto">

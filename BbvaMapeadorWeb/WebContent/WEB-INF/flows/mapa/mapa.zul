@@ -30,29 +30,29 @@
 										<rows>
 											<row sclass="row2">
 												<div align="right">
-													<label width="100%" sclass="labelFill" value="Identificador Mapa:"></label>												
+													<label id="lblIdentificadorMapa" width="100%" sclass="labelFill" value="Identificador Mapa:"></label>												
 												</div>
 												<textbox sclass="textboxUpperCase" maxlength="30" 
 													id="identificadorMapa" value="@load(vm.strIdentificadorMapa)" width="100%"></textbox>		
 												<div align="right">
-													<label width="100%" sclass="labelFill" value="Fecha alta:"></label>												
+													<label id="lblFechaAlta" width="100%" sclass="labelFill" value="Fecha alta:"></label>												
 												</div>
 												<datebox value="@load(vm.mapaGmmDTO.mapaGmmVO.fechaAlta) @converter('formatedDate', format='dd/MM/yyyy')" maxlength="50" width="100%" id="fechaAlta" readonly="true" buttonVisible="true" onCreate="self.value = new Date()" format="dd/MM/yyyy"></datebox>																																					
 											</row>
 											<row sclass="row2">											
 												<div align="right">
-													<label width="100%" sclass="labelFill" value="Descripción Mapa :"></label>												
+													<label id="lblDescricionMapa" width="100%" sclass="labelFill" value="Descripción Mapa :"></label>												
 												</div>
 												<textbox sclass="textboxUpperCase" maxlength="200"
 													id="descripcionMapa" value="@load(vm.strDescripcionMapa)" width="100%"></textbox>
 												<div align="right">
-													<label width="100%" sclass="labelFill" value="Fecha modificación:"></label>												
+													<label id="lblFechaModificacion" width="100%" sclass="labelFill" value="Fecha modificación:"></label>												
 												</div>
 												<datebox value="@load(vm.mapaGmmDTO.mapaGmmVO.fechaModificacion) @converter('formatedDate', format='dd/MM/yyyy')" maxlength="50" width="100%" id="fechaModificacion" readonly="true" buttonVisible="true" onCreate="self.value = new Date()" format="dd/MM/yyyy"></datebox>																										
 											</row>
 											<row sclass="row2">											
 												<div align="right">
-													<label width="100%" sclass="labelFill" value="Status :"></label>
+													<label id="lblEstatus" width="100%" sclass="labelFill" value="Status :"></label>
 												</div>
 												<combobox id="status" model="@load(vm.mapaGmmDTO.estatusObjetoVOs)" value="@load(vm.strStatus)"  width="100%" height="100%" onChange="selectedValueStatus()">		
 													<template name="model">										
@@ -62,9 +62,9 @@
 											</row>
 											<row sclass="row2">		
 												<div align="right" width="70%">
-													<image src="/img/xls.png" onClick="@command('onShowReport',type='xls')" />
-													<image src="/img/csv.png" onClick="@command('onShowReport',type='csv')" />
-												</div>									
+													<image id="reporteExcelBtn" src="/img/xls.png" onClick="@command('onShowReport',type='xls')" />
+													<image id="reporteCsvBtn" src="/img/csv.png" onClick="@command('onShowReport',type='csv')" />
+												</div>										
 												<div align="right" width="70%">
 													<button sclass="button" image="/img/clear.png" label="Limpiar" id="limpiarBtn" onClick="@command('clean')" ></button>
 												</div>	

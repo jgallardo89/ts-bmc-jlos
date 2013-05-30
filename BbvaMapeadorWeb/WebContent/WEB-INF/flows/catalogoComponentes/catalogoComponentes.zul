@@ -30,7 +30,7 @@
 										<rows>
 											<row sclass="row2">
 												<div align="right">
-													<label width="100%" sclass="labelFill" value="Pantalla :"></label>
+													<label id="lblPantalla" width="100%" sclass="labelFill" value="Pantalla :"></label>
 												</div>
 												<combobox id="pantalla" model="@load(vm.componenteDTO.pantallaVOs)" value="@load(vm.strPantalla)"  width="100%" height="100%" onChange="selectedValuePantallas()">		
 													<template name="model">										
@@ -38,14 +38,14 @@
 													</template>																								
 												</combobox>	
 												<div align="right">
-													<label width="100%" sclass="labelFill" value="Nombre Componente:"></label>												
+													<label id="lblNombreComponente" width="100%" sclass="labelFill" value="Nombre Componente:"></label>												
 												</div>
 												<textbox maxlength="50"
 													id="nombreComponente" value="@load(vm.strNombreComponente)" width="100%"></textbox>																										
 											</row>
 											<row sclass="row2">											
 												<div align="right">
-													<label width="100%" sclass="labelFill" value="Tipo componente :"></label>												
+													<label id="lblTipoComponente" width="100%" sclass="labelFill" value="Tipo componente :"></label>												
 												</div>
 												<combobox id="tipoComponente" model="@load(vm.componenteDTO.tipoComponenteVOs)" value="@load(vm.strPantalla)"  width="100%" height="100%" onChange="selectedValuePantallas()">		
 													<template name="model">										

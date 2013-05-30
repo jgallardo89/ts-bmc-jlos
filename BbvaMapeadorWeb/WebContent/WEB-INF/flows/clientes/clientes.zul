@@ -30,34 +30,34 @@
 										<rows>
 											<row sclass="row2">
 												<div align="right">
-													<label width="100%" sclass="labelFill" value="Identificador: "></label>
+													<label id="lblIdentificador" width="100%" sclass="labelFill" value="Identificador: "></label>
 												</div>
 												<textbox sclass="textboxUpperCase" maxlength="30"
 													id="idIdentificador" value="@load(vm.clienteDTO.clienteVO.idIdentificador)" width="98%"></textbox>
 												<div align="right">
-													<label width="100%" sclass="labelFill" value="Nombre Cliente: "></label>
+													<label id="lblNombreCliente" width="100%" sclass="labelFill" value="Nombre Cliente: "></label>
 												</div>
 												<textbox sclass="textboxUpperCase" maxlength="200"
 													id="nombreCliente" value="@load(vm.clienteDTO.clienteVO.nombreCliente)" width="98%"></textbox> 																													
 											</row>
 											<row sclass="row2">
 												<div align="right">
-													<label width="100%" sclass="labelFill" value="Fecha alta: "></label>												
+													<label id="lblFechaAlta" width="100%" sclass="labelFill" value="Fecha alta: "></label>												
 												</div>
 												<datebox value="@load(vm.clienteDTO.clienteVO.fechaAlta)" maxlength="50" width="100%" id="fechaAlta" readonly="true" buttonVisible="false" onCreate="self.value = new Date()" format="dd/MM/yyyy HH:MM"></datebox>
 												<div align="right">
-													<label width="100%" sclass="labelFill" value="Descripción Cliente: "></label>												
+													<label id="lblDescripcionCliente" width="100%" sclass="labelFill" value="Descripción Cliente: "></label>												
 												</div>
 												<textbox sclass="textboxUpperCase" maxlength="30"
 													id="nombreCortoCliente" value="@load(vm.clienteDTO.clienteVO.nombreCortoCliente)" width="98%"></textbox>																											
 											</row>
 											<row sclass="row2">
 												<div align="right">
-													<label width="100%" sclass="labelFill" value="Fecha Modificación: "></label>												
+													<label id="lblFechaModificacion"width="100%" sclass="labelFill" value="Fecha Modificación: "></label>												
 												</div>
 												<datebox value="@load(vm.clienteDTO.clienteVO.fechaModificacion)" maxlength="50" width="100%" id="fechaModificacion" readonly="true" buttonVisible="false" onCreate="self.value = new Date()" format="dd/MM/yyyy HH:MM"></datebox>
 												<div align="right">
-													<label width="100%" sclass="labelFill" value="Status:"></label>												
+													<label id="lblEstatus"width="100%" sclass="labelFill" value="Status:"></label>												
 												</div>
 												<combobox sclass="textboxUpperCase"  onChange="selectedValueStatusObjeto()"
 													id="statusObjeto" width="70%" model="@load(vm.clienteDTO.estatusObjetoVOs)" autodrop="true">		
@@ -68,8 +68,8 @@
 											</row>
 											<row sclass="row2">	
 												<div align="right" width="70%">
-													<image src="/img/xls.png" onClick="@command('onShowReport',type='xls')" />
-													<image src="/img/csv.png" onClick="@command('onShowReport',type='csv')" />
+													<image id="reporteExcelBtn" src="/img/xls.png" onClick="@command('onShowReport',type='xls')" />
+													<image id="reporteCsvBtn" src="/img/csv.png" onClick="@command('onShowReport',type='csv')" />
 												</div>											
 												<div align="right" width="82%">
 													<button sclass="button" image="/img/clear.png" label="Limpiar" id="limpiarBtn" onClick="@command('clean')" ></button>
@@ -87,8 +87,8 @@
 							</panelchildren>										
 						</panel>
 					</portalchildren>
-					<portalchildren width="100%">
-						<panel height="60%" sclass="sectionPanelTitle" width="100%" id="panelCanalMapeador"
+					<portalchildren width="100%" height="100%">
+						<panel height="70%" sclass="sectionPanelTitle" width="100%" id="panelCanalMapeador"
 							title="Resultados Clientes Mapeador" collapsible="true"
 							style="margin-bottom:10px">
 							<caption sclass="sectionPanelTitle" label="Lista de Clientes"></caption>

@@ -30,21 +30,21 @@
 										<rows>
 											<row sclass="row2">
 												<div align="right">
-													<label width="100%" sclass="labelFill" value="Nombre Usuario: "></label>												
+													<label id="lblNombreUsuario" width="100%" sclass="labelFill" value="Nombre Usuario: "></label>												
 												</div>
 												<textbox sclass="textboxUpperCase" maxlength="50"
 													id="nombreUsuario" value="@load(vm.strNombreUsuario)" width="100%"></textbox>																										
 											</row>
 											<row sclass="row2">											
 												<div align="right">
-													<label width="100%" sclass="labelFill" value="e-mail :"></label>												
+													<label id="lblEmail" width="100%" sclass="labelFill" value="e-mail :"></label>												
 												</div>
 												<textbox sclass="textboxUpperCase" maxlength="50"
 													id="email" value="@load(vm.strEmail)" width="100%"></textbox>																										
 											</row>
 											<row sclass="row2">	
 												<div align="right">
-													<label width="100%" sclass="labelFill" value="Status :"></label>
+													<label id="lblEstatus" width="100%" sclass="labelFill" value="Status :"></label>
 												</div>
 												<combobox id="status" model="@load(vm.usuarioNotificacionDTO.estatusObjetoVOs)" value="@load(vm.strStatus)"  width="100%" height="100%" onChange="selectedValueStatus()">		
 													<template name="model">										

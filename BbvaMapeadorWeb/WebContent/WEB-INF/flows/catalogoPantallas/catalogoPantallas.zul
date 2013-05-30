@@ -30,7 +30,7 @@
 										<rows>
 											<row sclass="row2">
 												<div align="right">
-													<label width="100%" sclass="labelFill" value="Pantalla Padre:"></label>
+													<label id="lblPantallaPadre" width="100%" sclass="labelFill" value="Pantalla Padre:"></label>
 												</div>
 												<combobox id="pantallaPadre" model="@load(vm.pantallaDTO.pantallaPadreVOs)" value="@load(vm.strPantallaPadre)"  width="100%" height="100%" onChange="selectedValuePantallasPadre()">		
 													<template name="model">										
@@ -38,31 +38,31 @@
 													</template>																								
 												</combobox>	
 												<div align="right">
-													<label width="100%" sclass="labelFill" value="Nombre Pantalla:"></label>												
+													<label id="lblPantalla" width="100%" sclass="labelFill" value="Nombre Pantalla:"></label>												
 												</div>
 												<textbox sclass="textboxUpperCase" maxlength="30"
 													id="nombrePantalla" value="@load(vm.strNombrePantalla)" width="100%"></textbox>																																								
 											</row>
 											<row sclass="row2">											
 												<div align="right">
-													<label width="100%" sclass="labelFill" value="URL:"></label>												
+													<label id="lblURL" width="100%" sclass="labelFill" value="URL:"></label>												
 												</div>
 												<textbox maxlength="300"
 													id="url" value="@load(vm.strUrl)" width="100%"></textbox>		
 												<div align="right">
-													<label width="100%" sclass="labelFill" value="Icono:"></label>												
+													<label id="lblIcono" width="100%" sclass="labelFill" value="Icono:"></label>												
 												</div>
 												<textbox sclass="textboxUpperCase" maxlength="300"
 													id="icono" value="@load(vm.strIcono)" width="100%"></textbox>																																							
 											</row>
 											<row>
 												<div align="right">
-													<label width="100%" sclass="labelFill" value="Orden:"></label>												
+													<label id="lblOrden" width="100%" sclass="labelFill" value="Orden:"></label>												
 												</div>
 												<textbox sclass="textboxUpperCase" maxlength="5"  constraint="/^[0-9]*$/: Por favor ingresa números"
 													id="orden" value="@load(vm.strOrden)" width="100%"></textbox>
 												<div align="right">
-													<label width="100%" sclass="labelFill" value="Status:"></label>												
+													<label id="lblStatus" width="100%" sclass="labelFill" value="Status:"></label>												
 												</div>
 												<combobox sclass="textboxUpperCase" onChange="selectedValueStatusClave()"
 													id="status" width="70%" model="@load(vm.pantallaDTO.estatusObjetoVOs)" autodrop="true">		
@@ -73,9 +73,9 @@
 											</row>
 											<row sclass="row2">	
 												<div align="right" width="70%">
-													<image src="/img/xls.png" onClick="@command('onShowReport',type='xls')" />
-													<image src="/img/csv.png" onClick="@command('onShowReport',type='csv')" />
-												</div>								
+													<image id="reporteExcelBtn" src="/img/xls.png" onClick="@command('onShowReport',type='xls')" />
+													<image id="reporteCsvBtn" src="/img/csv.png" onClick="@command('onShowReport',type='csv')" />
+												</div>							
 												<div align="right" width="70%">
 													<button sclass="button" image="/img/clear.png" label="Limpiar" id="limpiarBtn" onClick="@command('clean')" ></button>
 												</div>	

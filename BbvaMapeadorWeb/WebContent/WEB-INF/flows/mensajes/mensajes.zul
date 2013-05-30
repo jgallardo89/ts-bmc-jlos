@@ -30,12 +30,12 @@
 										<rows>
 											<row sclass="row2">
 												<div align="right">
-													<label width="100%" sclass="labelFill" value="Identificador de Mensaje:  "></label>
+													<label id="lblIdentificadorMensaje" width="100%" sclass="labelFill" value="Identificador de Mensaje:  "></label>
 												</div>
 												<textbox sclass="textboxUpperCase" maxlength="50" disabled="@load(vm.flagMensaje)"
 													id="nombreMensajeSalida" value="@load(vm.mensajeSalidaDTO.mensajeSalidaVO.nombreMensajeSalida)" width="98%"></textbox>
 												<div align="right">
-													<label width="100%" sclass="labelFill" value="Status:"></label>												
+													<label id="lblEstatus" width="100%" sclass="labelFill" value="Status:"></label>												
 												</div>
 												<combobox sclass="textboxUpperCase" readonly="false" onChange="selectedValueStatusObjeto()"
 													id="statusObjeto" width="70%" model="@load(vm.mensajeSalidaDTO.estatusObjetoVOs)" autodrop="true">		
@@ -46,7 +46,7 @@
 											</row>
 											<row sclass="row2">
 												<div align="right">
-													<label width="100%" sclass="labelFill" value="Texto del Mensaje:  "></label>
+													<label id="lblTextoMensaje" width="100%" sclass="labelFill" value="Texto del Mensaje:  "></label>
 												</div>
 												<cell colspan="3">
 													<textbox sclass="textboxUpperCase"  maxlength="300" id="descripcionMensajeSalida" rows="6" value="@load(vm.mensajeSalidaDTO.mensajeSalidaVO.descripcionMensajeSalida)" width="100%" tabindex="11" />
@@ -54,19 +54,19 @@
 											</row>
 											<row sclass="row2">
 												<div align="right">
-													<label width="100%" sclass="labelFill" value="Fecha alta: "></label>												
+													<label id="lblFechaAlta" width="100%" sclass="labelFill" value="Fecha alta: "></label>												
 												</div>
 												<datebox height="20px" value="@load(vm.mensajeSalidaDTO.mensajeSalidaVO.fechaAlta)" maxlength="50" width="100%" id="fechaAlta" readonly="true" buttonVisible="false" onCreate="self.value = new Date()" format="dd/MM/yyyy HH:MM"></datebox>
 												<div align="right">
-													<label width="100%" sclass="labelFill" value="Descripción flujo: "></label>												
+													<label id="lblFechaModificacion" width="100%" sclass="labelFill" value="Descripción flujo: "></label>												
 												</div>
 												<datebox height="20px" value="@load(vm.mensajeSalidaDTO.mensajeSalidaVO.fechaModificacion)" maxlength="50" width="100%" id="fechaModificacion" readonly="true" buttonVisible="false" onCreate="self.value = new Date()" format="dd/MM/yyyy HH:MM"></datebox>																										
 											</row>
 											<row sclass="row2">	
 												<div align="right" width="70%">
-													<image src="/img/xls.png" onClick="@command('onShowReport',type='xls')" />
-													<image src="/img/csv.png" onClick="@command('onShowReport',type='csv')" />
-												</div>										
+													<image id="reporteExcelBtn" src="/img/xls.png" onClick="@command('onShowReport',type='xls')" />
+													<image id="reporteCsvBtn" src="/img/csv.png" onClick="@command('onShowReport',type='csv')" />
+												</div>											
 												<div align="right" width="82%">
 													<button sclass="button" image="/img/clear.png" label="Limpiar" id="limpiarBtn" onClick="@command('clean')" ></button>
 												</div>	

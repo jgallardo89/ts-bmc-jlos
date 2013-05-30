@@ -18,7 +18,7 @@
 			</groupbox>
 		</div>
 		<div align="center">
-					<button id="closeBtn" sclass="button" label="Cerrar"/>	
+			<button id="closeBtn" sclass="button" label="Cerrar"/>	
 		</div>	
 	</window>
 </zk>

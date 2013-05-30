@@ -30,17 +30,17 @@
 										<rows>
 											<row sclass="row2">
 												<div align="right">
-													<label width="100%" sclass="labelFill" value="Fecha inicio:  "></label>												
+													<label id="lblFechaInicio" width="100%" sclass="labelFill" value="Fecha inicio:  "></label>												
 												</div>
 												<datebox value="@load(vm.bitacoraDTO.bitacoraVO.fechaInicio) @converter('formatedDate', format='dd/MM/yyyy')" maxlength="50" width="100%" id="fechaInicio" readonly="true" buttonVisible="true" onCreate="self.value = new Date()" format="dd/MM/yyyy"></datebox>
 												<div align="right">
-													<label width="100%" sclass="labelFill" value="a: "></label>												
+													<label id="lblFechaFin" width="100%" sclass="labelFill" value="a: "></label>												
 												</div>
 												<datebox value="@load(vm.bitacoraDTO.bitacoraVO.fechaFin) @converter('formatedDate', format='dd/MM/yyyy')" maxlength="50" width="100%" id="fechaFin" readonly="true" buttonVisible="true" onCreate="self.value = new Date()" format="dd/MM/yyyy"></datebox>																												
 											</row>
 											<row sclass="row2">
 												<div align="right">
-													<label width="100%" sclass="labelFill" value="Identificador de Mensaje:  "></label>
+													<label id="lbIdentificadorMensaje" width="100%" sclass="labelFill" value="Identificador de Mensaje:  "></label>
 												</div>
 												<combobox sclass="textboxUpperCase" readonly="true" onChange="selectedValueEventoMapeador()"
 													id="tipoEvento" width="70%" model="@load(vm.eventoMapeadorDTO.eventoMapeadorVOs)" autodrop="true">		
@@ -49,7 +49,7 @@
 													</template>																								
 												</combobox>
 												<div align="right">
-													<label width="100%" sclass="labelFill" value="Usuario:  "></label>
+													<label id="lblUsuario" width="100%" sclass="labelFill" value="Usuario:  "></label>
 												</div>
 												<combobox sclass="textboxUpperCase" readonly="true" onChange="selectedValueUsuario()"
 													id="usuario" width="70%" model="@load(vm.usuarioVOs)" autodrop="true">		
@@ -62,9 +62,9 @@
 												<div align="right">
 												</div>										
 												<div align="right" width="70%">
-													<image src="/img/xls.png" onClick="@command('onShowReport',type='xls')" />
-													<image src="/img/csv.png" onClick="@command('onShowReport',type='csv')" />
-												</div>		
+													<image id="reporteExcelBtn" src="/img/xls.png" onClick="@command('onShowReport',type='xls')" />
+													<image id="reporteCsvBtn" src="/img/csv.png" onClick="@command('onShowReport',type='csv')" />
+												</div>	
 												<div align="right" width="82%">
 													<button sclass="button" image="/img/search.png" label="Consultar" id="consultarBtn" onClick="@command('readWithFilters')"></button>
 												</div>
@@ -83,7 +83,7 @@
 						<panel height="77%" sclass="sectionPanelTitle" width="100%" id="panelBitacora"
 							title="Resultados Bitacora" collapsible="true"
 							style="margin-bottom:10px">
-							<caption sclass="sectionPanelTitle" label="Lista de Flujos"></caption>
+							<caption sclass="sectionPanelTitle" label="Lista de Eventos"></caption>
 							<panelchildren>
 								<grid width="99.7%"  id="bitacoraGrid" mold="paging"
 									model="@load(vm.bitacoraVOs)" pagingPosition="both" pageSize="12"

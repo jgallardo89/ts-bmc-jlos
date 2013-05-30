@@ -30,7 +30,7 @@
 										<rows>
 											<row sclass="row2">
 												<div align="right">
-													<label width="100%" sclass="labelFill" value="Pantalla:"></label>
+													<label id="lblPantalla"width="100%" sclass="labelFill" value="Pantalla:"></label>
 												</div>
 												<combobox id="pantallas" model="@load(vm.estatusObjetoDTO.pantallaVOs)" value="@load(vm.strPantallas)"  width="100%" height="100%" onChange="selectedValuePantallas()">		
 													<template name="model">										
@@ -38,19 +38,19 @@
 													</template>																								
 												</combobox>	
 												<div align="right">
-													<label width="100%" sclass="labelFill" value="Nombre Estatus Objeto:"></label>												
+													<label id="lblEstatusObjeto"width="100%" sclass="labelFill" value="Nombre Estatus Objeto:"></label>												
 												</div>
 												<textbox sclass="textboxUpperCase" maxlength="50"
 													id="nombreEstatusObjeto" value="@load(vm.strNombreEstatusObjeto)" width="100%"></textbox>																													
 											</row>
 											<row sclass="row2">
 												<div align="right">
-													<label width="100%" sclass="labelFill" value="Descripción Estatus Objeto:"></label>												
+													<label id="lblDescEstatusObjeto"width="100%" sclass="labelFill" value="Descripción Estatus Objeto:"></label>												
 												</div>
 												<textbox sclass="textboxUpperCase" maxlength="50"
 													id="descripcionEstatusObjeto" value="@load(vm.strDescripcionEstatusObjeto)" width="100%"></textbox>												
 												<div align="right">
-													<label width="100%" sclass="labelFill" value="Status:"></label>												
+													<label id="lblEstatus"width="100%" sclass="labelFill" value="Status:"></label>												
 												</div>
 												<combobox sclass="textboxUpperCase" onChange="selectedValueStatusClave()"
 													id="statusClave" width="70%" model="@load(vm.estatusObjetoDTO.estatusClaveVOs)" autodrop="true">		

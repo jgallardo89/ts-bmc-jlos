@@ -28,20 +28,20 @@
 										<rows>
 											<row sclass="row2">
 												<div align="right">
-													<label width="82%" sclass="labelFill" value="Nombre Palabra Comodín:  "></label>
+													<label id="lblNombrePalabraComodin" width="82%" sclass="labelFill" value="Nombre Palabra Comodín:  "></label>
 												</div>
 												<textbox sclass="textboxUpperCase" maxlength="30"
 													id="nombrePalabraComodin" value="@load(vm.palabraComodinDTO.palabraComodinVO.nombrePalabraComodin)" width="70%"></textbox>
 												<div align="right">
-													<label width="82%" sclass="labelFill" value="Descripcion Palabra Comodín: "></label>
+													<label id="lblDescripcionPalabraComodin" width="82%" sclass="labelFill" value="Descripcion Palabra Comodín: "></label>
 												</div>
 												<textbox sclass="textboxUpperCase" maxlength="300"
 													id="descripcionPalabraComodin" value="@load(vm.palabraComodinDTO.palabraComodinVO.descripcionPalabraComodin)" width="70%"></textbox> 																													
 											</row>
 											<row sclass="row2">
 												<div align="right" width="70%">
-													<image src="/img/xls.png" onClick="@command('onShowReport',type='xls')" />
-													<image src="/img/csv.png" onClick="@command('onShowReport',type='csv')" />
+													<image id="reporteExcelBtn" src="/img/xls.png" onClick="@command('onShowReport',type='xls')" />
+													<image id="reporteCsvBtn" src="/img/csv.png" onClick="@command('onShowReport',type='csv')" />
 												</div>												
 												<div align="right" width="82%">
 													<button sclass="button" image="/img/clear.png" label="Limpiar" id="limpiarBtn" onClick="@command('clean')" ></button>

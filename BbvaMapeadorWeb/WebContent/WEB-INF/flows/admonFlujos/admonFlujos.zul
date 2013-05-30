@@ -30,29 +30,29 @@
 										<rows>
 											<row sclass="row2">
 												<div align="right">
-													<label width="100%" sclass="labelFill" value="Indicador del Flujo:  "></label>
+													<label id="lblNombreFlujo" width="100%" sclass="labelFill" value="Indicador del Flujo:  "></label>
 												</div>
 												<textbox sclass="textboxUpperCase" maxlength="50" 
 													id="nombreFlujo" value="@load(vm.flujoDTO.flujoVO.nombreFlujo)" width="100%" disabled="@load(!vm.flagBtnGuardar)"></textbox>
 												<div align="right">
-													<label width="100%" sclass="labelFill" value="Descripcion flujo: "></label>
+													<label id="lblDescripcionFlujo" width="100%" sclass="labelFill" value="Descripcion flujo: "></label>
 												</div>
 												<textbox sclass="textboxUpperCase" maxlength="300"
 													id="descripcionFlujo" value="@load(vm.flujoDTO.flujoVO.descripcionFlujo)" width="100%"></textbox> 																													
 											</row>
 											<row sclass="row2">
 												<div align="right">
-													<label width="100%" sclass="labelFill" value="Fecha alta: "></label>												
+													<label id="lblFechaAlta" width="100%" sclass="labelFill" value="Fecha alta: "></label>												
 												</div>
 												<datebox height="20px" value="@load(vm.flujoDTO.flujoVO.fechaAlta)" maxlength="50" width="100%" id="fechaAlta" readonly="true" buttonVisible="false" onCreate="self.value = new Date()" format="dd/MM/yyyy HH:MM"></datebox>
 												<div align="right">
-													<label width="100%" sclass="labelFill" value="Fecha Modificación: "></label>												
+													<label id="lblFechaModificacion" width="100%" sclass="labelFill" value="Fecha Modificación: "></label>												
 												</div>
 												<datebox height="20px" value="@load(vm.flujoDTO.flujoVO.fechaModificacion)" maxlength="50" width="100%" id="fechaModificacion" readonly="true" buttonVisible="false" onCreate="self.value = new Date()" format="dd/MM/yyyy HH:MM"></datebox>																										
 											</row>
 											<row sclass="row2">
 												<div align="right">
-													<label width="100%" sclass="labelFill" value="Status:"></label>												
+													<label id="lblEstatus" width="100%" sclass="labelFill" value="Status:"></label>												
 												</div>
 												<combobox sclass="textboxUpperCase" readonly="true" onChange="selectedValueStatusObjeto()"
 													id="statusObjeto" width="70%" model="@load(vm.flujoDTO.estatusObjetoVOs)" autodrop="true">		
@@ -63,8 +63,8 @@
 											</row>
 											<row sclass="row2">		
 												<div align="right" width="70%">
-													<image src="/img/xls.png" onClick="@command('onShowReport',type='xls')" />
-													<image src="/img/csv.png" onClick="@command('onShowReport',type='csv')" />
+													<image id="reporteExcelBtn" src="/img/xls.png" onClick="@command('onShowReport',type='xls')" />
+													<image id="reporteCsvBtn" src="/img/csv.png" onClick="@command('onShowReport',type='csv')" />
 												</div>										
 												<div align="right" width="82%">
 													<button sclass="button" image="/img/clear.png" label="Limpiar" id="limpiarBtn" onClick="@command('clean')" ></button>
