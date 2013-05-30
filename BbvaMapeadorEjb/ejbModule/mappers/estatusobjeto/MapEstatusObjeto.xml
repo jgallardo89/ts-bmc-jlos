@@ -116,7 +116,7 @@
 	</select>
 	<insert id="crearEstatusObjeto" keyProperty="idEstatusObjeto" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.EstatusObjetoVO">
 		<selectKey keyProperty="idEstatusObjeto" resultType="int" order="BEFORE"> 
-			<![CDATA[ select SQ_ESTATUS_COMPONENTE.nextval as idEstatusObjeto from dual ]]> 
+			<![CDATA[ select ST_534_ST_OBJETO.nextval as idEstatusObjeto from dual ]]> 
 		</selectKey>
 		Insert Into Tgm534_St_Objeto
 		(

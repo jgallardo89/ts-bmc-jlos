@@ -40,7 +40,7 @@
 	</select>
 	<insert id="crearContratacionMap" keyProperty="idCanal" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.ContratacionMapVO">
 		<selectKey keyProperty="idContratacion" resultType="int" order="BEFORE"> 
-			<![CDATA[ select SQ_CONTRAT_MAP.nextval as idContratacion from dual ]]> 
+			<![CDATA[ select SQ_520_CONTRAT_MAP.nextval as idContratacion from dual ]]> 
 		</selectKey>
 			INSERT INTO TGM520_CONTRAT_MAP
 				(CD_CONTRATACION,

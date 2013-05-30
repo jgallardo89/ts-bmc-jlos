@@ -17,7 +17,7 @@
 	</select>
 	<insert id="insertarPermiso" keyProperty="idPantalla" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.ControlPermisoVO">
 		<selectKey keyProperty="idControlPermiso" resultType="int" order="BEFORE"> 
-			<![CDATA[ select SQ_CTRLPERMISO.nextval as idControlPermiso from dual ]]> 
+			<![CDATA[ select SQ_505_CTRLPERMISO.nextval as idControlPermiso from dual ]]> 
 		</selectKey>
 		Insert Into Tgm505_Ctrlpermiso
 		(

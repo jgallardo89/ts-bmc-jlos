@@ -37,7 +37,7 @@
 	</select>
 	<insert id="crearProducto" keyProperty="idProducto" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.ProductoVO">
 		<selectKey keyProperty="idProducto" resultType="int" order="BEFORE"> 
-			<![CDATA[ select SQ_PRODUCTO.nextval as idProducto from dual ]]> 
+			<![CDATA[ select SQ_515_PRODUCTO.nextval as idProducto from dual ]]> 
 		</selectKey>
 		INSERT INTO TGM515_PRODUCTO
 			(CD_PRODUCTO,

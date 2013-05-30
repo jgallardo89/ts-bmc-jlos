@@ -43,7 +43,7 @@ public class FlujoBO implements BbvaIBusinessObject {
 						.getSqlSessionFactory().openSession();
 				MapFlujo mapFlujo = session.getMapper(MapFlujo.class);
 				try {
-					FlujoVO.setIdBaja(CommandConstants.ESTATUS_OBJETO_BAJA);
+					FlujoVO.setIdBaja(CommandConstants.ESTATUS_OBJETO_FLUJO_BAJA);
 					result = mapFlujo.obtenerFlujos(FlujoVO);
 					session.commit();
 				} catch (Exception ex) {

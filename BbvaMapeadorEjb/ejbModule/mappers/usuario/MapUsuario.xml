@@ -37,7 +37,7 @@
 	</select>
 	<insert id="crearUsuario" keyProperty="idUsuario" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.UsuarioVO">
 		<selectKey keyProperty="idUsuario" resultType="int" order="BEFORE"> 
-			<![CDATA[ select SQ_USUARIO.nextval as idUsuario from dual ]]> 
+			<![CDATA[ select SQ_503_USUARIO.nextval as idUsuario from dual ]]> 
 		</selectKey>
 		Insert Into Tgm503_Usuario
 		(

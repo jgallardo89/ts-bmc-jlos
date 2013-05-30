@@ -31,7 +31,7 @@
 	</select>
 	<insert id="crearCanal" keyProperty="idCanal" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.CanalVO">
 		<selectKey keyProperty="idCanal" resultType="int" order="BEFORE"> 
-			<![CDATA[ select SQ_CANAL.nextval as idCanal from dual ]]> 
+			<![CDATA[ select SQ_511_CANAL.nextval as idCanal from dual ]]> 
 		</selectKey>
 		INSERT INTO TGM511_CANAL
 			(CD_CANAL,

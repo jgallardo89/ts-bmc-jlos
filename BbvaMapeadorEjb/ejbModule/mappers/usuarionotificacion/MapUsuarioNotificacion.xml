@@ -37,7 +37,7 @@
 	</select>
 	<insert id="crearUsuarioNotificacion" keyProperty="idUsuario" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.UsuarioNotificacionVO">
 		<selectKey keyProperty="idUsuarioNotificado" resultType="int" order="BEFORE"> 
-			<![CDATA[ select SQ_USUA_NOTIFI.nextval as idUsuarioNotificado from dual ]]> 
+			<![CDATA[ select SQ_510_USUA_NOTIFI.nextval as idUsuarioNotificado from dual ]]> 
 		</selectKey>
 		INSERT INTO 
 			TGM510_USUA_NOTIFI (

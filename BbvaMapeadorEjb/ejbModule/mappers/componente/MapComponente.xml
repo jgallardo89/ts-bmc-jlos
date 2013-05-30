@@ -28,7 +28,7 @@
 	</select>
 	<insert id="crearComponente" keyProperty="idComponente" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.ComponenteVO">
 		<selectKey keyProperty="idComponente" resultType="int" order="BEFORE"> 
-			<![CDATA[ select SQ_COMPONENTE.nextval as idComponente from dual ]]> 
+			<![CDATA[ select SQ_502_COMPONENTE.nextval as idComponente from dual ]]> 
 		</selectKey>
 			INSERT INTO TGM502_COMPONENTE (
 				CD_COMPONENTE, 

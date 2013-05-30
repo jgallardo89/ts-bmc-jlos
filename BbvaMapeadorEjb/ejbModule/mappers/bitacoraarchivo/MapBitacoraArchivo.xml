@@ -18,6 +18,7 @@
 			TGM508_EVENTO_MAPA EM
 		WHERE 
 			B.CD_EVENTO_MAPEADOR = EM.CD_EVENTO_MAPEADOR
+			AND B.CD_EVENTO_MAPEADOR in (100,101,200,300,301,303,304,500)
 			<if test="idEventoMapeador != null and idEventoMapeador != 0">
 				AND B.CD_EVENTO_MAPEADOR = #{idEventoMapeador}
 			</if>

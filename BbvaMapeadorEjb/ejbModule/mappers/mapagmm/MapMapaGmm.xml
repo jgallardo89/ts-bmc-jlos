@@ -36,7 +36,7 @@
 	</select>
 	<insert id="crearMapaGmm" keyProperty="idMapaGmm" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.MapaGmmVO">
 		<selectKey keyProperty="idMapaGmm" resultType="int" order="BEFORE"> 
-			<![CDATA[ select SQ_MAPAGMM.nextval as idMapaGmm from dual ]]> 
+			<![CDATA[ select SQ_514_MAPA_GMM.nextval as idMapaGmm from dual ]]> 
 		</selectKey>
 		INSERT INTO TGM514_MAPA_GMM (
 			CD_MAPA_GMM, 

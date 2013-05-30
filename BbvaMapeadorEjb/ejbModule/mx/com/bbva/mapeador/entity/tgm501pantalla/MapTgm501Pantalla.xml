@@ -13,9 +13,9 @@
 			From 	Tgm501_Pantalla Pantalla,
 					Tgm504_Perfil Perfil,
 					Tgm503_Usuario Usuario
-			Where 	St_Pantalla = 1
-					And St_Perfil = 17
-					And St_Usuario = 3
+			Where 	St_Pantalla = 31
+					And St_Perfil = 24
+					And St_Usuario = 27
 					And Usuario.Cd_Cve_Usuario = #{cdCveUsuario}
 					And Pantalla.CD_PANTALLA_PADRE = #{cdFkPantalla}
 					And Pantalla.Cd_Pantalla != 1

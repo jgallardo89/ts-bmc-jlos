@@ -8,7 +8,7 @@
 	</select>
 	<insert id="crearPantalla" keyProperty="idPantalla" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.PantallaVO">
 		<selectKey keyProperty="idPantalla" resultType="int" order="BEFORE"> 
-			<![CDATA[ select SQ_PANTALLA.nextval as idPantalla from dual ]]> 
+			<![CDATA[ select SQ_501_PANTALLA.nextval as idPantalla from dual ]]> 
 		</selectKey>
 			INSERT INTO TGM501_PANTALLA (
 			CD_PANTALLA, 

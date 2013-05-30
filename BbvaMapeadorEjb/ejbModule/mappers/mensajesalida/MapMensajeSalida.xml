@@ -30,7 +30,7 @@
 	</select>
 	<insert id="crearMensajeSalida" keyProperty="idMensajeSalida" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.MensajeSalidaVO">
 		<selectKey keyProperty="idMensajeSalida" resultType="int" order="BEFORE"> 
-			<![CDATA[ select SQ_MENSAJE_SAL.nextval as idMensajeSalida from dual ]]> 
+			<![CDATA[ select SQ_516_MENSAJE_SAL.nextval as idMensajeSalida from dual ]]> 
 		</selectKey>
 		INSERT INTO TGM516_MENSAJE_SAL
 			(CD_MENSAJE_SALIDA,

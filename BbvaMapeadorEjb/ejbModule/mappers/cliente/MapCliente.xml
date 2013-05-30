@@ -34,7 +34,7 @@
 	</select>
 	<insert id="crearCliente" keyProperty="idCliente" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.ClienteVO">
 		<selectKey keyProperty="idCliente" resultType="int" order="BEFORE"> 
-			<![CDATA[ select SQ_CLIENTE.nextval as idCliente from dual ]]> 
+			<![CDATA[ select SQ_512_CLIENTE.nextval as idCliente from dual ]]> 
 		</selectKey>
 		INSERT INTO TGM512_CLIENTE
 			(CD_CLIENTE,
