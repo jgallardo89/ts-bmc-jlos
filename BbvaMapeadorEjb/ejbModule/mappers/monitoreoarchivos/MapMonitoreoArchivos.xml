@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mappers.monitoreoarchivos.MapMonitoreoArchivos">
+	<select id="obtenerMonitoreoArchivoVO" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.MonitoreoArchivosVO"
+		resultType="mx.com.bbva.bancomer.bussinnes.model.vo.MonitoreoArchivosVO">
+		SELECT 
+			PAPA.CD_REG_ARCH_ENTRA idRegArchEntraPapa, 
+			PAPA.CD_REG_ARCH_CIR idRegArchCirPapa,
+			PAPA.NB_REG_ARCH_ENTRA nombreArchEntraPapa, 
+			PAPA.NU_LOTE numeroLotePapa, 
+			PAPA.FH_REG_ARCH_ENTRA fechaRegArchEntraPapa,
+			ESTADO.CD_ESTADO_ARCHIVO idEstadoArchivoPapa,
+			ESTADO.NB_ESTADO_ARCHIVO nombreEstadoArchivoPapa,
+			HIJO.CD_REG_ARCH_ENTRA idRegArchEntraHijo, 
+			HIJO.NB_REG_ARCH_ENTRA nombreArchEntraHijo,
+			ESTADO_HIJO.CD_ESTADO_ARCHIVO idEstadoArchivoHijo,
+			ESTADO_HIJO.NB_ESTADO_ARCHIVO nombreEstadoArchivoHijo
+		FROM 
+			TGM536_REG_ARCH_EN PAPA LEFT OUTER  JOIN TGM536_REG_ARCH_EN HIJO ON 
+			HIJO.CD_REG_ARCH_CIR = PAPA.CD_REG_ARCH_ENTRA
+			JOIN TGM537_EDO_ARCHIVO EDO ON 
+			PAPA.CD_REG_ARCH_ENTRA = EDO.CD_REG_ARCH_ENTRA
+			LEFT OUTER JOIN TGM538_ESTADO_ARCH  ESTADO ON
+			EDO.CD_ESTADO_ARCHIVO = ESTADO.CD_ESTADO_ARCHIVO
+			JOIN  TGM537_EDO_ARCHIVO EDO_HIJO ON 
+			HIJO.CD_REG_ARCH_ENTRA =  EDO_HIJO.CD_REG_ARCH_ENTRA
+			LEFT OUTER JOIN TGM538_ESTADO_ARCH  ESTADO_HIJO ON
+			EDO_HIJO.CD_ESTADO_ARCHIVO = ESTADO_HIJO.CD_ESTADO_ARCHIVO 
+		WHERE 
+	        PAPA.CD_REG_ARCH_ENTRA IS NOT NULL  
+		<if test="idEstadoArchivoPapa != null and idEstadoArchivoPapa != 0">
+			AND ESTADO.CD_ESTADO_ARCHIVO = #{idEstadoArchivoPapa}
+		</if>		
+		<if test="idEstadoArchivoHijo != null and idEstadoArchivoHijo != 0">
+			AND  ESTADO_HIJO.CD_ESTADO_ARCHIVO = #{idEstadoArchivoHijo}
+		</if>	
+		ORDER BY PAPA.CD_REG_ARCH_ENTRA
+	</select>
+	
+	<select id="obtenerEdosArchivo" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.EstadoArchivoVO"
+		resultType="mx.com.bbva.bancomer.bussinnes.model.vo.EstadoArchivoVO">
+		SELECT 
+	        ESTADO.CD_ESTADO_ARCHIVO idEstadoArchivo,
+	        ESTADO.NB_ESTADO_ARCHIVO nombreEstadoArchivo
+		FROM   
+      		TGM538_ESTADO_ARCH ESTADO  
+	</select>
+	
+</mapper>
