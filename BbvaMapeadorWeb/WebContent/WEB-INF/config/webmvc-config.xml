@@ -25,6 +25,7 @@
 				<!-- Procesos -->
 				/contratacion=flowController  <!-- AKFG -->
 				/procesos=flowController  <!-- AKFG -->
+				/monitoreoArchivos=flowController  <!-- AKFG -->
 				<!-- Seguridad -->
 				/perfil=flowController  <!-- AKFG -->
 				/usuarioMapeador=flowController  <!-- AKFG -->

@@ -38,6 +38,7 @@
 		<!-- Procesos -->
 		<webflow:flow-location id="contratacion"  path="/WEB-INF/flows/contratacion/contratacion.xml" /> <!-- AKFG -->
 		<webflow:flow-location id="procesos"  path="/WEB-INF/flows/procesos/procesos.xml" /> <!-- AKFG -->
+		<webflow:flow-location id="monitoreoArchivos"  path="/WEB-INF/flows/monitoreoArchivos/monitoreoArchivos.xmll" /> <!-- AKFG -->
 		<!-- Seguridad -->
 		<webflow:flow-location id="perfil"  path="/WEB-INF/flows/perfil/perfil.xml" /> <!-- AKFG -->
 		<webflow:flow-location id="usuarioMapeador"  path="/WEB-INF/flows/usuarioMapeador/usuarioMapeador.xml" /> <!-- AKFG -->
