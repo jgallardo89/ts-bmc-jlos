@@ -1,8 +1,5 @@
 package mx.com.bbva.mapeador.ui.commons.viewmodel.monitoreoprocesos;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -10,8 +7,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import mx.com.bbva.bancomer.bitacora.dto.BitacoraDTO;
-import mx.com.bbva.bancomer.bitacora.dto.CampoDTO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.CanalVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.ClienteVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.EstatusObjetoVO;
@@ -21,6 +16,7 @@ import mx.com.bbva.bancomer.canal.dto.BeanGenerico;
 import mx.com.bbva.bancomer.canal.dto.CanalDTO;
 import mx.com.bbva.bancomer.cliente.dto.ClienteDTO;
 import mx.com.bbva.bancomer.commons.command.CommandConstants;
+import mx.com.bbva.bancomer.commons.command.MapeadorConstants;
 import mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject;
 import mx.com.bbva.bancomer.estatusobjeto.dto.EstatusObjetoDTO;
 import mx.com.bbva.bancomer.mapper.business.CanalBO;
@@ -49,8 +45,12 @@ import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.Wire;
+import org.zkoss.zul.Button;
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Datebox;
+import org.zkoss.zul.Grid;
+import org.zkoss.zul.Image;
+import org.zkoss.zul.Label;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
 
@@ -94,6 +94,32 @@ public class MonitoreoProcesosController extends ControllerSupport implements  I
 	@Wire
 	private Textbox idEtapa;	
 	
+	
+	@Wire
+	private Label lblCanal;
+	@Wire
+	private Label lblCliente;
+	@Wire
+	private Label lblProducto;
+	@Wire
+	private Label lblEstatus;
+	@Wire
+	private Label lblFechaLote;
+	@Wire
+	private Label lblA;
+	@Wire
+	private Label lblLote;
+	@Wire
+	private Image reporteExcelBtn;
+	@Wire
+	private Image reporteCsvBtn;
+	@Wire
+	private Button limpiarBtn;
+	@Wire
+	private Button consultarBtn;
+	@Wire
+	private Grid procesosGrid;
+	
 	private MonitoreoProcesosDTO monitoreoProcesosDTO = (MonitoreoProcesosDTO) this.read();
 	
 	private List<MonitoreoProcesosVO> monitoreoProcesosVOs = monitoreoProcesosDTO.getMonitoreoProcesosVOs();
@@ -121,6 +147,8 @@ public class MonitoreoProcesosController extends ControllerSupport implements  I
 	private String strIdEstatus;
 	
 	private String strIdProducto;
+	
+	private boolean executePermissionSet;
 	
 	private MonitoreoProcesosVO monitoreoProcesosVO;
 	
@@ -214,7 +242,8 @@ public class MonitoreoProcesosController extends ControllerSupport implements  I
 	
 	@AfterCompose
     public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
-        Selectors.wireComponents(view, this, false);        
+        Selectors.wireComponents(view, this, false);    
+        executePermissionSet = this.applyPermision();
     }
 	//Cambiar al objeto que pertenezca el componente en este caso estadisticoVOs
 	@Command
@@ -769,9 +798,42 @@ public class MonitoreoProcesosController extends ControllerSupport implements  I
 	public void setMonitoreoProcesosVO(MonitoreoProcesosVO monitoreoProcesosVO) {
 		this.monitoreoProcesosVO = monitoreoProcesosVO;
 	}
+	/**
+	 * @return the executePermissionSet
+	 */
+	public boolean isExecutePermissionSet() {
+		return executePermissionSet;
+	}
+	/**
+	 * @param executePermissionSet the executePermissionSet to set
+	 */
+	public void setExecutePermissionSet(boolean executePermissionSet) {
+		this.executePermissionSet = executePermissionSet;
+	}
 	@Override
 	public boolean applyPermision() {
-		// TODO Auto-generated method stub
-		return false;
+		boolean isApplied = false;
+		HashMap<String, Component> componentes = new HashMap<String, Component>();
+		componentes.put(lblCanal.getId(), lblCanal);
+		componentes.put(lblCliente.getId(), lblCliente);
+		componentes.put(lblProducto.getId(), lblProducto);
+		componentes.put(lblEstatus.getId(), lblEstatus);
+		componentes.put(lblFechaLote.getId(), lblFechaLote);
+		componentes.put(lblA.getId(), lblA);
+		componentes.put(lblLote.getId(), lblLote);
+		componentes.put(canal.getId(), canal);
+		componentes.put(cliente.getId(), cliente);
+		componentes.put(producto.getId(), producto);
+		componentes.put(estatus.getId(), estatus);
+		componentes.put(fechaInicio.getId(), fechaInicio);
+		componentes.put(fechaFin.getId(), fechaFin);
+		componentes.put(lote.getId(), lote);
+		componentes.put(reporteExcelBtn.getId(), reporteExcelBtn);
+		componentes.put(reporteCsvBtn.getId(), reporteCsvBtn);
+		componentes.put(limpiarBtn.getId(), limpiarBtn);
+		componentes.put(consultarBtn.getId(), consultarBtn);
+		componentes.put(procesosGrid.getId(), procesosGrid);
+		super.applyPermission(MapeadorConstants.MONITOREO, componentes);
+		return isApplied;
 	}
 }

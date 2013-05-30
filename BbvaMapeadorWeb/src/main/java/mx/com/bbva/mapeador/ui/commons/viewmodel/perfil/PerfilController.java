@@ -1,30 +1,26 @@
 package mx.com.bbva.mapeador.ui.commons.viewmodel.perfil;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
-
-import mx.com.bbva.bancomer.bussinnes.model.vo.CanalVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.ComponenteVO;
-import mx.com.bbva.bancomer.bussinnes.model.vo.ControlPermisoVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.ControlPermisoVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.EstatusObjetoVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.PantallaVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.PerfilVO;
 import mx.com.bbva.bancomer.commons.command.CommandConstants;
+import mx.com.bbva.bancomer.commons.command.MapeadorConstants;
 import mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject;
-import mx.com.bbva.bancomer.commons.model.vo.BbvaAbstractValueObject;
 import mx.com.bbva.bancomer.componente.dto.ComponenteDTO;
 import mx.com.bbva.bancomer.estatusobjeto.dto.EstatusObjetoDTO;
-import mx.com.bbva.bancomer.estatusobjeto.dto.UsuarioDTO;
+import mx.com.bbva.bancomer.estatusobjeto.dto.PerfilDTO;
 import mx.com.bbva.bancomer.mapper.business.ComponenteBO;
 import mx.com.bbva.bancomer.mapper.business.EstatusObjetoBO;
 import mx.com.bbva.bancomer.mapper.business.PantallaBO;
 import mx.com.bbva.bancomer.mapper.business.PerfilBO;
 import mx.com.bbva.bancomer.pantalla.dto.PantallaDTO;
-import mx.com.bbva.bancomer.estatusobjeto.dto.PerfilDTO;
 import mx.com.bbva.mapeador.ui.commons.controller.IController;
-import mx.com.bbva.mapeador.ui.commons.viewmodel.perfil.PerfilController;
 import mx.com.bbva.mapeador.ui.commons.viewmodel.support.ControllerSupport;
 
 import org.apache.log4j.Logger;
@@ -35,15 +31,13 @@ import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
-import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
+import org.zkoss.zul.Button;
 import org.zkoss.zul.Combobox;
-import org.zkoss.zul.ListModel;
-import org.zkoss.zul.ListModelList;
+import org.zkoss.zul.Grid;
+import org.zkoss.zul.Label;
 import org.zkoss.zul.Listbox;
-import org.zkoss.zul.Listcell;
-import org.zkoss.zul.Listitem;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Textbox;
 
@@ -107,6 +101,27 @@ public class PerfilController extends ControllerSupport implements  IController{
 	private Combobox pantallas;
 	
 	@Wire
+	private Label lblNombrePerfil;
+	@Wire
+	private Label lblEstatus;
+	@Wire
+	private Label lblDescripcionPerfil;
+	@Wire
+	private Label lblPantalla;
+
+	@Wire
+	private Button limpiarBtn;
+	@Wire
+	private Button guardarUsuarioBtn;
+	@Wire
+	private Button consultarUsuarioBtn;
+	@Wire
+	private Button duplicarBtn;
+
+	@Wire
+	private Grid perfilGrid;
+	
+	@Wire
 	private Textbox idPerfil;
 	
 	private String strDescripcionPerfil;
@@ -116,6 +131,8 @@ public class PerfilController extends ControllerSupport implements  IController{
 	private String strPantalla;
 	
 	private String strStatus;
+	
+	private boolean executePermissionSet;
 	
 	private PerfilDTO perfilDTO = (PerfilDTO)this.read(); 
 	
@@ -152,6 +169,7 @@ public class PerfilController extends ControllerSupport implements  IController{
 	@AfterCompose
     public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
         Selectors.wireComponents(view, this, false);        
+        executePermissionSet = this.applyPermision();
     }
 
 	@Override
@@ -392,9 +410,37 @@ public class PerfilController extends ControllerSupport implements  IController{
 		componentePantallaPerfilDTO = componenteBO.readCommand(componentePantallaPerfilDTO);
 	}
 
+	/**
+	 * @return the executePermissionSet
+	 */
+	public boolean isExecutePermissionSet() {
+		return executePermissionSet;
+	}
+	/**
+	 * @param executePermissionSet the executePermissionSet to set
+	 */
+	public void setExecutePermissionSet(boolean executePermissionSet) {
+		this.executePermissionSet = executePermissionSet;
+	}
 	@Override
 	public boolean applyPermision() {
-		// TODO Auto-generated method stub
-		return false;
+		boolean isApplied = false;
+		HashMap<String, Component> componentes = new HashMap<String, Component>();
+		componentes.put(lblNombrePerfil.getId(), lblNombrePerfil);
+		componentes.put(lblEstatus.getId(), lblEstatus);
+		componentes.put(lblDescripcionPerfil.getId(), lblDescripcionPerfil);
+		componentes.put(lblPantalla.getId(), lblPantalla);
+		componentes.put(nombrePerfil.getId(), nombrePerfil);
+		componentes.put(descripcionPerfil.getId(), descripcionPerfil);
+		componentes.put(componentesPantalla.getId(), componentesPantalla);
+		componentes.put(componentesPerfil.getId(), componentesPerfil);
+		componentes.put(status.getId(), status);
+		componentes.put(limpiarBtn.getId(), limpiarBtn);
+		componentes.put(guardarUsuarioBtn.getId(), guardarUsuarioBtn);
+		componentes.put(consultarUsuarioBtn.getId(), consultarUsuarioBtn);
+		componentes.put(duplicarBtn.getId(), duplicarBtn);
+		componentes.put(perfilGrid.getId(), perfilGrid);
+		super.applyPermission(MapeadorConstants.PERFILES, componentes);
+		return isApplied;
 	}	
 }

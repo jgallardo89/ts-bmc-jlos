@@ -4,12 +4,14 @@
 package mx.com.bbva.mapeador.ui.commons.viewmodel.pantalla;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import mx.com.bbva.bancomer.bussinnes.model.vo.EstatusObjetoVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.PantallaVO;
 import mx.com.bbva.bancomer.canal.dto.BeanGenerico;
 import mx.com.bbva.bancomer.commons.command.CommandConstants;
+import mx.com.bbva.bancomer.commons.command.MapeadorConstants;
 import mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject;
 import mx.com.bbva.bancomer.estatusobjeto.dto.EstatusObjetoDTO;
 import mx.com.bbva.bancomer.mapper.business.EstatusObjetoBO;
@@ -31,7 +33,10 @@ import org.zkoss.zhtml.Messagebox;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
+import org.zkoss.zul.Button;
 import org.zkoss.zul.Combobox;
+import org.zkoss.zul.Image;
+import org.zkoss.zul.Label;
 import org.zkoss.zul.Textbox;
 
 /**
@@ -82,6 +87,39 @@ public class PantallaController extends ControllerSupport implements  IControlle
 	@Wire
 	private Textbox orden;
 	
+	@Wire
+	private Label lblPantallaPadre;
+	
+	@Wire
+	private Label lblPantalla;
+	
+	@Wire
+	private Label lblURL;
+	
+	@Wire
+	private Label lblIcono;
+	
+	@Wire
+	private Label lblOrden;
+	
+	@Wire
+	private Label lblStatus;
+	
+	@Wire
+	private Image reporteExcelBtn;
+	
+	@Wire
+	private Image reporteCsvBtn;
+	
+	@Wire
+	private Button limpiarBtn;
+	
+	@Wire
+	private Button guardarBtn;
+	
+	@Wire
+	private Button consultarBtn;
+	
 	private PantallaVO pantallaVO;
 	
 	private PantallaDTO pantallaDTO =  (PantallaDTO) this.read();
@@ -114,6 +152,9 @@ public class PantallaController extends ControllerSupport implements  IControlle
 	private String strIcono;
 	
 	private String strOrden;
+	
+	private boolean executePermissionSet;
+	
 	@Override
 	public Object read() {
 		ReportesController controller = new ReportesController();
@@ -138,7 +179,8 @@ public class PantallaController extends ControllerSupport implements  IControlle
 	
 	@AfterCompose
     public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
-        Selectors.wireComponents(view, this, false);        
+        Selectors.wireComponents(view, this, false);   
+        executePermissionSet = this.applyPermision();
     }
 	//Cambiar al objeto que pertenezca el componente en este caso PantallasVOs
 	@Command
@@ -709,11 +751,42 @@ public class PantallaController extends ControllerSupport implements  IControlle
 		this.idPantalla = idPantalla;
 	}
 
+	/**
+	 * @return the executePermissionSet
+	 */
+	public boolean isExecutePermissionSet() {
+		return executePermissionSet;
+	}
+	/**
+	 * @param executePermissionSet the executePermissionSet to set
+	 */
+	public void setExecutePermissionSet(boolean executePermissionSet) {
+		this.executePermissionSet = executePermissionSet;
+	}
 	@Override
 	public boolean applyPermision() {
-		// TODO Auto-generated method stub
-		return false;
+		boolean isApplied = false;
+		HashMap<String, Component> componentes = new HashMap<String, Component>();
+		componentes.put(lblPantallaPadre.getId(), lblPantallaPadre);
+		componentes.put(lblPantalla.getId(), lblPantalla);
+		componentes.put(lblURL.getId(), lblURL);
+		componentes.put(lblOrden.getId(), lblOrden);
+		componentes.put(lblStatus.getId(), lblStatus);
+		componentes.put(pantallaPadre.getId(), pantallaPadre);
+		componentes.put(status.getId(), status);
+		componentes.put(nombrePantalla.getId(), nombrePantalla);
+		componentes.put(url.getId(), url);
+		componentes.put(icono.getId(), icono);
+		componentes.put(orden.getId(), orden);
+		componentes.put(reporteExcelBtn.getId(), reporteExcelBtn);
+		componentes.put(reporteCsvBtn.getId(), reporteCsvBtn);
+		componentes.put(limpiarBtn.getId(), limpiarBtn);
+		componentes.put(guardarBtn.getId(), guardarBtn);
+		componentes.put(consultarBtn.getId(), consultarBtn);
+		super.applyPermission(MapeadorConstants.PANTALLAS, componentes);
+		return isApplied;
 	}	
+
 
 	/**
 	 * @return the pantallaVO

@@ -11,6 +11,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import mx.com.bbva.bancomer.bitacora.dto.BitacoraDTO;
+import mx.com.bbva.bancomer.bitacora.dto.CampoDTO;
+import mx.com.bbva.bancomer.bussinnes.model.vo.BitacoraVO;
+import mx.com.bbva.bancomer.bussinnes.model.vo.UsuarioVO;
+import mx.com.bbva.bancomer.canal.dto.BeanGenerico;
+import mx.com.bbva.bancomer.commons.command.MapeadorConstants;
+import mx.com.bbva.bancomer.evento.dto.EventoMapeadorDTO;
+import mx.com.bbva.bancomer.mapper.business.BitacoraBO;
+import mx.com.bbva.bancomer.mapper.business.EventoMapeadorBO;
+import mx.com.bbva.bancomer.mapper.business.UsuarioBO;
+import mx.com.bbva.mapeador.ui.commons.controller.IController;
+import mx.com.bbva.mapeador.ui.commons.viewmodel.support.ControllerSupport;
+import mx.com.bbva.mt101.ui.commons.viewmodel.reportes.ReportesController;
+
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
@@ -23,25 +37,16 @@ import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.Wire;
+import org.zkoss.zul.Button;
+import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Datebox;
+import org.zkoss.zul.Grid;
+import org.zkoss.zul.Image;
+import org.zkoss.zul.Label;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
 
 import com.wutka.jox.JOXBeanInputStream;
-
-import mx.com.bbva.bancomer.bitacora.dto.BitacoraDTO;
-import mx.com.bbva.bancomer.bitacora.dto.CampoDTO;
-import mx.com.bbva.bancomer.bussinnes.model.vo.BitacoraVO;
-import mx.com.bbva.bancomer.bussinnes.model.vo.CanalVO;
-import mx.com.bbva.bancomer.bussinnes.model.vo.UsuarioVO;
-import mx.com.bbva.bancomer.canal.dto.BeanGenerico;
-import mx.com.bbva.bancomer.evento.dto.EventoMapeadorDTO;
-import mx.com.bbva.bancomer.mapper.business.BitacoraBO;
-import mx.com.bbva.bancomer.mapper.business.EventoMapeadorBO;
-import mx.com.bbva.bancomer.mapper.business.UsuarioBO;
-import mx.com.bbva.mapeador.ui.commons.controller.IController;
-import mx.com.bbva.mapeador.ui.commons.viewmodel.support.ControllerSupport;
-import mx.com.bbva.mt101.ui.commons.viewmodel.reportes.ReportesController;
 
 /**
  * @author Julio Morales
@@ -56,9 +61,29 @@ public class BitacoraWebController extends ControllerSupport implements IControl
 	@Wire
 	private Textbox idEventoMapeador;
 	@Wire
+	private Label lblFechaInicio;
+	@Wire
+	private Label lblFechaFin;
+	@Wire
+	private Label lbIdentificadorMensaje;
+	@Wire
+	private Label lblUsuario;
+	@Wire
 	private Datebox fechaInicio;
 	@Wire
 	private Datebox fechaFin;
+	@Wire
+	private Combobox tipoEvento;
+	@Wire
+	private Combobox usuario;
+	@Wire
+	private Image reporteExcelBtn;
+	@Wire
+	private Image reporteCsvBtn;
+	@Wire
+	private Button consultarBtn;
+	@Wire
+	private Grid bitacoraGrid;
 
 	private BitacoraDTO bitacoraDTO;
 	private List<BitacoraVO> bitacoraVOs;
@@ -66,6 +91,7 @@ public class BitacoraWebController extends ControllerSupport implements IControl
 	private List<UsuarioVO> usuarioVOs;
 	private EventoMapeadorDTO eventoMapeadorDTO;
 	private CampoDTO campoDTO;
+	private boolean executePermissionSet;
 	
 	public BitacoraWebController() {
 		this.read();
@@ -203,6 +229,7 @@ public class BitacoraWebController extends ControllerSupport implements IControl
 	@AfterCompose
     public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
         Selectors.wireComponents(view, this, false);        
+        executePermissionSet = this.applyPermision();
     }
 
 	/**
@@ -288,11 +315,36 @@ public class BitacoraWebController extends ControllerSupport implements IControl
 	public void setCampoDTO(CampoDTO campoDTO) {
 		this.campoDTO = campoDTO;
 	}
-
+	/**
+	 * @return the executePermissionSet
+	 */
+	public boolean isExecutePermissionSet() {
+		return executePermissionSet;
+	}
+	/**
+	 * @param executePermissionSet the executePermissionSet to set
+	 */
+	public void setExecutePermissionSet(boolean executePermissionSet) {
+		this.executePermissionSet = executePermissionSet;
+	}
 	@Override
 	public boolean applyPermision() {
-		// TODO Auto-generated method stub
-		return false;
+		boolean isApplied = false;
+		HashMap<String, Component> componentes = new HashMap<String, Component>();
+		componentes.put(lblFechaInicio.getId(), lblFechaInicio);
+		componentes.put(lblFechaFin.getId(), lblFechaFin);
+		componentes.put(lbIdentificadorMensaje.getId(), lbIdentificadorMensaje);
+		componentes.put(lblUsuario.getId(), lblUsuario);
+		componentes.put(fechaInicio.getId(), fechaInicio);
+		componentes.put(fechaFin.getId(), fechaFin);
+		componentes.put(tipoEvento.getId(), tipoEvento);
+		componentes.put(usuario.getId(), usuario);
+		componentes.put(reporteExcelBtn.getId(), reporteExcelBtn);
+		componentes.put(reporteCsvBtn.getId(), reporteCsvBtn);
+		componentes.put(consultarBtn.getId(), consultarBtn);
+		componentes.put(bitacoraGrid.getId(), bitacoraGrid);
+		super.applyPermission(MapeadorConstants.BITACORA, componentes);
+		return isApplied;
 	}
 	
 }

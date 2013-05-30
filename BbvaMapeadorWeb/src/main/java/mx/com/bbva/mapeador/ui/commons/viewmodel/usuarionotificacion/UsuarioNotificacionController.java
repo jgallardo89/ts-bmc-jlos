@@ -1,8 +1,10 @@
 package mx.com.bbva.mapeador.ui.commons.viewmodel.usuarionotificacion;
 
+import java.util.HashMap;
 import java.util.List;
 
 import mx.com.bbva.bancomer.bussinnes.model.vo.UsuarioNotificacionVO;
+import mx.com.bbva.bancomer.commons.command.MapeadorConstants;
 import mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject;
 import mx.com.bbva.bancomer.estatusobjeto.dto.EstatusObjetoDTO;
 import mx.com.bbva.bancomer.mapper.business.EstatusObjetoBO;
@@ -23,7 +25,9 @@ import org.zkoss.zhtml.Messagebox;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
+import org.zkoss.zul.Button;
 import org.zkoss.zul.Combobox;
+import org.zkoss.zul.Label;
 import org.zkoss.zul.Textbox;
 
 public class UsuarioNotificacionController  extends ControllerSupport implements IController{
@@ -48,6 +52,20 @@ public class UsuarioNotificacionController  extends ControllerSupport implements
 	@Wire
 	private Textbox idUsuarioNotificado;
 	
+	@Wire
+	private Label lblNombreUsuario;
+	@Wire
+	private Label lblEmail;
+	@Wire
+	private Label lblEstatus;
+
+	@Wire
+	private Button limpiarBtn;
+	@Wire
+	private Button guardarBtn;
+	@Wire
+	private Button consultarBtn;
+	
 	private UsuarioNotificacionDTO	usuarioNotificacionDTO = (UsuarioNotificacionDTO)this.read();	
 	
 	private List<UsuarioNotificacionVO> usuarioNotificacionVOs = usuarioNotificacionDTO.getUsuarioNotificacionVOs();
@@ -61,6 +79,8 @@ public class UsuarioNotificacionController  extends ControllerSupport implements
 	private String strEmail;
 	
 	private String strStatus;
+	
+	private boolean executePermissionSet;
 
 	@Override
 	public Object read() {
@@ -81,6 +101,7 @@ public class UsuarioNotificacionController  extends ControllerSupport implements
 	@AfterCompose
     public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
         Selectors.wireComponents(view, this, false);        
+        executePermissionSet = this.applyPermision();
     }
 	
 	@Command
@@ -447,10 +468,33 @@ public class UsuarioNotificacionController  extends ControllerSupport implements
 		this.strStatus = strStatus;
 	}
 
+	/**
+	 * @return the executePermissionSet
+	 */
+	public boolean isExecutePermissionSet() {
+		return executePermissionSet;
+	}
+	/**
+	 * @param executePermissionSet the executePermissionSet to set
+	 */
+	public void setExecutePermissionSet(boolean executePermissionSet) {
+		this.executePermissionSet = executePermissionSet;
+	}
 	@Override
 	public boolean applyPermision() {
-		// TODO Auto-generated method stub
-		return false;
-	}
+		boolean isApplied = false;
+		HashMap<String, Component> componentes = new HashMap<String, Component>();
+		componentes.put(lblNombreUsuario.getId(), lblNombreUsuario);
+		componentes.put(lblEmail.getId(), lblEmail);
+		componentes.put(lblEstatus.getId(), lblEstatus);
+		componentes.put(nombreUsuario.getId(), nombreUsuario);
+		componentes.put(email.getId(), email);
+		componentes.put(status.getId(), status);
+		componentes.put(limpiarBtn.getId(), limpiarBtn);
+		componentes.put(consultarBtn.getId(), consultarBtn);
+		componentes.put(guardarBtn.getId(), guardarBtn);
+		super.applyPermission(MapeadorConstants.CANALES, componentes);
+		return isApplied;
+	}	
 
 }

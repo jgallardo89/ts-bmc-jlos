@@ -20,17 +20,20 @@ import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.Wire;
+import org.zkoss.zul.Button;
 import org.zkoss.zul.Combobox;
+import org.zkoss.zul.Datebox;
+import org.zkoss.zul.Grid;
+import org.zkoss.zul.Image;
+import org.zkoss.zul.Label;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
 
-import mx.com.bbva.bancomer.bitacora.dto.BitacoraDTO;
-import mx.com.bbva.bancomer.bitacora.dto.CampoDTO;
-import mx.com.bbva.bancomer.bussinnes.model.vo.ClienteVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.EstatusObjetoVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.FlujoVO;
 import mx.com.bbva.bancomer.canal.dto.BeanGenerico;
 import mx.com.bbva.bancomer.commons.command.CommandConstants;
+import mx.com.bbva.bancomer.commons.command.MapeadorConstants;
 import mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject;
 import mx.com.bbva.bancomer.estatusobjeto.dto.EstatusObjetoDTO;
 import mx.com.bbva.bancomer.flujo.dto.FlujoDTO;
@@ -60,7 +63,35 @@ public class AdmonFlujosController extends ControllerSupport implements IControl
 	@Wire
 	private Combobox statusObjeto;
 	
+	@Wire
+	private Label lblNombreFlujo;
+	@Wire
+	private Label lblDescripcionFlujo;
+	@Wire
+	private Label lblFechaAlta;
+	@Wire
+	private Label lblFechaModificacion;
+	@Wire
+	private Label lblEstatus;
+	@Wire
+	private Datebox fechaAlta;
+	@Wire
+	private Datebox fechaModificacion;
+	@Wire
+	private Image reporteExcelBtn;
+	@Wire
+	private Image reporteCsvBtn;
+	@Wire
+	private Button limpiarBtn;
+	@Wire
+	private Button guardarBtn;
+	@Wire
+	private Button consultarBtn;
+	@Wire
+	private Grid flujosGrid;
+	
 	private boolean flagBtnGuardar;
+	private boolean executePermissionSet;
 	private FlujoDTO flujoDTO;
 	private List<FlujoVO> flujoVOs;
 	private FlujoVO flujoVO;
@@ -193,6 +224,7 @@ public class AdmonFlujosController extends ControllerSupport implements IControl
 	@AfterCompose
     public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
         Selectors.wireComponents(view, this, false);        
+        executePermissionSet = this.applyPermision();
     }
 	
 	
@@ -218,7 +250,6 @@ public class AdmonFlujosController extends ControllerSupport implements IControl
 	public void onShowReport(@BindingParam("type") final String type) {
 		ReportesController controller = new ReportesController();
 		ArrayList<String> headersReport = new ArrayList<String>();
-		String titleReport = "Catálogo Flujos";
 		headersReport.add("Identificador del Flujo");
 		headersReport.add("Descripción Flujo");
 		headersReport.add("Fecha y Hora de Alta");
@@ -230,7 +261,8 @@ public class AdmonFlujosController extends ControllerSupport implements IControl
 			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_EXCEL,"Catálogo Clientes");
 		} else {
 			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_TEXTO,"Catálogo Clientes");
-		}		
+		}
+		controller.createReport(generaLista(), headersReport, type, "FLUJOS");
 	}	
 	
 	private ArrayList<BeanGenerico> generaLista() {
@@ -307,11 +339,43 @@ public class AdmonFlujosController extends ControllerSupport implements IControl
 	public void setFlujoVO(FlujoVO flujoVO) {
 		this.flujoVO = flujoVO;
 	}
+	
+	/**
+	 * @return the executePermissionSet
+	 */
+	public final boolean isExecutePermissionSet() {
+		return executePermissionSet;
+	}
+
+	/**
+	 * @param executePermissionSet the executePermissionSet to set
+	 */
+	public final void setExecutePermissionSet(boolean executePermissionSet) {
+		this.executePermissionSet = executePermissionSet;
+	}
 
 	@Override
 	public boolean applyPermision() {
-		// TODO Auto-generated method stub
-		return false;
-	}
+		boolean isApplied = false;
+		HashMap<String, Component> componentes = new HashMap<String, Component>();
+		componentes.put(lblNombreFlujo.getId(), lblNombreFlujo);
+		componentes.put(lblDescripcionFlujo.getId(), lblDescripcionFlujo);
+		componentes.put(lblFechaAlta.getId(), lblFechaAlta);
+		componentes.put(lblFechaModificacion.getId(), lblFechaModificacion);
+		componentes.put(lblEstatus.getId(), lblEstatus);
+		componentes.put(nombreFlujo.getId(), nombreFlujo);
+		componentes.put(descripcionFlujo.getId(), descripcionFlujo);
+		componentes.put(statusObjeto.getId(), statusObjeto);
+		componentes.put(fechaAlta.getId(), fechaAlta);
+		componentes.put(fechaModificacion.getId(), fechaModificacion);
+		componentes.put(reporteExcelBtn.getId(), reporteExcelBtn);
+		componentes.put(reporteCsvBtn.getId(), reporteCsvBtn);
+		componentes.put(limpiarBtn.getId(), limpiarBtn);
+		componentes.put(guardarBtn.getId(), guardarBtn);
+		componentes.put(consultarBtn.getId(), consultarBtn);
+		componentes.put(flujosGrid.getId(), flujosGrid);
+		super.applyPermission(MapeadorConstants.FLUJOS, componentes);
+		return isApplied;
+	}	
 
 }
