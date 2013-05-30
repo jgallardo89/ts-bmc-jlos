@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?page title="Log Eventos" contentType="text/html;charset=UTF-8"?>
+<?meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7"?>
+<?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
+<zk>
+	<window border="0" width="100%" height="100%"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('mx.com.bbva.mapeador.ui.commons.viewmodel.monitoreoarchivos.MonitoreoArchivosController')"
+		id="bitacoraWebWindows">
+		<include src="../../pages/styles.zul" />
+		<div sclass="BODY" height="100%"  width="100%">
+			<groupbox height="100%">
+				<caption sclass="pageTitle" label="Monitoreo >  Archivos"></caption>		
+					<portallayout maximizedMode="whole" id="portalLayoutArchivos"
+					width="100%" height="100%">
+					<portalchildren>
+						<panel height="20%" width="100%" sclass="sectionPanelTitle" id="datosArchivos"
+							title="Catalogo" collapsible="true" style="margin-bottom:10px"
+							border="normal">
+							<caption sclass="sectionPanelTitle" label="Archivos Web"></caption>
+							<panelchildren>
+								<div align="center">
+									<grid width="100%" style="border:0" oddRowSclass="row2">
+										<columns>
+											<column width="20%" />
+											<column width="25%" />
+											<column width="20%" />
+											<column width="25%" />
+										</columns>
+										<rows>
+											<row sclass="row2">
+												<div align="right">
+													<label width="100%" sclass="labelFill" value="HDR Status:  "></label>
+												</div>
+												<combobox readonly="false" onChange="selectedValueStatusPapa()"
+													id="statusPapa" width="70%" model="@load(vm.monitoreoArchivosDTO.estadoArchivoVOs)" autodrop="true">		
+													<template name="model">										
+														<comboitem value="@load(each.idEstadoArchivo)" label="@load(each.nombreEstadoArchivo)" height="100%"/>
+													</template>																								
+												</combobox>
+												<div align="right">
+													<label width="100%" sclass="labelFill" value="DATA Status:  "></label>
+												</div>
+												<combobox readonly="false" onChange="selectedValueStatusHijo()"
+													id="statusHijo" width="70%" model="@load(vm.monitoreoArchivosDTO.estadoArchivoVOs)" autodrop="true">		
+													<template name="model">										
+														<comboitem value="@load(each.idEstadoArchivo)" label="@load(each.nombreEstadoArchivo)" height="100%"/>
+													</template>																								
+												</combobox>																								
+											</row>
+											<row sclass="row2">
+												<div>
+												</div>									
+												<div align="right" width="82%">
+													<button sclass="button" label="Limpiar" id="limpiarBtn" onClick="@command('clean')" ></button>
+												</div>
+												<div align="right" width="82%">
+													<button sclass="button" image="/img/search.png" label="Consultar" id="consultarBtn" onClick="@command('readWithFilters')"></button>
+												</div>
+												<div align="right">
+												</div>
+												<div align="right">
+												</div>
+											</row>
+										</rows>								
+									</grid>
+								</div>
+							</panelchildren>										
+						</panel>
+					</portalchildren>
+					<portalchildren width="100%" style="padding: 5px">
+						<panel height="77%" sclass="sectionPanelTitle" width="100%" id="panelArchivo"
+							title="Resultados Archivos" collapsible="true"
+							style="margin-bottom:10px">
+							<caption sclass="sectionPanelTitle" label="Lista de Archivos"></caption>
+							<panelchildren>
+								<grid width="99.7%" id="archivoGrid" mold="paging"
+									model="@load(vm.monitoreoArchivosVOs)" pagingPosition="both" pageSize="5"
+									vflex="true" height="100%">									
+									<columns sizable="true" menupopup="auto">
+									<column hflex="1" label="Nombre HDR" width="10%"
+											sort="auto(vm.monitoreoArchivosDTO.monitoreoArchivosVO.nombreArchEntraPapa)"></column>
+										<column hflex="1" label="Estatus HDR" width="10%"
+											sort="auto(vm.monitoreoArchivosDTO.monitoreoArchivosVO.nombreEstadoArchivoPapa)"></column>
+										<column hflex="1" label="Nombre DATA" width="10%"
+											sort="auto(vm.monitoreoArchivosDTO.monitoreoArchivosVO.nombreArchEntraHijo)"></column>
+										<column hflex="1" label="Estatus DATA" width="10%"
+											sort="auto(vm.monitoreoArchivosDTO.monitoreoArchivosVO.nombreEstadoArchivoHijo)"></column>		
+									</columns>
+									<template name="model">
+										<row>
+											<label hflex="1" value="@load(each.nombreArchEntraPapa)"></label>
+											<label hflex="1" value="@load(each.nombreEstadoArchivoPapa)"></label>
+											<label hflex="1" value="@load(each.nombreArchEntraHijo)"></label>
+											<label hflex="1" value="@load(each.nombreEstadoArchivoHijo)"></label>																					
+										</row>
+									</template>									
+								</grid>
+							</panelchildren>
+						</panel>
+					</portalchildren>
+				</portallayout>								
+			</groupbox>	
+			<textbox id="idEstatusPapa" value="@load(vm.monitoreoArchivosDTO.monitoreoArchivosVO.idEstadoArchivoPapa)" visible="false"></textbox>
+			<textbox id="idEstatusHijo" value="@load(vm.monitoreoArchivosDTO.monitoreoArchivosVO.idEstadoArchivoHijo)" visible="false"></textbox>
+		</div>
+		<zscript>
+			public void selectedValueStatusPapa(){
+				try{
+					idEstatusPapa.setValue(statusPapa.getSelectedItem().getValue().toString());
+				}catch(Exception ex){
+					idEstatusPapa.setValue(null);
+				}
+			}
+			public void selectedValueStatusHijo(){
+				try{
+					idEstatusHijo.setValue(statusHijo.getSelectedItem().getValue().toString());
+				}catch(Exception ex){
+					idEstatusHijo.setValue(null);
+				}
+			}
+		</zscript>
+		<jasperreport id="report" height="50px" />
+	</window>
+</zk>
