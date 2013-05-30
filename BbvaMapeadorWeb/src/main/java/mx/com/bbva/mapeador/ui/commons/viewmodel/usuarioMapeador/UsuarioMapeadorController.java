@@ -7,6 +7,7 @@ import java.util.List;
 import mx.com.bbva.bancomer.bussinnes.model.vo.EstatusObjetoVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.UsuarioVO;
 import mx.com.bbva.bancomer.commons.command.CommandConstants;
+import mx.com.bbva.bancomer.commons.command.MapeadorConstants;
 import mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject;
 import mx.com.bbva.bancomer.estatusobjeto.dto.EstatusObjetoDTO;
 import mx.com.bbva.bancomer.estatusobjeto.dto.PerfilDTO;
@@ -427,7 +428,7 @@ public class UsuarioMapeadorController extends ControllerSupport implements ICon
 		componentes.put(guardarBtn.getId(),guardarBtn);
 		componentes.put(limpiarBtn.getId(),limpiarBtn);
 		componentes.put(usuariosGrid.getId(),usuariosGrid); 
-		super.applyPermission(3, componentes);
+		super.applyPermission(MapeadorConstants.USUARIOS, componentes);
 		return isApplied;
 	}	
 }
