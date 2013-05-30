@@ -1,6 +1,7 @@
 package mx.com.bbva.mt101.ui.commons.viewmodel.canales;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import mx.com.bbva.bancomer.bussinnes.model.vo.CanalVO;
@@ -8,6 +9,7 @@ import mx.com.bbva.bancomer.bussinnes.model.vo.EstatusObjetoVO;
 import mx.com.bbva.bancomer.canal.dto.BeanGenerico;
 import mx.com.bbva.bancomer.canal.dto.CanalDTO;
 import mx.com.bbva.bancomer.commons.command.CommandConstants;
+import mx.com.bbva.bancomer.commons.command.MapeadorConstants;
 import mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject;
 import mx.com.bbva.bancomer.estatusobjeto.dto.EstatusObjetoDTO;
 import mx.com.bbva.bancomer.mapper.business.CanalBO;
@@ -27,7 +29,12 @@ import org.zkoss.zhtml.Messagebox;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
+import org.zkoss.zul.Button;
 import org.zkoss.zul.Combobox;
+import org.zkoss.zul.Datebox;
+import org.zkoss.zul.Grid;
+import org.zkoss.zul.Image;
+import org.zkoss.zul.Label;
 import org.zkoss.zul.Textbox;
 
 /**
@@ -37,24 +44,43 @@ import org.zkoss.zul.Textbox;
 public class CanalesController extends ControllerSupport implements IController {
 
 	private static final long serialVersionUID = 1L;
-
-	@Wire
-	private Textbox nombreCanal;
-	
-	@Wire
-	private Textbox descripcionCanal;
-	
 	@Wire
 	private Textbox idEstatusObjeto;
-	
 	@Wire
 	private Textbox idCanal;
 	
 	@Wire
-	private Combobox statusObjeto;	
+	private Label lblClave;
+	@Wire
+	private Label lblFechaHoraAlta;
+	@Wire
+	private Label lblDescripcionCanal;
+	@Wire
+	private Label lblEstatus;
+	@Wire
+	private Textbox nombreCanal;
+	@Wire
+	private Textbox descripcionCanal;
+	@Wire
+	private Datebox fechaAlta;
+	@Wire
+	private Combobox statusObjeto;
+	@Wire
+	private Image reporteExcelBtn;
+	@Wire
+	private Image reporteCsvBtn;
+	@Wire
+	private Button limpiarBtn;
+	@Wire
+	private Button guardarBtn;
+	@Wire
+	private Button consultarBtn;
+	@Wire
+	private Grid canalesGrid;
 	
 	private boolean btnGuardar;
 	private boolean flagClave;
+	private boolean executePermissionSet;
 	private CanalDTO canalDTO;
 	private String strIdCanal;
 	private List<CanalVO> canalesVOs;
@@ -148,8 +174,8 @@ public class CanalesController extends ControllerSupport implements IController 
 			} else {
 				CanalDTO canalDTO = new CanalDTO();
 				CanalVO canalVO = new CanalVO();
-				canalVO.setNombreCanal(nombreCanal.getValue().toUpperCase());
-				canalVO.setDescripcionCanal(descripcionCanal.getValue().toUpperCase());
+				canalVO.setNombreCanal(nombreCanal.getValue().toUpperCase().toUpperCase());
+				canalVO.setDescripcionCanal(descripcionCanal.getValue().toUpperCase().toUpperCase());
 				canalVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue()));
 				canalVO.setIdCanal(Integer.parseInt(idCanal.getValue()));
 				canalDTO.setCanalVO(canalVO);
@@ -264,13 +290,13 @@ public class CanalesController extends ControllerSupport implements IController 
 	@AfterCompose
     public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
         Selectors.wireComponents(view, this, false);        
+        executePermissionSet = this.applyPermision();
     }
 	
 	@Command
 	public void onShowReport(@BindingParam("type") final String type) {
 		ReportesController controller = new ReportesController();
 		ArrayList<String> headersReport = new ArrayList<String>();
-		String titleReport = "Catálogo Canales";
 		headersReport.add("Clave");
 		headersReport.add("Descripción canal");
 		headersReport.add("Fecha y Hora alta");
@@ -280,8 +306,7 @@ public class CanalesController extends ControllerSupport implements IController 
 		} else {
 			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_TEXTO,"Catálogo Canal");
 		}
-		
-		
+		controller.createReport(generaLista(), headersReport, type, "CANALES");
 	}	
 	
 	private ArrayList<BeanGenerico> generaLista() {
@@ -296,12 +321,6 @@ public class CanalesController extends ControllerSupport implements IController 
 			beanGenericos.add(beanGenerico);
 		}
 		return beanGenericos;
-	}
-
-	@Override
-	public boolean applyPermision() {
-		// TODO Auto-generated method stub
-		return false;
 	}
 	
 	/**
@@ -345,6 +364,37 @@ public class CanalesController extends ControllerSupport implements IController 
 	public void setFlagClave(boolean flagClave) {
 		this.flagClave = flagClave;
 	}
-	
-	
+	/**
+	 * @return the executePermissionSet
+	 */
+	public boolean isExecutePermissionSet() {
+		return executePermissionSet;
+	}
+	/**
+	 * @param executePermissionSet the executePermissionSet to set
+	 */
+	public void setExecutePermissionSet(boolean executePermissionSet) {
+		this.executePermissionSet = executePermissionSet;
+	}
+	@Override
+	public boolean applyPermision() {
+		boolean isApplied = false;
+		HashMap<String, Component> componentes = new HashMap<String, Component>();
+		componentes.put(lblClave.getId(), lblClave);
+		componentes.put(lblFechaHoraAlta.getId(), lblFechaHoraAlta);
+		componentes.put(lblDescripcionCanal.getId(), lblDescripcionCanal);
+		componentes.put(lblEstatus.getId(), lblEstatus);
+		componentes.put(nombreCanal.getId(), nombreCanal);
+		componentes.put(descripcionCanal.getId(), descripcionCanal);
+		componentes.put(fechaAlta.getId(), fechaAlta);
+		componentes.put(statusObjeto.getId(), statusObjeto);
+		componentes.put(reporteExcelBtn.getId(), reporteExcelBtn);
+		componentes.put(reporteCsvBtn.getId(), reporteCsvBtn);
+		componentes.put(limpiarBtn.getId(), limpiarBtn);
+		componentes.put(guardarBtn.getId(), guardarBtn);
+		componentes.put(consultarBtn.getId(), consultarBtn);
+		componentes.put(canalesGrid.getId(), canalesGrid);
+		super.applyPermission(MapeadorConstants.CANALES, componentes);
+		return isApplied;
+	}	
 }
