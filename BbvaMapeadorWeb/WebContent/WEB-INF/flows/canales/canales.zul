@@ -10,7 +10,7 @@
 		<include src="../../pages/styles.zul" />
 		<div sclass="BODY" height="100%" width="100%">
 			<groupbox height="100%">
-				<caption sclass="pageTitle" label="Sistema > Catálogos > Catálogo Canales"></caption>		
+				<caption sclass="pageTitle" label="Catálogos > Catálogo Canales"></caption>		
 					<portallayout maximizedMode="whole" id="portalLayoutEstatusObjeto"
 					width="100%" height="100%">
 					<portalchildren>
