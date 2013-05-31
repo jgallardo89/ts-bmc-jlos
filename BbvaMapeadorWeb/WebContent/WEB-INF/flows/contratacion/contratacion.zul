@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?page title="Procesos" contentType="text/html;charset=UTF-8"?>
+<?page title="Contratación" contentType="text/html;charset=UTF-8"?>
 <?meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7"?>
 <?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
 <zk>
@@ -70,13 +70,13 @@
 											</row>
 											<row sclass="row2">
 												<div align="right">
-													<label width="100%" sclass="labelFill" value="Fecha Alta: "></label>												
+													<label width="100%" sclass="labelFill" value="Fecha alta: "></label>												
 												</div>
-												<datebox value="@load(vm.contratacionDTO.contratacionVO.fechaAlta)"  maxlength="50"  width="100%" id="fechaAlta" readonly="true" buttonVisible="false" onCreate="self.value = new Date()" format="dd/MM/yyyy HH:MM:SS"></datebox>
+												<datebox value="@load(vm.contratacionDTO.contratacionVO.fechaAlta)"  maxlength="50"  width="100%" id="fechaAlta" readonly="true" buttonVisible="false" onCreate="self.value = new Date()" format="dd/MM/yyyy HH:MM"></datebox>
 												<div align="right">
-													<label width="100%" sclass="labelFill" value="Fecha Modificaciôn: "></label>												
+													<label width="100%" sclass="labelFill" value="Fecha modificaciôn: "></label>												
 												</div>
-												<datebox value="@load(vm.contratacionDTO.contratacionVO.fechaModificacion)"  maxlength="50"  width="100%" id="fechaModificacion" readonly="true" buttonVisible="false" onCreate="self.value = new Date()" format="dd/MM/yyyy HH:MM:SS"></datebox>																														
+												<datebox value="@load(vm.contratacionDTO.contratacionVO.fechaModificacion)"  maxlength="50"  width="100%" id="fechaModificacion" readonly="true" buttonVisible="false" onCreate="self.value = new Date()" format="dd/MM/yyyy HH:MM"></datebox>																														
 											</row>
 											<row sclass="row2">
 												<div align="right">
@@ -121,9 +121,9 @@
 					</portalchildren>
 					<portalchildren width="100%" style="padding: 5px">
 						<panel sclass="sectionPanelTitle" width="100%" id="panelContratacion"
-							title="Contrataciôn" collapsible="true"
+							title="Contratación" collapsible="true"
 							style="margin-bottom:10px">
-							<caption sclass="sectionPanelTitle" label="Lista de Contrataciôn"></caption>
+							<caption sclass="sectionPanelTitle" label="Listado de Contrataciones"></caption>
 							<panelchildren>
 								<grid width="99.7%" id="contratacionGrid" mold="paging"
 									model="@load(vm.contratacionVOs)" pagingPosition="both" pageSize="12"
@@ -139,9 +139,9 @@
 											sort="auto(nombreProducto)"></column>
 										<column hflex="1" label="Canal Salida" width="10%"
 											sort="auto(nombreCanalSalida)"></column>
-										<column hflex="1" label="Fecha Alta" width="10%"
+										<column hflex="1" label="Fecha alta" width="10%"
 											sort="auto(fechaAlta)"></column>
-										<column hflex="1" label="Fecha Modificaciôn" width="10%"
+										<column hflex="1" label="Fecha modificaciôn" width="10%"
 											sort="auto(fechaModificacion)"></column>
 										<column hflex="1" label="Status" width="10%"
 											sort="auto(nombreEstatusObjeto)"></column>								
@@ -153,8 +153,8 @@
 											<label hflex="1" value="@load(each.nombreCliente)"></label>
 											<label hflex="1" value="@load(each.nombreProducto)"></label>	
 											<label hflex="1" value="@load(each.nombreCanalSalida)"></label>
-											<label hflex="1" value="@load(each.fechaAlta) @converter('formatedDate', format='dd/MM/yyyy  HH:MM:SS')"></label>
-											<label hflex="1" value="@load(each.fechaModificacion) @converter('formatedDate', format='dd/MM/yyyy  HH:MM:SS')"></label>
+											<label hflex="1" value="@load(each.fechaAlta) @converter('formatedDate', format='dd/MM/yyyy  HH:MM')"></label>
+											<label hflex="1" value="@load(each.fechaModificacion) @converter('formatedDate', format='dd/MM/yyyy  HH:MM')"></label>
 											<label hflex="1" value="@load(each.nombreEstatusObjeto)"></label>																					
 										</row>
 									</template>									
