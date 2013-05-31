@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?page title="Seguridad" contentType="text/html;charset=UTF-8"?>
+<?page title="Perfiles" contentType="text/html;charset=UTF-8"?>
 <?meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7"?>
 <?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
 <zk>
@@ -10,12 +10,12 @@
 		<include src="../../pages/styles.zul" />
 		<div sclass="BODY" height="100%" width="100%">
 			<groupbox height="100%">
-				<caption sclass="pageTitle" label="Seguridad > Perfil"></caption>		
+				<caption sclass="pageTitle" label="Seguridad > Perfiles"></caption>		
 					<portallayout maximizedMode="whole" id="portalLayoutPerfil"
 					width="100%" height="100%">
 					 <portalchildren>
 						<panel height="50%" width="100%" sclass="sectionPanelTitle" id="datosPerfil"
-							title="Perfil" collapsible="true" style="margin-bottom:10px"
+							title="Perfiles" collapsible="true" style="margin-bottom:10px"
 							border="normal">							
 							<panelchildren>
 								<div align="center">
@@ -30,12 +30,12 @@
 										<rows>
 											<row sclass="row2">
 												<div align="right">
-													<label id="lblNombrePerfil" width="100%" sclass="labelFill" value="Nombre del Perfil:"></label>
+													<label id="lblNombrePerfil" width="100%" sclass="labelFill" value="Nombre de Perfil:"></label>
 												</div>
 												<textbox sclass="textboxUpperCase" maxlength="30"
 													id="nombrePerfil" value="@load(vm.strNombrePerfil)" width="70%"></textbox>
 												<div align="right">
-													<label id="lblDescripcionPerfil" width="100%" sclass="labelFill" value="Descipción del Perfil:"></label>												
+													<label id="lblDescripcionPerfil" width="100%" sclass="labelFill" value="Descripción de Perfil:"></label>												
 												</div>
 												<cell colspan="2">
 												<textbox sclass="textboxUpperCase" maxlength="300"
@@ -144,19 +144,19 @@
 					</portalchildren>
 					<portalchildren width="100%">
 						<panel height="50%" sclass="sectionPanelTitle" width="100%" id="panelUsuarioMapeador"
-							title="Resultados Usuario Mapeador" collapsible="true"
+							title="Resultados Perfiles Mapeador" collapsible="true"
 							style="margin-bottom:10px">
-							<caption sclass="sectionPanelTitle" label="Lista de Usuarios"></caption>
+							<caption sclass="sectionPanelTitle" label="Lista de Perfiles"></caption>
 							<panelchildren>
 								<grid width="99.7%" id="perfilGrid" mold="paging"
-									model="@load(vm.perfilVOs)" pagingPosition="both" pageSize="9"
+									model="@load(vm.perfilVOs)" pagingPosition="both" pageSize="12"
 									vflex="true" height="100%">								
 									<columns sizable="true" menupopup="auto">
 										<column hflex="0" align="center" image="/img/pencil-small.png" 
 											width="5%"></column>
-										<column hflex="1" label="Nombre Perfil" style="text-wrap: normal;"/>
-										<column hflex="1" label="Descripción Perfil" style="text-wrap: normal;"/>
-										<column hflex="1" label="Estatus" style="text-wrap: normal;"/>												
+										<column hflex="1" label="Nombre de perfil" style="text-wrap: normal;"/>
+										<column hflex="1" label="Descripción de perfil" style="text-wrap: normal;"/>
+										<column hflex="1" label="Status" style="text-wrap: normal;"/>												
 										<column width="80px" label="Detalle" style="text-wrap: normal;"/>							
 									</columns>
 									<template name="model">
