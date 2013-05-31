@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?page title="Catalogo Mensajes de Notificaciones" contentType="text/html;charset=UTF-8"?>
+<?page title="Mensajes de Notificación" contentType="text/html;charset=UTF-8"?>
 <?meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7"?>
 <?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
 <zk>
@@ -10,14 +10,14 @@
 		<include src="../../pages/styles.zul" />
 		<div sclass="BODY" height="100%" width="100%">
 			<groupbox height="100%">
-				<caption sclass="pageTitle" label="Sistema > Catálogos > Mensajes de Notificación Negocio"></caption>		
+				<caption sclass="pageTitle" label="Sistema > Notificaciones > Mensajes de Notificación"></caption>		
 					<portallayout maximizedMode="whole" id="portalLayoutFlujos"
 					width="100%" height="100%">
 					<portalchildren>
 						<panel height="40%" width="100%" sclass="sectionPanelTitle" id="datosMensajes"
-							title="Catálogo" collapsible="true" style="margin-bottom:10px"
+							title="Notificaciones" collapsible="true" style="margin-bottom:10px"
 							border="normal">
-							<caption sclass="sectionPanelTitle" label="Mensajes de Notificación Negocio"></caption>
+							<caption sclass="sectionPanelTitle" label="Mensajes de Notificación"></caption>
 							<panelchildren>
 								<div align="center">
 									<grid width="100%" style="border:0" oddRowSclass="row2">
@@ -87,6 +87,7 @@
 						<panel height="68%" sclass="sectionPanelTitle" width="100%" id="panelFlujoMapeador"
 							title="Resultados de Mensajes de Notificación" collapsible="true"
 							style="margin-bottom:10px">
+							<caption sclass="sectionPanelTitle" label="Listado de Mensajes de Notificación"></caption>
 							<panelchildren>
 								<grid width="99.7%" id="mensajesGrid" mold="paging"
 									model="@load(vm.mensajeSalidaVOs)" pagingPosition="both" pageSize="12"
