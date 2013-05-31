@@ -15,9 +15,9 @@
 					width="100%" height="100%">
 					<portalchildren>
 						<panel height="17%" width="100%" sclass="sectionPanelTitle" id="datosPalabrasComodín"
-							title="Catalogo" collapsible="true" style="margin-bottom:10px"
+							title="Catálogo" collapsible="true" style="margin-bottom:10px"
 							border="normal" >
-							<caption sclass="sectionPanelTitle" label="Catálogo Palabras Comodín"></caption>
+							<caption sclass="sectionPanelTitle" label="Palabras Comodín"></caption>
 							<panelchildren>
 								<div align="center">
 									<grid width="80%" style="border:0" oddRowSclass="row2" >
@@ -28,12 +28,12 @@
 										<rows>
 											<row sclass="row2">
 												<div align="right">
-													<label id="lblNombrePalabraComodin" width="82%" sclass="labelFill" value="Nombre Palabra Comodín:  "></label>
+													<label id="lblNombrePalabraComodin" width="82%" sclass="labelFill" value="Nombre palabra comodín:  "></label>
 												</div>
 												<textbox sclass="textboxUpperCase" maxlength="30"
 													id="nombrePalabraComodin" value="@load(vm.palabraComodinDTO.palabraComodinVO.nombrePalabraComodin)" width="70%"></textbox>
 												<div align="right">
-													<label id="lblDescripcionPalabraComodin" width="82%" sclass="labelFill" value="Descripcion Palabra Comodín: "></label>
+													<label id="lblDescripcionPalabraComodin" width="82%" sclass="labelFill" value="Descripción palabra comodín: "></label>
 												</div>
 												<textbox sclass="textboxUpperCase" maxlength="300"
 													id="descripcionPalabraComodin" value="@load(vm.palabraComodinDTO.palabraComodinVO.descripcionPalabraComodin)" width="70%"></textbox> 																													
@@ -60,17 +60,17 @@
 					</portalchildren>
 					<portalchildren width="100%" height="95%" style="padding: 5px">
 						<panel height="80%" sclass="sectionPanelTitle" width="100%" id="panelPalabraComodin"
-							title="Resultados Palabra Comodín" collapsible="true"
+							title="Resultados Palabras Comodín" collapsible="true"
 							style="margin-bottom:10px">
-							<caption sclass="sectionPanelTitle" label="Lista de Palabra Comodín"></caption>
+							<caption sclass="sectionPanelTitle" label="Listado de Palabras Comodín"></caption>
 							<panelchildren>
 								<grid width="99.7%" id="palabraComodinGrid" mold="paging"
 									model="@load(vm.comodinVOs)" pagingPosition="both" pageSize="12"
 									vflex="true" height="100%">									
 									<columns sizable="true" menupopup="auto">
-										<column hflex="1" label="Nombre Palabra Comodín" style="text-wrap: normal;"
+										<column hflex="1" label="Nombre palabra comodín" style="text-wrap: normal;"
 											width="10%" sort="auto(nombrePalabraComodin)"></column>
-										<column hflex="1" label="Descripcion Palabra Comodín" width="20%"
+										<column hflex="1" label="Descripción palabra comodín" width="20%"
 											sort="auto(descripcionPalabraComodin)"></column>								
 									</columns>
 									<template name="model">
