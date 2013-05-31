@@ -10,12 +10,12 @@
 		<include src="../../pages/styles.zul" />
 		<div sclass="BODY" height="100%" width="100%">
 			<groupbox height="100%">
-				<caption sclass="pageTitle" label="Sistema > Catálogos > Mapa"></caption>		
+				<caption sclass="pageTitle" label="Sistema > Catálogos > Catálogo Mapas"></caption>		
 					<portallayout maximizedMode="whole" id="portalLayoutEstatusObjeto"
 					width="100%" height="100%">
 					<portalchildren>
 						<panel height="30%" width="100%" sclass="sectionPanelTitle" id="datosComponente"
-							title="Catalogo" collapsible="true" style="margin-bottom:10px"
+							title="Catálogo" collapsible="true" style="margin-bottom:10px"
 							border="normal">
 							<caption sclass="sectionPanelTitle" label="Mapa"></caption>
 							<panelchildren>
@@ -83,23 +83,23 @@
 					</portalchildren>
 					<portalchildren width="100%" style="padding: 5px">
 						<panel height="67%" sclass="sectionPanelTitle" width="100%" id="panelmapaGmm"
-							title="Resultados Catalogo Mapa" collapsible="true"
+							title="Resultados Mapas Mapeador" collapsible="true"
 							style="margin-bottom:10px">
-							<caption sclass="sectionPanelTitle" label="Lista de Mapas"></caption>
+							<caption sclass="sectionPanelTitle" label="Listado de Mapas"></caption>
 							<panelchildren>
 								<grid width="99.7%" id="mapaGmmsGrid" mold="paging"
-									model="@load(vm.mapaGmmVOs)" pagingPosition="both" pageSize="9"
+									model="@load(vm.mapaGmmVOs)" pagingPosition="both" pageSize="12"
 									vflex="true" height="100%">									
 									<columns sizable="true" menupopup="auto">
 										<column hflex="0" align="center" image="/img/pencil-small.png" 
 											width="5%"></column>
 										<column hflex="1" label="ID Mapa" style="text-wrap: normal;"
-											width="10%" sort="auto(idMapaGmm)"></column>
+											width="5%" sort="auto(idMapaGmm)"></column>
 										<column hflex="1" label="Identificador Mapa" width="20%"
 											sort="auto(nombreMapaGmm)"></column>
-										<column hflex="1" label="Descripcion" style="text-wrap: normal;"
+										<column hflex="1" label="Descripción" style="text-wrap: normal;"
 											width="10%" sort="auto(descripcionMapaGmm)"></column>
-										<column hflex="1" label="Fecha Alta" width="10%"
+										<column hflex="1" label="Fecha alta" width="10%"
 											sort="auto(fechaAlta)"></column>	
 										<column hflex="1" label="Fecha modificación" width="10%"
 											sort="auto(fechaModificacion)"></column>	
