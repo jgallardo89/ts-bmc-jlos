@@ -10,14 +10,14 @@
 		<include src="../../pages/styles.zul" />
 		<div sclass="BODY" height="100%" width="100%">
 			<groupbox height="100%">
-				<caption sclass="pageTitle" label="Sistema > Catálogos > Catálogo de Productos"></caption>		
+				<caption sclass="pageTitle" label="Sistema > Catálogos > Catálogo Productos"></caption>		
 					<portallayout maximizedMode="whole" id="portalLayoutProductos"
 					width="100%" height="100%">
 					<portalchildren>
 						<panel height="30%" width="100%" sclass="sectionPanelTitle" id="datosProductos"
-							title="Catalogo" collapsible="true" style="margin-bottom:10px"
+							title="Catálogo" collapsible="true" style="margin-bottom:10px"
 							border="normal">
-							<caption sclass="sectionPanelTitle" label="Catálogo de Productos"></caption>
+							<caption sclass="sectionPanelTitle" label="Catálogo Productos"></caption>
 							<panelchildren>
 								<div align="center">
 									<grid width="100%" style="border:0" oddRowSclass="row2">
@@ -93,9 +93,9 @@
 					</portalchildren>
 					<portalchildren width="100%" height="90%" style="padding: 5px">
 						<panel height="75%" sclass="sectionPanelTitle" width="100%" id="panelProductoMapeador"
-							title="Resultados Producto Mapeador" collapsible="true"
+							title="Resultados Productos Mapeador" collapsible="true"
 							style="margin-bottom:10px">
-							<caption sclass="sectionPanelTitle" label="Lista de Productos"></caption>
+							<caption sclass="sectionPanelTitle" label="Listado de Productos"></caption>
 							<panelchildren>
 								<grid width="99.7%" id="productosGrid" mold="paging"
 									model="@load(vm.productoVOs)" pagingPosition="both" pageSize="12"
@@ -103,15 +103,15 @@
 									<columns sizable="true" menupopup="auto">
 										<column hflex="0" align="center" image="/img/pencil-small.png" 
 											width="5%"></column>
-										<column hflex="1" label="Idenificador Producto" style="text-wrap: normal;"
+										<column hflex="1" label="Identificador Producto" style="text-wrap: normal;"
 											width="10%" sort="auto(nombreProducto)"></column>
 										<column hflex="1" label="Nombre del Producto" width="20%"
 											sort="auto(descripcionProducto)"></column>
 										<column hflex="1" label="Identificador del Flujo" width="20%"
 											sort="auto(nombreFlujo)"></column>
-										<column hflex="1" label="Fecha Alta" width="10%"
+										<column hflex="1" label="Fecha alta" width="10%"
 											sort="auto(fechaAlta)"></column>
-										<column hflex="1" label="Fecha Modificación" width="10%"
+										<column hflex="1" label="Fecha modificación" width="10%"
 											sort="auto(fechaModificacion)"></column>
 										<column hflex="1" label="Status" width="10%"
 											sort="auto(nombreEstatusObjeto)"></column>								
