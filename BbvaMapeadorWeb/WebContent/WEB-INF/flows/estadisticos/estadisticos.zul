@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?page title="Catalogo Productos" contentType="text/html;charset=UTF-8"?>
+<?page title="Estadístico" contentType="text/html;charset=UTF-8"?>
 <?meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7"?>
 <?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
 <zk>
@@ -10,14 +10,14 @@
 		<include src="../../pages/styles.zul" />
 		<div sclass="BODY" height="100%" width="100%">
 			<groupbox height="100%">
-				<caption sclass="pageTitle" label="Sistema > Estadistico"></caption>		
+				<caption sclass="pageTitle" label="Sistema > Estadístico"></caption>		
 					<portallayout maximizedMode="whole" id="portalLayoutEstadistico"
 					width="100%" height="100%">
 					<portalchildren>
 						<panel height="30%" width="100%" sclass="sectionPanelTitle" id="datosEstadistico"
 							title="Catalogo" collapsible="true" style="margin-bottom:10px"
 							border="normal">
-							<caption sclass="sectionPanelTitle" label="Estadistico"></caption>
+							<caption sclass="sectionPanelTitle" label="Estadístico"></caption>
 							<panelchildren>
 								<div align="center">
 									<grid width="100%" style="border:0" oddRowSclass="row2">
@@ -63,11 +63,11 @@
 												<div align="right">
 													<label id="lblFechaAlta" width="100%" sclass="labelFill" value="Fecha alta: "></label>												
 												</div>
-												<datebox value="@load(vm.estadisticoDTO.estadisticoVO.fechaInicio)"  maxlength="50"  width="100%" id="fechaInicio" readonly="true" buttonVisible="true" onCreate="self.value = new Date()" format="dd/MM/yyyy HH:MM:SS"></datebox>
+												<datebox value="@load(vm.estadisticoDTO.estadisticoVO.fechaInicio)"  maxlength="50"  width="100%" id="fechaInicio" readonly="true" buttonVisible="true" onCreate="self.value = new Date()" format="dd/MM/yyyy HH:MM"></datebox>
 												<div align="right">
 													<label id="lblA" width="100%" sclass="labelFill" value="a: "></label>												
 												</div>
-												<datebox value="@load(vm.estadisticoDTO.estadisticoVO.fechaFin)"  maxlength="50"  width="100%" id="fechaFin" readonly="true" buttonVisible="true" onCreate="self.value = new Date()" format="dd/MM/yyyy HH:MM:SS"></datebox>
+												<datebox value="@load(vm.estadisticoDTO.estadisticoVO.fechaFin)"  maxlength="50"  width="100%" id="fechaFin" readonly="true" buttonVisible="true" onCreate="self.value = new Date()" format="dd/MM/yyyy HH:MM"></datebox>
 											</row>
 											<row sclass="row2">
 												<div align="right" width="70%">
