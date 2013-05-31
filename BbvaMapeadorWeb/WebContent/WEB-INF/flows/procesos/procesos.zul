@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?page title="Catalogo Productos" contentType="text/html;charset=UTF-8"?>
+<?page title="Monitoreo de Procesos" contentType="text/html;charset=UTF-8"?>
 
 <?meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7"?>
 <?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
@@ -11,12 +11,12 @@
 		<include src="../../pages/styles.zul" />
 		<div sclass="BODY" height="100%" width="100%">
 			<groupbox height="100%">
-				<caption sclass="pageTitle" label="Sistema > Monitoreo Procesos"></caption>		
+				<caption sclass="pageTitle" label="Monitoreo > Monitoreo de Procesos"></caption>		
 					<portallayout maximizedMode="whole" id="portalLayoutMonitoreoProcesos"
 					width="100%" height="100%">
 					<portalchildren>
 						<panel height="30%" width="100%" sclass="sectionPanelTitle" id="datosMonitoreoProcesos"
-							title="Catalogo" collapsible="true" style="margin-bottom:10px"
+							title="Monitoreo" collapsible="true" style="margin-bottom:10px"
 							border="normal">
 							<caption sclass="sectionPanelTitle" label="MonitoreoProcesos"></caption>
 							<panelchildren>
@@ -73,11 +73,11 @@
 												<div align="right">
 													<label id="lblFechaLote" width="100%" sclass="labelFill" value="Fecha Lote: "></label>												
 												</div>
-												<datebox value="@load(vm.monitoreoProcesosDTO.monitoreoProcesosVO.fechaInicio)"  maxlength="50"  width="100%" id="fechaInicio" readonly="true" buttonVisible="true" onCreate="self.value = new Date()" format="dd/MM/yyyy HH:MM:SS"></datebox>
+												<datebox value="@load(vm.monitoreoProcesosDTO.monitoreoProcesosVO.fechaInicio)"  maxlength="50"  width="100%" id="fechaInicio" readonly="true" buttonVisible="true" onCreate="self.value = new Date()" format="dd/MM/yyyy HH:MM"></datebox>
 												<div align="right">
 													<label id="lblA" width="100%" sclass="labelFill" value="a: "></label>												
 												</div>
-												<datebox value="@load(vm.monitoreoProcesosDTO.monitoreoProcesosVO.fechaFin)"  maxlength="50"  width="100%" id="fechaFin" readonly="true" buttonVisible="true" onCreate="self.value = new Date()" format="dd/MM/yyyy HH:MM:SS"></datebox>
+												<datebox value="@load(vm.monitoreoProcesosDTO.monitoreoProcesosVO.fechaFin)"  maxlength="50"  width="100%" id="fechaFin" readonly="true" buttonVisible="true" onCreate="self.value = new Date()" format="dd/MM/yyyy HH:MM"></datebox>
 											</row>
 											<row sclass="row2">
 												<div align="right">
@@ -108,10 +108,10 @@
 						<panel height="67%" sclass="sectionPanelTitle" width="100%" id="panelMonitoreoProcesos"
 							title="Resultados" collapsible="true"
 							style="margin-bottom:10px">
-							<caption sclass="sectionPanelTitle" label="Lista de Resultados"></caption>
+							<caption sclass="sectionPanelTitle" label="Listado de Resultados"></caption>
 							<panelchildren>
 								<grid width="99.7%" id="procesosGrid" mold="paging"
-									model="@load(vm.monitoreoProcesosVOs)" pagingPosition="both" pageSize="11"
+									model="@load(vm.monitoreoProcesosVOs)" pagingPosition="both" pageSize="12"
 									vflex="true" height="100%">									
 									<columns sizable="true" menupopup="auto">
 										<column hflex="1" label="Canal" style="text-wrap: normal;"
