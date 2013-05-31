@@ -10,12 +10,12 @@
 		<include src="../../pages/styles.zul" />
 		<div sclass="BODY" height="100%" width="100%">
 			<groupbox height="100%">
-				<caption sclass="pageTitle" label="Sistema > Catálogos > Catálogo Canal"></caption>		
+				<caption sclass="pageTitle" label="Sistema > Catálogos > Catálogo Canales"></caption>		
 					<portallayout maximizedMode="whole" id="portalLayoutEstatusObjeto"
 					width="100%" height="100%">
 					<portalchildren>
 						<panel height="20%" width="100%" sclass="sectionPanelTitle" id="datosCanales"
-							title="Catalogo" collapsible="true" style="margin-bottom:10px"
+							title="Catálogo" collapsible="true" style="margin-bottom:10px"
 							border="normal">
 							<caption sclass="sectionPanelTitle" label="Catálogo Canales"></caption>
 								
@@ -82,7 +82,7 @@
 						<panel height="77%" sclass="sectionPanelTitle" width="100%" id="panelCanalMapeador"
 							title="Resultados Canales Mapeador" collapsible="true"
 							style="margin-bottom:10px">
-							<caption sclass="sectionPanelTitle" label="Lista de Canales"></caption>
+							<caption sclass="sectionPanelTitle" label="Listado de Canales"></caption>
 							<panelchildren>
 								<grid width="99.7%" id="canalesGrid" mold="paging"
 									model="@load(vm.canalesVOs)" pagingPosition="both" pageSize="12"
@@ -90,11 +90,11 @@
 									<columns sizable="true" menupopup="auto">
 										<column hflex="0" align="center" image="/img/pencil-small.png" 
 											width="5%"></column>
-										<column hflex="1" label="Nombre Canal" style="text-wrap: normal;"
+										<column hflex="1" label="Clave" style="text-wrap: normal;"
 											width="10%" sort="auto(nombreCanal)"></column>
-										<column hflex="1" label="Descripción Canal" width="20%"
+										<column hflex="1" label="Descripción canal" width="20%"
 											sort="auto(descripcionCanal)"></column>
-										<column hflex="1" label="Fecha y Hora de Alta" width="10%"
+										<column hflex="1" label="Fecha y Hora de alta" width="10%"
 											sort="auto(fechaAlta)"></column>
 										<column hflex="1" label="Status" width="10%"
 											sort="auto(nombreEstatusObjeto)"></column>								
