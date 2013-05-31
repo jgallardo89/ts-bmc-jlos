@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?page title="Catalogo Administracion de Flujos" contentType="text/html;charset=UTF-8"?>
+<?page title="Catálogo Flujos" contentType="text/html;charset=UTF-8"?>
 <?meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7"?>
 <?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
 <zk>
@@ -89,7 +89,7 @@
 							<caption sclass="sectionPanelTitle" label="Listado de Flujos"></caption>
 							<panelchildren>
 								<grid width="99.7%" id="flujosGrid" mold="paging"
-									model="@load(vm.flujoVOs)" pagingPosition="both" pageSize="9"
+									model="@load(vm.flujoVOs)" pagingPosition="both" pageSize="12"
 									vflex="true" height="100%">									
 									<columns sizable="true" menupopup="auto">
 										<column hflex="0" align="center" image="/img/pencil-small.png" 
