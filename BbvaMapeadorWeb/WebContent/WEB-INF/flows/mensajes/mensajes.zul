@@ -10,14 +10,14 @@
 		<include src="../../pages/styles.zul" />
 		<div sclass="BODY" height="100%" width="100%">
 			<groupbox height="100%">
-				<caption sclass="pageTitle" label="Sistema > Catálogos > Catálogo de Mensajes de Notificación"></caption>		
+				<caption sclass="pageTitle" label="Sistema > Catálogos > Mensajes de Notificación Negocio"></caption>		
 					<portallayout maximizedMode="whole" id="portalLayoutFlujos"
 					width="100%" height="100%">
 					<portalchildren>
 						<panel height="40%" width="100%" sclass="sectionPanelTitle" id="datosMensajes"
-							title="Catalogo" collapsible="true" style="margin-bottom:10px"
+							title="Catálogo" collapsible="true" style="margin-bottom:10px"
 							border="normal">
-							<caption sclass="sectionPanelTitle" label="Catálogo Mensajes"></caption>
+							<caption sclass="sectionPanelTitle" label="Mensajes de Notificación Negocio"></caption>
 							<panelchildren>
 								<div align="center">
 									<grid width="100%" style="border:0" oddRowSclass="row2">
@@ -46,7 +46,7 @@
 											</row>
 											<row sclass="row2">
 												<div align="right">
-													<label id="lblTextoMensaje" width="100%" sclass="labelFill" value="Texto del Mensaje:  "></label>
+													<label id="lblTextoMensaje" width="100%" sclass="labelFill" value="Texto de Mensaje:  "></label>
 												</div>
 												<cell colspan="3">
 													<textbox sclass="textboxUpperCase"  maxlength="300" id="descripcionMensajeSalida" rows="6" value="@load(vm.mensajeSalidaDTO.mensajeSalidaVO.descripcionMensajeSalida)" width="100%" tabindex="11" />
@@ -94,13 +94,13 @@
 									<columns sizable="true" menupopup="auto">
 										<column hflex="0" align="center" image="/img/pencil-small.png" 
 											width="5%"></column>
-										<column hflex="1" label="Identificador del Mensaje" style="text-wrap: normal;"
+										<column hflex="1" label="Identificador de Mensaje" style="text-wrap: normal;"
 											width="10%" sort="auto(nombreMensajeSalida)"></column>
-										<column hflex="1" label="Texto del Mensaje" width="20%"
+										<column hflex="1" label="Texto de mensaje" width="20%"
 											sort="auto(descripcionMensajeSalida)"></column>
-										<column hflex="1" label="Fecha y Hora de Alta" width="10%"
+										<column hflex="1" label="Fecha alta" width="10%"
 											sort="auto(fechaAlta)"></column>
-										<column hflex="1" label="Fecha y Hora de Modificación" width="10%"
+										<column hflex="1" label="Fecha modificación" width="10%"
 											sort="auto(fechaModificacion)"></column>
 										<column hflex="1" label="Status" width="10%"
 											sort="auto(nombreEstatusObjeto)"></column>						
