@@ -10,12 +10,12 @@
 		<include src="../../pages/styles.zul" />
 		<div sclass="BODY" height="100%" width="100%">
 			<groupbox height="100%">
-				<caption sclass="pageTitle"  label="Sistema > Catálogos > Catálogo de Clientes"></caption>		
+				<caption sclass="pageTitle"  label="Sistema > Catálogos > Catálogo Clientes"></caption>		
 					<portallayout maximizedMode="whole" id="portalLayoutEstatusObjeto"
 					width="100%" height="100%">
 					<portalchildren >
 						<panel  height="30%" width="100%" sclass="sectionPanelTitle" id="datosClientes"
-							title="Catalogo" collapsible="true" style="margin-bottom:10px"
+							title="Catálogo" collapsible="true" style="margin-bottom:10px"
 							border="normal">
 							<caption sclass="sectionPanelTitle" label="Catálogo Clientes"></caption>
 							<panelchildren>
@@ -35,10 +35,10 @@
 												<textbox sclass="textboxUpperCase" maxlength="30"
 													id="idIdentificador" value="@load(vm.clienteDTO.clienteVO.idIdentificador)" width="98%"></textbox>
 												<div align="right">
-													<label id="lblNombreCliente" width="100%" sclass="labelFill" value="Nombre Cliente: "></label>
+													<label id="lblNombreCliente" width="100%" sclass="labelFill" value="Nombre cliente: "></label>
 												</div>
-												<textbox sclass="textboxUpperCase" maxlength="200"
-													id="nombreCliente" value="@load(vm.clienteDTO.clienteVO.nombreCliente)" width="98%"></textbox> 																													
+												<textbox sclass="textboxUpperCase" maxlength="30"
+												    id="nombreCortoCliente" value="@load(vm.clienteDTO.clienteVO.nombreCortoCliente)" width="98%"></textbox> 																													
 											</row>
 											<row sclass="row2">
 												<div align="right">
@@ -46,18 +46,18 @@
 												</div>
 												<datebox value="@load(vm.clienteDTO.clienteVO.fechaAlta)" maxlength="50" width="100%" id="fechaAlta" readonly="true" buttonVisible="false" onCreate="self.value = new Date()" format="dd/MM/yyyy HH:MM"></datebox>
 												<div align="right">
-													<label id="lblDescripcionCliente" width="100%" sclass="labelFill" value="Descripción Cliente: "></label>												
+													<label id="lblDescripcionCliente" width="100%" sclass="labelFill" value="Descripción cliente: "></label>												
 												</div>
-												<textbox sclass="textboxUpperCase" maxlength="30"
-													id="nombreCortoCliente" value="@load(vm.clienteDTO.clienteVO.nombreCortoCliente)" width="98%"></textbox>																											
+												<textbox sclass="textboxUpperCase" maxlength="200"
+													id="nombreCliente" value="@load(vm.clienteDTO.clienteVO.nombreCliente)" width="98%"></textbox>																											
 											</row>
 											<row sclass="row2">
 												<div align="right">
-													<label id="lblFechaModificacion"width="100%" sclass="labelFill" value="Fecha Modificación: "></label>												
+													<label id="lblFechaModificacion" width="100%" sclass="labelFill" value="Fecha modificación: "></label>												
 												</div>
 												<datebox value="@load(vm.clienteDTO.clienteVO.fechaModificacion)" maxlength="50" width="100%" id="fechaModificacion" readonly="true" buttonVisible="false" onCreate="self.value = new Date()" format="dd/MM/yyyy HH:MM"></datebox>
 												<div align="right">
-													<label id="lblEstatus"width="100%" sclass="labelFill" value="Status:"></label>												
+													<label id="lblEstatus" width="100%" sclass="labelFill" value="Status:"></label>												
 												</div>
 												<combobox sclass="textboxUpperCase"  onChange="selectedValueStatusObjeto()"
 													id="statusObjeto" width="70%" model="@load(vm.clienteDTO.estatusObjetoVOs)" autodrop="true">		
@@ -91,7 +91,7 @@
 						<panel height="70%" sclass="sectionPanelTitle" width="100%" id="panelCanalMapeador"
 							title="Resultados Clientes Mapeador" collapsible="true"
 							style="margin-bottom:10px">
-							<caption sclass="sectionPanelTitle" label="Lista de Clientes"></caption>
+							<caption sclass="sectionPanelTitle" label="Listado de Clientes"></caption>
 							<panelchildren>
 								<grid width="99.7%" id="clientesGrid" mold="paging"
 									model="@load(vm.clientesVOs)" pagingPosition="both" pageSize="12"
@@ -101,13 +101,13 @@
 											width="5%"></column>
 										<column hflex="1" label="Identificador" style="text-wrap: normal;"
 											width="10%" sort="auto(idIdentificador)"></column>
-										<column hflex="1" label="Nombre Cliente" width="20%"
-											sort="auto(nombreCliente)"></column>
-										<column hflex="1" label="Descripción Cliente" width="10%"
+										<column hflex="1" label="Nombre cliente" width="20%"
 											sort="auto(nombreCortoCliente)"></column>
-										<column hflex="1" label="Fecha y Hora de Alta" width="10%"
+										<column hflex="1" label="Descripción cliente" width="10%"
+											sort="auto(nombreCliente)"></column>
+										<column hflex="1" label="Fecha y Hora de alta" width="10%"
 											sort="auto(fechaAlta)"></column>
-										<column hflex="1" label="Fecha y Hora de Modificación" width="10%"
+										<column hflex="1" label="Fecha y Hora de modificación" width="10%"
 											sort="auto(fechaModificacion)"></column>	
 										<column hflex="1" label="Status" width="10%"
 											sort="auto(nombreEstatusObjeto)"></column>								
@@ -116,8 +116,8 @@
 										<row>
 											<image src="/img/pencil-small.png" onClick="@command('readSelected',idCliente=each)"></image>											
 											<label hflex="1" value="@load(each.idIdentificador)"></label>
-											<label hflex="1" value="@load(each.nombreCliente)"></label>
 											<label hflex="1" value="@load(each.nombreCortoCliente)"></label>
+											<label hflex="1" value="@load(each.nombreCliente)"></label>
 											<label hflex="1" value="@load(each.fechaAlta)  @converter('formatedDate', format='dd/MM/yyyy  HH:MM')"></label>
 											<label hflex="1" value="@load(each.fechaModificacion)  @converter('formatedDate', format='dd/MM/yyyy  HH:MM')"></label>
 											<label hflex="1" value="@load(each.nombreEstatusObjeto)"></label>																							
