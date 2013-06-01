@@ -102,7 +102,7 @@ public class ClienteBO implements
 		}
 	}
 	
-	public <T extends BbvaAbstractDataTransferObject> T readCommand() {
+	public <T extends BbvaAbstractDataTransferObject> T readCommand(ClienteVO clienteVO) {
 		ClienteDTO clienteDTO = new ClienteDTO();
 		try {
 			logger.debug("Entrada readCmbCommand -- OK");
@@ -112,7 +112,8 @@ public class ClienteBO implements
 						.getSqlSessionFactory().openSession();
 				MapCliente mapCliente = session.getMapper(MapCliente.class);
 				try {
-					result = mapCliente.obtenerCmbClientes();
+					clienteVO.setIdBaja(CommandConstants.ID_CLIENTE_BAJA);
+					result = mapCliente.obtenerCmbClientes(clienteVO);
 					session.commit();
 				} catch (Exception ex) {
 					session.rollback();

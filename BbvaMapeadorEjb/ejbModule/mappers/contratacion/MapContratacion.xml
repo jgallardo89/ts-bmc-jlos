@@ -100,4 +100,24 @@
 				TGM511_CANAL CANAL
 			ORDER BY CANAL.CD_CANAL
 	</select>
+	<select id="validarEstatusContratacion" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.ContratacionVO"
+		resultType="mx.com.bbva.bancomer.bussinnes.model.vo.ContratacionVO">
+			SELECT 
+				CONTRATACION.CD_CANAL,
+				CONTRATACION.CD_CLIENTE,
+				CONTRATACION.CD_PRODUCTO,
+				CONTRATACION.CD_CANAL_SALIDA 
+			FROM TGM519_CONTRATACION CONTRATACION
+			WHERE
+			<if test="idCanal != null and idCanal != 0">
+				CONTRATACION.CD_CANAL = #{idCanal}
+				OR  CONTRATACION.CD_CANAL_SALIDA = #{idCanalSalida}
+			</if>
+			<if test="idCliente != null and idCliente != 0">
+			    CONTRATACION.CD_CLIENTE = #{idCliente}
+			</if>
+			<if test="idProducto != null and idProducto != 0">
+				CONTRATACION.CD_PRODUCTO = #{idProducto}
+			</if>
+	</select>
 </mapper>

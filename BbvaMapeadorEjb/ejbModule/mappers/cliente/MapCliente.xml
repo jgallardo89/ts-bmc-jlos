@@ -20,12 +20,12 @@
 				AND CLIENTE.CD_ST_OBJETO != #{idBaja}
 				<if test="idIdentificador != null">
 					AND CLIENTE.CD_IDENTIFICADOR LIKE #{idIdentificador}
-					</if>
+				</if>
 				<if test="nombreCliente != null">
 					AND CLIENTE.NB_CLIENTE LIKE #{nombreCliente}
 				</if>
 				<if test="nombreCortoCliente != null">
-					AND CLIENTE.NB_CLIENTE LIKE #{nombreCortoCliente}
+					AND CLIENTE.NB_CORTO_CLIENTE LIKE #{nombreCortoCliente}
 				</if>
 				<if test="idEstatusObjeto != null and idEstatusObjeto != 0">
 					AND CLIENTE.CD_ST_OBJETO = #{idEstatusObjeto}
@@ -67,7 +67,11 @@
 			CLIENTE.CD_CLIENTE idCliente,
 			CLIENTE.NB_CLIENTE nombreCliente
 		FROM 
-			TGM512_CLIENTE CLIENTE
+			TGM512_CLIENTE CLIENTE  
+		WHERE CLIENTE.CD_ST_OBJETO != #{idBaja}
+		<if test="idIdentificador != null">
+			AND CLIENTE.CD_IDENTIFICADOR = #{idIdentificador}
+		</if>
 		ORDER BY CLIENTE.CD_CLIENTE
 	</select>
 </mapper>

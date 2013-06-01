@@ -5,12 +5,9 @@ import java.util.List;
 import javax.ejb.Stateless;
 
 import mappers.contratacion.MapContratacion;
-import mappers.contratacionmap.MapContratacionMapeador;
-import mx.com.bbva.bancomer.bussinnes.model.vo.ContratacionMapVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.ContratacionVO;
 import mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject;
 import mx.com.bbva.bancomer.contratacion.dto.ContratacionDTO;
-import mx.com.bbva.bancomer.contratacionmap.dto.ContratacionMapDTO;
 import mx.com.bbva.mapeador.oralce.session.MapeadorSessionFactory;
 
 import org.apache.ibatis.session.SqlSession;
@@ -161,6 +158,40 @@ public class ContratacionBO implements
 		}
 	}
 
+	public boolean readCommandValidaContratacion(ContratacionVO contratacionVO) {
+		boolean result = true;
+		try {
+			logger.debug("Entrada readCommand          -- OK");
+			logger.debug("Datos de Entrada readCommand -- "
+					+ contratacionVO.toString());
+			try {
+				List<ContratacionVO> contratacionVOs = null;
+				SqlSession session = MapeadorSessionFactory
+						.getSqlSessionFactory().openSession();
+				MapContratacion mapContratacion = session.getMapper(MapContratacion.class);
+				try {
+					contratacionVOs = mapContratacion.validarEstatusContratacion(contratacionVO);
+					if(contratacionVOs.size()>0) {
+						result = false;
+					}
+					session.commit();
+				} catch (Exception ex) {
+					session.rollback();
+					ex.printStackTrace();
+				} finally {
+					session.close();
+				}
+				
+				return result;
+			} catch (Exception ex) {
+				ex.printStackTrace();
+				return result;
+			}
+		} catch (Exception exception) {
+			exception.printStackTrace();
+			return result;
+		}
+	}
 	@Override
 	public <T extends BbvaAbstractDataTransferObject> T deleteCommand(
 			T bbvaAbstractDataTransferObject) {
