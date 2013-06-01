@@ -70,6 +70,9 @@
 			PRODUCTO.NB_PRODUCTO nombreProducto
 		FROM 
 			TGM515_PRODUCTO PRODUCTO
+		<if test="nombreProducto != null">
+			WHERE PRODUCTO.NB_PRODUCTO = #{nombreProducto}
+		</if>
 		ORDER BY PRODUCTO.CD_PRODUCTO
 	</select>
 </mapper>
