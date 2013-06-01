@@ -4,12 +4,12 @@
 <?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
 <zk>
 	<window closable="true" position="center,center"
-		border="0" width="75%" height="60%"
-		apply="mx.com.bbva.mt101.ui.commons.viewmodel.bitacoraWeb.BitacoraWebController"
-		id="detalleBitacoraWindow">
+		apply="org.zkoss.bind.BindComposer"
+		border="0" width="75%" height="60%"		
+		id="detalleBitacoraWindow"
+		viewModel="@id('vm') @init('mx.com.bbva.mt101.ui.commons.viewmodel.bitacoraWeb.BitacoraWebController')">
 		<include src="../../pages/styles.zul" />
-		<div apply="org.zkoss.bind.BindComposer" sclass="BODY" height="100%" 
-		viewModel="@id('vm') @init('mx.com.bbva.mt101.ui.commons.viewmodel.bitacoraWeb.BitacoraWebController')">			
+		<div sclass="BODY" height="100%">			
 			<grid width="99.7%" id="detalleGrid" mold="paging"
 				model="@load(arg.campoDTOs)" pagingPosition="both" pageSize="5"
 				vflex="true" height="100%">									
@@ -30,7 +30,7 @@
 				</template>									
 			</grid>
 			<div align="center">
-				<button id="closeBtn" image="/img/button_cancel.png" sclass="button" label="Cerrar"/>	
+				<button id="closeBtn" image="/img/button_cancel.png" sclass="button" label="Cerrar" onClick="@command('showModal')"/>
 			</div>								
 		</div>
 	</window>
