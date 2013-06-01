@@ -11,6 +11,7 @@ public abstract interface CommandConstants {
 	public static final int ESTATUS_OBJETO_MENSAJE_SALIDA_BAJA = 17;
 	public static final int ESTATUS_OBJETO_FLUJO_BAJA = 12;
 	public static final int ESTATUS_OBJETO_CANAL_BAJA = 3;
+	public static final int ESTATUS_OBJETO_CLIENTE_INACTIVO = 5;
 	public static final int ESTATUS_OBJETO_CLIENTE_BAJA = 6;	
 	public static final int COMPONENTE_PANTALLA = 1;
 	public static final int COMPONENTE_PANTALLA_PERFIL = 3;
@@ -54,6 +55,7 @@ public abstract interface CommandConstants {
 	//Estatus del Catálogo de Clientes
 	public static final int ID_CLIENTE_ACTIVO = 4;
 	public static final int ID_CLIENTE_BAJA = 6;
+	
 	public static final String NB_CLIENTE_ACTIVO = "ACTIVO";
 	public static final String NB_CLIENTE_BAJA = "BAJA";
 	
