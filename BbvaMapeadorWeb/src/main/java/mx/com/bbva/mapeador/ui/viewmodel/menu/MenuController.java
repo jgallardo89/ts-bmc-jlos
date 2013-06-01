@@ -116,20 +116,25 @@ public class MenuController extends SelectorComposer<Component>{
 		HashMap<String, Object> htSession = null;
 		htSession = (HashMap<String, Object>)this.getPage().getDesktop().getSession().getAttribute("sessionValues");
 		userId = htSession.get("iv-user").toString();
-		logger.debug("userId:"+userId);
+		logger.debug("1-userId:"+userId);
 	}
 	private static final long serialVersionUID = 1L;
 	private static final Logger logger = Logger
 			.getLogger(MenuController.class);
 	public TreeModel<TreeNode<MenuData>> getTreeModel() {
-		
+		logger.debug("2-userId:"+userId);
         TreeModel<TreeNode<MenuData>> treeModel = new DefaultTreeModel<MenuData>(new MenuDataUtil().getRoot(userId));
 		return treeModel;
     }
 	public Object read() {				
 				
 		UsuarioBO usuarioBO = new UsuarioBO();
-		UsuarioVO usuarioVO = new UsuarioVO();		
+		UsuarioVO usuarioVO = new UsuarioVO();
+		if(userId==null){
+			HashMap<String, Object> htSession = null;
+			htSession = (HashMap<String, Object>)this.getPage().getDesktop().getSession().getAttribute("sessionValues");
+			userId = htSession.get("iv-user").toString();
+		}
 		usuarioVO.setIdCveUsuario(userId);
 		logger.debug("userId:"+userId);
 		usuarioDTO = new UsuarioDTO();
