@@ -13,8 +13,6 @@ import mx.com.bbva.bancomer.bussinnes.model.vo.ClienteVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.ContratacionMapVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.ContratacionVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.EstatusObjetoVO;
-import mx.com.bbva.bancomer.bussinnes.model.vo.MensajeSalidaVO;
-import mx.com.bbva.bancomer.bussinnes.model.vo.PalabraComodinVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.ProductoVO;
 import mx.com.bbva.bancomer.canal.dto.BeanGenerico;
 import mx.com.bbva.bancomer.canal.dto.CanalDTO;
@@ -85,7 +83,7 @@ public class ContratacionController extends ControllerSupport implements IContro
 	@Wire
 	private Textbox idEstatusObjeto;
 	@Wire
-	private Combobox estatusObjeto;	
+	private Combobox estatusObjeto;
 	
 	private boolean botonEditar;
 	private boolean botonGuardar;
@@ -134,7 +132,7 @@ public class ContratacionController extends ControllerSupport implements IContro
 	    productoDTO.setCommandId(CommandConstants.ESTATUS_OBJETO);
 	    ProductoVO productoVO = new ProductoVO();
 	    productoDTO.setProductoVO(productoVO);
-	    productoDTO = productoBO.readCommand();
+	    productoDTO = productoBO.readCommand(productoVO);
 	    
 	    contratacionDTO.setEstatusObjetoVOs(estatusObjetoDTO.getEstatusObjetoVOs());
 	    contratacionDTO.setCanalVOs(canalDTO.getCanalVOs());
@@ -178,8 +176,6 @@ public class ContratacionController extends ControllerSupport implements IContro
 		dto.setCampoDTOs(campoDTOs);
 		registraEvento(dto, "Contratación", evento);
 	}
-	
-	
 
 	@Override
 	public Object read(Object t) {
@@ -215,6 +211,7 @@ public class ContratacionController extends ControllerSupport implements IContro
 			Messagebox.show("!El Registro de la Contratación fue exitoso!",
 					"Información", Messagebox.OK,
 					Messagebox.INFORMATION);
+			cargaTabsDinamicosReg(Integer.parseInt((String) Sessions.getCurrent().getAttribute("idProducto")));
 		}else {
 			ContratacionDTO contratacionDTO = new ContratacionDTO();
 			ContratacionVO contratacionVO = new ContratacionVO();
@@ -367,7 +364,7 @@ public class ContratacionController extends ControllerSupport implements IContro
 			cliente.setValue(contratacionVO.getNombreCliente());
 			estatusObjeto.setValue(contratacionVO.getNombreEstatusObjeto());
 			contratacionDTO.setContratacionVO(contratacionVO);
-			cargaTabsDinamicosReg(Integer.parseInt((String) Sessions.getCurrent().getAttribute("idProducto")));
+			//cargaTabsDinamicosReg(Integer.parseInt((String) Sessions.getCurrent().getAttribute("idProducto")));
 			//Sessions.getCurrent().removeAttribute("contratacionVO");
 			comboEstatus = false;
 		}
@@ -401,6 +398,7 @@ public class ContratacionController extends ControllerSupport implements IContro
 				        		"&descripcionMapaGmm="+mapVO.getDescripcionMapaGmm()+"&estatusNotificacion="+mapVO.getEstatusNotificacion()+
 				        		"&nombreMensajeSalida="+mapVO.getNombreMensajeSalida()+"&descripcionMensajeSalida="+mapVO.getDescripcionMensajeSalida()+
 				        		"&descripcionIdUsuarios="+mapVO.getDescripcionIdUsuarios()+"&idContratacion="+mapVO.getIdContratacion()+"&titulo="+mapVO.getNombreEtapa());
+	        
 	        iframe.setWidth("100%");
 	        iframe.setHeight("100%");
 	        newTabpanel.appendChild(iframe);
@@ -446,7 +444,6 @@ public class ContratacionController extends ControllerSupport implements IContro
 	public void onShowReport(@BindingParam("type") final String type) {
 		ReportesController controller = new ReportesController();
 		ArrayList<String> headersReport = new ArrayList<String>();
-		String titleReport = "";
 		headersReport.add("Canal Entrada");
 		headersReport.add("Cliente");
 		headersReport.add("Producto");
@@ -454,7 +451,7 @@ public class ContratacionController extends ControllerSupport implements IContro
 		headersReport.add("Fecha Alta");
 		headersReport.add("Fecha Modificacion");
 		headersReport.add("Estatus");
-		controller.createReport(generaLista(), headersReport, titleReport, "CONTRATACION");
+		controller.createReport(generaLista(), headersReport, type,"Contratacion");
 	}	
 	
 	private ArrayList<BeanGenerico> generaLista() {
@@ -623,11 +620,9 @@ public class ContratacionController extends ControllerSupport implements IContro
 	public void setComboEstatus(boolean comboEstatus) {
 		this.comboEstatus = comboEstatus;
 	}
-
 	@Override
 	public boolean applyPermision() {
 		// TODO Auto-generated method stub
 		return false;
 	}
-
 }
