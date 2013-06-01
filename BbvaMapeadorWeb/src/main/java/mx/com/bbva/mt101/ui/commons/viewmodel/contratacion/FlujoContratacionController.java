@@ -1,15 +1,12 @@
 package mx.com.bbva.mt101.ui.commons.viewmodel.contratacion;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import mx.com.bbva.bancomer.bussinnes.model.vo.CanalVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.ContratacionMapVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.ContratacionVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.MapaGmmVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.MensajeSalidaVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.UsuarioNotificacionVO;
-import mx.com.bbva.bancomer.canal.dto.BeanGenerico;
 import mx.com.bbva.bancomer.contratacion.dto.ContratacionDTO;
 import mx.com.bbva.bancomer.contratacionmap.dto.ContratacionMapDTO;
 import mx.com.bbva.bancomer.mapper.business.ContratacionMapeadorBO;
@@ -20,10 +17,8 @@ import mx.com.bbva.bancomer.mappers.mapagmm.dto.MapaGmmDTO;
 import mx.com.bbva.bancomer.mensajesalida.dto.MensajeSalidaDTO;
 import mx.com.bbva.bancomer.usuarionotificacion.dto.UsuarioNotificacionDTO;
 import mx.com.bbva.mapeador.ui.commons.controller.IController;
-import mx.com.bbva.mt101.ui.commons.viewmodel.reportes.ReportesController;
 
 import org.zkoss.bind.annotation.AfterCompose;
-import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
@@ -549,12 +544,10 @@ public class FlujoContratacionController extends Div  implements IController, Id
 	public void setStrNombreMensajeSalida(String strNombreMensajeSalida) {
 		this.strNombreMensajeSalida = strNombreMensajeSalida;
 	}
-
 	@Override
 	public boolean applyPermision() {
 		// TODO Auto-generated method stub
 		return false;
 	}
-	
 }
 
