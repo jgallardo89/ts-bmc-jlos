@@ -10,7 +10,7 @@
 		<include src="../../pages/styles.zul" />
 		<div sclass="BODY" height="100%">
 			<groupbox height="100%">
-				<caption sclass="pageTitle" label="Notificaciones > Usuarios para Notificación"></caption>		
+				<caption sclass="pageTitle" label="Notificaciones > Usuarios Negocio"></caption>		
 					<portallayout maximizedMode="whole" id="portalLayoutEstatusObjeto"
 					width="100%" height="100%">
 					<portalchildren>
@@ -81,8 +81,6 @@
 									<columns sizable="true" menupopup="auto">
 										<column hflex="0" align="center" image="/img/pencil-small.png" 
 											width="5%"></column>
-										<column hflex="1" label="ID Usuario" style="text-wrap: normal;"
-											width="10%" sort="auto(vm.usuarioNotificacionDTO.usuarioNotificacionVO.idUsuarioNotificado)"></column>
 										<column hflex="1" label="Nombre usuario" width="20%"
 											sort="vm.usuarioNotificacionDTO.usuarioNotificacionVO.nombreUsuarioNotificado"></column>
 										<column hflex="1" label="e-mail" style="text-wrap: normal;"
@@ -93,7 +91,6 @@
 									<template name="model">
 										<row>
 											<image src="/img/pencil-small.png" onClick="@command('readSelected',idUsuarioNotificado=each)"></image>
-											<label hflex="1" value="@load(each.idUsuarioNotificado)"></label>											
 											<label hflex="1" value="@load(each.nombreUsuarioNotificado)"></label>
 											<label hflex="1" value="@load(each.descripcionEmail)"></label>
 											<label hflex="1" value="@load(each.nombreEstatusObjeto)"></label> 																				

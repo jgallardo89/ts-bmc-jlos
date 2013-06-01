@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?page title="Log Eventos" contentType="text/html;charset=UTF-8"?>
+<?page title="Bitácora Web" contentType="text/html;charset=UTF-8"?>
 <?meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7"?>
 <?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
 <zk>
@@ -10,12 +10,12 @@
 		<include src="../../pages/styles.zul" />
 		<div sclass="BODY" height="100%" width="100%">
 			<groupbox height="100%">
-				<caption sclass="pageTitle" label="Sistema > Bitácora > Web"></caption>		
+				<caption sclass="pageTitle" label="Bitácora > Web"></caption>		
 					<portallayout maximizedMode="whole" id="portalLayoutBitacira"
 					width="100%" height="100%">
 					<portalchildren>
 						<panel height="20%" width="100%" sclass="sectionPanelTitle" id="datosBitacira"
-							title="Catalogo" collapsible="true" style="margin-bottom:10px"
+							title="Bitácora" collapsible="true" style="margin-bottom:10px"
 							border="normal">
 							<caption sclass="sectionPanelTitle" label="Bitácora Web"></caption>
 							<panelchildren>
@@ -81,9 +81,9 @@
 					</portalchildren>
 					<portalchildren width="100%" height="95%" style="padding: 5px">
 						<panel height="77%" sclass="sectionPanelTitle" width="100%" id="panelBitacora"
-							title="Resultados Bitacora" collapsible="true"
+							title="Resultados Bitácora Web" collapsible="true"
 							style="margin-bottom:10px">
-							<caption sclass="sectionPanelTitle" label="Lista de Eventos"></caption>
+							<caption sclass="sectionPanelTitle" label="Listado de Bitácora Web"></caption>
 							<panelchildren>
 								<grid width="99.7%"  id="bitacoraGrid" mold="paging"
 									model="@load(vm.bitacoraVOs)" pagingPosition="both" pageSize="12"

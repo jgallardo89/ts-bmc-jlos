@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?page title="Sistema" contentType="text/html;charset=UTF-8"?>
+<?page title="Catálogo Componentes" contentType="text/html;charset=UTF-8"?>
 <?meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7"?>
 <?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
 <zk>
@@ -10,14 +10,14 @@
 		<include src="../../pages/styles.zul" />
 		<div sclass="BODY" height="100%" width="100%">
 			<groupbox height="100%">
-				<caption sclass="pageTitle" label="Sistema > Sistema > Catálogo de Componentes"></caption>		
+				<caption sclass="pageTitle" label="Sistemas > Componentes"></caption>		
 					<portallayout maximizedMode="whole" id="portalLayoutEstatusObjeto"
 					width="100%" height="100%">
 					<portalchildren>
 						<panel height="20%" width="100%" sclass="sectionPanelTitle" id="datosComponente"
-							title="Catalogo" collapsible="true" style="margin-bottom:10px"
+							title="Sistemas" collapsible="true" style="margin-bottom:10px"
 							border="normal">
-							<caption sclass="sectionPanelTitle" label="Catalogo Componente"></caption>
+							<caption sclass="sectionPanelTitle" label="Catálogo Componentes"></caption>
 							<panelchildren>
 								<div align="center">
 									<grid width="100%" style="border:0" oddRowSclass="row2">
@@ -38,7 +38,7 @@
 													</template>																								
 												</combobox>	
 												<div align="right">
-													<label id="lblNombreComponente" width="100%" sclass="labelFill" value="Nombre Componente:"></label>												
+													<label id="lblNombreComponente" width="100%" sclass="labelFill" value="Nombre componente:"></label>												
 												</div>
 												<textbox maxlength="50"
 													id="nombreComponente" value="@load(vm.strNombreComponente)" width="100%"></textbox>																										
@@ -75,18 +75,16 @@
 					</portalchildren>
 					<portalchildren width="100%">
 						<panel height="70%" sclass="sectionPanelTitle" width="100%" id="panelCatalogoComponentes"
-							title="Resultados Catalogo Componente" collapsible="true"
+							title="Resultados Catálogo Componentes" collapsible="true"
 							style="margin-bottom:10px">
-							<caption sclass="sectionPanelTitle" label="Lista de Componentes"></caption>
+							<caption sclass="sectionPanelTitle" label="Listado de Componentes"></caption>
 							<panelchildren>
 								<grid width="99.7%" id="componentesGrid" mold="paging"
-									model="@load(vm.componenteVOs)" pagingPosition="both" pageSize="11"
+									model="@load(vm.componenteVOs)" pagingPosition="both" pageSize="12"
 									vflex="true" height="100%">									
 									<columns sizable="true" menupopup="auto">
 										<column hflex="0" image="/img/pencil-small.png" 
 											width="5%"></column>
-										<column hflex="1" label="ID Componente" style="text-wrap: normal;"
-											width="10%" sort="auto(vm.componenteDTO.componenteVO.idComponente)"></column>
 										<column hflex="1" label="Pantalla" width="20%"
 											sort="vm.componenteDTO.componenteVO.nombrePantalla"></column>
 										<column hflex="1" label="Nombre del componente" style="text-wrap: normal;"
@@ -96,8 +94,7 @@
 									</columns>
 									<template name="model">
 										<row>
-											<image src="/img/pencil-small.png" onClick="@command('readSelected',idComponente=each)"></image>
-											<label hflex="1" value="@load(each.idComponente)"></label>											
+											<image src="/img/pencil-small.png" onClick="@command('readSelected',idComponente=each)"></image>										
 											<label hflex="1" value="@load(each.nombrePantalla)"></label>
 											<label hflex="1" value="@load(each.nombreComponente)"></label>
 											<label hflex="1" value="@load(each.nombreTipoComponente)"></label> 																				

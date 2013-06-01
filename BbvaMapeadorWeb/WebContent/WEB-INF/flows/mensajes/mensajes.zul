@@ -10,7 +10,7 @@
 		<include src="../../pages/styles.zul" />
 		<div sclass="BODY" height="100%" width="100%">
 			<groupbox height="100%">
-				<caption sclass="pageTitle" label="Notificaciones > Mensajes de Notificación"></caption>		
+				<caption sclass="pageTitle" label="Notificaciones > Mensajes Negocio"></caption>		
 					<portallayout maximizedMode="whole" id="portalLayoutFlujos"
 					width="100%" height="100%">
 					<portalchildren>

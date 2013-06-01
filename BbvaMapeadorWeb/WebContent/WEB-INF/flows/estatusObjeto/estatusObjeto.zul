@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?page title="Sistema" contentType="text/html;charset=UTF-8"?>
+<?page title="Catálogo Estatus" contentType="text/html;charset=UTF-8"?>
 <?meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7"?>
 <?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
 <zk>
@@ -10,14 +10,14 @@
 		<include src="../../pages/styles.zul" />
 		<div sclass="BODY" height="100%" width="100%">
 			<groupbox height="100%">
-				<caption sclass="pageTitle" label="Sistema > Estatus Objeto > Catálogo de Estatus"></caption>		
+				<caption sclass="pageTitle" label="Sistemas > Estatus"></caption>		
 					<portallayout maximizedMode="whole" id="portalLayoutEstatusObjeto"
 					width="100%" height="100%">
 					<portalchildren>
 						<panel height="20%" width="100%" sclass="sectionPanelTitle" id="datosEstatusObjeto"
-							title="Catalogo" collapsible="true" style="margin-bottom:10px"
+							title="Sistemas" collapsible="true" style="margin-bottom:10px"
 							border="normal">
-							<caption sclass="sectionPanelTitle" label="Estatus Objeto"></caption>
+							<caption sclass="sectionPanelTitle" label="Catálogo Estatus"></caption>
 							<panelchildren>
 								<div align="center">
 									<grid width="100%" style="border:0" oddRowSclass="row2">
@@ -30,7 +30,7 @@
 										<rows>
 											<row sclass="row2">
 												<div align="right">
-													<label id="lblPantalla"width="100%" sclass="labelFill" value="Pantalla:"></label>
+													<label id="lblPantalla" width="100%" sclass="labelFill" value="Pantalla:"></label>
 												</div>
 												<combobox id="pantallas" model="@load(vm.estatusObjetoDTO.pantallaVOs)" value="@load(vm.strPantallas)"  width="100%" height="100%" onChange="selectedValuePantallas()">		
 													<template name="model">										
@@ -38,19 +38,19 @@
 													</template>																								
 												</combobox>	
 												<div align="right">
-													<label id="lblEstatusObjeto"width="100%" sclass="labelFill" value="Nombre Estatus Objeto:"></label>												
+													<label id="lblEstatusObjeto" width="100%" sclass="labelFill" value="Nombre estatus objeto:"></label>												
 												</div>
 												<textbox sclass="textboxUpperCase" maxlength="50"
 													id="nombreEstatusObjeto" value="@load(vm.strNombreEstatusObjeto)" width="100%"></textbox>																													
 											</row>
 											<row sclass="row2">
 												<div align="right">
-													<label id="lblDescEstatusObjeto"width="100%" sclass="labelFill" value="Descripción Estatus Objeto:"></label>												
+													<label id="lblDescEstatusObjeto" width="100%" sclass="labelFill" value="Descripción estatus objeto:"></label>												
 												</div>
 												<textbox sclass="textboxUpperCase" maxlength="50"
 													id="descripcionEstatusObjeto" value="@load(vm.strDescripcionEstatusObjeto)" width="100%"></textbox>												
 												<div align="right">
-													<label id="lblEstatus"width="100%" sclass="labelFill" value="Status:"></label>												
+													<label id="lblEstatus" width="100%" sclass="labelFill" value="Status:"></label>												
 												</div>
 												<combobox sclass="textboxUpperCase" onChange="selectedValueStatusClave()"
 													id="statusClave" width="70%" model="@load(vm.estatusObjetoDTO.estatusClaveVOs)" autodrop="true">		
@@ -81,23 +81,23 @@
 					</portalchildren>
 					<portalchildren width="100%" style="padding: 5px">
 						<panel height="77%" sclass="sectionPanelTitle" width="100%" id="panelUsuarioMapeador"
-							title="Resultados Usuario Mapeador" collapsible="true"
+							title="Resultados Estatus Objeto Mapeador" collapsible="true"
 							style="margin-bottom:10px">
-							<caption sclass="sectionPanelTitle" label="Lista de Usuarios"></caption>
+							<caption sclass="sectionPanelTitle" label="Listado de Estatus Objeto"></caption>
 							<panelchildren>
 								<grid width="99.7%" id="estatusObjetosGrid" mold="paging"
-									model="@load(vm.estatusObjetoVOs)" pagingPosition="both" pageSize="11"
+									model="@load(vm.estatusObjetoVOs)" pagingPosition="both" pageSize="12"
 									vflex="true" height="100%">									
 									<columns sizable="true" menupopup="auto">
 										<column hflex="0" align="center" image="/img/pencil-small.png" 
 											width="5%"></column>
 										<column hflex="1" label="Pantalla" style="text-wrap: normal;"
 											width="10%" sort="auto(vm.estatusObjetoDTO.estatusObjetoVO.nombreTabla)"></column>
-										<column hflex="1" label="Nombre Estatus Objeto" width="20%"
+										<column hflex="1" label="Nombre Estatus objeto" width="20%"
 											sort="vm.estatusObjetoDTO.estatusObjetoVO.nombreEstatusObjeto"></column>
-										<column hflex="1" label="Descripción Estatus Objeto" width="10%"
+										<column hflex="1" label="Descripción estatus objeto" width="10%"
 											sort="auto(vm.estatusObjetoDTO.estatusObjetoVO.descripcionEstatusObjeto)"></column>
-										<column hflex="1" label="Estatus" width="10%"
+										<column hflex="1" label="Status" width="10%"
 											sort="auto(vm.estatusObjetoDTO.estatusObjetoVO.nombreStatusClave)"></column>										
 									</columns>
 									<template name="model">

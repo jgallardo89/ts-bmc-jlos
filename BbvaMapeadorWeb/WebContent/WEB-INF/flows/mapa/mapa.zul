@@ -10,14 +10,14 @@
 		<include src="../../pages/styles.zul" />
 		<div sclass="BODY" height="100%" width="100%">
 			<groupbox height="100%">
-				<caption sclass="pageTitle" label="Catálogos > Catálogo Mapas"></caption>		
+				<caption sclass="pageTitle" label="Catálogos > Mapas"></caption>		
 					<portallayout maximizedMode="whole" id="portalLayoutEstatusObjeto"
 					width="100%" height="100%">
 					<portalchildren>
 						<panel height="30%" width="100%" sclass="sectionPanelTitle" id="datosComponente"
 							title="Catálogo" collapsible="true" style="margin-bottom:10px"
 							border="normal">
-							<caption sclass="sectionPanelTitle" label="Mapa"></caption>
+							<caption sclass="sectionPanelTitle" label="Catálogo Mapas"></caption>
 							<panelchildren>
 								<div align="center">
 									<grid width="100%" style="border:0" oddRowSclass="row2">
@@ -93,8 +93,6 @@
 									<columns sizable="true" menupopup="auto">
 										<column hflex="0" align="center" image="/img/pencil-small.png" 
 											width="5%"></column>
-										<column hflex="1" label="ID Mapa" style="text-wrap: normal;"
-											width="5%" sort="auto(idMapaGmm)"></column>
 										<column hflex="1" label="Identificador Mapa" width="20%"
 											sort="auto(nombreMapaGmm)"></column>
 										<column hflex="1" label="Descripción" style="text-wrap: normal;"
@@ -108,8 +106,7 @@
 									</columns>
 									<template name="model">
 										<row>
-											<image src="/img/pencil-small.png" onClick="@command('readSelected',idMapaGmm=each)"></image>
-											<label hflex="1" value="@load(each.idMapaGmm)"></label>											
+											<image src="/img/pencil-small.png" onClick="@command('readSelected',idMapaGmm=each)"></image>									
 											<label hflex="1" value="@load(each.nombreMapaGmm)"></label>
 											<label hflex="1" value="@load(each.descripcionMapaGmm)"></label>
 											<label hflex="1" value="@load(each.fechaAlta) @converter('formatedDate', format='dd/MM/yyyy  HH:MM')"></label>

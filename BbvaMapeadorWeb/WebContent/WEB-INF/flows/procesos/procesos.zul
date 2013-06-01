@@ -11,14 +11,14 @@
 		<include src="../../pages/styles.zul" />
 		<div sclass="BODY" height="100%" width="100%">
 			<groupbox height="100%">
-				<caption sclass="pageTitle" label="Monitoreo > Monitoreo de Procesos"></caption>		
+				<caption sclass="pageTitle" label="Monitoreo > Procesos"></caption>		
 					<portallayout maximizedMode="whole" id="portalLayoutMonitoreoProcesos"
 					width="100%" height="100%">
 					<portalchildren>
 						<panel height="30%" width="100%" sclass="sectionPanelTitle" id="datosMonitoreoProcesos"
 							title="Monitoreo" collapsible="true" style="margin-bottom:10px"
 							border="normal">
-							<caption sclass="sectionPanelTitle" label="MonitoreoProcesos"></caption>
+							<caption sclass="sectionPanelTitle" label="Monitoreo de Procesos"></caption>
 							<panelchildren>
 								<div align="center">
 									<grid width="100%" style="border:0" oddRowSclass="row2">
