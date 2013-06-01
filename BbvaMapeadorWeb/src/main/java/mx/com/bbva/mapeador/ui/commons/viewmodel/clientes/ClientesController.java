@@ -244,16 +244,13 @@ public class ClientesController extends ControllerSupport implements IController
 		idIdentificador.clearErrorMessage();
 		nombreCliente.clearErrorMessage();
 		nombreCortoCliente.clearErrorMessage();
-		statusObjeto.clearErrorMessage();
 		idCliente.clearErrorMessage();
-		idEstatusObjeto.clearErrorMessage();
 
 		idIdentificador.setValue(null);
 		nombreCliente.setValue(null);
 		nombreCortoCliente.setValue(null);
-		statusObjeto.setValue(null);
 		idCliente.setValue(null);
-		idEstatusObjeto.setValue(null);
+		defaultValues();
 	}
 	
 	@Command
@@ -312,9 +309,12 @@ public class ClientesController extends ControllerSupport implements IController
     public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
         Selectors.wireComponents(view, this, false);   
         executePermissionSet = this.applyPermision();
-        statusObjeto.setValue(CommandConstants.NB_CLIENTE_ACTIVO);
-        idEstatusObjeto.setValue(String.valueOf(CommandConstants.ID_CLIENTE_ACTIVO));
+        defaultValues();
     }
+	private void defaultValues() {
+		statusObjeto.setValue(CommandConstants.NB_CLIENTE_ACTIVO);
+        idEstatusObjeto.setValue(String.valueOf(CommandConstants.ID_CLIENTE_ACTIVO));
+	}
 
 	/**
 	 * @return the clienteDTO
