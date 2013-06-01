@@ -65,7 +65,7 @@
 													<label id="lblPantalla" width="100%" sclass="labelFill" value="Pantalla:"></label>												
 												</div>
 												<div style="vertical-align:top;">
-													<combobox sclass="textboxUpperCase" disabled="true" readonly="true" onChange="@command('readComponentesPantalla')"
+													<combobox sclass="textboxUpperCase" onChange="@command('readComponentesPantalla')"
 														id="pantallas" width="70%" model="@load(vm.perfilDTO.pantallaVOs)" autodrop="true">		
 														<template name="model">										
 															<comboitem value="@load(each.idPantalla)" label="@load(each.nombrePantalla)" height="100%"/>
