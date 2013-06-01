@@ -6,9 +6,10 @@
 	<window closable="true" position="center,center"
 		border="0" width="75%" height="60%"
 		apply="mx.com.bbva.mt101.ui.commons.viewmodel.admonFlujos.AdmonFlujosController"
-		id="detalleBitacoraWindow">
+		id="openImageWindow">
 		<include src="../../pages/styles.zul" />
-		<div apply="org.zkoss.bind.BindComposer" sclass="BODY" height="95%">
+		<div apply="org.zkoss.bind.BindComposer" sclass="BODY" height="95%" 
+		viewModel="@id('vm') @init('mx.com.bbva.mt101.ui.commons.viewmodel.admonFlujos.AdmonFlujosController')">
 			<groupbox height="100%">
 				<caption sclass="pageTitle" label="Flujo"></caption>
 				<div align="center">		
