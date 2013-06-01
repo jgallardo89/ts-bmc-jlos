@@ -76,7 +76,7 @@ public class MensajeSalidaBO implements
 						.getSqlSessionFactory().openSession();
 				MapMensajeSalida mapMensajeSalida = session.getMapper(MapMensajeSalida.class);
 				try {
-					mensajeSalidaVO.setIdBaja(CommandConstants.ESTATUS_OBJETO_MENSAJE_SALIDA_BAJA);
+					mensajeSalidaVO.setIdBaja(CommandConstants.ESTATUS_OBJETO__MENSAJE_SALIDA_BAJA);
 					result = mapMensajeSalida.obtenerMensajesSalida(mensajeSalidaVO);
 					session.commit();
 				} catch (Exception ex) {
