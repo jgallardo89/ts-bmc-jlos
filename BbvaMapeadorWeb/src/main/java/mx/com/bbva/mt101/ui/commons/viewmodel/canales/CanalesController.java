@@ -1,5 +1,7 @@
 package mx.com.bbva.mt101.ui.commons.viewmodel.canales;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -174,8 +176,8 @@ public class CanalesController extends ControllerSupport implements IController 
 			} else {
 				CanalDTO canalDTO = new CanalDTO();
 				CanalVO canalVO = new CanalVO();
-				canalVO.setNombreCanal(nombreCanal.getValue().toUpperCase());
-				canalVO.setDescripcionCanal(descripcionCanal.getValue().toUpperCase());
+				canalVO.setNombreCanal(nombreCanal.getValue().toUpperCase().toUpperCase());
+				canalVO.setDescripcionCanal(descripcionCanal.getValue().toUpperCase().toUpperCase());
 				canalVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue()));
 				canalVO.setIdCanal(Integer.parseInt(idCanal.getValue()));
 				canalDTO.setCanalVO(canalVO);
@@ -297,7 +299,6 @@ public class CanalesController extends ControllerSupport implements IController 
 	public void onShowReport(@BindingParam("type") final String type) {
 		ReportesController controller = new ReportesController();
 		ArrayList<String> headersReport = new ArrayList<String>();
-		String titleReport = "Catálogo Canales";
 		headersReport.add("Clave");
 		headersReport.add("Descripción canal");
 		headersReport.add("Fecha y Hora alta");
@@ -312,12 +313,13 @@ public class CanalesController extends ControllerSupport implements IController 
 	
 	private ArrayList<BeanGenerico> generaLista() {
 		ArrayList<BeanGenerico> beanGenericos = new ArrayList<BeanGenerico>();
+		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm");
 		BeanGenerico beanGenerico = null;
 		for(CanalVO canalVO: canalesVOs) {
 			beanGenerico = new BeanGenerico();
 			beanGenerico.setValor1(canalVO.getNombreCanal());
 			beanGenerico.setValor2(canalVO.getDescripcionCanal());
-			beanGenerico.setValor3(canalVO.getFechaAlta().toString());
+			beanGenerico.setValor3(dateFormat.format(canalVO.getFechaAlta()));
 			beanGenerico.setValor4(canalVO.getNombreEstatusObjeto());
 			beanGenericos.add(beanGenerico);
 		}
