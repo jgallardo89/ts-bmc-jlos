@@ -89,6 +89,7 @@ public class MensajesController extends ControllerSupport implements IController
 	private MensajeSalidaDTO mensajeSalidaDTO;
 	private List<MensajeSalidaVO> mensajeSalidaVOs;
 	private MensajeSalidaVO mensajeSalidaVO;
+	private String idStrEstatusObjeto;
 	
 	public MensajesController() {
 		this.read();
@@ -102,7 +103,7 @@ public class MensajesController extends ControllerSupport implements IController
 		EstatusObjetoDTO estatusObjetoDTO = new EstatusObjetoDTO();
 		estatusObjetoDTO.setCommandId(CommandConstants.ESTATUS_OBJETO);
 		EstatusObjetoVO estatusObjetoVO = new EstatusObjetoVO();
-		estatusObjetoVO.setNombreTabla(CommandConstants.NOMBRE_TABLA_MAPA);		
+		estatusObjetoVO.setNombreTabla(CommandConstants.NOMBRE_TABLA_MENSAJE);		
 		EstatusObjetoBO estatusObjetoBO = new EstatusObjetoBO();
 		estatusObjetoDTO.setEstatusObjetoVO(estatusObjetoVO);
 		estatusObjetoDTO = estatusObjetoBO.readCommand(estatusObjetoDTO);
@@ -158,12 +159,6 @@ public class MensajesController extends ControllerSupport implements IController
 		ReportesController controller = new ReportesController();
 		MensajeSalidaBO mensajeSalidaBO = new MensajeSalidaBO();
 		boolean errorGuardar = false;
-		if (statusObjeto.getSelectedItem() == null
-				|| statusObjeto.getSelectedItem().getValue() == null
-				|| statusObjeto.getSelectedItem().getValue().toString().isEmpty()) {
-			statusObjeto.setErrorMessage("Favor de seleccionar el Estatus");
-			errorGuardar = true;
-		}
 		if (nombreMensajeSalida.getValue().isEmpty()) {
 			nombreMensajeSalida
 					.setErrorMessage("Favor de introducir el nombre del Mensaje de Salida");
@@ -231,6 +226,7 @@ public class MensajesController extends ControllerSupport implements IController
 
 	@Override
 	@Command
+	@NotifyChange({"idStrEstatusObjeto","statusObjeto"})
 	public void clean() {
 		nombreMensajeSalida.clearErrorMessage();
 		descripcionMensajeSalida.clearErrorMessage();
@@ -240,8 +236,8 @@ public class MensajesController extends ControllerSupport implements IController
 		
 		nombreMensajeSalida.setValue(null);
 		descripcionMensajeSalida.setValue(null);
-		idEstatusObjeto.setValue(null);
-		statusObjeto.setValue(null);
+		statusObjeto.setValue(CommandConstants.NB_MENSAJE_ACTIVO);
+        idStrEstatusObjeto = String.valueOf(CommandConstants.ID_MENSAJE_ACTIVO);
 		idMensajeSalida.setValue(null);
 	}
 	
@@ -262,13 +258,15 @@ public class MensajesController extends ControllerSupport implements IController
     public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
         Selectors.wireComponents(view, this, false);   
         executePermissionSet = this.applyPermision();
+        statusObjeto.setValue(CommandConstants.NB_MENSAJE_ACTIVO);
+        idStrEstatusObjeto = String.valueOf(CommandConstants.ID_MENSAJE_ACTIVO);
+        
     }
 
 	@Command
 	public void onShowReport(@BindingParam("type") final String type) {
 		ReportesController controller = new ReportesController();
 		ArrayList<String> headersReport = new ArrayList<String>();
-		String titleReport = "Palabras Comodín";
 		headersReport.add("Identificador del Mensaje");
 		headersReport.add("Texto del Mensaje");
 		headersReport.add("Fecha y Hora de Alta");
@@ -279,7 +277,7 @@ public class MensajesController extends ControllerSupport implements IController
 		} else {
 			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_TEXTO,"Catálogo de Mensajes de Notificación");
 		}
-		controller.createReport(generaLista(), headersReport, titleReport, "MENSAJES");
+		controller.createReport(generaLista(), headersReport, type, "MENSAJES");
 	}	
 	
 	private ArrayList<BeanGenerico> generaLista() {
@@ -389,6 +387,34 @@ public class MensajesController extends ControllerSupport implements IController
 	 */
 	public void setMensajeSalidaVO(MensajeSalidaVO mensajeSalidaVO) {
 		this.mensajeSalidaVO = mensajeSalidaVO;
+	}
+
+	/**
+	 * @return the idEstatusObjeto
+	 */
+	public Textbox getIdEstatusObjeto() {
+		return idEstatusObjeto;
+	}
+
+	/**
+	 * @param idEstatusObjeto the idEstatusObjeto to set
+	 */
+	public void setIdEstatusObjeto(Textbox idEstatusObjeto) {
+		this.idEstatusObjeto = idEstatusObjeto;
+	}
+
+	/**
+	 * @return the idStrEstatusObjeto
+	 */
+	public String getIdStrEstatusObjeto() {
+		return idStrEstatusObjeto;
+	}
+
+	/**
+	 * @param idStrEstatusObjeto the idStrEstatusObjeto to set
+	 */
+	public void setIdStrEstatusObjeto(String idStrEstatusObjeto) {
+		this.idStrEstatusObjeto = idStrEstatusObjeto;
 	}
 
 }

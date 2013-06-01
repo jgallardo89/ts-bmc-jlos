@@ -25,6 +25,8 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.export.JRCsvExporter;
+import net.sf.jasperreports.engine.export.JRTextExporter;
+import net.sf.jasperreports.engine.export.JRTextExporterParameter;
 import net.sf.jasperreports.engine.export.JRXlsExporter;
 
 /**
@@ -45,7 +47,9 @@ public class ServletReport extends HttpServlet {
 		ServletOutputStream ouputStream = response.getOutputStream();
 		DateFormat dateFormat = new SimpleDateFormat("ddMMyyyy");
 		JRExporter exporter = null;
+		JRTextExporter exporterTXT = null;
 		JasperPrint jasperPrint = null;
+		ByteArrayOutputStream baos = null;
 		int contador = 1;
 			try {
 				HttpSession session = request.getSession();
@@ -66,24 +70,38 @@ public class ServletReport extends HttpServlet {
 						File.separator + "/WEB-INF/reportes/reporteGenerico_NumColumnas_"+headersReport.size()+".jasper");
 				jasperPrint = JasperFillManager.fillReport(
 						input, parameters, source);
-				
+				System.out.println("################################"+parameters.size());
 				if(typeReport.equals("xls")) {
 					response.setContentType("application/vnd.ms-excel");  
 					exporter = new JRXlsExporter();
+					baos = new ByteArrayOutputStream();
+					exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+					exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, baos );
+					exporter.exportReport();
 				} else {
-					response.setContentType("application/csv"); 
-					exporter = new JRCsvExporter();
+					response.setContentType("text/plain");
+					baos = new ByteArrayOutputStream();
+					exporterTXT = new JRTextExporter();
+					exporterTXT.setParameter(JRTextExporterParameter.PAGE_HEIGHT        , new Float(1000));
+					exporterTXT.setParameter(JRTextExporterParameter.PAGE_WIDTH         , new Float(1000));
+					exporterTXT.setParameter(JRTextExporterParameter.CHARACTER_WIDTH    , new Float(10));
+					exporterTXT.setParameter(JRTextExporterParameter.CHARACTER_HEIGHT   , new Float(14));
+					exporterTXT.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+					exporterTXT.setParameter(JRExporterParameter.OUTPUT_STREAM, baos );
+					exporterTXT.exportReport();
 				}
-				ByteArrayOutputStream baos = new ByteArrayOutputStream();
-				exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
-				exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, baos );
-				exporter.exportReport();
+				
+				
+				
+				
+				
 				byte[] bytes = baos.toByteArray();
 				baos.close();
 				response.setContentLength(bytes.length);
 				response.setHeader("Content-Disposition", "attachment;filename= Reporte_"+
 												nameReport+"_"+dateFormat.format(new Date())+"."+typeReport);
 				ouputStream.write(bytes);
+				System.out.println("************************************************************ " + typeReport);
 				ouputStream.flush();
 				session.removeAttribute("headersReport");
 				session.removeAttribute("typeReport");
@@ -91,6 +109,7 @@ public class ServletReport extends HttpServlet {
 				session.removeAttribute("listBeanGenerico");
 		} catch (JRException e) {
 			System.out.println("Error: " + e.getMessage());
+			e.printStackTrace();
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		}

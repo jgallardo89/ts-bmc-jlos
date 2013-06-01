@@ -123,6 +123,19 @@ public class ProductosController extends ControllerSupport implements IControlle
 		return productoDTO;
 	}
 	
+	private boolean validaProductoRegistrado(String nombreProducto) {
+		productoVO = new ProductoVO();
+		productoVO.setNombreProducto(nombreProducto.toUpperCase());
+		System.out.println("********************* " + nombreProducto  );
+		ProductoBO productoBO = new ProductoBO();
+		productoDTO = productoBO.readCommand(productoVO);
+		System.out.println("*************************** "+productoDTO.getProductoVOs().size()+" ***************************");
+		if (productoDTO.getProductoVOs().size() == 0)
+			return true;
+		else 
+			return false;
+	}
+	
 	@Command
 	@NotifyChange({ "productoVOs","flagEstatus"})
 	public void readWithFilters() {
@@ -174,27 +187,34 @@ public class ProductosController extends ControllerSupport implements IControlle
 		}
 		if(!errorGuardar){
 			if(idProducto.getValue().isEmpty() || idProducto.getValue().equals("0")){
-				ProductoDTO productoDTO = new ProductoDTO();
-				ProductoVO productoVO = new ProductoVO();
-				productoVO.setNombreProducto(nombreProducto.getValue().toUpperCase());
-				productoVO.setDescripcionProducto(descripcionProducto.getValue().toUpperCase());
-				productoVO.setIdEstatusObjeto(CommandConstants.ESTATUS_PRODUCTO_ACTIVO);
-				productoVO.setIdFlujo(Integer.parseInt(idFlujo.getValue()));
-				productoDTO.setProductoVO(productoVO);
-				productoBO.createCommand(productoDTO);
-				productoDTO.toString(BbvaAbstractDataTransferObject.XML);
-				controller.registrarEvento(productoVO, productoVO, CommandConstants.ALTA, "Catálogo de Productos");
-				clean();
-				productoVO.setIdFlujo(Integer.parseInt(idFlujo.getValue().isEmpty()?"0":idFlujo.getValue()));
-				productoVO.setNombreProducto(StringUtil.validaLike(nombreProducto.getValue()));
-				productoVO.setDescripcionProducto(StringUtil.validaLike(descripcionProducto.getValue()));
-				productoVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue().isEmpty()?"0":idEstatusObjeto.getValue()));
-				productoVO.toString();
-				productoDTO.setProductoVO(productoVO);
-				productoVOs = productoBO.readCommand(productoDTO).getProductoVOs();
-				Messagebox.show("!El Registro del Producto fue exitoso!",
-						"Información", Messagebox.OK,
-						Messagebox.INFORMATION);
+				if(validaProductoRegistrado(nombreProducto.getValue())) {
+					ProductoDTO productoDTO = new ProductoDTO();
+					ProductoVO productoVO = new ProductoVO();
+					productoVO.setNombreProducto(nombreProducto.getValue().toUpperCase());
+					productoVO.setDescripcionProducto(descripcionProducto.getValue().toUpperCase());
+					productoVO.setIdEstatusObjeto(CommandConstants.ESTATUS_PRODUCTO_ACTIVO);
+					productoVO.setIdFlujo(Integer.parseInt(idFlujo.getValue()));
+					productoDTO.setProductoVO(productoVO);
+					productoBO.createCommand(productoDTO);
+					productoDTO.toString(BbvaAbstractDataTransferObject.XML);
+					controller.registrarEvento(productoVO, productoVO, CommandConstants.ALTA, "Catálogo de Productos");
+					clean();
+					productoVO.setIdFlujo(Integer.parseInt(idFlujo.getValue().isEmpty()?"0":idFlujo.getValue()));
+					productoVO.setNombreProducto(StringUtil.validaLike(nombreProducto.getValue()));
+					productoVO.setDescripcionProducto(StringUtil.validaLike(descripcionProducto.getValue()));
+					productoVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue().isEmpty()?"0":idEstatusObjeto.getValue()));
+					productoVO.toString();
+					productoDTO.setProductoVO(productoVO);
+					productoVOs = productoBO.readCommand(productoDTO).getProductoVOs();
+					Messagebox.show("!El Registro del Producto fue exitoso!",
+							"Información", Messagebox.OK,
+							Messagebox.INFORMATION);
+				} else {
+					Messagebox.show("!Ya existe Un Producto registrado con ese Nombre!",
+							"Información", Messagebox.OK,
+							Messagebox.EXCLAMATION);
+					clean();
+				}
 			} else {
 				ProductoDTO productoDTO = new ProductoDTO();
 				ProductoVO productoVO = new ProductoVO();
@@ -307,6 +327,8 @@ public class ProductosController extends ControllerSupport implements IControlle
     public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
         Selectors.wireComponents(view, this, false);        
         executePermissionSet = this.applyPermision();
+        estatusObjeto.setValue(CommandConstants.NB_PRODUCTO_ACTIVO);
+        idEstatusObjeto.setValue(String.valueOf(CommandConstants.ID_PRODUCTO_ACTIVO));
     }
 
 	/**
