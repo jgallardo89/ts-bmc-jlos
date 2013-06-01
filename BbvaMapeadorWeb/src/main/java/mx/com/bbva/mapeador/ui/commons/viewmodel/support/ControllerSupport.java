@@ -101,8 +101,8 @@ public class ControllerSupport extends SelectorComposer<Component> implements IS
 	public void registraEvento(BitacoraDTO dto, String nombreBitacora, int idEventoMapeador){
 		BitacoraVO bitacoraVO= new BitacoraVO();
 		BitacoraBO bo = new BitacoraBO();
-		bitacoraVO.setNombreUsuario("JULIO CESAR MORALES");
-		bitacoraVO.setIdUsuario(7);
+		bitacoraVO.setNombreUsuario(this.getSessionUser().getCveUsuario());
+		bitacoraVO.setIdUsuario(this.getSessionUser().getIdUsuario());
 		bitacoraVO.setNombreBitacora(nombreBitacora);
 		bitacoraVO.setFechaBitacora(new Date());
 		bitacoraVO.setIdEventoMapeador(idEventoMapeador);
