@@ -101,7 +101,7 @@ public class ProductoBO implements
 		}
 	}
 	
-	public <T extends BbvaAbstractDataTransferObject> T readCommand() {
+	public <T extends BbvaAbstractDataTransferObject> T readCommand(ProductoVO productoVO) {
 		ProductoDTO productoDTO = new ProductoDTO();
 		try {
 			logger.debug("Entrada readCmbCommand -- OK");
@@ -111,7 +111,7 @@ public class ProductoBO implements
 						.getSqlSessionFactory().openSession();
 				MapProducto mapProducto = session.getMapper(MapProducto.class);
 				try {
-					result = mapProducto.obtenerCmbProductos();
+					result = mapProducto.obtenerCmbProductos(productoVO);
 					session.commit();
 				} catch (Exception ex) {
 					session.rollback();
