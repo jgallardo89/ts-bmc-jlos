@@ -119,7 +119,6 @@ public class ClientesController extends ControllerSupport implements IController
 	    estatusObjetoDTO = estatusObjetoBO.readCommand(estatusObjetoDTO);
 	    clienteDTO.setEstatusObjetoVOs(estatusObjetoDTO.getEstatusObjetoVOs());
 	    
-	   
 	    clienteDTO.setClienteVO(clienteVO);
 		ClienteBO clienteBO = new ClienteBO();
 		clienteBO.readCommand(clienteDTO);
@@ -292,7 +291,7 @@ public class ClientesController extends ControllerSupport implements IController
 	}	
 	
 	private ArrayList<BeanGenerico> generaLista() {
-		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
+		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm");
 		ArrayList<BeanGenerico> beanGenericos = new ArrayList<BeanGenerico>();
 		BeanGenerico beanGenerico = null;
 		for(ClienteVO clienteVO: clientesVOs) {
@@ -313,6 +312,8 @@ public class ClientesController extends ControllerSupport implements IController
     public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
         Selectors.wireComponents(view, this, false);   
         executePermissionSet = this.applyPermision();
+        statusObjeto.setValue(CommandConstants.NB_CLIENTE_ACTIVO);
+        idEstatusObjeto.setValue(String.valueOf(CommandConstants.ID_CLIENTE_ACTIVO));
     }
 
 	/**
@@ -379,6 +380,20 @@ public class ClientesController extends ControllerSupport implements IController
 		componentes.put(clientesGrid.getId(), clientesGrid);
 		super.applyPermission(MapeadorConstants.CLIENTES, componentes);
 		return isApplied;
+	}
+
+	/**
+	 * @return the statusObjeto
+	 */
+	public Combobox getStatusObjeto() {		
+		return statusObjeto;
+	}
+
+	/**
+	 * @param statusObjeto the statusObjeto to set
+	 */
+	public void setStatusObjeto(Combobox statusObjeto) {
+		this.statusObjeto = statusObjeto;
 	}	
 	
 }
