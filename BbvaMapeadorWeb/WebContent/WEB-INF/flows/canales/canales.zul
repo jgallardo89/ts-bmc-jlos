@@ -11,14 +11,12 @@
 		<div sclass="BODY" height="100%" width="100%">
 			<groupbox height="100%">
 				<caption sclass="pageTitle" label="Catálogos > Canales"></caption>		
-					<portallayout maximizedMode="whole" id="portalLayoutEstatusObjeto"
-					width="100%" height="100%">
-					<portalchildren>
+					<vlayout>
+					<groupbox>
 						<panel height="20%" width="100%" sclass="sectionPanelTitle" id="datosCanales"
 							title="Catálogo" collapsible="true" style="margin-bottom:10px"
 							border="normal">
-							<caption sclass="sectionPanelTitle" label="Catálogo Canales"></caption>
-								
+							<caption sclass="sectionPanelTitle" label="Catálogo Canales"></caption>			
 							<panelchildren>
 								<div align="center">
 								
@@ -60,7 +58,7 @@
 											<row sclass="row2">
 												<div align="right" width="70%">
 													<image id="reporteExcelBtn" src="/img/xls.png" onClick="@command('onShowReport',type='xls')" />
-													<image id="reporteCsvBtn" src="/img/csv.png" onClick="@command('onShowReport',type='csv')" />
+													<image id="reporteCsvBtn" src="/img/csv.png" onClick="@command('onShowReport',type='txt')" />
 												</div>													
 												<div align="right" width="70%">
 													<button sclass="button" image="/img/clear.png"  label="Limpiar" id="limpiarBtn" onClick="@command('clean')" ></button>
@@ -77,9 +75,9 @@
 								</div>
 							</panelchildren>										
 						</panel>
-					</portalchildren>
-					<portalchildren width="100%" style="padding: 5px">
-						<panel height="77%" sclass="sectionPanelTitle" width="100%" id="panelCanalMapeador"
+					</groupbox>
+					<groupbox width="100%" height="630px" style="padding: 5px">
+						<panel height="80%" sclass="sectionPanelTitle" width="100%" id="panelCanalMapeador"
 							title="Resultados Canales Mapeador" collapsible="true"
 							style="margin-bottom:10px">
 							<caption sclass="sectionPanelTitle" label="Listado de Canales"></caption>
@@ -111,8 +109,8 @@
 								</grid>
 							</panelchildren>
 						</panel>
-					</portalchildren>
-				</portallayout>								
+					</groupbox>
+				</vlayout>							
 			</groupbox>	
 			<textbox id="idEstatusObjeto" value="@load(vm.canalDTO.canalVO.idEstatusObjeto)" visible="false"></textbox>
 			<textbox id="idCanal" value="@load(vm.canalDTO.canalVO.idCanal)" visible="false"></textbox>
