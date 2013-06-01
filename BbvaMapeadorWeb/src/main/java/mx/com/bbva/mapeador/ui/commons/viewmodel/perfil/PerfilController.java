@@ -397,7 +397,10 @@ public class PerfilController extends ControllerSupport implements  IController{
 	public void readComponentesPantalla(){
 		ComponenteVO componenteVO = new ComponenteVO();
 		componenteVO.setIdPantalla(Integer.parseInt(pantallas.getSelectedItem().getValue().toString()))	;
-		componenteVO.setIdPerfil(Integer.parseInt(idPerfil.getValue().toString()));
+		if(idPerfil.getValue()!=null)
+			componenteVO.setIdPerfil(Integer.parseInt(idPerfil.getValue().toString()));
+		else
+			componenteVO.setIdPerfil(0);
 		componentePantallaDTO = new ComponenteDTO();
 		componentePantallaDTO.setCommandId(CommandConstants.COMPONENTE_PANTALLA);
 		componentePantallaDTO.setComponenteVO(componenteVO);
@@ -406,8 +409,10 @@ public class PerfilController extends ControllerSupport implements  IController{
 		componentePantallaPerfilDTO = new ComponenteDTO();
 		componentePantallaPerfilDTO.setCommandId(CommandConstants.COMPONENTE_PANTALLA_PERFIL);
 		componentePantallaPerfilDTO.setComponenteVO(componenteVO);
-		componenteBO = new ComponenteBO();		
-		componentePantallaPerfilDTO = componenteBO.readCommand(componentePantallaPerfilDTO);
+		if(componenteVO.getIdPerfil()!=0){
+			componenteBO = new ComponenteBO();		
+			componentePantallaPerfilDTO = componenteBO.readCommand(componentePantallaPerfilDTO);
+		}
 	}
 
 	/**
