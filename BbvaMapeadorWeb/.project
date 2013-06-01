@@ -4,7 +4,6 @@
 	<comment></comment>
 	<projects>
 		<project>BbvaMapeadorEjb</project>
-		<project>BbvaMapeadorReports</project>
 		<project>BbvaMapeadorBusinessModel</project>
 		<project>BbvaBancomerCommons</project>
 	</projects>
