@@ -1,13 +1,11 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project-modules id="moduleCoreId" project-version="1.5.0">
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
     <wb-module deploy-name="BbvaMT101WebEAR">
         <wb-resource deploy-path="/" source-path="/" tag="defaultRootSource"/>
         <dependent-module archiveName="BbvaMapeadorWeb.war" deploy-path="/" handle="module:/resource/BbvaMapeadorWeb/BbvaMapeadorWeb">
             <dependent-object>Module_1364179188056</dependent-object>
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="BbvaMapeadorEjb.jar" deploy-path="/" handle="module:/resource/BbvaMapeadorEjb/BbvaMapeadorEjb">
-            <dependent-object>Module_1366563741308</dependent-object>
+        <dependent-module archiveName="BbvaMapeadorBusinessModel.jar" deploy-path="/lib" handle="module:/resource/BbvaMapeadorBusinessModel/BbvaMapeadorBusinessModel">
             <dependency-type>uses</dependency-type>
         </dependent-module>
         <dependent-module archiveName="BbvaBancomerCommons.jar" deploy-path="/lib" handle="module:/resource/BbvaBancomerCommons/BbvaBancomerCommons">

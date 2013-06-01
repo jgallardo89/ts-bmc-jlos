@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <application xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/application_5.xsd" version="5">
-	<display-name>BbvaMT101WebEAR</display-name>
+	<display-name>BbvaMapeadorWebEAR</display-name>
 	<module id="Module_1364179188056">
 		<web>
 			<web-uri>BbvaMapeadorWeb.war</web-uri>
 			<context-root>/mapeador</context-root>
 		</web>
-	</module>
-	<module id="Module_1366563741308">
-		<ejb>BbvaMapeadorEjb.jar</ejb>
 	</module>
 
 
