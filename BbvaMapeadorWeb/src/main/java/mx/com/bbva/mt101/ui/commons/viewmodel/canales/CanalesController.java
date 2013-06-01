@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import mx.com.bbva.bancomer.bussinnes.model.vo.CanalVO;
+import mx.com.bbva.bancomer.bussinnes.model.vo.ContratacionVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.EstatusObjetoVO;
 import mx.com.bbva.bancomer.canal.dto.BeanGenerico;
 import mx.com.bbva.bancomer.canal.dto.CanalDTO;
@@ -15,6 +16,7 @@ import mx.com.bbva.bancomer.commons.command.MapeadorConstants;
 import mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject;
 import mx.com.bbva.bancomer.estatusobjeto.dto.EstatusObjetoDTO;
 import mx.com.bbva.bancomer.mapper.business.CanalBO;
+import mx.com.bbva.bancomer.mapper.business.ContratacionBO;
 import mx.com.bbva.bancomer.mapper.business.EstatusObjetoBO;
 import mx.com.bbva.bancomer.utils.StringUtil;
 import mx.com.bbva.mapeador.ui.commons.controller.IController;
@@ -123,6 +125,10 @@ public class CanalesController extends ControllerSupport implements IController 
 		ReportesController controller = new ReportesController();
 		CanalDTO canalDTO = new CanalDTO();
 		CanalVO canalVO = new CanalVO();
+		DateFormat dateFormatIni = new SimpleDateFormat("dd-MM-yyyy 00:00");
+		DateFormat dateFormatFin = new SimpleDateFormat("dd-MM-yyyy 23:59");
+		canalVO.setFechaInicio(dateFormatIni.format(fechaInicio.getValue()));
+		canalVO.setFechaFin(dateFormatFin.format(fechaFin.getValue()));
 		canalVO.setNombreCanal(StringUtil.validaLike(nombreCanal.getValue()));
 		canalVO.setDescripcionCanal(StringUtil.validaLike(descripcionCanal.getValue()));
 		canalVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue().isEmpty()?"0":idEstatusObjeto.getValue()));
@@ -176,33 +182,52 @@ public class CanalesController extends ControllerSupport implements IController 
 //				canalesVOs = canalBO.readCommand(canalDTO).getCanalVOs();
 				
 			} else {
-				CanalDTO canalDTO = new CanalDTO();
-				CanalVO canalVO = new CanalVO();
-				canalVO.setNombreCanal(nombreCanal.getValue().toUpperCase().toUpperCase());
-				canalVO.setDescripcionCanal(descripcionCanal.getValue().toUpperCase().toUpperCase());
-				canalVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue()));
-				canalVO.setIdCanal(Integer.parseInt(idCanal.getValue()));
-				canalDTO.setCanalVO(canalVO);
-				canalBO.updateCommand(canalDTO);
-				canalDTO.toString(BbvaAbstractDataTransferObject.XML);
-				clean();
-				
-				controller.registrarEvento(canalVO, canalesVO, CommandConstants.MODIFICACION, "Catálogo Canal");
-				
-				canalVO.setNombreCanal(StringUtil.validaLike(nombreCanal.getValue()));
-				canalVO.setDescripcionCanal(StringUtil.validaLike(descripcionCanal.getValue()));
-				canalVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue().isEmpty()?"0":idEstatusObjeto.getValue()));
-				canalVO.toString();
-				canalDTO.setCanalVO(canalVO);
-				canalesVOs = canalBO.readCommand(canalDTO).getCanalVOs();
-				btnGuardar = true;
-				Messagebox.show("!La Actualización del Canal fue exitoso!",
-						"Información", Messagebox.OK,
-						Messagebox.INFORMATION);
-				//registraBitacora(canalVO,4);
+				ContratacionBO contratacionBO = new ContratacionBO();
+				ContratacionVO contratacionVO = new ContratacionVO();
+				contratacionVO.setIdCanal(Integer.parseInt(idCanal.getValue()));
+				if(Integer.parseInt(idEstatusObjeto.getValue()) == CommandConstants.ESTATUS_OBJETO_ACTIVO_CANAL || 
+						contratacionBO.readCommandValidaContratacion(contratacionVO)) {
+					CanalDTO canalDTO = new CanalDTO();
+					CanalVO canalVO = new CanalVO();
+					canalVO.setNombreCanal(nombreCanal.getValue().toUpperCase().toUpperCase());
+					canalVO.setDescripcionCanal(descripcionCanal.getValue().toUpperCase().toUpperCase());
+					canalVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue()));
+					canalVO.setIdCanal(Integer.parseInt(idCanal.getValue()));
+					canalDTO.setCanalVO(canalVO);
+					canalBO.updateCommand(canalDTO);
+					canalDTO.toString(BbvaAbstractDataTransferObject.XML);
+					clean();
+					
+					controller.registrarEvento(canalVO, canalesVO, CommandConstants.MODIFICACION, "Catálogo Canal");
+					
+					canalVO.setNombreCanal(StringUtil.validaLike(nombreCanal.getValue()));
+					canalVO.setDescripcionCanal(StringUtil.validaLike(descripcionCanal.getValue()));
+					canalVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue().isEmpty()?"0":idEstatusObjeto.getValue()));
+					canalVO.toString();
+					canalDTO.setCanalVO(canalVO);
+					canalesVOs = canalBO.readCommand(canalDTO).getCanalVOs();
+					
+					btnGuardar = true;
+					Messagebox.show("!La Actualización del Canal fue exitoso!",
+							"Información", Messagebox.OK,
+							Messagebox.INFORMATION);
+				  } else {
+					  clean();
+					  canalDTO = new CanalDTO();
+					  CanalVO canalVO = new CanalVO();
+					  canalVO.setNombreCanal(StringUtil.validaLike(nombreCanal.getValue()));
+					  canalVO.setDescripcionCanal(StringUtil.validaLike(descripcionCanal.getValue()));
+					  canalVO.setIdEstatusObjeto(0);
+					  canalVO.toString();
+					  canalDTO.setCanalVO(canalVO);
+					  canalesVOs = canalBO.readCommand(canalDTO).getCanalVOs();
+					  Messagebox.show("!No se puede dar de Baja, ya que esta siendo Usado por la Contratación!",
+								"Información", Messagebox.OK,
+								Messagebox.EXCLAMATION);
+				  }
 			}
+			flagClave = false;
 		}
-		flagClave = false;
 	}
 	
 	@Override

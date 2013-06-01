@@ -33,9 +33,7 @@ import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
-import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.select.Selectors;
-import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.Button;
 import org.zkoss.zul.Combobox;
@@ -109,7 +107,6 @@ public class BitacoraWebController extends ControllerSupport implements IControl
 		eventoMapeadorDTO = eventoMapeadorBO.readCommand(eventoMapeadorDTO);
 		eventoMapeadorDTO.setEventoMapeadorVOs(eventoMapeadorDTO.getEventoMapeadorVOs());
 		usuarioVOs = usuarioBO.readCommand();
-		
 		
 		BitacoraBO bitacoraBO = new BitacoraBO();
 		bitacoraBO.readCommand(bitacoraDTO);

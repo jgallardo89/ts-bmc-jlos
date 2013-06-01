@@ -224,7 +224,6 @@ public class ClientesController extends ControllerSupport implements IController
 				ContratacionBO contratacionBO = new ContratacionBO();
 				ContratacionVO contratacionVO = new ContratacionVO();
 				contratacionVO.setIdCliente(Integer.parseInt(idCliente.getValue()));
-				System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%% " + Integer.parseInt(idEstatusObjeto.getValue()));
 				if(Integer.parseInt(idEstatusObjeto.getValue()) == CommandConstants.ESTATUS_OBJETO_ACTIVO_CLIENTES || 
 						contratacionBO.readCommandValidaContratacion(contratacionVO)){
 					ClienteDTO clienteDTO = new ClienteDTO();
