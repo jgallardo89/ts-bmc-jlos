@@ -27,6 +27,9 @@
 				<if test="idEstatusObjeto != null and idEstatusObjeto != 0">    
 					AND OBJETO.CD_ST_OBJETO = #{idEstatusObjeto}
 				</if>
+				<if test="fechaInicio != null and fechaFin != null">    
+					AND CANAL.TM_ALTA BETWEEN to_date(#{fechaInicio},'dd/MM/rrrr HH24:MI') AND to_date(#{fechaFin},'dd/MM/rrrr HH24:MI')					
+				</if>
 				ORDER BY CD_CANAL
 	</select>
 	<insert id="crearCanal" keyProperty="idCanal" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.CanalVO">
