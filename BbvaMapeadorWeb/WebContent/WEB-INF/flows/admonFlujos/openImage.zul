@@ -8,8 +8,7 @@
 		apply="mx.com.bbva.mt101.ui.commons.viewmodel.admonFlujos.AdmonFlujosController"
 		id="detalleBitacoraWindow">
 		<include src="../../pages/styles.zul" />
-		<div apply="org.zkoss.bind.BindComposer" sclass="BODY" height="95%" 
-		viewModel="@id('vm') @init('mx.com.bbva.mt101.ui.commons.viewmodel.admonFlujos.AdmonFlujosController')">
+		<div apply="org.zkoss.bind.BindComposer" sclass="BODY" height="95%">
 			<groupbox height="100%">
 				<caption sclass="pageTitle" label="Flujo"></caption>
 				<div align="center">		
