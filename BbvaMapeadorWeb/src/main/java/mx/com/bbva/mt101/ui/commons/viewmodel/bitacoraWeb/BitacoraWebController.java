@@ -171,8 +171,8 @@ public class BitacoraWebController extends ControllerSupport implements IControl
 	@Wire
     Window detalleBitacoraWindow;
 	
-	@Listen("onClick = #closeBtn")
-    public void showModal(Event e) {
+	@Command
+    public void showModal() {
 		detalleBitacoraWindow.detach();
     }
 
@@ -331,19 +331,21 @@ public class BitacoraWebController extends ControllerSupport implements IControl
 	public boolean applyPermision() {
 		boolean isApplied = false;
 		HashMap<String, Component> componentes = new HashMap<String, Component>();
-		componentes.put(lblFechaInicio.getId(), lblFechaInicio);
-		componentes.put(lblFechaFin.getId(), lblFechaFin);
-		componentes.put(lbIdentificadorMensaje.getId(), lbIdentificadorMensaje);
-		componentes.put(lblUsuario.getId(), lblUsuario);
-		componentes.put(fechaInicio.getId(), fechaInicio);
-		componentes.put(fechaFin.getId(), fechaFin);
-		componentes.put(tipoEvento.getId(), tipoEvento);
-		componentes.put(usuario.getId(), usuario);
-		componentes.put(reporteExcelBtn.getId(), reporteExcelBtn);
-		componentes.put(reporteCsvBtn.getId(), reporteCsvBtn);
-		componentes.put(consultarBtn.getId(), consultarBtn);
-		componentes.put(bitacoraGrid.getId(), bitacoraGrid);
-		super.applyPermission(MapeadorConstants.BITACORA, componentes);
+		try{
+			componentes.put(lblFechaInicio.getId(), lblFechaInicio);
+			componentes.put(lblFechaFin.getId(), lblFechaFin);
+			componentes.put(lbIdentificadorMensaje.getId(), lbIdentificadorMensaje);
+			componentes.put(lblUsuario.getId(), lblUsuario);
+			componentes.put(fechaInicio.getId(), fechaInicio);
+			componentes.put(fechaFin.getId(), fechaFin);
+			componentes.put(tipoEvento.getId(), tipoEvento);
+			componentes.put(usuario.getId(), usuario);
+			componentes.put(reporteExcelBtn.getId(), reporteExcelBtn);
+			componentes.put(reporteCsvBtn.getId(), reporteCsvBtn);
+			componentes.put(consultarBtn.getId(), consultarBtn);
+			componentes.put(bitacoraGrid.getId(), bitacoraGrid);
+			super.applyPermission(MapeadorConstants.BITACORA, componentes);
+		}catch(Exception ex){}
 		return isApplied;
 	}
 	
