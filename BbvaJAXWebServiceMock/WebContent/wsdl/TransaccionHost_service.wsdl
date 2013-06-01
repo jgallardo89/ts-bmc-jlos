@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:impl="http://generico.services" xmlns:intf="http://generico.services" xmlns:tns2="http://xml.apache.org/xml-soap" xmlns:tns3="http://VO.armx.bbva.com" xmlns:tns4="http://excepciones.armx.bbva.com" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsi="http://ws-i.org/profiles/basic/1.1/xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://generico.services">
+ <wsdl:types>
+  <schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://generico.services" xmlns:impl="http://generico.services" xmlns:intf="http://generico.services" xmlns:tns2="http://xml.apache.org/xml-soap" xmlns:tns3="http://VO.armx.bbva.com" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://VO.armx.bbva.com"/>
+   <import namespace="http://xml.apache.org/xml-soap"/>
+   <element name="getListaTxResponse">
+    <complexType>
+     <sequence>
+      <element name="getListaTxReturn" nillable="true" type="tns3:RespuestaAEVo"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="ejecutaTxHost">
+    <complexType>
+     <sequence>
+      <element name="aplicacion" nillable="true" type="xsd:string"/>
+      <element name="usuario" nillable="true" type="xsd:string"/>
+      <element name="opcion" nillable="true" type="xsd:string"/>
+      <element name="params" nillable="true" type="tns2:Map"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="ejecutaTxHostResponse">
+    <complexType>
+     <sequence>
+      <element name="ejecutaTxHostReturn" nillable="true" type="tns3:RespuestaAEVo"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getParametros">
+    <complexType>
+     <sequence>
+      <element name="aplicacion" nillable="true" type="xsd:string"/>
+      <element name="usuario" nillable="true" type="xsd:string"/>
+      <element name="opcion" nillable="true" type="xsd:string"/>
+      <element name="params" nillable="true" type="tns2:Map"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getParametrosResponse">
+    <complexType>
+     <sequence>
+      <element name="getParametrosReturn" nillable="true" type="tns3:RespuestaAEVo"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="setTrackingH2H">
+    <complexType>
+     <sequence>
+      <element name="aplicacion" nillable="true" type="xsd:string"/>
+      <element name="usuario" nillable="true" type="xsd:string"/>
+      <element name="opcion" nillable="true" type="xsd:string"/>
+      <element name="params" nillable="true" type="tns2:Map"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="setTrackingH2HResponse">
+    <complexType>
+     <sequence>
+      <element name="setTrackingH2HReturn" nillable="true" type="tns3:RespuestaAEVo"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getListaTx">
+    <complexType>
+     <sequence>
+      <element name="aplicacion" nillable="true" type="xsd:string"/>
+      <element name="usuario" nillable="true" type="xsd:string"/>
+      <element name="opcion" nillable="true" type="xsd:string"/>
+      <element name="params" nillable="true" type="tns2:Map"/>
+     </sequence>
+    </complexType>
+   </element>
+  </schema>
+  <schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://xml.apache.org/xml-soap" xmlns:impl="http://generico.services" xmlns:intf="http://generico.services" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <complexType name="Item">
+    <all>
+     <element name="key" type="xsd:anyType"/>
+     <element name="value" type="xsd:anyType"/>
+    </all>
+   </complexType>
+   <complexType name="Map">
+    <sequence>
+     <element maxOccurs="unbounded" minOccurs="0" name="item" type="tns2:Item"/>
+    </sequence>
+   </complexType>
+  </schema>
+  <schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://VO.armx.bbva.com" xmlns:impl="http://generico.services" xmlns:intf="http://generico.services" xmlns:tns2="http://xml.apache.org/xml-soap" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://xml.apache.org/xml-soap"/>
+   <complexType name="RespuestaAEVo">
+    <sequence>
+     <element name="MENSAJE" nillable="true" type="xsd:string"/>
+     <element name="RESULTADO" nillable="true" type="tns2:Map"/>
+    </sequence>
+   </complexType>
+  </schema>
+  <schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://excepciones.armx.bbva.com" xmlns:impl="http://generico.services" xmlns:intf="http://generico.services" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <complexType name="ARMXException">
+    <sequence>
+     <element name="causa" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <element name="ARMXException" nillable="true" type="tns4:ARMXException"/>
+  </schema>
+ </wsdl:types>
+
+   <wsdl:message name="getListaTxResponse">
+
+      <wsdl:part element="impl:getListaTxResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getParametrosRequest">
+
+      <wsdl:part element="impl:getParametros" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getParametrosResponse">
+
+      <wsdl:part element="impl:getParametrosResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="ejecutaTxHostRequest">
+
+      <wsdl:part element="impl:ejecutaTxHost" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="ARMXException">
+
+      <wsdl:part name="fault" element="tns4:ARMXException" />
+
+   </wsdl:message>
+
+   <wsdl:message name="getListaTxRequest">
+
+      <wsdl:part element="impl:getListaTx" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="setTrackingH2HResponse">
+
+      <wsdl:part element="impl:setTrackingH2HResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="setTrackingH2HRequest">
+
+      <wsdl:part element="impl:setTrackingH2H" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="ejecutaTxHostResponse">
+
+      <wsdl:part element="impl:ejecutaTxHostResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:portType name="TransaccionHost_service">
+
+      <wsdl:operation name="getListaTx">
+
+         <wsdl:input message="impl:getListaTxRequest" name="getListaTxRequest"/>
+
+         <wsdl:output message="impl:getListaTxResponse" name="getListaTxResponse"/>
+
+         <wsdl:fault message="impl:ARMXException" name="ARMXException"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="ejecutaTxHost">
+
+         <wsdl:input message="impl:ejecutaTxHostRequest" name="ejecutaTxHostRequest"/>
+
+         <wsdl:output message="impl:ejecutaTxHostResponse" name="ejecutaTxHostResponse"/>
+
+         <wsdl:fault message="impl:ARMXException" name="ARMXException"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getParametros">
+
+         <wsdl:input message="impl:getParametrosRequest" name="getParametrosRequest"/>
+
+         <wsdl:output message="impl:getParametrosResponse" name="getParametrosResponse"/>
+
+         <wsdl:fault message="impl:ARMXException" name="ARMXException"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="setTrackingH2H">
+
+         <wsdl:input message="impl:setTrackingH2HRequest" name="setTrackingH2HRequest"/>
+
+         <wsdl:output message="impl:setTrackingH2HResponse" name="setTrackingH2HResponse"/>
+
+         <wsdl:fault message="impl:ARMXException" name="ARMXException"/>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="TransaccionHost_serviceSoapBinding" type="impl:TransaccionHost_service">
+
+      <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="getListaTx">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getListaTxRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getListaTxResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="ARMXException">
+
+            <wsdlsoap:fault name="ARMXException" use="literal"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="ejecutaTxHost">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="ejecutaTxHostRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="ejecutaTxHostResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="ARMXException">
+
+            <wsdlsoap:fault name="ARMXException" use="literal"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getParametros">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getParametrosRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getParametrosResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="ARMXException">
+
+            <wsdlsoap:fault name="ARMXException" use="literal"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="setTrackingH2H">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="setTrackingH2HRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="setTrackingH2HResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="ARMXException">
+
+            <wsdlsoap:fault name="ARMXException" use="literal"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="TransaccionHost_serviceService">
+
+      <wsdl:port binding="impl:TransaccionHost_serviceSoapBinding" name="TransaccionHost_service">
+
+         <wsdlsoap:address location="http://localhost%3A8101/services/TransaccionHost_service"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>
