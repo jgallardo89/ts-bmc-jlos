@@ -37,13 +37,15 @@
 			NB_MENSAJE_SALIDA,
 			TX_MENSAJE_SALIDA,
 			CD_ST_OBJETO,
-			TM_ALTA)
+			TM_ALTA,
+			TP_NOTIFICACION)
 		VALUES
 			(#{idMensajeSalida},
 			#{nombreMensajeSalida},
 			#{descripcionMensajeSalida},
 			#{idEstatusObjeto},
-			CURRENT_DATE)
+			CURRENT_DATE,
+			'N')
 	</insert>
 	<update id="actualizarMensajeSalida" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.MensajeSalidaVO">
 	    UPDATE TGM516_MENSAJE_SAL
