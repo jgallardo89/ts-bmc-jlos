@@ -60,7 +60,9 @@
     	tgm505_ctrlpermiso control
 		Where Componente.Cd_Default = 'F'    
 		And Componente.Cd_Pantalla = #{idPantalla}
-		And Control.Cd_Perfil = #{idPerfil}
+		<if test="idPerfil != null and idPerfil != 0 idPerfil and != -1" >
+			And Control.Cd_Perfil = #{idPerfil}
+		</if>
     	And Control.Cd_Componente = componente.cd_componente    
 	</select>
 	<select id="obtenerComponentesPantallaPerfil" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.ComponenteVO"
@@ -73,7 +75,7 @@
     	tgm505_ctrlpermiso control
 		Where Componente.Cd_Default = 'F'    		
     	And Control.Cd_Componente = componente.cd_componente
-    	And Componente.Cd_Pantalla = #{idPantalla}
+    	And Componente.Cd_Pantalla = #{idPantalla}    	
     	And Control.Cd_Perfil = #{idPerfil}
 	</select>
 	<update id="actualizarComponente" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.ComponenteVO">
