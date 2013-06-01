@@ -125,7 +125,7 @@ public class ContratacionController extends ControllerSupport implements IContro
 	    clienteDTO.setCommandId(CommandConstants.ESTATUS_OBJETO);
 	    ClienteVO clienteVO = new ClienteVO();
 	    clienteDTO.setClienteVO(clienteVO);
-	    clienteDTO = clienteBO.readCommand();
+	    clienteDTO = clienteBO.readCommand(clienteVO);
 	    
 	    ProductoBO productoBO = new ProductoBO();
 	    ProductoDTO productoDTO = new ProductoDTO();

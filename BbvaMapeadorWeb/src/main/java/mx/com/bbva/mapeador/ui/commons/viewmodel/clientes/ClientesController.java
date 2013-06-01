@@ -3,10 +3,12 @@ package mx.com.bbva.mapeador.ui.commons.viewmodel.clientes;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
 import mx.com.bbva.bancomer.bussinnes.model.vo.ClienteVO;
+import mx.com.bbva.bancomer.bussinnes.model.vo.ContratacionVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.EstatusObjetoVO;
 import mx.com.bbva.bancomer.canal.dto.BeanGenerico;
 import mx.com.bbva.bancomer.cliente.dto.ClienteDTO;
@@ -15,6 +17,7 @@ import mx.com.bbva.bancomer.commons.command.MapeadorConstants;
 import mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject;
 import mx.com.bbva.bancomer.estatusobjeto.dto.EstatusObjetoDTO;
 import mx.com.bbva.bancomer.mapper.business.ClienteBO;
+import mx.com.bbva.bancomer.mapper.business.ContratacionBO;
 import mx.com.bbva.bancomer.mapper.business.EstatusObjetoBO;
 import mx.com.bbva.bancomer.utils.StringUtil;
 import mx.com.bbva.mapeador.ui.commons.controller.IController;
@@ -157,6 +160,7 @@ public class ClientesController extends ControllerSupport implements IController
 	public void save() {
 		ReportesController controller = new ReportesController();
 		boolean errorGuardar = false;
+		ClienteBO clienteBO = new ClienteBO();
 		if (idIdentificador.getValue().isEmpty()) {
 			idIdentificador
 					.setErrorMessage("Favor de introducir el Identificdor del Cliente");
@@ -174,57 +178,93 @@ public class ClientesController extends ControllerSupport implements IController
 		}
 		if(!errorGuardar){
 			if(idCliente.getValue().isEmpty() || idCliente.getValue().equals("0")){
-				ClienteDTO clienteDTO = new ClienteDTO();
 				ClienteVO clienteVO = new ClienteVO();
+				clienteDTO = new ClienteDTO();
 				clienteVO.setIdIdentificador(idIdentificador.getValue().toUpperCase());
-				clienteVO.setNombreCliente(nombreCliente.getValue().toUpperCase());
-				clienteVO.setNombreCortoCliente(nombreCortoCliente.getValue().toUpperCase());
-				clienteVO.setIdEstatusObjeto(CommandConstants.ESTATUS_OBJETO_ACTIVO_CLIENTES);
-				clienteDTO.setClienteVO(clienteVO);
-				ClienteBO clienteBO = new ClienteBO();
-				clienteBO.createCommand(clienteDTO);
-				clienteDTO.toString(BbvaAbstractDataTransferObject.XML);
-				clean();
+				clienteDTO = clienteBO.readCommand(clienteVO);
 				
-				clienteVO.setIdIdentificador(StringUtil.validaLike(idIdentificador.getValue()));
-				clienteVO.setNombreCliente(StringUtil.validaLike(nombreCliente.getValue()));
-				clienteVO.setNombreCortoCliente(StringUtil.validaLike(nombreCortoCliente.getValue()));
-				clienteVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue().isEmpty()?"0":idEstatusObjeto.getValue()));
-				
-				controller.registrarEvento(clienteVO, clientesVO, CommandConstants.ALTA, "Catálogo Clientes");
-				
-				clienteVO.toString();
-				clienteDTO.setClienteVO(clienteVO);
-				clientesVOs = clienteBO.readCommand(clienteDTO).getClienteVOs();
-				Messagebox.show("!El Registro del Cliente fue exitoso!",
-						"Información", Messagebox.OK,
-						Messagebox.INFORMATION);
+				if(clienteDTO.getClienteVOs().size()==0) {
+					clienteVO.setIdIdentificador(idIdentificador.getValue().toUpperCase());
+					clienteVO.setNombreCliente(nombreCliente.getValue().toUpperCase());
+					clienteVO.setNombreCortoCliente(nombreCortoCliente.getValue().toUpperCase());
+					clienteVO.setIdEstatusObjeto(CommandConstants.ESTATUS_OBJETO_ACTIVO_CLIENTES);
+					clienteDTO.setClienteVO(clienteVO);
+					clienteBO.createCommand(clienteDTO);
+					clienteDTO.toString(BbvaAbstractDataTransferObject.XML);
+					clean();
+					
+					clienteVO.setIdIdentificador(StringUtil.validaLike(idIdentificador.getValue()));
+					clienteVO.setNombreCliente(StringUtil.validaLike(nombreCliente.getValue()));
+					clienteVO.setNombreCortoCliente(StringUtil.validaLike(nombreCortoCliente.getValue()));
+					clienteVO.setIdEstatusObjeto(0);
+					controller.registrarEvento(clienteVO, clientesVO, CommandConstants.ALTA, "Catálogo Clientes");
+					
+					clienteVO.toString();
+					clienteDTO.setClienteVO(clienteVO);
+					clientesVOs = clienteBO.readCommand(clienteDTO).getClienteVOs();
+					Messagebox.show("!El Registro del Cliente fue exitoso!",
+							"Información", Messagebox.OK,
+							Messagebox.INFORMATION);
+				} else {
+					clean();
+					clienteVO.setIdIdentificador(StringUtil.validaLike(idIdentificador.getValue()));
+					clienteVO.setNombreCliente(StringUtil.validaLike(nombreCliente.getValue()));
+					clienteVO.setNombreCortoCliente(StringUtil.validaLike(nombreCortoCliente.getValue()));
+					clienteVO.setIdEstatusObjeto(0);
+					controller.registrarEvento(clienteVO, clientesVO, CommandConstants.ALTA, "Catálogo Clientes");
+					
+					clienteVO.toString();
+					clienteDTO.setClienteVO(clienteVO);
+					clientesVOs = clienteBO.readCommand(clienteDTO).getClienteVOs();
+					Messagebox.show("!Ya existe un Cliente con el mismo Identificador!",
+							"Información", Messagebox.OK,
+							Messagebox.EXCLAMATION);
+				}
 			} else {
-				ClienteDTO clienteDTO = new ClienteDTO();
-				ClienteVO clienteVO = new ClienteVO();
-				clienteVO.setIdCliente(Integer.parseInt(idCliente.getValue()));
-				clienteVO.setIdIdentificador(idIdentificador.getValue().toUpperCase());
-				clienteVO.setNombreCliente(nombreCliente.getValue().toUpperCase());
-				clienteVO.setNombreCortoCliente(nombreCortoCliente.getValue().toUpperCase());
-				clienteVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue()));
-				clienteDTO.setClienteVO(clienteVO);
-				ClienteBO clienteBO = new ClienteBO();
-				clienteBO.updateCommand(clienteDTO);
-				clienteDTO.toString(BbvaAbstractDataTransferObject.XML);
-				controller.registrarEvento(clienteVO, clientesVO, CommandConstants.MODIFICACION, "Catálogo Clientes");
-				clean();
-				clienteVO.setIdIdentificador(StringUtil.validaLike(idIdentificador.getValue()));
-				clienteVO.setNombreCliente(StringUtil.validaLike(nombreCliente.getValue()));
-				clienteVO.setNombreCortoCliente(StringUtil.validaLike(nombreCortoCliente.getValue()));
-				clienteVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue().isEmpty()?"0":idEstatusObjeto.getValue()));
-				
-				clienteVO.toString();
-				clienteDTO.setClienteVO(clienteVO);
-				clientesVOs = clienteBO.readCommand(clienteDTO).getClienteVOs();
-				
-				Messagebox.show("!La Actualización del Cliente fue exitoso!",
-						"Información", Messagebox.OK,
-						Messagebox.INFORMATION);
+				ContratacionBO contratacionBO = new ContratacionBO();
+				ContratacionVO contratacionVO = new ContratacionVO();
+				contratacionVO.setIdCliente(Integer.parseInt(idCliente.getValue()));
+				System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%% " + Integer.parseInt(idEstatusObjeto.getValue()));
+				if(Integer.parseInt(idEstatusObjeto.getValue()) == CommandConstants.ESTATUS_OBJETO_ACTIVO_CLIENTES || 
+						contratacionBO.readCommandValidaContratacion(contratacionVO)){
+					ClienteDTO clienteDTO = new ClienteDTO();
+					ClienteVO clienteVO = new ClienteVO();
+					clienteVO.setIdCliente(Integer.parseInt(idCliente.getValue()));
+					clienteVO.setIdIdentificador(idIdentificador.getValue().toUpperCase());
+					clienteVO.setNombreCliente(nombreCliente.getValue().toUpperCase());
+					clienteVO.setNombreCortoCliente(nombreCortoCliente.getValue().toUpperCase());
+					clienteVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue()));
+					clienteDTO.setClienteVO(clienteVO);
+					
+					clienteBO.updateCommand(clienteDTO);
+					clienteDTO.toString(BbvaAbstractDataTransferObject.XML);
+					controller.registrarEvento(clienteVO, clientesVO, CommandConstants.MODIFICACION, "Catálogo Clientes");
+					clean();
+					clienteVO.setIdIdentificador(StringUtil.validaLike(idIdentificador.getValue()));
+					clienteVO.setNombreCliente(StringUtil.validaLike(nombreCliente.getValue()));
+					clienteVO.setNombreCortoCliente(StringUtil.validaLike(nombreCortoCliente.getValue()));
+					clienteVO.setIdEstatusObjeto(0);
+					clienteVO.toString();
+					clienteDTO.setClienteVO(clienteVO);
+					clientesVOs = clienteBO.readCommand(clienteDTO).getClienteVOs();
+					
+					Messagebox.show("!La Actualización del Cliente fue exitoso!",
+							"Información", Messagebox.OK,
+							Messagebox.INFORMATION);
+				} else {
+					clean();
+					ClienteVO clienteVO = new ClienteVO();
+					clienteVO.setIdIdentificador(StringUtil.validaLike(idIdentificador.getValue()));
+					clienteVO.setNombreCliente(StringUtil.validaLike(nombreCliente.getValue()));
+					clienteVO.setNombreCortoCliente(StringUtil.validaLike(nombreCortoCliente.getValue()));
+					clienteVO.setIdEstatusObjeto(0);
+					clienteVO.toString();
+					clienteDTO.setClienteVO(clienteVO);
+					clientesVOs = clienteBO.readCommand(clienteDTO).getClienteVOs();
+					Messagebox.show("!No se puede dar de Baja, ya que esta siendo Usado por la Contratación!",
+							"Información", Messagebox.OK,
+							Messagebox.EXCLAMATION);
+				}
 			}
 		}
 		btnGuardar = true;
@@ -266,6 +306,9 @@ public class ClientesController extends ControllerSupport implements IController
 		idEstatusObjeto.setValue(Integer.toString(clienteVO.getIdEstatusObjeto()));
 		btnGuardar = false;
 		flagEstatus = false;
+		
+		fechaAlta.setValue(clienteVO.getFechaAlta());
+		fechaModificacion.setValue(clienteVO.getFechaModificacion());
 	}
 	
 	@Command
@@ -313,6 +356,8 @@ public class ClientesController extends ControllerSupport implements IController
 	private void defaultValues() {
 		statusObjeto.setValue(CommandConstants.NB_CLIENTE_ACTIVO);
         idEstatusObjeto.setValue(String.valueOf(CommandConstants.ID_CLIENTE_ACTIVO));
+        fechaAlta.setValue(new Date());
+		fechaModificacion.setValue(new Date());
 	}
 
 	/**

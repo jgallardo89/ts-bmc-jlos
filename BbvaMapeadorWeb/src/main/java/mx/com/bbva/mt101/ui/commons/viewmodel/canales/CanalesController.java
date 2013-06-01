@@ -64,7 +64,9 @@ public class CanalesController extends ControllerSupport implements IController 
 	@Wire
 	private Textbox descripcionCanal;
 	@Wire
-	private Datebox fechaAlta;
+	private Datebox fechaInicio;
+	@Wire
+	private Datebox fechaFin;
 	@Wire
 	private Combobox statusObjeto;
 	@Wire
@@ -389,7 +391,10 @@ public class CanalesController extends ControllerSupport implements IController 
 		componentes.put(lblEstatus.getId(), lblEstatus);
 		componentes.put(nombreCanal.getId(), nombreCanal);
 		componentes.put(descripcionCanal.getId(), descripcionCanal);
-		componentes.put(fechaAlta.getId(), fechaAlta);
+		
+		componentes.put(fechaInicio.getId(), fechaInicio);
+		componentes.put(fechaFin.getId(), fechaFin);
+		
 		componentes.put(statusObjeto.getId(), statusObjeto);
 		componentes.put(reporteExcelBtn.getId(), reporteExcelBtn);
 		componentes.put(reporteCsvBtn.getId(), reporteCsvBtn);
