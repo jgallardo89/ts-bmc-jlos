@@ -17,6 +17,8 @@ public class CanalVO extends BbvaAbstractValueObject  {
 	private String nombreEstatusObjeto;
 	private int idEstatusObjeto;
 	private int idBaja;
+	private String fechaInicio;
+	private String fechaFin;
 	/**
 	 * @return the idCanal
 	 */
@@ -124,6 +126,30 @@ public class CanalVO extends BbvaAbstractValueObject  {
 	 */
 	public void setIdBaja(int idBaja) {
 		this.idBaja = idBaja;
+	}
+	/**
+	 * @return the fechaInicio
+	 */
+	public String getFechaInicio() {
+		return fechaInicio;
+	}
+	/**
+	 * @param fechaInicio the fechaInicio to set
+	 */
+	public void setFechaInicio(String fechaInicio) {
+		this.fechaInicio = fechaInicio;
+	}
+	/**
+	 * @return the fechaFin
+	 */
+	public String getFechaFin() {
+		return fechaFin;
+	}
+	/**
+	 * @param fechaFin the fechaFin to set
+	 */
+	public void setFechaFin(String fechaFin) {
+		this.fechaFin = fechaFin;
 	}
 	
 }
