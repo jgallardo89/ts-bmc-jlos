@@ -14,6 +14,7 @@ import mx.com.bbva.mapeador.ui.commons.viewmodel.support.ControllerSupport;
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
+import org.zkoss.zhtml.Messagebox;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.Sessions;
@@ -34,6 +35,7 @@ public class ReportesController extends ControllerSupport {
 		Sessions.getCurrent().setAttribute("nameReport", nameReport);
 		
 		Executions.sendRedirect("/ServletReport");
+		Messagebox.show("!Se genero el Reporte de tipo "+typeReport+" con éxito");
     }
 	
 	public void registrarEvento(Object nuevo, Object anterior, int idEvento, String nombreBitacora){

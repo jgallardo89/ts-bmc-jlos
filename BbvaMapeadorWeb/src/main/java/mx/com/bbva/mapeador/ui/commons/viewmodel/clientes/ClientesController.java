@@ -272,7 +272,6 @@ public class ClientesController extends ControllerSupport implements IController
 	public void onShowReport(@BindingParam("type") final String type) {
 		ReportesController controller = new ReportesController();
 		ArrayList<String> headersReport = new ArrayList<String>();
-		String titleReport = "Catálogo Clientes";
 		headersReport.add("Identificador");
 		headersReport.add("Nombre Cliente");
 		headersReport.add("Descripcion Cliente");
@@ -284,7 +283,7 @@ public class ClientesController extends ControllerSupport implements IController
 		} else {
 			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_TEXTO,"Catálogo Clientes");
 		}
-		controller.createReport(generaLista(), headersReport, titleReport, "CLIENTES");
+		controller.createReport(generaLista(), headersReport, type, "CLIENTES");
 	}	
 	
 	private ArrayList<BeanGenerico> generaLista() {
