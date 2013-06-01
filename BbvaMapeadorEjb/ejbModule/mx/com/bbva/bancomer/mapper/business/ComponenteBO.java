@@ -86,8 +86,6 @@ public class ComponenteBO implements mx.com.bbva.bancomer.commons.business.BbvaI
 						componenteVOs = mapComponente.obtenerComponentesPantalla(componenteVO);
 						((ComponenteDTO)bbvaAbstractDataTransferObject).setComponentePantallaVOs(componenteVOs);
 					}else if(bbvaAbstractDataTransferObject.getCommandId()!=null && bbvaAbstractDataTransferObject.getCommandId().equals(CommandConstants.COMPONENTE_PANTALLA_PERFIL)){
-						logger.debug("bbvaAbstractDataTransferObject.getCommandId():"+bbvaAbstractDataTransferObject.getCommandId());
-						logger.debug("bbvaAbstractDataTransferObject.getCommandId().equals(CommandConstants.COMPONENTE_PANTALLA_PERFIL):"+bbvaAbstractDataTransferObject.getCommandId().equals(CommandConstants.COMPONENTE_PANTALLA_PERFIL));
 						componenteVOs = mapComponente.obtenerComponentesPantallaPerfil(componenteVO);
 						((ComponenteDTO)bbvaAbstractDataTransferObject).setComponentePantallaPerfilVOs(componenteVOs);
 					}else{
