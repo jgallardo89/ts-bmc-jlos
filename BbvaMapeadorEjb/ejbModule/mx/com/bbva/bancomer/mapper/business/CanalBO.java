@@ -71,7 +71,7 @@ public class CanalBO implements
 						.getCanalVO();
 				SqlSession session = MapeadorSessionFactory
 						.getSqlSessionFactory().openSession();
-				canalVO.setIdBaja(CommandConstants.ESTATUS_OBJETO_CANAL_BAJA);
+				canalVO.setIdBaja(CommandConstants.ID_CANAL_BAJA);
 				MapCanal mapCanal = session.getMapper(MapCanal.class);
 				try {
 					result = mapCanal.obtenerCanales(canalVO);
