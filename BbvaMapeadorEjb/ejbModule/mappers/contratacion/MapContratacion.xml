@@ -111,7 +111,7 @@
 			WHERE
 			<if test="idCanal != null and idCanal != 0">
 				CONTRATACION.CD_CANAL = #{idCanal}
-				OR  CONTRATACION.CD_CANAL_SALIDA = #{idCanalSalida}
+				OR  CONTRATACION.CD_CANAL_SALIDA = #{idCanal}
 			</if>
 			<if test="idCliente != null and idCliente != 0">
 			    CONTRATACION.CD_CLIENTE = #{idCliente}
