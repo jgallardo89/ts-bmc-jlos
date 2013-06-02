@@ -166,7 +166,8 @@ public class PantallaController extends ControllerSupport implements  IControlle
 		EstatusObjetoBO estatusObjetoBO = new EstatusObjetoBO();
 		estatusObjetoDTO.setEstatusObjetoVO(estatusObjetoVO);
 		estatusObjetoDTO = estatusObjetoBO.readCommand(estatusObjetoDTO);
-		PantallaDTO pantallaDTO = new PantallaDTO();		
+		PantallaDTO pantallaDTO = new PantallaDTO();
+		pantallaDTO.setPantallaVO(pantallaVO);
 		PantallaBO pantallaBO = new PantallaBO();		
 		pantallaDTO.setEstatusObjetoVO(estatusObjetoVO);
 		pantallaDTO = pantallaBO.readCommand(pantallaDTO);
