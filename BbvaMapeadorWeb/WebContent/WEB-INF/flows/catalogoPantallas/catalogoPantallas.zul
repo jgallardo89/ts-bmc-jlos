@@ -107,7 +107,7 @@
 										<column hflex="1" label="Pantalla Padre" style="text-wrap: normal;"
 											width="10%" sort="auto(nombrePantallaPadre)"></column>
 										<column hflex="1" label="Pantalla" width="20%"
-											sort="sort(nombrePantalla)"></column>
+											sort="auto(nombrePantalla)"></column>
 										<column hflex="1" label="URL Pantalla" width="10%"
 											sort="auto(descripcionUrlPantalla)"></column>
 										<column hflex="1" label="URL Icono" width="10%"
