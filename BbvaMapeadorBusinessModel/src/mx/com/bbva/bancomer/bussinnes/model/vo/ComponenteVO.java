@@ -16,8 +16,21 @@ public class ComponenteVO extends BbvaAbstractValueObject {
 	public long estatusComponen;
 	public String nombrePantalla;
 	public String nombreEstatus;
+	public String nombrePErfil;
 	public long idPerfil;
 	public String nombreTipoComponente;
+	/**
+	 * @return the nombrePErfil
+	 */
+	public final String getNombrePErfil() {
+		return nombrePErfil;
+	}
+	/**
+	 * @param nombrePErfil the nombrePErfil to set
+	 */
+	public final void setNombrePErfil(String nombrePErfil) {
+		this.nombrePErfil = nombrePErfil;
+	}
 	/**
 	 * @return the nombreTipoComponente
 	 */
