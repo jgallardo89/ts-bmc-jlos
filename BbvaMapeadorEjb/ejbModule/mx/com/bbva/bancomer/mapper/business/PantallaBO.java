@@ -6,6 +6,7 @@ import javax.ejb.Stateless;
 
 import mappers.pantalla.MapPantalla;
 import mx.com.bbva.bancomer.bussinnes.model.vo.PantallaVO;
+import mx.com.bbva.bancomer.commons.command.CommandConstants;
 import mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject;
 import mx.com.bbva.bancomer.pantalla.dto.PantallaDTO;
 import mx.com.bbva.mapeador.oralce.session.MapeadorSessionFactory;
@@ -75,8 +76,10 @@ public class PantallaBO implements mx.com.bbva.bancomer.commons.business.BbvaIBu
 						.getMapper(MapPantalla.class);
 				if(pantallaVO != null) {
 					logger.debug(":::::::::::::::::::::" + pantallaVO.toString());
+					pantallaVO.setIdBaja(CommandConstants.ESTATUS_OBJETO_PANTALLA_SALIDA_BAJA);
 				}
 				try {
+					
 					result = mapPantalla.obtenerPantallas(pantallaVO);
 					
 					session.commit();
