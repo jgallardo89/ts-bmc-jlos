@@ -1,0 +1,19 @@
+<zk>
+	<grid model="${arg.productoVOs}">
+		<columns>
+			<column label="Fecha" />
+			<column label="Producto" align="center"/>
+			<column label="Nombre Archivo"  align="center"/>
+			<column label="Operaciones"  align="center"/>
+		</columns>
+		<template name="model">
+			<row sclass="last">
+				<label value="${each.fechaStatusProceso}" />
+				<label value="${each.nombreProducto}" />
+				<label value="${each.nombreRegArchEntra}" />
+				<label value="${each.numeroOperacione}" />
+			</row>
+		</template>
+	</grid>
+	
+</zk>

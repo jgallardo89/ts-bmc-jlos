@@ -1,0 +1,19 @@
+<grid model="${arg.clienteVOs}" sclass="inner-grid">
+	<columns> 
+		<column width="40px" />
+		<column label="Cliente" />
+	</columns>
+	<template name="model">
+		<row value="${forEachStatus.index}">  
+			<custom-attributes  productoVOs="${each.productoVOs}" clienteVO="${each}" />
+			<detail open="false" fulfill="onOpen">
+				<include src="productosDetalle.zul" 
+					clienteVO="${clienteVO}" productoVOs="${productoVOs}" />
+			</detail>
+			<label value="${each.idIdentificador}" />
+		</row>
+	</template>
+	<foot>
+		<footer width="40px" />  
+	</foot>
+</grid>
