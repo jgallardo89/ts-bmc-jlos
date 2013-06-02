@@ -10,17 +10,20 @@
 		<include src="../../pages/styles.zul" />
 		<div sclass="BODY" height="100%" width="100%">
 			<groupbox height="100%">
-				<caption sclass="pageTitle" label="Estadístico"></caption>		
-					<portallayout maximizedMode="whole" id="portalLayoutEstadistico"
-					width="100%" height="100%">
+				<caption sclass="pageTitle" label="Estadístico"></caption>
+				<portallayout maximizedMode="whole"
+					id="portalLayoutEstadistico" width="100%" height="100%">
 					<portalchildren>
-						<panel height="30%" width="100%" sclass="sectionPanelTitle" id="datosEstadistico"
-							title="Catalogo" collapsible="true" style="margin-bottom:10px"
-							border="normal">
-							<caption sclass="sectionPanelTitle" label="Estadístico"></caption>
+						<panel height="30%" width="100%"
+							sclass="sectionPanelTitle" id="datosEstadistico" title="Catalogo"
+							collapsible="true" style="margin-bottom:10px" border="normal">
+							<caption sclass="sectionPanelTitle"
+								label="Estadístico">
+							</caption>
 							<panelchildren>
 								<div align="center">
-									<grid width="100%" style="border:0" oddRowSclass="row2">
+									<grid width="100%" style="border:0"
+										oddRowSclass="row2">
 										<columns>
 											<column width="20%" />
 											<column width="25%" />
@@ -30,128 +33,193 @@
 										<rows>
 											<row sclass="row2">
 												<div align="right">
-													<label id="lblCanal" width="100%" sclass="labelFill" value="Canal: "></label>
+													<label id="lblCanal"
+														width="100%" sclass="labelFill" value="Canal: ">
+													</label>
 												</div>
-												<combobox sclass="textboxUpperCase" onChange="selectedValueCanal()"
-													id="canal" width="70%" model="@load(vm.estadisticoDTO.canalVOs)" autodrop="true">		
-													<template name="model">										
-														<comboitem value="@load(each.idCanal)" label="@load(each.nombreCanal)" height="100%"/>
-													</template>																								
+												<combobox
+													sclass="textboxUpperCase" onChange="selectedValueCanal()"
+													id="canal" width="70%"
+													model="@load(vm.estadisticoDTO.canalVOs)"
+													autodrop="true">
+													<template
+														name="model">
+														<comboitem
+															value="@load(each.idCanal)"
+															label="@load(each.nombreCanal)" height="100%" />
+													</template>
 												</combobox>
 												<div align="right">
-													<label id="lblIdCliente" width="100%" sclass="labelFill" value="Identificador Cliente: "></label>
+													<label
+														id="lblIdCliente" width="100%" sclass="labelFill"
+														value="Identificador Cliente: ">
+													</label>
 												</div>
-												<combobox sclass="textboxUpperCase" onChange="selectedValueCliente()"
-													id="cliente" width="70%" model="@load(vm.estadisticoDTO.clienteVOs)" autodrop="true">		
-													<template name="model">										
-														<comboitem value="@load(each.idCliente)" label="@load(each.idIdentificador)" height="100%"/>
-													</template>																								
-												</combobox>																											
+												<combobox
+													sclass="textboxUpperCase" onChange="selectedValueCliente()"
+													id="cliente" width="70%"
+													model="@load(vm.estadisticoDTO.clienteVOs)"
+													autodrop="true">
+													<template
+														name="model">
+														<comboitem
+															value="@load(each.idCliente)"
+															label="@load(each.idIdentificador)" height="100%" />
+													</template>
+												</combobox>
 											</row>
 											<row sclass="row2">
 												<div align="right">
-													<label id="lblProducto" width="100%" sclass="labelFill" value="Clave Producto: "></label>												
+													<label
+														id="lblProducto" width="100%" sclass="labelFill"
+														value="Clave Producto: ">
+													</label>
 												</div>
-												<combobox sclass="textboxUpperCase" onChange="selectedValueProducto()"
-													id="producto" width="70%" model="@load(vm.estadisticoDTO.productoVOs)" autodrop="true">		
-													<template name="model">										
-														<comboitem value="@load(each.idProducto)" label="@load(each.nombreProducto)" height="100%"/>
-													</template>																								
-												</combobox>																														
+												<combobox
+													sclass="textboxUpperCase"
+													onChange="selectedValueProducto()" id="producto"
+													width="70%" model="@load(vm.estadisticoDTO.productoVOs)"
+													autodrop="true">
+													<template
+														name="model">
+														<comboitem
+															value="@load(each.idProducto)"
+															label="@load(each.nombreProducto)" height="100%" />
+													</template>
+												</combobox>
 											</row>
 											<row sclass="row2">
 												<div align="right">
-													<label id="lblFechaAlta" width="100%" sclass="labelFill" value="Fecha alta: "></label>												
+													<label
+														id="lblFechaAlta" width="100%" sclass="labelFill"
+														value="Fecha alta: ">
+													</label>
 												</div>
-												<datebox value="@load(vm.estadisticoDTO.estadisticoVO.fechaInicio)"  maxlength="50"  width="100%" id="fechaInicio" readonly="true" buttonVisible="true" onCreate="self.value = new Date()" format="dd/MM/yyyy HH:MM"></datebox>
+												<datebox
+													value="@load(vm.estadisticoDTO.estadisticoVO.fechaInicio)"
+													maxlength="50" width="100%" id="fechaInicio"
+													readonly="true" buttonVisible="true"
+													onCreate="self.value = new Date()"
+													format="dd/MM/yyyy HH:MM">
+												</datebox>
 												<div align="right">
-													<label id="lblA" width="100%" sclass="labelFill" value="a: "></label>												
+													<label id="lblA"
+														width="100%" sclass="labelFill" value="a: ">
+													</label>
 												</div>
-												<datebox value="@load(vm.estadisticoDTO.estadisticoVO.fechaFin)"  maxlength="50"  width="100%" id="fechaFin" readonly="true" buttonVisible="true" onCreate="self.value = new Date()" format="dd/MM/yyyy HH:MM"></datebox>
+												<datebox
+													value="@load(vm.estadisticoDTO.estadisticoVO.fechaFin)"
+													maxlength="50" width="100%" id="fechaFin" readonly="true"
+													buttonVisible="true" onCreate="self.value = new Date()"
+													format="dd/MM/yyyy HH:MM">
+												</datebox>
 											</row>
 											<row sclass="row2">
-												<div align="right" width="70%">
-													<image id="reporteExcelBtn" src="/img/xls.png" onClick="@command('onShowReport',type='xls')" />
-													<image id="reporteCsvBtn" src="/img/csv.png" onClick="@command('onShowReport',type='csv')" />
-												</div>												
-												<div align="right" width="70%">
-													<button sclass="button" image="/img/clear.png"  label="Limpiar" id="limpiarBtn" onClick="@command('clean')" ></button>
-												</div>	
-												<div align="right" width="70%">
-													<button sclass="button" image="/img/search.png" label="Consultar" id="consultarBtn" onClick="@command('readWithFilters')"></button>
+												<div align="right"
+													width="70%">
+													<image
+														id="reporteExcelBtn" src="/img/xls.png"
+														onClick="@command('onShowReport',type='xls')" />
+													<image
+														id="reporteCsvBtn" src="/img/csv.png"
+														onClick="@command('onShowReport',type='csv')" />
+												</div>
+												<div align="right"
+													width="70%">
+													<button
+														sclass="button" image="/img/clear.png" label="Limpiar"
+														id="limpiarBtn" onClick="@command('clean')">
+													</button>
+												</div>
+												<div align="right"
+													width="70%">
+													<button
+														sclass="button" image="/img/search.png" label="Consultar"
+														id="consultarBtn" onClick="@command('readWithFilters')">
+													</button>
 												</div>
 											</row>
-										</rows>								
+										</rows>
 									</grid>
 								</div>
-							</panelchildren>										
-						</panel>
-					</portalchildren>
-					<portalchildren width="100%" style="padding: 5px">
-						<panel height="67%" sclass="sectionPanelTitle" width="100%" id="panelEstadistico"
-							title="Resultados" collapsible="true"
-							style="margin-bottom:10px">
-							<caption sclass="sectionPanelTitle" label="Lista de Resultados"></caption>
-							<panelchildren>
-								<grid width="99.7%" id="estadisticosGrid" mold="paging"
-									model="@load(vm.estadisticoVOs)" pagingPosition="both" pageSize="11"
-									vflex="true" height="100%">									
-									<columns sizable="true" menupopup="auto">
-										<column hflex="1" label="Canal" style="text-wrap: normal;"
-											width="10%" sort="auto(nombreCanal)"></column>
-										<column hflex="1" label="Cliente" width="20%"
-											sort="auto(idIdentificador)"></column>
-										<column hflex="1" label="Fecha" width="20%"
-											sort="auto(fechaStatusProceso)"></column>
-										<column hflex="1" label="Producto" width="10%"
-											sort="auto(nombreProducto)"></column>
-										<column hflex="1" label="Nombre Archivo" width="10%"
-											sort="auto(nombreRegArchEntra)"></column>
-										<column hflex="1" label="Operaciones" width="10%"
-											sort="auto(numeroOperacione)"></column>								
-									</columns>	
-									<template name="model">
-										<row>
-											<label hflex="1" value="@load(each.nombreCanal)"></label>											
-											<label hflex="1" value="@load(each.idIdentificador)"></label>
-											<label hflex="1" value="@load(each.fechaStatusProceso) @converter('formatedDate', format='dd/MM/yyyy')"></label>
-											<label hflex="1" value="@load(each.nombreProducto)"></label>
-											<label hflex="1" value="@load(each.nombreRegArchEntra)"></label> 		
-											<label hflex="1" value="@load(each.numeroOperacione)"></label> 		 																				
-										</row>
-									</template>						
-								</grid>
 							</panelchildren>
 						</panel>
 					</portalchildren>
-				</portallayout>								
-			</groupbox>	
-			<textbox id="idCanal" value="@load(vm.estadisticoDTO.estadisticoVO.idCanal)" visible="false"></textbox>
-			<textbox id="idCliente" value="@load(vm.estadisticoDTO.estadisticoVO.idCliente)" visible="false"></textbox>
-			<textbox id="idProducto" value="@load(vm.estadisticoDTO.estadisticoVO.idProducto)" visible="false"></textbox>
+					<portalchildren width="100%" style="padding: 10px">
+						<panel height="67%" sclass="sectionPanelTitle"
+							width="100%" id="panelEstadistico" title="Resultados"
+							collapsible="true" style="margin-bottom:10px">
+							<caption sclass="sectionPanelTitle"
+								label="Lista de Resultados">
+							</caption>
+							<panelchildren > 
+								<div height="80%" apply=" mx.com.bbva.mapeador.ui.commons.viewmodel.estadistico.EstadisticoController">
+									<grid id="hGrid" height="100%" 
+										model="${$composer.canalVOs }">
+										<columns>
+											<column width="40px" />
+											<column label="Canal"
+												sort="auto(nombreCanal)" />
+
+										</columns>
+										<template name="model">
+											<row>
+												<custom-attributes
+													clienteVOs="${each.clienteVOs}" canalVO="${each}" />
+												<detail open="false"
+													fulfill="onOpen">
+													<include
+														src="clientesDetalle.zul" canalVO="${canalVO}"
+														clienteVOs="${clienteVOs}" />
+												</detail>
+												<label
+													value="${each.nombreCanal}" />
+
+											</row>
+										</template>
+									</grid>
+								</div>
+							</panelchildren>
+						</panel>
+					</portalchildren>
+				</portallayout>
+			</groupbox>
+			<textbox id="idCanal"
+				value="@load(vm.estadisticoDTO.estadisticoVO.idCanal)"
+				visible="false">
+			</textbox>
+			<textbox id="idCliente"
+				value="@load(vm.estadisticoDTO.estadisticoVO.idCliente)"
+				visible="false">
+			</textbox>
+			<textbox id="idProducto"
+				value="@load(vm.estadisticoDTO.estadisticoVO.idProducto)"
+				visible="false">
+			</textbox>
 		</div>
 		<zscript>
-			public void selectedValueCanal(){
-				try{
-					idCanal.setValue(canal.getSelectedItem().getValue().toString());
-				}catch(Exception ex){
-					idCanal.setValue(null);
-				}
-			}
-			public void selectedValueCliente(){
-				try{
-					idCliente.setValue(cliente.getSelectedItem().getValue().toString());
-				}catch(Exception ex){
-					idCliente.setValue(null);
-				}
-			}
-			public void selectedValueProducto(){
-				try{
-					idProducto.setValue(producto.getSelectedItem().getValue().toString());
-				}catch(Exception ex){
-					idProducto.setValue(null);
-				}
-			}
-		</zscript>		
+	public void selectedValueCanal() {
+		try {
+			idCanal.setValue(canal.getSelectedItem().getValue().toString());
+		} catch (Exception ex) {
+			idCanal.setValue(null);
+		}
+	}
+	public void selectedValueCliente() {
+		try {
+			idCliente.setValue(cliente.getSelectedItem().getValue().toString());
+		} catch (Exception ex) {
+			idCliente.setValue(null);
+		}
+	}
+	public void selectedValueProducto() {
+		try {
+			idProducto.setValue(producto.getSelectedItem().getValue()
+					.toString());
+		} catch (Exception ex) {
+			idProducto.setValue(null);
+		}
+	}
+</zscript>
 	</window>
 </zk>
