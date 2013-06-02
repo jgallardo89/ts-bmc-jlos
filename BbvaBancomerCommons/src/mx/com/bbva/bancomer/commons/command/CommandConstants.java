@@ -4,6 +4,7 @@ public abstract interface CommandConstants {
 	public static final int ESTATUS_OBJETO_COMBO_PANTALLAS = 31;
 	public static final int ESTATUS_OBJETO = 2;
 	public static final int ESTATUS_PRODUCTO_ACTIVO = 7;
+	public static final int ESTATUS_OBJETO_ACTIVO = 1;
 	public static final int ESTATUS_OBJETO_CONTRATACION_ACTIVO = 21;
 	public static final int ESTATUS_OBJETO_ACTIVO_CLIENTES = 4;	
 	public static final int ESTATUS_OBJETO_PRODUCTO_BAJA = 9;
@@ -17,6 +18,8 @@ public abstract interface CommandConstants {
 	public static final int ESTATUS_OBJETO_FLUJO_ACTIVO = 10;
 	public static final int COMPONENTE_PANTALLA = 1;
 	public static final int COMPONENTE_PANTALLA_PERFIL = 3;
+	public static final int COMPONENTE_PANTALLA_PERFIL_ALL = 4;
+	public static final int COMPONENTE_PANTALLA_REFERENCE_PERFIL = 5;
 	public static final int ESTATUS_PERFIL = 24;
 	public static final int ESTATUS_CLAVE = 3;
 	public static final int PERFIL_COMMAND_READ_ALL = 1;
@@ -57,7 +60,6 @@ public abstract interface CommandConstants {
 	//Estatus del Catálogo de Clientes
 	public static final int ID_CLIENTE_ACTIVO = 4;
 	public static final int ID_CLIENTE_BAJA = 6;
-	
 	public static final String NB_CLIENTE_ACTIVO = "ACTIVO";
 	public static final String NB_CLIENTE_BAJA = "BAJA";
 	
@@ -79,6 +81,11 @@ public abstract interface CommandConstants {
 	public static final String NB_MENSAJE_ACTIVO = "ACTIVO";
 	public static final String NB_MENSAJE_BAJA = "BAJA";
 	
+	//Estatus del Catálogo de Flujos
+	public static final int ID_PERFIL_ACTIVO = 24;
+	public static final int ID_PERFIL_BAJA = 26;
+	public static final String NB_PERFIL_ACTIVO = "ACTIVO";
+	public static final String NB_PERFIL_BAJA = "BAJA";
 }
 
 
