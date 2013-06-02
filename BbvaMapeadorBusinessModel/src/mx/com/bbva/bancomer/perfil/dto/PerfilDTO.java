@@ -1,11 +1,14 @@
 package mx.com.bbva.bancomer.perfil.dto;
 
+import java.util.HashMap;
 import java.util.List;
 
 import mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject;
+import mx.com.bbva.bancomer.bussinnes.model.vo.ControlPermisoVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.EstatusClaveVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.EstatusObjetoVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.PantallaVO;
+import mx.com.bbva.bancomer.bussinnes.model.vo.PerfilVO;
 
 public class PerfilDTO extends BbvaAbstractDataTransferObject {
 
@@ -14,6 +17,72 @@ public class PerfilDTO extends BbvaAbstractDataTransferObject {
 	private List<PantallaVO> pantallaVOs;
 	private EstatusObjetoVO estatusObjetoVO;
 	private List<EstatusObjetoVO> estatusObjetoVOs;
+	private PerfilVO perfilVO;
+	private List<PerfilVO> perfilVOs;	
+	private ControlPermisoVO controlPermisoVO;
+	private HashMap<String, Boolean> controlPermisoVOs;
+	private List<ControlPermisoVO> controlPermisoVOS;
+	/**
+	 * @return the controlPermisoVOS
+	 */
+	public final List<ControlPermisoVO> getControlPermisoVOS() {
+		return controlPermisoVOS;
+	}
+	/**
+	 * @param controlPermisoVOS the controlPermisoVOS to set
+	 */
+	public final void setControlPermisoVOS(List<ControlPermisoVO> controlPermisoVOS) {
+		this.controlPermisoVOS = controlPermisoVOS;
+	}
+	/**
+	 * @return the perfilVO
+	 */
+	public final PerfilVO getPerfilVO() {
+		return perfilVO;
+	}
+	/**
+	 * @param perfilVO the perfilVO to set
+	 */
+	public final void setPerfilVO(PerfilVO perfilVO) {
+		this.perfilVO = perfilVO;
+	}
+	/**
+	 * @return the perfilVOs
+	 */
+	public final List<PerfilVO> getPerfilVOs() {
+		return perfilVOs;
+	}
+	/**
+	 * @param perfilVOs the perfilVOs to set
+	 */
+	public final void setPerfilVOs(List<PerfilVO> perfilVOs) {
+		this.perfilVOs = perfilVOs;
+	}
+	/**
+	 * @return the controlPermisoVO
+	 */
+	public final ControlPermisoVO getControlPermisoVO() {
+		return controlPermisoVO;
+	}
+	/**
+	 * @param controlPermisoVO the controlPermisoVO to set
+	 */
+	public final void setControlPermisoVO(ControlPermisoVO controlPermisoVO) {
+		this.controlPermisoVO = controlPermisoVO;
+	}
+	/**
+	 * @return the controlPermisoVOs
+	 */
+	public final HashMap<String, Boolean> getControlPermisoVOs() {
+		return controlPermisoVOs;
+	}
+	/**
+	 * @param controlPermisoVOs the controlPermisoVOs to set
+	 */
+	public final void setControlPermisoVOs(
+			HashMap<String, Boolean> controlPermisoVOs) {
+		this.controlPermisoVOs = controlPermisoVOs;
+	}
 	/**
 	 * @return the estatusObjetoVOs
 	 */
