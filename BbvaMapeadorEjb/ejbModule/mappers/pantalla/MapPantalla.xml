@@ -19,8 +19,8 @@
 			TGM534_ST_OBJETO O
 		WHERE 
 		    PD.CD_PANTALLA = P.CD_PANTALLA_PADRE AND
-			P.ST_PANTALLA = O.CD_ST_OBJETO
-			
+			P.ST_PANTALLA = O.CD_ST_OBJETO AND
+			P.ST_PANTALLA != #{idBaja} 
 			<if test="idPantallaPadre != null and idPantallaPadre != 0">
 				AND P.CD_PANTALLA_PADRE = #{idPantallaPadre}
 			</if>
