@@ -19,6 +19,7 @@ public class FlujoVO extends BbvaAbstractValueObject {
 	private int idEstatusObjeto;
 	private String nombreEstatusObjeto;
 	private String descripcionEtapa;
+	private String descripcionCmbflujos;
 	private int idBaja;
 	/**
 	 * @return the idFlujo
@@ -139,6 +140,19 @@ public class FlujoVO extends BbvaAbstractValueObject {
 	 */
 	public void setIdBaja(int idBaja) {
 		this.idBaja = idBaja;
+	}
+	/**
+	 * @return the descripcionCmbflujos
+	 */
+	public String getDescripcionCmbflujos() {
+		descripcionCmbflujos = nombreFlujo +" - "+ descripcionFlujo;
+		return descripcionCmbflujos;
+	}
+	/**
+	 * @param descripcionCmbflujos the descripcionCmbflujos to set
+	 */
+	public void setDescripcionCmbflujos(String descripcionCmbflujos) {
+		this.descripcionCmbflujos = descripcionCmbflujos;
 	}
 	
 }

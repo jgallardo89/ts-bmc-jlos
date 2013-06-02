@@ -20,6 +20,8 @@ public class MensajeSalidaVO extends BbvaAbstractValueObject {
 	private Date fechaModificacion;
 	private String tipoNotificacion;
 	private int idBaja;
+	private int numMensaje;
+	
 	/**
 	 * @return the idMensajeSalida
 	 */
@@ -128,5 +130,16 @@ public class MensajeSalidaVO extends BbvaAbstractValueObject {
 	public void setIdBaja(int idBaja) {
 		this.idBaja = idBaja;
 	}
-	
+	/**
+	 * @return the numMensaje
+	 */
+	public int getNumMensaje() {
+		return numMensaje;
+	}
+	/**
+	 * @param numMensaje the numMensaje to set
+	 */
+	public void setNumMensaje(int numMensaje) {
+		this.numMensaje = numMensaje;
+	}
 }
