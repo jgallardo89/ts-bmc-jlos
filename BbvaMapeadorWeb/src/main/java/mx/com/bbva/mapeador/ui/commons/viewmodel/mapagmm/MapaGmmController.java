@@ -120,7 +120,7 @@ public class MapaGmmController  extends ControllerSupport implements  IControlle
 
 	private MapaGmmVO mapaGmmVO;
 	private boolean executePermissionSet;
-	
+	private boolean btnGuardar = true;
 	@Override
 	public Object read() {
 		//Catalogo Estatus
@@ -150,6 +150,7 @@ public class MapaGmmController  extends ControllerSupport implements  IControlle
     }
 	
 	@Command
+	@NotifyChange({ "btnGuardar"})
 	public void readSelected(@BindingParam("idMapaGmm") final MapaGmmVO mapaGmmVO){
 		//Seteo de datos de Acuerdo al id de los compoenetes del HTML VS VO
 		mapaGmmVO.toString();
@@ -160,6 +161,7 @@ public class MapaGmmController  extends ControllerSupport implements  IControlle
 		idMapaGmm.setValue(String.valueOf(mapaGmmVO.getIdMapaGmm()));
 		
 		identificadorMapa.setDisabled(true);
+		btnGuardar = false;
 	}
 	
 	//Cambiar al objeto que pertenezca el componente en este caso mapaGmmVOs
@@ -212,7 +214,7 @@ public class MapaGmmController  extends ControllerSupport implements  IControlle
 
 	@Override
 	@Command
-	@NotifyChange({ "mapaGmmVOs" })
+	@NotifyChange({ "mapaGmmVOs", "btnGuardar" })
 	public void save() {
 		ReportesController controller = new ReportesController();
 		//Validar Todos Los campos de pantalla
@@ -267,7 +269,7 @@ public class MapaGmmController  extends ControllerSupport implements  IControlle
 				//Asignacion resultado de consulta al mismo DTO de MapaGmm
 				mapaGmmDTO = MapaGmmBO.readCommand(mapaGmmDTO);
 				
-				
+				btnGuardar = true;
 				Messagebox.show("Registro actualizado con exito!!",
 						"Confirmación", Messagebox.OK,
 						Messagebox.INFORMATION);
@@ -317,6 +319,7 @@ public class MapaGmmController  extends ControllerSupport implements  IControlle
 	
 	@Override
 	@Command
+	@NotifyChange({"btnGuardar"})
 	public void clean() {
 		//Mensajes HTML
 		identificadorMapa.clearErrorMessage();
@@ -336,6 +339,7 @@ public class MapaGmmController  extends ControllerSupport implements  IControlle
 		idStatus.setValue(null);
 		
 		identificadorMapa.setDisabled(false);
+		btnGuardar = true;
 		
 	}
 	@Override
@@ -655,4 +659,19 @@ public class MapaGmmController  extends ControllerSupport implements  IControlle
 	public void setMapaGmmVO(MapaGmmVO mapaGmmVO) {
 		this.mapaGmmVO = mapaGmmVO;
 	}
+
+	/**
+	 * @return the btnGuardar
+	 */
+	public boolean isBtnGuardar() {
+		return btnGuardar;
+	}
+
+	/**
+	 * @param btnGuardar the btnGuardar to set
+	 */
+	public void setBtnGuardar(boolean btnGuardar) {
+		this.btnGuardar = btnGuardar;
+	}
+	
 }
