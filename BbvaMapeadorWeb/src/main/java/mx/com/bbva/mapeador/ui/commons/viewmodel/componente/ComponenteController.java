@@ -42,16 +42,7 @@ public class ComponenteController extends ControllerSupport implements  IControl
 
 	private static final long serialVersionUID = -3505275489025917085L;
 	private static final Logger logger = Logger.getLogger(PantallaController.class);
-	
-	public SessionUser getSessionUser(){
-		logger.debug( "Entrada getSessionUser          -- OK" );		
-		String cveUsuario = null;
-		logger.debug( "Datos de usuario -- " + cveUsuario);
-		SessionUser sessionUser = new SessionUser();
-		sessionUser.setCveUsuario(cveUsuario);
-		logger.debug( "Salida getSessionUser          -- OK" );
-		return sessionUser;
-	}
+		
 	@Wire
 	private Textbox idComponente;
 	@Wire
@@ -134,7 +125,7 @@ public class ComponenteController extends ControllerSupport implements  IControl
 		ComponenteVO componenteVO = new ComponenteVO();			
 		//Textbox
 		componenteVO.setNombreComponente(nombreComponente.getValue().isEmpty()?"%":"%"+nombreComponente.getValue()+"%");
-		componenteVO.setIdTipoComponente(Integer.parseInt(tipoComponente.getSelectedItem().getValue().toString())); 
+		componenteVO.setIdTipoComponente(tipoComponente.getSelectedItem()==null?0:Integer.parseInt(tipoComponente.getSelectedItem().getValue().toString())); 
 		
 		//Combos Validar el nombre de los parametros en HTML VS Controller
 		componenteVO.setIdPantalla((Integer.parseInt(idPantalla.getValue().isEmpty()?"0":idPantalla.getValue())));
