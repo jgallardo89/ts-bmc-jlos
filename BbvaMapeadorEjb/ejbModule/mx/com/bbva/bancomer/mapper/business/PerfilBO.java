@@ -8,9 +8,11 @@ import javax.ejb.Stateless;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.log4j.Logger;
 
+import mappers.componente.MapComponente;
 import mappers.perfil.MapPerfil;
 import mappers.producto.MapProducto;
 import mappers.usuario.MapUsuario;
+import mx.com.bbva.bancomer.bussinnes.model.vo.ComponenteVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.ControlPermisoVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.PerfilVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.ProductoVO;
@@ -31,22 +33,24 @@ public class PerfilBO implements mx.com.bbva.bancomer.commons.business.BbvaIBusi
 			T bbvaAbstractDataTransferObject) {
 		logger.debug( "Entrada createCommand          -- OK" );
 		logger.debug( "Datos de Entrada createCommand -- " + bbvaAbstractDataTransferObject.toString() );
-		PerfilVO perfilVO = ((PerfilDTO)bbvaAbstractDataTransferObject).getPerfilVO();
-		List<ControlPermisoVO> controlPermisoVOs = perfilVO.getControlPermisoVOs();
-		ControlPermisoVO controlPermisoVO;		
+		PerfilVO perfilVO = ((PerfilDTO)bbvaAbstractDataTransferObject).getPerfilVO();						
 		SqlSession session = MapeadorSessionFactory.getSqlSessionFactory()
 				.openSession();
 		MapPerfil mapPerfil = session.getMapper(MapPerfil.class);
 		try {
-			mapPerfil.actualizarPerfil(perfilVO);
-			if(controlPermisoVOs.size()>0){
-				controlPermisoVO = new ControlPermisoVO();
-				controlPermisoVO.setIdComponente(controlPermisoVOs.get(0).getIdComponente());
-				controlPermisoVO.setIdPerfil(controlPermisoVOs.get(0).getIdPerfil());				
-				mapPerfil.eliminarPermisos(controlPermisoVO);
-			}
-			for (ControlPermisoVO controlPermisoVO2 : controlPermisoVOs) {
-				mapPerfil.insertarPermiso(controlPermisoVO2);
+			mapPerfil.insertarPerfil(perfilVO);				
+			if(perfilVO.getIdPerfilACopiar()!=null){
+				MapComponente mapComponente = session.getMapper(MapComponente.class);				
+				ComponenteVO componenteVO = new ComponenteVO();
+				componenteVO.setIdPerfil(perfilVO.getIdPerfilACopiar());
+				List<ComponenteVO> componenteVOs = mapComponente.obtenerComponentesPantallaPerfilAll(componenteVO);
+				ControlPermisoVO controlPermisoVO;
+				for (ComponenteVO componenteVO2 : componenteVOs) {
+					controlPermisoVO = new ControlPermisoVO();
+					controlPermisoVO.setIdComponente(componenteVO2.getIdComponente());
+					controlPermisoVO.setIdPerfil(perfilVO.getIdPerfil());
+					mapPerfil.insertarPermiso(controlPermisoVO);
+				}
 			}
 			session.commit();
 		} catch (Exception ex) {
@@ -56,7 +60,7 @@ public class PerfilBO implements mx.com.bbva.bancomer.commons.business.BbvaIBusi
 			session.close();
 		}
 		logger.debug( "Datos de Salida invoke -- " + bbvaAbstractDataTransferObject.toString() );
-		logger.debug( "Salida invoke          -- OK" );
+		logger.debug( "Salida invoke          -- OK" );		
 		return bbvaAbstractDataTransferObject;
 	}
 
@@ -73,7 +77,8 @@ public class PerfilBO implements mx.com.bbva.bancomer.commons.business.BbvaIBusi
 			try {
 				if(bbvaAbstractDataTransferObject.getCommandId()==CommandConstants.PERFIL_COMMAND_READ_ALL){
 					PerfilVO perfilVO = ((PerfilDTO)bbvaAbstractDataTransferObject).getPerfilVO();
-					List<PerfilVO> result = null;				
+					List<PerfilVO> result = null;		
+					logger.debug("perfilVO--->:"+perfilVO.toString());
 					result = mapPerfil.obtenerPerfiles(perfilVO);
 					((PerfilDTO)bbvaAbstractDataTransferObject).setPerfilVOs(result);
 				}
@@ -109,19 +114,26 @@ public class PerfilBO implements mx.com.bbva.bancomer.commons.business.BbvaIBusi
 		logger.debug( "Entrada createCommand          -- OK" );
 		logger.debug( "Datos de Entrada createCommand -- " + bbvaAbstractDataTransferObject.toString() );
 		PerfilVO perfilVO = ((PerfilDTO)bbvaAbstractDataTransferObject).getPerfilVO();		
-		List<ControlPermisoVO> controlPermisoVOs = perfilVO.getControlPermisoVOs();
-		ControlPermisoVO controlPermisoVO;		
+		List<ControlPermisoVO> controlPermisoVOs = perfilVO.getControlPermisoVOs();		
 		SqlSession session = MapeadorSessionFactory.getSqlSessionFactory()
 				.openSession();
 		MapPerfil mapPerfil = session.getMapper(MapPerfil.class);
 		try {
 			mapPerfil.actualizarPerfil(perfilVO);
+			logger.debug("controlPermisoVOs:"+controlPermisoVOs);
 			if(controlPermisoVOs!= null){				
-				if(controlPermisoVOs.size()>0){
+				
+				ComponenteVO componenteVO = new ComponenteVO();
+				List<ComponenteVO> componenteVOs = null;
+				componenteVO.setIdPantalla(perfilVO.getIdPantalla());				
+				MapComponente mapComponente = session.getMapper(MapComponente.class);
+				componenteVOs = mapComponente.obtenerComponentesParaEliminar(componenteVO);
+				ControlPermisoVO controlPermisoVO;
+				for (ComponenteVO componenteVOToDelete : componenteVOs) {
 					controlPermisoVO = new ControlPermisoVO();
-					controlPermisoVO.setIdComponente(controlPermisoVOs.get(0).getIdComponente());
-					controlPermisoVO.setIdPerfil(controlPermisoVOs.get(0).getIdPerfil());				
-					mapPerfil.eliminarPermisos(controlPermisoVO);
+					controlPermisoVO.setIdComponente(componenteVOToDelete.getIdComponente());
+					controlPermisoVO.setIdPerfil(perfilVO.getIdPerfil());
+					mapPerfil.eliminarPermisos(controlPermisoVO);				
 				}
 				for (ControlPermisoVO controlPermisoVO2 : controlPermisoVOs) {
 					mapPerfil.insertarPermiso(controlPermisoVO2);

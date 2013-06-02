@@ -3,16 +3,34 @@
 <mapper namespace="mappers.perfil.MapPerfil">
 	<select id="obtenerPerfiles" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.PerfilVO"
 		resultType="mx.com.bbva.bancomer.bussinnes.model.vo.PerfilVO">		
-		SELECT P.TX_PERFIL AS descripcionPerfil,
-		  P.ST_PERFIL      AS estatusPerfil,
-		  P.Cd_Perfil      As idPerfil,
-		  P.Nb_Perfil      As nombrebPerfil,
-		  O.Nb_St_Objeto As descipcionEstatus
-		From Tgm504_Perfil P,
-		  Tgm534_St_Objeto o
-		Where P.St_Perfil  = O.Cd_St_Objeto
-		<if test="descipcionEstatus != null and descipcionEstatus!=0">
-			and St_Perfil = #{descipcionEstatus}	
+		SELECT unique perfil.TX_PERFIL AS descripcionPerfil,
+		  perfil.ST_PERFIL      AS estatusPerfil,
+		  perfil.Cd_Perfil      As idPerfil,
+		  perfil.Nb_Perfil      As nombrebPerfil,
+		  estatus.Nb_St_Objeto As descipcionEstatus		 
+		FROM Tgm504_Perfil Perfil,
+		  <if test="idPantalla != null and idPantalla != -1 and idPantalla != 0">				
+		  Tgm501_Pantalla pantalla,	
+		  	Tgm505_Ctrlpermiso Permiso,
+		  	Tgm502_Componente Componente,
+		  </if>		  		  	
+		  Tgm534_St_Objeto Estatus
+		Where Perfil.St_Perfil != 26
+		And Estatus.Cd_St_Objeto = Perfil.St_Perfil
+		<if test="idPantalla != null and idPantalla != -1 and idPantalla != 0">
+			and Pantalla.Cd_Pantalla = Componente.Cd_Pantalla
+			AND Permiso.Cd_Componente  = Componente.Cd_Componente
+			And Perfil.Cd_Perfil      = Permiso.Cd_Perfil
+			And Componente.Cd_Pantalla = #{idPantalla}
+		</if>
+		<if test="descripcionPerfil != null">
+			and TX_PERFIL like #{descripcionPerfil}	
+		</if>
+		<if test="nombrebPerfil != null">
+			and Nb_Perfil like #{nombrebPerfil}	
+		</if>		
+		<if test="estatusPerfil != null and estatusPerfil != -1 and estatusPerfil != 0">
+			and St_Perfil = #{estatusPerfil}	
 		</if>
 	</select>
 	<insert id="insertarPermiso" keyProperty="idPantalla" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.ControlPermisoVO">
@@ -46,7 +64,7 @@
 	</delete>
 	<insert id="insertarPerfil" keyProperty="idPantalla" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.PerfilVO">
 		<selectKey keyProperty="idPerfil" resultType="int" order="BEFORE"> 
-			<![CDATA[ select SQ_PERFIL.nextval as idPerfil from dual ]]> 
+			<![CDATA[ select SQ_504_PERFIL.nextval as idPerfil from dual ]]> 
 		</selectKey>
 		Insert Into Tgm504_Perfil
 		(
@@ -58,7 +76,7 @@
 		Values 
 		(
 			#{idPerfil},
-			#{nombrePerfil},
+			#{nombrebPerfil},
 			#{descripcionPerfil},
 			#{estatusPerfil}
 		)

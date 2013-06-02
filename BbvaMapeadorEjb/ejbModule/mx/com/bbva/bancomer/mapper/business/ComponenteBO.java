@@ -88,6 +88,12 @@ public class ComponenteBO implements mx.com.bbva.bancomer.commons.business.BbvaI
 					}else if(bbvaAbstractDataTransferObject.getCommandId()!=null && bbvaAbstractDataTransferObject.getCommandId().equals(CommandConstants.COMPONENTE_PANTALLA_PERFIL)){
 						componenteVOs = mapComponente.obtenerComponentesPantallaPerfil(componenteVO);
 						((ComponenteDTO)bbvaAbstractDataTransferObject).setComponentePantallaPerfilVOs(componenteVOs);
+					}else if(bbvaAbstractDataTransferObject.getCommandId()!=null && bbvaAbstractDataTransferObject.getCommandId().equals(CommandConstants.COMPONENTE_PANTALLA_PERFIL_ALL)){
+						componenteVOs = mapComponente.obtenerComponentesPantallaPerfilAll(componenteVO);
+						((ComponenteDTO)bbvaAbstractDataTransferObject).setComponentePantallaPerfilAllVOs(componenteVOs);
+					}else if(bbvaAbstractDataTransferObject.getCommandId()!=null && bbvaAbstractDataTransferObject.getCommandId().equals(CommandConstants.COMPONENTE_PANTALLA_REFERENCE_PERFIL)){
+						componenteVOs = mapComponente.obtenerComponentesDetallePerfil(componenteVO);
+						((ComponenteDTO)bbvaAbstractDataTransferObject).setComponentePantallaPerfilAllVOs(componenteVOs);
 					}else{
 						MapTipoComponente mapTipoComponente = session.getMapper(MapTipoComponente.class);
 						componenteVOs = mapComponente.obtenerComponentes(componenteVO);

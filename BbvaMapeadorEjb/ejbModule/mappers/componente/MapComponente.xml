@@ -22,7 +22,7 @@
 				AND  C.NB_COMPONENTE LIKE #{nombreComponente}
 			</if>			
 			<if test="idTipoComponente != 0 and idTipoComponente != null">
-				AND  C.TP_COMPONENTE LIKE #{idTipoComponente}
+				AND  C.TP_COMPONENTE = #{idTipoComponente}
 			</if>	
 				ORDER BY C.CD_COMPONENTE
 	</select>
@@ -59,10 +59,8 @@
 		From Tgm502_Componente Componente,
     	tgm505_ctrlpermiso control
 		Where Componente.Cd_Default = 'F'    
-		And Componente.Cd_Pantalla = #{idPantalla}
-		<if test="idPerfil != null and idPerfil != 0 idPerfil and != -1" >
-			And Control.Cd_Perfil = #{idPerfil}
-		</if>
+		And Componente.Cd_Pantalla = #{idPantalla}		
+		And Control.Cd_Perfil = #{idPerfil}		
     	And Control.Cd_Componente = componente.cd_componente    
 	</select>
 	<select id="obtenerComponentesPantallaPerfil" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.ComponenteVO"
@@ -77,6 +75,50 @@
     	And Control.Cd_Componente = componente.cd_componente
     	And Componente.Cd_Pantalla = #{idPantalla}    	
     	And Control.Cd_Perfil = #{idPerfil}
+	</select>
+	<select id="obtenerComponentesPantallaPerfilAll" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.ComponenteVO"
+		resultType="mx.com.bbva.bancomer.bussinnes.model.vo.ComponenteVO">	
+		SELECT Componente.Cd_Pantalla idPantalla,
+		  Componente.Cd_Componente Idcomponente,
+		  Concat(Pantalla.nb_Pantalla,Concat('--', Componente.Nb_Componente)) nombreComponente,
+		  Componente.Cd_Default Iddefault,
+		  Pantalla.Nb_Pantalla pantalla
+		FROM Tgm502_Componente Componente,
+		  Tgm505_Ctrlpermiso Control,
+		  Tgm501_Pantalla pantalla
+		WHERE Componente.Cd_Default = 'F'
+		AND Control.Cd_Componente   = Componente.Cd_Componente
+		AND Pantalla.Cd_Pantalla    = Componente.Cd_Pantalla    	    
+    	And Control.Cd_Perfil = #{idPerfil}
+    	Order By Pantalla.Nb_Pantalla, 
+    	Componente.Nb_Componente
+	</select>
+	<select id="obtenerComponentesParaEliminar" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.ComponenteVO"
+		resultType="mx.com.bbva.bancomer.bussinnes.model.vo.ComponenteVO">
+		Select CD_COMPONENTE idComponente
+		From Tgm502_Componente
+		Where Cd_Default = 'F'
+		and Cd_Pantalla = #{idPantalla}
+	</select>
+	<select id="obtenerComponentesDetallePerfil" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.ComponenteVO"
+		resultType="mx.com.bbva.bancomer.bussinnes.model.vo.ComponenteVO">
+		Select Perfil.Nb_Perfil nombrePerfil,
+	      Componente.Cd_Pantalla idPantalla,
+			  Componente.Cd_Componente idComponente,
+			  Componente.Nb_Componente nombreComponente,
+			  Componente.Cd_Default idDefault,
+			  Pantalla.Nb_Pantalla nombrePantalla
+			FROM Tgm502_Componente Componente,
+			  Tgm505_Ctrlpermiso Control,
+			  Tgm501_Pantalla Pantalla,
+	      Tgm504_Perfil Perfil
+			WHERE Componente.Cd_Default = 'F'
+			And Control.Cd_Componente   = Componente.Cd_Componente
+	    AND Perfil.Cd_Perfil = Control.Cd_Perfil
+			AND Pantalla.Cd_Pantalla    = Componente.Cd_Pantalla    	    
+	    	And Control.Cd_Perfil = #{idPerfil}
+	    	Order By Pantalla.Nb_Pantalla, 
+	    	Componente.Nb_Componente
 	</select>
 	<update id="actualizarComponente" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.ComponenteVO">
 		UPDATE TGM502_COMPONENTE SET  
