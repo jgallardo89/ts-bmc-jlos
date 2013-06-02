@@ -137,9 +137,10 @@ public class MonitoreoArchivosController extends ControllerSupport implements  I
 	}
 
 	@Override
+	@Command
 	public void clean() {
-		// TODO Auto-generated method stub
-		
+		statusPapa.setValue(null);
+		statusHijo.setValue(null);
 	}
 
 	/**
