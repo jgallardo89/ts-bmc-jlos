@@ -8,6 +8,8 @@ public abstract interface CommandConstants {
 	public static final int ESTATUS_OBJETO_CONTRATACION_ACTIVO = 21;
 	public static final int ESTATUS_OBJETO_ACTIVO_CLIENTES = 4;	
 	public static final int ESTATUS_OBJETO_PRODUCTO_BAJA = 9;
+	public static final int ESTATUS_OBJETO_PRODUCTO_ACTIVO = 7;
+	public static final int ESTATUS_OBJETO_MENSAJE_SALIDA_ACTIVO = 15;
 	public static final int ESTATUS_OBJETO_MENSAJE_SALIDA_BAJA = 17;
 	public static final int ESTATUS_OBJETO_PANTALLA_SALIDA_BAJA = 33;
 	public static final int ESTATUS_OBJETO_FLUJO_BAJA = 12;
