@@ -18,6 +18,20 @@ public class ComponenteDTO extends BbvaAbstractDataTransferObject {
 	private List<ComponenteVO> ComponenteVOs;
 	private List<ComponenteVO> componentePantallaVOs;
 	private List<ComponenteVO> ComponentePantallaPerfilVOs;
+	private List<ComponenteVO> componentePantallaPerfilAllVOs;
+	/**
+	 * @return the componentePantallaPerfilAllVOs
+	 */
+	public final List<ComponenteVO> getComponentePantallaPerfilAllVOs() {
+		return componentePantallaPerfilAllVOs;
+	}
+	/**
+	 * @param componentePantallaPerfilAllVOs the componentePantallaPerfilAllVOs to set
+	 */
+	public final void setComponentePantallaPerfilAllVOs(
+			List<ComponenteVO> componentePantallaPerfilAllVOs) {
+		this.componentePantallaPerfilAllVOs = componentePantallaPerfilAllVOs;
+	}
 	private List<TipoComponenteVO> tipoComponenteVOs;
 	/**
 	 * @return the tipoComponenteVOs
