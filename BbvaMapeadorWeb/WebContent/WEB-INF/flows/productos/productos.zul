@@ -34,7 +34,7 @@
 												<combobox sclass="textboxUpperCase" onChange="selectedValueFlujo()"
 													id="flujo" width="70%" model="@load(vm.flujoVOs)" autodrop="true">		
 													<template name="model">										
-														<comboitem value="@load(each.idFlujo)" label="@load(each.nombreFlujo)" height="100%"/>
+														<comboitem value="@load(each.idFlujo)" label="@load(each.descripcionCmbflujos)" height="100%"/>
 													</template>																								
 												</combobox>
 												<div align="right">
@@ -63,11 +63,11 @@
 												<div align="right">
 													<label id="lblFechaAlta" width="100%" sclass="labelFill" value="Fecha alta:"></label>												
 												</div>
-												<datebox value="@load(vm.productoDTO.productoVO.fechaAlta)"  maxlength="50"  width="100%" id="fechaAlta" readonly="true" buttonVisible="false" onCreate="self.value = new Date()" format="dd/MM/yyyy HH:MM:SS"></datebox>
+												<datebox value="@load(vm.productoDTO.productoVO.fechaAlta)"  maxlength="50"  width="100%" id="fechaAlta" readonly="true" buttonVisible="false" onCreate="self.value = new Date()" format="dd/MM/yyyy HH:mm"></datebox>
 												<div align="right">
 													<label id="lblFechaMod" width="100%" sclass="labelFill" value="Fecha modificación:"></label>												
 												</div>
-												<datebox value="@load(vm.productoDTO.productoVO.fechaModificacion)"  maxlength="50"  width="100%" id="fechaModificacion" readonly="true" buttonVisible="false" onCreate="self.value = new Date()" format="dd/MM/yyyy HH:MM:SS"></datebox>
+												<datebox value="@load(vm.productoDTO.productoVO.fechaModificacion)"  maxlength="50"  width="100%" id="fechaModificacion" readonly="true" buttonVisible="false" onCreate="self.value = new Date()" format="dd/MM/yyyy HH:mm"></datebox>
 											</row>
 											<row sclass="row2">
 												<div align="right" width="70%">
@@ -121,8 +121,8 @@
 											<label hflex="1" value="@load(each.nombreProducto)"></label>
 											<label hflex="1" value="@load(each.descripcionProducto)"></label>
 											<label hflex="1" value="@load(each.nombreFlujo)"></label>
-											<label hflex="1" value="@load(each.fechaAlta) @converter('formatedDate', format='dd/MM/yyyy  HH:MM')"></label>
-											<label hflex="1" value="@load(each.fechaModificacion) @converter('formatedDate', format='dd/MM/yyyy  HH:MM')"></label>
+											<label hflex="1" value="@load(each.fechaAlta) @converter('formatedDate', format='dd/MM/yyyy  HH:mm')"></label>
+											<label hflex="1" value="@load(each.fechaModificacion) @converter('formatedDate', format='dd/MM/yyyy  HH:mm')"></label>
 											<label hflex="1" value="@load(each.nombreEstatusObjeto)"></label>																							
 										</row>
 									</template>									

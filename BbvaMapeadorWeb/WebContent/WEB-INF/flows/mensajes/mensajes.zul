@@ -3,7 +3,7 @@
 <?meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7"?>
 <?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
 <zk>
-	<window border="0" width="100%" height="100%"
+	<window border="0" width="100%" height="120%"
 		apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('mx.com.bbva.mt101.ui.commons.viewmodel.mensajes.MensajesController')"
 		id="mensajesWindows">
@@ -55,11 +55,11 @@
 												<div align="right">
 													<label id="lblFechaAlta" width="100%" sclass="labelFill" value="Fecha alta: "></label>												
 												</div>
-												<datebox height="20px" value="@load(vm.mensajeSalidaDTO.mensajeSalidaVO.fechaAlta)" maxlength="50" width="100%" id="fechaAlta" readonly="true" buttonVisible="false" onCreate="self.value = new Date()" format="dd/MM/yyyy HH:MM"></datebox>
+												<datebox height="20px" value="@load(vm.mensajeSalidaDTO.mensajeSalidaVO.fechaAlta)" maxlength="50" width="100%" id="fechaAlta" readonly="true" buttonVisible="false" onCreate="self.value = new Date()" format="dd/MM/yyyy HH:mm"></datebox>
 												<div align="right">
 													<label id="lblFechaModificacion" width="100%" sclass="labelFill" value="Descripción flujo: "></label>												
 												</div>
-												<datebox height="20px" value="@load(vm.mensajeSalidaDTO.mensajeSalidaVO.fechaModificacion)" maxlength="50" width="100%" id="fechaModificacion" readonly="true" buttonVisible="false" onCreate="self.value = new Date()" format="dd/MM/yyyy HH:MM"></datebox>																										
+												<datebox height="20px" value="@load(vm.mensajeSalidaDTO.mensajeSalidaVO.fechaModificacion)" maxlength="50" width="100%" id="fechaModificacion" readonly="true" buttonVisible="false" onCreate="self.value = new Date()" format="dd/MM/yyyy HH:mm"></datebox>																										
 											</row>
 											<row sclass="row2">	
 												<div align="right" width="70%">
@@ -110,8 +110,8 @@
 											<image src="/img/pencil-small.png" onClick="@command('readSelected',idMensajeSalida=each)"></image>											
 											<label hflex="1" value="@load(each.nombreMensajeSalida)"></label>
 											<label hflex="1" value="@load(each.descripcionMensajeSalida)"></label>
-											<label hflex="1" value="@load(each.fechaAlta)  @converter('formatedDate', format='dd/MM/yyyy  HH:MM')"></label>
-											<label hflex="1" value="@load(each.fechaModificacion)  @converter('formatedDate', format='dd/MM/yyyy  HH:MM')"></label>
+											<label hflex="1" value="@load(each.fechaAlta)  @converter('formatedDate', format='dd/MM/yyyy  HH:mm')"></label>
+											<label hflex="1" value="@load(each.fechaModificacion)  @converter('formatedDate', format='dd/MM/yyyy  HH:mm')"></label>
 											<label hflex="1" value="@load(each.nombreEstatusObjeto)"></label>																					
 										</row>
 									</template>									
@@ -121,7 +121,7 @@
 					</groupbox>
 				</vlayout>								
 			</groupbox>	
-			<textbox id="idEstatusObjeto" value="@load(vm.idStrEstatusObjeto)" visible="true"></textbox>
+			<textbox id="idEstatusObjeto" value="@load(vm.idStrEstatusObjeto)" visible="false"></textbox>
 			<textbox id="idMensajeSalida" value="@load(vm.mensajeSalidaDTO.mensajeSalidaVO.idMensajeSalida)" visible="true"></textbox>
 		</div>
 		<zscript>

@@ -3,7 +3,7 @@
 <?meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7"?>
 <?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
 <zk>
-	<window border="0" width="100%" height="100%"
+	<window border="0" width="100%" height="150%"
 		apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('mx.com.bbva.mt101.ui.commons.viewmodel.bitacoraWeb.BitacoraWebController')"
 		id="bitacoraWebWindows">
@@ -31,11 +31,11 @@
 												<div align="right">
 													<label id="lblFechaInicio" width="100%" sclass="labelFill" value="Fecha inicio:  "></label>												
 												</div>
-												<datebox value="@load(vm.bitacoraDTO.bitacoraVO.fechaInicio) @converter('formatedDate', format='dd/MM/yyyy')" maxlength="50" width="100%" id="fechaInicio" readonly="true" buttonVisible="true" onCreate="self.value = new Date()" format="dd/MM/yyyy"></datebox>
+												<datebox value="@load(vm.bitacoraDTO.bitacoraVO.fechaInicio) @converter('formatedDate', format='dd/MM/yyyy')" maxlength="50" width="100%" id="fechaInicio" readonly="true" buttonVisible="true" onCreate="self.value = new Date()" format="dd/MM/yyyy 00:00"></datebox>
 												<div align="right">
 													<label id="lblFechaFin" width="100%" sclass="labelFill" value="a: "></label>												
 												</div>
-												<datebox value="@load(vm.bitacoraDTO.bitacoraVO.fechaFin) @converter('formatedDate', format='dd/MM/yyyy')" maxlength="50" width="100%" id="fechaFin" readonly="true" buttonVisible="true" onCreate="self.value = new Date()" format="dd/MM/yyyy"></datebox>																												
+												<datebox value="@load(vm.bitacoraDTO.bitacoraVO.fechaFin) @converter('formatedDate', format='dd/MM/yyyy')" maxlength="50" width="100%" id="fechaFin" readonly="true" buttonVisible="true" onCreate="self.value = new Date()" format="dd/MM/yyyy 23:59"></datebox>																												
 											</row>
 											<row sclass="row2">
 												<div align="right">
@@ -62,7 +62,7 @@
 												</div>										
 												<div align="right" width="70%">
 													<image id="reporteExcelBtn" src="/img/xls.png" onClick="@command('onShowReport',type='xls')" />
-													<image id="reporteCsvBtn" src="/img/csv.png" onClick="@command('onShowReport',type='csv')" />
+													<image id="reporteCsvBtn" src="/img/csv.png" onClick="@command('onShowReport',type='txt')" />
 												</div>	
 												<div align="right" width="82%">
 													<button sclass="button" image="/img/search.png" label="Consultar" id="consultarBtn" onClick="@command('readWithFilters')"></button>
@@ -98,7 +98,7 @@
 									</columns>
 									<template name="model">
 										<row>
-											<label hflex="1" value="@load(each.fechaBitacora)  @converter('formatedDate', format='dd/MM/yyyy')"></label>
+											<label hflex="1" value="@load(each.fechaBitacora)  @converter('formatedDate', format='dd/MM/yyyy hh:mm')"></label>
 											<label hflex="1" value="@load(each.nombreUsuario)"></label>
 											<label hflex="1" value="@load(each.descripcionBitacoraWeb)"></label>
 											<image src="/img/detalle.jpg" onClick="@command('readEventDetail',idBitacora=each)"></image>																					
