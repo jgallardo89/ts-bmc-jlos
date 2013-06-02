@@ -37,6 +37,32 @@ public	class 	PerfilVO
 	private java.lang.String	nombrebPerfil;		//	30 caracteres
 	private java.lang.String	descipcionEstatus;
 	private java.util.List<ControlPermisoVO> controlPermisoVOs;
+	private java.lang.Integer 	idPantalla;
+	private java.lang.Integer 	idPerfilACopiar;
+	/**
+	 * @return the idPerfilACopiar
+	 */
+	public final java.lang.Integer getIdPerfilACopiar() {
+		return idPerfilACopiar;
+	}
+	/**
+	 * @param idPerfilACopiar the idPerfilACopiar to set
+	 */
+	public final void setIdPerfilACopiar(java.lang.Integer idPerfilACopiar) {
+		this.idPerfilACopiar = idPerfilACopiar;
+	}
+	/**
+	 * @return the idPantalla
+	 */
+	public final java.lang.Integer getIdPantalla() {
+		return idPantalla;
+	}
+	/**
+	 * @param idPantalla the idPantalla to set
+	 */
+	public final void setIdPantalla(java.lang.Integer idPantalla) {
+		this.idPantalla = idPantalla;
+	}
 	/**
 	 * @return the controPermisoVOs
 	 */
