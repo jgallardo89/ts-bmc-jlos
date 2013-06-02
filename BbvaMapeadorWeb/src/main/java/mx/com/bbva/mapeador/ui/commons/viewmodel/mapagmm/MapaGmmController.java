@@ -175,8 +175,8 @@ public class MapaGmmController  extends ControllerSupport implements  IControlle
 		//Fechas
 		DateFormat dateFormat= new SimpleDateFormat("yyyy-MM-dd");
 		logger.debug(" :::::::::::: "+dateFormat.format(fechaAlta.getValue()));
-		mapaGmmVO.setFechaAlta(fechaAlta.getValue());
-		mapaGmmVO.setFechaModificacion(fechaModificacion.getValue());
+//		mapaGmmVO.setFechaAlta(fechaAlta.getValue());
+//		mapaGmmVO.setFechaModificacion(fechaModificacion.getValue());
 		
 		//Combos Validar el nombre de los parametros en HTML VS Controller
 		mapaGmmVO.setIdEstatusObjeto((Integer.parseInt(idStatus.getValue().isEmpty()?"0":idStatus.getValue())));
