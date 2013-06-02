@@ -22,6 +22,7 @@ public class BitacoraVO extends BbvaAbstractValueObject {
 	private String nombreEventoMapeador;
 	private String fechaInicio;
 	private String fechaFin;
+	private String descripcionBitacoraWeb;
 	
 	/**
 	 * @return the idBitacora
@@ -155,6 +156,19 @@ public class BitacoraVO extends BbvaAbstractValueObject {
 	 */
 	public void setFechaFin(String fechaFin) {
 		this.fechaFin = fechaFin;
+	}
+	/**
+	 * @return the descripcionBitacoraWeb
+	 */
+	public String getDescripcionBitacoraWeb() {
+		this.descripcionBitacoraWeb = nombreEventoMapeador +" - "+ nombreBitacora;
+		return descripcionBitacoraWeb;
+	}
+	/**
+	 * @param descripcionBitacoraWeb the descripcionBitacoraWeb to set
+	 */
+	public void setDescripcionBitacoraWeb(String descripcionBitacoraWeb) {
+		this.descripcionBitacoraWeb = descripcionBitacoraWeb;
 	}
 	
 }
