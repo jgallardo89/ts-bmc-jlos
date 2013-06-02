@@ -69,4 +69,11 @@
 			TP_NOTIFICACION = 'N'
 		ORDER BY CD_MENSAJE_SALIDA
 	</select>
+	<select id="validaMensajesSalida" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.MensajeSalidaVO"
+		resultType="mx.com.bbva.bancomer.bussinnes.model.vo.MensajeSalidaVO">
+		SELECT COUNT(*) numMensaje
+		FROM TGM516_MENSAJE_SAL 
+		WHERE NB_MENSAJE_SALIDA = #{nombreMensajeSalida}
+		AND CD_ST_OBJETO != #{idBaja}
+	</select>
 </mapper>

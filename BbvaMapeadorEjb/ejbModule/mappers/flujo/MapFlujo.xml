@@ -50,9 +50,10 @@
 		resultType="mx.com.bbva.bancomer.bussinnes.model.vo.FlujoVO">
 			SELECT
 				CD_FLUJO idFlujo,
-				NB_FLUJO nombreFlujo
-			FROM
-				TGM513_FLUJO FLUJO
+				NB_FLUJO nombreFlujo,
+				TX_FLUJO descripcionFlujo
+			FROM TGM513_FLUJO FLUJO
+			WHERE FLUJO.CD_ST_OBJETO != #{idBaja}
 			ORDER BY CD_FLUJO
 	</select>
 </mapper>

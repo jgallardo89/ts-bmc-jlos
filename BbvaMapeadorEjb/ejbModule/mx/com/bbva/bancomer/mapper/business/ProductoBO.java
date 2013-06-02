@@ -101,7 +101,7 @@ public class ProductoBO implements
 		}
 	}
 	
-	public <T extends BbvaAbstractDataTransferObject> T readCommand(ProductoVO productoVO) {
+	public <T extends BbvaAbstractDataTransferObject> T readCommandCmb(ProductoVO productoVO) {
 		ProductoDTO productoDTO = new ProductoDTO();
 		try {
 			logger.debug("Entrada readCmbCommand -- OK");

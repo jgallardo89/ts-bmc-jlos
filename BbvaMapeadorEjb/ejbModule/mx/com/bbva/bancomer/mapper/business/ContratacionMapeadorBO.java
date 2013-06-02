@@ -95,6 +95,42 @@ public class ContratacionMapeadorBO implements
 			return bbvaAbstractDataTransferObject;
 		}
 	}
+	
+	
+	public boolean readCommandValidaMensajeContratMap(ContratacionMapVO contratacionMapVO) {
+		boolean result = false;
+		try {
+			logger.debug("Entrada readCommand          -- OK");
+			logger.debug("Datos de Entrada readCommand -- "
+					+ contratacionMapVO.toString());
+			try {
+				SqlSession session = MapeadorSessionFactory
+						.getSqlSessionFactory().openSession();
+				MapContratacionMapeador contratacionMapeador 	= session.getMapper(MapContratacionMapeador.class);
+				try {
+					System.out.println("(((((((((((((((((((( " + contratacionMapVO.getIdMensajeSalida());
+					contratacionMapVO = contratacionMapeador.validaMensajeContratacionMap(contratacionMapVO);
+					if(contratacionMapVO.getNumMensaje() == 0)
+						result = true;
+					else
+						result = false;
+					session.commit();
+				} catch (Exception ex) {
+					session.rollback();
+					ex.printStackTrace();
+				} finally {
+					session.close();
+				}
+				return result;
+			} catch (Exception ex) {
+				ex.printStackTrace();
+				return result;
+			}
+		} catch (Exception exception) {
+			exception.printStackTrace();
+			return result;
+		}
+	}
 
 	@Override
 	public <T extends BbvaAbstractDataTransferObject> T updateCommand(

@@ -4,11 +4,8 @@ import java.util.List;
 
 import javax.ejb.Stateless;
 
-import mappers.cliente.MapCliente;
 import mappers.mensajesalida.MapMensajeSalida;
-import mx.com.bbva.bancomer.bussinnes.model.vo.ClienteVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.MensajeSalidaVO;
-import mx.com.bbva.bancomer.cliente.dto.ClienteDTO;
 import mx.com.bbva.bancomer.commons.command.CommandConstants;
 import mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject;
 import mx.com.bbva.bancomer.mensajesalida.dto.MensajeSalidaDTO;
@@ -98,6 +95,42 @@ public class MensajeSalidaBO implements
 		} catch (Exception exception) {
 			exception.printStackTrace();
 			return bbvaAbstractDataTransferObject;
+		}
+	}
+	
+	public boolean readCommandValidaMensaje(MensajeSalidaVO mensajeSalidaVO) {
+		boolean result = false;
+		try {
+			logger.debug("Entrada createCommand          -- OK");
+			logger.debug("Datos de Entrada createCommand -- "
+					+ mensajeSalidaVO.toString());
+			try {
+				SqlSession session = MapeadorSessionFactory
+						.getSqlSessionFactory().openSession();
+				MapMensajeSalida mapMensajeSalida = session.getMapper(MapMensajeSalida.class);
+				try {
+					mensajeSalidaVO.setIdBaja(CommandConstants.ESTATUS_OBJETO_MENSAJE_SALIDA_BAJA);
+					System.out.println("(((((((((((((((((((( " + mensajeSalidaVO.getNombreMensajeSalida());
+					mensajeSalidaVO = mapMensajeSalida.validaMensajesSalida(mensajeSalidaVO);
+					if (mensajeSalidaVO.getNumMensaje() == 0)
+						result = true;
+					else
+						result = false;
+					session.commit();
+				} catch (Exception ex) {
+					session.rollback();
+					ex.printStackTrace();
+				} finally {
+					session.close();
+				}
+				return result;
+			} catch (Exception ex) {
+				ex.printStackTrace();
+				return result;
+			}
+		} catch (Exception exception) {
+			exception.printStackTrace();
+			return result;
 		}
 	}
 	

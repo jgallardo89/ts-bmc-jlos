@@ -9,4 +9,5 @@ public abstract interface MapContratacionMapeador {
 	public abstract List<ContratacionMapVO> obtenerContratacionesEtapasMap(ContratacionMapVO contratacionMapVO);
 	public abstract void crearContratacionMap(ContratacionMapVO contratacionMapVO);
 	public abstract void actualizarContratacionMap(ContratacionMapVO contratacionMapVO);
+	public abstract ContratacionMapVO validaMensajeContratacionMap(ContratacionMapVO contratacionMapVO);
 }

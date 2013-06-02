@@ -80,4 +80,10 @@
 			AND CD_FLUJO = #{idFlujo}
 			AND CD_ETAPA = #{idEtapa}
 	</update>
+	<select id="validaMensajeContratacionMap" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.ContratacionMapVO"
+		resultType="mx.com.bbva.bancomer.bussinnes.model.vo.ContratacionMapVO">
+		SELECT COUNT(*) numMensaje 
+		FROM TGM520_CONTRAT_MAP 
+		WHERE CD_MENSAJE_SALIDA = #{idMensajeSalida}
+	</select>
 </mapper>

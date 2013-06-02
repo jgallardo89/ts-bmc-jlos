@@ -74,7 +74,7 @@
 		<if test="nombreProducto != null">
 			AND PRODUCTO.NB_PRODUCTO = #{nombreProducto}
 		</if>
-		<if test="idFlujo != null">
+		<if test="idFlujo != null and idFlujo != 0">
 			AND PRODUCTO.CD_FLUJO = #{idFlujo}
 		</if>
 		ORDER BY PRODUCTO.CD_PRODUCTO

@@ -70,13 +70,15 @@ public class FlujoBO implements BbvaIBusinessObject {
 	
 	public List<FlujoVO> readCommand() {
 		List<FlujoVO> result = null;
+		FlujoVO flujoVO = new FlujoVO();
 		try {
 			try {				
 				SqlSession session = MapeadorSessionFactory
 						.getSqlSessionFactory().openSession();
 				MapFlujo mapFlujo = session.getMapper(MapFlujo.class);
 				try {
-					result = mapFlujo.obtenerCBFlujos();
+					flujoVO.setIdBaja(CommandConstants.ESTATUS_OBJETO_FLUJO_BAJA);
+					result = mapFlujo.obtenerCBFlujos(flujoVO);
 					session.commit();
 				} catch (Exception ex) {
 					session.rollback();
