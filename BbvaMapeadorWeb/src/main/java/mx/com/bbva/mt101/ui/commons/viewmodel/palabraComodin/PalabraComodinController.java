@@ -125,7 +125,6 @@ public class PalabraComodinController extends ControllerSupport implements ICont
 	public void onShowReport(@BindingParam("type") final String type) {
 		ReportesController controller = new ReportesController();
 		ArrayList<String> headersReport = new ArrayList<String>();
-		String titleReport = "Palabras Comodín";
 		headersReport.add("Nombre Palabra Comodín");
 		headersReport.add("Descripción Palabra Comodín");
 		
@@ -133,7 +132,8 @@ public class PalabraComodinController extends ControllerSupport implements ICont
 			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_EXCEL,"Catálogo Palabra Comodín");
 		} else {
 			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_TEXTO,"Catálogo Palabra Comodín");
-		}		
+		}
+		controller.createReport(generaLista(), headersReport, type, "PALABRA_COMODIN");
 	}	
 	
 	private ArrayList<BeanGenerico> generaLista() {
