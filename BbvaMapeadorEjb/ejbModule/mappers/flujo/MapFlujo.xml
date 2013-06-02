@@ -3,26 +3,29 @@
 <mapper namespace="mappers.flujo.MapFlujo">
 	<select id="obtenerFlujos" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.FlujoVO"
 		resultType="mx.com.bbva.bancomer.bussinnes.model.vo.FlujoVO">
-				SELECT
-					FLUJO.CD_FLUJO idFlujo,
-					FLUJO.NB_FLUJO nombreFlujo,
-					FLUJO.TX_FLUJO descripcionFlujo,
-					FLUJO.TX_URL_IMAGEN descripcionUrlImagen,
-					FLUJO.TM_ALTA fechaAlta,
-					FLUJO.TM_MODIFICACION fechaModificacion,
-					ETAPA.TX_ETAPA descripcionEtapa,
-					OBJETO.CD_ST_OBJETO idEstatusObjeto,
-					OBJETO.NB_ST_OBJETO nombreEstatusObjeto
+			  SELECT
+				  FLUJO.CD_FLUJO idFlujo,
+				  FLUJO.NB_FLUJO nombreFlujo,
+				  FLUJO.TX_FLUJO descripcionFlujo,
+				  FLUJO.TX_URL_IMAGEN descripcionUrlImagen,
+				  FLUJO.TM_ALTA fechaAlta,
+				  FLUJO.TM_MODIFICACION fechaModificacion,
+				  OBJETO.CD_ST_OBJETO idEstatusObjeto,
+				  OBJETO.NB_ST_OBJETO nombreEstatusObjeto,
+				  (SELECT 
+						LISTAGG(E.NB_ETAPA || ' ') 
+						WITHIN GROUP (ORDER BY E.NB_ETAPA)
+					FROM 
+						TGM518_FLUJOETAPA FE,     
+						TGM517_ETAPA E 
+					WHERE 
+						FE.CD_ETAPA = E.CD_ETAPA 
+					AND FE.CD_FLUJO =  FLUJO.CD_FLUJO) descripcionEtapa
 				FROM
-					TGM513_FLUJO FLUJO,
-					TGM534_ST_OBJETO OBJETO,
-					TGM517_ETAPA ETAPA,
-					TGM518_FLUJOETAPA FLUET
-				WHERE 
-					FLUJO.CD_ST_OBJETO = OBJETO.CD_ST_OBJETO					
-					AND FLUJO.CD_FLUJO = FLUET.CD_FLUJO
-					AND ETAPA.CD_ETAPA = FLUET.CD_ETAPA
-					AND FLUJO.CD_ST_OBJETO != #{idBaja}
+				  TGM513_FLUJO FLUJO,
+				  TGM534_ST_OBJETO OBJETO
+				WHERE FLUJO.CD_ST_OBJETO != #{idBaja}
+				AND FLUJO.CD_ST_OBJETO = OBJETO.CD_ST_OBJETO
 				<if test="nombreFlujo != null">
 					AND FLUJO.NB_FLUJO LIKE #{nombreFlujo}
 				</if>
@@ -32,7 +35,7 @@
 				<if test="idEstatusObjeto != null and idEstatusObjeto != 0">
 					AND OBJETO.CD_ST_OBJETO = #{idEstatusObjeto}
 				</if>
-				ORDER BY FLUET.NU_ORDEN_ETAPA
+				ORDER BY FLUJO.CD_FLUJO
 	</select>
 	<update id="actualizarFlujo" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.FlujoVO">
 	    UPDATE TGM513_FLUJO 

@@ -70,8 +70,12 @@
 			PRODUCTO.NB_PRODUCTO nombreProducto
 		FROM 
 			TGM515_PRODUCTO PRODUCTO
+		WHERE PRODUCTO.CD_ST_OBJETO != #{idBaja}
 		<if test="nombreProducto != null">
-			WHERE PRODUCTO.NB_PRODUCTO = #{nombreProducto}
+			AND PRODUCTO.NB_PRODUCTO = #{nombreProducto}
+		</if>
+		<if test="idFlujo != null">
+			AND PRODUCTO.CD_FLUJO = #{idFlujo}
 		</if>
 		ORDER BY PRODUCTO.CD_PRODUCTO
 	</select>

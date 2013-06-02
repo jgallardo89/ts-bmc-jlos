@@ -111,6 +111,7 @@ public class ProductoBO implements
 						.getSqlSessionFactory().openSession();
 				MapProducto mapProducto = session.getMapper(MapProducto.class);
 				try {
+					productoVO.setIdBaja(CommandConstants.ESTATUS_OBJETO_PRODUCTO_BAJA);
 					result = mapProducto.obtenerCmbProductos(productoVO);
 					session.commit();
 				} catch (Exception ex) {
