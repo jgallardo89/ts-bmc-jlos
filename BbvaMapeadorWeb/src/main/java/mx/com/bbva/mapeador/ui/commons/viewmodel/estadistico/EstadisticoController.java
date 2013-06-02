@@ -43,6 +43,8 @@ import org.zkoss.zul.Datebox;
 import org.zkoss.zul.Grid;
 import org.zkoss.zul.Image;
 import org.zkoss.zul.Label;
+import org.zkoss.zul.ListModel;
+import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Textbox;
 
 public class EstadisticoController extends ControllerSupport implements  IController{
@@ -134,6 +136,8 @@ public class EstadisticoController extends ControllerSupport implements  IContro
 	
 	private boolean executePermissionSet;
 	
+	private List<mx.com.bbva.mapeador.ui.commons.viewmodel.estadistico.CanalVO> canalVOs =  getListaCanalVOs();
+	
 	@Override
 	public Object read() {
 		ReportesController controller = new ReportesController();
@@ -169,8 +173,84 @@ public class EstadisticoController extends ControllerSupport implements  IContro
 		estadisticoDTO.setClienteVOs(clienteDTO.getClienteVOs());
 		estadisticoDTO.setProductoVOs(productoDTO.getProductoVOs());
 		controller.registrarEvento(estadisticoVO, estadisticoVO, CommandConstants.CONSULTAR, "Estadístico");
+		armarListaGrid(estadisticoDTO.getEstadisticoVOs());
 		return estadisticoDTO;
 	}
+	
+	private void armarListaGrid(List<EstadisticoVO> listaEstadisticoVOs){
+
+//		EstadisticoDTO estadisticoDTO = new EstadisticoDTO();
+//		EstadisticoVO estadisticoVO = new EstadisticoVO();
+//		estadisticoDTO.setEstadisticoVO(estadisticoVO);
+//		EstadisticoBO estadisticoBO = new EstadisticoBO();
+//		estadisticoDTO = estadisticoBO.readCommand(estadisticoDTO);
+		
+		List<mx.com.bbva.mapeador.ui.commons.viewmodel.estadistico.CanalVO> canalVOs = 
+				new ArrayList<mx.com.bbva.mapeador.ui.commons.viewmodel.estadistico.CanalVO>();
+		
+		if(listaEstadisticoVOs != null){ 
+			for (EstadisticoVO estadistico : listaEstadisticoVOs) {
+				mx.com.bbva.mapeador.ui.commons.viewmodel.estadistico.CanalVO canalVO = 
+						new mx.com.bbva.mapeador.ui.commons.viewmodel.estadistico.CanalVO();
+				canalVO.setIdCanal(estadistico.getIdCanal());
+				canalVO.setNombreCanal(estadistico.getNombreCanal());
+				canalVOs.add(canalVO);
+			}
+		}
+		if(listaEstadisticoVOs != null){
+			for (mx.com.bbva.mapeador.ui.commons.viewmodel.estadistico.CanalVO canalVO : canalVOs) {
+				List< mx.com.bbva.mapeador.ui.commons.viewmodel.estadistico.ClienteVO> clienteVOs = 
+						new ArrayList<mx.com.bbva.mapeador.ui.commons.viewmodel.estadistico.ClienteVO>();
+				for (EstadisticoVO estadistico : listaEstadisticoVOs) {
+					if(canalVO.getIdCanal() == estadistico.getIdCanal()){
+						mx.com.bbva.mapeador.ui.commons.viewmodel.estadistico.ClienteVO clienteVO = 
+								new mx.com.bbva.mapeador.ui.commons.viewmodel.estadistico.ClienteVO();
+						clienteVO.setIdCliente(estadistico.getIdCliente());
+						clienteVO.setIdIdentificador(estadistico.getIdIdentificador());
+						clienteVOs.add(clienteVO);
+					}
+				}
+				canalVO.setClienteVOs(clienteVOs);
+			}
+		}
+		
+		if(listaEstadisticoVOs != null){
+			for (mx.com.bbva.mapeador.ui.commons.viewmodel.estadistico.CanalVO canalVO : canalVOs) {
+				List<mx.com.bbva.mapeador.ui.commons.viewmodel.estadistico.ClienteVO> listaClientes =
+						canalVO.getListaClientes();
+				for (mx.com.bbva.mapeador.ui.commons.viewmodel.estadistico.ClienteVO clienteVO : listaClientes) {
+					List<mx.com.bbva.mapeador.ui.commons.viewmodel.estadistico.ProductoVO> productoVOs =
+							new ArrayList<mx.com.bbva.mapeador.ui.commons.viewmodel.estadistico.ProductoVO>();
+					for (EstadisticoVO estadistico : listaEstadisticoVOs) {
+						if(clienteVO.getIdCliente() == estadistico.getIdCliente()){
+							mx.com.bbva.mapeador.ui.commons.viewmodel.estadistico.ProductoVO productoVO = 
+									new mx.com.bbva.mapeador.ui.commons.viewmodel.estadistico.ProductoVO();
+							productoVO.setFechaFin(estadistico.getFechaFin());
+							productoVO.setFechaInicio(estadistico.getFechaInicio());
+							productoVO.setFechaStatusProceso(estadistico.getFechaStatusProceso());
+							productoVO.setIdProducto(estadistico.getIdProducto());
+							productoVO.setNombreProducto(estadistico.getNombreProducto());
+							productoVO.setIdRegArchEntra(estadistico.getIdRegArchEntra());
+							productoVO.setNombreRegArchEntra(estadistico.getNombreRegArchEntra());
+							productoVO.setNumeroOperacione(estadistico.getNumeroOperacione());
+							productoVOs.add(productoVO);
+						}
+					}
+					clienteVO.setProductoVOs(productoVOs);
+				}
+			}
+		}
+		setCanalVOs(canalVOs);
+	
+	}
+	
+	public ListModel<mx.com.bbva.mapeador.ui.commons.viewmodel.estadistico.CanalVO> getCanalVOs() {
+		return new ListModelList<mx.com.bbva.mapeador.ui.commons.viewmodel.estadistico.CanalVO>(getListaCanalVOs());
+	}
+	
+	public List<mx.com.bbva.mapeador.ui.commons.viewmodel.estadistico.CanalVO> getListaCanalVOs() {
+		return canalVOs;
+	} 
 	
 	@AfterCompose
     public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
@@ -180,7 +260,7 @@ public class EstadisticoController extends ControllerSupport implements  IContro
 	
 	//Cambiar al objeto que pertenezca el componente en este caso estadisticoVOs
 	@Command
-	@NotifyChange({ "estadisticoVOs" })
+	@NotifyChange({ "estadisticoVOs", "canalVOs" })
 	public void readWithFilters() {
 		ReportesController controller = new ReportesController();
 		EstadisticoDTO estadisticoDTO = new EstadisticoDTO();
@@ -213,6 +293,7 @@ public class EstadisticoController extends ControllerSupport implements  IContro
 		}
 		//Asignacion de la lista a la variable global de la clase
 		estadisticoVOs = estadisticoDTO.getEstadisticoVOs();
+		armarListaGrid(estadisticoDTO.getEstadisticoVOs());
 		controller.registrarEvento(estadisticoVO, estadisticoVO, CommandConstants.CONSULTAR, "Estadístico");
 	}
 	@Override
@@ -628,8 +709,18 @@ public class EstadisticoController extends ControllerSupport implements  IContro
 		componentes.put(reporteCsvBtn.getId(), reporteCsvBtn);
 		componentes.put(limpiarBtn.getId(), limpiarBtn);
 		componentes.put(consultarBtn.getId(), consultarBtn);
-		componentes.put(estadisticosGrid.getId(), estadisticosGrid);
+//		componentes.put(estadisticosGrid.getId(), estadisticosGrid);
 		super.applyPermission(MapeadorConstants.ESTADISTICO, componentes);
 		return isApplied;
+	}
+
+
+	/**
+	 * @param canalVOs the canalVOs to set
+	 */
+	public void setCanalVOs(
+			List<mx.com.bbva.mapeador.ui.commons.viewmodel.estadistico.CanalVO> canalVOs) {
+		this.canalVOs = canalVOs;
 	}	
+	
 }
