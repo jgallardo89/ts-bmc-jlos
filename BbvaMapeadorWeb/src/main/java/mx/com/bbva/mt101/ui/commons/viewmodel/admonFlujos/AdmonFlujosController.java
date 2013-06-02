@@ -248,7 +248,7 @@ public class AdmonFlujosController extends ControllerSupport implements IControl
 	
 	@AfterCompose
     public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
-        Selectors.wireComponents(view, this, false);        
+        Selectors.wireComponents(view, this, false);   
         executePermissionSet = this.applyPermision();
     }
 	
@@ -264,11 +264,11 @@ public class AdmonFlujosController extends ControllerSupport implements IControl
 	}
 	
 	@Wire
-    Window detalleBitacoraWindow;
+    Window openImageWindow;
 	
 	@Listen("onClick = #closeBtn")
     public void showModal(Event e) {
-		detalleBitacoraWindow.detach();
+		openImageWindow.detach();
     }
 	
 	@Command
