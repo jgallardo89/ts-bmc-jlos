@@ -69,7 +69,7 @@
 													<button sclass="button" image="/img/clear.png" label="Limpiar" id="limpiarBtn" onClick="@command('clean')" ></button>
 												</div>	
 												<div align="right" width="70%">
-													<button sclass="button" image="/img/disk.png" label="Guardar" id="guardarBtn" onClick="@command('save')"></button>
+													<button sclass="button" image="/img/disk.png" disabled="@load(vm.btnGuardar)" label="Guardar" id="guardarBtn" onClick="@command('save')"></button>
 												</div>
 												<div align="right" width="70%">
 													<button sclass="button" image="/img/search.png" label="Consultar" id="consultarBtn" onClick="@command('readWithFilters')"></button>
