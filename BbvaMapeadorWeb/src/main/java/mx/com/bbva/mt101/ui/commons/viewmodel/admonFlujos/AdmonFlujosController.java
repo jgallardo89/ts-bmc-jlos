@@ -168,7 +168,7 @@ public class AdmonFlujosController extends ControllerSupport implements IControl
 			ProductoBO productoBO = new ProductoBO();
 			ProductoVO productoVO = new ProductoVO();
 			productoVO.setIdFlujo(Integer.parseInt(idFlujo.getValue()));
-			ProductoDTO productoDTO = productoBO.readCommand(productoVO);
+			ProductoDTO productoDTO = productoBO.readCommandCmb(productoVO);
 			if (productoDTO.getProductoVOs().size() == 0) {
 				FlujoDTO flujoDTO = new FlujoDTO();
 				FlujoVO flujoVO = new FlujoVO();

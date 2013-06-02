@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import mx.com.bbva.bancomer.bussinnes.model.vo.ContratacionVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.EstatusObjetoVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.FlujoVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.ProductoVO;
@@ -14,6 +15,7 @@ import mx.com.bbva.bancomer.commons.command.CommandConstants;
 import mx.com.bbva.bancomer.commons.command.MapeadorConstants;
 import mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject;
 import mx.com.bbva.bancomer.estatusobjeto.dto.EstatusObjetoDTO;
+import mx.com.bbva.bancomer.mapper.business.ContratacionBO;
 import mx.com.bbva.bancomer.mapper.business.EstatusObjetoBO;
 import mx.com.bbva.bancomer.mapper.business.FlujoBO;
 import mx.com.bbva.bancomer.mapper.business.ProductoBO;
@@ -125,10 +127,11 @@ public class ProductosController extends ControllerSupport implements IControlle
 	
 	private boolean validaProductoRegistrado(String nombreProducto) {
 		productoVO = new ProductoVO();
-		productoVO.setNombreProducto(nombreProducto.toUpperCase());
+		productoDTO = new ProductoDTO();
+		productoVO.setNombreProducto(nombreProducto);
 		System.out.println("********************* " + nombreProducto  );
 		ProductoBO productoBO = new ProductoBO();
-		productoDTO = productoBO.readCommand(productoVO);
+		productoDTO = productoBO.readCommandCmb(productoVO);
 		System.out.println("*************************** "+productoDTO.getProductoVOs().size()+" ***************************");
 		if (productoDTO.getProductoVOs().size() == 0)
 			return true;
@@ -187,7 +190,8 @@ public class ProductosController extends ControllerSupport implements IControlle
 		}
 		if(!errorGuardar){
 			if(idProducto.getValue().isEmpty() || idProducto.getValue().equals("0")){
-				if(validaProductoRegistrado(nombreProducto.getValue())) {
+				System.out.println("********************** "+nombreProducto.getValue());
+				if(validaProductoRegistrado(nombreProducto.getValue().toUpperCase())) {
 					ProductoDTO productoDTO = new ProductoDTO();
 					ProductoVO productoVO = new ProductoVO();
 					productoVO.setNombreProducto(nombreProducto.getValue().toUpperCase());
@@ -210,34 +214,62 @@ public class ProductosController extends ControllerSupport implements IControlle
 							"Información", Messagebox.OK,
 							Messagebox.INFORMATION);
 				} else {
+					clean();
+					productoVO.setIdFlujo(Integer.parseInt(idFlujo.getValue().isEmpty()?"0":idFlujo.getValue()));
+					productoVO.setNombreProducto(StringUtil.validaLike(nombreProducto.getValue()));
+					productoVO.setDescripcionProducto(StringUtil.validaLike(descripcionProducto.getValue()));
+					productoVO.setIdEstatusObjeto(0);
+					productoVO.toString();
+					productoDTO.setProductoVO(productoVO);
+					productoVOs = productoBO.readCommand(productoDTO).getProductoVOs();
 					Messagebox.show("!Ya existe Un Producto registrado con ese Nombre!",
 							"Información", Messagebox.OK,
 							Messagebox.EXCLAMATION);
 					clean();
 				}
 			} else {
-				ProductoDTO productoDTO = new ProductoDTO();
-				ProductoVO productoVO = new ProductoVO();
-				productoVO.setNombreProducto(nombreProducto.getValue().toUpperCase());
-				productoVO.setDescripcionProducto(descripcionProducto.getValue().toUpperCase());
-				productoVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue()));
-				productoVO.setIdFlujo(Integer.parseInt(idFlujo.getValue()));
-				productoVO.setIdProducto(Integer.parseInt(idProducto.getValue()));
-				productoDTO.setProductoVO(productoVO);
-				productoBO.updateCommand(productoDTO);
-				productoDTO.toString(BbvaAbstractDataTransferObject.XML);
-				controller.registrarEvento(productoVO, this.productoVO, CommandConstants.MODIFICACION, "Catálogo de Productos");
-				clean();
-				productoVO.setIdFlujo(Integer.parseInt(idFlujo.getValue().isEmpty()?"0":idFlujo.getValue()));
-				productoVO.setNombreProducto(StringUtil.validaLike(nombreProducto.getValue()));
-				productoVO.setDescripcionProducto(StringUtil.validaLike(descripcionProducto.getValue()));
-				productoVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue().isEmpty()?"0":idEstatusObjeto.getValue()));
-				productoVO.toString();
-				productoDTO.setProductoVO(productoVO);
-				productoVOs = productoBO.readCommand(productoDTO).getProductoVOs();
-				Messagebox.show("!La Actualización del Producto fue exitoso!",
-						"Información", Messagebox.OK,
-						Messagebox.INFORMATION);
+				ContratacionBO contratacionBO = new ContratacionBO();
+				ContratacionVO contratacionVO = new ContratacionVO();
+				contratacionVO.setIdProducto(Integer.parseInt(idProducto.getValue()));
+				if(Integer.parseInt(idEstatusObjeto.getValue()) == CommandConstants.ESTATUS_OBJETO_PRODUCTO_ACTIVO || 
+						contratacionBO.readCommandValidaContratacion(contratacionVO)){
+					ProductoDTO productoDTO = new ProductoDTO();
+					ProductoVO productoVO = new ProductoVO();
+					productoVO.setNombreProducto(nombreProducto.getValue().toUpperCase());
+					productoVO.setDescripcionProducto(descripcionProducto.getValue().toUpperCase());
+					productoVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue()));
+					productoVO.setIdFlujo(Integer.parseInt(idFlujo.getValue()));
+					productoVO.setIdProducto(Integer.parseInt(idProducto.getValue()));
+					productoDTO.setProductoVO(productoVO);
+					productoBO.updateCommand(productoDTO);
+					productoDTO.toString(BbvaAbstractDataTransferObject.XML);
+					controller.registrarEvento(productoVO, this.productoVO, CommandConstants.MODIFICACION, "Catálogo de Productos");
+					clean();
+					productoVO.setIdFlujo(Integer.parseInt(idFlujo.getValue().isEmpty()?"0":idFlujo.getValue()));
+					productoVO.setNombreProducto(StringUtil.validaLike(nombreProducto.getValue()));
+					productoVO.setDescripcionProducto(StringUtil.validaLike(descripcionProducto.getValue()));
+					productoVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue().isEmpty()?"0":idEstatusObjeto.getValue()));
+					productoVO.toString();
+					productoDTO.setProductoVO(productoVO);
+					productoVOs = productoBO.readCommand(productoDTO).getProductoVOs();
+					Messagebox.show("!La Actualización del Producto fue exitoso!",
+							"Información", Messagebox.OK,
+							Messagebox.INFORMATION);
+				}
+				else {
+					clean();
+					productoVO.setIdFlujo(Integer.parseInt(idFlujo.getValue().isEmpty()?"0":idFlujo.getValue()));
+					productoVO.setNombreProducto(StringUtil.validaLike(nombreProducto.getValue()));
+					productoVO.setDescripcionProducto(StringUtil.validaLike(descripcionProducto.getValue()));
+					productoVO.setIdEstatusObjeto(0);
+					productoVO.toString();
+					productoDTO.setProductoVO(productoVO);
+					productoVOs = productoBO.readCommand(productoDTO).getProductoVOs();
+					Messagebox.show("!El Producto no puede darse de Baja, porque esta siendo usao por la Contratación!",
+							"Información", Messagebox.OK,
+							Messagebox.EXCLAMATION);
+					clean();
+				}
 			}
 		}
 		flagEstatus = true;

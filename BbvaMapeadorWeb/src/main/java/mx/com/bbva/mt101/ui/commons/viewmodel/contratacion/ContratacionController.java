@@ -132,7 +132,7 @@ public class ContratacionController extends ControllerSupport implements IContro
 	    productoDTO.setCommandId(CommandConstants.ESTATUS_OBJETO);
 	    ProductoVO productoVO = new ProductoVO();
 	    productoDTO.setProductoVO(productoVO);
-	    productoDTO = productoBO.readCommand(productoVO);
+	    productoDTO = productoBO.readCommandCmb(productoVO);
 	    
 	    contratacionDTO.setEstatusObjetoVOs(estatusObjetoDTO.getEstatusObjetoVOs());
 	    contratacionDTO.setCanalVOs(canalDTO.getCanalVOs());

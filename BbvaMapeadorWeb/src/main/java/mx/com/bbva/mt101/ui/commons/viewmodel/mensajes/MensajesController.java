@@ -4,11 +4,13 @@ import java.lang.reflect.Field;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
 import mx.com.bbva.bancomer.bitacora.dto.BitacoraDTO;
 import mx.com.bbva.bancomer.bitacora.dto.CampoDTO;
+import mx.com.bbva.bancomer.bussinnes.model.vo.ContratacionMapVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.EstatusObjetoVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.MensajeSalidaVO;
 import mx.com.bbva.bancomer.canal.dto.BeanGenerico;
@@ -16,6 +18,7 @@ import mx.com.bbva.bancomer.commons.command.CommandConstants;
 import mx.com.bbva.bancomer.commons.command.MapeadorConstants;
 import mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject;
 import mx.com.bbva.bancomer.estatusobjeto.dto.EstatusObjetoDTO;
+import mx.com.bbva.bancomer.mapper.business.ContratacionMapeadorBO;
 import mx.com.bbva.bancomer.mapper.business.EstatusObjetoBO;
 import mx.com.bbva.bancomer.mapper.business.MensajeSalidaBO;
 import mx.com.bbva.bancomer.mensajesalida.dto.MensajeSalidaDTO;
@@ -170,49 +173,79 @@ public class MensajesController extends ControllerSupport implements IController
 			errorGuardar = true;
 		}
 		if(!errorGuardar){
-			
+			System.out.println("/////////////////////////// "+idMensajeSalida.getValue());
 			if(idMensajeSalida.getValue().isEmpty() || idMensajeSalida.getValue().equals("0")) {
-				MensajeSalidaDTO mensajeSalidaDTO = new MensajeSalidaDTO();
-				MensajeSalidaVO mensajeSalidaVO = new MensajeSalidaVO();
+				mensajeSalidaVO = new MensajeSalidaVO();
 				mensajeSalidaVO.setNombreMensajeSalida(nombreMensajeSalida.getValue().toUpperCase());
-				mensajeSalidaVO.setDescripcionMensajeSalida(descripcionMensajeSalida.getValue().toUpperCase());
-				mensajeSalidaVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue()));
-				//mensajeSalidaVO.setIdMensajeSalida(Integer.parseInt(idMensajeSalida.getValue()));
-				mensajeSalidaDTO.setMensajeSalidaVO(mensajeSalidaVO);
-				mensajeSalidaBO.createCommand(mensajeSalidaDTO);
-				mensajeSalidaDTO.toString(BbvaAbstractDataTransferObject.XML);
-				controller.registrarEvento(mensajeSalidaVO, this.mensajeSalidaVO, CommandConstants.ALTA, "Catálogo de Mensajes de Notificación");
-				clean();
-				mensajeSalidaVO.setNombreMensajeSalida(StringUtil.validaLike(nombreMensajeSalida.getValue()));
-				mensajeSalidaVO.setDescripcionMensajeSalida(StringUtil.validaLike(descripcionMensajeSalida.getValue()));
-				mensajeSalidaVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue().isEmpty()?"0":idEstatusObjeto.getValue()));
-				mensajeSalidaVO.toString();
-				mensajeSalidaDTO.setMensajeSalidaVO(mensajeSalidaVO);
-				mensajeSalidaVOs = mensajeSalidaBO.readCommand(mensajeSalidaDTO).getMensajeSalidaVOs();
-				Messagebox.show("!El Registro del Mensaje fue exitoso!",
-						"Información", Messagebox.OK,
-						Messagebox.INFORMATION);
+				if(mensajeSalidaBO.readCommandValidaMensaje(mensajeSalidaVO)) {
+					MensajeSalidaDTO mensajeSalidaDTO = new MensajeSalidaDTO();
+					MensajeSalidaVO mensajeSalidaVO = new MensajeSalidaVO();
+					mensajeSalidaVO.setNombreMensajeSalida(nombreMensajeSalida.getValue().toUpperCase());
+					mensajeSalidaVO.setDescripcionMensajeSalida(descripcionMensajeSalida.getValue().toUpperCase());
+					mensajeSalidaVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue()));
+					//mensajeSalidaVO.setIdMensajeSalida(Integer.parseInt(idMensajeSalida.getValue()));
+					mensajeSalidaDTO.setMensajeSalidaVO(mensajeSalidaVO);
+					mensajeSalidaBO.createCommand(mensajeSalidaDTO);
+					mensajeSalidaDTO.toString(BbvaAbstractDataTransferObject.XML);
+					controller.registrarEvento(mensajeSalidaVO, this.mensajeSalidaVO, CommandConstants.ALTA, "Catálogo de Mensajes de Notificación");
+					clean();
+					mensajeSalidaVO.setNombreMensajeSalida(StringUtil.validaLike(nombreMensajeSalida.getValue()));
+					mensajeSalidaVO.setDescripcionMensajeSalida(StringUtil.validaLike(descripcionMensajeSalida.getValue()));
+					mensajeSalidaVO.setIdEstatusObjeto(0);
+					mensajeSalidaVO.toString();
+					mensajeSalidaDTO.setMensajeSalidaVO(mensajeSalidaVO);
+					mensajeSalidaVOs = mensajeSalidaBO.readCommand(mensajeSalidaDTO).getMensajeSalidaVOs();
+					Messagebox.show("!El Registro del Mensaje fue exitoso!",
+							"Información", Messagebox.OK,
+							Messagebox.INFORMATION);
+				} else {
+					clean();
+					mensajeSalidaVO.setNombreMensajeSalida(StringUtil.validaLike(nombreMensajeSalida.getValue()));
+					mensajeSalidaVO.setDescripcionMensajeSalida(StringUtil.validaLike(descripcionMensajeSalida.getValue()));
+					mensajeSalidaVO.setIdEstatusObjeto(0);
+					mensajeSalidaVO.toString();
+					mensajeSalidaDTO.setMensajeSalidaVO(mensajeSalidaVO);
+					mensajeSalidaVOs = mensajeSalidaBO.readCommand(mensajeSalidaDTO).getMensajeSalidaVOs();
+					Messagebox.show("!No se puede registrar más de un Mensaje con el mismo Nombre!",
+							"Información", Messagebox.OK,
+							Messagebox.EXCLAMATION);
+				}
 			} else {
-				MensajeSalidaDTO mensajeSalidaDTO = new MensajeSalidaDTO();
-				MensajeSalidaVO mensajeSalidaVO = new MensajeSalidaVO();
-				mensajeSalidaVO.setNombreMensajeSalida(nombreMensajeSalida.getValue().toUpperCase());
-				mensajeSalidaVO.setDescripcionMensajeSalida(descripcionMensajeSalida.getValue().toUpperCase());
-				mensajeSalidaVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue()));
-				mensajeSalidaVO.setIdMensajeSalida(Integer.parseInt(idMensajeSalida.getValue()));
-				mensajeSalidaDTO.setMensajeSalidaVO(mensajeSalidaVO);
-				mensajeSalidaBO.updateCommand(mensajeSalidaDTO);
-				mensajeSalidaDTO.toString(BbvaAbstractDataTransferObject.XML);
-				controller.registrarEvento(mensajeSalidaVO, mensajeSalidaVO, CommandConstants.MODIFICACION, "Catálogo de Mensajes de Notificación");
-				clean();
-				mensajeSalidaVO.setNombreMensajeSalida(StringUtil.validaLike(nombreMensajeSalida.getValue()));
-				mensajeSalidaVO.setDescripcionMensajeSalida(StringUtil.validaLike(descripcionMensajeSalida.getValue()));
-				mensajeSalidaVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue().isEmpty()?"0":idEstatusObjeto.getValue()));
-				mensajeSalidaVO.toString();
-				mensajeSalidaDTO.setMensajeSalidaVO(mensajeSalidaVO);
-				mensajeSalidaVOs = mensajeSalidaBO.readCommand(mensajeSalidaDTO).getMensajeSalidaVOs();
-				Messagebox.show("!La Actualización del Mensaje fue exitoso!",
-						"Información", Messagebox.OK,
-						Messagebox.INFORMATION);
+				ContratacionMapeadorBO mapeadorBO = new ContratacionMapeadorBO();
+				ContratacionMapVO contratacionMapVO = new ContratacionMapVO();
+				contratacionMapVO.setIdMensajeSalida(Integer.parseInt(idMensajeSalida.getValue()));
+				if(Integer.parseInt(idEstatusObjeto.getValue()) == CommandConstants.ESTATUS_OBJETO_MENSAJE_SALIDA_ACTIVO || 
+						mapeadorBO.readCommandValidaMensajeContratMap(contratacionMapVO)) {
+					MensajeSalidaDTO mensajeSalidaDTO = new MensajeSalidaDTO();
+					MensajeSalidaVO mensajeSalidaVO = new MensajeSalidaVO();
+					mensajeSalidaVO.setNombreMensajeSalida(nombreMensajeSalida.getValue().toUpperCase());
+					mensajeSalidaVO.setDescripcionMensajeSalida(descripcionMensajeSalida.getValue().toUpperCase());
+					mensajeSalidaVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue()));
+					mensajeSalidaVO.setIdMensajeSalida(Integer.parseInt(idMensajeSalida.getValue()));
+					mensajeSalidaDTO.setMensajeSalidaVO(mensajeSalidaVO);
+					mensajeSalidaBO.updateCommand(mensajeSalidaDTO);
+					mensajeSalidaDTO.toString(BbvaAbstractDataTransferObject.XML);
+					controller.registrarEvento(mensajeSalidaVO, mensajeSalidaVO, CommandConstants.MODIFICACION, "Catálogo de Mensajes de Notificación");
+					clean();
+					mensajeSalidaVO.setNombreMensajeSalida(StringUtil.validaLike(nombreMensajeSalida.getValue()));
+					mensajeSalidaVO.setDescripcionMensajeSalida(StringUtil.validaLike(descripcionMensajeSalida.getValue()));
+					mensajeSalidaVO.setIdEstatusObjeto(0);
+					mensajeSalidaVO.toString();
+					mensajeSalidaDTO.setMensajeSalidaVO(mensajeSalidaVO);
+					mensajeSalidaVOs = mensajeSalidaBO.readCommand(mensajeSalidaDTO).getMensajeSalidaVOs();
+					Messagebox.show("!La Actualización del Mensaje fue exitoso!",
+							"Información", Messagebox.OK,
+							Messagebox.INFORMATION);
+				} else {
+					mensajeSalidaVO = new MensajeSalidaVO();
+					clean();
+					mensajeSalidaVO.toString();
+					mensajeSalidaDTO.setMensajeSalidaVO(mensajeSalidaVO);
+					mensajeSalidaVOs = mensajeSalidaBO.readCommand(mensajeSalidaDTO).getMensajeSalidaVOs();
+					Messagebox.show("!No se puede dar de Baja o Inactivar, ya que esta siendo Usado por la Contratación Mapeador!",
+							"Información", Messagebox.OK,
+							Messagebox.EXCLAMATION);
+				}
 			}
 		}
 		flagMensaje = false;
@@ -238,6 +271,8 @@ public class MensajesController extends ControllerSupport implements IController
 		descripcionMensajeSalida.setValue(null);
 		statusObjeto.setValue(CommandConstants.NB_MENSAJE_ACTIVO);
         idStrEstatusObjeto = String.valueOf(CommandConstants.ID_MENSAJE_ACTIVO);
+        fechaAlta.setValue(new Date());
+		fechaModificacion.setValue(new Date());
 		idMensajeSalida.setValue(null);
 	}
 	
@@ -251,6 +286,8 @@ public class MensajesController extends ControllerSupport implements IController
 		statusObjeto.setValue(mensajeSalidaVO.getNombreEstatusObjeto());
 		idMensajeSalida.setValue(Integer.toString(mensajeSalidaVO.getIdMensajeSalida()));
 		idEstatusObjeto.setValue(Integer.toString(mensajeSalidaVO.getIdEstatusObjeto()));
+		fechaAlta.setValue(mensajeSalidaVO.getFechaAlta());
+		fechaModificacion.setValue(mensajeSalidaVO.getFechaModificacion());
 		flagMensaje = true;
 	}
 	

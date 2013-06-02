@@ -120,10 +120,11 @@ public class BitacoraWebController extends ControllerSupport implements IControl
 		BitacoraDTO bitacoraDTO = new BitacoraDTO();
 		BitacoraVO bitacoraVO = new BitacoraVO();
 		
-		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+		DateFormat dateFormatInicio = new SimpleDateFormat("dd-MM-yyyy 00:00");
+		DateFormat dateFormatFin = new SimpleDateFormat("dd-MM-yyyy 23:59");
 		
-		bitacoraVO.setFechaInicio(dateFormat.format(fechaInicio.getValue()));
-		bitacoraVO.setFechaFin(dateFormat.format(fechaFin.getValue()));
+		bitacoraVO.setFechaInicio(dateFormatInicio.format(fechaInicio.getValue()));
+		bitacoraVO.setFechaFin(dateFormatFin.format(fechaFin.getValue()));
 		bitacoraVO.setIdEventoMapeador(Integer.parseInt(idEventoMapeador.getValue().isEmpty()?"0":idEventoMapeador.getValue()));
 		bitacoraVO.setIdUsuario(Integer.parseInt(idUsuario.getValue().isEmpty()?"0":idUsuario.getValue()));
 		bitacoraVO.toString();
@@ -177,11 +178,10 @@ public class BitacoraWebController extends ControllerSupport implements IControl
 	public void onShowReport(@BindingParam("type") final String type) {
 		ReportesController controller = new ReportesController();
 		ArrayList<String> headersReport = new ArrayList<String>();
-		String titleReport = "Bitácora Web";
 		headersReport.add("Fecha y Hora");
 		headersReport.add("Usuario");
 		headersReport.add("Tipo Evento");
-		controller.createReport(generaLista(), headersReport, titleReport, "BITACORA_WEB");
+		controller.createReport(generaLista(), headersReport, type, "BITACORA_WEB");
 	}	
 	
 	private ArrayList<BeanGenerico> generaLista() {
