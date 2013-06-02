@@ -12,7 +12,8 @@ public abstract interface CommandConstants {
 	public static final int ESTATUS_OBJETO_CANAL_BAJA = 3;
 	public static final int ESTATUS_OBJETO_ACTIVO_CANAL = 1;	
 	public static final int ESTATUS_OBJETO_CLIENTE_INACTIVO = 5;
-	public static final int ESTATUS_OBJETO_CLIENTE_BAJA = 6;	
+	public static final int ESTATUS_OBJETO_CLIENTE_BAJA = 6;
+	public static final int ESTATUS_OBJETO_FLUJO_ACTIVO = 10;
 	public static final int COMPONENTE_PANTALLA = 1;
 	public static final int COMPONENTE_PANTALLA_PERFIL = 3;
 	public static final int ESTATUS_PERFIL = 24;
