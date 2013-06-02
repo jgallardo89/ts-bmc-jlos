@@ -17,6 +17,7 @@ public class PantallaVO extends BbvaAbstractValueObject {
 	private long estatusPantalla;
 	private String nombreEstatusObjeto;
 	private String nombrePantallaPadre;
+	private long idBaja;
 	
 	/**
 	 * @return the descripcionUrlPantalla
@@ -128,6 +129,18 @@ public class PantallaVO extends BbvaAbstractValueObject {
 	 */
 	public void setNombrePantallaPadre(String nombrePantallaPadre) {
 		this.nombrePantallaPadre = nombrePantallaPadre;
+	}
+	/**
+	 * @return the idBaja
+	 */
+	public long getIdBaja() {
+		return idBaja;
+	}
+	/**
+	 * @param idBaja the idBaja to set
+	 */
+	public void setIdBaja(long idBaja) {
+		this.idBaja = idBaja;
 	}
 
 	
