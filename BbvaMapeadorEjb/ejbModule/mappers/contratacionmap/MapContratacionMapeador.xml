@@ -16,7 +16,7 @@
 					MENSAJE.CD_MENSAJE_SALIDA idMensajeSalida,
 					MENSAJE.NB_MENSAJE_SALIDA nombreMensajeSalida,
 					MENSAJE.TX_MENSAJE_SALIDA descripcionMensajeSalida,
-					CONTRAT_MAP.TX_ID_USUARIOS descripcionIdUsuarios,
+					CONTRAT_MAP.TX_CD_USUARIOS descripcionIdUsuarios,
 					CONTRAT_MAP.ST_NOTIFICACION estatusNotificacion
 				FROM
 					TGM519_CNTRATACION CONTRATACION,
