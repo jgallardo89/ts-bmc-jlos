@@ -9,7 +9,7 @@
 				  Statusobjeto.Tx_St_Objeto descripcionEstatusObjeto,
 				  Statusobjeto.Nb_Tabla nombreTabla,
 				  Statusclave.Nb_St_Clave nombreStatusClave
-			From Tgm534_St_Objeto Statusobjeto,
+			  From Tgm534_St_Objeto Statusobjeto,
 				Tgm509_St_Clave Statusclave
 				Where Statusobjeto.Cd_St_Clave = Statusclave.Cd_St_Clave				
 				<if test="nombreTabla != null">
@@ -25,6 +25,10 @@
 					and Statusobjeto.Cd_St_Clave = #{idEstatusClave}
 				</if>				
 				ORDER BY Statusobjeto.Nb_Tabla
+	</select>
+	<select id="obtenerNombreTabla" resultType="mx.com.bbva.bancomer.bussinnes.model.vo.EstatusObjetoVO">
+		Select Distinct nb_tabla nombrePantalla
+		from Tgm534_St_Objeto
 	</select>
 	<select id="existEstatusObjeto" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.EstatusObjetoVO"
 		resultType="mx.com.bbva.bancomer.bussinnes.model.vo.EstatusObjetoVO">
@@ -87,23 +91,18 @@
 			Union
 			Select Unique (Statusobjeto.Cd_St_Objeto) Idestatusobjeto
 			From Tgm534_St_Objeto Statusobjeto  
-			  ,Tgm519_Contratacion
-			Where Statusobjeto.Cd_St_Objeto  = Tgm519_Contratacion.Cd_St_Objeto
+			  ,Tgm519_Cntratacion
+			Where Statusobjeto.Cd_St_Objeto  = Tgm519_Cntratacion.Cd_St_Objeto
 			union
 			Select Unique (Statusobjeto.Cd_St_Objeto) Idestatusobjeto
 			From Tgm534_St_Objeto Statusobjeto    
 			  ,Tgm522_St_Proceso
-			Where Statusobjeto.Cd_St_Objeto  = Tgm522_St_Proceso.Cd_St_Mapeador
-			Union
-			Select Unique (Statusobjeto.Cd_St_Objeto) Idestatusobjeto
-			From Tgm534_St_Objeto Statusobjeto  
-			  ,Tgm531_Define_Mapa
-			Where Statusobjeto.Cd_St_Objeto  = Tgm531_Define_Mapa.Cd_St_Objeto
+			Where Statusobjeto.Cd_St_Objeto  = Tgm522_St_Proceso.Cd_St_Mapeador          
 			union
 			Select Unique (Statusobjeto.Cd_St_Objeto) Idestatusobjeto
 			From Tgm534_St_Objeto Statusobjeto  
 			  ,Tgm537_Edo_Archivo
-			Where Statusobjeto.Cd_St_Objeto  = Tgm537_Edo_Archivo.Cd_St_Objeto
+			Where Statusobjeto.Cd_St_Objeto  = Tgm537_Edo_Archivo.Cd_Estado_Archivo
 			)
 			where idEstatusObjeto = #{idEstatusObjeto}
 	</select>	
@@ -116,7 +115,7 @@
 	</select>
 	<insert id="crearEstatusObjeto" keyProperty="idEstatusObjeto" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.EstatusObjetoVO">
 		<selectKey keyProperty="idEstatusObjeto" resultType="int" order="BEFORE"> 
-			<![CDATA[ select ST_534_ST_OBJETO.nextval as idEstatusObjeto from dual ]]> 
+			<![CDATA[ select SQ_534_ST_OBJETO.nextval as idEstatusObjeto from dual ]]> 
 		</selectKey>
 		Insert Into Tgm534_St_Objeto
 		(
@@ -144,7 +143,7 @@
 	</update>
 	<delete id="eliminarEstatusObjeto" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.EstatusObjetoVO">
 		update Tgm534_St_Objeto
-		Set Cd_St_Clave = 3,			
+		Set Cd_St_Clave = 3		
 		where Cd_St_Objeto = #{idEstatusObjeto}
 	</delete>
 </mapper>

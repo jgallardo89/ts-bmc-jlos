@@ -123,6 +123,23 @@ public class EstatusObjetoBO implements mx.com.bbva.bancomer.commons.business.Bb
 					logger.debug( "Datos de Salida invoke -- " + bbvaAbstractDataTransferObject.toString() );
 					logger.debug( "Salida invoke          -- OK" );
 					return bbvaAbstractDataTransferObject;
+				case CommandConstants.NOMBRE_PANTALLA:
+					estatusObjetoVOs = null;
+					session = MapeadorSessionFactory.getSqlSessionFactory().openSession();
+					mapEstatusObjeto = session.getMapper(MapEstatusObjeto.class);
+					try {
+						estatusObjetoVOs = mapEstatusObjeto.obtenerNombreTabla();					
+					} catch (Exception ex) {
+						ex.printStackTrace();
+						return bbvaAbstractDataTransferObject;
+					} finally {
+						session.close();
+					}
+					((EstatusObjetoDTO)bbvaAbstractDataTransferObject).setEstatusObjetoPantallaVOs(estatusObjetoVOs);
+					logger.debug("result: " + estatusObjetoVOs + " -- **fin**");
+					logger.debug( "Datos de Salida invoke -- " + bbvaAbstractDataTransferObject.toString() );
+					logger.debug( "Salida invoke          -- OK" );
+					return bbvaAbstractDataTransferObject;
 				default:
 					return bbvaAbstractDataTransferObject;
 			}
@@ -161,8 +178,10 @@ public class EstatusObjetoBO implements mx.com.bbva.bancomer.commons.business.Bb
 				.openSession();
 		MapEstatusObjeto mapEstatusObjeto = session.getMapper(MapEstatusObjeto.class);
 		try {
+			logger.debug("revisando id:"+estatusObjetoVO.getIdEstatusObjeto());
 			EstatusObjetoVO estatusObjetoVOexist = mapEstatusObjeto.existEstatusObjeto(estatusObjetoVO);
-			if(estatusObjetoVOexist!=null){
+			logger.debug("revisando si nulo:"+estatusObjetoVOexist);
+			if(estatusObjetoVOexist==null){				
 				mapEstatusObjeto.eliminarEstatusObjeto(estatusObjetoVO);
 			}
 			else{ 

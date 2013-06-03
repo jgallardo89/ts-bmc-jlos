@@ -12,4 +12,5 @@ public abstract interface MapEstatusObjeto {
 	public abstract void crearEstatusObjeto(EstatusObjetoVO estatusObjetoVO);
 	public abstract void actualizaEstatusObjeto(EstatusObjetoVO estatusObjetoVO);
 	public abstract void eliminarEstatusObjeto(EstatusObjetoVO estatusObjetoVO);
+	public abstract List<EstatusObjetoVO> obtenerNombreTabla();	
 }
