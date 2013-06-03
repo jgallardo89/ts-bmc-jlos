@@ -3,7 +3,7 @@
 <?meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7"?>
 <?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
 <zk>
-	<window border="0" width="100%" height="100%"
+	<window border="0" width="100%" height="120%"
 		apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('mx.com.bbva.mt101.ui.commons.viewmodel.contratacion.ContratacionController')"
 		id="contratacionWindows">
@@ -11,9 +11,8 @@
 		<div sclass="BODY" height="100%">
 			<groupbox height="100%" apply="mx.com.bbva.mt101.ui.commons.viewmodel.contratacion.ContratacionController">
 				<caption sclass="pageTitle" label="Contratación"></caption>		
-					<portallayout maximizedMode="whole" id="portalLayoutContratacion"
-					width="100%" height="100%">
-					<portalchildren>
+					<vlayout>
+					<groupbox>
 						<panel width="100%" sclass="sectionPanelTitle" id="datosContratacion"
 							title="Contratacion" collapsible="true" style="margin-bottom:10px"
 							border="normal">
@@ -46,7 +45,8 @@
 													<template name="model">										
 														<comboitem value="@load(each.idCanal)" label="@load(each.nombreCanal)" height="100%"/>
 													</template>																								
-												</combobox> 																													
+												</combobox>
+												<div align="right"/>																													
 											</row>
 											<row sclass="row2">
 												<div align="right">
@@ -66,17 +66,19 @@
 													<template name="model">										
 														<comboitem value="@load(each.idProducto)" label="@load(each.nombreProducto)" height="100%"/>
 													</template>																								
-												</combobox> 																													
+												</combobox> 	
+												<div align="right"/>																												
 											</row>
 											<row sclass="row2">
 												<div align="right">
 													<label width="100%" sclass="labelFill" value="Fecha alta: "></label>												
 												</div>
-												<datebox value="@load(vm.contratacionDTO.contratacionVO.fechaAlta)"  maxlength="50"  width="100%" id="fechaAlta" readonly="true" buttonVisible="false" onCreate="self.value = new Date()" format="dd/MM/yyyy HH:MM"></datebox>
+												<datebox value="@load(vm.contratacionDTO.contratacionVO.fechaAlta)"  maxlength="50"  width="100%" id="fechaAlta" readonly="true" buttonVisible="false" onCreate="self.value = new Date()" format="dd/MM/yyyy HH:mm"></datebox>
 												<div align="right">
 													<label width="100%" sclass="labelFill" value="Fecha modificaciôn: "></label>												
 												</div>
-												<datebox value="@load(vm.contratacionDTO.contratacionVO.fechaModificacion)"  maxlength="50"  width="100%" id="fechaModificacion" readonly="true" buttonVisible="false" onCreate="self.value = new Date()" format="dd/MM/yyyy HH:MM"></datebox>																														
+												<datebox value="@load(vm.contratacionDTO.contratacionVO.fechaModificacion)"  maxlength="50"  width="100%" id="fechaModificacion" readonly="true" buttonVisible="false" onCreate="self.value = new Date()" format="dd/MM/yyyy HH:mm"></datebox>
+												<div align="right"/>																														
 											</row>
 											<row sclass="row2">
 												<div align="right">
@@ -87,12 +89,15 @@
 													<template name="model">										
 														<comboitem value="@load(each.idEstatusObjeto)" label="@load(each.nombreEstatusObjeto)" height="100%"/>
 													</template>																								
-												</combobox>																												
+												</combobox>	
+												<div align="right"/>
+												<div align="right"/>
+												<div align="right"/>																										
 											</row>
 											<row sclass="row2">
 												<div align="right" width="70%">
 													<image src="/img/xls.png" onClick="@command('onShowReport',type='xls')" />
-													<image src="/img/csv.png" onClick="@command('onShowReport',type='csv')" />
+													<image src="/img/csv.png" onClick="@command('onShowReport',type='txt')" />
 												</div>
 												<div align="right" width="70%">
 													<button sclass="button" image="/img/clear.png"  label="Limpiar" id="limpiarBtn" onClick="@command('clean')" ></button>
@@ -105,7 +110,7 @@
 												</div>
 												<div align="right" width="70%">
 													<button sclass="button" image="/img/disk.png" disabled="@load(vm.botonGuardar)" label="Nueva" id="nuevaBtn" onClick="@command('nuevaContratacion',contratacion='nueva')"></button>
-												</div>
+												</div>			
 											</row>
 										</rows>								
 									</grid>
@@ -118,8 +123,8 @@
 								</div>
 							</panelchildren>										
 						</panel>
-					</portalchildren>
-					<portalchildren width="100%" style="padding: 5px">
+					</groupbox>
+					<groupbox>
 						<panel sclass="sectionPanelTitle" width="100%" id="panelContratacion"
 							title="Contratación" collapsible="true"
 							style="margin-bottom:10px">
@@ -153,16 +158,16 @@
 											<label hflex="1" value="@load(each.nombreCliente)"></label>
 											<label hflex="1" value="@load(each.nombreProducto)"></label>	
 											<label hflex="1" value="@load(each.nombreCanalSalida)"></label>
-											<label hflex="1" value="@load(each.fechaAlta) @converter('formatedDate', format='dd/MM/yyyy  HH:MM')"></label>
-											<label hflex="1" value="@load(each.fechaModificacion) @converter('formatedDate', format='dd/MM/yyyy  HH:MM')"></label>
+											<label hflex="1" value="@load(each.fechaAlta) @converter('formatedDate', format='dd/MM/yyyy  HH:mm')"></label>
+											<label hflex="1" value="@load(each.fechaModificacion) @converter('formatedDate', format='dd/MM/yyyy  HH:mm')"></label>
 											<label hflex="1" value="@load(each.nombreEstatusObjeto)"></label>																					
 										</row>
 									</template>									
 								</grid>
 							</panelchildren>
 						</panel>
-					</portalchildren>
-				</portallayout>								
+					</groupbox>
+				</vlayout>			
 			</groupbox>
 		</div>
 		<zscript>

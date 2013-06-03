@@ -6,7 +6,7 @@
 	<window border="0" width="65%" height="95%"
 		apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('mx.com.bbva.mt101.ui.commons.viewmodel.contratacion.ContratacionController')"
-		id="editarContratacionWindow">
+		id="editarContratacionWindows">
 		<include src="../../pages/styles.zul" />
 		<div sclass="BODY" height="100%" width="100%">
 		<groupbox height="27%" width="100%" apply="mx.com.bbva.mt101.ui.commons.viewmodel.contratacion.ContratacionController">
@@ -78,7 +78,7 @@
 											<comboitem value="@load(each.idEstatusObjeto)" label="@load(each.nombreEstatusObjeto)" height="100%"/>
 										</template>																								
 									</combobox>	
-									<div align="right">												
+									<div align="right">							
 									</div>		
 									<div align="center"/>																							
 								</row>

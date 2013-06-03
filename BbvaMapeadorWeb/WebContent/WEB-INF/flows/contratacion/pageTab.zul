@@ -36,7 +36,7 @@
 									</cell>
 									<cell colspan="2" align="left">
 										<textbox sclass="textboxUpperCase" maxlength="50"
-													id="descripcionMapaGmm"  width="95%"></textbox>
+													id="descripcionMapaGmm"  width="95%" disabled="true"></textbox>
 									</cell>																													
 								</row>	
 							</rows>								
@@ -95,7 +95,7 @@
 								</row>
 								<row>
 									<cell align="left" colspan="3">
-										<textbox disabled="@load(vm.flagDisabled)" sclass="textboxUpperCase" id="descripcionMensajeSalida" value="@load(vm.strDescripcionMensajeSalida)" rows="6" width="370px;" tabindex="11" />
+										<textbox disabled="true" sclass="textboxUpperCase" id="descripcionMensajeSalida" value="@load(vm.strDescripcionMensajeSalida)" rows="6" width="370px;" tabindex="11" />
 									</cell>
 									<cell align="right">
 									</cell>
@@ -142,14 +142,14 @@
 										<button sclass="button" image="/img/disk.png" label="Guardar" id="guardaBtn" onClick="@command('save') @global-command('closeModal')"></button>
 									</div>
 									<div align="right" width="70%" visible="false">
-										<button disabled="@load(vm.flagDisabled)" sclass="button" image="/img/clear.png"  label="Limpiar" id="limpiarBtn" onClick="@command('clean')" ></button>
+										<button visible="@load(vm.botonLimpiar)" sclass="button" image="/img/clear.png"  label="Limpiar" id="limpiarBtn" onClick="@command('clean')" ></button>
 									</div>
 									<div align="center">
-									<textbox id="idContratacion" value="@load(vm.idStrContratacion)" visible="false"></textbox>
-									<textbox id="idFlujo" value="@load(vm.idStrFlujo)" visible="false"/>
-									<textbox id="idMensajeSalida" value="@load(vm.idStrMensajeSalida)" visible="false"/>
-									<textbox id="idMapaGmm" value="@load(vm.idStrMapaGmm)" visible="false"/>
-									<textbox id="idEtapa" value="@load(vm.idStrEtapa)" visible="false"/>
+										<textbox id="idContratacion" value="@load(vm.idStrContratacion)" visible="false"></textbox>
+										<textbox id="idFlujo" value="@load(vm.idStrFlujo)" visible="false"/>
+										<textbox id="idMensajeSalida" value="@load(vm.idStrMensajeSalida)" visible="false"/>
+										<textbox id="idMapaGmm" value="@load(vm.idStrMapaGmm)" visible="false"/>
+										<textbox id="idEtapa" value="@load(vm.idStrEtapa)" visible="false"/>
 									</div>
 									<div align="center"/>
 								</row>
