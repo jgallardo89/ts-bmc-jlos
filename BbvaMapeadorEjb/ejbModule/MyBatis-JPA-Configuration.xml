@@ -33,5 +33,6 @@
     	<mapper resource="mappers/monitoreoprocesos/MapMonitoreoProcesos.xml"/>
     	<mapper resource="mappers/monitoreoarchivos/MapMonitoreoArchivos.xml"/>
     	<mapper resource="mappers/contratacion/MapContratacion.xml"/>
+    	<mapper resource="mappers/contratacionmap/MapContratacionMapeador.xml"/>
     </mappers>
 </configuration>
