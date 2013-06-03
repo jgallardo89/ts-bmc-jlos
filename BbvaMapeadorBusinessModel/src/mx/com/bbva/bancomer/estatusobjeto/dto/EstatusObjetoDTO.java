@@ -11,6 +11,20 @@ public class EstatusObjetoDTO extends BbvaAbstractDataTransferObject {
 
 	private List<EstatusClaveVO> estatusClaveVOs;
 	private EstatusClaveVO estatusClaveVO;
+	private List<EstatusObjetoVO> estatusObjetoPantallaVOs;
+	/**
+	 * @return the estatusObjetoPantallaVOs
+	 */
+	public final List<EstatusObjetoVO> getEstatusObjetoPantallaVOs() {
+		return estatusObjetoPantallaVOs;
+	}
+	/**
+	 * @param estatusObjetoPantallaVOs the estatusObjetoPantallaVOs to set
+	 */
+	public final void setEstatusObjetoPantallaVOs(
+			List<EstatusObjetoVO> estatusObjetoPantallaVOs) {
+		this.estatusObjetoPantallaVOs = estatusObjetoPantallaVOs;
+	}
 	/**
 	 * @return the estatusClaveVO
 	 */
