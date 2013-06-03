@@ -1,10 +1,16 @@
 package mx.com.bbva.mapeador.ui.commons.viewmodel.componente;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import mx.com.bbva.bancomer.bussinnes.model.vo.ClienteVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.ComponenteVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.PantallaVO;
+import mx.com.bbva.bancomer.canal.dto.BeanGenerico;
+import mx.com.bbva.bancomer.commons.command.CommandConstants;
 import mx.com.bbva.bancomer.commons.command.MapeadorConstants;
 import mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject;
 import mx.com.bbva.bancomer.componente.dto.ComponenteDTO;
@@ -16,6 +22,7 @@ import mx.com.bbva.mapeador.security.session.user.SessionUser;
 import mx.com.bbva.mapeador.ui.commons.controller.IController;
 import mx.com.bbva.mapeador.ui.commons.viewmodel.pantalla.PantallaController;
 import mx.com.bbva.mapeador.ui.commons.viewmodel.support.ControllerSupport;
+import mx.com.bbva.mt101.ui.commons.viewmodel.reportes.ReportesController;
 
 import org.apache.log4j.Logger;
 import org.zkoss.bind.BindUtils;
@@ -33,6 +40,7 @@ import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.Button;
+import org.zkoss.zul.Checkbox;
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Grid;
 import org.zkoss.zul.Label;
@@ -53,6 +61,12 @@ public class ComponenteController extends ControllerSupport implements  IControl
 	private Textbox nombreComponente;
 	@Wire
 	private Combobox tipoComponente;
+	
+	@Wire
+	private Label lblDefault;
+	
+	@Wire
+	private Checkbox defaultComponent;
 	
 	@Wire
 	private Label lblPantalla;
@@ -115,6 +129,7 @@ public class ComponenteController extends ControllerSupport implements  IControl
 		nombreComponente.setValue(componenteVO.getNombreComponente());
 		tipoComponente.setValue(componenteVO.getNombreTipoComponente());
 		idComponente.setValue(String.valueOf(componenteVO.getIdComponente()));
+		defaultComponent.setChecked(componenteVO.getIdDefault().equalsIgnoreCase("T")?true:false);
 	}
 	
 	//Cambiar al objeto que pertenezca el componente en este caso componenteVOs
@@ -129,6 +144,8 @@ public class ComponenteController extends ControllerSupport implements  IControl
 		
 		//Combos Validar el nombre de los parametros en HTML VS Controller
 		componenteVO.setIdPantalla((Integer.parseInt(idPantalla.getValue().isEmpty()?"0":idPantalla.getValue())));
+		
+		componenteVO.setIdDefault(defaultComponent.isChecked()?"T":"F");
 		
 		//Consulta Parametrizada
 
@@ -148,6 +165,8 @@ public class ComponenteController extends ControllerSupport implements  IControl
 			logger.debug(":::::::::::Lista Vacia::::::::::");
 		}
 		//Asignacion de la lista a la variable global de la clase
+		ReportesController controller = new ReportesController();
+		controller.registrarEvento(null, null, CommandConstants.CONSULTAR,"Catálogo Componentes");
 		componenteVOs = componenteDTO.getComponenteVOs();
 		
 	}
@@ -186,7 +205,7 @@ public class ComponenteController extends ControllerSupport implements  IControl
 				ComponenteVO componenteVO = new ComponenteVO();
 				componenteVO.setIdComponente(Integer.parseInt(idComponente.getValue().isEmpty()?"0":idComponente.getValue()));
 				componenteVO.setIdPantalla(Integer.parseInt(pantalla.getSelectedItem().getValue().toString()));
-				
+				componenteVO.setIdDefault(defaultComponent.isChecked()?"T":"F");
 				componenteVO.setNombreComponente(nombreComponente.getValue());
 				componenteVO.setIdTipoComponente(Integer.parseInt(tipoComponente.getSelectedItem().getValue().toString()));
 							
@@ -206,11 +225,12 @@ public class ComponenteController extends ControllerSupport implements  IControl
 	
 				componenteDTO.setComponenteVO(componenteVO);
 				componenteDTO.toString(BbvaAbstractDataTransferObject.XML);	
+				ReportesController controller = new ReportesController();
+				controller.registrarEvento(componenteVO, this.componenteDTO.getComponenteVO(), CommandConstants.MODIFICACION,"Catálogo Componentes");
 				
 				//Asignacion resultado de consulta al mismo DTO de Componente
 				componenteDTO = componenteBO.readCommand(componenteDTO);
-				
-				
+								
 				Messagebox.show("Registro actualizado con exito!!",
 						"Confirmación", Messagebox.OK,
 						Messagebox.INFORMATION);
@@ -224,7 +244,7 @@ public class ComponenteController extends ControllerSupport implements  IControl
 				componenteVO.setIdPantalla(Integer.parseInt(pantalla.getSelectedItem().getValue().toString()));
 				componenteVO.setNombreComponente(nombreComponente.getValue());
 				componenteVO.setIdTipoComponente(Integer.parseInt(tipoComponente.getSelectedItem().getValue().toString()));
-							
+				componenteVO.setIdDefault(defaultComponent.isChecked()?"T":"F");	
 				//Seteo de VO a DTO 
 				componenteDTO.setComponenteVO(componenteVO);
 				componenteDTO.toString(BbvaAbstractDataTransferObject.XML);	
@@ -243,7 +263,8 @@ public class ComponenteController extends ControllerSupport implements  IControl
 	
 				componenteDTO.setComponenteVO(componenteVO);
 				componenteDTO.toString(BbvaAbstractDataTransferObject.XML);	
-				
+				ReportesController controller = new ReportesController();
+				controller.registrarEvento(componenteVO, this.componenteDTO.getComponenteVO(), CommandConstants.ALTA,"Catálogo Componentes");
 				//Asignacion resultado de consulta al mismo DTO de Componente
 				componenteDTO = componenteBO.readCommand(componenteDTO);
 				
@@ -322,6 +343,7 @@ public class ComponenteController extends ControllerSupport implements  IControl
 		 
 		//Setear IDs Invisibles
 		idComponente.setValue(null); 
+		defaultComponent.setChecked(false);
 		
 	}
 	/**
@@ -495,9 +517,41 @@ public class ComponenteController extends ControllerSupport implements  IControl
 		componentes.put(consultarBtn.getId(), consultarBtn);
 		componentes.put(eliminarBtn.getId(), eliminarBtn);
 		componentes.put(componentesGrid.getId(), componentesGrid);
+		componentes.put(lblDefault.getId(), lblDefault);
+		componentes.put(defaultComponent.getId(), defaultComponent);
 		super.applyPermission(MapeadorConstants.COMPONENTES, componentes);
 		return isApplied;
 	}	
-
+	
+	@Command
+	public void onShowReport(@BindingParam("type") final String type) {
+		ReportesController controller = new ReportesController();
+		ArrayList<String> headersReport = new ArrayList<String>();
+		headersReport.add("Pantalla");
+		headersReport.add("Nombre Componente");
+		headersReport.add("Tipo de Componente");
+		headersReport.add("Default");		
+		if(type.equals("xls")) {
+			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_EXCEL,"Catálogo Componentes");
+		} else {
+			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_TEXTO,"Catálogo Componentes");
+		}
+		controller.createReport(generaLista(), headersReport, type, "COMPONENTES");
+	}	
+	
+	private ArrayList<BeanGenerico> generaLista() {
+		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+		ArrayList<BeanGenerico> beanGenericos = new ArrayList<BeanGenerico>();
+		BeanGenerico beanGenerico = null;
+		for(ComponenteVO componenteVO: componenteVOs) {
+			beanGenerico = new BeanGenerico();
+			beanGenerico.setValor1(componenteVO.getNombrePantalla());
+			beanGenerico.setValor2(componenteVO.nombreComponente);
+			beanGenerico.setValor3(componenteVO.nombreTipoComponente);
+			beanGenerico.setValor4(componenteVO.getIdDefault());			
+			beanGenericos.add(beanGenerico);
+		}
+		return beanGenericos;
+	}
 	
 }
