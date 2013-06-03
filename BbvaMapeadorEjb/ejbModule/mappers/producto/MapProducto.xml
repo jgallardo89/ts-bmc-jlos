@@ -12,6 +12,7 @@
 			PRODUCTO.TM_MODIFICACION fechaModificacion,
 			PRODUCTO.CD_ST_OBJETO idEstatusObjeto,
 			FLUJO.NB_FLUJO nombreFlujo,
+			Flujo.Tx_Flujo descripcionFlujo,
 			OBJETO.NB_ST_OBJETO nombreEstatusObjeto
 		FROM 
 			TGM515_PRODUCTO PRODUCTO,
@@ -76,6 +77,9 @@
 		</if>
 		<if test="idFlujo != null and idFlujo != 0">
 			AND PRODUCTO.CD_FLUJO = #{idFlujo}
+		</if>
+		<if test="idProducto !=null and idProducto != 0">
+			AND PRODUCTO.CD_PRODUCTO != #{idProducto}		
 		</if>
 		ORDER BY PRODUCTO.CD_PRODUCTO
 	</select>

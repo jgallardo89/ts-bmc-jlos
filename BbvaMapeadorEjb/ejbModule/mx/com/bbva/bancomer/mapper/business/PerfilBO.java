@@ -74,7 +74,6 @@ public class PerfilBO implements mx.com.bbva.bancomer.commons.business.BbvaIBusi
 				if(bbvaAbstractDataTransferObject.getCommandId()==CommandConstants.PERFIL_COMMAND_READ_ALL){
 					PerfilVO perfilVO = ((PerfilDTO)bbvaAbstractDataTransferObject).getPerfilVO();
 					List<PerfilVO> result = null;		
-					logger.debug("perfilVO--->:"+perfilVO.toString());
 					result = mapPerfil.obtenerPerfiles(perfilVO);
 					((PerfilDTO)bbvaAbstractDataTransferObject).setPerfilVOs(result);
 				}

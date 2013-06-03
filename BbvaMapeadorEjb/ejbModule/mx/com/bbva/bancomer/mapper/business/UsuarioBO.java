@@ -104,11 +104,10 @@ public class UsuarioBO implements mx.com.bbva.bancomer.commons.business.BbvaIBus
 			if(usuarioVO != null && usuarioVO.getIdCveUsuario() != null) {
 				logger.debug(":::::::::::::::::::::" + usuarioVO.getIdCveUsuario());
 			}
-			try {
+			try {				
 				result = mapUsuario.obtenerUsuarios(usuarioVO).get(0);		
 			} catch (Exception ex) {
-				
-				ex.printStackTrace();
+				result = null;				
 			} finally {
 				session.close();
 			}
@@ -157,17 +156,28 @@ public class UsuarioBO implements mx.com.bbva.bancomer.commons.business.BbvaIBus
 		UsuarioVO usuarioVO = ((UsuarioDTO)bbvaAbstractDataTransferObject).getUsuarioVO();
 		SqlSession session = MapeadorSessionFactory.getSqlSessionFactory()
 				.openSession();
-		MapUsuario mapUsuario = session.getMapper(MapUsuario.class);
-		try {
-			logger.debug("PERFIL-----"+usuarioVO.getIdPerfil());
-			mapUsuario.actualizarUsuario(usuarioVO);
-			session.commit();
-		} catch (Exception ex) {
-			session.rollback();
-			ex.printStackTrace();
-		} finally {
-			session.close();
-		}
+		MapUsuario mapUsuario = session.getMapper(MapUsuario.class);		
+		String userName = usuarioVO.getNombreUsuario();	
+		int idPerfil = usuarioVO.getIdPerfil();		
+		int idEstatus = usuarioVO.getEstatusUsuario();
+		usuarioVO = readCommand(usuarioVO);
+		((UsuarioDTO)bbvaAbstractDataTransferObject).getUsuarioVO().setIdPerfil(idPerfil);
+		((UsuarioDTO)bbvaAbstractDataTransferObject).getUsuarioVO().setNombreUsuario(userName);
+		((UsuarioDTO)bbvaAbstractDataTransferObject).getUsuarioVO().setEstatusUsuario(idEstatus);		
+		if(usuarioVO == null){
+			try {				
+				mapUsuario.actualizarUsuario(((UsuarioDTO)bbvaAbstractDataTransferObject).getUsuarioVO());
+				session.commit();
+			} catch (Exception ex) {
+				session.rollback();
+				ex.printStackTrace();
+			} finally {
+				session.close();
+			}
+		}else{
+			bbvaAbstractDataTransferObject.setErrorCode("0001");
+			bbvaAbstractDataTransferObject.setErrorDescription("El usuario ya existe");
+		}	
 		logger.debug( "Datos de Salida invoke -- " + bbvaAbstractDataTransferObject.toString() );
 		logger.debug( "Salida invoke          -- OK" );
 		return bbvaAbstractDataTransferObject;	

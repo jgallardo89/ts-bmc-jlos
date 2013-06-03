@@ -20,7 +20,8 @@
 		        
 		WHERE 
 		        U.ST_USUARIO = O.CD_ST_OBJETO   AND
-		        U.CD_PERFIL = P.CD_PERFIL
+		        U.CD_PERFIL = P.CD_PERFIL	AND
+		        U.ST_USUARIO != 29
 			<if test="nombreUsuario != null">
 				AND U.NB_USUARIO LIKE  #{nombreUsuario}
 			</if>
@@ -32,7 +33,10 @@
 			</if>						  
 			<if test="estatusUsuario != null and estatusUsuario != 0">
 				AND  U.ST_USUARIO = #{estatusUsuario}
-			</if>				
+			</if>	
+			<if test="idUsuario != null and idUsuario != 0">
+				AND U.CD_USUARIO != #{idUsuario}
+			</if>			
 				ORDER BY U.CD_USUARIO
 	</select>
 	<insert id="crearUsuario" keyProperty="idUsuario" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.UsuarioVO">

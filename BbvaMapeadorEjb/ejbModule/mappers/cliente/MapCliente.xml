@@ -72,6 +72,9 @@
 		<if test="idIdentificador != null">
 			AND CLIENTE.CD_IDENTIFICADOR = #{idIdentificador}
 		</if>
+		<if test="idCliente != null and idCliente!=0">
+			AND CLIENTE.CD_CLIENTE != #{idCliente}
+		</if>
 		ORDER BY CLIENTE.CD_CLIENTE
 	</select>
 </mapper>
