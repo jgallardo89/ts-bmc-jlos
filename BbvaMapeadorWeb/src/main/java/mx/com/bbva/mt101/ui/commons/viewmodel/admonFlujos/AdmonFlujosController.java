@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
@@ -55,7 +56,7 @@ import mx.com.bbva.mt101.ui.commons.viewmodel.reportes.ReportesController;
 public class AdmonFlujosController extends ControllerSupport implements IController {
 
 	private static final long serialVersionUID = 671034870906549704L;
-	
+	private static final Logger logger = Logger.getLogger(AdmonFlujosController.class);
 	@Wire
 	private Textbox idFlujo;
 	@Wire
@@ -166,13 +167,15 @@ public class AdmonFlujosController extends ControllerSupport implements IControl
 		}
 		if(!errorGuardar && !idFlujo.getValue().isEmpty()){
 			ProductoDTO productoDTO = null;
+			logger.debug("statusObjeto:"+statusObjeto.getSelectedItem().getValue());
 			if(Integer.parseInt(statusObjeto.getSelectedItem().getValue().toString())==CommandConstants.ID_FLUJO_BAJA){
 				ProductoBO productoBO = new ProductoBO();
 				ProductoVO productoVO = new ProductoVO();
 				productoVO.setIdFlujo(Integer.parseInt(idFlujo.getValue()));
 				productoDTO = productoBO.readCommandCmb(productoVO);
 			}
-			if (productoDTO!= null && productoDTO.getProductoVOs().size() == 0) {
+			logger.debug("productoDTO:"+productoDTO);
+			if (productoDTO==null || productoDTO.getProductoVOs().size() == 0){
 				FlujoDTO flujoDTO = new FlujoDTO();
 				FlujoVO flujoVO = new FlujoVO();
 				flujoVO.setNombreFlujo(nombreFlujo.getValue().toUpperCase());
@@ -194,14 +197,14 @@ public class AdmonFlujosController extends ControllerSupport implements IControl
 						"Información", Messagebox.OK,
 						Messagebox.INFORMATION);
 			} else {
-				FlujoVO flujoVO = new FlujoVO();
+//				FlujoVO flujoVO = new FlujoVO();
 				clean();
-				flujoVO.setNombreFlujo(StringUtil.validaLike(nombreFlujo.getValue()));
-				flujoVO.setDescripcionFlujo(StringUtil.validaLike(descripcionFlujo.getValue()));
-				flujoVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue().isEmpty()?"0":idEstatusObjeto.getValue()));
-				flujoVO.toString();
-				flujoDTO.setFlujoVO(flujoVO);
-				flujoVOs = flujoBO.readCommand(flujoDTO).getFlujoVOs();
+//				flujoVO.setNombreFlujo(StringUtil.validaLike(nombreFlujo.getValue()));
+//				flujoVO.setDescripcionFlujo(StringUtil.validaLike(descripcionFlujo.getValue()));
+//				flujoVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue().isEmpty()?"0":idEstatusObjeto.getValue()));
+//				flujoVO.toString();
+//				flujoDTO.setFlujoVO(flujoVO);
+//				flujoVOs = flujoBO.readCommand(flujoDTO).getFlujoVOs();
 				  Messagebox.show("!No se puede dar de Baja, ya que esta siendo usado por algún Producto!",
 							"Información", Messagebox.OK,
 							Messagebox.EXCLAMATION);
