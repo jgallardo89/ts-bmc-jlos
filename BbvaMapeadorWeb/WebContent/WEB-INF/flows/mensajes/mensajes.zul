@@ -96,6 +96,8 @@
 											width="5%"></column>
 										<column hflex="1" label="Identificador de Mensaje" style="text-wrap: normal;"
 											width="10%" sort="auto(nombreMensajeSalida)"></column>
+										<column hflex="1" label="Asunto de mensaje" width="20%"
+											sort="auto(descripcionAsuntoSalida)"></column>
 										<column hflex="1" label="Texto de mensaje" width="20%"
 											sort="auto(descripcionMensajeSalida)"></column>
 										<column hflex="1" label="Fecha alta" width="10%"
@@ -109,6 +111,7 @@
 										<row>
 											<image src="/img/pencil-small.png" onClick="@command('readSelected',idMensajeSalida=each)"></image>											
 											<label hflex="1" value="@load(each.nombreMensajeSalida)"></label>
+											<label hflex="1" value="@load(each.descripcionAsuntoSalida)"></label>
 											<label hflex="1" value="@load(each.descripcionMensajeSalida)"></label>
 											<label hflex="1" value="@load(each.fechaAlta)  @converter('formatedDate', format='dd/MM/yyyy  HH:mm')"></label>
 											<label hflex="1" value="@load(each.fechaModificacion)  @converter('formatedDate', format='dd/MM/yyyy  HH:mm')"></label>
