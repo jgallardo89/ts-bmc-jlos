@@ -257,7 +257,6 @@ public class ProductosController extends ControllerSupport implements IControlle
 							Messagebox.INFORMATION);
 				}
 				else {
-					clean();
 					productoVO.setIdFlujo(Integer.parseInt(idFlujo.getValue().isEmpty()?"0":idFlujo.getValue()));
 					productoVO.setNombreProducto(StringUtil.validaLike(nombreProducto.getValue()));
 					productoVO.setDescripcionProducto(StringUtil.validaLike(descripcionProducto.getValue()));
@@ -265,7 +264,7 @@ public class ProductosController extends ControllerSupport implements IControlle
 					productoVO.toString();
 					productoDTO.setProductoVO(productoVO);
 					productoVOs = productoBO.readCommand(productoDTO).getProductoVOs();
-					Messagebox.show("!El Producto no puede darse de Baja, porque esta siendo usao por la Contratación!",
+					Messagebox.show("!El Producto no puede darse de Baja, porque esta siendo usado por la Contratación!",
 							"Información", Messagebox.OK,
 							Messagebox.EXCLAMATION);
 					clean();

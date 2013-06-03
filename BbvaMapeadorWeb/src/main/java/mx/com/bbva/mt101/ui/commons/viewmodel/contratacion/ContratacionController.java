@@ -48,6 +48,7 @@ import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.Combobox;
+import org.zkoss.zul.Datebox;
 import org.zkoss.zul.Iframe;
 import org.zkoss.zul.Tab;
 import org.zkoss.zul.Tabbox;
@@ -85,6 +86,11 @@ public class ContratacionController extends ControllerSupport implements IContro
 	@Wire
 	private Combobox estatusObjeto;
 	
+	@Wire
+	private Datebox fechaModificacion;
+	@Wire
+	private Datebox fechaAlta;
+	
 	private boolean botonEditar;
 	private boolean botonGuardar;
 	private boolean comboEstatus;
@@ -109,7 +115,7 @@ public class ContratacionController extends ControllerSupport implements IContro
 		EstatusObjetoDTO estatusObjetoDTO = new EstatusObjetoDTO();
 	    estatusObjetoDTO.setCommandId(CommandConstants.ESTATUS_OBJETO);
 	    EstatusObjetoVO estatusObjetoVO = new EstatusObjetoVO();
-	    //estatusObjetoVO.setNombreTabla("CONTRATACION");
+	    estatusObjetoVO.setNombreTabla(CommandConstants.NOMBRE_TABLA_CONTRATACION);
 	    estatusObjetoDTO.setEstatusObjetoVO(estatusObjetoVO);
 	    estatusObjetoDTO = estatusObjetoBO.readCommand(estatusObjetoDTO);
 	    
@@ -139,6 +145,9 @@ public class ContratacionController extends ControllerSupport implements IContro
 	    contratacionDTO.setClienteVOs(clienteDTO.getClienteVOs());
 	    contratacionDTO.setProductoVOs(productoDTO.getProductoVOs());
 	    
+	    contratacionVO = new ContratacionVO();
+	    contratacionVO.setIdBaja(CommandConstants.ESTATUS_OBJETO_CONTRATACION_BAJA);
+	    contratacionDTO.setContratacionVO(contratacionVO);
 	    ContratacionBO contratacionBO = new ContratacionBO();
 	    contratacionBO.readCommand(contratacionDTO);
 	    
@@ -187,55 +196,88 @@ public class ContratacionController extends ControllerSupport implements IContro
 	@Command
 	@NotifyChange({ "contratacionVOs","idContratacion" })
 	public void save() {
-		if(idContratacion.getValue().isEmpty() || idContratacion.getValue().equals("0")){
-			ContratacionDTO contratacionDTO = new ContratacionDTO();
-			ContratacionVO contratacionVO = new ContratacionVO();
-			ContratacionBO contratacionBO = new ContratacionBO();
-			contratacionVO.setIdEstatusObjeto(CommandConstants.ESTATUS_OBJETO_CONTRATACION_ACTIVO);
-			contratacionVO.setIdCanal(Integer.parseInt(idCanal.getValue()));
-			contratacionVO.setIdCanalSalida(Integer.parseInt(idCanalSalida.getValue()));
-			contratacionVO.setIdCliente(Integer.parseInt(idCliente.getValue()));
-			contratacionVO.setIdProducto(Integer.parseInt(idProducto.getValue()));
-			contratacionDTO.setContratacionVO(contratacionVO);
-			contratacionDTO = contratacionBO.createCommand(contratacionDTO);
-			
-			idContratacion.setValue(String.valueOf(contratacionDTO.getContratacionVO().getIdContratacion()));
-			
-			contratacionDTO = new ContratacionDTO();
-			contratacionVO = new ContratacionVO();
-			contratacionVO.toString();
-			contratacionDTO.setContratacionVO(contratacionVO);
-			contratacionBO = new ContratacionBO();
-			contratacionVOs = contratacionBO.readCommand(contratacionDTO).getContratacionVOs();
-			estatusObjeto.setValue(estatusObjeto.getValue());
-			Messagebox.show("!El Registro de la Contratación fue exitoso!",
-					"Información", Messagebox.OK,
-					Messagebox.INFORMATION);
-			cargaTabsDinamicosReg(Integer.parseInt((String) Sessions.getCurrent().getAttribute("idProducto")));
-		}else {
-			ContratacionDTO contratacionDTO = new ContratacionDTO();
-			ContratacionVO contratacionVO = new ContratacionVO();
-			ContratacionBO contratacionBO = new ContratacionBO();
-			contratacionVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue()));
-			contratacionVO.setIdContratacion(Integer.parseInt(idContratacion.getValue()));
-			contratacionDTO.setContratacionVO(contratacionVO);
-			contratacionBO.updateCommand(contratacionDTO);
-			
-			contratacionDTO = new ContratacionDTO();
-			contratacionVO = new ContratacionVO();
-			contratacionVO.setIdCanal(Integer.parseInt(idCanal.getValue().isEmpty()?"0":idCanal.getValue()));
-			contratacionVO.setIdCanalSalida(Integer.parseInt(idCanalSalida.getValue().isEmpty()?"0":idCanalSalida.getValue()));
-			contratacionVO.setIdCliente(Integer.parseInt(idCliente.getValue().isEmpty()?"0":idCliente.getValue()));
-			contratacionVO.setIdProducto(Integer.parseInt(idProducto.getValue().isEmpty()?"0":idProducto.getValue()));
-			contratacionVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue().isEmpty()?"0":idEstatusObjeto.getValue()));
-			contratacionVO.toString();
-			contratacionDTO.setContratacionVO(contratacionVO);
-			contratacionBO = new ContratacionBO();
-			contratacionVOs = contratacionBO.readCommand(contratacionDTO).getContratacionVOs();
-			estatusObjeto.setValue(estatusObjeto.getValue());
-			Messagebox.show("!La Actualización del Estado de la Contratación fue exitoso!",
-					"Información", Messagebox.OK,
-					Messagebox.INFORMATION);
+		boolean errorGuardar = false;
+		if(idContratacion.getValue().isEmpty() || idContratacion.getValue().equals("0")) {
+			if (canal.getSelectedItem() == null
+					|| canal.getSelectedItem().getValue() == null
+					|| canal.getSelectedItem().getValue().toString().isEmpty()) {
+				canal.setErrorMessage("Favor de seleccionar el Canal Entrada");
+				errorGuardar = true;
+			}
+			if (canalSalida.getSelectedItem() == null
+					|| canalSalida.getSelectedItem().getValue() == null
+					|| canalSalida.getSelectedItem().getValue().toString().isEmpty()) {
+				canalSalida.setErrorMessage("Favor de seleccionar el Canal Salida");
+				errorGuardar = true;
+			}
+			if (producto.getSelectedItem() == null
+					|| producto.getSelectedItem().getValue() == null
+					|| producto.getSelectedItem().getValue().toString().isEmpty()) {
+				producto.setErrorMessage("Favor de seleccionar el Producto");
+				errorGuardar = true;
+			}
+			if (cliente.getSelectedItem() == null
+					|| cliente.getSelectedItem().getValue() == null
+					|| cliente.getSelectedItem().getValue().toString().isEmpty()) {
+				cliente.setErrorMessage("Favor de seleccionar el Cliente");
+				errorGuardar = true;
+			}
+		}
+		if(!errorGuardar) {
+			if(idContratacion.getValue().isEmpty() || idContratacion.getValue().equals("0")){
+				ContratacionDTO contratacionDTO = new ContratacionDTO();
+				ContratacionVO contratacionVO = new ContratacionVO();
+				ContratacionBO contratacionBO = new ContratacionBO();
+				contratacionVO.setIdEstatusObjeto(CommandConstants.ESTATUS_OBJETO_CONTRATACION_ACTIVO);
+				contratacionVO.setIdCanal(Integer.parseInt(idCanal.getValue()));
+				contratacionVO.setIdCanalSalida(Integer.parseInt(idCanalSalida.getValue()));
+				contratacionVO.setIdCliente(Integer.parseInt(idCliente.getValue()));
+				contratacionVO.setIdProducto(Integer.parseInt(idProducto.getValue()));
+				contratacionDTO.setContratacionVO(contratacionVO);
+				contratacionDTO = contratacionBO.createCommand(contratacionDTO);
+				
+				idContratacion.setValue(String.valueOf(contratacionDTO.getContratacionVO().getIdContratacion()));
+				
+				
+				contratacionDTO = new ContratacionDTO();
+				contratacionVO = new ContratacionVO();
+				contratacionVO.toString();
+				contratacionDTO.setContratacionVO(contratacionVO);
+				contratacionBO = new ContratacionBO();
+				contratacionVOs = contratacionBO.readCommand(contratacionDTO).getContratacionVOs();
+				estatusObjeto.setValue(estatusObjeto.getValue());
+				Messagebox.show("!El Registro de la Contratación fue exitoso!",
+						"Información", Messagebox.OK,
+						Messagebox.INFORMATION);
+				cargaTabsDinamicosReg(Integer.parseInt((String) Sessions.getCurrent().getAttribute("idProducto")));
+			} else {
+				ContratacionVO contratacionVO = new ContratacionVO();
+				ContratacionBO contratacionBO = new ContratacionBO();
+				contratacionVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue()));
+				contratacionVO.setIdContratacion(Integer.parseInt(idContratacion.getValue()));
+				if(Integer.parseInt(idEstatusObjeto.getValue()) == CommandConstants.ESTATUS_OBJETO_CONTRATACION_ACTIVO || 
+						contratacionBO.validarProcesoContratacion(contratacionVO)) {
+					ContratacionDTO contratacionDTO = new ContratacionDTO();
+					contratacionDTO.setContratacionVO(contratacionVO);
+					contratacionBO.updateCommand(contratacionDTO);
+					
+					contratacionDTO = new ContratacionDTO();
+					contratacionVO = new ContratacionVO();
+					contratacionVO.toString();
+					contratacionDTO.setContratacionVO(contratacionVO);
+					contratacionBO = new ContratacionBO();
+					contratacionVOs = contratacionBO.readCommand(contratacionDTO).getContratacionVOs();
+					estatusObjeto.setValue(estatusObjeto.getValue());
+					Messagebox.show("!La Actualización del Estado de la Contratación fue exitoso!",
+							"Información", Messagebox.OK,
+							Messagebox.INFORMATION);
+				} else {
+					Messagebox.show("!LA contratación no puede dar de Baja!",
+							"Información", Messagebox.OK,
+							Messagebox.EXCLAMATION);
+					clean();
+				}
+			}
 		}
 	}
 
@@ -288,7 +330,6 @@ public class ContratacionController extends ControllerSupport implements IContro
 		idEstatusObjeto.setValue(String.valueOf(contratacionVO.getIdEstatusObjeto()));
 		idProducto.setValue(String.valueOf(contratacionVO.getIdProducto()));
 		idCliente.setValue(String.valueOf(contratacionVO.getIdCliente()));
-		
 	}
 	
 	@Command
@@ -298,7 +339,9 @@ public class ContratacionController extends ControllerSupport implements IContro
 	}
 	
 	@Command
+	@NotifyChange({ "flagNvaContra" })
 	public void editaContratacion() {
+		flagNvaContra = true;
 		Sessions.getCurrent().setAttribute("contratacionVO", contratacionVO);
 		Sessions.getCurrent().removeAttribute("idProducto");
 		Window window = (Window) Executions.createComponents(
@@ -308,7 +351,7 @@ public class ContratacionController extends ControllerSupport implements IContro
 	}
 	
 	@Command
-	@NotifyChange({"botonGuardar"})
+	@NotifyChange({"botonGuardar","flagNvaContra"})
 	public void nuevaContratacion(@BindingParam("contratacion") final String contratacion) {
 		flagNvaContra = false;
 			contratacionVO = new ContratacionVO();
@@ -354,8 +397,10 @@ public class ContratacionController extends ControllerSupport implements IContro
 			contratacionDTO.setContratacionVO(contratacionVO);
 			setContratacionDTO(contratacionDTO);
 			cargaTabsDinamicosUp(contratacionVO.getIdContratacion());
+			
 			//Sessions.getCurrent().removeAttribute("contratacionVO");
 			comboEstatus = true;
+			flagNvaContra = true;
 		} else if(tabs != null) {
 			canal.setValue(contratacionVO.getNombreCanal());
 			canalSalida.setValue(contratacionVO.getNombreCanalSalida());
@@ -377,12 +422,13 @@ public class ContratacionController extends ControllerSupport implements IContro
 		contratacionMapVO.setIdContratacion(idContratacion);
 		contratacionMapDTO.setContratacionMapVO(contratacionMapVO);
 		contratacionMapDTO = contratacionMapeadorBO.readCommand(contratacionMapDTO);
+		Sessions.getCurrent().removeAttribute("idContratacionReg");
 		Tab newTab = null;
 		Iframe iframe = null;
 		Tabpanel newTabpanel = null;
 		int contador = 1;
 		for(ContratacionMapVO mapVO:contratacionMapDTO.getContratacionMapVOs()) {
-			
+			System.out.println("*************************UPDATE****************************" + contratacionVO.getIdContratacion());
 			newTab = new Tab(mapVO.getNombreEtapa());
 			newTab.setClosable(false);	
 			if (contador == 1) {
@@ -398,7 +444,6 @@ public class ContratacionController extends ControllerSupport implements IContro
 				        		"&descripcionMapaGmm="+mapVO.getDescripcionMapaGmm()+"&estatusNotificacion="+mapVO.getEstatusNotificacion()+
 				        		"&nombreMensajeSalida="+mapVO.getNombreMensajeSalida()+"&descripcionMensajeSalida="+mapVO.getDescripcionMensajeSalida()+
 				        		"&descripcionIdUsuarios="+mapVO.getDescripcionIdUsuarios()+"&idContratacion="+mapVO.getIdContratacion()+"&titulo="+mapVO.getNombreEtapa());
-	        
 	        iframe.setWidth("100%");
 	        iframe.setHeight("100%");
 	        newTabpanel.appendChild(iframe);
@@ -410,10 +455,9 @@ public class ContratacionController extends ControllerSupport implements IContro
 	private void cargaTabsDinamicosReg(int idProduct) {
 		ContratacionBO contratacionMapeadorBO = new ContratacionBO();
 		contratacionVO.setIdProducto(idProduct);
-		System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"+idProduct+"%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
 		contratacionDTO.setContratacionVO(contratacionVO);
 		contratacionDTO = contratacionMapeadorBO.readCommandEtapas(contratacionDTO);
-		
+		Sessions.getCurrent().setAttribute("idContratacionReg", idContratacion);
 		Tab newTab = null;
 		Iframe iframe = null;
 		Tabpanel newTabpanel = null;
@@ -429,13 +473,13 @@ public class ContratacionController extends ControllerSupport implements IContro
 	        newTabpanel.setWidth("100%");
 	        newTabpanel.setHeight("100%");
 	        newTabpanel.setId(contratacionVO.getNombreEtapa());
-	        iframe = new Iframe("flows/contratacion/pageTab.zul");
+	        iframe = new Iframe("flows/contratacion/pageTab.zul?idEtapa="+contratacionVO.getIdEtapa()+"&idFlujo="+
+	        										contratacionVO.getIdFlujo()+"&idContratacion="+idContratacion.getValue());
 	        iframe.setWidth("100%");
 	        iframe.setHeight("100%");
 	        newTabpanel.appendChild(iframe);
 	        tabs.getTabs().insertBefore(newTab, tabNohome);
 	        newTabpanel.setParent(tabs.getTabpanels());
-	        System.out.println("******************************2*******************************");
 		}
 		
 	}
@@ -451,7 +495,7 @@ public class ContratacionController extends ControllerSupport implements IContro
 		headersReport.add("Fecha Alta");
 		headersReport.add("Fecha Modificacion");
 		headersReport.add("Estatus");
-		controller.createReport(generaLista(), headersReport, type,"Contratacion");
+		controller.createReport(generaLista(), headersReport, type,"CONTRATACION");
 	}	
 	
 	private ArrayList<BeanGenerico> generaLista() {
@@ -476,12 +520,11 @@ public class ContratacionController extends ControllerSupport implements IContro
 	@Command
 	@NotifyChange({ "botonGuardar" })
 	public void selectedValueProductos() {
-		System.out.println("***************************1**2**3*****************");
 		botonGuardar = false;
 	}
 	
 	@Wire
-    Window editarContratacionWindow;
+    Window editarContratacionWindows;
 	
 	@Command
 	@GlobalCommand
@@ -489,7 +532,7 @@ public class ContratacionController extends ControllerSupport implements IContro
 	@Listen("onClick = #closeBtn")
     public void showModal(Event e) {
 		botonGuardar = true;
-		editarContratacionWindow.detach();
+		editarContratacionWindows.detach();
     }
 	
 	@Command
@@ -497,7 +540,7 @@ public class ContratacionController extends ControllerSupport implements IContro
 	@NotifyChange({"botonGuardar"})
 	public void closeModal() {
 		botonGuardar = true;
-		editarContratacionWindow.detach();
+		editarContratacionWindows.detach();
     }
 	
 	@Command

@@ -1,5 +1,6 @@
 package mx.com.bbva.mt101.ui.commons.viewmodel.contratacion;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import mx.com.bbva.bancomer.bussinnes.model.vo.ContratacionMapVO;
@@ -85,6 +86,7 @@ public class FlujoContratacionController extends Div  implements IController, Id
     
 	private boolean botonEditar;
 	private boolean flagDisabled;
+	private boolean botonLimpiar;
 	private ContratacionDTO contratacionDTO;
 	private ContratacionMapDTO contratacionMapDTO;
 	private ContratacionMapVO contratacionMapVO;
@@ -123,27 +125,35 @@ public class FlujoContratacionController extends Div  implements IController, Id
 	@Override
 	@Command
 	public void save() {
-		if(idContratacion.getValue().isEmpty() || idContratacion.getValue().equals("0")) {
-			
-		} else {
+		boolean errorGuardar = false;
+		if (mapaGMM.getSelectedItem() == null
+				|| mapaGMM.getSelectedItem().getValue() == null
+				|| mapaGMM.getSelectedItem().getValue().toString().isEmpty()) {
+			mapaGMM.setErrorMessage("Favor de seleccionar el Mapa");
+			errorGuardar = true;
+		}
+		if(!errorGuardar) {
 			contratacionMapVO = new ContratacionMapVO();
 			ContratacionMapeadorBO contratacionMapeadorBO = new ContratacionMapeadorBO();
-			contratacionMapVO.setIdContratacion(Integer.parseInt(idContratacion.getValue()));
+			
 			contratacionMapVO.setIdMapaGmm(Integer.parseInt(idMapaGmm.getValue()));
 			contratacionMapVO.setIdFlujo(Integer.parseInt(idFlujo.getValue()));
 			contratacionMapVO.setIdEtapa(Integer.parseInt(idEtapa.getValue()));
-			
+			contratacionMapVO.setIdContratacion(Integer.parseInt(idContratacion.getValue()));
 			if(notificacion.getSelectedItem().getId().equals("radioS")) {
 				contratacionMapVO.setEstatusNotificacion("S".charAt(0));
 				contratacionMapVO.setIdMensajeSalida(Integer.parseInt(idMensajeSalida.getValue()));
 				List<UsuarioNotificacionVO> listaUsuarios = contratacionUsuariosDTO.getUsuarioNotificacionContrataMapVOs();;
 				
-				for(int i = 0;i<listaUsuarios.size();i++) {
-					if (i>0) {
-						descripcionIdUsuarios +="-";
+				if(listaUsuarios!=null) {
+					for(int i = 0;i<listaUsuarios.size();i++) {
+						if (i>0) {
+							descripcionIdUsuarios +="-";
+						}
+						descripcionIdUsuarios +=  listaUsuarios.get(i).getIdUsuarioNotificado();
 					}
-					descripcionIdUsuarios +=  listaUsuarios.get(i).getIdUsuarioNotificado();
 				}
+				
 				contratacionMapVO.setDescripcionIdUsuarios(descripcionIdUsuarios);
 				descripcionIdUsuarios = "";
 			} else {
@@ -151,23 +161,31 @@ public class FlujoContratacionController extends Div  implements IController, Id
 				contratacionMapVO.setIdMensajeSalida(null);
 				contratacionMapVO.setDescripcionIdUsuarios(null);
 			}
-			contratacionMapDTO.setContratacionMapVO(contratacionMapVO);
-			contratacionMapeadorBO.updateCommand(contratacionMapDTO);
-			Messagebox.show("!La Actualización de la Contratación fue exitoso!",
-					"Información", Messagebox.OK,
-					Messagebox.INFORMATION);
+			if(Sessions.getCurrent().getAttribute("idContratacionReg") != null) {
+				contratacionMapDTO.setContratacionMapVO(contratacionMapVO);
+				contratacionMapeadorBO.createCommand(contratacionMapDTO);
+				Messagebox.show("!La Contratación fue guardada exitosamente!",
+						"Información", Messagebox.OK,
+						Messagebox.INFORMATION);				
+			} else {
+				contratacionMapVO.setIdContratacion(Integer.parseInt(idContratacion.getValue()));
+				contratacionMapDTO.setContratacionMapVO(contratacionMapVO);
+				contratacionMapeadorBO.updateCommand(contratacionMapDTO);
+				Messagebox.show("!La Actualización de la Contratación fue exitosa!",
+						"Información", Messagebox.OK,
+						Messagebox.INFORMATION);
+			}
 		}
 	}
 
 	@AfterCompose
-	@NotifyChange({"nombreMensajeSalida", "descripcionMensajeSalida", "strDescripcionMensajeSalida", "strNombreMensajeSalida"})
+	@NotifyChange({"nombreMensajeSalida", "descripcionMensajeSalida", "strDescripcionMensajeSalida", "strNombreMensajeSalida","botonLimpiar"})
     public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
 		contratacionMapDTO = new ContratacionMapDTO();
         Selectors.wireComponents(view, this, false);
         contratacionUsuariosDTO = new ContratacionDTO();
-        System.out.println("******************************3*******************************");
         if(Sessions.getCurrent().getAttribute("idProducto") == null) {
-        	 System.out.println("******************************4*******************************");
+        	botonLimpiar = true;
 	        mapaGMM.setValue(Executions.getCurrent().getParameter("nombreMapaGmm"));
 	        descripcionMapaGmm.setValue(Executions.getCurrent().getParameter("descripcionMapaGmm"));
 	        if(Executions.getCurrent().getParameter("nombreMensajeSalida") != null)
@@ -206,12 +224,21 @@ public class FlujoContratacionController extends Div  implements IController, Id
 		    contratacionUsuariosDTO.setUsuarioNotificacionContrataMapVOs(((ContratacionDTO) usuarioNotificacionBO.readCommand(idUsuarios)).getUsuarioNotificacionVOs());
 		    contratacionDTO.setUsuarioNotificacionVOs(((UsuarioNotificacionDTO) usuarioNotificacionBO.readCommand(usuarios)).getUsuarioNotificacionVOs());
 		} else {
+			botonLimpiar = false;
+			idStrEtapa = Executions.getCurrent().getParameter("idEtapa");
+			idStrFlujo = Executions.getCurrent().getParameter("idFlujo");
+			idStrContratacion = Executions.getCurrent().getParameter("idContratacion");
+			
+			notificacion.setSelectedItem(radioS);
+        	flagDisabled = false;
+        	
 			UsuarioNotificacionDTO usuarios = new UsuarioNotificacionDTO();
 	        UsuarioNotificacionVO usuarioNotificacionVO = new UsuarioNotificacionVO();
 	        usuarioNotificacionVO.setIdUsuarios(null);
 	        usuarioNotificacionVO.setTipoNotificacion("N");
 	        usuarios.setUsuarioNotificacionVO(usuarioNotificacionVO);
 	        UsuarioNotificacionBO usuarioNotificacionBO  = new UsuarioNotificacionBO();
+	        contratacionUsuariosDTO.setUsuarioNotificacionContrataMapVOs(new ArrayList<UsuarioNotificacionVO>());
 		    contratacionDTO.setUsuarioNotificacionVOs(((UsuarioNotificacionDTO) usuarioNotificacionBO.readCommand(usuarios)).getUsuarioNotificacionVOs());
 		}
         
@@ -260,7 +287,7 @@ public class FlujoContratacionController extends Div  implements IController, Id
 	
 	@Command
 	@NotifyChange({"contratacionDTO", "contratacionUsuariosDTO"})
-	public void chooseOne(){
+	public void chooseOne(){		
 		if(!flagDisabled) {
 			if(usuariosNotificacion.getSelectedItem()!=null){
 				contratacionUsuariosDTO.getUsuarioNotificacionContrataMapVOs().add(contratacionDTO.getUsuarioNotificacionVOs().get(usuariosNotificacion.getSelectedIndex()));
@@ -544,6 +571,21 @@ public class FlujoContratacionController extends Div  implements IController, Id
 	public void setStrNombreMensajeSalida(String strNombreMensajeSalida) {
 		this.strNombreMensajeSalida = strNombreMensajeSalida;
 	}
+	
+	/**
+	 * @return the botonLimpiar
+	 */
+	public boolean isBotonLimpiar() {
+		return botonLimpiar;
+	}
+
+	/**
+	 * @param botonLimpiar the botonLimpiar to set
+	 */
+	public void setBotonLimpiar(boolean botonLimpiar) {
+		this.botonLimpiar = botonLimpiar;
+	}
+
 	@Override
 	public boolean applyPermision() {
 		// TODO Auto-generated method stub
