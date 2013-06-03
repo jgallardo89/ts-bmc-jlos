@@ -14,6 +14,7 @@ public class MensajeSalidaVO extends BbvaAbstractValueObject {
 	private int idMensajeSalida;
 	private String nombreMensajeSalida;
 	private String descripcionMensajeSalida;
+	private String descripcionAsuntoSalida;
 	private int idEstatusObjeto;
 	private String nombreEstatusObjeto;
 	private Date fechaAlta;
@@ -22,6 +23,18 @@ public class MensajeSalidaVO extends BbvaAbstractValueObject {
 	private int idBaja;
 	private int numMensaje;
 	
+	/**
+	 * @return the descripcionAsuntoSalida
+	 */
+	public final String getDescripcionAsuntoSalida() {
+		return descripcionAsuntoSalida;
+	}
+	/**
+	 * @param descripcionAsuntoSalida the descripcionAsuntoSalida to set
+	 */
+	public final void setDescripcionAsuntoSalida(String descripcionAsuntoSalida) {
+		this.descripcionAsuntoSalida = descripcionAsuntoSalida;
+	}
 	/**
 	 * @return the idMensajeSalida
 	 */
