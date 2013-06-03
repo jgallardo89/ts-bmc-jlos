@@ -8,6 +8,7 @@
 					MENSAJE.NB_MENSAJE_SALIDA nombreMensajeSalida,
 					MENSAJE.TX_MENSAJE_SALIDA descripcionMensajeSalida,
 					MENSAJE.TM_ALTA fechaAlta,
+					MENSAJE.TX_ASUNTO descripcionAsuntoSalida,
 					MENSAJE.TM_MODIFICACION fechaModificacion,
 					OBJETO.CD_ST_OBJETO idEstatusObjeto,
 					OBJETO.NB_ST_OBJETO nombreEstatusObjeto
@@ -26,6 +27,12 @@
 				<if test="idEstatusObjeto != null and idEstatusObjeto != 0">
 					AND MENSAJE.CD_ST_OBJETO = #{idEstatusObjeto}
 				</if>
+				<if test="tipoNotificacion != null">
+					AND MENSAJE.TP_NOTIFICACION = #{tipoNotificacion}
+				</if>
+				<if test="descripcionAsuntoSalida != null">
+					AND MENSAJE.TX_ASUNTO LIKE #{descripcionAsuntoSalida}
+				</if>				
 				ORDER BY CD_MENSAJE_SALIDA
 	</select>
 	<insert id="crearMensajeSalida" keyProperty="idMensajeSalida" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.MensajeSalidaVO">
@@ -38,14 +45,16 @@
 			TX_MENSAJE_SALIDA,
 			CD_ST_OBJETO,
 			TM_ALTA,
-			TP_NOTIFICACION)
+			TP_NOTIFICACION,
+			TX_ASUNTO)
 		VALUES
 			(#{idMensajeSalida},
 			#{nombreMensajeSalida},
 			#{descripcionMensajeSalida},
 			#{idEstatusObjeto},
 			CURRENT_DATE,
-			'N')
+			'N',
+			#{descripcionAsuntoSalida})
 	</insert>
 	<update id="actualizarMensajeSalida" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.MensajeSalidaVO">
 	    UPDATE TGM516_MENSAJE_SAL
@@ -53,7 +62,8 @@
 			NB_MENSAJE_SALIDA = #{nombreMensajeSalida},
 			TX_MENSAJE_SALIDA = #{descripcionMensajeSalida},
 			CD_ST_OBJETO = #{idEstatusObjeto},
-			TM_MODIFICACION = CURRENT_DATE
+			TM_MODIFICACION = CURRENT_DATE,
+			TX_ASUNTO = #{descripcionAsuntoSalida}
 		WHERE
 			CD_MENSAJE_SALIDA = #{idMensajeSalida}
 	</update>
