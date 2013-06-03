@@ -101,6 +101,7 @@ public class CanalBO implements
 	
 	public <T extends BbvaAbstractDataTransferObject> T readCommand() {
 		CanalDTO canalDTO = new CanalDTO();
+		CanalVO canalVO = new CanalVO();
 		try {
 			logger.debug("Entrada readCmbCommand -- OK");
 			try {
@@ -109,7 +110,8 @@ public class CanalBO implements
 						.getSqlSessionFactory().openSession();
 				MapCanal mapCanal = session.getMapper(MapCanal.class);
 				try {
-					result = mapCanal.obtenerCmbCanales();
+					canalVO.setIdBaja(CommandConstants.ESTATUS_OBJETO_CANAL_BAJA);
+					result = mapCanal.obtenerCmbCanales(canalVO);
 					session.commit();
 				} catch (Exception ex) {
 					session.rollback();

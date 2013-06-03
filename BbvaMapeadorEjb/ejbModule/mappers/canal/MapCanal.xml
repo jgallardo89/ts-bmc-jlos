@@ -67,6 +67,8 @@
 				CANAL.NB_CANAL nombreCanal
 			FROM
 				TGM511_CANAL CANAL
+			WHERE
+				CD_ST_OBJETO != #{idBaja}
 			ORDER BY CANAL.CD_CANAL
 	</select>
 </mapper>

@@ -192,6 +192,41 @@ public class ContratacionBO implements
 			return result;
 		}
 	}
+	
+	public boolean validarProcesoContratacion(ContratacionVO contratacionVO) {
+		boolean result = true;
+		try {
+			logger.debug("Entrada readCommand          -- OK");
+			logger.debug("Datos de Entrada readCommand -- "
+					+ contratacionVO.toString());
+			try {
+				SqlSession session = MapeadorSessionFactory
+						.getSqlSessionFactory().openSession();
+				MapContratacion mapContratacion = session.getMapper(MapContratacion.class);
+				try {
+					contratacionVO = mapContratacion.validarProcesoContratacion(contratacionVO);
+					if(contratacionVO.getNumRegistros()==0) {
+						result = true;
+					}
+					session.commit();
+				} catch (Exception ex) {
+					session.rollback();
+					ex.printStackTrace();
+				} finally {
+					session.close();
+				}
+				
+				return result;
+			} catch (Exception ex) {
+				ex.printStackTrace();
+				return result;
+			}
+		} catch (Exception exception) {
+			exception.printStackTrace();
+			return result;
+		}
+	}
+	
 	@Override
 	public <T extends BbvaAbstractDataTransferObject> T deleteCommand(
 			T bbvaAbstractDataTransferObject) {

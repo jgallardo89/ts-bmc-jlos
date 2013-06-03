@@ -112,7 +112,7 @@ public class ClienteBO implements
 						.getSqlSessionFactory().openSession();
 				MapCliente mapCliente = session.getMapper(MapCliente.class);
 				try {
-					clienteVO.setIdBaja(CommandConstants.ID_CLIENTE_BAJA);
+					clienteVO.setIdBaja(CommandConstants.ESTATUS_OBJETO_CLIENTE_BAJA);
 					result = mapCliente.obtenerCmbClientes(clienteVO);
 					session.commit();
 				} catch (Exception ex) {

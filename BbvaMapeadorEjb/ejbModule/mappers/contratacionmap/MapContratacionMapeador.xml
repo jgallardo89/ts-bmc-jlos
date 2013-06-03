@@ -38,10 +38,7 @@
 					AND CONTRATACION.CD_CONTRATACION =  #{idContratacion}
 				ORDER BY FLUJOETAPA.NU_ORDEN_ETAPA
 	</select>
-	<insert id="crearContratacionMap" keyProperty="idCanal" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.ContratacionMapVO">
-		<selectKey keyProperty="idContratacion" resultType="int" order="BEFORE"> 
-			<![CDATA[ select SQ_520_CONTRAT_MAP.nextval as idContratacion from dual ]]> 
-		</selectKey>
+	<insert id="crearContratacionMap"  keyProperty="idContratacion" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.ContratacionMapVO">
 			INSERT INTO TGM520_CONTRAT_MAP
 				(CD_CONTRATACION,
 				CD_FLUJO,
@@ -56,8 +53,19 @@
 				#{idEtapa},
 				#{idMapaGmm},
 				#{estatusNotificacion},
-				#{idMensajeSalida},
-				#{descripcionIdUsuarios})
+				<if test="idMensajeSalida != null">
+					#{idMensajeSalida},
+				</if>
+				<if test="idMensajeSalida == null">
+				    NULL,
+				</if>
+				<if test="descripcionIdUsuarios != null">
+					#{descripcionIdUsuarios}
+				</if>
+				<if test="descripcionIdUsuarios == null">
+				    NULL
+				</if>
+				)
 	</insert>
 	<update id="actualizarContratacionMap" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.ContratacionMapVO">
 		    UPDATE TGM520_CONTRAT_MAP 

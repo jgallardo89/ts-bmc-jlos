@@ -10,4 +10,5 @@ public abstract interface MapContratacion {
 	public abstract void crearContratacion(ContratacionVO contratacionVO);
 	public abstract void actualizarContratacion(ContratacionVO contratacionVO);
 	public abstract List<ContratacionVO> validarEstatusContratacion(ContratacionVO contratacionVO);
+	public abstract ContratacionVO validarProcesoContratacion(ContratacionVO contratacionVO);
 }

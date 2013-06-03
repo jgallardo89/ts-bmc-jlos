@@ -28,7 +28,7 @@
 					AND CONTRATACION.CD_CLIENTE = CLIENTE.CD_CLIENTE
 					AND CONTRATACION.CD_PRODUCTO = PRODUCTO.CD_PRODUCTO
 					AND CONTRATACION.CD_ST_OBJETO = OBJETO.CD_ST_OBJETO
-					AND CONTRATACION.CD_ST_OBJETO != 5
+					AND CONTRATACION.CD_ST_OBJETO != #{idBaja}
 				<if test="idCanal != null and idCanal != 0">
 					AND CONTRATACION.CD_CANAL = #{idCanal}
 				</if>
@@ -50,7 +50,8 @@
 		resultType="mx.com.bbva.bancomer.bussinnes.model.vo.ContratacionVO">
 				SELECT
 					ETAPA.CD_ETAPA idEtapa,
-					ETAPA.NB_ETAPA nombreEtapa
+					ETAPA.NB_ETAPA nombreEtapa,
+					FLUJO.CD_FLUJO idFlujo
 				FROM
 					TGM515_PRODUCTO PRODUCTO,
 					TGM513_FLUJO FLUJO,
@@ -98,6 +99,8 @@
 				CANAL.NB_CANAL nombreCanal
 			FROM
 				TGM511_CANAL CANAL
+			WHERE
+				CD_ST_OBJETO != #{idBaja}
 			ORDER BY CANAL.CD_CANAL
 	</select>
 	<select id="validarEstatusContratacion" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.ContratacionVO"
@@ -119,5 +122,9 @@
 			<if test="idProducto != null and idProducto != 0">
 				CONTRATACION.CD_PRODUCTO = #{idProducto}
 			</if>
+	</select>
+	<select id="validarProcesoContratacion" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.ContratacionVO"
+		resultType="mx.com.bbva.bancomer.bussinnes.model.vo.ContratacionVO">
+		SELECT COUNT(*) numRegistros FROM TGM522_ST_PROCESO WHERE CD_CONTRATACION = #{idContratacion} AND CD_ST_MAPEADOR NOT IN(34,36)
 	</select>
 </mapper>
