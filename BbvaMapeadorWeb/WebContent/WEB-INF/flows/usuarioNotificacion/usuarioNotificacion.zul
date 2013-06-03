@@ -3,17 +3,16 @@
 <?meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7"?>
 <?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
 <zk>
-	<window border="0" width="100%" height="70%"
+	<window border="0" width="100%" height="100%"
 		apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('mx.com.bbva.mapeador.ui.commons.viewmodel.usuarionotificacion.UsuarioNotificacionController')"
 		id="usuarioNotificacionWindows">
 		<include src="../../pages/styles.zul" />
-		<div sclass="BODY" height="100%">
+		<div sclass="BODY" height="100%" width="100%">
 			<groupbox height="100%">
 				<caption sclass="pageTitle" label="Notificaciones > Usuarios Negocio"></caption>		
-					<portallayout maximizedMode="whole" id="portalLayoutEstatusObjeto"
-					width="100%" height="100%">
-					<portalchildren>
+					<vlayout>
+						<groupbox>
 						<panel width="100%" sclass="sectionPanelTitle" id="datosComponente"
 							title="Notificaciones" collapsible="true" style="margin-bottom:10px"
 							border="normal">
@@ -51,33 +50,29 @@
 														<comboitem value="@load(each.idEstatusObjeto)" label="@load(each.nombreEstatusObjeto)" height="100%"/>
 													</template>																								
 												</combobox>	
-											</row>
-											<row sclass="row2">												
-												<div align="right" width="70%">
-													<button sclass="button" label="Limpiar" id="limpiarBtn" onClick="@command('clean')" ></button>
-												</div>	
-												<div align="right" width="70%">
-													<button sclass="button" label="Guardar" id="guardarBtn" onClick="@command('save')"></button>
-												</div>
-												<div align="right" width="70%">
-													<button sclass="button" label="Consultar" id="consultarBtn" onClick="@command('readWithFilters')"></button>
-												</div>
-											</row>
+											</row>																						
 										</rows>								
 									</grid>
+									<div align="center">
+										<image id="reporteExcelBtn" src="/img/xls.png" onClick="@command('onShowReport',type='xls')" />
+										<image id="reporteCsvBtn" src="/img/csv.png" onClick="@command('onShowReport',type='txt')" />
+										<button sclass="button" image="/img/clear.png" label="Limpiar" id="limpiarBtn" onClick="@command('clean')" ></button>
+										<button sclass="button" image="/img/disk.png" label="Guardar" id="guardarBtn" onClick="@command('save')"></button>
+										<button sclass="button" image="/img/search.png" label="Consultar" id="consultarBtn" onClick="@command('readWithFilters')"></button>
+									</div>
 								</div>
 							</panelchildren>										
 						</panel>
-					</portalchildren>
-					<portalchildren width="100%" style="padding: 5px">
-						<panel sclass="sectionPanelTitle" width="100%" id="panelUsuarioNotificacion"
+					</groupbox>
+					<groupbox height="430px">
+						<panel height="410px" sclass="sectionPanelTitle" width="100%" id="panelUsuarioNotificacion"
 							title="Resultados Usuarios para Notificación" collapsible="true"
 							style="margin-bottom:10px">
 							<caption sclass="sectionPanelTitle" label="Lista de Usuarios para Notificación"></caption>
 							<panelchildren>
-								<grid width="99.7%" id="componentesGrid" mold="paging"
+								<grid width="99.7%" id="usuariosNegocioGrid" mold="paging"
 									model="@load(vm.usuarioNotificacionVOs)" pagingPosition="both" pageSize="12"
-									vflex="true" height="100%">									
+									vflex="true">									
 									<columns sizable="true" menupopup="auto">
 										<column hflex="0" align="center" image="/img/pencil-small.png" 
 											width="5%"></column>
@@ -99,8 +94,8 @@
 								</grid>
 							</panelchildren>
 						</panel>
-					</portalchildren>
-				</portallayout>								
+					</groupbox>
+				</vlayout>								
 			</groupbox>	
 			<textbox id="idEstatusObjeto" value="@load(vm.strIdEstatusObjeto)" visible="false"></textbox>
 			<textbox id="idUsuarioNotificado" value="@load(vm.strIdUsuarioNotificado)" visible="false"></textbox>

@@ -22,10 +22,10 @@
 								
 									<grid width="100%" style="border:0" oddRowSclass="row2">
 										<columns>
+											<column width="15%" />
 											<column width="20%" />
-											<column width="25%" />
-											<column width="20%" />
-											<column width="25%" />
+											<column width="30%" />
+											<column width="35%" />
 										</columns>
 										<rows>
 											<row sclass="row2">
@@ -51,47 +51,39 @@
 												<textbox sclass="textboxUpperCase"
 													id="descripcionCanal" value="@load(vm.canalDTO.canalVO.descripcionCanal)" width="98%" maxlength="300"></textbox>
 												<div align="right">
-													<label id="lblEstatus" width="100%" sclass="labelFill" value="Status:"></label>												
-												</div>
+													<label id="lblEstatus" width="100%" sclass="labelFill" value="Status:"></label>																								
 												<combobox sclass="textboxUpperCase" onChange="selectedValueStatusObjeto()"
 													id="statusObjeto" width="70%" model="@load(vm.canalDTO.estatusObjetoVOs)" autodrop="true">		
 													<template name="model">										
 														<comboitem value="@load(each.idEstatusObjeto)" label="@load(each.nombreEstatusObjeto)" height="100%"/>
-													</template>																								
+													</template>																																					
 												</combobox>
-												<div align="right"/>																													
-											</row>
-											<row sclass="row2">
-												<div align="right" width="70%">
-													<image id="reporteExcelBtn" src="/img/xls.png" onClick="@command('onShowReport',type='xls')" />
-													<image id="reporteCsvBtn" src="/img/csv.png" onClick="@command('onShowReport',type='txt')" />
-												</div>													
-												<div align="right" width="70%">
-													<button sclass="button" image="/img/clear.png"  label="Limpiar" id="limpiarBtn" onClick="@command('clean')" ></button>
-												</div>	
-												<div align="right" width="70%">
-													<button sclass="button" disabled="@load(vm.btnGuardar)" image="/img/disk.png" label="Guardar" id="guardarBtn" onClick="@command('save')"></button>
-												</div>
-												<div align="right" width="70%">
-													<button sclass="button" image="/img/search.png" label="Consultar" id="consultarBtn" onClick="@command('readWithFilters')"></button>
 												</div>
 												<div align="right"/>
-											</row>
+												<div align="right"/>																													
+											</row>																							
 										</rows>								
 									</grid>
+									<div align="center">
+										<image id="reporteExcelBtn" src="/img/xls.png" onClick="@command('onShowReport',type='xls')" />
+										<image id="reporteCsvBtn" src="/img/csv.png" onClick="@command('onShowReport',type='txt')" />
+										<button sclass="button" image="/img/clear.png"  label="Limpiar" id="limpiarBtn" onClick="@command('clean')" ></button>
+										<button sclass="button" disabled="@load(vm.btnGuardar)" image="/img/disk.png" label="Guardar" id="guardarBtn" onClick="@command('save')"></button>
+										<button sclass="button" image="/img/search.png" label="Consultar" id="consultarBtn" onClick="@command('readWithFilters')"></button>
+									</div>
 								</div>
 							</panelchildren>										
 						</panel>
 					</groupbox>
-					<groupbox width="100%" height="650px" style="padding: 5px">
-						<panel height="80%" sclass="sectionPanelTitle" width="100%" id="panelCanalMapeador"
+					<groupbox width="100%" height="500px">
+						<panel height="490px" sclass="sectionPanelTitle" width="100%" id="panelCanalMapeador"
 							title="Resultados Canales Mapeador" collapsible="true"
 							style="margin-bottom:10px">
 							<caption sclass="sectionPanelTitle" label="Listado de Canales"></caption>
 							<panelchildren>
 								<grid width="99.7%" id="canalesGrid" mold="paging"
 									model="@load(vm.canalesVOs)" pagingPosition="both" pageSize="12"
-									vflex="true" height="100%">									
+									vflex="true">									
 									<columns sizable="true" menupopup="auto">
 										<column hflex="0" align="center" image="/img/pencil-small.png" 
 											width="5%"></column>

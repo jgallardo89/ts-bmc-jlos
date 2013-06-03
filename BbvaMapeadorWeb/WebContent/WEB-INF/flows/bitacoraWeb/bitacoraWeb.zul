@@ -78,15 +78,15 @@
 							</panelchildren>										
 						</panel>
 					</groupbox>
-					<groupbox height="500px">
-						<panel height="490px" sclass="sectionPanelTitle" width="100%" id="panelBitacora"
+					<groupbox height="450px">
+						<panel height="430px" sclass="sectionPanelTitle" width="100%" id="panelBitacora"
 							title="Resultados Bitácora Web" collapsible="true"
 							style="margin-bottom:10px">
 							<caption sclass="sectionPanelTitle" label="Listado de Bitácora Web"></caption>
 							<panelchildren>
 								<grid width="99.7%"  id="bitacoraGrid" mold="paging"
 									model="@load(vm.bitacoraVOs)" pagingPosition="top" pageSize="12"
-									vflex="true" >									
+									vflex="true">									
 									<columns sizable="true" menupopup="auto">
 										<column hflex="1" label="Fecha y Hora" width="10%"
 											sort="auto(fechaBitacora)"></column>

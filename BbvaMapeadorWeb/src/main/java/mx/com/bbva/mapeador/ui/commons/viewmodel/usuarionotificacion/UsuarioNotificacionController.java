@@ -1,9 +1,16 @@
 package mx.com.bbva.mapeador.ui.commons.viewmodel.usuarionotificacion;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import mx.com.bbva.bancomer.bussinnes.model.vo.ClienteVO;
+import mx.com.bbva.bancomer.bussinnes.model.vo.EstatusObjetoVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.UsuarioNotificacionVO;
+import mx.com.bbva.bancomer.canal.dto.BeanGenerico;
+import mx.com.bbva.bancomer.commons.command.CommandConstants;
 import mx.com.bbva.bancomer.commons.command.MapeadorConstants;
 import mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject;
 import mx.com.bbva.bancomer.estatusobjeto.dto.EstatusObjetoDTO;
@@ -12,6 +19,7 @@ import mx.com.bbva.bancomer.mapper.business.UsuarioNotificacionBO;
 import mx.com.bbva.bancomer.usuarionotificacion.dto.UsuarioNotificacionDTO;
 import mx.com.bbva.mapeador.ui.commons.controller.IController;
 import mx.com.bbva.mapeador.ui.commons.viewmodel.support.ControllerSupport;
+import mx.com.bbva.mt101.ui.commons.viewmodel.reportes.ReportesController;
 
 import org.apache.log4j.Logger;
 import org.zkoss.bind.annotation.AfterCompose;
@@ -27,6 +35,8 @@ import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.Button;
 import org.zkoss.zul.Combobox;
+import org.zkoss.zul.Grid;
+import org.zkoss.zul.Image;
 import org.zkoss.zul.Label;
 import org.zkoss.zul.Textbox;
 
@@ -37,8 +47,31 @@ public class UsuarioNotificacionController  extends ControllerSupport implements
 	 */
 	private static final long serialVersionUID = 7183766729268869941L;
 	private static final Logger logger = Logger.getLogger(UsuarioNotificacionController.class);
+	private UsuarioNotificacionVO usuarioNotificacionVO;
+	/**
+	 * @return the usuarioNotificacionVO
+	 */
+	public final UsuarioNotificacionVO getUsuarioNotificacionVO() {
+		return usuarioNotificacionVO;
+	}
+
+	/**
+	 * @param usuarioNotificacionVO the usuarioNotificacionVO to set
+	 */
+	public final void setUsuarioNotificacionVO(
+			UsuarioNotificacionVO usuarioNotificacionVO) {
+		this.usuarioNotificacionVO = usuarioNotificacionVO;
+	}
+
+	@Wire
+	private Image reporteExcelBtn;
+	@Wire
+	private Image reporteCsvBtn;
 	@Wire
 	private Textbox nombreUsuario;
+
+	@Wire
+	private Grid usuariosNegocioGrid;
 	
 	@Wire
 	private Textbox email;
@@ -90,8 +123,13 @@ public class UsuarioNotificacionController  extends ControllerSupport implements
 		UsuarioNotificacionBO usuarioNotificacionBO = new UsuarioNotificacionBO();
 		EstatusObjetoBO estatusObjetoBO = new EstatusObjetoBO();
 		EstatusObjetoDTO estatusObjetoDTO = new EstatusObjetoDTO();
-		estatusObjetoDTO.setCommandId(2); 
+		estatusObjetoDTO.setCommandId(CommandConstants.ESTATUS_OBJETO); 
+		EstatusObjetoVO estatusObjetoVO = new EstatusObjetoVO();
+		estatusObjetoVO.setNombreTabla(CommandConstants.NOMBRE_TABLA_USUARIOS_NEGOCIO);				
+		estatusObjetoDTO.setEstatusObjetoVO(estatusObjetoVO);
 		estatusObjetoDTO = estatusObjetoBO.readCommand(estatusObjetoDTO);
+		usuarioNotificacionVO.setTipoNotificacion(CommandConstants.TIPO_NOTIFICACION_NEGOCIO);
+		usuarioNotificacionDTO.setUsuarioNotificacionVO(usuarioNotificacionVO);
 		usuarioNotificacionDTO = usuarioNotificacionBO.readCommand(usuarioNotificacionDTO);
 		logger.info("::::::::::::::SIZE::::::::::" + usuarioNotificacionDTO.getUsuarioNotificacionVOs());
 		usuarioNotificacionDTO.setEstatusObjetoVOs(estatusObjetoDTO.getEstatusObjetoVOs());
@@ -106,6 +144,7 @@ public class UsuarioNotificacionController  extends ControllerSupport implements
 	
 	@Command
 	public void readSelected(@BindingParam("idUsuarioNotificado") final UsuarioNotificacionVO usuarioNotificacionVO){
+		this.usuarioNotificacionVO = usuarioNotificacionVO;
 		//Seteo de datos de Acuerdo al id de los compoenetes del HTML VS VO
 		usuarioNotificacionVO.toString();
 		status.setValue(usuarioNotificacionVO.getNombreEstatusObjeto());
@@ -136,6 +175,8 @@ public class UsuarioNotificacionController  extends ControllerSupport implements
 		//Asignacion resultado de consulta al mismo DTO de UsuarioNotificacion
 		usuarioNotificacionDTO = usuarioNotificacionBO.readCommand(usuarioNotificacionDTO);
 		
+		ReportesController controller = new ReportesController();
+		controller.registrarEvento(usuarioNotificacionVO, this.usuarioNotificacionVO, CommandConstants.CONSULTAR, "Usuario Negocio");
 		//Tamaño de la lista de acuerdo al criterio de busqueda y objeto UsuarioNotificacion
 		if(usuarioNotificacionDTO.getUsuarioNotificacionVOs() != null) {
 			logger.debug("Tamaño de la lista de acuerdo al criterio de busqueda y objeto UsuarioNotificacion size:"+usuarioNotificacionDTO.getUsuarioNotificacionVOs().size());
@@ -186,6 +227,8 @@ public class UsuarioNotificacionController  extends ControllerSupport implements
 				
 				UsuarioNotificacionBO UsuarioNotificacionBO = new UsuarioNotificacionBO();
 				UsuarioNotificacionBO.updateCommand(usuarioNotificacionDTO);
+				ReportesController controller = new ReportesController();
+				controller.registrarEvento(usuarioNotificacionVO, this.usuarioNotificacionVO, CommandConstants.MODIFICACION, "Usuario Negocio");
 				clean();			
 				
 				//Textbox
@@ -199,7 +242,7 @@ public class UsuarioNotificacionController  extends ControllerSupport implements
 				usuarioNotificacionDTO.toString(BbvaAbstractDataTransferObject.XML);	
 				
 				//LLamada a BO  UsuarioNotificacion para consulta por criterio
-				UsuarioNotificacionBO usuarioNotificacionBO = new UsuarioNotificacionBO();
+				UsuarioNotificacionBO usuarioNotificacionBO = new UsuarioNotificacionBO();						
 				
 				//Asignacion resultado de consulta al mismo DTO de UsuarioNotificacion
 				usuarioNotificacionDTO = usuarioNotificacionBO.readCommand(usuarioNotificacionDTO);
@@ -227,6 +270,8 @@ public class UsuarioNotificacionController  extends ControllerSupport implements
 				UsuarioNotificacionBO UsuarioNotificacionBO = new UsuarioNotificacionBO();
 
 				UsuarioNotificacionBO.createCommand(usuarioNotificacionDTO);
+				ReportesController controller = new ReportesController();
+				controller.registrarEvento(null, null, CommandConstants.ALTA, "Usuario Negocio");
 				clean();	
 				//Textbox
 				usuarioNotificacionVO.setNombreUsuarioNotificado(nombreUsuario.getValue().isEmpty()?"%":"%"+nombreUsuario.getValue().toUpperCase()+"%");
@@ -493,8 +538,37 @@ public class UsuarioNotificacionController  extends ControllerSupport implements
 		componentes.put(limpiarBtn.getId(), limpiarBtn);
 		componentes.put(consultarBtn.getId(), consultarBtn);
 		componentes.put(guardarBtn.getId(), guardarBtn);
-		super.applyPermission(MapeadorConstants.NOTIFICACIONES, componentes);
+		componentes.put(usuariosNegocioGrid.getId(), usuariosNegocioGrid);
+		componentes.put(reporteExcelBtn.getId(), reporteExcelBtn);
+		componentes.put(reporteCsvBtn.getId(), reporteCsvBtn);
+		super.applyPermission(MapeadorConstants.USUARIOS_NEGOCIO, componentes);
 		return isApplied;
+	}		
+	@Command
+	public void onShowReport(@BindingParam("type") final String type) {
+		ReportesController controller = new ReportesController();
+		ArrayList<String> headersReport = new ArrayList<String>();
+		headersReport.add("Nombre de Usuario");
+		headersReport.add("Email");
+		headersReport.add("Estatus");		
+		if(type.equals("xls")) {
+			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_EXCEL,"Usuarios Negocio");
+		} else {
+			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_TEXTO,"Usuarios Negocio");
+		}
+		controller.createReport(generaLista(), headersReport, type, "USUARIOS-NEGOCIO");
 	}	
-
+	
+	private ArrayList<BeanGenerico> generaLista() {
+		ArrayList<BeanGenerico> beanGenericos = new ArrayList<BeanGenerico>();
+		BeanGenerico beanGenerico = null;
+		for(UsuarioNotificacionVO usuarioNotificacionVO: usuarioNotificacionVOs) {
+			beanGenerico = new BeanGenerico();
+			beanGenerico.setValor1(usuarioNotificacionVO.getNombreUsuarioNotificado());
+			beanGenerico.setValor2(usuarioNotificacionVO.getDescripcionEmail());
+			beanGenerico.setValor3(usuarioNotificacionVO.getNombreEstatusObjeto());			
+			beanGenericos.add(beanGenerico);
+		}
+		return beanGenericos;
+	}
 }

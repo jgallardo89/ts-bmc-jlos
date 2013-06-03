@@ -207,15 +207,15 @@ public class ClientesController extends ControllerSupport implements IController
 							Messagebox.INFORMATION);
 				} else {
 					clean();
-					clienteVO.setIdIdentificador(StringUtil.validaLike(idIdentificador.getValue()));
-					clienteVO.setNombreCliente(StringUtil.validaLike(nombreCliente.getValue()));
-					clienteVO.setNombreCortoCliente(StringUtil.validaLike(nombreCortoCliente.getValue()));
-					clienteVO.setIdEstatusObjeto(0);
-					controller.registrarEvento(clienteVO, clientesVO, CommandConstants.ALTA, "Catálogo Clientes");
-					
-					clienteVO.toString();
-					clienteDTO.setClienteVO(clienteVO);
-					clientesVOs = clienteBO.readCommand(clienteDTO).getClienteVOs();
+//					clienteVO.setIdIdentificador(StringUtil.validaLike(idIdentificador.getValue()));
+//					clienteVO.setNombreCliente(StringUtil.validaLike(nombreCliente.getValue()));
+//					clienteVO.setNombreCortoCliente(StringUtil.validaLike(nombreCortoCliente.getValue()));
+//					clienteVO.setIdEstatusObjeto(0);
+//					controller.registrarEvento(clienteVO, clientesVO, CommandConstants.ALTA, "Catálogo Clientes");
+//					
+//					clienteVO.toString();
+//					clienteDTO.setClienteVO(clienteVO);
+//					clientesVOs = clienteBO.readCommand(clienteDTO).getClienteVOs();
 					Messagebox.show("!Ya existe un Cliente con el mismo Identificador!",
 							"Información", Messagebox.OK,
 							Messagebox.EXCLAMATION);
@@ -224,45 +224,56 @@ public class ClientesController extends ControllerSupport implements IController
 				ContratacionBO contratacionBO = new ContratacionBO();
 				ContratacionVO contratacionVO = new ContratacionVO();
 				contratacionVO.setIdCliente(Integer.parseInt(idCliente.getValue()));
-				if(Integer.parseInt(idEstatusObjeto.getValue()) == CommandConstants.ESTATUS_OBJETO_ACTIVO_CLIENTES || 
-						contratacionBO.readCommandValidaContratacion(contratacionVO)){
-					ClienteDTO clienteDTO = new ClienteDTO();
-					ClienteVO clienteVO = new ClienteVO();
-					clienteVO.setIdCliente(Integer.parseInt(idCliente.getValue()));
-					clienteVO.setIdIdentificador(idIdentificador.getValue().toUpperCase());
-					clienteVO.setNombreCliente(nombreCliente.getValue().toUpperCase());
-					clienteVO.setNombreCortoCliente(nombreCortoCliente.getValue().toUpperCase());
-					clienteVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue()));
-					clienteDTO.setClienteVO(clienteVO);
-					
-					clienteBO.updateCommand(clienteDTO);
-					clienteDTO.toString(BbvaAbstractDataTransferObject.XML);
-					controller.registrarEvento(clienteVO, clientesVO, CommandConstants.MODIFICACION, "Catálogo Clientes");
-					clean();
-					clienteVO.setIdIdentificador(StringUtil.validaLike(idIdentificador.getValue()));
-					clienteVO.setNombreCliente(StringUtil.validaLike(nombreCliente.getValue()));
-					clienteVO.setNombreCortoCliente(StringUtil.validaLike(nombreCortoCliente.getValue()));
-					clienteVO.setIdEstatusObjeto(0);
-					clienteVO.toString();
-					clienteDTO.setClienteVO(clienteVO);
-					clientesVOs = clienteBO.readCommand(clienteDTO).getClienteVOs();
-					
-					Messagebox.show("!La Actualización del Cliente fue exitoso!",
-							"Información", Messagebox.OK,
-							Messagebox.INFORMATION);
-				} else {
-					clean();
-					ClienteVO clienteVO = new ClienteVO();
-					clienteVO.setIdIdentificador(StringUtil.validaLike(idIdentificador.getValue()));
-					clienteVO.setNombreCliente(StringUtil.validaLike(nombreCliente.getValue()));
-					clienteVO.setNombreCortoCliente(StringUtil.validaLike(nombreCortoCliente.getValue()));
-					clienteVO.setIdEstatusObjeto(0);
-					clienteVO.toString();
-					clienteDTO.setClienteVO(clienteVO);
-					clientesVOs = clienteBO.readCommand(clienteDTO).getClienteVOs();
-					Messagebox.show("!No se puede dar de Baja, ya que esta siendo Usado por la Contratación!",
+				ClienteVO clienteVO = new ClienteVO();
+				clienteDTO = new ClienteDTO();
+				clienteVO.setIdIdentificador(idIdentificador.getValue().toUpperCase());
+				clienteVO.setIdCliente(Integer.parseInt(idCliente.getValue()));
+				clienteDTO = clienteBO.readCommand(clienteVO);
+				if(clienteDTO.getClienteVOs()!=null && clienteDTO.getClienteVOs().size()>0){
+					Messagebox.show("!Ya existe un Cliente con el mismo Identificador!",
 							"Información", Messagebox.OK,
 							Messagebox.EXCLAMATION);
+				}else{
+					if(Integer.parseInt(idEstatusObjeto.getValue()) == CommandConstants.ESTATUS_OBJETO_ACTIVO_CLIENTES || 
+							contratacionBO.readCommandValidaContratacion(contratacionVO)){
+						ClienteDTO clienteDTO = new ClienteDTO();
+						clienteVO = new ClienteVO();
+						clienteVO.setIdCliente(Integer.parseInt(idCliente.getValue()));
+						clienteVO.setIdIdentificador(idIdentificador.getValue().toUpperCase());
+						clienteVO.setNombreCliente(nombreCliente.getValue().toUpperCase());
+						clienteVO.setNombreCortoCliente(nombreCortoCliente.getValue().toUpperCase());
+						clienteVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue()));
+						clienteDTO.setClienteVO(clienteVO);
+						
+						clienteBO.updateCommand(clienteDTO);
+						clienteDTO.toString(BbvaAbstractDataTransferObject.XML);
+						controller.registrarEvento(clienteVO, clientesVO, CommandConstants.MODIFICACION, "Catálogo Clientes");
+						clean();
+						clienteVO.setIdIdentificador(StringUtil.validaLike(idIdentificador.getValue()));
+						clienteVO.setNombreCliente(StringUtil.validaLike(nombreCliente.getValue()));
+						clienteVO.setNombreCortoCliente(StringUtil.validaLike(nombreCortoCliente.getValue()));
+						clienteVO.setIdEstatusObjeto(0);
+						clienteVO.toString();
+						clienteDTO.setClienteVO(clienteVO);
+						clientesVOs = clienteBO.readCommand(clienteDTO).getClienteVOs();
+						
+						Messagebox.show("!La Actualización del Cliente fue exitoso!",
+								"Información", Messagebox.OK,
+								Messagebox.INFORMATION);
+					} else {
+						clean();
+	//					ClienteVO clienteVO = new ClienteVO();
+	//					clienteVO.setIdIdentificador(StringUtil.validaLike(idIdentificador.getValue()));
+	//					clienteVO.setNombreCliente(StringUtil.validaLike(nombreCliente.getValue()));
+	//					clienteVO.setNombreCortoCliente(StringUtil.validaLike(nombreCortoCliente.getValue()));
+	//					clienteVO.setIdEstatusObjeto(0);
+	//					clienteVO.toString();
+	//					clienteDTO.setClienteVO(clienteVO);
+	//					clientesVOs = clienteBO.readCommand(clienteDTO).getClienteVOs();
+						Messagebox.show("!No se puede dar de Baja, ya que esta siendo Usado por la Contratación!",
+								"Información", Messagebox.OK,
+								Messagebox.EXCLAMATION);
+					}
 				}
 			}
 		}

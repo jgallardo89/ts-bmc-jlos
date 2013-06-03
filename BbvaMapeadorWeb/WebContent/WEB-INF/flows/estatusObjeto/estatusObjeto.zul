@@ -86,13 +86,13 @@
 										<column hflex="0" align="center" image="/img/pencil-small.png" 
 											width="5%"></column>
 										<column hflex="1" label="Pantalla" style="text-wrap: normal;"
-											width="10%" sort="auto(vm.estatusObjetoDTO.estatusObjetoVO.nombreTabla)"></column>
+											width="10%" sort="auto(nombreTabla)"></column>
 										<column hflex="1" label="Nombre Estatus objeto" width="20%"
-											sort="vm.estatusObjetoDTO.estatusObjetoVO.nombreEstatusObjeto"></column>
+											sort="auto(nombreEstatusObjeto)"></column>
 										<column hflex="1" label="Descripción estatus objeto" width="10%"
-											sort="auto(vm.estatusObjetoDTO.estatusObjetoVO.descripcionEstatusObjeto)"></column>
+											sort="auto(descripcionEstatusObjeto)"></column>
 										<column hflex="1" label="Status" width="10%"
-											sort="auto(vm.estatusObjetoDTO.estatusObjetoVO.nombreStatusClave)"></column>										
+											sort="auto(nombreStatusClave)"></column>										
 									</columns>
 									<template name="model">
 										<row>

@@ -165,11 +165,14 @@ public class AdmonFlujosController extends ControllerSupport implements IControl
 			errorGuardar = true;
 		}
 		if(!errorGuardar && !idFlujo.getValue().isEmpty()){
-			ProductoBO productoBO = new ProductoBO();
-			ProductoVO productoVO = new ProductoVO();
-			productoVO.setIdFlujo(Integer.parseInt(idFlujo.getValue()));
-			ProductoDTO productoDTO = productoBO.readCommandCmb(productoVO);
-			if (productoDTO.getProductoVOs().size() == 0) {
+			ProductoDTO productoDTO = null;
+			if(Integer.parseInt(statusObjeto.getSelectedItem().getValue().toString())==CommandConstants.ID_FLUJO_BAJA){
+				ProductoBO productoBO = new ProductoBO();
+				ProductoVO productoVO = new ProductoVO();
+				productoVO.setIdFlujo(Integer.parseInt(idFlujo.getValue()));
+				productoDTO = productoBO.readCommandCmb(productoVO);
+			}
+			if (productoDTO!= null && productoDTO.getProductoVOs().size() == 0) {
 				FlujoDTO flujoDTO = new FlujoDTO();
 				FlujoVO flujoVO = new FlujoVO();
 				flujoVO.setNombreFlujo(nombreFlujo.getValue().toUpperCase());
@@ -183,7 +186,7 @@ public class AdmonFlujosController extends ControllerSupport implements IControl
 				clean();
 				flujoVO.setNombreFlujo(StringUtil.validaLike(nombreFlujo.getValue()));
 				flujoVO.setDescripcionFlujo(StringUtil.validaLike(descripcionFlujo.getValue()));
-				flujoVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue().isEmpty()?"0":idEstatusObjeto.getValue()));
+				flujoVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue().isEmpty()?"0":statusObjeto.getSelectedItem().getValue().toString()));
 				flujoVO.toString();
 				flujoDTO.setFlujoVO(flujoVO);
 				flujoVOs = flujoBO.readCommand(flujoDTO).getFlujoVOs();

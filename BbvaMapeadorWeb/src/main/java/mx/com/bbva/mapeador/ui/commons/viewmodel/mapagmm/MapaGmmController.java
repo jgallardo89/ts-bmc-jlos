@@ -47,17 +47,7 @@ public class MapaGmmController  extends ControllerSupport implements  IControlle
 	 * 
 	 */
 	private static final long serialVersionUID = -1420939655567271610L;
-	private static final Logger logger = Logger.getLogger(PantallaController.class);
-	
-	public SessionUser getSessionUser(){
-		logger.debug( "Entrada getSessionUser          -- OK" );		
-		String cveUsuario = null;
-		logger.debug( "Datos de usuario -- " + cveUsuario);
-		SessionUser sessionUser = new SessionUser();
-		sessionUser.setCveUsuario(cveUsuario);
-		logger.debug( "Salida getSessionUser          -- OK" );
-		return sessionUser;
-	}
+	private static final Logger logger = Logger.getLogger(PantallaController.class);	
 	
 	@Wire
 	private Textbox identificadorMapa;

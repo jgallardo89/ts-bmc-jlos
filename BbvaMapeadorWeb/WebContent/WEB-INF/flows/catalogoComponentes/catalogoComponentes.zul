@@ -83,11 +83,11 @@
 										<column hflex="0" image="/img/pencil-small.png" 
 											width="5%"></column>
 										<column hflex="1" label="Pantalla" width="20%"
-											sort="vm.componenteDTO.componenteVO.nombrePantalla"></column>
+											sort="auto(nombrePantalla)"></column>
 										<column hflex="1" label="Nombre del componente" style="text-wrap: normal;"
-											width="10%" sort="auto(vm.componenteDTO.componenteVO.nombreComponente)"></column>
+											width="10%" sort="auto(nombreComponente)"></column>
 										<column hflex="1" label="Tipo componente" width="10%"
-											sort="auto(vm.componenteDTO.componenteVO.tipoComponente)"></column>									
+											sort="auto(nombreTipoComponente)"></column>									
 									</columns>
 									<template name="model">
 										<row>

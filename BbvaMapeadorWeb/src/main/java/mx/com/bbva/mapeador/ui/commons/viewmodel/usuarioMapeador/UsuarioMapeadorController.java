@@ -1,11 +1,16 @@
 package mx.com.bbva.mapeador.ui.commons.viewmodel.usuarioMapeador;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
+import mx.com.bbva.bancomer.bussinnes.model.vo.ClienteVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.EstatusObjetoVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.UsuarioVO;
+import mx.com.bbva.bancomer.canal.dto.BeanGenerico;
 import mx.com.bbva.bancomer.commons.command.CommandConstants;
 import mx.com.bbva.bancomer.commons.command.MapeadorConstants;
 import mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject;
@@ -18,6 +23,7 @@ import mx.com.bbva.bancomer.perfil.dto.PerfilDTO;
 import mx.com.bbva.mapeador.security.session.user.SessionUser;
 import mx.com.bbva.mapeador.ui.commons.controller.IController;
 import mx.com.bbva.mapeador.ui.commons.viewmodel.support.ControllerSupport;
+import mx.com.bbva.mt101.ui.commons.viewmodel.reportes.ReportesController;
 
 import org.apache.log4j.Logger;
 import org.apache.openjpa.jdbc.meta.strats.SuperclassDiscriminatorStrategy;
@@ -34,6 +40,7 @@ import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.Button;
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Grid;
+import org.zkoss.zul.Image;
 import org.zkoss.zul.Label;
 import org.zkoss.zul.Textbox;
 
@@ -48,9 +55,12 @@ public class UsuarioMapeadorController extends ControllerSupport implements ICon
 			.getLogger(UsuarioMapeadorController.class);
 
 	private UsuarioDTO	usuarioDTO = (UsuarioDTO)this.read();	
-	
+	private UsuarioVO usuarioVO = null;
 	private boolean executePermissionSet; 
-
+	@Wire
+	private Image reporteExcelBtn;
+	@Wire
+	private Image reporteCsvBtn;
 	/**
 	 * @return the executePermissionSet
 	 */
@@ -165,6 +175,8 @@ public class UsuarioMapeadorController extends ControllerSupport implements ICon
 		usuarioDTO.toString(BbvaAbstractDataTransferObject.XML);		
 		usuarioDTO = usuarioBO.readCommand(usuarioDTO);
 		logger.debug("size:"+usuarioDTO.getUsuarioVOs().size());
+		ReportesController controller = new ReportesController();
+		controller.registrarEvento(null, null, CommandConstants.CONSULTAR, "USUARIO-WEB");
 		usuarioVOs = usuarioDTO.getUsuarioVOs();
 		
 	}
@@ -216,6 +228,8 @@ public class UsuarioMapeadorController extends ControllerSupport implements ICon
 				usuarioDTO.toString(BbvaAbstractDataTransferObject.XML);
 				UsuarioBO usuarioBO = new UsuarioBO();
 				usuarioDTO = usuarioBO.createCommand(usuarioDTO);
+				ReportesController controller = new ReportesController();
+				controller.registrarEvento(null, null, CommandConstants.ALTA, "USUARIO-WEB");
 				if(usuarioDTO.getErrorCode().equals("0001")){
 					Messagebox.show("!"+usuarioDTO.getErrorDescription()+"!",
 							"Error", Messagebox.OK,
@@ -242,33 +256,41 @@ public class UsuarioMapeadorController extends ControllerSupport implements ICon
 				UsuarioDTO usuarioDTO = new UsuarioDTO();
 				UsuarioVO usuarioVO = new UsuarioVO();
 				usuarioVO.setEstatusUsuario( Integer.parseInt(status.getSelectedItem().getValue().toString()));
-				usuarioVO.setIdCveUsuario( identificadorUsuario.getValue().toUpperCase() );
+				usuarioVO.setIdCveUsuario(identificadorUsuario.getValue().toUpperCase() );
 				usuarioVO.setIdPerfil(Integer.parseInt(perfilesDisponibles.getSelectedItem().getValue().toString()));			
 				usuarioVO.setNombreUsuario( nombreUsuario.getValue().toUpperCase() );
+				logger.debug("**USER**---"+idUsuario.getValue());
 				usuarioVO.setIdUsuario(Integer.parseInt(idUsuario.getValue()));
 				usuarioDTO.setUsuarioVO(usuarioVO);
 				usuarioDTO.toString(BbvaAbstractDataTransferObject.XML);
 				UsuarioBO usuarioBO = new UsuarioBO();
 				usuarioBO.updateCommand(usuarioDTO);
-				
-				clean();
-				usuarioBO = new UsuarioBO();
-				usuarioDTO = new UsuarioDTO();
-				usuarioVO = new UsuarioVO();		
-				usuarioVO.setNombreUsuario(nombreUsuario.getValue().isEmpty()?null:"%"+nombreUsuario.getValue().toUpperCase()+"%");
-				usuarioVO.setIdCveUsuario(identificadorUsuario.getValue().isEmpty()?null:"%"+identificadorUsuario.getValue().toUpperCase()+"%");
-				usuarioVO.setIdPerfil(Integer.parseInt(idPerfil.getValue().isEmpty()?"0":idPerfil.getValue()));
-				usuarioVO.setEstatusUsuario(Integer.parseInt(idEstatusObjeto.getValue().isEmpty()?"0":idEstatusObjeto.getValue()));
-				
-				usuarioDTO.setUsuarioVO(usuarioVO);
-				usuarioDTO.toString(BbvaAbstractDataTransferObject.XML);		
-				usuarioDTO = usuarioBO.readCommand(usuarioDTO);
-				logger.debug("size:"+usuarioDTO.getUsuarioVOs().size());
-				usuarioVOs = usuarioDTO.getUsuarioVOs();
-				
-				Messagebox.show("!La actualizacón del usuario fue exitosa!",
-						"Información", Messagebox.OK,
-						Messagebox.INFORMATION);
+				ReportesController controller = new ReportesController();
+				controller.registrarEvento(usuarioVO, this.usuarioVO, CommandConstants.MODIFICACION, "USUARIO-WEB");
+				if(usuarioDTO.getErrorCode().equals("0001")){
+					Messagebox.show("!"+usuarioDTO.getErrorDescription()+"!",
+							"Error", Messagebox.OK,
+							Messagebox.ERROR);
+				}else{
+					clean();
+					usuarioBO = new UsuarioBO();
+					usuarioDTO = new UsuarioDTO();
+					usuarioVO = new UsuarioVO();		
+					usuarioVO.setNombreUsuario(nombreUsuario.getValue().isEmpty()?null:"%"+nombreUsuario.getValue().toUpperCase()+"%");
+					usuarioVO.setIdCveUsuario(identificadorUsuario.getValue().isEmpty()?null:"%"+identificadorUsuario.getValue().toUpperCase()+"%");
+					usuarioVO.setIdPerfil(Integer.parseInt(idPerfil.getValue().isEmpty()?"0":idPerfil.getValue()));
+					usuarioVO.setEstatusUsuario(Integer.parseInt(idEstatusObjeto.getValue().isEmpty()?"0":idEstatusObjeto.getValue()));
+					
+					usuarioDTO.setUsuarioVO(usuarioVO);
+					usuarioDTO.toString(BbvaAbstractDataTransferObject.XML);		
+					usuarioDTO = usuarioBO.readCommand(usuarioDTO);
+					logger.debug("size:"+usuarioDTO.getUsuarioVOs().size());
+					usuarioVOs = usuarioDTO.getUsuarioVOs();
+					
+					Messagebox.show("!La actualizacón del usuario fue exitosa!",
+							"Información", Messagebox.OK,
+							Messagebox.INFORMATION);
+				}
 			}
 		}
 		
@@ -291,6 +313,7 @@ public class UsuarioMapeadorController extends ControllerSupport implements ICon
 		identificadorUsuario.setValue(null);
 		nombreUsuario.setValue(null);
 		idUsuario.setValue(null);
+		this.usuarioVO = null;
 	}
 
 	@Command
@@ -304,6 +327,7 @@ public class UsuarioMapeadorController extends ControllerSupport implements ICon
 		identificadorUsuario.setValue(usuarioVO.getIdCveUsuario());
 		nombreUsuario.setValue(usuarioVO.getNombreUsuario());
 		idUsuario.setValue(Integer.toString(usuarioVO.getIdUsuario()));
+		this.usuarioVO =  usuarioVO;
 		
 	}	
 	
@@ -428,7 +452,38 @@ public class UsuarioMapeadorController extends ControllerSupport implements ICon
 		componentes.put(guardarBtn.getId(),guardarBtn);
 		componentes.put(limpiarBtn.getId(),limpiarBtn);
 		componentes.put(usuariosGrid.getId(),usuariosGrid); 
+		componentes.put(reporteExcelBtn.getId(),reporteExcelBtn);
+		componentes.put(reporteCsvBtn.getId(),reporteCsvBtn);
 		super.applyPermission(MapeadorConstants.USUARIOS, componentes);
 		return isApplied;
 	}	
+	@Command
+	public void onShowReport(@BindingParam("type") final String type) {
+		ReportesController controller = new ReportesController();
+		ArrayList<String> headersReport = new ArrayList<String>();
+		headersReport.add("Identificador Usuario");
+		headersReport.add("Usuario");
+		headersReport.add("PErfil");
+		headersReport.add("Estatus");
+		if(type.equals("xls")) {
+			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_EXCEL,"Catálogo Usuario WEB");
+		} else {
+			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_TEXTO,"Catálogo Usuario WEB");
+		}
+		controller.createReport(generaLista(), headersReport, type, "USUARIOS-WEB");
+	}	
+	
+	private ArrayList<BeanGenerico> generaLista() {		
+		ArrayList<BeanGenerico> beanGenericos = new ArrayList<BeanGenerico>();
+		BeanGenerico beanGenerico = null;
+		for(UsuarioVO usuarioVO: usuarioVOs) {
+			beanGenerico = new BeanGenerico();
+			beanGenerico.setValor1(usuarioVO.getIdCveUsuario());
+			beanGenerico.setValor2(usuarioVO.getNombreUsuario());
+			beanGenerico.setValor3(usuarioVO.getDescripcionPerfil());
+			beanGenerico.setValor4(usuarioVO.getNombreEstatusObjeto());
+			beanGenericos.add(beanGenerico);
+		}
+		return beanGenericos;
+	}
 }

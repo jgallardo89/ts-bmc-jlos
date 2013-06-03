@@ -11,9 +11,8 @@
 		<div sclass="BODY" width="100%" height="100%">
 			<groupbox height="100%">
 				<caption sclass="pageTitle" label="Seguridad > Usuarios	"></caption>		
-					<portallayout maximizedMode="whole" id="portalLayoutUsuarioMapeador"
-					width="100%" height="100%">
-					<portalchildren>
+					<vlayout>
+						<groupbox>
 						<panel width="100%" height="23%" sclass="sectionPanelTitle" id="datosOpeDup"
 							title="Seguridad" collapsible="true" style="margin-bottom:10px"
 							border="normal">
@@ -56,28 +55,21 @@
 														<comboitem value="@load(each.idEstatusObjeto)" label="@load(each.nombreEstatusObjeto)" />
 													</template>																								
 												</combobox>																																								
-											</row>
-											<row sclass="row2" align="center">	
-												<div>													
-												</div>											
-												<div>
-													<button sclass="button" image="/img/clear.png" label="Limpiar" id="limpiarBtn" onClick="@command('clean')" ></button>
-												</div>	
-												<div>
-													<button sclass="button" image="/img/disk.png" label="Guardar" id="guardarBtn" onClick="@command('save')"></button>
-												</div>
-												<div>
-													<button sclass="button" image="/img/search.png" label="Consultar" id="consultarBtn" onClick="@command('readWithFilters')"></button>
-												</div>
-											</row>
-										</rows>
-								
-									</grid>								
+											</row>																							
+										</rows>																		
+									</grid>		
+									<div align="center"> 
+										<image id="reporteExcelBtn" src="/img/xls.png" onClick="@command('onShowReport',type='xls')" />
+										<image id="reporteCsvBtn" src="/img/csv.png" onClick="@command('onShowReport',type='txt')" />
+										<button sclass="button" image="/img/clear.png" label="Limpiar" id="limpiarBtn" onClick="@command('clean')" ></button>
+										<button sclass="button" image="/img/disk.png" label="Guardar" id="guardarBtn" onClick="@command('save')"></button>
+										<button sclass="button" image="/img/search.png" label="Consultar" id="consultarBtn" onClick="@command('readWithFilters')"></button>
+									</div>						
 							</panelchildren>										
 						</panel>
-					</portalchildren>
-					<portalchildren width="100%">
-						<panel height="73%" sclass="sectionPanelTitle" width="100%" id="panelUsuarioMapeador"
+					</groupbox>
+					<groupbox height="450px">
+						<panel height="430px" sclass="sectionPanelTitle" width="100%" id="panelUsuarioMapeador"
 							title="Resultados Usuarios Mapeador" collapsible="true"
 							style="margin-bottom:10px">
 							<caption sclass="sectionPanelTitle" label="Listado de Usuarios"></caption>
@@ -105,8 +97,8 @@
 								</grid>
 							</panelchildren>
 						</panel>
-					</portalchildren>
-				</portallayout>								
+					</groupbox>
+				</vlayout>								
 			</groupbox>
 			<textbox id="idPerfil" value="@load(vm.usuarioDTO.perfilVO.idPerfil)" visible="false"></textbox>
 			<textbox id="idEstatusObjeto" value="@load(vm.usuarioDTO.estatusObjetoVO.idEstatusObjeto)" visible="false"></textbox>	
