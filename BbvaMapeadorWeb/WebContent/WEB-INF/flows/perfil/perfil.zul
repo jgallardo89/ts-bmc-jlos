@@ -125,16 +125,16 @@
 											</rows>
 										</grid>										
 									</div>
+									<div align="center" >											
+										<image id="reporteExcelBtn" src="/img/xls.png" onClick="@command('onShowReport',type='xls')" />
+										<image id="reporteCsvBtn" src="/img/csv.png" onClick="@command('onShowReport',type='txt')" />
+										<button sclass="button" image="/img/clear.png" label="Limpiar" id="limpiarBtn" onClick="@command('clean')" ></button>																										
+										<button sclass="button" image="/img/disk.png" label="Guardar" id="guardarBtn" onClick="@command('save')"></button>													
+										<button sclass="button" image="/img/search.png" label="Consultar" id="consultarBtn" onClick="@command('readWithFilters')"></button>												
+										<button sclass="button" image="/img/page_copy.png" label="Duplicar" id="duplicarBtn" onClick="@command('duply')"></button>							
+									</div>
 								</panelchildren>										
-							</panel>
-							<div align="center">											
-								<image id="reporteExcelBtn" src="/img/xls.png" onClick="@command('onShowReport',type='xls')" />
-								<image id="reporteCsvBtn" src="/img/csv.png" onClick="@command('onShowReport',type='txt')" />
-								<button sclass="button" image="/img/clear.png" label="Limpiar" id="limpiarBtn" onClick="@command('clean')" ></button>																										
-								<button sclass="button" image="/img/disk.png" label="Guardar" id="guardarBtn" onClick="@command('save')"></button>													
-								<button sclass="button" image="/img/search.png" label="Consultar" id="consultarBtn" onClick="@command('readWithFilters')"></button>												
-								<button sclass="button" image="/img/page_copy.png" label="Duplicar" id="duplicarBtn" onClick="@command('duply')"></button>							
-							</div>
+							</panel>							
 						</groupbox>						
 						<groupbox height="650px">					
 							<panel height="640px" sclass="sectionPanelTitle" width="100%" id="panelUsuarioMapeador"

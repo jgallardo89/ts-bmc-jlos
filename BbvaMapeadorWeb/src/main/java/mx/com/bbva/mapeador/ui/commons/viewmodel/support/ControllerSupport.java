@@ -10,9 +10,9 @@ import mx.com.bbva.bancomer.bussinnes.model.vo.BitacoraVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.ControlPermisoVO;
 import mx.com.bbva.bancomer.commons.command.BbvaICommandInvoker;
 import mx.com.bbva.bancomer.commons.command.CommandConstants;
-import mx.com.bbva.bancomer.estatusobjeto.dto.PerfilDTO;
 import mx.com.bbva.bancomer.mapper.business.BitacoraBO;
 import mx.com.bbva.bancomer.mapper.business.PerfilBO;
+import mx.com.bbva.bancomer.perfil.dto.PerfilDTO;
 import mx.com.bbva.mapeador.security.session.controller.ISecurityController;
 import mx.com.bbva.mapeador.security.session.user.SessionUser;
 

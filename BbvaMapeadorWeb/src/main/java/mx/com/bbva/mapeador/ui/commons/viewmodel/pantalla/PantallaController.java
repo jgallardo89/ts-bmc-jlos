@@ -50,16 +50,7 @@ public class PantallaController extends ControllerSupport implements  IControlle
 	 */
 	private static final long serialVersionUID = 6786596344010411900L;
 	private static final Logger logger = Logger.getLogger(PantallaController.class);
-	
-	public SessionUser getSessionUser(){
-		logger.debug( "Entrada getSessionUser          -- OK" );		
-		String cveUsuario = null;
-		logger.debug( "Datos de usuario -- " + cveUsuario);
-		SessionUser sessionUser = new SessionUser();
-		sessionUser.setCveUsuario(cveUsuario);
-		logger.debug( "Salida getSessionUser          -- OK" );
-		return sessionUser;
-	}
+		
 	@Wire
 	private Textbox idPantalla;
 	

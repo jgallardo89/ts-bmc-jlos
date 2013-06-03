@@ -19,12 +19,12 @@ import mx.com.bbva.bancomer.commons.command.MapeadorConstants;
 import mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject;
 import mx.com.bbva.bancomer.componente.dto.ComponenteDTO;
 import mx.com.bbva.bancomer.estatusobjeto.dto.EstatusObjetoDTO;
-import mx.com.bbva.bancomer.estatusobjeto.dto.PerfilDTO;
 import mx.com.bbva.bancomer.mapper.business.ComponenteBO;
 import mx.com.bbva.bancomer.mapper.business.EstatusObjetoBO;
 import mx.com.bbva.bancomer.mapper.business.PantallaBO;
 import mx.com.bbva.bancomer.mapper.business.PerfilBO;
 import mx.com.bbva.bancomer.pantalla.dto.PantallaDTO;
+import mx.com.bbva.bancomer.perfil.dto.PerfilDTO;
 import mx.com.bbva.mapeador.ui.commons.controller.IController;
 import mx.com.bbva.mapeador.ui.commons.viewmodel.support.ControllerSupport;
 import mx.com.bbva.mt101.ui.commons.viewmodel.reportes.ReportesController;
@@ -165,7 +165,9 @@ public class PerfilController extends ControllerSupport implements  IController{
 	private PerfilDTO perfilDTO = (PerfilDTO)this.read(); 
 	
 	private List<PerfilVO> perfilVOs = perfilDTO.getPerfilVOs(); 
-
+	
+	private PerfilVO perfilVO = null;
+	
 	/**
 	 * @return the perfilVOs
 	 */
@@ -219,6 +221,7 @@ public class PerfilController extends ControllerSupport implements  IController{
 		componentePantallaDTO = null;
 		componentePantallaPerfilDTO = null;
 		componentePantallaPerfilAllDTO = null;
+		perfilVO = null;
 	}
 
 	@Override
@@ -271,6 +274,7 @@ public class PerfilController extends ControllerSupport implements  IController{
 		pantallaDTO.setPantallaVO(pantallaVO);
 		estatusObjetoDTO.toString(BbvaAbstractDataTransferObject.XML);	
 		List<PantallaVO> pantallaVOs = pantallaBO.readCommand(pantallaDTO).getPantallaVOs();
+		logger.debug("pantallaVOs:"+pantallaVOs);
 		estatusObjetoDTO.setPantallaVOs(pantallaVOs);
 		estatusObjetoDTO.toString(BbvaAbstractDataTransferObject.XML);			
 		PerfilBO perfilBO = new PerfilBO();		
@@ -305,7 +309,7 @@ public class PerfilController extends ControllerSupport implements  IController{
 		perfilVOs = perfilDTO.getPerfilVOs();
 		
 		ReportesController controller = new ReportesController();
-		controller.registrarEvento(null, null, CommandConstants.CONSULTAR, "Catálogo Perfiles");
+		controller.registrarEventoPerfil(null, null, CommandConstants.CONSULTAR, "Catálogo Perfiles");
 	}
 	@Override
 	@Command
@@ -330,12 +334,14 @@ public class PerfilController extends ControllerSupport implements  IController{
 		}
 		if(!error){
 			if(!idPerfil.getValue().isEmpty()){			
-				perfilDTO = new PerfilDTO();
+				PerfilDTO perfilDTO = new PerfilDTO();
 				PerfilVO perfilVO = new PerfilVO();
 				perfilVO.setNombrebPerfil(nombrePerfil.getValue()==null?"":nombrePerfil.getValue().toUpperCase().trim());
 				perfilVO.setDescripcionPerfil(descripcionPerfil.getValue()==null?"":descripcionPerfil.getValue().toUpperCase().trim());
 				perfilVO.setEstatusPerfil(Integer.parseInt(status.getSelectedItem().getValue().toString()));
-				perfilVO.setIdPerfil(Integer.parseInt(idPerfil.getValue()));				
+				perfilVO.setDescipcionEstatus(status.getSelectedItem().getLabel());
+				perfilVO.setIdPerfil(Integer.parseInt(idPerfil.getValue()));
+				perfilVO.setIdPantalla(pantallas.getSelectedItem()==null?0:Integer.parseInt(pantallas.getSelectedItem().getValue().toString()));
 				List<ControlPermisoVO> controlPermisoVOs = null;
 				controlPermisoVOs = new ArrayList<ControlPermisoVO>();
 				ControlPermisoVO controlPermisoVO;
@@ -345,6 +351,7 @@ public class PerfilController extends ControllerSupport implements  IController{
 						controlPermisoVO = new ControlPermisoVO();
 						controlPermisoVO.setIdComponente(componenteVO.idComponente);
 						controlPermisoVO.setIdPerfil(Integer.parseInt(idPerfil.getValue()));
+						controlPermisoVO.setNombreComponente(componenteVO.getNombreComponente());
 						controlPermisoVOs.add(controlPermisoVO);
 					}		
 					perfilVO.setControlPermisoVOs(controlPermisoVOs);
@@ -354,23 +361,46 @@ public class PerfilController extends ControllerSupport implements  IController{
 				PerfilBO perfilBO = new PerfilBO();
 				perfilBO.updateCommand(perfilDTO);
 				
+				ReportesController controller = new ReportesController();
+				List<ControlPermisoVO> controlPermiso2VOs = new ArrayList<ControlPermisoVO>(); 
+				PerfilVO perfilVO2 = new PerfilVO();
+				if(componentePantallaDTO!=null){
+					List<ComponenteVO> componenteVOsLocal = componentePantallaDTO.getComponentePantallaVOs();				
+					for (ComponenteVO componenteVO : componenteVOsLocal) {
+						controlPermisoVO = new ControlPermisoVO();
+						controlPermisoVO.setIdComponente(componenteVO.idComponente);
+						controlPermisoVO.setIdPerfil(Integer.parseInt(idPerfil.getValue()));
+						controlPermisoVO.setNombreComponente(componenteVO.getNombreComponente());
+						controlPermiso2VOs.add(controlPermisoVO);
+					}		
+					perfilVO2.setControlPermisoVOs(controlPermiso2VOs);
+				}
+				this.perfilDTO.setPerfilVO(this.perfilVO);
+				this.perfilDTO.getPerfilVO().setControlPermisoVOs(controlPermiso2VOs);				
+				controller.registrarEventoPerfil(perfilDTO, this.perfilDTO, CommandConstants.MODIFICACION, "Catálogo Perfiles");
+				
 				clean();
 				perfilDTO = (PerfilDTO)this.read();
 				perfilVOs = perfilDTO.getPerfilVOs();
+								
 				Messagebox.show("Registro actualizado con exito!!",
 						"Confirmación", Messagebox.OK,
 						Messagebox.INFORMATION);
 			}else{
-				perfilDTO = new PerfilDTO();
+				PerfilDTO perfilDTO = new PerfilDTO();
 				PerfilVO perfilVO = new PerfilVO();
 				perfilVO.setNombrebPerfil(nombrePerfil.getValue()==null?"":nombrePerfil.getValue().toUpperCase().trim());
 				perfilVO.setDescripcionPerfil(descripcionPerfil.getValue()==null?"":descripcionPerfil.getValue().toUpperCase().trim());
 				perfilVO.setEstatusPerfil(CommandConstants.ID_PERFIL_ACTIVO);				
-								
+				perfilVO.setDescipcionEstatus(status.getSelectedItem().getLabel());				
 				perfilDTO.setPerfilVO(perfilVO);		
 				perfilDTO.toString(BbvaAbstractDataTransferObject.XML);
 				PerfilBO perfilBO = new PerfilBO();
 				perfilBO.createCommand(perfilDTO);
+				
+				ReportesController controller = new ReportesController();
+				controller.registrarEventoPerfil(perfilDTO, this.perfilDTO, CommandConstants.ALTA, "Catálogo Perfiles");
+				
 				perfilDTO = (PerfilDTO)this.read();
 				perfilVOs = perfilDTO.getPerfilVOs();
 				clean();
@@ -384,37 +414,45 @@ public class PerfilController extends ControllerSupport implements  IController{
 	@Command
 	@NotifyChange({"componentePantallaDTO", "componentePantallaPerfilDTO"})
 	public void chooseOne(){
-		if(componentesPantalla.getSelectedItem()!=null){
-			componentePantallaPerfilDTO.getComponentePantallaPerfilVOs().add(componentePantallaDTO.getComponentePantallaVOs().get(componentesPantalla.getSelectedIndex()));
-			componentePantallaDTO.getComponentePantallaVOs().remove(componentesPantalla.getSelectedIndex());
-			
+		if(componentePantallaPerfilDTO!=null && componentePantallaDTO!=null){
+			if(componentesPantalla.getSelectedItem()!=null){
+				componentePantallaPerfilDTO.getComponentePantallaPerfilVOs().add(componentePantallaDTO.getComponentePantallaVOs().get(componentesPantalla.getSelectedIndex()));
+				componentePantallaDTO.getComponentePantallaVOs().remove(componentesPantalla.getSelectedIndex());
+				
+			}
 		}
 	}
 	@Command
 	@NotifyChange({"componentePantallaDTO", "componentePantallaPerfilDTO"})
 	public void chooseAll(){		
 		List<ComponenteVO> componenteVOs = componentePantallaDTO.getComponentePantallaVOs();
-		for (ComponenteVO componenteVO : componenteVOs) {
-			componentePantallaPerfilDTO.getComponentePantallaPerfilVOs().add(componenteVO);
+		if(componentePantallaPerfilDTO!=null && componentePantallaDTO!=null){
+			for (ComponenteVO componenteVO : componenteVOs) {
+				componentePantallaPerfilDTO.getComponentePantallaPerfilVOs().add(componenteVO);
+			}
+			componentePantallaDTO.getComponentePantallaVOs().clear();
 		}
-		componentePantallaDTO.getComponentePantallaVOs().clear();
 	}
 	@Command
 	@NotifyChange({"componentePantallaDTO", "componentePantallaPerfilDTO"})
 	public void removeOne(){		
-		if(componentesPerfil.getSelectedItem()!=null){
-			componentePantallaDTO.getComponentePantallaVOs().add(componentePantallaPerfilDTO.getComponentePantallaPerfilVOs().get(componentesPerfil.getSelectedIndex()));
-			componentePantallaPerfilDTO.getComponentePantallaPerfilVOs().remove(componentesPerfil.getSelectedIndex());
+		if(componentePantallaPerfilDTO!=null && componentePantallaDTO!=null){
+			if(componentesPerfil.getSelectedItem()!=null){
+				componentePantallaDTO.getComponentePantallaVOs().add(componentePantallaPerfilDTO.getComponentePantallaPerfilVOs().get(componentesPerfil.getSelectedIndex()));
+				componentePantallaPerfilDTO.getComponentePantallaPerfilVOs().remove(componentesPerfil.getSelectedIndex());
+			}
 		}
 	}
 	@Command
 	@NotifyChange({"componentePantallaDTO", "componentePantallaPerfilDTO"})
 	public void removeAll(){		
-		List<ComponenteVO> componenteVOs = componentePantallaPerfilDTO.getComponentePantallaPerfilVOs();
-		for (ComponenteVO componenteVO : componenteVOs) {
-			componentePantallaDTO.getComponentePantallaVOs().add(componenteVO);
+		if(componentePantallaPerfilDTO!=null && componentePantallaDTO!=null){
+			List<ComponenteVO> componenteVOs = componentePantallaPerfilDTO.getComponentePantallaPerfilVOs();
+			for (ComponenteVO componenteVO : componenteVOs) {
+				componentePantallaDTO.getComponentePantallaVOs().add(componenteVO);
+			}
+			componentePantallaPerfilDTO.getComponentePantallaPerfilVOs().clear();
 		}
-		componentePantallaPerfilDTO.getComponentePantallaPerfilVOs().clear();
 	}
 	public void setStrDescripcionPerfil(String strDescripcionPerfil) {
 		this.strDescripcionPerfil = strDescripcionPerfil;
@@ -435,6 +473,7 @@ public class PerfilController extends ControllerSupport implements  IController{
 	@Command	
 	@NotifyChange({"componentePantallaDTO", "componentePantallaPerfilDTO", "componentePantallaPerfilAllDTO"})
 	public void readSelected(@BindingParam("idPerfil") final PerfilVO perfilVO){
+		this.perfilVO = perfilVO;
 		perfilVO.toString();
 		nombrePerfil.setValue(perfilVO.getNombrebPerfil());
 		descripcionPerfil.setValue(perfilVO.getDescripcionPerfil());
@@ -462,7 +501,8 @@ public class PerfilController extends ControllerSupport implements  IController{
 	@NotifyChange({"componentePantallaDTO", "componentePantallaPerfilDTO"})
 	public void readComponentesPantalla(){
 		ComponenteVO componenteVO = new ComponenteVO();
-		componenteVO.setIdPantalla(Integer.parseInt(pantallas.getSelectedItem().getValue().toString()))	;		
+		componenteVO.setIdPantalla(Integer.parseInt(pantallas.getSelectedItem().getValue().toString()))	;
+		logger.debug("ID-PANTALLA:"+pantallas.getSelectedItem().getValue());
 		if(!idPerfil.getValue().isEmpty())
 			componenteVO.setIdPerfil(Integer.parseInt(idPerfil.getValue().toString()));
 		else
@@ -537,7 +577,7 @@ public class PerfilController extends ControllerSupport implements  IController{
 			error = true;
 		}
 		if(!error){
-			perfilDTO = new PerfilDTO();
+			PerfilDTO perfilDTO = new PerfilDTO();
 			PerfilVO perfilVO = new PerfilVO();
 			perfilVO.setNombrebPerfil("COPIA DE "+nombrePerfil.getValue().toUpperCase().trim());
 			perfilVO.setDescripcionPerfil("COPIA DE "+descripcionPerfil.getValue().toUpperCase().trim());
@@ -548,7 +588,8 @@ public class PerfilController extends ControllerSupport implements  IController{
 			perfilDTO.toString(BbvaAbstractDataTransferObject.XML);
 			PerfilBO perfilBO = new PerfilBO();
 			perfilBO.createCommand(perfilDTO);
-			
+			ReportesController controller = new ReportesController();			
+			controller.registrarEventoPerfil(perfilDTO, this.perfilDTO, CommandConstants.ALTA, "Catálogo Perfiles");
 			clean();
 			perfilDTO = (PerfilDTO)this.read();
 			perfilVOs = perfilDTO.getPerfilVOs();
@@ -582,7 +623,7 @@ public class PerfilController extends ControllerSupport implements  IController{
 		} else {
 			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_TEXTO,"Catálogo Perfiles");
 		}
-		controller.createReport(generaLista(), headersReport, type, "PERFILES");
+		controller.createReport(generaLista(), headersReport, type, "PERFILES");				
 	}	
 	
 	private ArrayList<BeanGenerico> generaLista() {

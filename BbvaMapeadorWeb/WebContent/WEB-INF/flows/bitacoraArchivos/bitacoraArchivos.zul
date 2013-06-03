@@ -11,9 +11,8 @@
 		<div sclass="BODY" height="100%"  width="100%">
 			<groupbox height="100%">
 				<caption sclass="pageTitle" label="Bitácora > Archivos"></caption>		
-					<portallayout maximizedMode="whole" id="portalLayoutBitacira"
-					width="100%" height="100%">
-					<portalchildren>
+					<vlayout>
+						<groupbox>
 						<panel height="20%" width="100%" sclass="sectionPanelTitle" id="datosBitacira"
 							title="Bitácora" collapsible="true" style="margin-bottom:10px"
 							border="normal">
@@ -43,9 +42,9 @@
 													<label id="lblEstadoArchivo" width="100%" sclass="labelFill" value="Estado Archivo:  "></label>
 												</div>
 												<combobox readonly="false" onChange="selectedValueEventoMapeador()"
-													id="eventoMapeador" width="70%" model="@load(vm.bitacoraArchivoDTO.eventoMapeadorVOs)" autodrop="true">		
+													id="eventoMapeador" width="100%" model="@load(vm.bitacoraArchivoDTO.estadoArchivoVOs)" autodrop="true">		
 													<template name="model">										
-														<comboitem value="@load(each.idEventoMapeador)" label="@load(each.nombreEventoMapeador)" height="100%"/>
+														<comboitem value="@load(each.idEstadoArchivo)" label="@load(each.nombreEstadoArchivo)" height="100%"/>
 													</template>																								
 												</combobox>
 												<div align="right">
@@ -53,55 +52,47 @@
 												</div>
 												<textbox sclass="textboxUpperCase" maxlength="50"
 													id="nombreArchivo" value="@load(vm.strNombreArchivo)" width="100%"></textbox>																									
-											</row>
-											<row sclass="row2">
-												<div align="right" width="70%">
-													<image id="reporteExcelBtn" src="/img/xls.png" onClick="@command('onShowReport',type='xls')" />
-													<image id="reporteCsvBtn" src="/img/csv.png" onClick="@command('onShowReport',type='csv')" />
-												</div>
-												<div align="right" width="82%">
-													<button sclass="button" image="/img/search.png" label="Consultar" id="consultarBtn" onClick="@command('readWithFilters')"></button>
-												</div>
-												<div align="right">
-												</div>
-												<div align="right">
-												</div>
-											</row>
+											</row>											
 										</rows>								
 									</grid>
+									<div align="center">										
+										<image id="reporteExcelBtn" src="/img/xls.png" onClick="@command('onShowReport',type='xls')" />
+										<image id="reporteCsvBtn" src="/img/csv.png" onClick="@command('onShowReport',type='csv')" />											
+										<button sclass="button" image="/img/search.png" label="Consultar" id="consultarBtn" onClick="@command('readWithFilters')"></button>										
+									</div>
 								</div>
 							</panelchildren>										
 						</panel>
-					</portalchildren>
-					<portalchildren width="100%" style="padding: 5px">
-						<panel height="77%" sclass="sectionPanelTitle" width="100%" id="panelbitacoraArchivo"
+					</groupbox>
+					<groupbox height="450px">
+						<panel height="430px" sclass="sectionPanelTitle" width="100%" id="panelbitacoraArchivo"
 							title="Resultados Bitacora Archivo" collapsible="true"
 							style="margin-bottom:10px">
 							<caption sclass="sectionPanelTitle" label="Lista de Archivos"></caption>
 							<panelchildren>
 								<grid width="99.7%" id="bitacoraArchivoGrid" mold="paging"
 									model="@load(vm.bitacoraArchivoVOs)" pagingPosition="both" pageSize="12"
-									vflex="true" height="100%">									
+									vflex="true">									
 									<columns sizable="true" menupopup="auto">
 										<column hflex="1" label="Fecha y Hora" width="10%"
-											sort="auto(fechaBitacora)"></column>
+											sort="auto(fechaArchivo)"></column>
 										<column hflex="1" label="Archivo" width="10%"
-											sort="auto(nombreBitacora)"></column>
+											sort="auto(nombreArchivo)"></column>
 										<column hflex="1" label="Estado de archivo" width="10%"
-											sort="auto(nombreEventoMapeador)"></column>		
+											sort="auto(estadoArchivo)"></column>		
 									</columns>
 									<template name="model">
 										<row>
-											<label hflex="1" value="@load(each.fechaBitacora) @converter('formatedDate', format='dd/MM/yyyy')"></label>
-											<label hflex="1" value="@load(each.nombreBitacora)"></label>
-											<label hflex="1" value="@load(each.nombreEventoMapeador)"></label>																					
+											<label hflex="1" value="@load(each.fechaArchivo)"></label>
+											<label hflex="1" value="@load(each.nombreArchivo)"></label>
+											<label hflex="1" value="@load(each.estadoArchivo)"></label>																					
 										</row>
 									</template>									
 								</grid>
 							</panelchildren>
 						</panel>
-					</portalchildren>
-				</portallayout>								
+					</groupbox>
+				</vlayout>								
 			</groupbox>	
 			<textbox id="idEventoMapeador" value="@load(vm.bitacoraArchivoDTO.bitacoraArchivoVO.idEventoMapeador)" visible="false"></textbox>
 		</div>

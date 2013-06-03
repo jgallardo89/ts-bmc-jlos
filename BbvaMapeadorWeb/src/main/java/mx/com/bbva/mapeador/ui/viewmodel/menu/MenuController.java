@@ -8,7 +8,6 @@ import mx.com.bbva.bancomer.bussinnes.model.vo.EstatusObjetoVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.UsuarioVO;
 import mx.com.bbva.bancomer.commons.command.CommandConstants;
 import mx.com.bbva.bancomer.estatusobjeto.dto.EstatusObjetoDTO;
-import mx.com.bbva.bancomer.estatusobjeto.dto.PerfilDTO;
 import mx.com.bbva.bancomer.estatusobjeto.dto.UsuarioDTO;
 import mx.com.bbva.bancomer.mapper.business.EstatusObjetoBO;
 import mx.com.bbva.bancomer.mapper.business.PerfilBO;

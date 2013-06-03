@@ -8,7 +8,10 @@ import java.util.List;
 
 import mx.com.bbva.bancomer.bitacora.dto.BitacoraDTO;
 import mx.com.bbva.bancomer.bitacora.dto.CampoDTO;
+import mx.com.bbva.bancomer.bussinnes.model.vo.ControlPermisoVO;
+import mx.com.bbva.bancomer.bussinnes.model.vo.PerfilVO;
 import mx.com.bbva.bancomer.canal.dto.BeanGenerico;
+import mx.com.bbva.bancomer.perfil.dto.PerfilDTO;
 import mx.com.bbva.mapeador.ui.commons.viewmodel.support.ControllerSupport;
 
 import org.zkoss.bind.annotation.AfterCompose;
@@ -90,6 +93,59 @@ public class ReportesController extends ControllerSupport {
 				e.printStackTrace();
 			} 
 		}
+		dto.setCampoDTOs(campoDTOs);
+		super.registraEvento(dto, nombreBitacora, idEvento);
+	}
+	
+	public void registrarEventoPerfil(PerfilDTO nuevo,PerfilDTO anterior, int idEvento, String nombreBitacora){
+		List<CampoDTO> campoDTOs = new ArrayList<CampoDTO>(); 
+		BitacoraDTO dto = new BitacoraDTO(); 
+		CampoDTO campo = new CampoDTO();
+		PerfilVO perfilVONuevo =   nuevo.getPerfilVO();
+		PerfilVO perfilVOAnterior =   anterior.getPerfilVO();
+		if(perfilVOAnterior.getNombrebPerfil()!=perfilVONuevo.getNombrebPerfil()){
+			campo = new CampoDTO();
+			campo.setNombre_campo("nombrePerfil");
+			campo.setValor_anterior(perfilVOAnterior.getNombrebPerfil());
+			campo.setValor_nuevo(perfilVONuevo.getNombrebPerfil());
+			campoDTOs.add(campo);
+		}
+		if(perfilVOAnterior.getDescripcionPerfil()!=perfilVONuevo.getDescripcionPerfil()){
+			campo = new CampoDTO();
+			campo.setNombre_campo("descripcionPerfil");
+			campo.setValor_anterior(perfilVOAnterior.getDescripcionPerfil());
+			campo.setValor_nuevo(perfilVONuevo.getDescripcionPerfil());
+			campoDTOs.add(campo);
+		}
+		if(perfilVOAnterior.getDescipcionEstatus()!=perfilVONuevo.getDescipcionEstatus()){
+			campo = new CampoDTO();
+			campo.setNombre_campo("estatusPerfil");
+			campo.setValor_anterior(perfilVOAnterior.getDescipcionEstatus());
+			campo.setValor_nuevo(perfilVONuevo.getDescipcionEstatus());		
+			campoDTOs.add(campo);
+		}
+		List<ControlPermisoVO> controlPermisoVOsNuevo = perfilVONuevo.getControlPermisoVOs(); 
+		
+		if(controlPermisoVOsNuevo!=null){
+			for (ControlPermisoVO controlPermisoVO : controlPermisoVOsNuevo) {
+				campo = new CampoDTO();
+				campo.setNombre_campo("Permiso");
+				campo.setValor_anterior("");
+				campo.setValor_nuevo("Se crea--"+controlPermisoVO.getNombreComponente());
+				campoDTOs.add(campo);
+			}
+		}
+		List<ControlPermisoVO> controlPermisoVOsAnterior = perfilVOAnterior.getControlPermisoVOs();
+		if(controlPermisoVOsAnterior!=null){
+			for (ControlPermisoVO controlPermisoVO : controlPermisoVOsAnterior) {
+				campo = new CampoDTO();
+				campo.setNombre_campo("Permiso");
+				campo.setValor_anterior("Se elimina--"+controlPermisoVO.getNombreComponente());
+				campo.setValor_nuevo("");
+				campoDTOs.add(campo);
+			}
+		}
+				
 		dto.setCampoDTOs(campoDTOs);
 		super.registraEvento(dto, nombreBitacora, idEvento);
 	}

@@ -87,9 +87,9 @@ public class BitacoraArchivoController extends ControllerSupport implements  ICo
 		BitacoraArchivoVO bitacoraArchivoVO= new BitacoraArchivoVO();
 		EventoMapeadorDTO eventoMapeadorDTO = new EventoMapeadorDTO();
 		EventoMapeadorBO eventoMapeadorBO = new EventoMapeadorBO();
-		eventoMapeadorDTO.setCommandId(2);
+		eventoMapeadorDTO.setCommandId(CommandConstants.ESTADOS_ARCHIVOS);
 		eventoMapeadorDTO = eventoMapeadorBO.readCommand(eventoMapeadorDTO);
-		bitacoraArchivoDTO.setEventoMapeadorVOs(eventoMapeadorDTO.getEventoMapeadorVOs());
+		bitacoraArchivoDTO.setEstadoArchivoVOs(eventoMapeadorDTO.getEstadoArchivoVOs());
 		BitacoraArchivoBO bitacoraArchivoBO = new BitacoraArchivoBO();
 		bitacoraArchivoDTO = bitacoraArchivoBO.readCommand(bitacoraArchivoDTO);
 		controller.registrarEvento(bitacoraArchivoVO, bitacoraArchivoVO, CommandConstants.CONSULTAR,"Bitácora de Archivos");
@@ -110,10 +110,10 @@ public class BitacoraArchivoController extends ControllerSupport implements  ICo
 		
 		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 		
-		bitacoraArchivoVO.setFechaInicio(dateFormat.format(fechaInicio.getValue()));
-		bitacoraArchivoVO.setFechaFin(dateFormat.format(fechaFin.getValue()));
-		bitacoraArchivoVO.setIdEventoMapeador(Integer.parseInt(idEventoMapeador.getValue().isEmpty()?"0":idEventoMapeador.getValue()));
-		bitacoraArchivoVO.setNombreBitacora(nombreArchivo.getValue().isEmpty()?"%":"%"+nombreArchivo.getValue().toUpperCase()+"%");
+		bitacoraArchivoVO.setFechaInici(fechaInicio.getValue());
+		bitacoraArchivoVO.setFechaFin(fechaFin.getValue());
+		bitacoraArchivoVO.setIdEstatus(Integer.parseInt(idEventoMapeador.getValue().isEmpty()?"0":idEventoMapeador.getValue()));
+		bitacoraArchivoVO.setNombreArchivo(nombreArchivo.getValue().isEmpty()?"%":"%"+nombreArchivo.getValue().toUpperCase()+"%");
 		bitacoraArchivoVO.toString();
 		bitacoraArchivoDTO.setBitacoraArchivoVO(bitacoraArchivoVO);
 		BitacoraArchivoBO bitacoraArchivoBO = new BitacoraArchivoBO();
@@ -150,9 +150,9 @@ public class BitacoraArchivoController extends ControllerSupport implements  ICo
 		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 		for(BitacoraArchivoVO bitacoraArchivoVO: bitacoraArchivoVOs) {
 			beanGenerico = new BeanGenerico();
-			beanGenerico.setValor1(dateFormat.format(bitacoraArchivoVO.getFechaBitacora()));
-			beanGenerico.setValor2(bitacoraArchivoVO.getNombreBitacora());
-			beanGenerico.setValor3(bitacoraArchivoVO.getNombreEventoMapeador()); 
+			beanGenerico.setValor1(dateFormat.format(bitacoraArchivoVO.getFechaArchivo()));
+			beanGenerico.setValor2(bitacoraArchivoVO.getNombreArchivo());
+			beanGenerico.setValor3(bitacoraArchivoVO.getEstadoArchivo()); 
 			beanGenericos.add(beanGenerico);
 		}
 		return beanGenericos;

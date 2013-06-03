@@ -11,9 +11,8 @@
 		<div sclass="BODY" height="100%" width="100%">
 			<groupbox height="100%">
 				<caption sclass="pageTitle" label="Sistemas > Pantallas"></caption>		
-					<portallayout maximizedMode="whole" id="portalLayoutEstatusObjeto"
-					width="100%" height="100%">
-					<portalchildren>
+					<vlayout>
+						<groupbox>
 						<panel height="30%" width="100%" sclass="sectionPanelTitle" id="datosPantalla"
 							title="Sistemas" collapsible="true" style="margin-bottom:10px"
 							border="normal">
@@ -91,16 +90,16 @@
 								</div>
 							</panelchildren>										
 						</panel>
-					</portalchildren>
-					<portalchildren width="100%" style="padding: 5px">
-						<panel height="67%" sclass="sectionPanelTitle" width="100%" id="panelCatalogoPantallas"
+					</groupbox>
+					<groupbox height="410px">
+						<panel height="400px" sclass="sectionPanelTitle" width="100%" id="panelCatalogoPantallas"
 							title="Resultados Catálogo Pantallas" collapsible="true"
 							style="margin-bottom:10px">
 							<caption sclass="sectionPanelTitle" label="Listado de Pantallas"></caption>
 							<panelchildren>
 								<grid width="99.7%" id="pantallasGrid" mold="paging"
 									model="@load(vm.pantallaVOs)" pagingPosition="both" pageSize="12"
-									vflex="true" height="100%">									
+									height="360px">									
 									<columns sizable="true" menupopup="auto">
 										<column hflex="0" align="center" image="/img/pencil-small.png" 
 											width="5%"></column>
@@ -131,8 +130,8 @@
 								</grid>
 							</panelchildren>
 						</panel>
-					</portalchildren>
-				</portallayout>								
+					</groupbox>
+				</vlayout>								
 			</groupbox>	
 			<textbox id="idPantalla" value="@load(vm.strIdPantalla)" visible="false"></textbox>
 			<textbox id="idPantallaPadre" value="@load(vm.strIdpantallaPadre)" visible="false"></textbox>
