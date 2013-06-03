@@ -6,6 +6,7 @@ public abstract interface CommandConstants {
 	public static final int ESTATUS_PRODUCTO_ACTIVO = 7;
 	public static final int ESTATUS_OBJETO_ACTIVO = 1;
 	public static final int ESTATUS_OBJETO_CONTRATACION_ACTIVO = 21;
+	public static final int ESTATUS_OBJETO_CONTRATACION_BAJA = 23;
 	public static final int ESTATUS_OBJETO_ACTIVO_CLIENTES = 4;	
 	public static final int ESTATUS_OBJETO_PRODUCTO_BAJA = 9;
 	public static final int ESTATUS_OBJETO_PRODUCTO_ACTIVO = 7;
@@ -37,7 +38,8 @@ public abstract interface CommandConstants {
 	public static final String NOMBRE_TABLA_PROCESO = "TGM522_ST_PROCESO";
 	public static final String NOMBRE_TABLA_CANALES = "TGM511_CANAL";
 	public static final String NOMBRE_TABLA_MENSAJE= "TGM516_MENSAJE_SAL";
-	
+	public static final String NOMBRE_TABLA_CONTRATACION = "TGM519_CONTRATACION";
+															
 	public static final int ACCESO = 1;
 	public static final int CONSULTAR = 2;
 	public static final int ALTA = 3;
