@@ -40,7 +40,7 @@
 				#{idPantalla}, 
 				#{nombreComponente}, 
 				#{idTipoComponente},
-				' ')
+				#{idDefault})
 	</insert>
 	<select id="obtenerComponentesPantalla" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.ComponenteVO"
 		resultType="mx.com.bbva.bancomer.bussinnes.model.vo.ComponenteVO">					
@@ -124,7 +124,8 @@
 		UPDATE TGM502_COMPONENTE SET  
 			CD_PANTALLA = #{idPantalla}, 
 			NB_COMPONENTE = #{nombreComponente}, 
-			CD_TP_COMPONEN = #{idTipoComponente}
+			CD_TP_COMPONEN = #{idTipoComponente},
+			CD_DEFAULT = #{idDefault}
 		WHERE 
 			CD_COMPONENTE = #{idComponente}
 	</update>
