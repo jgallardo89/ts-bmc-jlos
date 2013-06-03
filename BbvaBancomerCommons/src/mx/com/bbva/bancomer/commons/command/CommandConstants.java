@@ -56,6 +56,7 @@ public abstract interface CommandConstants {
 	
 	//Estatus del Catálogo de Flujos
 	public static final int ID_FLUJO_ACTIVO = 10;
+	public static final int ID_FLUJO_INACTIVO = 11;
 	public static final int ID_FLUJO_BAJA = 12;
 	public static final String NB_FLUJO_ACTIVO = "ACTIVO";
 	public static final String NB_FLUJO_BAJA = "BAJA";
