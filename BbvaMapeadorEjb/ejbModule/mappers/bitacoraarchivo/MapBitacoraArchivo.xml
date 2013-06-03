@@ -4,31 +4,29 @@
     
 	<select id="obtenerBitacoraArchivos" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.BitacoraArchivoVO"
 		resultType="mx.com.bbva.bancomer.bussinnes.model.vo.BitacoraArchivoVO">
-		SELECT 
-			B.CD_BITACORA idBitacora, 
-			B.CD_USUARIO idUsuario, 
-			B.NB_BITACORA nombreBitacora, 
-			B.TX_BITACORA descripcionBitacora, 
-			B.TM_BITACORA horaBitacora, 
-			B.FH_BITACORA fechaBitacora, 
-			B.CD_EVENTO_MAPEADOR idEventoMapeador,
-			EM.NB_EVENTO_MAPEADOR nombreEventoMapeador
-		FROM 
-			TGM507_BITACORA B,
-			TGM508_EVENTO_MAPA EM
-		WHERE 
-			B.CD_EVENTO_MAPEADOR = EM.CD_EVENTO_MAPEADOR
-			AND B.CD_EVENTO_MAPEADOR in (100,101,200,300,301,303,304,500)
-			<if test="idEventoMapeador != null and idEventoMapeador != 0">
-				AND B.CD_EVENTO_MAPEADOR = #{idEventoMapeador}
+			Select to_char(Tgm537.Tm_Estado_Archivo,'dd/MM/yyyy HH:SS') fechaArchivo,
+			  Tgm538.Tx_Estado_Archivo estadoArchivo, 
+			  Tgm536.Nb_Reg_Arch_Entra nombreArchivo
+			From Tgm537_Edo_Archivo Tgm537,
+			  Tgm538_Estado_Arch Tgm538,
+			  Tgm536_Reg_Arch_En tgm536
+			Where Tgm538.Cd_Estado_Archivo = Tgm537.Cd_Estado_Archivo
+			And Tgm536.Cd_Reg_Arch_Entra = Tgm537.Cd_Reg_Arch_Entra			
+			<if test="idEstatus != null and idEstatus != 0">
+				AND Tgm538.Cd_Estado_Archivo = #{idEstatus}
 			</if>
-			<if test="fechaInicio != null and fechaFin != null">    
-				AND B.FH_BITACORA BETWEEN to_date(#{fechaInicio},'dd-MM-rrrr') AND to_date(#{fechaFin},'dd-MM-rrrr')				
+			<if test="fechaInici != null and fechaFin != null">    
+				AND to_char(Tgm537.Tm_Estado_Archivo,'dd-MM-rrrr') BETWEEN to_char(#{fechaInici},'dd-MM-rrrr') AND to_char(#{fechaFin},'dd-MM-rrrr')				
 			</if>
-			<if test="nombreBitacora != null ">
-				AND B.NB_BITACORA LIKE #{nombreBitacora}
+			<if test="nombreArchivo != null ">
+				AND Tgm536.Nb_Reg_Arch_Entra LIKE #{nombreArchivo}
 			</if>						  
-		ORDER BY B.CD_BITACORA	
+		order by Tgm536.Nb_Reg_Arch_Entra, Tgm537.Tm_Estado_Archivo
 			    
+	</select>
+	<select id="obtenerEstadosArchivos" resultType="mx.com.bbva.bancomer.bussinnes.model.vo.EstadoArchivoVO">
+		Select Cd_Estado_Archivo idEstadoArchivo,
+			Tx_Estado_Archivo nombreEstadoArchivo
+		from Tgm538_Estado_Arch
 	</select>
 </mapper>

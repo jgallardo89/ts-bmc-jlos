@@ -4,10 +4,13 @@ import java.util.List;
 
 import javax.ejb.Stateless;
 
+import mappers.bitacoraarchivo.MapBitacoraArchivo;
 import mappers.evento.MapEvento;
 import mx.com.bbva.bancomer.bitacora.dto.BitacoraDTO;
+import mx.com.bbva.bancomer.bussinnes.model.vo.EstadoArchivoVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.EventoMapeadorVO;
 import mx.com.bbva.bancomer.commons.business.BbvaIBusinessObject;
+import mx.com.bbva.bancomer.commons.command.CommandConstants;
 import mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject;
 import mx.com.bbva.bancomer.evento.dto.EventoMapeadorDTO;
 import mx.com.bbva.mapeador.oralce.session.MapeadorSessionFactory;
@@ -35,22 +38,22 @@ public class EventoMapeadorBO implements BbvaIBusinessObject {
 			logger.debug("Entrada readCommand          -- OK");
 			logger.debug("Datos de Entrada readCommand -- "
 					+ bbvaAbstractDataTransferObject.toString());
+			SqlSession session = MapeadorSessionFactory
+					.getSqlSessionFactory().openSession();
 			try {
-				List<EventoMapeadorVO> result = null;
-				SqlSession session = MapeadorSessionFactory
-						.getSqlSessionFactory().openSession();
-				MapEvento mapEvento = session.getMapper(MapEvento.class);
-				try {
+				
+				if(bbvaAbstractDataTransferObject.getCommandId()!=CommandConstants.ESTADOS_ARCHIVOS){
+					List<EventoMapeadorVO> result = null;					
+					MapEvento mapEvento = session.getMapper(MapEvento.class);				
 					result = mapEvento.obtenerEventoMapeador();
-					session.commit();
-				} catch (Exception ex) {
-					session.rollback();
-					ex.printStackTrace();
-				} finally {
-					session.close();
+					((EventoMapeadorDTO) bbvaAbstractDataTransferObject).setEventoMapeadorVOs(result);
+				}else if(bbvaAbstractDataTransferObject.getCommandId()==CommandConstants.ESTADOS_ARCHIVOS){
+					List<EstadoArchivoVO> result = null;
+					MapBitacoraArchivo mapBitacoraArchivo = session.getMapper(MapBitacoraArchivo.class);
+					result = mapBitacoraArchivo.obtenerEstadosArchivos();
+					((EventoMapeadorDTO) bbvaAbstractDataTransferObject).setEstadoArchivoVOs(result);
 				}
-				((EventoMapeadorDTO) bbvaAbstractDataTransferObject).setEventoMapeadorVOs(result);
-				logger.debug("result: " + result + " -- **fin**");
+				session.close();
 				logger.debug("Datos de Salida invoke -- "
 						+ bbvaAbstractDataTransferObject.toString());
 				logger.debug("Salida invoke          -- OK");

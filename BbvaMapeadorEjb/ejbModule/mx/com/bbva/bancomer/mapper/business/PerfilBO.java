@@ -15,13 +15,9 @@ import mappers.usuario.MapUsuario;
 import mx.com.bbva.bancomer.bussinnes.model.vo.ComponenteVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.ControlPermisoVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.PerfilVO;
-import mx.com.bbva.bancomer.bussinnes.model.vo.ProductoVO;
-import mx.com.bbva.bancomer.bussinnes.model.vo.UsuarioVO;
 import mx.com.bbva.bancomer.commons.command.CommandConstants;
 import mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject;
-import mx.com.bbva.bancomer.estatusobjeto.dto.PerfilDTO;
-import mx.com.bbva.bancomer.estatusobjeto.dto.UsuarioDTO;
-import mx.com.bbva.bancomer.producto.dto.ProductoDTO;
+import mx.com.bbva.bancomer.perfil.dto.PerfilDTO;
 import mx.com.bbva.mapeador.oralce.session.MapeadorSessionFactory;
 
 @Stateless(mappedName="perfilBO")
