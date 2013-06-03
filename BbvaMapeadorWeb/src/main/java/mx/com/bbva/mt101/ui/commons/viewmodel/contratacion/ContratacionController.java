@@ -439,28 +439,30 @@ public class ContratacionController extends ControllerSupport implements IContro
 		Iframe iframe = null;
 		Tabpanel newTabpanel = null;
 		int contador = 1;
-		for(ContratacionMapVO mapVO:contratacionMapDTO.getContratacionMapVOs()) {
-			newTab = new Tab(mapVO.getNombreEtapa());
-			newTab.setClosable(false);	
-			if (contador == 1) {
-				newTab.setSelected(true);
+		if(contratacionMapDTO!=null){
+			for(ContratacionMapVO mapVO:contratacionMapDTO.getContratacionMapVOs()) {
+				newTab = new Tab(mapVO.getNombreEtapa());
+				newTab.setClosable(false);	
+				if (contador == 1) {
+					newTab.setSelected(true);
+				}
+		        newTab.setId(mapVO.getNombreEtapa() + contador++);
+		        newTabpanel = new Tabpanel();
+		        newTabpanel.setWidth("100%");
+		        newTabpanel.setHeight("100%");
+		        newTabpanel.setId(mapVO.getNombreEtapa());
+		        iframe = new Iframe("flows/contratacion/pageTab.zul?nombreMapaGmm="+mapVO.getNombreMapaGmm()+"&idMapaGmm="+mapVO.getIdMapaGmm()+
+					        		"&idEtapa="+mapVO.getIdEtapa()+"&idFlujo="+mapVO.getIdFlujo()+"&idMensajeSalida="+mapVO.getIdMensajeSalida()+
+					        		"&descripcionMapaGmm="+mapVO.getDescripcionMapaGmm()+"&estatusNotificacion="+mapVO.getEstatusNotificacion()+
+					        		"&nombreMensajeSalida="+mapVO.getNombreMensajeSalida()+"&descripcionMensajeSalida="+mapVO.getDescripcionMensajeSalida()+
+					        		"&descripcionIdUsuarios="+mapVO.getDescripcionIdUsuarios()+"&idContratacion="+mapVO.getIdContratacion()+"&titulo="+mapVO.getNombreEtapa());
+		        iframe.setWidth("100%");
+		        iframe.setHeight("100%");
+		        newTabpanel.appendChild(iframe);
+		        tabs.getTabs().insertBefore(newTab, tabNohome);
+		        newTabpanel.setParent(tabs.getTabpanels());
 			}
-	        newTab.setId(mapVO.getNombreEtapa() + contador++);
-	        newTabpanel = new Tabpanel();
-	        newTabpanel.setWidth("100%");
-	        newTabpanel.setHeight("100%");
-	        newTabpanel.setId(mapVO.getNombreEtapa());
-	        iframe = new Iframe("flows/contratacion/pageTab.zul?nombreMapaGmm="+mapVO.getNombreMapaGmm()+"&idMapaGmm="+mapVO.getIdMapaGmm()+
-				        		"&idEtapa="+mapVO.getIdEtapa()+"&idFlujo="+mapVO.getIdFlujo()+"&idMensajeSalida="+mapVO.getIdMensajeSalida()+
-				        		"&descripcionMapaGmm="+mapVO.getDescripcionMapaGmm()+"&estatusNotificacion="+mapVO.getEstatusNotificacion()+
-				        		"&nombreMensajeSalida="+mapVO.getNombreMensajeSalida()+"&descripcionMensajeSalida="+mapVO.getDescripcionMensajeSalida()+
-				        		"&descripcionIdUsuarios="+mapVO.getDescripcionIdUsuarios()+"&idContratacion="+mapVO.getIdContratacion()+"&titulo="+mapVO.getNombreEtapa());
-	        iframe.setWidth("100%");
-	        iframe.setHeight("100%");
-	        newTabpanel.appendChild(iframe);
-	        tabs.getTabs().insertBefore(newTab, tabNohome);
-	        newTabpanel.setParent(tabs.getTabpanels());
-		}
+		}	
 	}
 	
 	private void cargaTabsDinamicosReg(int idProduct) {

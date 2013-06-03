@@ -45,6 +45,14 @@
 											</row>
 											<row sclass="row2">
 												<div align="right">
+													<label id="lblAsuntoMensaje" width="100%" sclass="labelFill" value="Asunto:"></label>
+												</div>
+												<cell colspan="3">
+													<textbox sclass="textboxUpperCase"  maxlength="50" id="descripcionAsuntoSalida" rows="1" value="@load(vm.mensajeSalidaDTO.mensajeSalidaVO.descripcionAsuntoSalida)" width="100%"/>
+												</cell>																							
+											</row>
+											<row sclass="row2">
+												<div align="right">
 													<label id="lblTextoMensaje" width="100%" sclass="labelFill" value="Texto de Mensaje:  "></label>
 												</div>
 												<cell colspan="3">
@@ -60,37 +68,29 @@
 													<label id="lblFechaModificacion" width="100%" sclass="labelFill" value="Descripción flujo: "></label>												
 												</div>
 												<datebox height="20px" value="@load(vm.mensajeSalidaDTO.mensajeSalidaVO.fechaModificacion)" maxlength="50" width="100%" id="fechaModificacion" readonly="true" buttonVisible="false" onCreate="self.value = new Date()" format="dd/MM/yyyy HH:mm"></datebox>																										
-											</row>
-											<row sclass="row2">	
-												<div align="right" width="70%">
-													<image id="reporteExcelBtn" src="/img/xls.png" onClick="@command('onShowReport',type='xls')" />
-													<image id="reporteCsvBtn" src="/img/csv.png" onClick="@command('onShowReport',type='txt')" />
-												</div>											
-												<div align="right" width="82%">
-													<button sclass="button" image="/img/clear.png" label="Limpiar" id="limpiarBtn" onClick="@command('clean')" ></button>
-												</div>	
-												<div align="right" width="82%">
-													<button sclass="button" image="/img/disk.png" label="Guardar" id="guardarBtn" onClick="@command('save')"></button>
-												</div>
-												<div align="right" width="82%">
-													<button sclass="button" image="/img/search.png" label="Consultar" id="consultarBtn" onClick="@command('readWithFilters')"></button>
-												</div>
-											</row>
+											</row>																						
 										</rows>								
 									</grid>
+									<div align="center">
+										<image id="reporteExcelBtn" src="/img/xls.png" onClick="@command('onShowReport',type='xls')" />
+										<image id="reporteCsvBtn" src="/img/csv.png" onClick="@command('onShowReport',type='txt')" />
+										<button sclass="button" image="/img/clear.png" label="Limpiar" id="limpiarBtn" onClick="@command('clean')" ></button>
+										<button sclass="button" image="/img/disk.png" label="Guardar" id="guardarBtn" onClick="@command('save')"></button>
+										<button sclass="button" image="/img/search.png" label="Consultar" id="consultarBtn" onClick="@command('readWithFilters')"></button>
+									</div>
 								</div>
 							</panelchildren>										
 						</panel>
 					</groupbox>
-					<groupbox>
-						<panel height="68%" sclass="sectionPanelTitle" width="100%" id="panelFlujoMapeador"
+					<groupbox height="430px">
+						<panel height="410px" sclass="sectionPanelTitle" width="100%" id="panelFlujoMapeador"
 							title="Resultados de Mensajes de Notificación" collapsible="true"
 							style="margin-bottom:10px">
 							<caption sclass="sectionPanelTitle" label="Listado de Mensajes de Notificación"></caption>
 							<panelchildren>
 								<grid width="99.7%" id="mensajesGrid" mold="paging"
 									model="@load(vm.mensajeSalidaVOs)" pagingPosition="both" pageSize="12"
-									vflex="true" height="100%">									
+									vflex="true">									
 									<columns sizable="true" menupopup="auto">
 										<column hflex="0" align="center" image="/img/pencil-small.png" 
 											width="5%"></column>

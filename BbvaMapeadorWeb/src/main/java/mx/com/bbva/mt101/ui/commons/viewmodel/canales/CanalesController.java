@@ -258,6 +258,7 @@ public class CanalesController extends ControllerSupport implements IController 
 		statusObjeto.setValue(canalVO.getNombreEstatusObjeto());
 		idCanal.setValue(Integer.toString(canalVO.getIdCanal()));
 		idEstatusObjeto.setValue(Integer.toString(canalVO.getIdEstatusObjeto()));
+		fechaInicio.setValue(canalVO.getFechaAlta());
 		btnGuardar = false;
 		flagClave = true;
 	}

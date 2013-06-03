@@ -149,7 +149,8 @@ public class MapaGmmController  extends ControllerSupport implements  IControlle
 		identificadorMapa.setValue(mapaGmmVO.getNombreMapaGmm());
 		descripcionMapa.setValue(mapaGmmVO.getDescripcionMapaGmm());
 		idMapaGmm.setValue(String.valueOf(mapaGmmVO.getIdMapaGmm()));
-		
+		fechaAlta.setValue(mapaGmmVO.getFechaAlta());
+		fechaModificacion.setValue(mapaGmmVO.getFechaModificacion());
 		identificadorMapa.setDisabled(true);
 		btnGuardar = false;
 	}

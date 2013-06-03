@@ -168,7 +168,8 @@ public class AdmonFlujosController extends ControllerSupport implements IControl
 		if(!errorGuardar && !idFlujo.getValue().isEmpty()){
 			ProductoDTO productoDTO = null;
 			logger.debug("statusObjeto:"+statusObjeto.getSelectedItem().getValue());
-			if(Integer.parseInt(statusObjeto.getSelectedItem().getValue().toString())==CommandConstants.ID_FLUJO_BAJA){
+			if(Integer.parseInt(statusObjeto.getSelectedItem().getValue().toString())==CommandConstants.ID_FLUJO_BAJA
+					||Integer.parseInt(statusObjeto.getSelectedItem().getValue().toString())==CommandConstants.ID_FLUJO_INACTIVO){
 				ProductoBO productoBO = new ProductoBO();
 				ProductoVO productoVO = new ProductoVO();
 				productoVO.setIdFlujo(Integer.parseInt(idFlujo.getValue()));

@@ -320,6 +320,8 @@ public class ProductosController extends ControllerSupport implements IControlle
 		idEstatusObjeto.setValue(Integer.toString(productoVO.getIdEstatusObjeto()));
 		flujo.setValue(productoVO.getNombreFlujo() +" - "+ productoVO.getDescripcionFlujo());
 		estatusObjeto.setValue(productoVO.getNombreEstatusObjeto());
+		fechaAlta.setValue(productoVO.getFechaAlta());
+		fechaModificacion.setValue(productoVO.getFechaModificacion());
 		flagEstatus = false;
 	}
 	
