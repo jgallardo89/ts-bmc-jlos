@@ -173,6 +173,18 @@ public class ContratacionController extends ControllerSupport implements IContro
 		registraBitacora(contratacionVO, 2);		
 	}
 	
+	@Command
+	@GlobalCommand
+	@NotifyChange({ "contratacionVOs" })
+	public void readContratacion() {
+		ContratacionDTO contratacionDTO = new ContratacionDTO();
+		ContratacionVO contratacionVO = new ContratacionVO();
+		contratacionDTO.setContratacionVO(contratacionVO);
+		ContratacionBO contratacionBO = new ContratacionBO();
+		contratacionVOs = contratacionBO.readCommand(contratacionDTO).getContratacionVOs();
+		botonEditar = true;	
+	}
+	
 	private void registraBitacora(ContratacionVO contratacionVO, int evento) {
 		List<CampoDTO> campoDTOs = new ArrayList<CampoDTO>(); 
 		BitacoraDTO dto = new BitacoraDTO();
@@ -428,7 +440,6 @@ public class ContratacionController extends ControllerSupport implements IContro
 		Tabpanel newTabpanel = null;
 		int contador = 1;
 		for(ContratacionMapVO mapVO:contratacionMapDTO.getContratacionMapVOs()) {
-			System.out.println("*************************UPDATE****************************" + contratacionVO.getIdContratacion());
 			newTab = new Tab(mapVO.getNombreEtapa());
 			newTab.setClosable(false);	
 			if (contador == 1) {

@@ -258,6 +258,17 @@ public class FlujoContratacionController extends Div  implements IController, Id
 	}
 
 	@Command
+	public void crean() {
+		idMapaGmm.setValue(null);
+		mapaGMM.setValue(null);
+		idMensajeSalida.setValue(null);
+		descripcionMapaGmm.setValue(null);
+		descripcionMensajeSalida.setValue(null);
+		nombreMensajeSalida.setValue(null);
+		removeAll();
+	}
+	
+	@Command
 	@NotifyChange({ "nombreMensajeSalida", "descripcionMensajeSalida", "flagDisabled",
 		"usuariosNotificacion", "usuariosNotificacionActivo", "guardaBtn", "limpiarBtn"})
     public void disabledNotificacion() {
