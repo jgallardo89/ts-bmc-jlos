@@ -26,6 +26,7 @@ public abstract interface CommandConstants {
 	public static final int ESTADOS_ARCHIVOS = 3;
 	public static final int ESTATUS_PERFIL = 24;
 	public static final int ESTATUS_CLAVE = 3;
+	public static final int NOMBRE_PANTALLA = 4;
 	public static final int PERFIL_COMMAND_READ_ALL = 1;
 	public static final int PERFIL_COMMAND_READ_PERMISSION = 3;
 	public static final String NOMBRE_TABLA_USUARIO = "TGM503_USUARIO";
