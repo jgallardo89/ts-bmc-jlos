@@ -86,7 +86,7 @@
 									<div align="right" width="70%">
 									</div>
 									<div align="center" width="70%">
-										<button sclass="button" image="/img/disk.png" label="Guardar" id="guardaBtn" onClick="@command('save') @global-command('readWithFilters')"></button>
+										<button sclass="button" image="/img/disk.png" label="Guardar" id="guardaBtn" onClick="@command('save') @global-command('readContratacion')"></button>
 									</div>
 									<div align="center">
 										<button id="closeBtn" image="/img/button_cancel.png" sclass="button" label="Salir"/>	
