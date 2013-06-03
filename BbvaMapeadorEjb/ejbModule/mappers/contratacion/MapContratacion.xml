@@ -18,7 +18,7 @@
 					CONTRATACION.CD_ST_OBJETO idEstatusObjeto,
 					OBJETO.NB_ST_OBJETO nombreEstatusObjeto
 				FROM
-					TGM519_CONTRATACION CONTRATACION,
+					TGM519_CNTRATACION CONTRATACION,
 					TGM511_CANAL CANAL,
 					TGM512_CLIENTE CLIENTE,
 					TGM515_PRODUCTO PRODUCTO,
@@ -70,7 +70,7 @@
 		<selectKey keyProperty="idContratacion" resultType="int" order="BEFORE"> 
 			<![CDATA[ select SQ_519_CONTRATACION.nextval as idContratacion from dual ]]> 
 		</selectKey>
-			INSERT INTO TGM519_CONTRATACION(
+			INSERT INTO TGM519_CNTRATACION(
 				CD_CONTRATACION,
 				CD_CANAL,
 				CD_CLIENTE,
@@ -88,7 +88,7 @@
 				#{idEstatusObjeto})
 	</insert>
 	<update id="actualizarContratacion" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.ContratacionVO">
-	    UPDATE TGM519_CONTRATACION
+	    UPDATE TGM519_CNTRATACION
 		Set CD_ST_OBJETO = #{idEstatusObjeto}
 		where CD_CONTRATACION = #{idContratacion}
 	</update>
@@ -110,7 +110,7 @@
 				CONTRATACION.CD_CLIENTE,
 				CONTRATACION.CD_PRODUCTO,
 				CONTRATACION.CD_CANAL_SALIDA 
-			FROM TGM519_CONTRATACION CONTRATACION
+			FROM TGM519_CNTRATACION CONTRATACION
 			WHERE
 			<if test="idCanal != null and idCanal != 0">
 				CONTRATACION.CD_CANAL = #{idCanal}
