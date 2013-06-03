@@ -56,7 +56,7 @@
 													<label id="lblTextoMensaje" width="100%" sclass="labelFill" value="Texto de Mensaje:  "></label>
 												</div>
 												<cell colspan="3">
-													<textbox sclass="textboxUpperCase"  maxlength="300" id="descripcionMensajeSalida" rows="6" value="@load(vm.mensajeSalidaDTO.mensajeSalidaVO.descripcionMensajeSalida)" width="100%" tabindex="11" />
+													<textbox sclass="textboxUpperCase"  maxlength="300" id="descripcionMensajeSalida" rows="6" value="@load(vm.mensajeSalidaDTO.mensajeSalidaVO.descripcionMensajeSalida)" width="100%" />
 												</cell>																							
 											</row>
 											<row sclass="row2">
