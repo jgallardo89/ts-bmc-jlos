@@ -22,6 +22,10 @@ public class ContratacionVO extends BbvaAbstractValueObject {
 	private String nombreEstatusObjeto;
 	private int idEtapa;
 	private String nombreEtapa;
+	private int idFlujo;
+	private int idBaja;
+	private int numRegistros;
+	
 	/**
 	 * @return the idContratacion
 	 */
@@ -201,6 +205,42 @@ public class ContratacionVO extends BbvaAbstractValueObject {
 	 */
 	public void setNombreEtapa(String nombreEtapa) {
 		this.nombreEtapa = nombreEtapa;
+	}
+	/**
+	 * @return the idBaja
+	 */
+	public int getIdBaja() {
+		return idBaja;
+	}
+	/**
+	 * @param idBaja the idBaja to set
+	 */
+	public void setIdBaja(int idBaja) {
+		this.idBaja = idBaja;
+	}
+	/**
+	 * @return the idFlujo
+	 */
+	public int getIdFlujo() {
+		return idFlujo;
+	}
+	/**
+	 * @param idFlujo the idFlujo to set
+	 */
+	public void setIdFlujo(int idFlujo) {
+		this.idFlujo = idFlujo;
+	}
+	/**
+	 * @return the numRegistros
+	 */
+	public int getNumRegistros() {
+		return numRegistros;
+	}
+	/**
+	 * @param numRegistros the numRegistros to set
+	 */
+	public void setNumRegistros(int numRegistros) {
+		this.numRegistros = numRegistros;
 	}
 	
 }

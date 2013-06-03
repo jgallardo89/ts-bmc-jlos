@@ -20,6 +20,7 @@ public class ContratacionMapVO extends BbvaAbstractValueObject {
 	private String descripcionMensajeSalida;
 	private String descripcionIdUsuarios;
 	private int numMensaje;
+	private int idBaja;
 	/**
 	 * @return the idContratacion
 	 */
@@ -200,5 +201,16 @@ public class ContratacionMapVO extends BbvaAbstractValueObject {
 	public void setNumMensaje(int numMensaje) {
 		this.numMensaje = numMensaje;
 	}
-	
+	/**
+	 * @return the idBaja
+	 */
+	public int getIdBaja() {
+		return idBaja;
+	}
+	/**
+	 * @param idBaja the idBaja to set
+	 */
+	public void setIdBaja(int idBaja) {
+		this.idBaja = idBaja;
+	}
 }
