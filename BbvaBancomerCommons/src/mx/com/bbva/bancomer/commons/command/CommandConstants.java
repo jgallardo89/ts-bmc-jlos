@@ -39,7 +39,7 @@ public abstract interface CommandConstants {
 	public static final String NOMBRE_TABLA_PROCESO = "TGM522_ST_PROCESO";
 	public static final String NOMBRE_TABLA_CANALES = "TGM511_CANAL";
 	public static final String NOMBRE_TABLA_MENSAJE= "TGM516_MENSAJE_SAL";
-	public static final String NOMBRE_TABLA_CONTRATACION = "TGM519_CONTRATACION";
+	public static final String NOMBRE_TABLA_CONTRATACION = "TGM519_CNTRATACION";
 															
 	public static final int ACCESO = 1;
 	public static final int CONSULTAR = 2;
