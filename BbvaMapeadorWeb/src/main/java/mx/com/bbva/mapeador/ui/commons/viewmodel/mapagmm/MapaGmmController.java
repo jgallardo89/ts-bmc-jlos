@@ -19,8 +19,8 @@ import mx.com.bbva.bancomer.mappers.mapagmm.dto.MapaGmmDTO;
 import mx.com.bbva.mapeador.security.session.user.SessionUser;
 import mx.com.bbva.mapeador.ui.commons.controller.IController;
 import mx.com.bbva.mapeador.ui.commons.viewmodel.pantalla.PantallaController;
+import mx.com.bbva.mapeador.ui.commons.viewmodel.reportes.ReportesController;
 import mx.com.bbva.mapeador.ui.commons.viewmodel.support.ControllerSupport;
-import mx.com.bbva.mt101.ui.commons.viewmodel.reportes.ReportesController;
 
 import org.apache.log4j.Logger;
 import org.zkoss.bind.annotation.AfterCompose;

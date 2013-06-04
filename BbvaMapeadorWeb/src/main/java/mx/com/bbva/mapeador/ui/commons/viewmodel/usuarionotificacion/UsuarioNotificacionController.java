@@ -20,8 +20,8 @@ import mx.com.bbva.bancomer.mapper.business.EstatusObjetoBO;
 import mx.com.bbva.bancomer.mapper.business.UsuarioNotificacionBO;
 import mx.com.bbva.bancomer.usuarionotificacion.dto.UsuarioNotificacionDTO;
 import mx.com.bbva.mapeador.ui.commons.controller.IController;
+import mx.com.bbva.mapeador.ui.commons.viewmodel.reportes.ReportesController;
 import mx.com.bbva.mapeador.ui.commons.viewmodel.support.ControllerSupport;
-import mx.com.bbva.mt101.ui.commons.viewmodel.reportes.ReportesController;
 
 import org.apache.log4j.Logger;
 import org.zkoss.bind.annotation.AfterCompose;

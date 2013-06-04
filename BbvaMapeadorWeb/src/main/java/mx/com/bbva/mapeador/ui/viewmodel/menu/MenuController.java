@@ -12,7 +12,6 @@ import mx.com.bbva.bancomer.estatusobjeto.dto.UsuarioDTO;
 import mx.com.bbva.bancomer.mapper.business.EstatusObjetoBO;
 import mx.com.bbva.bancomer.mapper.business.PerfilBO;
 import mx.com.bbva.bancomer.mapper.business.UsuarioBO;
-import mx.com.bbva.mapeador.entity.tgm503usuario.Tgm503Usuario;
 
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.BindingParam;
