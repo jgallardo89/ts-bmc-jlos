@@ -16,7 +16,7 @@
 					MENSAJE.CD_MENSAJE_SALIDA idMensajeSalida,
 					MENSAJE.NB_MENSAJE_SALIDA nombreMensajeSalida,
 					MENSAJE.TX_MENSAJE_SALIDA descripcionMensajeSalida,
-					CONTRAT_MAP.TX_CD_USUARIOS descripcionIdUsuarios,
+					CONTRAT_MAP.TX_CD_USUARIO descripcionIdUsuarios,
 					CONTRAT_MAP.ST_NOTIFICACION estatusNotificacion
 				FROM
 					TGM519_CNTRATACION CONTRATACION,
@@ -46,7 +46,7 @@
 				CD_MAPA_GMM,
 				ST_NOTIFICACION,
 				CD_MENSAJE_SALIDA,
-				TX_ID_USUARIOS) 
+				TX_CD_USUARIO) 
 			VALUES
 				(#{idContratacion},
 				#{idFlujo},
@@ -78,10 +78,10 @@
 				    CD_MENSAJE_SALIDA = NULL,
 				</if>
 				<if test="descripcionIdUsuarios != null">
-					TX_ID_USUARIOS = #{descripcionIdUsuarios}
+					TX_CD_USUARIO = #{descripcionIdUsuarios}
 				</if>
 				<if test="descripcionIdUsuarios == null">
-				    TX_ID_USUARIOS = NULL
+				    TX_CD_USUARIO = NULL
 				</if>
 			WHERE
 				CD_CONTRATACION = #{idContratacion}

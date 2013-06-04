@@ -106,6 +106,48 @@ public class UsuarioNotificacionBO implements
 		}
 	}
 	
+	public <T extends BbvaAbstractDataTransferObject> T readCommandValidateExist(
+			T bbvaAbstractDataTransferObject) {
+		try {
+			logger.debug( "Entrada createCommand          -- OK" );
+			logger.debug( "Datos de Entrada createCommand -- " + bbvaAbstractDataTransferObject.toString() );					
+			try {
+				List<UsuarioNotificacionVO> result = null;
+				UsuarioNotificacionVO usuarioNotificacionVO = ((UsuarioNotificacionDTO)bbvaAbstractDataTransferObject).getUsuarioNotificacionVO();
+				SqlSession session = MapeadorSessionFactory.getSqlSessionFactory()
+						.openSession();
+				MapUsuarioNotificacion mapUsuarioNotificacion = session
+						.getMapper(MapUsuarioNotificacion.class);
+				if(usuarioNotificacionVO != null) {
+					logger.debug(":::::::::::::::::::::" + usuarioNotificacionVO.toString());
+				}
+				try {
+					result = mapUsuarioNotificacion.validaExisteUsuario(usuarioNotificacionVO);
+					
+					session.commit();
+				} catch (Exception ex) {
+					session.rollback();
+					ex.printStackTrace();
+				} finally {
+					session.close();
+				}
+				((UsuarioNotificacionDTO)bbvaAbstractDataTransferObject).setUsuarioNotificacionVOs(result); 
+				logger.debug("result: " + result + " -- **fin**");
+				logger.debug( "Datos de Salida invoke -- " + bbvaAbstractDataTransferObject.toString() );
+				logger.debug( "Salida invoke          -- OK" );
+				return bbvaAbstractDataTransferObject;
+			} catch (Exception ex) {
+				ex.printStackTrace();
+				return bbvaAbstractDataTransferObject;
+			} 					
+		} 
+		catch ( Exception exception ) 
+		{
+			exception.printStackTrace();
+			return bbvaAbstractDataTransferObject;
+		}
+	}
+	
 	public <T extends BbvaAbstractDataTransferObject> T readCommand(int[] idUsuarios) {
 		ContratacionDTO contratacionDTO = new ContratacionDTO();
 		try {

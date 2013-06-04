@@ -12,7 +12,7 @@
 			PRODUCTO.NB_PRODUCTO nombreProducto,
 			ARCHIVO.CD_REG_ARCH_ENTRA idRegArchEntra,
 			ARCHIVO.NB_REG_ARCH_ENTRA nombreRegArchEntra,
-			E.NU_OPERACIONES numeroOperacione,
+			E.NU_OPERACION numeroOperacione,
 			E.FH_ESTADISTICA fechaStatusProceso
 		FROM TGM539_ESTADISTICA E 
 			LEFT OUTER JOIN TGM522_ST_PROCESO P ON 

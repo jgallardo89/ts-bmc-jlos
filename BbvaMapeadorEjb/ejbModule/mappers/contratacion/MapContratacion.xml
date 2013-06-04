@@ -68,7 +68,7 @@
 	</select>
 	<insert id="crearContratacion" keyProperty="idContratacion" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.ContratacionVO">
 		<selectKey keyProperty="idContratacion" resultType="int" order="BEFORE"> 
-			<![CDATA[ select SQ_519_CONTRATACION.nextval as idContratacion from dual ]]> 
+			<![CDATA[ select SQ_519_CNTRATACION.nextval as idContratacion from dual ]]> 
 		</selectKey>
 			INSERT INTO TGM519_CNTRATACION(
 				CD_CONTRATACION,
