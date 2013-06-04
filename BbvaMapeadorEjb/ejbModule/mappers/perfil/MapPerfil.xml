@@ -32,6 +32,9 @@
 		<if test="estatusPerfil != null and estatusPerfil != -1 and estatusPerfil != 0">
 			and St_Perfil = #{estatusPerfil}	
 		</if>
+		<if test="idPerfil != null and idPerfil != -1 and idPerfil != 0">
+			and perfil.Cd_Perfil != #{idPerfil}	
+		</if>
 	</select>
 	<insert id="insertarPermiso" keyProperty="idPantalla" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.ControlPermisoVO">
 		<selectKey keyProperty="idControlPermiso" resultType="int" order="BEFORE"> 

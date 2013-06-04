@@ -22,7 +22,7 @@
 				AND  C.NB_COMPONENTE LIKE #{nombreComponente}
 			</if>			
 			<if test="idTipoComponente != 0 and idTipoComponente != null">
-				AND  C.TP_COMPONENTE = #{idTipoComponente}
+				AND  C.CD_TP_COMPONEN = #{idTipoComponente}
 			</if>	
 				ORDER BY C.CD_COMPONENTE
 	</select>

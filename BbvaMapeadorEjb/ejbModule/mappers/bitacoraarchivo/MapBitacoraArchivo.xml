@@ -16,7 +16,7 @@
 				AND Tgm538.Cd_Estado_Archivo = #{idEstatus}
 			</if>
 			<if test="fechaInici != null and fechaFin != null">    
-				AND to_char(Tgm537.Tm_Estado_Archivo,'dd-MM-rrrr') BETWEEN to_char(#{fechaInici},'dd-MM-rrrr') AND to_char(#{fechaFin},'dd-MM-rrrr')				
+				AND to_date(Tgm537.Tm_Estado_Archivo,'dd-MM-rrrr') BETWEEN to_date(#{fechaInici},'dd-MM-rrrr') AND to_date(#{fechaFin},'dd-MM-rrrr')				
 			</if>
 			<if test="nombreArchivo != null ">
 				AND Tgm536.Nb_Reg_Arch_Entra LIKE #{nombreArchivo}
