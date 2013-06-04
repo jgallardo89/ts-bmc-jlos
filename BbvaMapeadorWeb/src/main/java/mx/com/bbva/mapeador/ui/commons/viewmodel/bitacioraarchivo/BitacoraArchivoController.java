@@ -15,8 +15,8 @@ import mx.com.bbva.bancomer.evento.dto.EventoMapeadorDTO;
 import mx.com.bbva.bancomer.mapper.business.BitacoraArchivoBO;
 import mx.com.bbva.bancomer.mapper.business.EventoMapeadorBO;
 import mx.com.bbva.mapeador.ui.commons.controller.IController;
+import mx.com.bbva.mapeador.ui.commons.viewmodel.reportes.ReportesController;
 import mx.com.bbva.mapeador.ui.commons.viewmodel.support.ControllerSupport;
-import mx.com.bbva.mt101.ui.commons.viewmodel.reportes.ReportesController;
 
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.BindingParam;
