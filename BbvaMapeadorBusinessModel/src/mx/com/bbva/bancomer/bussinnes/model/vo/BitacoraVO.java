@@ -1,5 +1,7 @@
 package mx.com.bbva.bancomer.bussinnes.model.vo;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import mx.com.bbva.bancomer.commons.model.vo.BbvaAbstractValueObject;
@@ -20,8 +22,8 @@ public class BitacoraVO extends BbvaAbstractValueObject {
 	private Date fechaBitacora;
 	private int idEventoMapeador;
 	private String nombreEventoMapeador;
-	private String fechaInicio;
-	private String fechaFin;
+	private Date fechaInicio;
+	private Date fechaFin;
 	private String descripcionBitacoraWeb;
 	
 	/**
@@ -137,24 +139,32 @@ public class BitacoraVO extends BbvaAbstractValueObject {
 	 * @return the fechaInicio
 	 */
 	public String getFechaInicio() {
-		return fechaInicio;
+		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");				
+		if(fechaInicio!=null)
+			return dateFormat.format(fechaInicio);
+		else
+			return null;	
 	}
 	/**
 	 * @param fechaInicio the fechaInicio to set
 	 */
-	public void setFechaInicio(String fechaInicio) {
+	public void setFechaInicio(Date fechaInicio) {
 		this.fechaInicio = fechaInicio;
 	}
 	/**
 	 * @return the fechaFin
 	 */
 	public String getFechaFin() {
-		return fechaFin;
+		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");				
+		if(fechaFin!=null)
+			return dateFormat.format(fechaFin);
+		else
+			return null;
 	}
 	/**
 	 * @param fechaFin the fechaFin to set
 	 */
-	public void setFechaFin(String fechaFin) {
+	public void setFechaFin(Date fechaFin) {
 		this.fechaFin = fechaFin;
 	}
 	/**
