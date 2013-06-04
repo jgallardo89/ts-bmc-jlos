@@ -5,6 +5,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import mx.com.bbva.bancomer.bussinnes.model.vo.ClienteVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.EstatusObjetoVO;
@@ -165,7 +167,7 @@ public class UsuarioNotificacionController  extends ControllerSupport implements
 		
 		//Combos Validar el nombre de los parametros en HTML VS Controller
 		usuarioNotificacionVO.setIdEstatusObjeto((Integer.parseInt(idEstatusObjeto.getValue().isEmpty()?"0":idEstatusObjeto.getValue())));
-
+		usuarioNotificacionVO.setTipoNotificacion(CommandConstants.TIPO_NOTIFICACION_NEGOCIO);
 		usuarioNotificacionDTO.setUsuarioNotificacionVO(usuarioNotificacionVO);
 		usuarioNotificacionDTO.toString(BbvaAbstractDataTransferObject.XML);	
 		
@@ -210,94 +212,129 @@ public class UsuarioNotificacionController  extends ControllerSupport implements
 					.setErrorMessage("Favor de introducir el E-Mail");
 			errorGuardar = true;
 		} 
+		if(!validaMail(email.getValue())){
+			email.setErrorMessage("El formato del E-Mail es incorrecto");
+			errorGuardar = true;
+		}
 		if(!errorGuardar){
 			if(!idUsuarioNotificado.getValue().isEmpty()){
-				logger.info("::::::Actualizar::::");
-				UsuarioNotificacionDTO usuarioNotificacionDTO = new UsuarioNotificacionDTO();
-				UsuarioNotificacionVO usuarioNotificacionVO = new UsuarioNotificacionVO();
-				usuarioNotificacionVO.setIdUsuarioNotificado(Integer.parseInt(idUsuarioNotificado.getValue().isEmpty()?"0":idUsuarioNotificado.getValue()));
-				usuarioNotificacionVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue().isEmpty()?"1":idEstatusObjeto.getValue()));
-				
-				usuarioNotificacionVO.setNombreUsuarioNotificado(nombreUsuario.getValue().toUpperCase());
-				usuarioNotificacionVO.setDescripcionEmail(email.getValue().toUpperCase());
-							
-				//Seteo de VO a DTO 
-				usuarioNotificacionDTO.setUsuarioNotificacionVO(usuarioNotificacionVO);
-				usuarioNotificacionDTO.toString(BbvaAbstractDataTransferObject.XML);	
-				
-				UsuarioNotificacionBO UsuarioNotificacionBO = new UsuarioNotificacionBO();
-				UsuarioNotificacionBO.updateCommand(usuarioNotificacionDTO);
-				ReportesController controller = new ReportesController();
-				controller.registrarEvento(usuarioNotificacionVO, this.usuarioNotificacionVO, CommandConstants.MODIFICACION, "Usuario Negocio");
-				clean();			
-				
-				//Textbox
-				usuarioNotificacionVO.setNombreUsuarioNotificado(nombreUsuario.getValue().isEmpty()?"%":"%"+nombreUsuario.getValue().toUpperCase()+"%");
-				usuarioNotificacionVO.setDescripcionEmail(email.getValue().isEmpty()?"%":"%"+email.getValue().toUpperCase()+"%");
-				
-				//Combos Validar el nombre de los parametros en HTML VS Controller
-				usuarioNotificacionVO.setIdEstatusObjeto((Integer.parseInt(idEstatusObjeto.getValue().isEmpty()?"0":idEstatusObjeto.getValue())));
-
-				usuarioNotificacionDTO.setUsuarioNotificacionVO(usuarioNotificacionVO);
-				usuarioNotificacionDTO.toString(BbvaAbstractDataTransferObject.XML);	
-				
-				//LLamada a BO  UsuarioNotificacion para consulta por criterio
-				UsuarioNotificacionBO usuarioNotificacionBO = new UsuarioNotificacionBO();						
-				
-				//Asignacion resultado de consulta al mismo DTO de UsuarioNotificacion
-				usuarioNotificacionDTO = usuarioNotificacionBO.readCommand(usuarioNotificacionDTO);
-				
-				
-				Messagebox.show("Registro actualizado con exito!!",
-						"Confirmación", Messagebox.OK,
-						Messagebox.INFORMATION);
-				
-				usuarioNotificacionVOs = usuarioNotificacionDTO.getUsuarioNotificacionVOs();
+				UsuarioNotificacionVO notificacionVOValida = new UsuarioNotificacionVO();
+				UsuarioNotificacionBO usuarioNotificacionBOValida = new UsuarioNotificacionBO();
+				UsuarioNotificacionDTO usuarioNotificacionDTOValida = new UsuarioNotificacionDTO();
+				notificacionVOValida.setTipoNotificacion("N");
+				notificacionVOValida.setDescripcionEmail(email.getValue());
+				notificacionVOValida.setIdUsuarioNotificado(Integer.parseInt(idUsuarioNotificado.getValue()));
+				usuarioNotificacionDTOValida.setUsuarioNotificacionVO(notificacionVOValida);
+				usuarioNotificacionDTOValida = usuarioNotificacionBOValida.readCommandValidateExist(usuarioNotificacionDTOValida);				
+				if(usuarioNotificacionDTOValida.getUsuarioNotificacionVOs().get(0).getExiste()>0){
+					Messagebox.show("!Ya existe un usuario de negocio con el mismo email!",
+							"Información", Messagebox.OK,
+							Messagebox.EXCLAMATION);
+				}else{
+					logger.info("::::::Actualizar::::");
+					UsuarioNotificacionDTO usuarioNotificacionDTO = new UsuarioNotificacionDTO();
+					UsuarioNotificacionVO usuarioNotificacionVO = new UsuarioNotificacionVO();
+					usuarioNotificacionVO.setIdUsuarioNotificado(Integer.parseInt(idUsuarioNotificado.getValue().isEmpty()?"0":idUsuarioNotificado.getValue()));
+					usuarioNotificacionVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue().isEmpty()?"1":idEstatusObjeto.getValue()));
+					
+					usuarioNotificacionVO.setNombreUsuarioNotificado(nombreUsuario.getValue().toUpperCase());
+					usuarioNotificacionVO.setDescripcionEmail(email.getValue());
+								
+					//Seteo de VO a DTO 
+					usuarioNotificacionDTO.setUsuarioNotificacionVO(usuarioNotificacionVO);
+					usuarioNotificacionDTO.toString(BbvaAbstractDataTransferObject.XML);	
+					
+					UsuarioNotificacionBO UsuarioNotificacionBO = new UsuarioNotificacionBO();
+					UsuarioNotificacionBO.updateCommand(usuarioNotificacionDTO);
+					ReportesController controller = new ReportesController();
+					controller.registrarEvento(usuarioNotificacionVO, this.usuarioNotificacionVO, CommandConstants.MODIFICACION, "Usuario Negocio");
+					clean();			
+					
+					usuarioNotificacionVO = new UsuarioNotificacionVO();
+					usuarioNotificacionVO.setTipoNotificacion(CommandConstants.TIPO_NOTIFICACION_NEGOCIO);
+					usuarioNotificacionDTO.setUsuarioNotificacionVO(usuarioNotificacionVO);
+					usuarioNotificacionDTO.toString(BbvaAbstractDataTransferObject.XML);	
+					
+					//LLamada a BO  UsuarioNotificacion para consulta por criterio
+					UsuarioNotificacionBO usuarioNotificacionBO = new UsuarioNotificacionBO();						
+					
+					//Asignacion resultado de consulta al mismo DTO de UsuarioNotificacion
+					usuarioNotificacionDTO = usuarioNotificacionBO.readCommand(usuarioNotificacionDTO);
+					
+					
+					Messagebox.show("Registro actualizado con exito!!",
+							"Confirmación", Messagebox.OK,
+							Messagebox.INFORMATION);
+					
+					usuarioNotificacionVOs = usuarioNotificacionDTO.getUsuarioNotificacionVOs();
+				}
 			}else{ 
-				logger.info("::::::Crear::::");
-				UsuarioNotificacionDTO usuarioNotificacionDTO = new UsuarioNotificacionDTO();
-				UsuarioNotificacionVO usuarioNotificacionVO = new UsuarioNotificacionVO();
-				usuarioNotificacionVO.setIdUsuarioNotificado(Integer.parseInt(idUsuarioNotificado.getValue().isEmpty()?"0":idUsuarioNotificado.getValue()));
-				usuarioNotificacionVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue().isEmpty()?"1":idEstatusObjeto.getValue()));
-				
-				usuarioNotificacionVO.setNombreUsuarioNotificado(nombreUsuario.getValue().toUpperCase());
-				usuarioNotificacionVO.setDescripcionEmail(email.getValue().toUpperCase());
-							
-				//Seteo de VO a DTO 
-				usuarioNotificacionDTO.setUsuarioNotificacionVO(usuarioNotificacionVO);
-				usuarioNotificacionDTO.toString(BbvaAbstractDataTransferObject.XML);	
-				
-				UsuarioNotificacionBO UsuarioNotificacionBO = new UsuarioNotificacionBO();
-
-				UsuarioNotificacionBO.createCommand(usuarioNotificacionDTO);
-				ReportesController controller = new ReportesController();
-				controller.registrarEvento(null, null, CommandConstants.ALTA, "Usuario Negocio");
-				clean();	
-				//Textbox
-				usuarioNotificacionVO.setNombreUsuarioNotificado(nombreUsuario.getValue().isEmpty()?"%":"%"+nombreUsuario.getValue().toUpperCase()+"%");
-				usuarioNotificacionVO.setDescripcionEmail(email.getValue().isEmpty()?"%":"%"+email.getValue().toUpperCase()+"%");
-				
-				//Combos Validar el nombre de los parametros en HTML VS Controller
-				usuarioNotificacionVO.setIdEstatusObjeto((Integer.parseInt(idEstatusObjeto.getValue().isEmpty()?"0":idEstatusObjeto.getValue())));
-
-				usuarioNotificacionDTO.setUsuarioNotificacionVO(usuarioNotificacionVO);
-				usuarioNotificacionDTO.toString(BbvaAbstractDataTransferObject.XML);	
-				
-				//LLamada a BO  UsuarioNotificacion para consulta por criterio
-				UsuarioNotificacionBO usuarioNotificacionBO = new UsuarioNotificacionBO();
-				
-				//Asignacion resultado de consulta al mismo DTO de UsuarioNotificacion
-				usuarioNotificacionDTO = usuarioNotificacionBO.readCommand(usuarioNotificacionDTO);
-				
-				Messagebox.show("Registro creo con exito!!",
-						"Confirmación", Messagebox.OK,
-						Messagebox.INFORMATION);
-				
-				usuarioNotificacionVOs = usuarioNotificacionDTO.getUsuarioNotificacionVOs();
+				UsuarioNotificacionVO notificacionVOValida = new UsuarioNotificacionVO();
+				UsuarioNotificacionBO usuarioNotificacionBOValida = new UsuarioNotificacionBO();
+				UsuarioNotificacionDTO usuarioNotificacionDTOValida = new UsuarioNotificacionDTO();
+				notificacionVOValida.setTipoNotificacion("N");
+				notificacionVOValida.setDescripcionEmail(email.getValue());
+				notificacionVOValida.setIdUsuarioNotificado(0);
+				usuarioNotificacionDTOValida.setUsuarioNotificacionVO(notificacionVOValida);
+				usuarioNotificacionDTOValida = usuarioNotificacionBOValida.readCommandValidateExist(usuarioNotificacionDTOValida);
+				if(usuarioNotificacionDTOValida.getUsuarioNotificacionVOs().get(0).getExiste()>0){
+					Messagebox.show("!Ya existe un usuario de negocio con el mismo email!",
+							"Información", Messagebox.OK,
+							Messagebox.EXCLAMATION);
+				}else{
+					logger.info("::::::Crear::::");
+					UsuarioNotificacionDTO usuarioNotificacionDTO = new UsuarioNotificacionDTO();
+					UsuarioNotificacionVO usuarioNotificacionVO = new UsuarioNotificacionVO();
+					usuarioNotificacionVO.setIdUsuarioNotificado(Integer.parseInt(idUsuarioNotificado.getValue().isEmpty()?"0":idUsuarioNotificado.getValue()));
+					usuarioNotificacionVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue().isEmpty()?"1":idEstatusObjeto.getValue()));
+					
+					usuarioNotificacionVO.setNombreUsuarioNotificado(nombreUsuario.getValue().toUpperCase());
+					usuarioNotificacionVO.setDescripcionEmail(email.getValue());
+								
+					//Seteo de VO a DTO 
+					usuarioNotificacionDTO.setUsuarioNotificacionVO(usuarioNotificacionVO);
+					usuarioNotificacionDTO.toString(BbvaAbstractDataTransferObject.XML);	
+					
+					UsuarioNotificacionBO UsuarioNotificacionBO = new UsuarioNotificacionBO();
+	
+					UsuarioNotificacionBO.createCommand(usuarioNotificacionDTO);
+					ReportesController controller = new ReportesController();
+					controller.registrarEvento(null, null, CommandConstants.ALTA, "Usuario Negocio");
+					clean();	
+	
+					usuarioNotificacionVO = new UsuarioNotificacionVO();
+					usuarioNotificacionVO.setTipoNotificacion(CommandConstants.TIPO_NOTIFICACION_NEGOCIO);
+	
+					usuarioNotificacionDTO.setUsuarioNotificacionVO(usuarioNotificacionVO);
+					usuarioNotificacionDTO.toString(BbvaAbstractDataTransferObject.XML);	
+					
+					//LLamada a BO  UsuarioNotificacion para consulta por criterio
+					UsuarioNotificacionBO usuarioNotificacionBO = new UsuarioNotificacionBO();
+					
+					//Asignacion resultado de consulta al mismo DTO de UsuarioNotificacion
+					usuarioNotificacionDTO = usuarioNotificacionBO.readCommand(usuarioNotificacionDTO);
+					
+					Messagebox.show("Registro creo con exito!!",
+							"Confirmación", Messagebox.OK,
+							Messagebox.INFORMATION);
+					
+					usuarioNotificacionVOs = usuarioNotificacionDTO.getUsuarioNotificacionVOs();
+				}
 			}
 		}
 	}
 	
+	private boolean validaMail(String hex) {
+		Pattern pattern;
+		Matcher matcher;
+		String EMAIL_PATTERN = 
+				"^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+				+ "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+		pattern = Pattern.compile(EMAIL_PATTERN);
+		matcher = pattern.matcher(hex);
+		return matcher.matches();
+	}
+
 	@GlobalCommand("resetGridUsuarioNotificacion")
 	@NotifyChange({ "usuarioNotificacionVOs" })
 	public void resetGrid() {

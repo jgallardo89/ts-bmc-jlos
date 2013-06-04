@@ -35,7 +35,7 @@
 										</combobox>
 									</cell>
 									<cell colspan="2" align="left">
-										<textbox sclass="textboxUpperCase" maxlength="50"
+										<textbox sclass="textboxUpperCase" maxlength="200"
 													id="descripcionMapaGmm"  width="95%" disabled="true"></textbox>
 									</cell>																													
 								</row>	

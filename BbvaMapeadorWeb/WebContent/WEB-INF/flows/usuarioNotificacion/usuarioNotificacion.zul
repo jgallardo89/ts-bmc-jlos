@@ -38,7 +38,7 @@
 												<div align="right">
 													<label id="lblEmail" width="100%" sclass="labelFill" value="e-mail :"></label>												
 												</div>
-												<textbox sclass="textboxUpperCase" maxlength="50"
+												<textbox maxlength="50"
 													id="email" value="@load(vm.strEmail)" width="100%"></textbox>																										
 											</row>
 											<row sclass="row2">	
@@ -77,11 +77,11 @@
 										<column hflex="0" align="center" image="/img/pencil-small.png" 
 											width="5%"></column>
 										<column hflex="1" label="Nombre usuario" width="20%"
-											sort="vm.usuarioNotificacionDTO.usuarioNotificacionVO.nombreUsuarioNotificado"></column>
+											sort="auto(nombreUsuarioNotificado)"></column>
 										<column hflex="1" label="e-mail" style="text-wrap: normal;"
-											width="10%" sort="auto(vm.usuarioNotificacionDTO.usuarioNotificacionVO.descripcionEmail)"></column>
+											width="10%" sort="auto(descripcionEmail)"></column>
 										<column hflex="1" label="Status" width="10%"
-											sort="auto(vm.usuarioNotificacionDTO.usuarioNotificacionVO.nombreEstatusObjeto)"></column>									
+											sort="auto(nombreEstatusObjeto)"></column>									
 									</columns>
 									<template name="model">
 										<row>

@@ -67,7 +67,7 @@ public class ServletReport extends HttpServlet {
 				
 				String webappBase = getServletContext().getRealPath("/");
 				InputStream input = new FileInputStream(webappBase + 
-						File.separator + "/WEB-INF/reportes/reporteGenerico_NumColumnas_"+headersReport.size()+".jasper");
+						File.separator + "/WEB-INF/reportes/reporteGenerico_NumColumnas_"+headersReport.size()+"_510.jasper");
 				jasperPrint = JasperFillManager.fillReport(
 						input, parameters, source);
 				System.out.println("################################"+parameters.size());

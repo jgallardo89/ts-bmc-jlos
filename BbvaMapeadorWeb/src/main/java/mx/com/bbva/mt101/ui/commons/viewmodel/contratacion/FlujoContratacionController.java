@@ -19,6 +19,7 @@ import mx.com.bbva.bancomer.mensajesalida.dto.MensajeSalidaDTO;
 import mx.com.bbva.bancomer.usuarionotificacion.dto.UsuarioNotificacionDTO;
 import mx.com.bbva.mapeador.ui.commons.controller.IController;
 
+import org.apache.log4j.Logger;
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
@@ -42,7 +43,8 @@ import org.zkoss.zul.Window;
 public class FlujoContratacionController extends Div  implements IController, IdSpace {
 
 	private static final long serialVersionUID = -7046754339941749911L;
-
+	private static final Logger logger = Logger.getLogger(FlujoContratacionController.class);
+	
 	@Wire
 	private Combobox mapaGMM;
 	@Wire
@@ -185,7 +187,7 @@ public class FlujoContratacionController extends Div  implements IController, Id
         Selectors.wireComponents(view, this, false);
         contratacionUsuariosDTO = new ContratacionDTO();
         if(Sessions.getCurrent().getAttribute("idProducto") == null) {
-        	botonLimpiar = true;
+        	botonLimpiar = true;        
 	        mapaGMM.setValue(Executions.getCurrent().getParameter("nombreMapaGmm"));
 	        descripcionMapaGmm.setValue(Executions.getCurrent().getParameter("descripcionMapaGmm"));
 	        if(Executions.getCurrent().getParameter("nombreMensajeSalida") != null)

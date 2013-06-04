@@ -11,9 +11,8 @@
 		<div sclass="BODY" height="100%" width="100%">
 			<groupbox height="100%">
 				<caption sclass="pageTitle" label="Estadístico"></caption>
-				<portallayout maximizedMode="whole"
-					id="portalLayoutEstadistico" width="100%" height="100%">
-					<portalchildren>
+					<vlayout>
+						<groupbox>
 						<panel height="30%" width="100%"
 							sclass="sectionPanelTitle" id="datosEstadistico" title="Catalogo"
 							collapsible="true" style="margin-bottom:10px" border="normal">
@@ -144,9 +143,9 @@
 								</div>
 							</panelchildren>
 						</panel>
-					</portalchildren>
-					<portalchildren width="100%" style="padding: 10px">
-						<panel height="67%" sclass="sectionPanelTitle"
+					</groupbox>
+					<groupbox height="450px">
+						<panel height="430px" sclass="sectionPanelTitle"
 							width="100%" id="panelEstadistico" title="Resultados"
 							collapsible="true" style="margin-bottom:10px">
 							<caption sclass="sectionPanelTitle"
@@ -181,8 +180,8 @@
 								</div>
 							</panelchildren>
 						</panel>
-					</portalchildren>
-				</portallayout>
+					</groupbox>
+				</vlayout>
 			</groupbox>
 			<textbox id="idCanal"
 				value="@load(vm.estadisticoDTO.estadisticoVO.idCanal)"

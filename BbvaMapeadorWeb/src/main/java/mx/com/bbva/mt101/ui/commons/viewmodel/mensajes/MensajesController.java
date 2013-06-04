@@ -323,6 +323,7 @@ public class MensajesController extends ControllerSupport implements IController
 		ReportesController controller = new ReportesController();
 		ArrayList<String> headersReport = new ArrayList<String>();
 		headersReport.add("Identificador del Mensaje");
+		headersReport.add("Asunto del Mensaje");
 		headersReport.add("Texto del Mensaje");
 		headersReport.add("Fecha y Hora de Alta");
 		headersReport.add("Fecha y Hora de Modificacion");
@@ -342,12 +343,13 @@ public class MensajesController extends ControllerSupport implements IController
 		for(MensajeSalidaVO mensajeSalidaVO: mensajeSalidaVOs) {
 			beanGenerico = new BeanGenerico();
 			beanGenerico.setValor1(mensajeSalidaVO.getNombreMensajeSalida());
-			beanGenerico.setValor2(mensajeSalidaVO.getDescripcionMensajeSalida());
+			beanGenerico.setValor2(mensajeSalidaVO.getDescripcionAsuntoSalida());
+			beanGenerico.setValor3(mensajeSalidaVO.getDescripcionMensajeSalida());
 			if (mensajeSalidaVO.getFechaAlta() != null)
-				beanGenerico.setValor3(dateFormat.format(mensajeSalidaVO.getFechaAlta()));				
+				beanGenerico.setValor4(dateFormat.format(mensajeSalidaVO.getFechaAlta()));				
 			if (mensajeSalidaVO.getFechaModificacion() != null)
-				beanGenerico.setValor4(dateFormat.format(mensajeSalidaVO.getFechaModificacion()));
-			beanGenerico.setValor5(mensajeSalidaVO.getNombreEstatusObjeto());
+				beanGenerico.setValor5(dateFormat.format(mensajeSalidaVO.getFechaModificacion()));
+			beanGenerico.setValor6(mensajeSalidaVO.getNombreEstatusObjeto());
 			beanGenericos.add(beanGenerico);
 		}
 		return beanGenericos;
