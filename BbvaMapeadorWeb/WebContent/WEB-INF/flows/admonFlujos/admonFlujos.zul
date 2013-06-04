@@ -9,7 +9,7 @@
 		id="admonFlujosWindows">
 		<include src="../../pages/styles.zul" />
 		<div sclass="BODY" height="100%" width="100%">
-			<groupbox height="100%" apply="mx.com.bbva.mt101.ui.commons.viewmodel.admonFlujos.AdmonFlujosController">
+			<groupbox height="100%" apply="mx.com.bbva.mapeador.ui.commons.viewmodel.admonFlujos.AdmonFlujosController">
 				<caption sclass="pageTitle" label="Catálogos > Flujos"></caption>		
 					<vlayout>
 					<groupbox>
