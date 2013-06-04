@@ -91,8 +91,9 @@ public abstract interface CommandConstants {
 	public static final String NB_MENSAJE_ACTIVO = "ACTIVO";
 	public static final String NB_MENSAJE_BAJA = "BAJA";
 	
-	//Estatus del Catálogo de Flujos
+	//Estatus del Catálogo de PERFIL
 	public static final int ID_PERFIL_ACTIVO = 24;
+	public static final int ID_PERFIL_INACTIVO = 25;
 	public static final int ID_PERFIL_BAJA = 26;
 	public static final String NB_PERFIL_ACTIVO = "ACTIVO";
 	public static final String NB_PERFIL_BAJA = "BAJA";
