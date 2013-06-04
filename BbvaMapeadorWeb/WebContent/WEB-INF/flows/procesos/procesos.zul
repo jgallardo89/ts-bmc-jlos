@@ -12,9 +12,8 @@
 		<div sclass="BODY" height="100%" width="100%">
 			<groupbox height="100%">
 				<caption sclass="pageTitle" label="Monitoreo > Procesos"></caption>		
-					<portallayout maximizedMode="whole" id="portalLayoutMonitoreoProcesos"
-					width="100%" height="100%">
-					<portalchildren>
+					<vlayout>
+						<groupbox>
 						<panel height="30%" width="100%" sclass="sectionPanelTitle" id="datosMonitoreoProcesos"
 							title="Monitoreo" collapsible="true" style="margin-bottom:10px"
 							border="normal">
@@ -85,27 +84,21 @@
 												</div>
 												<textbox sclass="textboxUpperCase" maxlength="5" constraint="/^[0-9]*$/: Por favor ingresa números"
 													id="lote" value="@load(vm.strLote)" width="100%"></textbox>
-											</row>
-											<row sclass="row2">
-												<div align="right" width="70%">
-													<image id="reporteExcelBtn" src="/img/xls.png" onClick="@command('onShowReport',type='xls')" />
-													<image id="reporteCsvBtn" src="/img/csv.png" onClick="@command('onShowReport',type='csv')" />
-												</div>											
-												<div align="right" width="70%">
-													<button sclass="button" image="/img/clear.png"  label="Limpiar" id="limpiarBtn" onClick="@command('clean')" ></button>
-												</div>	
-												<div align="right" width="70%">
-													<button sclass="button" image="/img/search.png" label="Consultar" id="consultarBtn" onClick="@command('readWithFilters')"></button>
-												</div>
-											</row>
+											</row>																							
 										</rows>								
 									</grid>
+									<div align="center" width="70%">
+										<image id="reporteExcelBtn" src="/img/xls.png" onClick="@command('onShowReport',type='xls')" />
+										<image id="reporteCsvBtn" src="/img/csv.png" onClick="@command('onShowReport',type='csv')" />
+										<button sclass="button" image="/img/clear.png"  label="Limpiar" id="limpiarBtn" onClick="@command('clean')" ></button>
+										<button sclass="button" image="/img/search.png" label="Consultar" id="consultarBtn" onClick="@command('readWithFilters')"></button>
+									</div>
 								</div>
 							</panelchildren>										
 						</panel>
-					</portalchildren>
-					<portalchildren width="100%" style="padding: 5px">
-						<panel height="67%" sclass="sectionPanelTitle" width="100%" id="panelMonitoreoProcesos"
+					</groupbox>
+					<groupbox height="400px">
+						<panel height="380px" sclass="sectionPanelTitle" width="100%" id="panelMonitoreoProcesos"
 							title="Resultados" collapsible="true"
 							style="margin-bottom:10px">
 							<caption sclass="sectionPanelTitle" label="Listado de Resultados"></caption>
@@ -157,8 +150,8 @@
 								</grid>
 							</panelchildren>
 						</panel>
-					</portalchildren>
-				</portallayout>								
+					</groupbox>
+				</vlayout>								
 			</groupbox>	
 			<textbox id="idCanal" value="@load(vm.monitoreoProcesosDTO.monitoreoProcesosVO.idCanal)" visible="false"></textbox>
 			<textbox id="idCliente" value="@load(vm.monitoreoProcesosDTO.monitoreoProcesosVO.idCliente)" visible="false"></textbox>

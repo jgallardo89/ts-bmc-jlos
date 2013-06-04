@@ -375,6 +375,7 @@ public class PantallaController extends ControllerSupport implements  IControlle
 		//Setear IDs Invisibles
 		idPantallaPadre.setValue(null);
 		idEstatusObjeto.setValue(null);
+		idPantalla.setValue(null);
 	}
 	@Command
 	public void onShowReport(@BindingParam("type") final String type) {

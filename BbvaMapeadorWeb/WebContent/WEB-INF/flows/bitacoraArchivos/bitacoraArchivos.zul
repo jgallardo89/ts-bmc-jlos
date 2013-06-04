@@ -50,7 +50,7 @@
 												<div align="right">
 													<label id="lblNombreArchivo" width="100%" sclass="labelFill" value="Nombre de Archivo:  "></label>
 												</div>
-												<textbox sclass="textboxUpperCase" maxlength="50"
+												<textbox  maxlength="50"
 													id="nombreArchivo" value="@load(vm.strNombreArchivo)" width="100%"></textbox>																									
 											</row>											
 										</rows>								

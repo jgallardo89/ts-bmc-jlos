@@ -80,10 +80,10 @@
 									<columns sizable="true" menupopup="auto">
 									<column hflex="0" align="center" image="/img/pencil-small.png" 
 											width="5%"></column>										
-										<column hflex="1" label="Identificador usuario" sort="auto(vm.usuarioVO.idCveUsuario)"></column>
-										<column hflex="1" label="Usuario" sort="vm.usuarioVO.nombreUsuario"></column>
-										<column hflex="1" label="Perfil" sort="vm.usuarioVO.descripcionPerfil"></column>
-										<column hflex="1" label="Status" sort="vm.usuarioVO.nombreEstatusObjeto"></column>										
+										<column hflex="1" label="Identificador usuario" sort="auto(idCveUsuario)"></column>
+										<column hflex="1" label="Usuario" sort="auto(nombreUsuario)"></column>
+										<column hflex="1" label="Perfil" sort="auto(descripcionPerfil)"></column>
+										<column hflex="1" label="Status" sort="auto(nombreEstatusObjeto)"></column>										
 									</columns>
 									<template name="model">
 										<row>											

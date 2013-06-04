@@ -11,9 +11,8 @@
 		<div sclass="BODY" height="100%"  width="100%">
 			<groupbox height="100%">
 				<caption sclass="pageTitle" label="Monitoreo > Archivos"></caption>		
-					<portallayout maximizedMode="whole" id="portalLayoutArchivos"
-					width="100%" height="100%">
-					<portalchildren>
+					<vlayout>
+					<groupbox>
 						<panel height="20%" width="100%" sclass="sectionPanelTitle" id="datosArchivos"
 							title="Monitoreo" collapsible="true" style="margin-bottom:10px"
 							border="normal">
@@ -48,44 +47,39 @@
 													</template>																								
 												</combobox>																								
 											</row>
-											<row sclass="row2">
-												<div>
-												</div>									
-												<div align="right" width="82%">
-													<button sclass="button" label="Limpiar" id="limpiarBtn" onClick="@command('clean')" ></button>
-												</div>
-												<div align="right" width="82%">
-													<button sclass="button" image="/img/search.png" label="Consultar" id="consultarBtn" onClick="@command('readWithFilters')"></button>
-												</div>
-												<div align="right">
-												</div>
-												<div align="right">
-												</div>
-											</row>
+																																	
 										</rows>								
 									</grid>
+									<div align="center">
+										<image id="reporteExcelBtn" src="/img/xls.png" onClick="@command('onShowReport',type='xls')" />
+										<image id="reporteCsvBtn" src="/img/csv.png" onClick="@command('onShowReport',type='txt')" />
+										<button sclass="button" image="/img/clear.png"  label="Limpiar" id="limpiarBtn" onClick="@command('clean')" ></button>
+										<button sclass="button" image="/img/search.png" label="Consultar" id="consultarBtn" onClick="@command('readWithFilters')"></button>
+									</div>	
 								</div>
 							</panelchildren>										
 						</panel>
-					</portalchildren>
-					<portalchildren width="100%" style="padding: 5px">
-						<panel height="77%" sclass="sectionPanelTitle" width="100%" id="panelArchivo"
+					</groupbox>
+					<groupbox height="500px">
+						<panel height="480px" sclass="sectionPanelTitle" width="100%" id="panelArchivo"
 							title="Resultados Archivos" collapsible="true"
 							style="margin-bottom:10px">
 							<caption sclass="sectionPanelTitle" label="Lista de Archivos"></caption>
 							<panelchildren>
 								<grid width="99.7%" id="archivoGrid" mold="paging"
 									model="@load(vm.monitoreoArchivosVOs)" pagingPosition="both" pageSize="5"
-									vflex="true" height="100%">									
+									vflex="true">									
 									<columns sizable="true" menupopup="auto">
 									<column hflex="1" label="Nombre HDR" width="10%"
-											sort="auto(vm.monitoreoArchivosDTO.monitoreoArchivosVO.nombreArchEntraPapa)"></column>
+											sort="auto(nombreArchEntraPapa)"></column>
 										<column hflex="1" label="Estatus HDR" width="10%"
-											sort="auto(vm.monitoreoArchivosDTO.monitoreoArchivosVO.nombreEstadoArchivoPapa)"></column>
+											sort="auto(nombreEstadoArchivoPapa)"></column>
 										<column hflex="1" label="Nombre DATA" width="10%"
-											sort="auto(vm.monitoreoArchivosDTO.monitoreoArchivosVO.nombreArchEntraHijo)"></column>
+											sort="auto(nombreArchEntraHijo)"></column>
 										<column hflex="1" label="Estatus DATA" width="10%"
-											sort="auto(vm.monitoreoArchivosDTO.monitoreoArchivosVO.nombreEstadoArchivoHijo)"></column>		
+											sort="auto(nombreEstadoArchivoHijo)"></column>		
+										<column hflex="1" label="Reproceso" width="10%"
+											sort="auto(nombreEstadoArchivoHijo)"></column>
 									</columns>
 									<template name="model">
 										<row>
@@ -93,13 +87,14 @@
 											<label hflex="1" value="@load(each.nombreEstadoArchivoPapa)"></label>
 											<label hflex="1" value="@load(each.nombreArchEntraHijo)"></label>
 											<label hflex="1" value="@load(each.nombreEstadoArchivoHijo)"></label>																					
+											<label hflex="1" value=""></label>
 										</row>
 									</template>									
 								</grid>
 							</panelchildren>
 						</panel>
-					</portalchildren>
-				</portallayout>								
+					</groupbox>
+				</vlayout>						
 			</groupbox>	
 			<textbox id="idEstatusPapa" value="@load(vm.monitoreoArchivosDTO.monitoreoArchivosVO.idEstadoArchivoPapa)" visible="false"></textbox>
 			<textbox id="idEstatusHijo" value="@load(vm.monitoreoArchivosDTO.monitoreoArchivosVO.idEstadoArchivoHijo)" visible="false"></textbox>

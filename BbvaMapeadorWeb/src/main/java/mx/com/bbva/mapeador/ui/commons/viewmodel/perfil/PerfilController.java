@@ -13,16 +13,19 @@ import mx.com.bbva.bancomer.bussinnes.model.vo.ControlPermisoVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.EstatusObjetoVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.PantallaVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.PerfilVO;
+import mx.com.bbva.bancomer.bussinnes.model.vo.UsuarioVO;
 import mx.com.bbva.bancomer.canal.dto.BeanGenerico;
 import mx.com.bbva.bancomer.commons.command.CommandConstants;
 import mx.com.bbva.bancomer.commons.command.MapeadorConstants;
 import mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject;
 import mx.com.bbva.bancomer.componente.dto.ComponenteDTO;
 import mx.com.bbva.bancomer.estatusobjeto.dto.EstatusObjetoDTO;
+import mx.com.bbva.bancomer.estatusobjeto.dto.UsuarioDTO;
 import mx.com.bbva.bancomer.mapper.business.ComponenteBO;
 import mx.com.bbva.bancomer.mapper.business.EstatusObjetoBO;
 import mx.com.bbva.bancomer.mapper.business.PantallaBO;
 import mx.com.bbva.bancomer.mapper.business.PerfilBO;
+import mx.com.bbva.bancomer.mapper.business.UsuarioBO;
 import mx.com.bbva.bancomer.pantalla.dto.PantallaDTO;
 import mx.com.bbva.bancomer.perfil.dto.PerfilDTO;
 import mx.com.bbva.mapeador.ui.commons.controller.IController;
@@ -333,80 +336,124 @@ public class PerfilController extends ControllerSupport implements  IController{
 			}			
 		}
 		if(!error){
-			if(!idPerfil.getValue().isEmpty()){			
-				PerfilDTO perfilDTO = new PerfilDTO();
-				PerfilVO perfilVO = new PerfilVO();
-				perfilVO.setNombrebPerfil(nombrePerfil.getValue()==null?"":nombrePerfil.getValue().toUpperCase().trim());
-				perfilVO.setDescripcionPerfil(descripcionPerfil.getValue()==null?"":descripcionPerfil.getValue().toUpperCase().trim());
-				perfilVO.setEstatusPerfil(Integer.parseInt(status.getSelectedItem().getValue().toString()));
-				perfilVO.setDescipcionEstatus(status.getSelectedItem().getLabel());
-				perfilVO.setIdPerfil(Integer.parseInt(idPerfil.getValue()));
-				perfilVO.setIdPantalla(pantallas.getSelectedItem()==null?0:Integer.parseInt(pantallas.getSelectedItem().getValue().toString()));
-				List<ControlPermisoVO> controlPermisoVOs = null;
-				controlPermisoVOs = new ArrayList<ControlPermisoVO>();
-				ControlPermisoVO controlPermisoVO;
-				if(componentePantallaPerfilDTO!=null){
-					List<ComponenteVO> componenteVOsLocal = componentePantallaPerfilDTO.getComponentePantallaPerfilVOs();				
-					for (ComponenteVO componenteVO : componenteVOsLocal) {
-						controlPermisoVO = new ControlPermisoVO();
-						controlPermisoVO.setIdComponente(componenteVO.idComponente);
-						controlPermisoVO.setIdPerfil(Integer.parseInt(idPerfil.getValue()));
-						controlPermisoVO.setNombreComponente(componenteVO.getNombreComponente());
-						controlPermisoVOs.add(controlPermisoVO);
-					}		
-					perfilVO.setControlPermisoVOs(controlPermisoVOs);
+			if(!idPerfil.getValue().isEmpty()){	
+				if(Integer.parseInt(status.getSelectedItem().getValue().toString())==CommandConstants.ID_PERFIL_INACTIVO
+						||Integer.parseInt(status.getSelectedItem().getValue().toString())==CommandConstants.ID_PERFIL_BAJA){
+					UsuarioDTO usuarioDTO = new UsuarioDTO();
+					UsuarioVO usuarioVO = new UsuarioVO();
+					UsuarioBO usuarioBO = new UsuarioBO();
+					usuarioVO.setIdPerfil(Integer.parseInt(idPerfil.getValue()));
+					usuarioDTO.setUsuarioVO(usuarioVO);
+					usuarioDTO = usuarioBO.readCommand(usuarioDTO);
+					if(usuarioDTO.getUsuarioVOs().size()>0){
+						Messagebox.show("El perfil no puede ser cancelado o inactivado ya que existen usuarios activos o inactivos.",
+								"Confirmación", Messagebox.OK,
+								Messagebox.EXCLAMATION);
+						error = true;
+					}
 				}
-				perfilDTO.setPerfilVO(perfilVO);		
-				perfilDTO.toString(BbvaAbstractDataTransferObject.XML);
-				PerfilBO perfilBO = new PerfilBO();
-				perfilBO.updateCommand(perfilDTO);
-				
-				ReportesController controller = new ReportesController();
-				List<ControlPermisoVO> controlPermiso2VOs = new ArrayList<ControlPermisoVO>(); 
-				PerfilVO perfilVO2 = new PerfilVO();
-				if(componentePantallaDTO!=null){
-					List<ComponenteVO> componenteVOsLocal = componentePantallaDTO.getComponentePantallaVOs();				
-					for (ComponenteVO componenteVO : componenteVOsLocal) {
-						controlPermisoVO = new ControlPermisoVO();
-						controlPermisoVO.setIdComponente(componenteVO.idComponente);
-						controlPermisoVO.setIdPerfil(Integer.parseInt(idPerfil.getValue()));
-						controlPermisoVO.setNombreComponente(componenteVO.getNombreComponente());
-						controlPermiso2VOs.add(controlPermisoVO);
-					}		
-					perfilVO2.setControlPermisoVOs(controlPermiso2VOs);
+				if(!error){
+					PerfilDTO perfilDTOValida = new PerfilDTO();
+					PerfilVO perfilVOValida = new PerfilVO();
+					PerfilBO perfilBOvalida = new PerfilBO();
+					perfilVOValida.setIdPerfil(Integer.parseInt(idPerfil.getValue()));
+					perfilVOValida.setNombrebPerfil(nombrePerfil.getValue());
+					perfilDTOValida.setPerfilVO(perfilVOValida);
+					perfilDTOValida.setCommandId(CommandConstants.PERFIL_COMMAND_READ_ALL);
+					perfilDTOValida = perfilBOvalida.readCommand(perfilDTOValida);
+					if(perfilDTOValida.getPerfilVOs().size()>0){
+						Messagebox.show("Ya existe un perfil con el mismo identificador",
+								"Confirmación", Messagebox.OK,
+								Messagebox.EXCLAMATION);
+					}else{
+						PerfilDTO perfilDTO = new PerfilDTO();
+						PerfilVO perfilVO = new PerfilVO();
+						perfilVO.setNombrebPerfil(nombrePerfil.getValue()==null?"":nombrePerfil.getValue().toUpperCase().trim());
+						perfilVO.setDescripcionPerfil(descripcionPerfil.getValue()==null?"":descripcionPerfil.getValue().toUpperCase().trim());
+						perfilVO.setEstatusPerfil(Integer.parseInt(status.getSelectedItem().getValue().toString()));
+						perfilVO.setDescipcionEstatus(status.getSelectedItem().getLabel());
+						perfilVO.setIdPerfil(Integer.parseInt(idPerfil.getValue()));
+						perfilVO.setIdPantalla(pantallas.getSelectedItem()==null?0:Integer.parseInt(pantallas.getSelectedItem().getValue().toString()));
+						List<ControlPermisoVO> controlPermisoVOs = null;
+						controlPermisoVOs = new ArrayList<ControlPermisoVO>();
+						ControlPermisoVO controlPermisoVO;
+						if(componentePantallaPerfilDTO!=null){
+							List<ComponenteVO> componenteVOsLocal = componentePantallaPerfilDTO.getComponentePantallaPerfilVOs();				
+							for (ComponenteVO componenteVO : componenteVOsLocal) {
+								controlPermisoVO = new ControlPermisoVO();
+								controlPermisoVO.setIdComponente(componenteVO.idComponente);
+								controlPermisoVO.setIdPerfil(Integer.parseInt(idPerfil.getValue()));
+								controlPermisoVO.setNombreComponente(componenteVO.getNombreComponente());
+								controlPermisoVOs.add(controlPermisoVO);
+							}		
+							perfilVO.setControlPermisoVOs(controlPermisoVOs);
+						}
+						perfilDTO.setPerfilVO(perfilVO);		
+						perfilDTO.toString(BbvaAbstractDataTransferObject.XML);
+						PerfilBO perfilBO = new PerfilBO();
+						perfilBO.updateCommand(perfilDTO);
+						
+						ReportesController controller = new ReportesController();
+						List<ControlPermisoVO> controlPermiso2VOs = new ArrayList<ControlPermisoVO>(); 
+						PerfilVO perfilVO2 = new PerfilVO();
+						if(componentePantallaDTO!=null){
+							List<ComponenteVO> componenteVOsLocal = componentePantallaDTO.getComponentePantallaVOs();				
+							for (ComponenteVO componenteVO : componenteVOsLocal) {
+								controlPermisoVO = new ControlPermisoVO();
+								controlPermisoVO.setIdComponente(componenteVO.idComponente);
+								controlPermisoVO.setIdPerfil(Integer.parseInt(idPerfil.getValue()));
+								controlPermisoVO.setNombreComponente(componenteVO.getNombreComponente());
+								controlPermiso2VOs.add(controlPermisoVO);
+							}		
+							perfilVO2.setControlPermisoVOs(controlPermiso2VOs);
+						}
+						this.perfilDTO.setPerfilVO(this.perfilVO);
+						this.perfilDTO.getPerfilVO().setControlPermisoVOs(controlPermiso2VOs);				
+						controller.registrarEventoPerfil(perfilDTO, this.perfilDTO, CommandConstants.MODIFICACION, "Catálogo Perfiles");
+						
+						clean();
+						perfilDTO = (PerfilDTO)this.read();
+						perfilVOs = perfilDTO.getPerfilVOs();
+										
+						Messagebox.show("Registro actualizado con exito!!",
+								"Confirmación", Messagebox.OK,
+								Messagebox.INFORMATION);
+					}
 				}
-				this.perfilDTO.setPerfilVO(this.perfilVO);
-				this.perfilDTO.getPerfilVO().setControlPermisoVOs(controlPermiso2VOs);				
-				controller.registrarEventoPerfil(perfilDTO, this.perfilDTO, CommandConstants.MODIFICACION, "Catálogo Perfiles");
-				
-				clean();
-				perfilDTO = (PerfilDTO)this.read();
-				perfilVOs = perfilDTO.getPerfilVOs();
-								
-				Messagebox.show("Registro actualizado con exito!!",
-						"Confirmación", Messagebox.OK,
-						Messagebox.INFORMATION);
-			}else{
-				PerfilDTO perfilDTO = new PerfilDTO();
-				PerfilVO perfilVO = new PerfilVO();
-				perfilVO.setNombrebPerfil(nombrePerfil.getValue()==null?"":nombrePerfil.getValue().toUpperCase().trim());
-				perfilVO.setDescripcionPerfil(descripcionPerfil.getValue()==null?"":descripcionPerfil.getValue().toUpperCase().trim());
-				perfilVO.setEstatusPerfil(CommandConstants.ID_PERFIL_ACTIVO);				
-				perfilVO.setDescipcionEstatus(status.getSelectedItem().getLabel());				
-				perfilDTO.setPerfilVO(perfilVO);		
-				perfilDTO.toString(BbvaAbstractDataTransferObject.XML);
-				PerfilBO perfilBO = new PerfilBO();
-				perfilBO.createCommand(perfilDTO);
-				
-				ReportesController controller = new ReportesController();
-				controller.registrarEventoPerfil(perfilDTO, this.perfilDTO, CommandConstants.ALTA, "Catálogo Perfiles");
-				
-				perfilDTO = (PerfilDTO)this.read();
-				perfilVOs = perfilDTO.getPerfilVOs();
-				clean();
-				Messagebox.show("Registro creado con exito!!",
-						"Confirmación", Messagebox.OK,
-						Messagebox.INFORMATION);
+			}else{				
+				PerfilDTO perfilDTOValida = new PerfilDTO();
+				PerfilVO perfilVOValida = new PerfilVO();
+				PerfilBO perfilBOvalida = new PerfilBO();				
+				perfilVOValida.setNombrebPerfil(nombrePerfil.getValue());
+				perfilDTOValida.setPerfilVO(perfilVOValida);
+				perfilDTOValida.setCommandId(CommandConstants.PERFIL_COMMAND_READ_ALL);
+				perfilDTOValida = perfilBOvalida.readCommand(perfilDTOValida);
+				if(perfilDTOValida.getPerfilVOs().size()>0){
+					Messagebox.show("Ya existe un perfil con el mismo identificador",
+							"Confirmación", Messagebox.OK,
+							Messagebox.EXCLAMATION);
+				}else{
+					PerfilDTO perfilDTO = new PerfilDTO();
+					PerfilVO perfilVO = new PerfilVO();
+					perfilVO.setNombrebPerfil(nombrePerfil.getValue()==null?"":nombrePerfil.getValue().toUpperCase().trim());
+					perfilVO.setDescripcionPerfil(descripcionPerfil.getValue()==null?"":descripcionPerfil.getValue().toUpperCase().trim());
+					perfilVO.setEstatusPerfil(CommandConstants.ID_PERFIL_ACTIVO);				
+					perfilVO.setDescipcionEstatus(status.getSelectedItem().getLabel());				
+					perfilDTO.setPerfilVO(perfilVO);		
+					perfilDTO.toString(BbvaAbstractDataTransferObject.XML);
+					PerfilBO perfilBO = new PerfilBO();
+					perfilBO.createCommand(perfilDTO);
+					
+					ReportesController controller = new ReportesController();
+					controller.registrarEventoPerfil(perfilDTO, this.perfilDTO, CommandConstants.ALTA, "Catálogo Perfiles");
+					
+					perfilDTO = (PerfilDTO)this.read();
+					perfilVOs = perfilDTO.getPerfilVOs();
+					clean();
+					Messagebox.show("Registro creado con exito!!",
+							"Confirmación", Messagebox.OK,
+							Messagebox.INFORMATION);
+				}
 			}						
 		}
 	}
