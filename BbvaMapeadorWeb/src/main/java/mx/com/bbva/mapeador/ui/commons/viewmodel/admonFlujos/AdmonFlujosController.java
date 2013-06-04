@@ -1,52 +1,53 @@
 package mx.com.bbva.mapeador.ui.commons.viewmodel.admonFlujos;
 
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.NotifyChange;
+import org.zkoss.zhtml.Messagebox;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.Wire;
+import org.zkoss.zul.Button;
 import org.zkoss.zul.Combobox;
+import org.zkoss.zul.Datebox;
+import org.zkoss.zul.Grid;
+import org.zkoss.zul.Image;
+import org.zkoss.zul.Label;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
 
 import mx.com.bbva.bancomer.bussinnes.model.vo.EstatusObjetoVO;
-import com.wutka.jox.JOXBeanInputStream;
-
-import mx.com.bbva.bancomer.bitacora.dto.BitacoraDTO;
-import mx.com.bbva.bancomer.bitacora.dto.CampoDTO;
-import mx.com.bbva.bancomer.bussinnes.model.vo.BitacoraVO;
-import mx.com.bbva.bancomer.bussinnes.model.vo.CanalVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.FlujoVO;
+import mx.com.bbva.bancomer.bussinnes.model.vo.ProductoVO;
 import mx.com.bbva.bancomer.canal.dto.BeanGenerico;
 import mx.com.bbva.bancomer.commons.command.CommandConstants;
+import mx.com.bbva.bancomer.commons.command.MapeadorConstants;
 import mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject;
 import mx.com.bbva.bancomer.estatusobjeto.dto.EstatusObjetoDTO;
 import mx.com.bbva.bancomer.flujo.dto.FlujoDTO;
-import mx.com.bbva.bancomer.mapper.business.BitacoraBO;
 import mx.com.bbva.bancomer.mapper.business.FlujoBO;
 import mx.com.bbva.bancomer.mapper.business.EstatusObjetoBO;
+import mx.com.bbva.bancomer.mapper.business.ProductoBO;
+import mx.com.bbva.bancomer.producto.dto.ProductoDTO;
 import mx.com.bbva.bancomer.utils.StringUtil;
 import mx.com.bbva.mapeador.ui.commons.controller.IController;
+import mx.com.bbva.mapeador.ui.commons.viewmodel.reportes.ReportesController;
 import mx.com.bbva.mapeador.ui.commons.viewmodel.support.ControllerSupport;
-import mx.com.bbva.mt101.ui.commons.viewmodel.reportes.ReportesController;
 
 /**
  * @author Julio Morales
@@ -55,7 +56,7 @@ import mx.com.bbva.mt101.ui.commons.viewmodel.reportes.ReportesController;
 public class AdmonFlujosController extends ControllerSupport implements IController {
 
 	private static final long serialVersionUID = 671034870906549704L;
-	
+	private static final Logger logger = Logger.getLogger(AdmonFlujosController.class);
 	@Wire
 	private Textbox idFlujo;
 	@Wire
@@ -67,10 +68,38 @@ public class AdmonFlujosController extends ControllerSupport implements IControl
 	@Wire
 	private Combobox statusObjeto;
 	
+	@Wire
+	private Label lblNombreFlujo;
+	@Wire
+	private Label lblDescripcionFlujo;
+	@Wire
+	private Label lblFechaAlta;
+	@Wire
+	private Label lblFechaModificacion;
+	@Wire
+	private Label lblEstatus;
+	@Wire
+	private Datebox fechaAlta;
+	@Wire
+	private Datebox fechaModificacion;
+	@Wire
+	private Image reporteExcelBtn;
+	@Wire
+	private Image reporteCsvBtn;
+	@Wire
+	private Button limpiarBtn;
+	@Wire
+	private Button guardarBtn;
+	@Wire
+	private Button consultarBtn;
+	@Wire
+	private Grid flujosGrid;
 	
 	private boolean flagBtnGuardar;
+	private boolean executePermissionSet;
 	private FlujoDTO flujoDTO;
 	private List<FlujoVO> flujoVOs;
+	private FlujoVO flujoVO;
 	
 	public AdmonFlujosController() {
 		this.read();
@@ -89,7 +118,8 @@ public class AdmonFlujosController extends ControllerSupport implements IControl
 		estatusObjetoDTO.setEstatusObjetoVO(estatusObjetoVO);
 		estatusObjetoDTO = estatusObjetoBO.readCommand(estatusObjetoDTO);		
 	    flujoDTO.setEstatusObjetoVOs(estatusObjetoDTO.getEstatusObjetoVOs());
-	    
+	    FlujoVO flujoVO = new FlujoVO();
+	    flujoDTO.setFlujoVO(flujoVO);
 		FlujoBO FlujoBO = new FlujoBO();
 		FlujoBO.readCommand(flujoDTO);
 		return flujoDTO;
@@ -98,6 +128,7 @@ public class AdmonFlujosController extends ControllerSupport implements IControl
 	@Command
 	@NotifyChange({ "flujoVOs" })
 	public void readWithFilters() {
+		ReportesController controller = new ReportesController();
 		FlujoDTO flujoDTO = new FlujoDTO();
 		FlujoVO flujoVO = new FlujoVO();
 		flujoVO.setNombreFlujo(StringUtil.validaLike(nombreFlujo.getValue()));
@@ -107,7 +138,9 @@ public class AdmonFlujosController extends ControllerSupport implements IControl
 		flujoDTO.setFlujoVO(flujoVO);
 		FlujoBO FlujoBO = new FlujoBO();
 		flujoVOs = FlujoBO.readCommand(flujoDTO).getFlujoVOs();
+		controller.registrarEvento(null, null, CommandConstants.CONSULTAR, "Catálogo Flujos");
 	}
+	
 	
 	@Override
 	public Object read(Object t) {
@@ -119,14 +152,9 @@ public class AdmonFlujosController extends ControllerSupport implements IControl
 	@Command
 	@NotifyChange({ "flujoVOs","flagBtnGuardar" })
 	public void save() {
+		ReportesController controller = new ReportesController();
 		FlujoBO flujoBO = new FlujoBO();
 		boolean errorGuardar = false;
-		if (statusObjeto.getSelectedItem() == null
-				|| statusObjeto.getSelectedItem().getValue() == null
-				|| statusObjeto.getSelectedItem().getValue().toString().isEmpty()) {
-			statusObjeto.setErrorMessage("Favor de seleccionar el Estatus");
-			errorGuardar = true;
-		}
 		if (nombreFlujo.getValue().isEmpty()) {
 			nombreFlujo
 					.setErrorMessage("Favor de introducir el nombre del Flujo");
@@ -138,22 +166,50 @@ public class AdmonFlujosController extends ControllerSupport implements IControl
 			errorGuardar = true;
 		}
 		if(!errorGuardar && !idFlujo.getValue().isEmpty()){
-			FlujoDTO FlujoDTO = new FlujoDTO();
-			FlujoVO flujoVO = new FlujoVO();
-			flujoVO.setNombreFlujo(nombreFlujo.getValue().toUpperCase());
-			flujoVO.setDescripcionFlujo(descripcionFlujo.getValue().toUpperCase());
-			flujoVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue()));
-			flujoVO.setIdFlujo(Integer.parseInt(idFlujo.getValue()));
-			flujoDTO.setFlujoVO(flujoVO);
-			flujoBO.updateCommand(flujoDTO);
-			FlujoDTO.toString(BbvaAbstractDataTransferObject.XML);
-			clean();
-			flujoVO.setNombreFlujo(StringUtil.validaLike(nombreFlujo.getValue()));
-			flujoVO.setDescripcionFlujo(StringUtil.validaLike(descripcionFlujo.getValue()));
-			flujoVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue().isEmpty()?"0":idEstatusObjeto.getValue()));
-			flujoVO.toString();
-			FlujoDTO.setFlujoVO(flujoVO);
-			flujoVOs = flujoBO.readCommand(FlujoDTO).getFlujoVOs();
+			ProductoDTO productoDTO = null;
+			logger.debug("statusObjeto:"+statusObjeto.getSelectedItem().getValue());
+			if(Integer.parseInt(statusObjeto.getSelectedItem().getValue().toString())==CommandConstants.ID_FLUJO_BAJA
+					||Integer.parseInt(statusObjeto.getSelectedItem().getValue().toString())==CommandConstants.ID_FLUJO_INACTIVO){
+				ProductoBO productoBO = new ProductoBO();
+				ProductoVO productoVO = new ProductoVO();
+				productoVO.setIdFlujo(Integer.parseInt(idFlujo.getValue()));
+				productoDTO = productoBO.readCommandCmb(productoVO);
+			}
+			logger.debug("productoDTO:"+productoDTO);
+			if (productoDTO==null || productoDTO.getProductoVOs().size() == 0){
+				FlujoDTO flujoDTO = new FlujoDTO();
+				FlujoVO flujoVO = new FlujoVO();
+				flujoVO.setNombreFlujo(nombreFlujo.getValue().toUpperCase());
+				flujoVO.setDescripcionFlujo(descripcionFlujo.getValue().toUpperCase());
+				flujoVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue()));
+				flujoVO.setIdFlujo(Integer.parseInt(idFlujo.getValue()));
+				flujoDTO.setFlujoVO(flujoVO);
+				flujoBO.updateCommand(flujoDTO);
+				flujoDTO.toString(BbvaAbstractDataTransferObject.XML);
+				controller.registrarEvento(flujoVO, this.flujoVO, CommandConstants.MODIFICACION, "Catálogo Flujos");
+				clean();
+				flujoVO.setNombreFlujo(StringUtil.validaLike(nombreFlujo.getValue()));
+				flujoVO.setDescripcionFlujo(StringUtil.validaLike(descripcionFlujo.getValue()));
+				flujoVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue().isEmpty()?"0":statusObjeto.getSelectedItem().getValue().toString()));
+				flujoVO.toString();
+				flujoDTO.setFlujoVO(flujoVO);
+				flujoVOs = flujoBO.readCommand(flujoDTO).getFlujoVOs();
+				Messagebox.show("!La Actualización del Flujo fue exitoso!",
+						"Información", Messagebox.OK,
+						Messagebox.INFORMATION);
+			} else {
+//				FlujoVO flujoVO = new FlujoVO();
+				clean();
+//				flujoVO.setNombreFlujo(StringUtil.validaLike(nombreFlujo.getValue()));
+//				flujoVO.setDescripcionFlujo(StringUtil.validaLike(descripcionFlujo.getValue()));
+//				flujoVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue().isEmpty()?"0":idEstatusObjeto.getValue()));
+//				flujoVO.toString();
+//				flujoDTO.setFlujoVO(flujoVO);
+//				flujoVOs = flujoBO.readCommand(flujoDTO).getFlujoVOs();
+				  Messagebox.show("!No se puede dar de Baja, ya que esta siendo usado por algún Producto!",
+							"Información", Messagebox.OK,
+							Messagebox.EXCLAMATION);
+			}
 		}
 	}
 
@@ -178,24 +234,29 @@ public class AdmonFlujosController extends ControllerSupport implements IControl
 		idFlujo.setValue(null);
 		idEstatusObjeto.setValue(null);
 		setFlagBtnGuardar(true);
+		fechaAlta.setValue(new Date());
+		fechaModificacion.setValue(new Date());
 	}
 	
 	@Command
 	@NotifyChange({"flagBtnGuardar"})
 	public void readSelected(@BindingParam("idFlujo") final FlujoVO flujoVO){
+		this.flujoVO = flujoVO;
 		flujoVO.toString();
 		nombreFlujo.setValue(flujoVO.getNombreFlujo());
 		descripcionFlujo.setValue(flujoVO.getDescripcionFlujo());
 		statusObjeto.setValue(flujoVO.getNombreEstatusObjeto());
 		idFlujo.setValue(Integer.toString(flujoVO.getIdFlujo()));
 		idEstatusObjeto.setValue(Integer.toString(flujoVO.getIdEstatusObjeto()));
-		
+		fechaAlta.setValue(flujoVO.getFechaAlta());
+		fechaModificacion.setValue(flujoVO.getFechaModificacion());
 		setFlagBtnGuardar(false);
 	}
 	
 	@AfterCompose
     public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
-        Selectors.wireComponents(view, this, false);        
+        Selectors.wireComponents(view, this, false);   
+        executePermissionSet = this.applyPermision();
     }
 	
 	
@@ -210,26 +271,31 @@ public class AdmonFlujosController extends ControllerSupport implements IControl
 	}
 	
 	@Wire
-    Window detalleBitacoraWindow;
+    Window openImageWindow;
 	
 	@Listen("onClick = #closeBtn")
     public void showModal(Event e) {
-		detalleBitacoraWindow.detach();
+		openImageWindow.detach();
     }
 	
 	@Command
 	public void onShowReport(@BindingParam("type") final String type) {
 		ReportesController controller = new ReportesController();
 		ArrayList<String> headersReport = new ArrayList<String>();
-		String titleReport = "Catálogo Flujos";
 		headersReport.add("Identificador del Flujo");
 		headersReport.add("Descripción Flujo");
 		headersReport.add("Fecha y Hora de Alta");
 		headersReport.add("Fecha y Hora de Modificación");
 		headersReport.add("Etapas del Flujo");
 		headersReport.add("Estatus");
-		headersReport.add("Diagrama");					
-		controller.createReport(generaLista(), headersReport, titleReport, "FLUJOS");
+		headersReport.add("Diagrama");
+		if(type.equals("xls")) {
+			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_EXCEL,"Catálogo Clientes");
+		} else {
+			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_TEXTO,"Catálogo Clientes");
+		}
+		controller.createReport(generaLista(), headersReport, type, "FLUJOS");
+		System.out.println("########################### - " + generaLista().size());
 	}	
 	
 	private ArrayList<BeanGenerico> generaLista() {
@@ -259,7 +325,7 @@ public class AdmonFlujosController extends ControllerSupport implements IControl
 	}
 
 	/**
-	 * @param flagBtnGuardar the flagBtnGuardar to set 
+	 * @param flagBtnGuardar the flagBtnGuardar to set
 	 */
 	public void setFlagBtnGuardar(boolean flagBtnGuardar) {
 		this.flagBtnGuardar = flagBtnGuardar;
@@ -293,10 +359,56 @@ public class AdmonFlujosController extends ControllerSupport implements IControl
 		this.flujoVOs = flujoVOs;
 	}
 
+	/**
+	 * @return the flujoVO
+	 */
+	public FlujoVO getFlujoVO() {
+		return flujoVO;
+	}
+
+	/**
+	 * @param flujoVO the flujoVO to set
+	 */
+	public void setFlujoVO(FlujoVO flujoVO) {
+		this.flujoVO = flujoVO;
+	}
+	
+	/**
+	 * @return the executePermissionSet
+	 */
+	public final boolean isExecutePermissionSet() {
+		return executePermissionSet;
+	}
+
+	/**
+	 * @param executePermissionSet the executePermissionSet to set
+	 */
+	public final void setExecutePermissionSet(boolean executePermissionSet) {
+		this.executePermissionSet = executePermissionSet;
+	}
+
 	@Override
 	public boolean applyPermision() {
-		// TODO Auto-generated method stub
-		return false;
-	}
+		boolean isApplied = false;
+		HashMap<String, Component> componentes = new HashMap<String, Component>();
+		componentes.put(lblNombreFlujo.getId(), lblNombreFlujo);
+		componentes.put(lblDescripcionFlujo.getId(), lblDescripcionFlujo);
+		componentes.put(lblFechaAlta.getId(), lblFechaAlta);
+		componentes.put(lblFechaModificacion.getId(), lblFechaModificacion);
+		componentes.put(lblEstatus.getId(), lblEstatus);
+		componentes.put(nombreFlujo.getId(), nombreFlujo);
+		componentes.put(descripcionFlujo.getId(), descripcionFlujo);
+		componentes.put(statusObjeto.getId(), statusObjeto);
+		componentes.put(fechaAlta.getId(), fechaAlta);
+		componentes.put(fechaModificacion.getId(), fechaModificacion);
+		componentes.put(reporteExcelBtn.getId(), reporteExcelBtn);
+		componentes.put(reporteCsvBtn.getId(), reporteCsvBtn);
+		componentes.put(limpiarBtn.getId(), limpiarBtn);
+		componentes.put(guardarBtn.getId(), guardarBtn);
+		componentes.put(consultarBtn.getId(), consultarBtn);
+		componentes.put(flujosGrid.getId(), flujosGrid);
+		super.applyPermission(MapeadorConstants.FLUJOS, componentes);
+		return isApplied;
+	}	
 
 }
