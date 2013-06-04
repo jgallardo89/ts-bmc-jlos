@@ -3,9 +3,6 @@ package mx.com.bbva.mapeador.entity.tgm501pantalla;
 import java.io.Serializable;
 import javax.persistence.*;
 
-import mx.com.bbva.mapeador.entity.tgm502componente.Tgm502Componente;
-import mx.com.bbva.mapeador.entity.tgm534StObjeto.Tgm534StObjeto;
-
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -42,9 +39,7 @@ public class Tgm501Pantalla implements Serializable {
 	private String txUrlIcon;
 	private String txUrlPantalla;
 	private Tgm501Pantalla tgm501Pantalla;
-	private List<Tgm501Pantalla> tgm501Pantallas;
-	private Tgm534StObjeto tgm534StObjeto;
-	private List<Tgm502Componente> tgm502Componentes;
+	private List<Tgm501Pantalla> tgm501Pantallas;	
 
 	public Tgm501Pantalla() {
 	}
@@ -125,36 +120,6 @@ public class Tgm501Pantalla implements Serializable {
 		tgm501Pantalla.setTgm501Pantalla(null);
 
 		return tgm501Pantalla;
-	}
-
-	public Tgm534StObjeto getTgm534StObjeto() {
-		return this.tgm534StObjeto;
-	}
-
-	public void setTgm534StObjeto(Tgm534StObjeto tgm534StObjeto) {
-		this.tgm534StObjeto = tgm534StObjeto;
-	}
-
-	public List<Tgm502Componente> getTgm502Componentes() {
-		return this.tgm502Componentes;
-	}
-
-	public void setTgm502Componentes(List<Tgm502Componente> tgm502Componentes) {
-		this.tgm502Componentes = tgm502Componentes;
-	}
-
-	public Tgm502Componente addTgm502Componente(Tgm502Componente tgm502Componente) {
-		getTgm502Componentes().add(tgm502Componente);
-		tgm502Componente.setTgm501Pantalla(this);
-
-		return tgm502Componente;
-	}
-
-	public Tgm502Componente removeTgm502Componente(Tgm502Componente tgm502Componente) {
-		getTgm502Componentes().remove(tgm502Componente);
-		tgm502Componente.setTgm501Pantalla(null);
-
-		return tgm502Componente;
 	}
 
 }

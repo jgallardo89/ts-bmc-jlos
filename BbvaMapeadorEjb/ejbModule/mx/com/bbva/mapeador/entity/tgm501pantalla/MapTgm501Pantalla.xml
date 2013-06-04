@@ -2,25 +2,76 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="mx.com.bbva.mapeador.entity.tgm501pantalla.MapTgm501Pantalla">
 	<select id="obtenerPantallasPorUsuario" parameterType="mx.com.bbva.mapeador.entity.tgm501pantalla.Tgm501Pantalla"
-		resultType="mx.com.bbva.mapeador.entity.tgm501pantalla.Tgm501Pantalla">
-		   select  Cd_Pantalla cdPantalla,
-					CD_PANTALLA_PADRE cdFkPantalla,
-					NB_PANTALLA nbPantalla,
-					Tx_Url_Pantalla txUrlPantalla,
-					TX_URL_ICON txUrlIcon,
-					Nu_Ord_Pantalla nuOrdPantalla,
-					St_Pantalla  stPantalla
-			From 	Tgm501_Pantalla Pantalla,
-					Tgm504_Perfil Perfil,
-					Tgm503_Usuario Usuario
-			Where 	St_Pantalla = 31
-					And St_Perfil = 24
-					And St_Usuario = 27
-					And Usuario.Cd_Cve_Usuario = #{cdCveUsuario}
-					And Pantalla.CD_PANTALLA_PADRE = #{cdFkPantalla}
-					And Pantalla.Cd_Pantalla != 1
-					And Pantalla.Cd_Perfil = Perfil.Cd_Perfil
-					and Perfil.Cd_Perfil = Usuario.Cd_Perfil
-			order by Pantalla.Nu_Ord_Pantalla	
-	</select>
+		resultType="mx.com.bbva.mapeador.entity.tgm501pantalla.Tgm501Pantalla">		 		
+			SELECT Pantalla.Nb_Pantalla,
+			  Pantalla.Cd_Pantalla cdPantalla,
+			  Pantalla.Cd_Pantalla_Padre cdFkPantalla,
+			  Pantalla.Nb_Pantalla nbPantalla,
+			  Pantalla.Tx_Url_Pantalla txUrlPantalla,
+			  Pantalla.Tx_Url_Icon txUrlIcon,
+			  Pantalla.Nu_Ord_Pantalla nuOrdPantalla,
+			  Pantalla.St_Pantalla stPantalla
+			FROM Tgm502_Componente Componente,
+			  Tgm501_Pantalla Pantalla,
+			  Tgm505_Ctrlpermiso Control,
+			  Tgm504_Perfil Perfil,
+			  Tgm503_Usuario Usuario
+			WHERE Pantalla.Cd_Pantalla   = Componente.Cd_Pantalla
+			AND Pantalla.St_Pantalla       = 31
+			AND Perfil.St_Perfil           = 24
+			AND Usuario.St_Usuario         = 27
+			AND Pantalla.Cd_Pantalla      != 1
+			AND Perfil.Cd_Perfil           = Usuario.Cd_Perfil
+			AND Control.Cd_Componente      = Componente.Cd_Componente
+			AND Control.Cd_Perfil          = Usuario.Cd_Perfil
+			AND Usuario.Cd_Cve_Usuario     = #{cdCveUsuario}
+			AND Pantalla.Cd_Pantalla_Padre = #{cdFkPantalla}
+			GROUP BY Pantalla.Nb_Pantalla,
+			  Pantalla.Cd_Pantalla,
+			  Pantalla.Cd_Pantalla_Padre,
+			  Pantalla.Nb_Pantalla,
+			  Pantalla.Tx_Url_Pantalla,
+			  Pantalla.Tx_Url_Icon,
+			  Pantalla.Nu_Ord_Pantalla,
+			  Pantalla.St_Pantalla			
+			UNION
+			SELECT Pantalla.Nb_Pantalla,
+			  Pantalla.Cd_Pantalla Cdpantalla,
+			  Pantalla.Cd_Pantalla_Padre Cdfkpantalla,
+			  Pantalla.Nb_Pantalla Nbpantalla,
+			  Pantalla.Tx_Url_Pantalla Txurlpantalla,
+			  Pantalla.Tx_Url_Icon Txurlicon,
+			  Pantalla.Nu_Ord_Pantalla Nuordpantalla,
+			  Pantalla.St_Pantalla Stpantalla
+			FROM Tgm501_Pantalla Pantalla
+			WHERE Cd_Pantalla_Padre = #{cdFkPantalla}
+			AND Cd_Pantalla        != 1
+			AND Cd_Pantalla        IN
+			  (SELECT Pantalla.Cd_Pantalla_Padre cdPantallaPadre
+			  FROM Tgm502_Componente Componente,
+			    Tgm501_Pantalla Pantalla,
+			    Tgm505_Ctrlpermiso Control,
+			    Tgm504_Perfil Perfil,
+			    Tgm503_Usuario Usuario
+			  WHERE Componente.Cd_Pantalla = Pantalla.Cd_Pantalla
+			  AND Pantalla.St_Pantalla     = 31
+			  AND Perfil.St_Perfil         = 24
+			  AND Usuario.St_Usuario       = 27
+			  AND Perfil.Cd_Perfil         = Usuario.Cd_Perfil
+			  AND Control.Cd_Perfil        = Perfil.Cd_Perfil
+			  And Componente.Cd_Componente = Control.Cd_Componente
+			  AND Usuario.Cd_Cve_Usuario   = #{cdCveUsuario}
+			  GROUP BY Pantalla.Nb_Pantalla,
+			    Pantalla.Cd_Pantalla,
+			    Pantalla.Cd_Pantalla_Padre,
+			    Pantalla.Nb_Pantalla,
+			    Pantalla.Tx_Url_Pantalla,
+			    Pantalla.Tx_Url_Icon,
+			    Pantalla.Nu_Ord_Pantalla,
+			    Pantalla.St_Pantalla,
+			    Usuario.Cd_Perfil
+			  )
+			Order By Cdfkpantalla,
+			  nuOrdPantalla
+	</select>	
 </mapper>
