@@ -5,7 +5,7 @@
 <zk>
 	<window border="0" width="100%" height="120%"
 		apply="org.zkoss.bind.BindComposer"
-		viewModel="@id('vm') @init('mx.com.bbva.mt101.ui.commons.viewmodel.mensajes.MensajesController')"
+		viewModel="@id('vm') @init('mx.com.bbva.mapeador.ui.commons.viewmodel.mensajes.MensajesController')"
 		id="mensajesWindows">
 		<include src="../../pages/styles.zul" />
 		<div sclass="BODY" height="100%" width="100%">

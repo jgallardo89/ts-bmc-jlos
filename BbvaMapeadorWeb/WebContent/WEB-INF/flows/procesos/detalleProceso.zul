@@ -13,9 +13,8 @@
 			viewModel="@id('vm') @init('mx.com.bbva.mapeador.ui.commons.viewmodel.monitoreoprocesos.MonitoreoProcesosController')">
 			<div sclass="BODY" height="100%" width="100%">
 				<groupbox height="100%">
-					<portallayout maximizedMode="whole"
-						id="portalLayoutMonitoreoProcesos" width="100%" height="100%">
-						<portalchildren>
+					<vlayout>
+						<groupbox>
 							<panel height="30%" width="100%"
 								sclass="sectionPanelTitle" id="datosMonitoreoProcesos"
 								title="Terminar Etapa" collapsible="true"
@@ -99,8 +98,8 @@
 									</div>
 								</panelchildren>
 							</panel>
-						</portalchildren>
-					</portallayout>
+						</groupbox>
+					</vlayout>					
 				</groupbox>
 				<textbox id="idContratacion" value="@load(arg.monitoreoProcesosVO.numeroLote)" visible="false"></textbox>
 				<textbox id="idFlujo" value="@load(arg.monitoreoProcesosVO.numeroLote)" visible="false"></textbox>
