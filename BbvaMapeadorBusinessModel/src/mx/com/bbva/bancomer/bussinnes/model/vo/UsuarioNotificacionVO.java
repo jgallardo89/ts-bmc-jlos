@@ -11,6 +11,19 @@ public class UsuarioNotificacionVO extends mx.com.bbva.bancomer.commons.model.vo
 	private String descripcionIdUsuarios;
 	private int[] IdUsuarios;
 	private String tipoNotificacion;
+	private int existe;
+	/**
+	 * @return the existe
+	 */
+	public final int getExiste() {
+		return existe;
+	}
+	/**
+	 * @param existe the existe to set
+	 */
+	public final void setExiste(int existe) {
+		this.existe = existe;
+	}
 	/**
 	 * 
 	 */
