@@ -29,7 +29,7 @@
 										<rows>
 											<row sclass="row2">
 												<div align="right">
-													<label width="100%" sclass="labelFill" value="Canal Entrada: "></label>
+													<label id="lblCanalEntrada" width="100%" sclass="labelFill" value="Canal Entrada: "></label>
 												</div>
 												<combobox sclass="textboxUpperCase" onChange="selectedValueCanal()"
 													id="canal" width="70%" model="@load(vm.contratacionDTO.canalVOs)" autodrop="true">		
@@ -38,7 +38,7 @@
 													</template>																								
 												</combobox>	
 												<div align="right">
-													<label width="100%" sclass="labelFill" value="Canal Salida: "></label>												
+													<label id="lblCanalSalida" width="100%" sclass="labelFill" value="Canal Salida: "></label>												
 												</div>
 												<combobox sclass="textboxUpperCase" onChange="selectedValueCanalSalida()"
 													id="canalSalida" width="70%" model="@load(vm.contratacionDTO.canalVOs)" autodrop="true">		
@@ -50,7 +50,7 @@
 											</row>
 											<row sclass="row2">
 												<div align="right">
-													<label width="100%" sclass="labelFill" value="Cliente: "></label>
+													<label id="lblCliente" width="100%" sclass="labelFill" value="Cliente: "></label>
 												</div>
 												<combobox sclass="textboxUpperCase" onChange="selectedValueCliente()"
 													id="cliente" width="70%" model="@load(vm.contratacionDTO.clienteVOs)" autodrop="true">		
@@ -59,7 +59,7 @@
 													</template>																								
 												</combobox>	
 												<div align="right">
-													<label width="100%" sclass="labelFill" value="Producto:"></label>											
+													<label id="lblProducto" width="100%" sclass="labelFill" value="Producto:"></label>											
 												</div>
 												<combobox sclass="textboxUpperCase" onChange="@command('seleccionaProducto')" selectedItem="@bind(vm.identificadorProducto)"
 													id="producto" width="70%" model="@load(vm.contratacionDTO.productoVOs)" autodrop="true">		
@@ -71,18 +71,18 @@
 											</row>
 											<row sclass="row2">
 												<div align="right">
-													<label width="100%" sclass="labelFill" value="Fecha alta: "></label>												
+													<label id="lblFechaAlta" width="100%" sclass="labelFill" value="Fecha alta: "></label>												
 												</div>
 												<datebox value="@load(vm.contratacionDTO.contratacionVO.fechaAlta)"  maxlength="50"  width="100%" id="fechaAlta" readonly="true" buttonVisible="false" onCreate="self.value = new Date()" format="dd/MM/yyyy HH:mm"></datebox>
 												<div align="right">
-													<label width="100%" sclass="labelFill" value="Fecha modificaciôn: "></label>												
+													<label id="lblFechaModificacion" width="100%" sclass="labelFill" value="Fecha modificaciôn: "></label>												
 												</div>
 												<datebox value="@load(vm.contratacionDTO.contratacionVO.fechaModificacion)"  maxlength="50"  width="100%" id="fechaModificacion" readonly="true" buttonVisible="false" onCreate="self.value = new Date()" format="dd/MM/yyyy HH:mm"></datebox>
 												<div align="right"/>																														
 											</row>
 											<row sclass="row2">
 												<div align="right">
-													<label width="100%" sclass="labelFill" value="Status: "></label>												
+													<label id="lblStatus" width="100%" sclass="labelFill" value="Status: "></label>												
 												</div>
 												<combobox sclass="textboxUpperCase" onChange="selectedValueStatusObjeto()"
 													id="estatusObjeto" width="70%" model="@load(vm.contratacionDTO.estatusObjetoVOs)" autodrop="true">		
@@ -96,8 +96,8 @@
 											</row>
 											<row sclass="row2">
 												<div align="right" width="70%">
-													<image src="/img/xls.png" onClick="@command('onShowReport',type='xls')" />
-													<image src="/img/csv.png" onClick="@command('onShowReport',type='txt')" />
+													<image id="imgXLSReport" src="/img/xls.png" onClick="@command('onShowReport',type='xls')" />
+													<image id="imgCSVReport" src="/img/csv.png" onClick="@command('onShowReport',type='csv')" />
 												</div>
 												<div align="right" width="70%">
 													<button sclass="button" image="/img/clear.png"  label="Limpiar" id="limpiarBtn" onClick="@command('clean')" ></button>
