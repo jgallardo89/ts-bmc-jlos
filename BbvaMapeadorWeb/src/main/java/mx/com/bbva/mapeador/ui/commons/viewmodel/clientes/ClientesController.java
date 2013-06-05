@@ -326,11 +326,11 @@ public class ClientesController extends ControllerSupport implements IController
 		ReportesController controller = new ReportesController();
 		ArrayList<String> headersReport = new ArrayList<String>();
 		headersReport.add("Identificador");
-		headersReport.add("Nombre Cliente");
-		headersReport.add("Descripcion Cliente");
-		headersReport.add("Fecha y Hora de Alta");
-		headersReport.add("Fecha y Hora de Modificación");
-		headersReport.add("Estatus");
+		headersReport.add("Nombre cliente");
+		headersReport.add("Descripción Cliente");
+		headersReport.add("Fecha y Hora de alta");
+		headersReport.add("Fecha y Hora de modificación");
+		headersReport.add("Status");
 		if(type.equals("xls")) {
 			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_EXCEL,"Catálogo Clientes");
 		} else {

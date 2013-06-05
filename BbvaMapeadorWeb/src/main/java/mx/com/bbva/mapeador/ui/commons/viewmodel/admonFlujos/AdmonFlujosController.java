@@ -282,12 +282,12 @@ public class AdmonFlujosController extends ControllerSupport implements IControl
 	public void onShowReport(@BindingParam("type") final String type) {
 		ReportesController controller = new ReportesController();
 		ArrayList<String> headersReport = new ArrayList<String>();
-		headersReport.add("Identificador del Flujo");
-		headersReport.add("Descripción Flujo");
-		headersReport.add("Fecha y Hora de Alta");
-		headersReport.add("Fecha y Hora de Modificación");
-		headersReport.add("Etapas del Flujo");
-		headersReport.add("Estatus");
+		headersReport.add("Identificador de Flujo");
+		headersReport.add("Descripción flujo");
+		headersReport.add("Fecha y Hora de alta");
+		headersReport.add("Fecha y Hora de modificación");
+		headersReport.add("Etapas del flujo");
+		headersReport.add("Status");
 		headersReport.add("Diagrama");
 		if(type.equals("xls")) {
 			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_EXCEL,"Catálogo Clientes");
@@ -295,13 +295,12 @@ public class AdmonFlujosController extends ControllerSupport implements IControl
 			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_TEXTO,"Catálogo Clientes");
 		}
 		controller.createReport(generaLista(), headersReport, type, "FLUJOS");
-		System.out.println("########################### - " + generaLista().size());
 	}	
 	
 	private ArrayList<BeanGenerico> generaLista() {
 		ArrayList<BeanGenerico> beanGenericos = new ArrayList<BeanGenerico>();
 		BeanGenerico beanGenerico = null;
-		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm");
 		
 		for(FlujoVO flujoVO: flujoVOs) {
 			beanGenerico = new BeanGenerico();

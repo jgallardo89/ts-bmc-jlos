@@ -136,7 +136,6 @@ public class BitacoraArchivoController extends ControllerSupport implements  ICo
 	public void onShowReport(@BindingParam("type") final String type) {
 		ReportesController controller = new ReportesController();
 		ArrayList<String> headersReport = new ArrayList<String>();
-		String titleReport = "Bitácora Archivos";
 		headersReport.add("Fecha y Hora");
 		headersReport.add("Archivo");
 		headersReport.add("Estado de archivo");
@@ -145,13 +144,13 @@ public class BitacoraArchivoController extends ControllerSupport implements  ICo
 		} else {
 			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_TEXTO,"Bitácora de Archivos");
 		}
-		controller.createReport(generaLista(), headersReport, titleReport, "BITACORA_ARCHIVOS");
+		controller.createReport(generaLista(), headersReport, type, "BITACORA_ARCHIVOS");
 	}	
 	
 	private ArrayList<BeanGenerico> generaLista() {
 		ArrayList<BeanGenerico> beanGenericos = new ArrayList<BeanGenerico>();
 		BeanGenerico beanGenerico = null;
-		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm");
 		for(BitacoraArchivoVO bitacoraArchivoVO: bitacoraArchivoVOs) {
 			beanGenerico = new BeanGenerico();
 			beanGenerico.setValor1(dateFormat.format(bitacoraArchivoVO.getFechaArchivo()));

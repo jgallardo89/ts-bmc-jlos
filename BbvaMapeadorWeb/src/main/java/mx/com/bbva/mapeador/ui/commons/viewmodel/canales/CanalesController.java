@@ -333,7 +333,7 @@ public class CanalesController extends ControllerSupport implements IController 
 		ArrayList<String> headersReport = new ArrayList<String>();
 		headersReport.add("Clave");
 		headersReport.add("Descripción canal");
-		headersReport.add("Fecha y Hora alta");
+		headersReport.add("Fecha y Hora de alta");
 		headersReport.add("Status");
 		if(type.equals("xls")) {
 			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_EXCEL,"Catálogo Canal");
@@ -421,10 +421,8 @@ public class CanalesController extends ControllerSupport implements IController 
 		componentes.put(lblEstatus.getId(), lblEstatus);
 		componentes.put(nombreCanal.getId(), nombreCanal);
 		componentes.put(descripcionCanal.getId(), descripcionCanal);
-		
 		componentes.put(fechaInicio.getId(), fechaInicio);
 		componentes.put(fechaFin.getId(), fechaFin);
-		
 		componentes.put(statusObjeto.getId(), statusObjeto);
 		componentes.put(reporteExcelBtn.getId(), reporteExcelBtn);
 		componentes.put(reporteCsvBtn.getId(), reporteCsvBtn);

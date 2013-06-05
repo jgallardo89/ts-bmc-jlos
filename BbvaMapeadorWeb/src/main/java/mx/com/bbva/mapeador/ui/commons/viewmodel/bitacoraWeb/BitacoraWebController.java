@@ -189,7 +189,7 @@ public class BitacoraWebController extends ControllerSupport implements IControl
 	}	
 	
 	private ArrayList<BeanGenerico> generaLista() {
-		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
+		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm");
 		ArrayList<BeanGenerico> beanGenericos = new ArrayList<BeanGenerico>();
 		BeanGenerico beanGenerico = null;
 		for(BitacoraVO bitacoraVO: bitacoraVOs) {
