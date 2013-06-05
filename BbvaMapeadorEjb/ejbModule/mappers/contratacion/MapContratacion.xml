@@ -51,7 +51,8 @@
 				SELECT
 					ETAPA.CD_ETAPA idEtapa,
 					ETAPA.NB_ETAPA nombreEtapa,
-					FLUJO.CD_FLUJO idFlujo
+					FLUJO.CD_FLUJO idFlujo,
+					NU_ORDEN_ETAPA numeroOrdenEtapa
 				FROM
 					TGM515_PRODUCTO PRODUCTO,
 					TGM513_FLUJO FLUJO,
