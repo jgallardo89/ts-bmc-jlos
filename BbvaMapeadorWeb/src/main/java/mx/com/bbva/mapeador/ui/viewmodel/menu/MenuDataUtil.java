@@ -43,7 +43,7 @@ public class MenuDataUtil {
 				tgm501Pantalla.setCdFkPantalla(cdFkPantalla);
 				menu = menuService.obtenerMenuPorUsuario(tgm501Pantalla);				
 				add(new MenuTreeNode<MenuData>(new MenuData(
-                        "Menu", null),new MenuTreeNodeCollection<MenuData>() {
+                        "Menu", null, tgm501Pantalla.getTxUrlIcon()),new MenuTreeNodeCollection<MenuData>() {
 					private static final long serialVersionUID = 1L;
 					{
 						for (final Tgm501Pantalla tgm501Pantalla2 : menu) {
@@ -52,10 +52,10 @@ public class MenuDataUtil {
 							menuPrimerNivel = menuService.obtenerMenuPorUsuario(tgm501Pantalla2);
 							if(menuPrimerNivel.size()==0){
 								add(new MenuTreeNode<MenuData>(new MenuData(
-										tgm501Pantalla2.getNbPantalla(), tgm501Pantalla2.getTxUrlPantalla())));
+										tgm501Pantalla2.getNbPantalla(), tgm501Pantalla2.getTxUrlPantalla(), tgm501Pantalla2.getTxUrlIcon())));
 							}else{
 								add(new MenuTreeNode<MenuData>(new MenuData(
-										tgm501Pantalla2.getNbPantalla(),null), new MenuTreeNodeCollection<MenuData>() {
+										tgm501Pantalla2.getNbPantalla(),null, tgm501Pantalla2.getTxUrlIcon()), new MenuTreeNodeCollection<MenuData>() {
 											private static final long serialVersionUID = 1L;
 											{
 												for (final Tgm501Pantalla tgm501Pantalla3 : menuPrimerNivel) {
@@ -65,7 +65,7 @@ public class MenuDataUtil {
 													logger.debug(tgm501Pantalla3.getTxUrlPantalla());
 													if(menuSegundoNivel.size()==0){
 														add(new MenuTreeNode<MenuData>(new MenuData(
-																tgm501Pantalla3.getNbPantalla(), tgm501Pantalla3.getTxUrlPantalla())));
+																tgm501Pantalla3.getNbPantalla(), tgm501Pantalla3.getTxUrlPantalla(),tgm501Pantalla3.getTxUrlIcon())));
 													}else{
 														
 													}

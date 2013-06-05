@@ -165,8 +165,7 @@
 											<row>
 												<custom-attributes
 													clienteVOs="${each.clienteVOs}" canalVO="${each}" />
-												<detail open="false"
-													fulfill="onOpen">
+												<detail open="false" fulfill="onOpen">
 													<include
 														src="clientesDetalle.zul" canalVO="${canalVO}"
 														clienteVOs="${clienteVOs}" />

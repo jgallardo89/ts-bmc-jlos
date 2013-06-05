@@ -51,7 +51,7 @@
 												<div align="right">
 													<label id="lblIcono" width="100%" sclass="labelFill" value="Icono:"></label>												
 												</div>
-												<textbox sclass="textboxUpperCase" maxlength="300"
+												<textbox maxlength="300"
 													id="icono" value="@load(vm.strIcono)" width="100%"></textbox>																																							
 											</row>
 											<row>

@@ -185,7 +185,7 @@ public class PantallaController extends ControllerSupport implements  IControlle
 		//Textbox
 		pantallaVO.setNombrePantalla(nombrePantalla.getValue().isEmpty()?"%":"%"+nombrePantalla.getValue().toUpperCase()+"%");
 		pantallaVO.setDescripcionUrlPantalla(url.getValue().isEmpty()?"%":"%"+url.getValue().toLowerCase()+"%");
-		pantallaVO.setDescripcionUrlIcon(icono.getValue().isEmpty()?"%":"%"+icono.getValue().toUpperCase()+"%");
+		pantallaVO.setDescripcionUrlIcon(icono.getValue().isEmpty()?"%":"%"+icono.getValue()+"%");
 		
 		//Combos Validar el nombre de los parametros en HTML VS Controller
 		pantallaVO.setIdPantallaPadre((Integer.parseInt(idPantallaPadre.getValue().isEmpty()?"0":idPantallaPadre.getValue())));
@@ -284,7 +284,7 @@ public class PantallaController extends ControllerSupport implements  IControlle
 				pantallaVO.setNumeroOrdenPantalla(Integer.parseInt(orden.getValue()));								
 				pantallaVO.setNombrePantalla(nombrePantalla.getValue().toUpperCase().trim());
 				pantallaVO.setDescripcionUrlPantalla(url.getValue().trim());
-				pantallaVO.setDescripcionUrlIcon(icono.getValue().toUpperCase().trim());
+				pantallaVO.setDescripcionUrlIcon(icono.getValue().trim());
 				
 				//Seteo de VO a DTO 
 				pantallaDTO.setPantallaVO(pantallaVO);
@@ -320,7 +320,7 @@ public class PantallaController extends ControllerSupport implements  IControlle
 				
 				pantallaVO.setNombrePantalla(nombrePantalla.getValue().toUpperCase());
 				pantallaVO.setDescripcionUrlPantalla(url.getValue().toLowerCase());
-				pantallaVO.setDescripcionUrlIcon(icono.getValue().toUpperCase());
+				pantallaVO.setDescripcionUrlIcon(icono.getValue());
 				
 				//Seteo de VO a DTO 
 				pantallaDTO.setPantallaVO(pantallaVO);

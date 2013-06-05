@@ -56,8 +56,8 @@
 							    <template name="model">
 							        <treeitem>	
 							        	<treerow>						        							            	
-							             	<treecell>
-							             		<a label="@load(each.data.description)" autag="@load(each.data.url)" onClick="@command('createTab',url=each.data)">							             			
+							             	<treecell image="@load(each.data.icon)">							             		
+							             		<a label="@load(each.data.description)"  autag="@load(each.data.url)" onClick="@command('createTab',url=each.data)">							             			
 							             		</a>							             			 							             									             									             
 							             	</treecell>				                   								            	
 							        	 </treerow>
