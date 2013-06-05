@@ -14,8 +14,8 @@
 					MAPA.NB_MAPA_GMM nombreMapaGmm,
 					MAPA.TX_MAPA_GMM descripcionMapaGmm,
 					MENSAJE.CD_MENSAJE_SALIDA idMensajeSalida,
-					MENSAJE.NB_MENSAJE_SALIDA nombreMensajeSalida,
-					MENSAJE.TX_MENSAJE_SALIDA descripcionMensajeSalida,
+					NVL(MENSAJE.NB_MENSAJE_SALIDA,' ') nombreMensajeSalida,
+					NVL(MENSAJE.TX_MENSAJE_SALIDA,' ') descripcionMensajeSalida,
 					CONTRAT_MAP.TX_CD_USUARIO descripcionIdUsuarios,
 					CONTRAT_MAP.ST_NOTIFICACION estatusNotificacion
 				FROM
