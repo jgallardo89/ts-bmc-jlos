@@ -461,10 +461,10 @@ public class UsuarioMapeadorController extends ControllerSupport implements ICon
 	public void onShowReport(@BindingParam("type") final String type) {
 		ReportesController controller = new ReportesController();
 		ArrayList<String> headersReport = new ArrayList<String>();
-		headersReport.add("Identificador Usuario");
+		headersReport.add("Identificador usuario");
 		headersReport.add("Usuario");
 		headersReport.add("PErfil");
-		headersReport.add("Estatus");
+		headersReport.add("Status");
 		if(type.equals("xls")) {
 			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_EXCEL,"Catálogo Usuario WEB");
 		} else {

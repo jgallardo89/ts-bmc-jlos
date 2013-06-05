@@ -662,9 +662,9 @@ public class PerfilController extends ControllerSupport implements  IController{
 	public void onShowReport(@BindingParam("type") final String type) {
 		ReportesController controller = new ReportesController();
 		ArrayList<String> headersReport = new ArrayList<String>();
-		headersReport.add("Nombre Perfil");
-		headersReport.add("Descripción Perfil");
-		headersReport.add("Estatus");		
+		headersReport.add("Nombre perfil");
+		headersReport.add("Descripción de perfil");
+		headersReport.add("Status");		
 		if(type.equals("xls")) {
 			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_EXCEL,"Catálogo Perfiles");
 		} else {
