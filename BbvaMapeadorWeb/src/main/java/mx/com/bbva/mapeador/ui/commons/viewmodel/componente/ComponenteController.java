@@ -528,8 +528,8 @@ public class ComponenteController extends ControllerSupport implements  IControl
 		ReportesController controller = new ReportesController();
 		ArrayList<String> headersReport = new ArrayList<String>();
 		headersReport.add("Pantalla");
-		headersReport.add("Nombre Componente");
-		headersReport.add("Tipo de Componente");
+		headersReport.add("Nombre del componente");
+		headersReport.add("Tipo componente");
 		headersReport.add("Default");		
 		if(type.equals("xls")) {
 			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_EXCEL,"Catálogo Componentes");

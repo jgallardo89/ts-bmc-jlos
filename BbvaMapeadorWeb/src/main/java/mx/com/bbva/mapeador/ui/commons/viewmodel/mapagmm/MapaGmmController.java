@@ -342,24 +342,22 @@ public class MapaGmmController  extends ControllerSupport implements  IControlle
 	public void onShowReport(@BindingParam("type") final String type) {
 		ReportesController controller = new ReportesController();
 		ArrayList<String> headersReport = new ArrayList<String>();
-		String titleReport = "Catálogo Mapas";
-		headersReport.add("Identificador Mapa");
 		headersReport.add("Descripción");
-		headersReport.add("Fecha Alta");
+		headersReport.add("Fecha alta");
 		headersReport.add("Fecha modificación"); 
-		headersReport.add("Estatus");
+		headersReport.add("Status");
 		if(type.equals("xls")) {
 			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_EXCEL,"Catálogo de Mapa");
 		} else {
 			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_TEXTO,"Catálogo de Mapa");
 		}
-		controller.createReport(generaLista(), headersReport, titleReport, "MAPA");
+		controller.createReport(generaLista(), headersReport, type, "MAPA");
 	}	
 	
 	private ArrayList<BeanGenerico> generaLista() {
 		ArrayList<BeanGenerico> beanGenericos = new ArrayList<BeanGenerico>();
 		BeanGenerico beanGenerico = null;
-		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm");
 		for(MapaGmmVO mapaGmmVO: mapaGmmVOs) {
 			beanGenerico = new BeanGenerico();
 			beanGenerico.setValor1(mapaGmmVO.getNombreMapaGmm());

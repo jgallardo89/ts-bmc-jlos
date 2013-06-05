@@ -558,12 +558,12 @@ public class EstatusObjetoController extends ControllerSupport implements IContr
 		ArrayList<String> headersReport = new ArrayList<String>();
 		headersReport.add("Pantalla");
 		headersReport.add("Nombre Estatus Objeto");
-		headersReport.add("Descripcion Estatus Objeto");
-		headersReport.add("Estatus");		
+		headersReport.add("Descripción estatus objeto");
+		headersReport.add("Status");		
 		if(type.equals("xls")) {
 			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_EXCEL,"Catálogo Estatus");
 		} else {
-			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_TEXTO,"Catálogo Estatys");
+			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_TEXTO,"Catálogo Estatus");
 		}
 		controller.createReport(generaLista(), headersReport, type, "ESTATUS-OBJETO");
 	}	

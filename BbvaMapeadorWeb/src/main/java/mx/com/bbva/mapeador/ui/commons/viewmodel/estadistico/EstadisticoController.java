@@ -343,7 +343,7 @@ public class EstadisticoController extends ControllerSupport implements  IContro
 	private ArrayList<BeanGenerico> generaLista() {
 		ArrayList<BeanGenerico> beanGenericos = new ArrayList<BeanGenerico>();
 		BeanGenerico beanGenerico = null;
-		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm");
 		for(EstadisticoVO estadisticoVO: estadisticoVOs) {
 			beanGenerico = new BeanGenerico();
 			beanGenerico.setValor1(estadisticoVO.getNombreCanal());
