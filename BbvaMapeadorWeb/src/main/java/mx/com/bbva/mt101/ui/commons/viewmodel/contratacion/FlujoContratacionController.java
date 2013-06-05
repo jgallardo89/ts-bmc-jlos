@@ -19,7 +19,6 @@ import mx.com.bbva.bancomer.mensajesalida.dto.MensajeSalidaDTO;
 import mx.com.bbva.bancomer.usuarionotificacion.dto.UsuarioNotificacionDTO;
 import mx.com.bbva.mapeador.ui.commons.controller.IController;
 
-import org.apache.log4j.Logger;
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
@@ -43,8 +42,7 @@ import org.zkoss.zul.Window;
 public class FlujoContratacionController extends Div  implements IController, IdSpace {
 
 	private static final long serialVersionUID = -7046754339941749911L;
-	private static final Logger logger = Logger.getLogger(FlujoContratacionController.class);
-	
+
 	@Wire
 	private Combobox mapaGMM;
 	@Wire
@@ -74,6 +72,8 @@ public class FlujoContratacionController extends Div  implements IController, Id
 	@Wire
 	private Textbox idMensajeSalida;
 	@Wire
+	private Textbox idTransaccion;
+	@Wire
     Window contratacionTabWindows;
     
     private String idStrContratacion;
@@ -81,6 +81,7 @@ public class FlujoContratacionController extends Div  implements IController, Id
     private String idStrFlujo;
     private String idStrMapaGmm;
     private String idStrEtapa;
+    private String idStrTransaccion;
     private String idStrMensajeSalida;
     private String descripcionIdUsuarios = "";
     private String strDescripcionMensajeSalida;
@@ -143,7 +144,7 @@ public class FlujoContratacionController extends Div  implements IController, Id
 			contratacionMapVO.setIdEtapa(Integer.parseInt(idEtapa.getValue()));
 			contratacionMapVO.setIdContratacion(Integer.parseInt(idContratacion.getValue()));
 			if(notificacion.getSelectedItem().getId().equals("radioS")) {
-				contratacionMapVO.setEstatusNotificacion("S".charAt(0));
+				contratacionMapVO.setEstatusNotificacion("T".charAt(0));
 				contratacionMapVO.setIdMensajeSalida(Integer.parseInt(idMensajeSalida.getValue()));
 				List<UsuarioNotificacionVO> listaUsuarios = contratacionUsuariosDTO.getUsuarioNotificacionContrataMapVOs();;
 				
@@ -163,7 +164,7 @@ public class FlujoContratacionController extends Div  implements IController, Id
 				contratacionMapVO.setIdMensajeSalida(null);
 				contratacionMapVO.setDescripcionIdUsuarios(null);
 			}
-			if(Sessions.getCurrent().getAttribute("idContratacionReg") != null) {
+			if(Sessions.getCurrent().getAttribute("idContratacionReg") != null || idTransaccion.getValue().equals("0")) {
 				contratacionMapDTO.setContratacionMapVO(contratacionMapVO);
 				contratacionMapeadorBO.createCommand(contratacionMapDTO);
 				Messagebox.show("!La Contratación fue guardada exitosamente!",
@@ -186,8 +187,9 @@ public class FlujoContratacionController extends Div  implements IController, Id
 		contratacionMapDTO = new ContratacionMapDTO();
         Selectors.wireComponents(view, this, false);
         contratacionUsuariosDTO = new ContratacionDTO();
+        int[] idUsuarios = null;
         if(Sessions.getCurrent().getAttribute("idProducto") == null) {
-        	botonLimpiar = true;        
+        	botonLimpiar = true;
 	        mapaGMM.setValue(Executions.getCurrent().getParameter("nombreMapaGmm"));
 	        descripcionMapaGmm.setValue(Executions.getCurrent().getParameter("descripcionMapaGmm"));
 	        if(Executions.getCurrent().getParameter("nombreMensajeSalida") != null)
@@ -205,6 +207,7 @@ public class FlujoContratacionController extends Div  implements IController, Id
 	        idStrEtapa = Executions.getCurrent().getParameter("idEtapa");
 	        idStrContratacion = Executions.getCurrent().getParameter("idContratacion");
 	        idStrMensajeSalida = Executions.getCurrent().getParameter("idMensajeSalida");
+	        idStrTransaccion = Executions.getCurrent().getParameter("idTransaccion");
 	        titulo = Executions.getCurrent().getParameter("titulo");        
 	        
 	        if(Executions.getCurrent().getParameter("estatusNotificacion").equals("N")) {
@@ -215,7 +218,9 @@ public class FlujoContratacionController extends Div  implements IController, Id
 	        	flagDisabled = false;
 	        }
 	
-	        int[] idUsuarios = generarUsuarios(Executions.getCurrent().getParameter("descripcionIdUsuarios"));
+	        if(Executions.getCurrent().getParameter("descripcionIdUsuarios") != null) {
+	        	idUsuarios = generarUsuarios(Executions.getCurrent().getParameter("descripcionIdUsuarios"));
+	        }
 	        
 	        UsuarioNotificacionDTO usuarios = new UsuarioNotificacionDTO();
 	        UsuarioNotificacionVO usuarioNotificacionVO = new UsuarioNotificacionVO();
@@ -223,14 +228,18 @@ public class FlujoContratacionController extends Div  implements IController, Id
 	        usuarioNotificacionVO.setTipoNotificacion("N");
 	        usuarios.setUsuarioNotificacionVO(usuarioNotificacionVO);
 	        UsuarioNotificacionBO usuarioNotificacionBO  = new UsuarioNotificacionBO();
-		    contratacionUsuariosDTO.setUsuarioNotificacionContrataMapVOs(((ContratacionDTO) usuarioNotificacionBO.readCommand(idUsuarios)).getUsuarioNotificacionVOs());
+	        if(idUsuarios != null) {
+	        	contratacionUsuariosDTO.setUsuarioNotificacionContrataMapVOs(((ContratacionDTO) usuarioNotificacionBO.readCommand(idUsuarios)).getUsuarioNotificacionVOs());
+	        } else {
+	        	contratacionUsuariosDTO.setUsuarioNotificacionContrataMapVOs(new ArrayList<UsuarioNotificacionVO>());
+	        }
 		    contratacionDTO.setUsuarioNotificacionVOs(((UsuarioNotificacionDTO) usuarioNotificacionBO.readCommand(usuarios)).getUsuarioNotificacionVOs());
 		} else {
 			botonLimpiar = false;
 			idStrEtapa = Executions.getCurrent().getParameter("idEtapa");
 			idStrFlujo = Executions.getCurrent().getParameter("idFlujo");
 			idStrContratacion = Executions.getCurrent().getParameter("idContratacion");
-			
+			idStrTransaccion = Executions.getCurrent().getParameter("idTransaccion");
 			notificacion.setSelectedItem(radioS);
         	flagDisabled = false;
         	
@@ -597,6 +606,20 @@ public class FlujoContratacionController extends Div  implements IController, Id
 	 */
 	public void setBotonLimpiar(boolean botonLimpiar) {
 		this.botonLimpiar = botonLimpiar;
+	}
+
+	/**
+	 * @return the idStrTransaccion
+	 */
+	public String getIdStrTransaccion() {
+		return idStrTransaccion;
+	}
+
+	/**
+	 * @param idStrTransaccion the idStrTransaccion to set
+	 */
+	public void setIdStrTransaccion(String idStrTransaccion) {
+		this.idStrTransaccion = idStrTransaccion;
 	}
 
 	@Override

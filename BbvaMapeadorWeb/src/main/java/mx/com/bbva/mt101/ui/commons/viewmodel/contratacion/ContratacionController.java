@@ -4,7 +4,11 @@ import java.lang.reflect.Field;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map.Entry;
 
 import mx.com.bbva.bancomer.bitacora.dto.BitacoraDTO;
 import mx.com.bbva.bancomer.bitacora.dto.CampoDTO;
@@ -30,7 +34,7 @@ import mx.com.bbva.bancomer.mapper.business.ProductoBO;
 import mx.com.bbva.bancomer.producto.dto.ProductoDTO;
 import mx.com.bbva.mapeador.ui.commons.controller.IController;
 import mx.com.bbva.mapeador.ui.commons.viewmodel.support.ControllerSupport;
-import mx.com.bbva.mapeador.ui.commons.viewmodel.reportes.ReportesController;
+import mx.com.bbva.mt101.ui.commons.viewmodel.reportes.ReportesController;
 
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.BindingParam;
@@ -175,7 +179,7 @@ public class ContratacionController extends ControllerSupport implements IContro
 	
 	@Command
 	@GlobalCommand
-	@NotifyChange({ "contratacionVOs" })
+	@NotifyChange({ "contratacionVOs", "estatusObjeto" })
 	public void readContratacion() {
 		ContratacionDTO contratacionDTO = new ContratacionDTO();
 		ContratacionVO contratacionVO = new ContratacionVO();
@@ -183,6 +187,22 @@ public class ContratacionController extends ControllerSupport implements IContro
 		ContratacionBO contratacionBO = new ContratacionBO();
 		contratacionVOs = contratacionBO.readCommand(contratacionDTO).getContratacionVOs();
 		botonEditar = true;	
+	}
+	
+	private void disabledComponents() {
+		canal.setDisabled(true);
+		canalSalida.setDisabled(true);
+		producto.setDisabled(true);
+		cliente.setDisabled(true);
+		estatusObjeto.setDisabled(true);
+	}
+	
+	private void enabledComponents() {
+		canal.setDisabled(false);
+		canalSalida.setDisabled(false);
+		producto.setDisabled(false);
+		cliente.setDisabled(false);
+		estatusObjeto.setDisabled(false);
 	}
 	
 	private void registraBitacora(ContratacionVO contratacionVO, int evento) {
@@ -315,6 +335,7 @@ public class ContratacionController extends ControllerSupport implements IContro
 		idCliente.setValue(null);
 		botonGuardar = true;
 		botonEditar = true;
+		enabledComponents();
 	}
 
 	@Command
@@ -335,6 +356,7 @@ public class ContratacionController extends ControllerSupport implements IContro
 		producto.setValue(contratacionVO.getNombreProducto());
 		cliente.setValue(contratacionVO.getNombreCliente());
 		estatusObjeto.setValue(contratacionVO.getNombreEstatusObjeto());
+		disabledComponents();
 		
 		idContratacion.setValue(String.valueOf(contratacionVO.getIdContratacion()));
 		idCanal.setValue(String.valueOf(contratacionVO.getIdCanal()));
@@ -408,8 +430,9 @@ public class ContratacionController extends ControllerSupport implements IContro
         	insertaContratacionVO(contratacionVO);
 			contratacionDTO.setContratacionVO(contratacionVO);
 			setContratacionDTO(contratacionDTO);
-			cargaTabsDinamicosUp(contratacionVO.getIdContratacion());
-			
+			//cargaTabsDinamicosUp(contratacionVO.getIdContratacion());
+			mergeEtapas(contratacionVO.getIdContratacion(), contratacionVO.getIdProducto());
+			estatusObjeto.setDisabled(false);
 			//Sessions.getCurrent().removeAttribute("contratacionVO");
 			comboEstatus = true;
 			flagNvaContra = true;
@@ -426,6 +449,72 @@ public class ContratacionController extends ControllerSupport implements IContro
 			comboEstatus = false;
 		}
     }
+	
+	private void mergeEtapas(int idContratacion, int idProduct) {
+		HashMap<Integer, ContratacionMapVO> hashMapEtapa = new HashMap<Integer, ContratacionMapVO>();
+		ContratacionMapDTO contratacionMapDTO = new ContratacionMapDTO();
+		contratacionVO = new ContratacionVO();
+		contratacionDTO = new ContratacionDTO();
+		ContratacionBO contratacionBO = new ContratacionBO();
+		contratacionVO.setIdProducto(idProduct);
+		contratacionDTO.setContratacionVO(contratacionVO);
+		contratacionDTO = contratacionBO.readCommandEtapas(contratacionDTO);
+		
+		ContratacionMapeadorBO contratacionMapeadorBO = new ContratacionMapeadorBO();
+		ContratacionMapVO contratacionMapVO = new ContratacionMapVO();
+		contratacionMapVO.setIdContratacion(idContratacion);
+		contratacionMapDTO.setContratacionMapVO(contratacionMapVO);
+		contratacionMapDTO = contratacionMapeadorBO.readCommand(contratacionMapDTO);
+		Sessions.getCurrent().removeAttribute("idContratacionReg");
+		Tab newTab = null;
+		Iframe iframe = null;
+		Tabpanel newTabpanel = null;
+		int contador = 1;
+		
+		for(ContratacionVO contratacionVO:contratacionDTO.getContratacionVOs()) {
+			ContratacionMapVO mapVO = new ContratacionMapVO();
+			mapVO.setIdEtapa(contratacionVO.getIdEtapa());
+			mapVO.setIdFlujo(contratacionVO.getIdFlujo());
+			mapVO.setIdContratacion(contratacionVO.getIdContratacion());
+			mapVO.setNombreEtapa(contratacionVO.getNombreEtapa());
+		    hashMapEtapa.put(contratacionVO.getNumeroOrdenEtapa(), mapVO);
+		}
+		for(ContratacionMapVO mapVO:contratacionMapDTO.getContratacionMapVOs()) {
+			hashMapEtapa.put(mapVO.getNumeroOrdenEtapa(), mapVO);
+		}
+		Collection<ContratacionMapVO> s = hashMapEtapa.values();
+   	 	Iterator<ContratacionMapVO> it2 = s.iterator();
+
+	   	 while(it2.hasNext()){
+	   		ContratacionMapVO mapVO = (ContratacionMapVO)it2.next();			
+				newTab = new Tab(mapVO.getNombreEtapa());
+				newTab.setClosable(false);	
+				if (contador == 1) {
+					newTab.setSelected(true);
+				}
+		        newTab.setId(mapVO.getNombreEtapa() + contador++);
+		        newTabpanel = new Tabpanel();
+		        newTabpanel.setWidth("100%");
+		        newTabpanel.setHeight("100%");
+		        newTabpanel.setId(mapVO.getNombreEtapa());
+		        if(mapVO.getNombreMapaGmm()!=null) {
+			        iframe = new Iframe("flows/contratacion/pageTab.zul?nombreMapaGmm="+mapVO.getNombreMapaGmm()+"&idMapaGmm="+mapVO.getIdMapaGmm()+
+						        		"&idEtapa="+mapVO.getIdEtapa()+"&idFlujo="+mapVO.getIdFlujo()+"&idMensajeSalida="+mapVO.getIdMensajeSalida()+
+						        		"&descripcionMapaGmm="+mapVO.getDescripcionMapaGmm()+"&estatusNotificacion="+mapVO.getEstatusNotificacion()+
+						        		"&nombreMensajeSalida="+mapVO.getNombreMensajeSalida()+"&descripcionMensajeSalida="+mapVO.getDescripcionMensajeSalida()+
+						        		"&descripcionIdUsuarios="+mapVO.getDescripcionIdUsuarios()+"&idContratacion="+mapVO.getIdContratacion()+"&titulo="+
+						        		mapVO.getNombreEtapa()+"&idTransaccion=1");
+		        } else {
+		        	iframe = new Iframe("flows/contratacion/pageTab.zul?idEtapa="+mapVO.getIdEtapa()+"&idFlujo="+
+		        			mapVO.getIdFlujo()+"&idContratacion="+idContratacion+"&estatusNotificacion='T'&idTransaccion=0");
+		        }
+		        iframe.setWidth("100%");
+		        iframe.setHeight("100%");
+		        newTabpanel.appendChild(iframe);
+		        tabs.getTabs().insertBefore(newTab, tabNohome);
+		        newTabpanel.setParent(tabs.getTabpanels());
+		}
+	}
 
 	private void cargaTabsDinamicosUp(int idContratacion) {
 		ContratacionMapeadorBO contratacionMapeadorBO = new ContratacionMapeadorBO();
@@ -454,7 +543,8 @@ public class ContratacionController extends ControllerSupport implements IContro
 				        		"&idEtapa="+mapVO.getIdEtapa()+"&idFlujo="+mapVO.getIdFlujo()+"&idMensajeSalida="+mapVO.getIdMensajeSalida()+
 				        		"&descripcionMapaGmm="+mapVO.getDescripcionMapaGmm()+"&estatusNotificacion="+mapVO.getEstatusNotificacion()+
 				        		"&nombreMensajeSalida="+mapVO.getNombreMensajeSalida()+"&descripcionMensajeSalida="+mapVO.getDescripcionMensajeSalida()+
-				        		"&descripcionIdUsuarios="+mapVO.getDescripcionIdUsuarios()+"&idContratacion="+mapVO.getIdContratacion()+"&titulo="+mapVO.getNombreEtapa());
+				        		"&descripcionIdUsuarios="+mapVO.getDescripcionIdUsuarios()+"&idContratacion="+mapVO.getIdContratacion()+"&titulo="+
+				        		mapVO.getNombreEtapa());
 	        iframe.setWidth("100%");
 	        iframe.setHeight("100%");
 	        newTabpanel.appendChild(iframe);
@@ -485,7 +575,8 @@ public class ContratacionController extends ControllerSupport implements IContro
 	        newTabpanel.setHeight("100%");
 	        newTabpanel.setId(contratacionVO.getNombreEtapa());
 	        iframe = new Iframe("flows/contratacion/pageTab.zul?idEtapa="+contratacionVO.getIdEtapa()+"&idFlujo="+
-	        										contratacionVO.getIdFlujo()+"&idContratacion="+idContratacion.getValue());
+	        										contratacionVO.getIdFlujo()+"&idContratacion="+idContratacion.getValue()+
+	        										"&estatusNotificacion='T'&idTransaccion=0");
 	        iframe.setWidth("100%");
 	        iframe.setHeight("100%");
 	        newTabpanel.appendChild(iframe);
@@ -548,8 +639,9 @@ public class ContratacionController extends ControllerSupport implements IContro
 	
 	@Command
 	@GlobalCommand
-	@NotifyChange({"botonGuardar"})
+	@NotifyChange({"botonGuardar","estatusObjeto"})
 	public void closeModal() {
+		clean();
 		botonGuardar = true;
 		editarContratacionWindows.detach();
     }
