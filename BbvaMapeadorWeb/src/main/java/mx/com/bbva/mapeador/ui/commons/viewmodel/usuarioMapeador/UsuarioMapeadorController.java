@@ -169,8 +169,8 @@ public class UsuarioMapeadorController extends ControllerSupport implements ICon
 		UsuarioVO usuarioVO = new UsuarioVO();		
 		usuarioVO.setNombreUsuario(nombreUsuario.getValue().isEmpty()?null:"%"+nombreUsuario.getValue().toUpperCase()+"%");
 		usuarioVO.setIdCveUsuario(identificadorUsuario.getValue().isEmpty()?null:"%"+identificadorUsuario.getValue().toUpperCase()+"%");
-		usuarioVO.setIdPerfil(Integer.parseInt(idPerfil.getValue().isEmpty()?"0":idPerfil.getValue()));
-		usuarioVO.setEstatusUsuario(Integer.parseInt(idEstatusObjeto.getValue().isEmpty()?"0":idEstatusObjeto.getValue()));
+		usuarioVO.setIdPerfil(Integer.parseInt(perfilesDisponibles.getSelectedItem().getValue().toString().isEmpty()?"0":perfilesDisponibles.getSelectedItem().getValue().toString()));
+		usuarioVO.setEstatusUsuario(Integer.parseInt(status.getSelectedItem().getValue().toString().isEmpty()?"0":status.getSelectedItem().getValue().toString()));
 		usuarioDTO.setUsuarioVO(usuarioVO);
 		usuarioDTO.toString(BbvaAbstractDataTransferObject.XML);		
 		usuarioDTO = usuarioBO.readCommand(usuarioDTO);
