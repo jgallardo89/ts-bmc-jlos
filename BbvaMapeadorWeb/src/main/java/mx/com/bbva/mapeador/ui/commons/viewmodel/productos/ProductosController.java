@@ -332,9 +332,9 @@ public class ProductosController extends ControllerSupport implements IControlle
 		headersReport.add("Identificador Producto");
 		headersReport.add("Nombre del Producto");
 		headersReport.add("Identificador del Flujo");
-		headersReport.add("Fecha Alta");
-		headersReport.add("Fecha Modificación");
-		headersReport.add("Estatus");
+		headersReport.add("Fecha alta");
+		headersReport.add("Fecha modificación");
+		headersReport.add("Status");
 		if(type.equals("xls")) {
 			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_EXCEL,"Catálogo Producto");
 		} else {
@@ -344,7 +344,7 @@ public class ProductosController extends ControllerSupport implements IControlle
 	}	
 	
 	private ArrayList<BeanGenerico> generaLista() {
-		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm");
 		ArrayList<BeanGenerico> beanGenericos = new ArrayList<BeanGenerico>();
 		BeanGenerico beanGenerico = null;
 		int i = 1;

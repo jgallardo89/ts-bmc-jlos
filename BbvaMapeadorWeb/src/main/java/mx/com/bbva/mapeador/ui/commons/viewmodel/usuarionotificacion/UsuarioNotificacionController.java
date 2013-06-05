@@ -585,9 +585,9 @@ public class UsuarioNotificacionController  extends ControllerSupport implements
 	public void onShowReport(@BindingParam("type") final String type) {
 		ReportesController controller = new ReportesController();
 		ArrayList<String> headersReport = new ArrayList<String>();
-		headersReport.add("Nombre de Usuario");
-		headersReport.add("Email");
-		headersReport.add("Estatus");		
+		headersReport.add("Nombre usuario");
+		headersReport.add("e-mail");
+		headersReport.add("Status");		
 		if(type.equals("xls")) {
 			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_EXCEL,"Usuarios Negocio");
 		} else {

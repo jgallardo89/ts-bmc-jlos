@@ -19,8 +19,8 @@ import net.sf.jasperreports.engine.JRExporterParameter;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import net.sf.jasperreports.engine.export.JRTextExporter;
-import net.sf.jasperreports.engine.export.JRTextExporterParameter;
+import net.sf.jasperreports.engine.export.JRCsvExporter;
+import net.sf.jasperreports.engine.export.JRCsvExporterParameter;
 import net.sf.jasperreports.engine.export.JRXlsExporter;
 
 /**
@@ -41,7 +41,6 @@ public class ServletReport extends HttpServlet {
 		ServletOutputStream ouputStream = response.getOutputStream();
 		DateFormat dateFormat = new SimpleDateFormat("ddMMyyyy");
 		JRExporter exporter = null;
-		JRTextExporter exporterTXT = null;
 		JasperPrint jasperPrint = null;
 		ByteArrayOutputStream baos = null;
 		int contador = 1;
@@ -50,7 +49,7 @@ public class ServletReport extends HttpServlet {
 				ArrayList<String> headersReport = (ArrayList<String>) session.getAttribute("headersReport");
 				ArrayList<BeanGenerico> fieldsReport = (ArrayList<BeanGenerico>) session.getAttribute("listBeanGenerico");
 				String typeReport = (String) session.getAttribute("typeReport");
-				String nameReport = (String) session.getAttribute("nameReport");
+				String nameReport = (String) session.getAttribute("nameReport"); 
 				
 		        Map<String, Object> parameters = new HashMap<String, Object>();
 		        for(String header:headersReport) {
@@ -77,14 +76,13 @@ public class ServletReport extends HttpServlet {
 					exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, baos );
 					exporter.exportReport();
 				} else {
-					response.setContentType("application/text");
+					response.setContentType("application/csv");
 					baos = new ByteArrayOutputStream();
-					exporterTXT = new JRTextExporter();
-					exporterTXT.setParameter(JRTextExporterParameter.CHARACTER_WIDTH    , new Float(10));
-					exporterTXT.setParameter(JRTextExporterParameter.CHARACTER_HEIGHT   , new Float(14));
-					exporterTXT.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
-					exporterTXT.setParameter(JRExporterParameter.OUTPUT_STREAM, baos );
-					exporterTXT.exportReport();
+					exporter = new JRCsvExporter();
+					exporter.setParameter(JRCsvExporterParameter.FIELD_DELIMITER, "\t");
+					exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+					exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, baos );
+					exporter.exportReport();
 				}
 				byte[] bytes = baos.toByteArray();
 				baos.close();

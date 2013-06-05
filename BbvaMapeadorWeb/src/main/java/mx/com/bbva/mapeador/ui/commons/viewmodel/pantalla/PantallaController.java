@@ -284,7 +284,7 @@ public class PantallaController extends ControllerSupport implements  IControlle
 				pantallaVO.setNumeroOrdenPantalla(Integer.parseInt(orden.getValue()));								
 				pantallaVO.setNombrePantalla(nombrePantalla.getValue().toUpperCase().trim());
 				pantallaVO.setDescripcionUrlPantalla(url.getValue().trim());
-				pantallaVO.setDescripcionUrlIcon(icono.getValue().trim());
+				pantallaVO.setDescripcionUrlIcon(icono.getValue().toUpperCase().trim());
 				
 				//Seteo de VO a DTO 
 				pantallaDTO.setPantallaVO(pantallaVO);
@@ -381,19 +381,18 @@ public class PantallaController extends ControllerSupport implements  IControlle
 	public void onShowReport(@BindingParam("type") final String type) {
 		ReportesController controller = new ReportesController();
 		ArrayList<String> headersReport = new ArrayList<String>();
-		String titleReport = "Catálogo Pantallas";
 		headersReport.add("Pantalla Padre");
 		headersReport.add("Pantalla");
 		headersReport.add("URL Pantalla");
 		headersReport.add("URL Icono");
 		headersReport.add("Orden");
-		headersReport.add("Estatus");
+		headersReport.add("Status");
 		if(type.equals("xls")) {
 			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_EXCEL,"Catálogo Pantalla");
 		} else {
 			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_TEXTO,"Catálogo Pantalla");
 		}
-		controller.createReport(generaLista(), headersReport, titleReport, "PANTALLAS");
+		controller.createReport(generaLista(), headersReport, type, "PANTALLAS");
 	}	
 	
 	private ArrayList<BeanGenerico> generaLista() { 

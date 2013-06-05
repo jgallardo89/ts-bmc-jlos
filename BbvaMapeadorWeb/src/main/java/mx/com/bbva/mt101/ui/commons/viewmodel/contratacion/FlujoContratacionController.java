@@ -160,7 +160,7 @@ public class FlujoContratacionController extends Div  implements IController, Id
 				contratacionMapVO.setDescripcionIdUsuarios(descripcionIdUsuarios);
 				descripcionIdUsuarios = "";
 			} else {
-				contratacionMapVO.setEstatusNotificacion("N".charAt(0));
+				contratacionMapVO.setEstatusNotificacion("F".charAt(0));
 				contratacionMapVO.setIdMensajeSalida(null);
 				contratacionMapVO.setDescripcionIdUsuarios(null);
 			}
@@ -192,16 +192,8 @@ public class FlujoContratacionController extends Div  implements IController, Id
         	botonLimpiar = true;
 	        mapaGMM.setValue(Executions.getCurrent().getParameter("nombreMapaGmm"));
 	        descripcionMapaGmm.setValue(Executions.getCurrent().getParameter("descripcionMapaGmm"));
-	        if(Executions.getCurrent().getParameter("nombreMensajeSalida") != null)
-	        	strNombreMensajeSalida = Executions.getCurrent().getParameter("nombreMensajeSalida");
-	        else
-	        	strNombreMensajeSalida = "";
-	        
-	        if(Executions.getCurrent().getParameter("descripcionMensajeSalida") != null)
-	        	strDescripcionMensajeSalida = Executions.getCurrent().getParameter("descripcionMensajeSalida");
-	        else
-	        	strDescripcionMensajeSalida = "";
-	        
+	        strNombreMensajeSalida = Executions.getCurrent().getParameter("nombreMensajeSalida");
+	        strDescripcionMensajeSalida = Executions.getCurrent().getParameter("descripcionMensajeSalida").replace("|", "%");	        
 	        idStrFlujo = Executions.getCurrent().getParameter("idFlujo");
 	        idStrMapaGmm = Executions.getCurrent().getParameter("idMapaGmm");
 	        idStrEtapa = Executions.getCurrent().getParameter("idEtapa");
@@ -210,7 +202,7 @@ public class FlujoContratacionController extends Div  implements IController, Id
 	        idStrTransaccion = Executions.getCurrent().getParameter("idTransaccion");
 	        titulo = Executions.getCurrent().getParameter("titulo");        
 	        
-	        if(Executions.getCurrent().getParameter("estatusNotificacion").equals("N")) {
+	        if(Executions.getCurrent().getParameter("estatusNotificacion").equals("F")) {
 	        	notificacion.setSelectedItem(radioN);
 	        	flagDisabled = true;
 	        } else {

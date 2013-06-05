@@ -8,7 +8,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map.Entry;
 
 import mx.com.bbva.bancomer.bitacora.dto.BitacoraDTO;
 import mx.com.bbva.bancomer.bitacora.dto.CampoDTO;
@@ -22,6 +21,7 @@ import mx.com.bbva.bancomer.canal.dto.BeanGenerico;
 import mx.com.bbva.bancomer.canal.dto.CanalDTO;
 import mx.com.bbva.bancomer.cliente.dto.ClienteDTO;
 import mx.com.bbva.bancomer.commons.command.CommandConstants;
+import mx.com.bbva.bancomer.commons.command.MapeadorConstants;
 import mx.com.bbva.bancomer.contratacion.dto.ContratacionDTO;
 import mx.com.bbva.bancomer.contratacionmap.dto.ContratacionMapDTO;
 import mx.com.bbva.bancomer.estatusobjeto.dto.EstatusObjetoDTO;
@@ -33,8 +33,8 @@ import mx.com.bbva.bancomer.mapper.business.EstatusObjetoBO;
 import mx.com.bbva.bancomer.mapper.business.ProductoBO;
 import mx.com.bbva.bancomer.producto.dto.ProductoDTO;
 import mx.com.bbva.mapeador.ui.commons.controller.IController;
-import mx.com.bbva.mapeador.ui.commons.viewmodel.support.ControllerSupport;
 import mx.com.bbva.mapeador.ui.commons.viewmodel.reportes.ReportesController;
+import mx.com.bbva.mapeador.ui.commons.viewmodel.support.ControllerSupport;
 
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.BindingParam;
@@ -51,9 +51,13 @@ import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.Wire;
+import org.zkoss.zul.Button;
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Datebox;
+import org.zkoss.zul.Grid;
 import org.zkoss.zul.Iframe;
+import org.zkoss.zul.Image;
+import org.zkoss.zul.Label;
 import org.zkoss.zul.Tab;
 import org.zkoss.zul.Tabbox;
 import org.zkoss.zul.Tabpanel;
@@ -89,16 +93,48 @@ public class ContratacionController extends ControllerSupport implements IContro
 	private Textbox idEstatusObjeto;
 	@Wire
 	private Combobox estatusObjeto;
-	
 	@Wire
 	private Datebox fechaModificacion;
 	@Wire
 	private Datebox fechaAlta;
+	@Wire
+	private Label lblCanalEntrada;
+	@Wire
+	private Label lblCanalSalida;
+	@Wire
+	private Label lblCliente;
+	@Wire
+	private Label lblProducto;
+	@Wire
+	private Label lblFechaAlta;
+	@Wire
+	private Label lblFechaModificacion;
+	@Wire
+	private Label lblStatus;
+	@Wire
+	private Image imgXLSReport;
+	@Wire
+	private Image imgCSVReport;
+	@Wire
+	private Button limpiarBtn;
+	@Wire
+	private Button consultarBtn;
+	@Wire
+	private Button editarBtn;
+	@Wire
+	private Button nuevaBtn;
+	@Wire
+	private Button guardaBtn;
+	@Wire
+	private Button closeBtn;
+	@Wire
+	private Grid contratacionGrid;
 	
 	private boolean botonEditar;
 	private boolean botonGuardar;
 	private boolean comboEstatus;
 	private boolean flagNvaContra;
+	
 	private ContratacionDTO contratacionDTO;
 	private List<ContratacionVO> contratacionVOs;
 	private ContratacionVO contratacionVO;
@@ -452,6 +488,7 @@ public class ContratacionController extends ControllerSupport implements IContro
 	
 	private void mergeEtapas(int idContratacion, int idProduct) {
 		HashMap<Integer, ContratacionMapVO> hashMapEtapa = new HashMap<Integer, ContratacionMapVO>();
+		String mensaje = "";
 		ContratacionMapDTO contratacionMapDTO = new ContratacionMapDTO();
 		contratacionVO = new ContratacionVO();
 		contratacionDTO = new ContratacionDTO();
@@ -498,12 +535,13 @@ public class ContratacionController extends ControllerSupport implements IContro
 		        newTabpanel.setHeight("100%");
 		        newTabpanel.setId(mapVO.getNombreEtapa());
 		        if(mapVO.getNombreMapaGmm()!=null) {
+		        	mensaje = mapVO.getDescripcionMensajeSalida().replace("%", "|");
 			        iframe = new Iframe("flows/contratacion/pageTab.zul?nombreMapaGmm="+mapVO.getNombreMapaGmm()+"&idMapaGmm="+mapVO.getIdMapaGmm()+
 						        		"&idEtapa="+mapVO.getIdEtapa()+"&idFlujo="+mapVO.getIdFlujo()+"&idMensajeSalida="+mapVO.getIdMensajeSalida()+
 						        		"&descripcionMapaGmm="+mapVO.getDescripcionMapaGmm()+"&estatusNotificacion="+mapVO.getEstatusNotificacion()+
-						        		"&nombreMensajeSalida="+mapVO.getNombreMensajeSalida()+"&descripcionMensajeSalida="+mapVO.getDescripcionMensajeSalida()+
+						        		"&nombreMensajeSalida="+mapVO.getNombreMensajeSalida()+"&descripcionMensajeSalida="+mensaje+
 						        		"&descripcionIdUsuarios="+mapVO.getDescripcionIdUsuarios()+"&idContratacion="+mapVO.getIdContratacion()+"&titulo="+
-						        		mapVO.getNombreEtapa()+"&idTransaccion=1");
+						        		mapVO.getNombreEtapa()+"&idTransaccion=1");			        
 		        } else {
 		        	iframe = new Iframe("flows/contratacion/pageTab.zul?idEtapa="+mapVO.getIdEtapa()+"&idFlujo="+
 		        			mapVO.getIdFlujo()+"&idContratacion="+idContratacion+"&estatusNotificacion='T'&idTransaccion=0");
@@ -593,17 +631,17 @@ public class ContratacionController extends ControllerSupport implements IContro
 		headersReport.add("Canal Entrada");
 		headersReport.add("Cliente");
 		headersReport.add("Producto");
-		headersReport.add("Canal salida");
-		headersReport.add("Fecha Alta");
-		headersReport.add("Fecha Modificacion   ");
-		headersReport.add("Estatus");
+		headersReport.add("Canal Salida");
+		headersReport.add("Fecha alta");
+		headersReport.add("Fecha modificación");
+		headersReport.add("Status");
 		controller.createReport(generaLista(), headersReport, type,"CONTRATACION");
 	}	
 	
 	private ArrayList<BeanGenerico> generaLista() {
 		ArrayList<BeanGenerico> beanGenericos = new ArrayList<BeanGenerico>();
 		BeanGenerico beanGenerico = null;
-		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
 		for(ContratacionVO contratacionVO: contratacionVOs) {
 			beanGenerico = new BeanGenerico();
 			beanGenerico.setValor1(contratacionVO.getNombreCanal());
@@ -766,9 +804,35 @@ public class ContratacionController extends ControllerSupport implements IContro
 	public void setComboEstatus(boolean comboEstatus) {
 		this.comboEstatus = comboEstatus;
 	}
+	
 	@Override
 	public boolean applyPermision() {
-		// TODO Auto-generated method stub
-		return false;
-	}
+		boolean isApplied = false;
+		HashMap<String, Component> componentes = new HashMap<String, Component>();
+		componentes.put(lblCanalEntrada.getId(), lblCanalEntrada);
+		componentes.put(lblCanalSalida.getId(), lblCanalSalida);
+		componentes.put(lblCliente.getId(), lblCliente);
+		componentes.put(lblProducto.getId(), lblProducto);
+		componentes.put(lblFechaAlta.getId(), lblFechaAlta);
+		componentes.put(lblFechaModificacion.getId(), lblFechaModificacion);
+		componentes.put(lblStatus.getId(), lblStatus);
+		componentes.put(canal.getId(), canal);
+		componentes.put(canalSalida.getId(), canalSalida);
+		componentes.put(cliente.getId(), cliente);
+		componentes.put(producto.getId(), producto);
+		componentes.put(estatusObjeto.getId(), estatusObjeto);
+		componentes.put(fechaAlta.getId(), fechaAlta);
+		componentes.put(fechaModificacion.getId(), fechaModificacion);
+		componentes.put(imgXLSReport.getId(), imgXLSReport);
+		componentes.put(imgCSVReport.getId(), imgCSVReport);
+		componentes.put(limpiarBtn.getId(), limpiarBtn);
+		componentes.put(consultarBtn.getId(), consultarBtn);
+		componentes.put(editarBtn.getId(), editarBtn);
+		componentes.put(nuevaBtn.getId(), nuevaBtn);
+		componentes.put(guardaBtn.getId(), guardaBtn);
+		componentes.put(closeBtn.getId(), closeBtn);
+		componentes.put(contratacionGrid.getId(), contratacionGrid);
+		super.applyPermission(MapeadorConstants.CANALES, componentes);
+		return isApplied;
+	}	
 }
