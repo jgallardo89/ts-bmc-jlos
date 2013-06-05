@@ -150,6 +150,7 @@
 										<textbox id="idMensajeSalida" value="@load(vm.idStrMensajeSalida)" visible="false"/>
 										<textbox id="idMapaGmm" value="@load(vm.idStrMapaGmm)" visible="false"/>
 										<textbox id="idEtapa" value="@load(vm.idStrEtapa)" visible="false"/>
+										<textbox id="idTransaccion" value="@load(vm.idStrTransaccion)" visible="false"/>
 									</div>
 									<div align="center"/>
 								</row>
