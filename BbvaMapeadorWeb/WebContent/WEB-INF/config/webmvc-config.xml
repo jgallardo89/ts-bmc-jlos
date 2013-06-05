@@ -22,6 +22,7 @@
 				/palabraComodin=flowController  <!-- AKFG -->
 					<!-- Fin de Mensajes de Notificacion -->
 				/usuarioNotificacion=flowController  <!-- AKFG -->
+				/usuarioSistema=flowController  <!-- AKFG -->
 				<!-- Procesos -->
 				/contratacion=flowController  <!-- AKFG -->
 				/pageTab=flowController  <!-- AKFG -->

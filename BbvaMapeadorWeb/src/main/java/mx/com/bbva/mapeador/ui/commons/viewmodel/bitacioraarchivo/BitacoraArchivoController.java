@@ -104,21 +104,25 @@ public class BitacoraArchivoController extends ControllerSupport implements  ICo
 	@Command
 	@NotifyChange({ "bitacoraArchivoVOs" })
 	public void readWithFilters() {
-		ReportesController controller = new ReportesController();
-		BitacoraArchivoDTO bitacoraArchivoDTO = new BitacoraArchivoDTO();
-		BitacoraArchivoVO bitacoraArchivoVO = new BitacoraArchivoVO();
-		
-		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-		
-		bitacoraArchivoVO.setFechaInici(fechaInicio.getValue());
-		bitacoraArchivoVO.setFechaFin(fechaFin.getValue());
-		bitacoraArchivoVO.setIdEstatus(Integer.parseInt(idEventoMapeador.getValue().isEmpty()?"0":idEventoMapeador.getValue()));
-		bitacoraArchivoVO.setNombreArchivo(nombreArchivo.getValue().isEmpty()?"%":"%"+nombreArchivo.getValue().toUpperCase()+"%");
-		bitacoraArchivoVO.toString();
-		bitacoraArchivoDTO.setBitacoraArchivoVO(bitacoraArchivoVO);
-		BitacoraArchivoBO bitacoraArchivoBO = new BitacoraArchivoBO();
-		bitacoraArchivoVOs = bitacoraArchivoBO.readCommand(bitacoraArchivoDTO).getBitacoraArchivoVOs();
-		controller.registrarEvento(bitacoraArchivoVO, bitacoraArchivoVO, CommandConstants.CONSULTAR, "Bitácora de Archivos");
+		if(fechaInicio.getValue().compareTo(fechaFin.getValue()) > 0 ){
+			fechaInicio.setErrorMessage("La fecha de inicio no puede ser mayor a la fecha de fin");
+		}else{
+			ReportesController controller = new ReportesController();
+			BitacoraArchivoDTO bitacoraArchivoDTO = new BitacoraArchivoDTO();
+			BitacoraArchivoVO bitacoraArchivoVO = new BitacoraArchivoVO();
+			
+			DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+			
+			bitacoraArchivoVO.setFechaInici(fechaInicio.getValue());
+			bitacoraArchivoVO.setFechaFin(fechaFin.getValue());
+			bitacoraArchivoVO.setIdEstatus(Integer.parseInt(idEventoMapeador.getValue().isEmpty()?"0":idEventoMapeador.getValue()));
+			bitacoraArchivoVO.setNombreArchivo(nombreArchivo.getValue().isEmpty()?"%":"%"+nombreArchivo.getValue().toUpperCase()+"%");
+			bitacoraArchivoVO.toString();
+			bitacoraArchivoDTO.setBitacoraArchivoVO(bitacoraArchivoVO);
+			BitacoraArchivoBO bitacoraArchivoBO = new BitacoraArchivoBO();
+			bitacoraArchivoVOs = bitacoraArchivoBO.readCommand(bitacoraArchivoDTO).getBitacoraArchivoVOs();
+			controller.registrarEvento(bitacoraArchivoVO, bitacoraArchivoVO, CommandConstants.CONSULTAR, "Bitácora de Archivos");
+		}
 	}
 	
 	@Override

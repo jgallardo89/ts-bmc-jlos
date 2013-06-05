@@ -35,6 +35,7 @@
 		<webflow:flow-location id="palabraComodin"  path="/WEB-INF/flows/palabraComodin/palabraComodin.xml" /> <!-- AKFG -->
 			<!-- Fin de Mensajes de Notificacion -->
 		<webflow:flow-location id="usuarioNotificacion"  path="/WEB-INF/flows/usuarioNotificacion/usuarioNotificacion.xml" /> <!-- AKFG -->
+		<webflow:flow-location id="usuarioNotificacion"  path="/WEB-INF/flows/usuarioNotificacion/usuarioSistema.xml" /> <!-- AKFG -->
 		<!-- Procesos -->
 		<webflow:flow-location id="contratacion"  path="/WEB-INF/flows/contratacion/contratacion.xml" /> <!-- AKFG -->
 		<webflow:flow-location id="procesos"  path="/WEB-INF/flows/procesos/procesos.xml" /> <!-- AKFG -->

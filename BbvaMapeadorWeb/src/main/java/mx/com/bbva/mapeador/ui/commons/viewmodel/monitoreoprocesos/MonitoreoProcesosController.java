@@ -250,55 +250,59 @@ public class MonitoreoProcesosController extends ControllerSupport implements  I
 	@GlobalCommand
 	@NotifyChange({ "monitoreoProcesosVOs" })
 	public void readWithFilters() {
-		ReportesController controller = new ReportesController();
-		MonitoreoProcesosDTO monitoreoProcesosDTO = new MonitoreoProcesosDTO();
-		MonitoreoProcesosVO monitoreoProcesosVO = new MonitoreoProcesosVO(); 
-		
-		//Combos Validar el nombre de los parametros en HTML VS Controller
-		monitoreoProcesosVO.setIdCanal((Integer.parseInt(idCanal.getValue().isEmpty()?"0":idCanal.getValue())));
-		monitoreoProcesosVO.setIdCliente((Integer.parseInt(idCliente.getValue().isEmpty()?"0":idCliente.getValue())));
-		monitoreoProcesosVO.setIdProducto((Integer.parseInt(idProducto.getValue().isEmpty()?"0":idProducto.getValue())));
-		monitoreoProcesosVO.setNumeroLote((Integer.parseInt(lote.getValue().isEmpty()?"0":lote.getValue())));
-		monitoreoProcesosVO.setIdEstatusMapeador((Integer.parseInt(idEstatus.getValue().isEmpty()?"0":idEstatus.getValue())));
-		
-		//Fechas
-		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-		monitoreoProcesosVO.setFechaInicio(dateFormat.format(fechaInicio.getValue()));
-		monitoreoProcesosVO.setFechaFin(dateFormat.format(fechaFin.getValue()));
-		
-		
-
-		monitoreoProcesosDTO.setMonitoreoProcesosVO(monitoreoProcesosVO);
-		monitoreoProcesosDTO.toString(BbvaAbstractDataTransferObject.XML);	
-		
-		//LLamada a BO  MonitoreoProcesosBO para consulta por criterio
-		MonitoreoProcesosBO monitoreoProcesosBO = new MonitoreoProcesosBO();
-		
-		//Asignacion resultado de consulta al mismo DTO de MonitoreoProcesos
-		monitoreoProcesosDTO = monitoreoProcesosBO.readCommand(monitoreoProcesosDTO);
-		
-		//Tamaño de la lista de acuerdo al criterio de busqueda y objeto MonitoreoProcesos
-		if(monitoreoProcesosDTO.getMonitoreoProcesosVOs() != null) { 
-				for (MonitoreoProcesosVO entidad : monitoreoProcesosDTO.getMonitoreoProcesosVOs()) {
-					if(entidad.getIdEstatusMapeador() == 8) {
-						entidad.setImagenEstatus("/img/verde-exito.png");
-					} else if(entidad.getIdEstatusMapeador() == 9) {
-						entidad.setImagenEstatus("/img/error-rojo.png");
-					} else if(entidad.getIdEstatusMapeador() == 10) {
-						entidad.setImagenEstatus("/img/azul-finalizausuario.png");
-					} else if(entidad.getIdEstatusMapeador() == 11) {
-						entidad.setImagenEstatus("/img/amarillo-espera.png");
-					} else{
-						entidad.setImagenEstatus("/img/verde-exito.png");
-					} 
+		if(fechaInicio.getValue().compareTo(fechaFin.getValue()) > 0 ){
+			fechaInicio.setErrorMessage("La fecha de inicio no puede ser mayor a la fecha de fin");
+		}else{
+			ReportesController controller = new ReportesController();
+			MonitoreoProcesosDTO monitoreoProcesosDTO = new MonitoreoProcesosDTO();
+			MonitoreoProcesosVO monitoreoProcesosVO = new MonitoreoProcesosVO(); 
+			
+			//Combos Validar el nombre de los parametros en HTML VS Controller
+			monitoreoProcesosVO.setIdCanal((Integer.parseInt(idCanal.getValue().isEmpty()?"0":idCanal.getValue())));
+			monitoreoProcesosVO.setIdCliente((Integer.parseInt(idCliente.getValue().isEmpty()?"0":idCliente.getValue())));
+			monitoreoProcesosVO.setIdProducto((Integer.parseInt(idProducto.getValue().isEmpty()?"0":idProducto.getValue())));
+			monitoreoProcesosVO.setNumeroLote((Integer.parseInt(lote.getValue().isEmpty()?"0":lote.getValue())));
+			monitoreoProcesosVO.setIdEstatusMapeador((Integer.parseInt(idEstatus.getValue().isEmpty()?"0":idEstatus.getValue())));
+			
+			//Fechas
+			DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+			monitoreoProcesosVO.setFechaInicio(dateFormat.format(fechaInicio.getValue()));
+			monitoreoProcesosVO.setFechaFin(dateFormat.format(fechaFin.getValue()));
+			
+			
+	
+			monitoreoProcesosDTO.setMonitoreoProcesosVO(monitoreoProcesosVO);
+			monitoreoProcesosDTO.toString(BbvaAbstractDataTransferObject.XML);	
+			
+			//LLamada a BO  MonitoreoProcesosBO para consulta por criterio
+			MonitoreoProcesosBO monitoreoProcesosBO = new MonitoreoProcesosBO();
+			
+			//Asignacion resultado de consulta al mismo DTO de MonitoreoProcesos
+			monitoreoProcesosDTO = monitoreoProcesosBO.readCommand(monitoreoProcesosDTO);
+			
+			//Tamaño de la lista de acuerdo al criterio de busqueda y objeto MonitoreoProcesos
+			if(monitoreoProcesosDTO.getMonitoreoProcesosVOs() != null) { 
+					for (MonitoreoProcesosVO entidad : monitoreoProcesosDTO.getMonitoreoProcesosVOs()) {
+						if(entidad.getIdEstatusMapeador() == 8) {
+							entidad.setImagenEstatus("/img/verde-exito.png");
+						} else if(entidad.getIdEstatusMapeador() == 9) {
+							entidad.setImagenEstatus("/img/error-rojo.png");
+						} else if(entidad.getIdEstatusMapeador() == 10) {
+							entidad.setImagenEstatus("/img/azul-finalizausuario.png");
+						} else if(entidad.getIdEstatusMapeador() == 11) {
+							entidad.setImagenEstatus("/img/amarillo-espera.png");
+						} else{
+							entidad.setImagenEstatus("/img/verde-exito.png");
+						} 
+				}
+				logger.debug("size:"+ monitoreoProcesosDTO.getMonitoreoProcesosVOs().size());
+			} else{
+				logger.debug(":::::::::::Lista Vacia::::::::::");
 			}
-			logger.debug("size:"+ monitoreoProcesosDTO.getMonitoreoProcesosVOs().size());
-		} else{
-			logger.debug(":::::::::::Lista Vacia::::::::::");
+			//Asignacion de la lista a la variable global de la clase
+			monitoreoProcesosVOs = monitoreoProcesosDTO.getMonitoreoProcesosVOs();
+			controller.registrarEvento(monitoreoProcesosVO, monitoreoProcesosVO, CommandConstants.CONSULTAR,"Monitoreo de Procesos");
 		}
-		//Asignacion de la lista a la variable global de la clase
-		monitoreoProcesosVOs = monitoreoProcesosDTO.getMonitoreoProcesosVOs();
-		controller.registrarEvento(monitoreoProcesosVO, monitoreoProcesosVO, CommandConstants.CONSULTAR,"Monitoreo de Procesos");
 	}
 	
 	@Command 

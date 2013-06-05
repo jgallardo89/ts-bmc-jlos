@@ -117,20 +117,24 @@ public class BitacoraWebController extends ControllerSupport implements IControl
 	@Command
 	@NotifyChange({ "bitacoraVOs" })
 	public void readWithFilters() {
-		BitacoraDTO bitacoraDTO = new BitacoraDTO();
-		BitacoraVO bitacoraVO = new BitacoraVO();
-		
-		DateFormat dateFormatInicio = new SimpleDateFormat("dd-MM-yyyy 00:00");
-		DateFormat dateFormatFin = new SimpleDateFormat("dd-MM-yyyy 23:59");
-		
-		bitacoraVO.setFechaInicio(fechaInicio.getValue());
-		bitacoraVO.setFechaFin(fechaFin.getValue());
-		bitacoraVO.setIdEventoMapeador(Integer.parseInt(idEventoMapeador.getValue().isEmpty()?"0":idEventoMapeador.getValue()));
-		bitacoraVO.setIdUsuario(Integer.parseInt(idUsuario.getValue().isEmpty()?"0":idUsuario.getValue()));
-		bitacoraVO.toString();
-		bitacoraDTO.setBitacoraVO(bitacoraVO);
-		BitacoraBO bitacoraBO = new BitacoraBO();
-		bitacoraVOs = bitacoraBO.readCommand(bitacoraDTO).getBitacoraVOs();
+		if(fechaInicio.getValue().compareTo(fechaFin.getValue()) > 0 ){
+			fechaInicio.setErrorMessage("La fecha de inicio no puede ser mayor a la fecha de fin");
+		}else{
+			BitacoraDTO bitacoraDTO = new BitacoraDTO();
+			BitacoraVO bitacoraVO = new BitacoraVO();
+			
+			DateFormat dateFormatInicio = new SimpleDateFormat("dd-MM-yyyy 00:00");
+			DateFormat dateFormatFin = new SimpleDateFormat("dd-MM-yyyy 23:59");
+			
+			bitacoraVO.setFechaInicio(fechaInicio.getValue());
+			bitacoraVO.setFechaFin(fechaFin.getValue());
+			bitacoraVO.setIdEventoMapeador(Integer.parseInt(idEventoMapeador.getValue().isEmpty()?"0":idEventoMapeador.getValue()));
+			bitacoraVO.setIdUsuario(Integer.parseInt(idUsuario.getValue().isEmpty()?"0":idUsuario.getValue()));
+			bitacoraVO.toString();
+			bitacoraDTO.setBitacoraVO(bitacoraVO);
+			BitacoraBO bitacoraBO = new BitacoraBO();
+			bitacoraVOs = bitacoraBO.readCommand(bitacoraDTO).getBitacoraVOs();
+		}
 	}
 	
 	@Command

@@ -262,39 +262,44 @@ public class EstadisticoController extends ControllerSupport implements  IContro
 	@Command
 	@NotifyChange({ "estadisticoVOs", "canalVOs" })
 	public void readWithFilters() {
-		ReportesController controller = new ReportesController();
-		EstadisticoDTO estadisticoDTO = new EstadisticoDTO();
-		EstadisticoVO estadisticoVO = new EstadisticoVO(); 
-		
-		//Combos Validar el nombre de los parametros en HTML VS Controller
-		estadisticoVO.setIdCanal((Integer.parseInt(idCanal.getValue().isEmpty()?"0":idCanal.getValue())));
-		estadisticoVO.setIdCliente((Integer.parseInt(idCliente.getValue().isEmpty()?"0":idCliente.getValue())));
-		estadisticoVO.setIdProducto((Integer.parseInt(idProducto.getValue().isEmpty()?"0":idProducto.getValue())));
-		
-		//Fechas
-		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-		estadisticoVO.setFechaInicio(dateFormat.format(fechaInicio.getValue()));
-		estadisticoVO.setFechaFin(dateFormat.format(fechaFin.getValue()));
-
-		estadisticoDTO.setEstadisticoVO(estadisticoVO);
-		estadisticoDTO.toString(BbvaAbstractDataTransferObject.XML);	
-		
-		//LLamada a BO  EstadisticoBO para consulta por criterio
-		EstadisticoBO estadisticoBO = new EstadisticoBO();
-		
-		//Asignacion resultado de consulta al mismo DTO de Estadistico
-		estadisticoDTO = estadisticoBO.readCommand(estadisticoDTO);
-		
-		//Tamaño de la lista de acuerdo al criterio de busqueda y objeto Estadistico
-		if(estadisticoDTO.getEstadisticoVOs() != null) {
-			logger.debug("size:"+estadisticoDTO.getEstadisticoVOs().size());
-		} else{
-			logger.debug(":::::::::::Lista Vacia::::::::::");
+		if(fechaInicio.getValue().compareTo(fechaFin.getValue()) > 0 ){
+			fechaInicio.setErrorMessage("La fecha de inicio no puede ser mayor a la fecha de fin");
+		}else{
+			ReportesController controller = new ReportesController();
+			
+			EstadisticoDTO estadisticoDTO = new EstadisticoDTO();
+			EstadisticoVO estadisticoVO = new EstadisticoVO(); 
+			
+			//Combos Validar el nombre de los parametros en HTML VS Controller
+			estadisticoVO.setIdCanal((Integer.parseInt(idCanal.getValue().isEmpty()?"0":idCanal.getValue())));
+			estadisticoVO.setIdCliente((Integer.parseInt(idCliente.getValue().isEmpty()?"0":idCliente.getValue())));
+			estadisticoVO.setIdProducto((Integer.parseInt(idProducto.getValue().isEmpty()?"0":idProducto.getValue())));
+			
+			//Fechas
+			DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+			estadisticoVO.setFechaInicio(dateFormat.format(fechaInicio.getValue()));
+			estadisticoVO.setFechaFin(dateFormat.format(fechaFin.getValue()));
+	
+			estadisticoDTO.setEstadisticoVO(estadisticoVO);
+			estadisticoDTO.toString(BbvaAbstractDataTransferObject.XML);	
+			
+			//LLamada a BO  EstadisticoBO para consulta por criterio
+			EstadisticoBO estadisticoBO = new EstadisticoBO();
+			
+			//Asignacion resultado de consulta al mismo DTO de Estadistico
+			estadisticoDTO = estadisticoBO.readCommand(estadisticoDTO);
+			
+			//Tamaño de la lista de acuerdo al criterio de busqueda y objeto Estadistico
+			if(estadisticoDTO.getEstadisticoVOs() != null) {
+				logger.debug("size:"+estadisticoDTO.getEstadisticoVOs().size());
+			} else{
+				logger.debug(":::::::::::Lista Vacia::::::::::");
+			}
+			//Asignacion de la lista a la variable global de la clase
+			estadisticoVOs = estadisticoDTO.getEstadisticoVOs();
+			armarListaGrid(estadisticoDTO.getEstadisticoVOs());
+			controller.registrarEvento(estadisticoVO, estadisticoVO, CommandConstants.CONSULTAR, "Estadístico");
 		}
-		//Asignacion de la lista a la variable global de la clase
-		estadisticoVOs = estadisticoDTO.getEstadisticoVOs();
-		armarListaGrid(estadisticoDTO.getEstadisticoVOs());
-		controller.registrarEvento(estadisticoVO, estadisticoVO, CommandConstants.CONSULTAR, "Estadístico");
 	}
 	@Override
 	@Command

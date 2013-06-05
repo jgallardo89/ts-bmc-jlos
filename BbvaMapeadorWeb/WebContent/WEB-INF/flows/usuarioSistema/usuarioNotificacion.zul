@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?page title="Usuarios para Notificación" contentType="text/html;charset=UTF-8"?>
+<?meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7"?>
+<?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
+<zk>
+	<window border="0" width="100%" height="100%"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('mx.com.bbva.mapeador.ui.commons.viewmodel.usuarionotificacion.UsuarioSistemaController')"
+		id="usuarioNotificacionWindows">
+		<include src="../../pages/styles.zul" />
+		<div sclass="BODY" height="100%" width="100%">
+			<groupbox height="100%">
+				<caption sclass="pageTitle" label="Notificaciones > Usuarios Sistema"></caption>		
+					<vlayout>
+						<groupbox>
+						<panel width="100%" sclass="sectionPanelTitle" id="datosComponente"
+							title="Notificaciones" collapsible="true" style="margin-bottom:10px"
+							border="normal">
+							<caption sclass="sectionPanelTitle" label="Usuarios para Notificación"></caption>
+							<panelchildren>
+								<div align="center">
+									<grid width="100%" style="border:0" oddRowSclass="row2">
+										<columns>
+											<column width="20%" />
+											<column width="25%" />
+											<column width="20%" />
+											<column width="25%" />
+										</columns>
+										<rows>
+											<row sclass="row2">
+												<div align="right">
+													<label id="lblNombreUsuario" width="100%" sclass="labelFill" value="Nombre Usuario: "></label>												
+												</div>
+												<textbox sclass="textboxUpperCase" maxlength="50"
+													id="nombreUsuario" value="@load(vm.strNombreUsuario)" width="100%"></textbox>																										
+											</row>
+											<row sclass="row2">											
+												<div align="right">
+													<label id="lblEmail" width="100%" sclass="labelFill" value="e-mail :"></label>												
+												</div>
+												<textbox maxlength="50"
+													id="email" value="@load(vm.strEmail)" width="100%"></textbox>																										
+											</row>
+											<row sclass="row2">	
+												<div align="right">
+													<label id="lblEstatus" width="100%" sclass="labelFill" value="Status :"></label>
+												</div>
+												<combobox id="status" model="@load(vm.usuarioNotificacionDTO.estatusObjetoVOs)" value="@load(vm.strStatus)"  width="100%" height="100%" onChange="selectedValueStatus()">		
+													<template name="model">										
+														<comboitem value="@load(each.idEstatusObjeto)" label="@load(each.nombreEstatusObjeto)" height="100%"/>
+													</template>																								
+												</combobox>	
+											</row>																						
+										</rows>								
+									</grid>
+									<div align="center">
+										<image id="reporteExcelBtn" src="/img/xls.png" onClick="@command('onShowReport',type='xls')" />
+										<image id="reporteCsvBtn" src="/img/csv.png" onClick="@command('onShowReport',type='txt')" />
+										<button sclass="button" image="/img/clear.png" label="Limpiar" id="limpiarBtn" onClick="@command('clean')" ></button>
+										<button sclass="button" image="/img/disk.png" label="Guardar" id="guardarBtn" onClick="@command('save')"></button>
+										<button sclass="button" image="/img/search.png" label="Consultar" id="consultarBtn" onClick="@command('readWithFilters')"></button>
+									</div>
+								</div>
+							</panelchildren>										
+						</panel>
+					</groupbox>
+					<groupbox height="430px">
+						<panel height="410px" sclass="sectionPanelTitle" width="100%" id="panelUsuarioNotificacion"
+							title="Resultados Usuarios para Notificación" collapsible="true"
+							style="margin-bottom:10px">
+							<caption sclass="sectionPanelTitle" label="Lista de Usuarios para Notificación"></caption>
+							<panelchildren>
+								<grid width="99.7%" id="usuariosNegocioGrid" mold="paging"
+									model="@load(vm.usuarioNotificacionVOs)" pagingPosition="both" pageSize="12"
+									vflex="true">									
+									<columns sizable="true" menupopup="auto">
+										<column hflex="0" align="center" image="/img/pencil-small.png" 
+											width="5%"></column>
+										<column hflex="1" label="Nombre usuario" width="20%"
+											sort="auto(nombreUsuarioNotificado)"></column>
+										<column hflex="1" label="e-mail" style="text-wrap: normal;"
+											width="10%" sort="auto(descripcionEmail)"></column>
+										<column hflex="1" label="Status" width="10%"
+											sort="auto(nombreEstatusObjeto)"></column>									
+									</columns>
+									<template name="model">
+										<row>
+											<image src="/img/pencil-small.png" onClick="@command('readSelected',idUsuarioNotificado=each)"></image>
+											<label hflex="1" value="@load(each.nombreUsuarioNotificado)"></label>
+											<label hflex="1" value="@load(each.descripcionEmail)"></label>
+											<label hflex="1" value="@load(each.nombreEstatusObjeto)"></label> 																				
+										</row>
+									</template>									
+								</grid>
+							</panelchildren>
+						</panel>
+					</groupbox>
+				</vlayout>								
+			</groupbox>	
+			<textbox id="idEstatusObjeto" value="@load(vm.strIdEstatusObjeto)" visible="false"></textbox>
+			<textbox id="idUsuarioNotificado" value="@load(vm.strIdUsuarioNotificado)" visible="false"></textbox>
+		</div>
+		<zscript>
+			public void selectedValueStatus(){
+				try{
+					idEstatusObjeto.setValue(status.getSelectedItem().getValue().toString());
+				}catch(Exception ex){
+					idEstatusObjeto.setValue(null);
+				}
+			}		
+		</zscript>
+	</window>
+</zk>

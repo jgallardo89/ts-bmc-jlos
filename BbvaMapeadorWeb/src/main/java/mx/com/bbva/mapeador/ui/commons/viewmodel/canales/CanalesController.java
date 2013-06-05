@@ -127,17 +127,21 @@ public class CanalesController extends ControllerSupport implements IController 
 		CanalVO canalVO = new CanalVO();
 		DateFormat dateFormatIni = new SimpleDateFormat("dd-MM-yyyy 00:00");
 		DateFormat dateFormatFin = new SimpleDateFormat("dd-MM-yyyy 23:59");
-		canalVO.setFechaInicio(dateFormatIni.format(fechaInicio.getValue()));
-		canalVO.setFechaFin(dateFormatFin.format(fechaFin.getValue()));
-		canalVO.setNombreCanal(StringUtil.validaLike(nombreCanal.getValue()));
-		canalVO.setDescripcionCanal(StringUtil.validaLike(descripcionCanal.getValue()));
-		canalVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue().isEmpty()?"0":idEstatusObjeto.getValue()));
-		canalVO.toString();
-		canalDTO.setCanalVO(canalVO);
-		CanalBO canalBO = new CanalBO();
-		canalesVOs = canalBO.readCommand(canalDTO).getCanalVOs();
-		
-		controller.registrarEvento(canalVO, canalVO, CommandConstants.CONSULTAR, "Catálogo Canal");
+		if(fechaInicio.getValue().compareTo(fechaFin.getValue()) > 0 ){
+			fechaInicio.setErrorMessage("La fecha de inicio no puede ser mayor a la fecha de fin");
+		}else{
+			canalVO.setFechaInicio(dateFormatIni.format(fechaInicio.getValue()));
+			canalVO.setFechaFin(dateFormatFin.format(fechaFin.getValue()));
+			canalVO.setNombreCanal(StringUtil.validaLike(nombreCanal.getValue()));
+			canalVO.setDescripcionCanal(StringUtil.validaLike(descripcionCanal.getValue()));
+			canalVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue().isEmpty()?"0":idEstatusObjeto.getValue()));
+			canalVO.toString();
+			canalDTO.setCanalVO(canalVO);
+			CanalBO canalBO = new CanalBO();
+			canalesVOs = canalBO.readCommand(canalDTO).getCanalVOs();
+			
+			controller.registrarEvento(canalVO, canalVO, CommandConstants.CONSULTAR, "Catálogo Canal");
+		}
 	}
 	
 	@Override
