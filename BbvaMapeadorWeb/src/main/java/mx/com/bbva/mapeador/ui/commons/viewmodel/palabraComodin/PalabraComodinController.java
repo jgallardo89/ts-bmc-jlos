@@ -125,7 +125,7 @@ public class PalabraComodinController extends ControllerSupport implements ICont
 	public void onShowReport(@BindingParam("type") final String type) {
 		ReportesController controller = new ReportesController();
 		ArrayList<String> headersReport = new ArrayList<String>();
-		headersReport.add("Nombre palabra Comodín");
+		headersReport.add("Nombre palabra comodín");
 		headersReport.add("Descripción palabra comodín");
 		
 		if(type.equals("xls")) {
