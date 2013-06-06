@@ -208,7 +208,7 @@ public class UsuarioMapeadorController extends ControllerSupport implements ICon
 		}
 		if (nombreUsuario.getValue().isEmpty()) {
 			nombreUsuario
-					.setErrorMessage("Favor de introducir nombre del Usuaruio del Objeto");
+					.setErrorMessage("Favor de introducir nombre del Usuario del Objeto");
 			errorGuardar = true;
 		} 
 		if (identificadorUsuario.getValue().isEmpty()) {
@@ -463,12 +463,12 @@ public class UsuarioMapeadorController extends ControllerSupport implements ICon
 		ArrayList<String> headersReport = new ArrayList<String>();
 		headersReport.add("Identificador usuario");
 		headersReport.add("Usuario");
-		headersReport.add("PErfil");
+		headersReport.add("Perfil");
 		headersReport.add("Status");
 		if(type.equals("xls")) {
-			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_EXCEL,"Catálogo Usuario WEB");
+			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_EXCEL,"Catálogo Usuarios WEB");
 		} else {
-			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_TEXTO,"Catálogo Usuario WEB");
+			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_TEXTO,"Catálogo Usuarios WEB");
 		}
 		controller.createReport(generaLista(), headersReport, type, "USUARIOS-WEB");
 	}	

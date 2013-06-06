@@ -347,9 +347,9 @@ public class MapaGmmController  extends ControllerSupport implements  IControlle
 		headersReport.add("Fecha modificación"); 
 		headersReport.add("Status");
 		if(type.equals("xls")) {
-			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_EXCEL,"Catálogo de Mapa");
+			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_EXCEL,"Catálogo de Mapas");
 		} else {
-			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_TEXTO,"Catálogo de Mapa");
+			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_TEXTO,"Catálogo de Mapas");
 		}
 		controller.createReport(generaLista(), headersReport, type, "MAPA");
 	}	
@@ -357,7 +357,7 @@ public class MapaGmmController  extends ControllerSupport implements  IControlle
 	private ArrayList<BeanGenerico> generaLista() {
 		ArrayList<BeanGenerico> beanGenericos = new ArrayList<BeanGenerico>();
 		BeanGenerico beanGenerico = null;
-		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm");
+		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
 		for(MapaGmmVO mapaGmmVO: mapaGmmVOs) {
 			beanGenerico = new BeanGenerico();
 			beanGenerico.setValor1(mapaGmmVO.getNombreMapaGmm());

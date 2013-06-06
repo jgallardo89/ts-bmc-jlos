@@ -589,9 +589,9 @@ public class UsuarioNotificacionController  extends ControllerSupport implements
 		headersReport.add("e-mail");
 		headersReport.add("Status");		
 		if(type.equals("xls")) {
-			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_EXCEL,"Usuarios Negocio");
+			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_EXCEL,"Usuarios Notificación Negocio");
 		} else {
-			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_TEXTO,"Usuarios Negocio");
+			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_TEXTO,"Usuarios Notificación Negocio");
 		}
 		controller.createReport(generaLista(), headersReport, type, "USUARIOS-NEGOCIO");
 	}	

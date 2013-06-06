@@ -400,7 +400,7 @@ public class MonitoreoProcesosController extends ControllerSupport implements  I
 	private ArrayList<BeanGenerico> generaLista() {
 		ArrayList<BeanGenerico> beanGenericos = new ArrayList<BeanGenerico>();
 		BeanGenerico beanGenerico = null;
-		DateFormat dateFormatFecha = new SimpleDateFormat("dd-MM-yyyy hh:mm");
+		DateFormat dateFormatFecha = new SimpleDateFormat("dd-MM-yyyy HH:mm");
 		DateFormat dateFormatHora = new SimpleDateFormat("hh:mm:ss");
 		for(MonitoreoProcesosVO monitoreoProcesosVO: monitoreoProcesosVOs) {
 			beanGenerico = new BeanGenerico();

@@ -540,7 +540,7 @@ public class ComponenteController extends ControllerSupport implements  IControl
 	}	
 	
 	private ArrayList<BeanGenerico> generaLista() {
-		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		ArrayList<BeanGenerico> beanGenericos = new ArrayList<BeanGenerico>();
 		BeanGenerico beanGenerico = null;
 		for(ComponenteVO componenteVO: componenteVOs) {

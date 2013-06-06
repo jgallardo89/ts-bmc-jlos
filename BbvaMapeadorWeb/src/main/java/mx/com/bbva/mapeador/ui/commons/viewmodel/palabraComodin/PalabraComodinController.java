@@ -125,13 +125,13 @@ public class PalabraComodinController extends ControllerSupport implements ICont
 	public void onShowReport(@BindingParam("type") final String type) {
 		ReportesController controller = new ReportesController();
 		ArrayList<String> headersReport = new ArrayList<String>();
-		headersReport.add("Nombre Palabra Comodín");
+		headersReport.add("Nombre palabra Comodín");
 		headersReport.add("Descripción palabra comodín");
 		
 		if(type.equals("xls")) {
-			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_EXCEL,"Catálogo Palabra Comodín");
+			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_EXCEL,"Catálogo Palabras Comodín");
 		} else {
-			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_TEXTO,"Catálogo Palabra Comodín");
+			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_TEXTO,"Catálogo Palabras Comodín");
 		}
 		controller.createReport(generaLista(), headersReport, type, "PALABRA_COMODIN");
 	}	

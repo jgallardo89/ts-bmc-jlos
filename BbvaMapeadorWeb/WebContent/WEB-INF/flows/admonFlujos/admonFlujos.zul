@@ -89,9 +89,9 @@
 											width="10%" sort="auto(nombreFlujo)"></column>
 										<column hflex="1" label="Descripción flujo" width="20%"
 											sort="auto(descripcionFlujo)"></column>
-										<column hflex="1" label="Fecha y Hora de alta" width="10%"
+										<column hflex="1" label="Fecha alta" width="10%"
 											sort="auto(fechaAlta)"></column>
-										<column hflex="1" label="Fecha y Hora de modificación" width="10%"
+										<column hflex="1" label="Fecha modificación" width="10%"
 											sort="auto(fechaModificacion)"></column>
 										<column hflex="1" label="Etapas del flujo" width="10%"
 											sort="auto(descripcionEtapa)"></column>	

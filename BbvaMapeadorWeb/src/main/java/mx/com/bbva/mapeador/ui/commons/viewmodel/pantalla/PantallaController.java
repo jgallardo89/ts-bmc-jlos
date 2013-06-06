@@ -388,9 +388,9 @@ public class PantallaController extends ControllerSupport implements  IControlle
 		headersReport.add("Orden");
 		headersReport.add("Status");
 		if(type.equals("xls")) {
-			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_EXCEL,"Catálogo Pantalla");
+			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_EXCEL,"Catálogo Pantallas");
 		} else {
-			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_TEXTO,"Catálogo Pantalla");
+			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_TEXTO,"Catálogo Pantallas");
 		}
 		controller.createReport(generaLista(), headersReport, type, "PANTALLAS");
 	}	

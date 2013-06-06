@@ -327,7 +327,7 @@ public class ClientesController extends ControllerSupport implements IController
 		ArrayList<String> headersReport = new ArrayList<String>();
 		headersReport.add("Identificador");
 		headersReport.add("Nombre cliente");
-		headersReport.add("Descripción Cliente");
+		headersReport.add("Descripción cliente");
 		headersReport.add("Fecha y Hora de alta");
 		headersReport.add("Fecha y Hora de modificación");
 		headersReport.add("Status");
@@ -340,7 +340,7 @@ public class ClientesController extends ControllerSupport implements IController
 	}	
 	
 	private ArrayList<BeanGenerico> generaLista() {
-		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		ArrayList<BeanGenerico> beanGenericos = new ArrayList<BeanGenerico>();
 		BeanGenerico beanGenerico = null;
 		for(ClienteVO clienteVO: clientesVOs) {

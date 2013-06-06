@@ -284,15 +284,15 @@ public class AdmonFlujosController extends ControllerSupport implements IControl
 		ArrayList<String> headersReport = new ArrayList<String>();
 		headersReport.add("Identificador de Flujo");
 		headersReport.add("Descripción flujo");
-		headersReport.add("Fecha y Hora de alta");
-		headersReport.add("Fecha y Hora de modificación");
+		headersReport.add("Fecha alta");
+		headersReport.add("Fecha modificación");
 		headersReport.add("Etapas del flujo");
 		headersReport.add("Status");
 		headersReport.add("Diagrama");
 		if(type.equals("xls")) {
-			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_EXCEL,"Catálogo Clientes");
+			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_EXCEL,"Catálogo Flujos");
 		} else {
-			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_TEXTO,"Catálogo Clientes");
+			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_TEXTO,"Catálogo Flujos");
 		}
 		controller.createReport(generaLista(), headersReport, type, "FLUJOS");
 	}	
@@ -300,7 +300,7 @@ public class AdmonFlujosController extends ControllerSupport implements IControl
 	private ArrayList<BeanGenerico> generaLista() {
 		ArrayList<BeanGenerico> beanGenericos = new ArrayList<BeanGenerico>();
 		BeanGenerico beanGenerico = null;
-		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm");
+		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
 		
 		for(FlujoVO flujoVO: flujoVOs) {
 			beanGenerico = new BeanGenerico();

@@ -100,8 +100,8 @@
 											<image src="/img/pencil-small.png" onClick="@command('readSelected',idMapaGmm=each)"></image>									
 											<label hflex="1" value="@load(each.nombreMapaGmm)"></label>
 											<label hflex="1" value="@load(each.descripcionMapaGmm)"></label>
-											<label hflex="1" value="@load(each.fechaAlta) @converter('formatedDate', format='dd/MM/yyyy  HH:MM')"></label>
-											<label hflex="1" value="@load(each.fechaModificacion) @converter('formatedDate', format='dd/MM/yyyy  HH:MM')"></label> 		
+											<label hflex="1" value="@load(each.fechaAlta) @converter('formatedDate', format='dd/MM/yyyy  HH:mm')"></label>
+											<label hflex="1" value="@load(each.fechaModificacion) @converter('formatedDate', format='dd/MM/yyyy  HH:mm')"></label> 		
 											<label hflex="1" value="@load(each.nombreEstatusObjeto)"></label> 		 																				
 										</row>
 									</template>									

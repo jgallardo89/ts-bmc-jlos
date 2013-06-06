@@ -589,11 +589,11 @@ public class UsuarioSistemaController  extends ControllerSupport implements ICon
 		headersReport.add("Email");
 		headersReport.add("Estatus");		
 		if(type.equals("xls")) {
-			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_EXCEL,"Usuarios Negocio");
+			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_EXCEL,"Usuarios Notificación Sistema");
 		} else {
-			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_TEXTO,"Usuarios Negocio");
+			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_TEXTO,"Usuarios Notificación Sistema");
 		}
-		controller.createReport(generaLista(), headersReport, type, "USUARIOS-NEGOCIO");
+		controller.createReport(generaLista(), headersReport, type, "USUARIOS-SISTEMA");
 	}	
 	
 	private ArrayList<BeanGenerico> generaLista() {

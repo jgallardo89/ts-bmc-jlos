@@ -150,7 +150,7 @@ public class BitacoraArchivoController extends ControllerSupport implements  ICo
 	private ArrayList<BeanGenerico> generaLista() {
 		ArrayList<BeanGenerico> beanGenericos = new ArrayList<BeanGenerico>();
 		BeanGenerico beanGenerico = null;
-		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm");
+		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
 		for(BitacoraArchivoVO bitacoraArchivoVO: bitacoraArchivoVOs) {
 			beanGenerico = new BeanGenerico();
 			beanGenerico.setValor1(dateFormat.format(bitacoraArchivoVO.getFechaArchivo()));

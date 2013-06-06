@@ -336,16 +336,16 @@ public class CanalesController extends ControllerSupport implements IController 
 		headersReport.add("Fecha y Hora de alta");
 		headersReport.add("Status");
 		if(type.equals("xls")) {
-			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_EXCEL,"Catálogo Canal");
+			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_EXCEL,"Catálogo Canales");
 		} else {
-			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_TEXTO,"Catálogo Canal");
+			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_TEXTO,"Catálogo Canales");
 		}
 		controller.createReport(generaLista(), headersReport, type, "CANALES");
 	}	
 	
 	private ArrayList<BeanGenerico> generaLista() {
 		ArrayList<BeanGenerico> beanGenericos = new ArrayList<BeanGenerico>();
-		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		BeanGenerico beanGenerico = null;
 		for(CanalVO canalVO: canalesVOs) {
 			beanGenerico = new BeanGenerico();

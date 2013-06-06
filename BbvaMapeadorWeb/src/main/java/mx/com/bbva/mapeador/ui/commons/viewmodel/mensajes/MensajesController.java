@@ -326,12 +326,12 @@ public class MensajesController extends ControllerSupport implements IController
 		headersReport.add("Asunto de mensaje");
 		headersReport.add("Texto de mensaje");
 		headersReport.add("Fecha alta");
-		headersReport.add("Fecha modificacion");
+		headersReport.add("Fecha modificación");
 		headersReport.add("Status");
 		if(type.equals("xls")) {
-			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_EXCEL,"Catálogo de Mensajes de Notificación");
+			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_EXCEL,"Mensajes de Notificación Negocio");
 		} else {
-			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_TEXTO,"Catálogo de Mensajes de Notificación");
+			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_TEXTO,"Mensajes de Notificación Negocio");
 		}
 		controller.createReport(generaLista(), headersReport, type, "MENSAJES");
 	}	
@@ -339,7 +339,7 @@ public class MensajesController extends ControllerSupport implements IController
 	private ArrayList<BeanGenerico> generaLista() {
 		ArrayList<BeanGenerico> beanGenericos = new ArrayList<BeanGenerico>();
 		BeanGenerico beanGenerico = null;
-		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm");
+		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
 		for(MensajeSalidaVO mensajeSalidaVO: mensajeSalidaVOs) {
 			beanGenerico = new BeanGenerico();
 			beanGenerico.setValor1(mensajeSalidaVO.getNombreMensajeSalida());
