@@ -139,7 +139,7 @@
 								<row align="center" width="70%">
 									<div align="center"/>
 									<div align="center">
-										<button sclass="button" image="/img/disk.png" label="Guardar" id="guardaBtn" onClick="@command('save') @global-command('closeModal')"></button>
+										<button sclass="button" image="/img/disk.png" disabled="@load(vm.guardarBtn)" label="Guardar" id="guardaBtn" onClick="@command('save') @global-command('closeModal')"></button>
 									</div>
 									<div align="right" width="70%" visible="false">
 										<button visible="@load(vm.botonLimpiar)" sclass="button" image="/img/clear.png"  label="Limpiar" id="limpiarBtn" onClick="@command('clean')" ></button>
