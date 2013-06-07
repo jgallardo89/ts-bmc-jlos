@@ -5,11 +5,5 @@
             <dependent-object>Module_1364179188056</dependent-object>
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="BbvaMapeadorBusinessModel.jar" deploy-path="/lib" handle="module:/resource/BbvaMapeadorBusinessModel/BbvaMapeadorBusinessModel">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
-        <dependent-module archiveName="BbvaBancomerCommons.jar" deploy-path="/lib" handle="module:/resource/BbvaBancomerCommons/BbvaBancomerCommons">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
     </wb-module>
 </project-modules>

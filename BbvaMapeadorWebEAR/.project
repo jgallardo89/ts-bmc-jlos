@@ -4,8 +4,6 @@
 	<comment></comment>
 	<projects>
 		<project>BbvaMapeadorWeb</project>
-		<project>BbvaMapeadorBusinessModel</project>
-		<project>BbvaBancomerCommons</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
