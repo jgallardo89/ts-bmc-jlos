@@ -151,6 +151,16 @@ public class ContratacionController extends ControllerSupport implements IContro
 	@Override
 	public Object read() {
 		contratacionDTO = new ContratacionDTO();
+		cargarCombos();
+	    contratacionVO = new ContratacionVO();
+	    contratacionDTO.setContratacionVO(contratacionVO);
+	    ContratacionBO contratacionBO = new ContratacionBO();
+	    contratacionBO.readCommand(contratacionDTO);
+	    
+		return contratacionDTO;
+	}
+	
+	private void cargarCombos() {
 		EstatusObjetoBO estatusObjetoBO = new EstatusObjetoBO();
 		EstatusObjetoDTO estatusObjetoDTO = new EstatusObjetoDTO();
 	    estatusObjetoDTO.setCommandId(CommandConstants.ESTATUS_OBJETO);
@@ -184,14 +194,6 @@ public class ContratacionController extends ControllerSupport implements IContro
 	    contratacionDTO.setCanalVOs(canalDTO.getCanalVOs());
 	    contratacionDTO.setClienteVOs(clienteDTO.getClienteVOs());
 	    contratacionDTO.setProductoVOs(productoDTO.getProductoVOs());
-	    
-	    contratacionVO = new ContratacionVO();
-	    contratacionVO.setIdBaja(CommandConstants.ESTATUS_OBJETO_CONTRATACION_BAJA);
-	    contratacionDTO.setContratacionVO(contratacionVO);
-	    ContratacionBO contratacionBO = new ContratacionBO();
-	    contratacionBO.readCommand(contratacionDTO);
-	    
-		return contratacionDTO;
 	}
 	
 	@Command
@@ -291,36 +293,53 @@ public class ContratacionController extends ControllerSupport implements IContro
 				errorGuardar = true;
 			}
 		}
+		
+		contratacionDTO = new ContratacionDTO();
+		contratacionVO = new ContratacionVO();
+		contratacionVO.toString();
+		contratacionVO.setIdCanal(Integer.parseInt(idCanal.getValue().isEmpty()?"0":idCanal.getValue()));
+		contratacionVO.setIdCanalSalida(Integer.parseInt(idCanalSalida.getValue().isEmpty()?"0":idCanalSalida.getValue()));
+		contratacionVO.setIdCliente(Integer.parseInt(idCliente.getValue().isEmpty()?"0":idCliente.getValue()));
+		contratacionVO.setIdProducto(Integer.parseInt(idProducto.getValue().isEmpty()?"0":idProducto.getValue()));
+		contratacionDTO.setContratacionVO(contratacionVO);
+		
+		ContratacionBO contratacionBO = new ContratacionBO();
+		List<ContratacionVO> conVOs = contratacionBO.readCommand(contratacionDTO).getContratacionVOs();		
 		if(!errorGuardar) {
 			if(idContratacion.getValue().isEmpty() || idContratacion.getValue().equals("0")){
-				ContratacionDTO contratacionDTO = new ContratacionDTO();
-				ContratacionVO contratacionVO = new ContratacionVO();
-				ContratacionBO contratacionBO = new ContratacionBO();
-				contratacionVO.setIdEstatusObjeto(CommandConstants.ESTATUS_OBJETO_CONTRATACION_ACTIVO);
-				contratacionVO.setIdCanal(Integer.parseInt(idCanal.getValue()));
-				contratacionVO.setIdCanalSalida(Integer.parseInt(idCanalSalida.getValue()));
-				contratacionVO.setIdCliente(Integer.parseInt(idCliente.getValue()));
-				contratacionVO.setIdProducto(Integer.parseInt(idProducto.getValue()));
-				contratacionDTO.setContratacionVO(contratacionVO);
-				contratacionDTO = contratacionBO.createCommand(contratacionDTO);
-				
-				idContratacion.setValue(String.valueOf(contratacionDTO.getContratacionVO().getIdContratacion()));
-				
-				
-				contratacionDTO = new ContratacionDTO();
-				contratacionVO = new ContratacionVO();
-				contratacionVO.toString();
-				contratacionDTO.setContratacionVO(contratacionVO);
-				contratacionBO = new ContratacionBO();
-				contratacionVOs = contratacionBO.readCommand(contratacionDTO).getContratacionVOs();
-				estatusObjeto.setValue(estatusObjeto.getValue());
-				Messagebox.show("!El Registro de la Contratación fue exitoso!",
-						"Información", Messagebox.OK,
-						Messagebox.INFORMATION);
-				cargaTabsDinamicosReg(Integer.parseInt((String) Sessions.getCurrent().getAttribute("idProducto")));
+				if(conVOs.size() == 0) {
+					ContratacionDTO contratacionDTO = new ContratacionDTO();
+					ContratacionVO contratacionVO = new ContratacionVO();
+					contratacionVO.setIdEstatusObjeto(CommandConstants.ESTATUS_OBJETO_CONTRATACION_ACTIVO);
+					contratacionVO.setIdCanal(Integer.parseInt(idCanal.getValue()));
+					contratacionVO.setIdCanalSalida(Integer.parseInt(idCanalSalida.getValue()));
+					contratacionVO.setIdCliente(Integer.parseInt(idCliente.getValue()));
+					contratacionVO.setIdProducto(Integer.parseInt(idProducto.getValue()));
+					contratacionDTO.setContratacionVO(contratacionVO);
+					contratacionDTO = contratacionBO.createCommand(contratacionDTO);
+					
+					idContratacion.setValue(String.valueOf(contratacionDTO.getContratacionVO().getIdContratacion()));
+					
+					
+					contratacionDTO = new ContratacionDTO();
+					contratacionVO = new ContratacionVO();
+					contratacionVO.toString();
+					contratacionDTO.setContratacionVO(contratacionVO);
+					contratacionBO = new ContratacionBO();
+					contratacionVOs = contratacionBO.readCommand(contratacionDTO).getContratacionVOs();
+					estatusObjeto.setValue(estatusObjeto.getValue());
+					Messagebox.show("!El Registro de la Contratación fue exitoso!",
+							"Información", Messagebox.OK,
+							Messagebox.INFORMATION);
+					cargaTabsDinamicosReg(Integer.parseInt((String) Sessions.getCurrent().getAttribute("idProducto")));
+				} else {
+					Messagebox.show("!Fallo el registro, contratación existente!",
+							"Información", Messagebox.OK,
+							Messagebox.EXCLAMATION);
+					clean();
+				}
 			} else {
 				ContratacionVO contratacionVO = new ContratacionVO();
-				ContratacionBO contratacionBO = new ContratacionBO();
 				contratacionVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue()));
 				contratacionVO.setIdContratacion(Integer.parseInt(idContratacion.getValue()));
 				if(Integer.parseInt(idEstatusObjeto.getValue()) == CommandConstants.ESTATUS_OBJETO_CONTRATACION_ACTIVO || 
@@ -340,7 +359,7 @@ public class ContratacionController extends ControllerSupport implements IContro
 							"Información", Messagebox.OK,
 							Messagebox.INFORMATION);
 				} else {
-					Messagebox.show("!LA contratación no puede dar de Baja!",
+					Messagebox.show("!La contratación no puede dar de Baja!",
 							"Información", Messagebox.OK,
 							Messagebox.EXCLAMATION);
 					clean();
@@ -472,6 +491,7 @@ public class ContratacionController extends ControllerSupport implements IContro
 			//Sessions.getCurrent().removeAttribute("contratacionVO");
 			comboEstatus = true;
 			flagNvaContra = true;
+			cargarCombos();
 		} else if(tabs != null) {
 			canal.setValue(contratacionVO.getNombreCanal());
 			canalSalida.setValue(contratacionVO.getNombreCanalSalida());
@@ -490,8 +510,8 @@ public class ContratacionController extends ControllerSupport implements IContro
 		HashMap<Integer, ContratacionMapVO> hashMapEtapa = new HashMap<Integer, ContratacionMapVO>();
 		String mensaje = "";
 		ContratacionMapDTO contratacionMapDTO = new ContratacionMapDTO();
-		contratacionVO = new ContratacionVO();
-		contratacionDTO = new ContratacionDTO();
+		ContratacionVO contratacionVO = new ContratacionVO();
+		ContratacionDTO contratacionDTO = new ContratacionDTO();
 		ContratacionBO contratacionBO = new ContratacionBO();
 		contratacionVO.setIdProducto(idProduct);
 		contratacionDTO.setContratacionVO(contratacionVO);
@@ -508,13 +528,13 @@ public class ContratacionController extends ControllerSupport implements IContro
 		Tabpanel newTabpanel = null;
 		int contador = 1;
 		
-		for(ContratacionVO contratacionVO:contratacionDTO.getContratacionVOs()) {
+		for(ContratacionVO conVO:contratacionDTO.getContratacionVOs()) {
 			ContratacionMapVO mapVO = new ContratacionMapVO();
-			mapVO.setIdEtapa(contratacionVO.getIdEtapa());
-			mapVO.setIdFlujo(contratacionVO.getIdFlujo());
-			mapVO.setIdContratacion(contratacionVO.getIdContratacion());
-			mapVO.setNombreEtapa(contratacionVO.getNombreEtapa());
-		    hashMapEtapa.put(contratacionVO.getNumeroOrdenEtapa(), mapVO);
+			mapVO.setIdEtapa(conVO.getIdEtapa());
+			mapVO.setIdFlujo(conVO.getIdFlujo());
+			mapVO.setIdContratacion(conVO.getIdContratacion());
+			mapVO.setNombreEtapa(conVO.getNombreEtapa());
+		    hashMapEtapa.put(conVO.getNumeroOrdenEtapa(), mapVO);
 		}
 		for(ContratacionMapVO mapVO:contratacionMapDTO.getContratacionMapVOs()) {
 			hashMapEtapa.put(mapVO.getNumeroOrdenEtapa(), mapVO);
