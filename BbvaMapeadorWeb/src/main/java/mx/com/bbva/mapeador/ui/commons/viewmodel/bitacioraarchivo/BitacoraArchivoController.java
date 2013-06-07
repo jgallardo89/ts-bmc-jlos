@@ -148,15 +148,19 @@ public class BitacoraArchivoController extends ControllerSupport implements  ICo
 	}	
 	
 	private ArrayList<BeanGenerico> generaLista() {
-		ArrayList<BeanGenerico> beanGenericos = new ArrayList<BeanGenerico>();
 		BeanGenerico beanGenerico = null;
-		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
-		for(BitacoraArchivoVO bitacoraArchivoVO: bitacoraArchivoVOs) {
-			beanGenerico = new BeanGenerico();
-			beanGenerico.setValor1(dateFormat.format(bitacoraArchivoVO.getFechaArchivo()));
-			beanGenerico.setValor2(bitacoraArchivoVO.getNombreArchivo());
-			beanGenerico.setValor3(bitacoraArchivoVO.getEstadoArchivo()); 
-			beanGenericos.add(beanGenerico);
+		ArrayList<BeanGenerico> beanGenericos = new ArrayList<BeanGenerico>();
+		try{						
+			DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+			for(BitacoraArchivoVO bitacoraArchivoVO: bitacoraArchivoVOs) {
+				beanGenerico = new BeanGenerico();
+				beanGenerico.setValor1(bitacoraArchivoVO.getFechaArchivo());
+				beanGenerico.setValor2(bitacoraArchivoVO.getNombreArchivo());
+				beanGenerico.setValor3(bitacoraArchivoVO.getEstadoArchivo()); 
+				beanGenericos.add(beanGenerico);
+			}
+		}catch(Exception ex){
+			ex.printStackTrace();
 		}
 		return beanGenericos;
 	}
