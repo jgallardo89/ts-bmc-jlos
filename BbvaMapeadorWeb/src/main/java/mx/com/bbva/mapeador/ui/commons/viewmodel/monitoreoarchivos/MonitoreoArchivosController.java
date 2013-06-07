@@ -1,10 +1,14 @@
 package mx.com.bbva.mapeador.ui.commons.viewmodel.monitoreoarchivos;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import mx.com.bbva.bancomer.bussinnes.model.vo.EstadoArchivoVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.MonitoreoArchivosVO;
+import mx.com.bbva.bancomer.bussinnes.model.vo.UsuarioNotificacionVO;
+import mx.com.bbva.bancomer.canal.dto.BeanGenerico;
+import mx.com.bbva.bancomer.commons.command.CommandConstants;
 import mx.com.bbva.bancomer.commons.command.MapeadorConstants;
 import mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject;
 import mx.com.bbva.bancomer.estadoarchivo.dto.EstadoArchivoDTO;
@@ -12,10 +16,12 @@ import mx.com.bbva.bancomer.mapper.business.EstadoArchivoBO;
 import mx.com.bbva.bancomer.mapper.business.MonitoreoArchivosBO;
 import mx.com.bbva.bancomer.monitoreoarchivos.dto.MonitoreoArchivosDTO;
 import mx.com.bbva.mapeador.ui.commons.controller.IController;
+import mx.com.bbva.mapeador.ui.commons.viewmodel.reportes.ReportesController;
 import mx.com.bbva.mapeador.ui.commons.viewmodel.support.ControllerSupport;
 
 import org.apache.log4j.Logger;
 import org.zkoss.bind.annotation.AfterCompose;
+import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
@@ -309,5 +315,35 @@ public class MonitoreoArchivosController extends ControllerSupport implements  I
 		super.applyPermission(MapeadorConstants.MONITOREO_ARCHIVOS, componentes);
 		return isApplied;
 	}	
-
+	@Command
+	public void onShowReport(@BindingParam("type") final String type) {
+		ReportesController controller = new ReportesController();
+		ArrayList<String> headersReport = new ArrayList<String>();
+		headersReport.add("Nombre HDR");
+		headersReport.add("Estatus HDR");
+		headersReport.add("Nombre DATA");		
+		headersReport.add("Estatus DATA");
+		headersReport.add("Reproceso");
+		if(type.equals("xls")) {
+			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_EXCEL,"Monitoreo de Archivos");
+		} else {
+			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_TEXTO,"Monitoreo de Archivos");
+		}
+		controller.createReport(generaLista(), headersReport, type, "MONITOREO-ARCHIVOS");
+	}	
+	
+	private ArrayList<BeanGenerico> generaLista() {
+		ArrayList<BeanGenerico> beanGenericos = new ArrayList<BeanGenerico>();
+		BeanGenerico beanGenerico = null;
+		for(MonitoreoArchivosVO monitoreoArchivosVO: monitoreoArchivosVOs) {
+			beanGenerico = new BeanGenerico();
+			beanGenerico.setValor1(monitoreoArchivosVO.getNombreArchEntraPapa());
+			beanGenerico.setValor2(monitoreoArchivosVO.getNombreEstadoArchivoPapa());
+			beanGenerico.setValor3(monitoreoArchivosVO.getNombreArchEntraHijo());
+			beanGenerico.setValor4(monitoreoArchivosVO.getNombreEstadoArchivoHijo());
+			beanGenerico.setValor5("");
+			beanGenericos.add(beanGenerico);
+		}
+		return beanGenericos;
+	}
 }
