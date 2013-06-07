@@ -52,7 +52,7 @@
 			#{nombreUsuarioNotificado},
 			#{descripcionEmail},
 			#{idEstatusObjeto},
-			'N')
+			#{tipoNotificacion})
 	</insert>
 	<update id="actualizarUsuarioNotificacion" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.UsuarioNotificacionVO">
 		UPDATE TGM510_USUA_NOTIFI SET  
