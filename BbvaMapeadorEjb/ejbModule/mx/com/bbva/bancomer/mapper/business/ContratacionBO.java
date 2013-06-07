@@ -6,6 +6,7 @@ import javax.ejb.Stateless;
 
 import mappers.contratacion.MapContratacion;
 import mx.com.bbva.bancomer.bussinnes.model.vo.ContratacionVO;
+import mx.com.bbva.bancomer.commons.command.CommandConstants;
 import mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject;
 import mx.com.bbva.bancomer.contratacion.dto.ContratacionDTO;
 import mx.com.bbva.mapeador.oralce.session.MapeadorSessionFactory;
@@ -73,6 +74,7 @@ public class ContratacionBO implements
 						.getSqlSessionFactory().openSession();
 				MapContratacion mapContratacion = session.getMapper(MapContratacion.class);
 				try {
+					contratacionVO.setIdBaja(CommandConstants.ESTATUS_OBJETO_CONTRATACION_BAJA);
 					result = mapContratacion.obtenerContrataciones(contratacionVO);
 					session.commit();
 				} catch (Exception ex) {
