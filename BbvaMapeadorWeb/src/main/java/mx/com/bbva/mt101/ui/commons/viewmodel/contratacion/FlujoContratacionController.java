@@ -193,7 +193,10 @@ public class FlujoContratacionController extends Div  implements IController, Id
 	        mapaGMM.setValue(Executions.getCurrent().getParameter("nombreMapaGmm"));
 	        descripcionMapaGmm.setValue(Executions.getCurrent().getParameter("descripcionMapaGmm"));
 	        strNombreMensajeSalida = Executions.getCurrent().getParameter("nombreMensajeSalida");
-	        strDescripcionMensajeSalida = Executions.getCurrent().getParameter("descripcionMensajeSalida").replace("|", "%");	        
+	        
+	        if(Executions.getCurrent().getParameter("descripcionMensajeSalida")!=null)
+	        strDescripcionMensajeSalida = Executions.getCurrent().getParameter("descripcionMensajeSalida").replace("|", "%");
+	        
 	        idStrFlujo = Executions.getCurrent().getParameter("idFlujo");
 	        idStrMapaGmm = Executions.getCurrent().getParameter("idMapaGmm");
 	        idStrEtapa = Executions.getCurrent().getParameter("idEtapa");
