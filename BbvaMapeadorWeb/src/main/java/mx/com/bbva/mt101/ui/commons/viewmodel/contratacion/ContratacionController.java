@@ -327,7 +327,9 @@ public class ContratacionController extends ControllerSupport implements IContro
 					contratacionDTO.setContratacionVO(contratacionVO);
 					contratacionBO = new ContratacionBO();
 					contratacionVOs = contratacionBO.readCommand(contratacionDTO).getContratacionVOs();
-					estatusObjeto.setValue(estatusObjeto.getValue());
+					
+					disabledComponents();
+					botonGuardar = true;
 					Messagebox.show("!El Registro de la Contratación fue exitoso!",
 							"Información", Messagebox.OK,
 							Messagebox.INFORMATION);
