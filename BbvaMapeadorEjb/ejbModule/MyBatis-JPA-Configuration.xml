@@ -1,12 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-    <environments default="development">
-        <environment id="development">
-            <transactionManager type="JDBC"/>
-            <dataSource type="JNDI" >
-                <property  name="data_source" value="jdbc/MAPER"/>
-            </dataSource>
+    <environments default="local">
+       <environment id="test">                        
+            <transactionManager type = "JDBC"/>
+                <dataSource type = "POOLED">
+                        <property name = "driver" value = "oracle.jdbc.driver.OracleDriver" />
+                        <property name="url" value = "jdbc:oracle:thin:@64.151.89.154:1521:xe" />
+                        <property name = "username" value = "mapeador"  />
+                        <property name = "password" value = "mapeador" />
+                </dataSource>                
+        </environment>
+        <environment id="local">
+        	<transactionManager type = "JDBC"/>
+        	<dataSource type="JNDI">                	
+                	<property  name="data_source" value="jdbc/MAPER"/>            	
+                </dataSource>
         </environment>
     </environments>    
     <mappers>
