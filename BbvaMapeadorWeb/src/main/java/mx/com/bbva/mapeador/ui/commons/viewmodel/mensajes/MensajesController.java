@@ -195,6 +195,7 @@ public class MensajesController extends ControllerSupport implements IController
 					mensajeSalidaVO.setDescripcionMensajeSalida(descripcionMensajeSalida.getValue().toUpperCase());
 					mensajeSalidaVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue()));
 					mensajeSalidaVO.setDescripcionAsuntoSalida(descripcionAsuntoSalida.getValue().toUpperCase());
+					mensajeSalidaVO.setTipoNotificacion("N");
 					//mensajeSalidaVO.setIdMensajeSalida(Integer.parseInt(idMensajeSalida.getValue()));
 					mensajeSalidaDTO.setMensajeSalidaVO(mensajeSalidaVO);
 					mensajeSalidaBO.createCommand(mensajeSalidaDTO);

@@ -130,7 +130,7 @@ public class UsuarioSistemaController  extends ControllerSupport implements ICon
 		estatusObjetoVO.setNombreTabla(CommandConstants.NOMBRE_TABLA_USUARIOS_NEGOCIO);				
 		estatusObjetoDTO.setEstatusObjetoVO(estatusObjetoVO);
 		estatusObjetoDTO = estatusObjetoBO.readCommand(estatusObjetoDTO);
-		usuarioNotificacionVO.setTipoNotificacion(CommandConstants.TIPO_NOTIFICACION_NEGOCIO);
+		usuarioNotificacionVO.setTipoNotificacion(CommandConstants.TIPO_NOTIFICACION_SISTEMA);
 		usuarioNotificacionDTO.setUsuarioNotificacionVO(usuarioNotificacionVO);
 		usuarioNotificacionDTO = usuarioNotificacionBO.readCommand(usuarioNotificacionDTO);
 		logger.info("::::::::::::::SIZE::::::::::" + usuarioNotificacionDTO.getUsuarioNotificacionVOs());
@@ -167,7 +167,7 @@ public class UsuarioSistemaController  extends ControllerSupport implements ICon
 		
 		//Combos Validar el nombre de los parametros en HTML VS Controller
 		usuarioNotificacionVO.setIdEstatusObjeto((Integer.parseInt(idEstatusObjeto.getValue().isEmpty()?"0":idEstatusObjeto.getValue())));
-		usuarioNotificacionVO.setTipoNotificacion(CommandConstants.TIPO_NOTIFICACION_NEGOCIO);
+		usuarioNotificacionVO.setTipoNotificacion(CommandConstants.TIPO_NOTIFICACION_SISTEMA);
 		usuarioNotificacionDTO.setUsuarioNotificacionVO(usuarioNotificacionVO);
 		usuarioNotificacionDTO.toString(BbvaAbstractDataTransferObject.XML);	
 		
@@ -178,7 +178,7 @@ public class UsuarioSistemaController  extends ControllerSupport implements ICon
 		usuarioNotificacionDTO = usuarioNotificacionBO.readCommand(usuarioNotificacionDTO);
 		
 		ReportesController controller = new ReportesController();
-		controller.registrarEvento(usuarioNotificacionVO, this.usuarioNotificacionVO, CommandConstants.CONSULTAR, "Usuario Negocio");
+		controller.registrarEvento(usuarioNotificacionVO, this.usuarioNotificacionVO, CommandConstants.CONSULTAR, "Usuario Sistema");
 		//Tamaño de la lista de acuerdo al criterio de busqueda y objeto UsuarioNotificacion
 		if(usuarioNotificacionDTO.getUsuarioNotificacionVOs() != null) {
 			logger.debug("Tamaño de la lista de acuerdo al criterio de busqueda y objeto UsuarioNotificacion size:"+usuarioNotificacionDTO.getUsuarioNotificacionVOs().size());
@@ -221,7 +221,7 @@ public class UsuarioSistemaController  extends ControllerSupport implements ICon
 				UsuarioNotificacionVO notificacionVOValida = new UsuarioNotificacionVO();
 				UsuarioNotificacionBO usuarioNotificacionBOValida = new UsuarioNotificacionBO();
 				UsuarioNotificacionDTO usuarioNotificacionDTOValida = new UsuarioNotificacionDTO();
-				notificacionVOValida.setTipoNotificacion("N");
+				notificacionVOValida.setTipoNotificacion(CommandConstants.TIPO_NOTIFICACION_SISTEMA);
 				notificacionVOValida.setDescripcionEmail(email.getValue());
 				notificacionVOValida.setIdUsuarioNotificado(Integer.parseInt(idUsuarioNotificado.getValue()));
 				usuarioNotificacionDTOValida.setUsuarioNotificacionVO(notificacionVOValida);
@@ -236,7 +236,7 @@ public class UsuarioSistemaController  extends ControllerSupport implements ICon
 					UsuarioNotificacionVO usuarioNotificacionVO = new UsuarioNotificacionVO();
 					usuarioNotificacionVO.setIdUsuarioNotificado(Integer.parseInt(idUsuarioNotificado.getValue().isEmpty()?"0":idUsuarioNotificado.getValue()));
 					usuarioNotificacionVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue().isEmpty()?"1":idEstatusObjeto.getValue()));
-					
+					usuarioNotificacionVO.setTipoNotificacion(CommandConstants.TIPO_NOTIFICACION_SISTEMA);
 					usuarioNotificacionVO.setNombreUsuarioNotificado(nombreUsuario.getValue().toUpperCase());
 					usuarioNotificacionVO.setDescripcionEmail(email.getValue());
 								
@@ -247,11 +247,11 @@ public class UsuarioSistemaController  extends ControllerSupport implements ICon
 					UsuarioNotificacionBO UsuarioNotificacionBO = new UsuarioNotificacionBO();
 					UsuarioNotificacionBO.updateCommand(usuarioNotificacionDTO);
 					ReportesController controller = new ReportesController();
-					controller.registrarEvento(usuarioNotificacionVO, this.usuarioNotificacionVO, CommandConstants.MODIFICACION, "Usuario Negocio");
+					controller.registrarEvento(usuarioNotificacionVO, this.usuarioNotificacionVO, CommandConstants.MODIFICACION, "Usuario Sistema");
 					clean();			
 					
 					usuarioNotificacionVO = new UsuarioNotificacionVO();
-					usuarioNotificacionVO.setTipoNotificacion(CommandConstants.TIPO_NOTIFICACION_NEGOCIO);
+					usuarioNotificacionVO.setTipoNotificacion(CommandConstants.TIPO_NOTIFICACION_SISTEMA);
 					usuarioNotificacionDTO.setUsuarioNotificacionVO(usuarioNotificacionVO);
 					usuarioNotificacionDTO.toString(BbvaAbstractDataTransferObject.XML);	
 					
@@ -272,7 +272,7 @@ public class UsuarioSistemaController  extends ControllerSupport implements ICon
 				UsuarioNotificacionVO notificacionVOValida = new UsuarioNotificacionVO();
 				UsuarioNotificacionBO usuarioNotificacionBOValida = new UsuarioNotificacionBO();
 				UsuarioNotificacionDTO usuarioNotificacionDTOValida = new UsuarioNotificacionDTO();
-				notificacionVOValida.setTipoNotificacion("N");
+				notificacionVOValida.setTipoNotificacion(CommandConstants.TIPO_NOTIFICACION_SISTEMA);
 				notificacionVOValida.setDescripcionEmail(email.getValue());
 				notificacionVOValida.setIdUsuarioNotificado(0);
 				usuarioNotificacionDTOValida.setUsuarioNotificacionVO(notificacionVOValida);
@@ -287,7 +287,7 @@ public class UsuarioSistemaController  extends ControllerSupport implements ICon
 					UsuarioNotificacionVO usuarioNotificacionVO = new UsuarioNotificacionVO();
 					usuarioNotificacionVO.setIdUsuarioNotificado(Integer.parseInt(idUsuarioNotificado.getValue().isEmpty()?"0":idUsuarioNotificado.getValue()));
 					usuarioNotificacionVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue().isEmpty()?"1":idEstatusObjeto.getValue()));
-					
+					usuarioNotificacionVO.setTipoNotificacion(CommandConstants.TIPO_NOTIFICACION_SISTEMA);
 					usuarioNotificacionVO.setNombreUsuarioNotificado(nombreUsuario.getValue().toUpperCase());
 					usuarioNotificacionVO.setDescripcionEmail(email.getValue());
 								
@@ -299,11 +299,11 @@ public class UsuarioSistemaController  extends ControllerSupport implements ICon
 	
 					UsuarioNotificacionBO.createCommand(usuarioNotificacionDTO);
 					ReportesController controller = new ReportesController();
-					controller.registrarEvento(null, null, CommandConstants.ALTA, "Usuario Negocio");
+					controller.registrarEvento(null, null, CommandConstants.ALTA, "Usuario Sistema");
 					clean();	
 	
 					usuarioNotificacionVO = new UsuarioNotificacionVO();
-					usuarioNotificacionVO.setTipoNotificacion(CommandConstants.TIPO_NOTIFICACION_NEGOCIO);
+					usuarioNotificacionVO.setTipoNotificacion(CommandConstants.TIPO_NOTIFICACION_SISTEMA);
 	
 					usuarioNotificacionDTO.setUsuarioNotificacionVO(usuarioNotificacionVO);
 					usuarioNotificacionDTO.toString(BbvaAbstractDataTransferObject.XML);	
@@ -590,7 +590,7 @@ public class UsuarioSistemaController  extends ControllerSupport implements ICon
 		headersReport.add("Estatus");		
 		if(type.equals("xls")) {
 			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_EXCEL,"Usuarios Notificación Sistema");
-		} else {
+		} else {			
 			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_TEXTO,"Usuarios Notificación Sistema");
 		}
 		controller.createReport(generaLista(), headersReport, type, "USUARIOS-SISTEMA");
