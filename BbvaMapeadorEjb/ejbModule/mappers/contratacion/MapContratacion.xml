@@ -12,7 +12,9 @@
 					CONTRATACION.CD_PRODUCTO idProducto,
 					PRODUCTO.NB_PRODUCTO nombreProducto,
 					CONTRATACION.CD_CANAL_SALIDA idCanalSalida,
-					CANAL.NB_CANAL nombreCanalSalida,
+					(SELECT NB_CANAL 
+					 FROM TGM511_CANAL 
+					 WHERE CD_CANAL = CONTRATACION.CD_CANAL_SALIDA) nombreCanalSalida,
 					CONTRATACION.TM_ALTA fechaAlta,
 					CONTRATACION.TM_MODIFICACION fechaModificacion,
 					CONTRATACION.CD_ST_OBJETO idEstatusObjeto,
