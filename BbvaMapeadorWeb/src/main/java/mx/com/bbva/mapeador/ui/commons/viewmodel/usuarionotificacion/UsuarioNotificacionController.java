@@ -220,8 +220,8 @@ public class UsuarioNotificacionController  extends ControllerSupport implements
 			if(!idUsuarioNotificado.getValue().isEmpty()){
 				UsuarioNotificacionVO notificacionVOValida = new UsuarioNotificacionVO();
 				UsuarioNotificacionBO usuarioNotificacionBOValida = new UsuarioNotificacionBO();
-				UsuarioNotificacionDTO usuarioNotificacionDTOValida = new UsuarioNotificacionDTO();
-				notificacionVOValida.setTipoNotificacion("N");
+				UsuarioNotificacionDTO usuarioNotificacionDTOValida = new UsuarioNotificacionDTO();				
+				notificacionVOValida.setTipoNotificacion(CommandConstants.TIPO_NOTIFICACION_NEGOCIO);
 				notificacionVOValida.setDescripcionEmail(email.getValue());
 				notificacionVOValida.setIdUsuarioNotificado(Integer.parseInt(idUsuarioNotificado.getValue()));
 				usuarioNotificacionDTOValida.setUsuarioNotificacionVO(notificacionVOValida);
@@ -236,7 +236,7 @@ public class UsuarioNotificacionController  extends ControllerSupport implements
 					UsuarioNotificacionVO usuarioNotificacionVO = new UsuarioNotificacionVO();
 					usuarioNotificacionVO.setIdUsuarioNotificado(Integer.parseInt(idUsuarioNotificado.getValue().isEmpty()?"0":idUsuarioNotificado.getValue()));
 					usuarioNotificacionVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue().isEmpty()?"1":idEstatusObjeto.getValue()));
-					
+					usuarioNotificacionVO.setTipoNotificacion(CommandConstants.TIPO_NOTIFICACION_NEGOCIO);
 					usuarioNotificacionVO.setNombreUsuarioNotificado(nombreUsuario.getValue().toUpperCase());
 					usuarioNotificacionVO.setDescripcionEmail(email.getValue());
 								
@@ -272,9 +272,9 @@ public class UsuarioNotificacionController  extends ControllerSupport implements
 				UsuarioNotificacionVO notificacionVOValida = new UsuarioNotificacionVO();
 				UsuarioNotificacionBO usuarioNotificacionBOValida = new UsuarioNotificacionBO();
 				UsuarioNotificacionDTO usuarioNotificacionDTOValida = new UsuarioNotificacionDTO();
-				notificacionVOValida.setTipoNotificacion("N");
+				notificacionVOValida.setTipoNotificacion(CommandConstants.TIPO_NOTIFICACION_NEGOCIO);
 				notificacionVOValida.setDescripcionEmail(email.getValue());
-				notificacionVOValida.setIdUsuarioNotificado(0);
+				notificacionVOValida.setIdUsuarioNotificado(0);				
 				usuarioNotificacionDTOValida.setUsuarioNotificacionVO(notificacionVOValida);
 				usuarioNotificacionDTOValida = usuarioNotificacionBOValida.readCommandValidateExist(usuarioNotificacionDTOValida);
 				if(usuarioNotificacionDTOValida.getUsuarioNotificacionVOs().get(0).getExiste()>0){
@@ -287,7 +287,7 @@ public class UsuarioNotificacionController  extends ControllerSupport implements
 					UsuarioNotificacionVO usuarioNotificacionVO = new UsuarioNotificacionVO();
 					usuarioNotificacionVO.setIdUsuarioNotificado(Integer.parseInt(idUsuarioNotificado.getValue().isEmpty()?"0":idUsuarioNotificado.getValue()));
 					usuarioNotificacionVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue().isEmpty()?"1":idEstatusObjeto.getValue()));
-					
+					usuarioNotificacionVO.setTipoNotificacion(CommandConstants.TIPO_NOTIFICACION_NEGOCIO);
 					usuarioNotificacionVO.setNombreUsuarioNotificado(nombreUsuario.getValue().toUpperCase());
 					usuarioNotificacionVO.setDescripcionEmail(email.getValue());
 								
