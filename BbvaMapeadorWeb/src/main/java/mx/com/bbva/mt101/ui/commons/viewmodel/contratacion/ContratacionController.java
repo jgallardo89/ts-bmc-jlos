@@ -132,8 +132,9 @@ public class ContratacionController extends ControllerSupport implements IContro
 	
 	private boolean botonEditar;
 	private boolean botonGuardar;
-	private boolean comboEstatus;
+	private boolean comboProducto;
 	private boolean flagNvaContra;
+	private boolean botonGuardarModal;
 	
 	private ContratacionDTO contratacionDTO;
 	private List<ContratacionVO> contratacionVOs;
@@ -264,7 +265,7 @@ public class ContratacionController extends ControllerSupport implements IContro
 
 	@Override
 	@Command
-	@NotifyChange({ "contratacionVOs","idContratacion" })
+	@NotifyChange({ "contratacionVOs","idContratacion","botonGuardarModal" })
 	public void save() {
 		boolean errorGuardar = false;
 		if(idContratacion.getValue().isEmpty() || idContratacion.getValue().equals("0")) {
@@ -329,7 +330,7 @@ public class ContratacionController extends ControllerSupport implements IContro
 					contratacionVOs = contratacionBO.readCommand(contratacionDTO).getContratacionVOs();
 					
 					disabledComponents();
-					botonGuardar = true;
+					botonGuardarModal = true;
 					Messagebox.show("!El Registro de la Contratación fue exitoso!",
 							"Información", Messagebox.OK,
 							Messagebox.INFORMATION);
@@ -356,7 +357,7 @@ public class ContratacionController extends ControllerSupport implements IContro
 					contratacionDTO.setContratacionVO(contratacionVO);
 					contratacionBO = new ContratacionBO();
 					contratacionVOs = contratacionBO.readCommand(contratacionDTO).getContratacionVOs();
-					estatusObjeto.setValue(estatusObjeto.getValue());
+					botonGuardarModal = true;
 					Messagebox.show("!La Actualización del Estado de la Contratación fue exitoso!",
 							"Información", Messagebox.OK,
 							Messagebox.INFORMATION);
@@ -444,7 +445,7 @@ public class ContratacionController extends ControllerSupport implements IContro
 	@Command
 	@NotifyChange({"botonGuardar","flagNvaContra"})
 	public void nuevaContratacion(@BindingParam("contratacion") final String contratacion) {
-		flagNvaContra = false;
+		flagNvaContra = true;
 			contratacionVO = new ContratacionVO();
 		if(!idCanal.getValue().equals(""))
 			contratacionVO.setIdCanal(Integer.parseInt(idCanal.getValue()));
@@ -491,7 +492,6 @@ public class ContratacionController extends ControllerSupport implements IContro
 			mergeEtapas(contratacionVO.getIdContratacion(), contratacionVO.getIdProducto());
 			estatusObjeto.setDisabled(false);
 			//Sessions.getCurrent().removeAttribute("contratacionVO");
-			comboEstatus = true;
 			flagNvaContra = true;
 			cargarCombos();
 		} else if(tabs != null) {
@@ -502,9 +502,10 @@ public class ContratacionController extends ControllerSupport implements IContro
 			cliente.setValue(contratacionVO.getNombreCliente());
 			estatusObjeto.setValue(contratacionVO.getNombreEstatusObjeto());
 			contratacionDTO.setContratacionVO(contratacionVO);
+			producto.setDisabled(true);
 			//cargaTabsDinamicosReg(Integer.parseInt((String) Sessions.getCurrent().getAttribute("idProducto")));
 			//Sessions.getCurrent().removeAttribute("contratacionVO");
-			comboEstatus = false;
+			comboProducto = true;
 		}
     }
 	
@@ -694,6 +695,7 @@ public class ContratacionController extends ControllerSupport implements IContro
 	@Listen("onClick = #closeBtn")
     public void showModal(Event e) {
 		botonGuardar = true;
+		botonGuardarModal = true;
 		editarContratacionWindows.detach();
     }
 	
@@ -703,6 +705,7 @@ public class ContratacionController extends ControllerSupport implements IContro
 	public void closeModal() {
 		clean();
 		botonGuardar = true;
+		botonGuardarModal = true;
 		editarContratacionWindows.detach();
     }
 	
@@ -816,17 +819,31 @@ public class ContratacionController extends ControllerSupport implements IContro
 	/**
 	 * @return the comboEstatus
 	 */
-	public boolean isComboEstatus() {
-		return comboEstatus;
+	public boolean isComboProducto() {
+		return comboProducto;
 	}
 
 	/**
 	 * @param comboEstatus the comboEstatus to set
 	 */
-	public void setComboEstatus(boolean comboEstatus) {
-		this.comboEstatus = comboEstatus;
+	public void setComboProducto(boolean comboProducto) {
+		this.comboProducto = comboProducto;
 	}
 	
+	/**
+	 * @return the botonGuardarModal
+	 */
+	public boolean isBotonGuardarModal() {
+		return botonGuardarModal;
+	}
+
+	/**
+	 * @param botonGuardarModal the botonGuardarModal to set
+	 */
+	public void setBotonGuardarModal(boolean botonGuardarModal) {
+		this.botonGuardarModal = botonGuardarModal;
+	}
+
 	@Override
 	public boolean applyPermision() {
 		boolean isApplied = false;

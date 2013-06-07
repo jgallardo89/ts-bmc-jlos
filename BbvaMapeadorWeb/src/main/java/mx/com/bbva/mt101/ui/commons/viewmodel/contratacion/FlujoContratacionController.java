@@ -90,6 +90,7 @@ public class FlujoContratacionController extends Div  implements IController, Id
 	private boolean botonEditar;
 	private boolean flagDisabled;
 	private boolean botonLimpiar;
+	private boolean guardarBtn;
 	private ContratacionDTO contratacionDTO;
 	private ContratacionMapDTO contratacionMapDTO;
 	private ContratacionMapVO contratacionMapVO;
@@ -99,6 +100,7 @@ public class FlujoContratacionController extends Div  implements IController, Id
 	
 	
 	public FlujoContratacionController() {
+		guardarBtn = false;
 		this.read();
 	}
 
@@ -127,6 +129,7 @@ public class FlujoContratacionController extends Div  implements IController, Id
 	
 	@Override
 	@Command
+	@NotifyChange({"guardarBtn"})
 	public void save() {
 		boolean errorGuardar = false;
 		if (mapaGMM.getSelectedItem() == null
@@ -169,7 +172,8 @@ public class FlujoContratacionController extends Div  implements IController, Id
 				contratacionMapeadorBO.createCommand(contratacionMapDTO);
 				Messagebox.show("!La Contratación fue guardada exitosamente!",
 						"Información", Messagebox.OK,
-						Messagebox.INFORMATION);				
+						Messagebox.INFORMATION);
+				guardarBtn = true;
 			} else {
 				contratacionMapVO.setIdContratacion(Integer.parseInt(idContratacion.getValue()));
 				contratacionMapDTO.setContratacionMapVO(contratacionMapVO);
@@ -615,6 +619,20 @@ public class FlujoContratacionController extends Div  implements IController, Id
 	 */
 	public void setIdStrTransaccion(String idStrTransaccion) {
 		this.idStrTransaccion = idStrTransaccion;
+	}
+
+	/**
+	 * @return the guardarBtn
+	 */
+	public boolean isGuardarBtn() {
+		return guardarBtn;
+	}
+
+	/**
+	 * @param guardarBtn the guardarBtn to set
+	 */
+	public void setGuardarBtn(boolean guardarBtn) {
+		this.guardarBtn = guardarBtn;
 	}
 
 	@Override
