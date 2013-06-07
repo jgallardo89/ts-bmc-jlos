@@ -131,6 +131,7 @@ public class FlujoContratacionController extends Div  implements IController, Id
 	@Command
 	@NotifyChange({"guardarBtn"})
 	public void save() {
+		System.out.println("*****************GUARDADO 1************");
 		boolean errorGuardar = false;
 		if (mapaGMM.getSelectedItem() == null
 				|| mapaGMM.getSelectedItem().getValue() == null
@@ -138,7 +139,27 @@ public class FlujoContratacionController extends Div  implements IController, Id
 			mapaGMM.setErrorMessage("Favor de seleccionar el Mapa");
 			errorGuardar = true;
 		}
+		if(notificacion.getSelectedItem().getId().equals("radioS")) {
+			if (nombreMensajeSalida.getSelectedItem() == null
+					|| nombreMensajeSalida.getSelectedItem().getValue() == null
+					|| nombreMensajeSalida.getSelectedItem().getValue().toString().isEmpty()) {
+				nombreMensajeSalida.setErrorMessage("Favor de seleccionar el mensaje");
+				errorGuardar = true;
+			}
+			else {
+				errorGuardar = false;
+			}
+			if(contratacionUsuariosDTO.getUsuarioNotificacionContrataMapVOs().isEmpty()){
+				usuariosNotificacionActivo.setEmptyMessage("Favor de seleccionar al menos un Usuario");
+				errorGuardar = true;
+			} else {
+				errorGuardar = false;
+			}
+			System.out.println("*****************GUARDADO 2************" + errorGuardar + " " +usuariosNotificacionActivo.getSelectedCount());
+		}
+		
 		if(!errorGuardar) {
+			System.out.println("*****************GUARDADO 3************");
 			contratacionMapVO = new ContratacionMapVO();
 			ContratacionMapeadorBO contratacionMapeadorBO = new ContratacionMapeadorBO();
 			
@@ -149,7 +170,7 @@ public class FlujoContratacionController extends Div  implements IController, Id
 			if(notificacion.getSelectedItem().getId().equals("radioS")) {
 				contratacionMapVO.setEstatusNotificacion("T".charAt(0));
 				contratacionMapVO.setIdMensajeSalida(Integer.parseInt(idMensajeSalida.getValue()));
-				List<UsuarioNotificacionVO> listaUsuarios = contratacionUsuariosDTO.getUsuarioNotificacionContrataMapVOs();;
+				List<UsuarioNotificacionVO> listaUsuarios = contratacionUsuariosDTO.getUsuarioNotificacionContrataMapVOs();
 				
 				if(listaUsuarios!=null) {
 					for(int i = 0;i<listaUsuarios.size();i++) {
@@ -302,8 +323,11 @@ public class FlujoContratacionController extends Div  implements IController, Id
 	@Command
 	@NotifyChange({ "descripcionMensajeSalida" })
     public void readMensajeSalida() {
-		MensajeSalidaVO mensajeSalidaVO =  contratacionDTO.getMensajeSalidaVOs().get(nombreMensajeSalida.getSelectedIndex());
-		descripcionMensajeSalida.setValue(mensajeSalidaVO.getDescripcionMensajeSalida());
+		if(contratacionDTO.getMensajeSalidaVOs().size()!=0 && nombreMensajeSalida != null ) {
+			System.out.println("***************" + nombreMensajeSalida.getSelectedIndex());
+			MensajeSalidaVO mensajeSalidaVO =  contratacionDTO.getMensajeSalidaVOs().get(nombreMensajeSalida.getSelectedIndex());
+			descripcionMensajeSalida.setValue(mensajeSalidaVO.getDescripcionMensajeSalida());
+		}
     }
 	
 	@Command
@@ -332,7 +356,7 @@ public class FlujoContratacionController extends Div  implements IController, Id
 	@NotifyChange({"contratacionDTO", "contratacionUsuariosDTO"})
 	public void removeOne(){
 		if(!flagDisabled) {
-			if(usuariosNotificacionActivo.getSelectedItem()!=null){
+			if(usuariosNotificacionActivo.getSelectedIndex() != -1){
 				contratacionDTO.getUsuarioNotificacionVOs().add(contratacionUsuariosDTO.getUsuarioNotificacionContrataMapVOs().get(usuariosNotificacionActivo.getSelectedIndex()));
 				contratacionUsuariosDTO.getUsuarioNotificacionContrataMapVOs().remove(usuariosNotificacionActivo.getSelectedIndex());
 			}
