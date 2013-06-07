@@ -65,7 +65,8 @@
 		resultType="mx.com.bbva.bancomer.bussinnes.model.vo.ClienteVO">
 		SELECT
 			CLIENTE.CD_CLIENTE idCliente,
-			CLIENTE.NB_CLIENTE nombreCliente
+			CLIENTE.NB_CLIENTE nombreCliente,
+			CLIENTE.CD_CLIENTE ||' - '|| CLIENTE.NB_CLIENTE descripcionCliente
 		FROM 
 			TGM512_CLIENTE CLIENTE  
 		WHERE CLIENTE.CD_ST_OBJETO != #{idBaja}

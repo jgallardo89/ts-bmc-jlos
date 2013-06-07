@@ -68,7 +68,8 @@
 		resultType="mx.com.bbva.bancomer.bussinnes.model.vo.ProductoVO">
 		SELECT 
 			PRODUCTO.CD_PRODUCTO idProducto,
-			PRODUCTO.NB_PRODUCTO nombreProducto
+			PRODUCTO.NB_PRODUCTO nombreProducto,
+			PRODUCTO.CD_PRODUCTO ||' - '|| PRODUCTO.NB_PRODUCTO descripcionProducto
 		FROM 
 			TGM515_PRODUCTO PRODUCTO
 		WHERE PRODUCTO.CD_ST_OBJETO != #{idBaja}

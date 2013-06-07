@@ -8,9 +8,9 @@
 					CONTRATACION.CD_CANAL idCanal,
 					CANAL.NB_CANAL nombreCanal,
 					CONTRATACION.CD_CLIENTE idCliente,
-					CLIENTE.NB_CLIENTE nombreCliente,
+					CONTRATACION.CD_CLIENTE ||' - '|| CLIENTE.NB_CLIENTE nombreCliente,
 					CONTRATACION.CD_PRODUCTO idProducto,
-					PRODUCTO.NB_PRODUCTO nombreProducto,
+					CONTRATACION.CD_PRODUCTO ||' - '|| PRODUCTO.NB_PRODUCTO nombreProducto,
 					CONTRATACION.CD_CANAL_SALIDA idCanalSalida,
 					(SELECT NB_CANAL 
 					 FROM TGM511_CANAL 
