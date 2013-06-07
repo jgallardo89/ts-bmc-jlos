@@ -21,6 +21,19 @@ public class ClienteVO extends BbvaAbstractValueObject {
 	private int idEstatusObjeto;
 	private String nombreEstatusObjeto;
 	private int idBaja;
+	private String descripcionCliente;
+	/**
+	 * @return the descripcionCliente
+	 */
+	public final String getDescripcionCliente() {
+		return descripcionCliente;
+	}
+	/**
+	 * @param descripcionCliente the descripcionCliente to set
+	 */
+	public final void setDescripcionCliente(String descripcionCliente) {
+		this.descripcionCliente = descripcionCliente;
+	}
 	/**
 	 * @return the idCliente
 	 */
