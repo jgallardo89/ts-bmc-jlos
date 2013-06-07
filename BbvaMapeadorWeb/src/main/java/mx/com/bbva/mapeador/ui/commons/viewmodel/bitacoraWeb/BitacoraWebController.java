@@ -148,16 +148,18 @@ public class BitacoraWebController extends ControllerSupport implements IControl
 		BitacoraBO bitacoraBO = new BitacoraBO();
 		String xml = bitacoraBO.readCommandParameters(bitacoraDTO).getXml();
 		try {
-			is = new ByteArrayInputStream(xml.getBytes("UTF-8"));
-			JOXBeanInputStream joxIn = new JOXBeanInputStream(is);
-			bitacoraDTO = (BitacoraDTO) joxIn.readObject(BitacoraDTO.class);
-			if(bitacoraDTO.getCampo()!=null) {
-				for (CampoDTO campo:bitacoraDTO.getCampo()) {
-					campoDTOs.add(campo);
+			if(xml != null) {
+				is = new ByteArrayInputStream(xml.getBytes("UTF-8"));
+				JOXBeanInputStream joxIn = new JOXBeanInputStream(is);
+				bitacoraDTO = (BitacoraDTO) joxIn.readObject(BitacoraDTO.class);
+				if(bitacoraDTO.getCampo()!=null) {
+					for (CampoDTO campo:bitacoraDTO.getCampo()) {
+						campoDTOs.add(campo);
+					}
 				}
+				bitacoraDTO.setCampoDTOs(campoDTOs);
+				joxIn.close();
 			}
-			bitacoraDTO.setCampoDTOs(campoDTOs);
-			joxIn.close();			
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}catch (IOException e) {
@@ -196,7 +198,7 @@ public class BitacoraWebController extends ControllerSupport implements IControl
 			beanGenerico = new BeanGenerico();
 			beanGenerico.setValor1(dateFormat.format(bitacoraVO.getFechaBitacora()));
 			beanGenerico.setValor2(bitacoraVO.getNombreUsuario());
-			beanGenerico.setValor3(bitacoraVO.getNombreEventoMapeador());
+			beanGenerico.setValor3(bitacoraVO.getDescripcionBitacoraWeb());
 			beanGenericos.add(beanGenerico);
 		}
 		return beanGenericos;
