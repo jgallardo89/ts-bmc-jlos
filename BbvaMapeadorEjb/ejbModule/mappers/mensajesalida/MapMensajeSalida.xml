@@ -53,7 +53,7 @@
 			#{descripcionMensajeSalida},
 			#{idEstatusObjeto},
 			CURRENT_DATE,
-			'N',
+			#{tipoNotificacion},
 			#{descripcionAsuntoSalida})
 	</insert>
 	<update id="actualizarMensajeSalida" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.MensajeSalidaVO">
