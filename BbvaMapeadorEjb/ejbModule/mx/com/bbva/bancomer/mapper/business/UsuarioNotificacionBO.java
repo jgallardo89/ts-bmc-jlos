@@ -159,8 +159,7 @@ public class UsuarioNotificacionBO implements
 						.getSqlSessionFactory().openSession();
 				MapUsuarioNotificacion mapUsuarioNotificacion = session.getMapper(MapUsuarioNotificacion.class);
 				try {
-					usuarioNotificacionVO.setIdUsuarios(idUsuarios);
-					usuarioNotificacionVO.setTipoNotificacion("N");
+					usuarioNotificacionVO.setIdUsuarios(idUsuarios);					
 					result = mapUsuarioNotificacion.obtenerListUsuarios(usuarioNotificacionVO);
 					session.commit();
 				} catch (Exception ex) {
