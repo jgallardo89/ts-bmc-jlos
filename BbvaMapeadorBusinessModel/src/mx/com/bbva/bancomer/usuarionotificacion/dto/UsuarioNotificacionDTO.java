@@ -15,6 +15,19 @@ public class UsuarioNotificacionDTO extends BbvaAbstractDataTransferObject   {
 	private UsuarioNotificacionVO usuarioNotificacionVO;
 	private List<UsuarioNotificacionVO> usuarioNotificacionVOs;
 	private List<EstatusObjetoVO> estatusObjetoVOs;
+	private int idMensajeNotificacion;
+	/**
+	 * @return the idMensajeNotificacion
+	 */
+	public final int getIdMensajeNotificacion() {
+		return idMensajeNotificacion;
+	}
+	/**
+	 * @param idMensajeNotificacion the idMensajeNotificacion to set
+	 */
+	public final void setIdMensajeNotificacion(int idMensajeNotificacion) {
+		this.idMensajeNotificacion = idMensajeNotificacion;
+	}
 	/**
 	 * @return the usuarioNotificacionVO
 	 */
