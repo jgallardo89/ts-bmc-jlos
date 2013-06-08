@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?page title="Asignar Usuario Sistema" contentType="text/html;charset=UTF-8"?>
+<?meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7"?>
+<?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
+<zk>
+	<window border="0" width="100%" height="70%"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('mx.com.bbva.mapeador.ui.commons.viewmodel.asignarusuariosnot.AsignarUsuariosNotController')"
+		id="aignarUsuarioWindows">
+		<include src="../../pages/styles.zul" />
+		<div sclass="BODY" height="100%" width="100%">
+			<groupbox height="100%">
+				<caption sclass="pageTitle" label="Notificaciones > Asignar Usuarios Sistema"></caption>		
+					<vlayout>
+					<groupbox height="435px">
+						<panel height="100%" width="100%" sclass="sectionPanelTitle" id="datosFlujos"
+							title="Notificaciones" collapsible="true" style="margin-bottom:10px"
+							border="normal">
+							<caption sclass="sectionPanelTitle" label="Asignar Usuarios sistema"></caption>
+							<panelchildren>
+								<div align="center">
+									<grid width="100%" style="border:0" oddRowSclass="row2">
+										<columns>
+											<column width="10%" />
+											<column width="25%" />
+											<column width="10%" />
+											<column width="55%" />
+										</columns>
+										<rows>
+											<row sclass="row2">
+												<div align="right">
+													<label id="lblMensaje" width="100%" sclass="labelFill" value="Mensajes:  "></label>
+												</div>
+												<combobox sclass="textboxUpperCase" id="mensajesSistema" width="100%" model="@load(vm.mensajeSalidaDTO.mensajeSalidaVOs)" autodrop="true" onChange="@command('readSelected')">													
+													<template name="model">										
+														<comboitem value="@load(each.idMensajeSalida)" label="@load(each.nombreMensajeSalida)" autag="@load(each.descripcionMensajeSalida)" height="100%"/>
+													</template>																								
+												</combobox>
+												<div align="right">
+													<label id="lblDescripcionMensaje" width="100%" sclass="labelFill" value="Descripción mensaje: "></label>
+												</div>
+												<textbox sclass="textboxUpperCase" readonly="true" maxlength="300" id="descripcionMensaje" width="100%"  rows="2"></textbox> 																													
+											</row>	
+											<row>
+												<cell colspan="4" align="center">
+													<hbox>
+														<listbox id="usuarios" height="240px" width="320px" model="@load(vm.usuarioNotificacionNoAsignadoDTO.usuarioNotificacionVOs)">
+															<listhead>
+																<listheader>																
+																	<label value="Usuarios Disponibles:"></label>																
+																</listheader>																										
+															</listhead>
+															<template name="model">
+													            <listitem value="@load(each.idUsuarioNotificado)" label="@load(each.nombreUsuarioNotificado)"/>												            													            													                												              												            
+													        </template>		
+														</listbox>
+														<div width="15%">
+															<vbox spacing="2px" width="100%">
+														        <image style="cursor:pointer" id="chooseAllBtn" src="/img/rightrightarrow_g.png" onClick="@command('chooseAll')" />
+														        <image style="cursor:pointer" id="chooseBtn" src="/img/rightarrow_g.png" onClick="@command('chooseOne')" />
+														        <image style="cursor:pointer" id="removeBtn" src="/img/leftarrow_g.png" onClick="@command('removeOne')"/>
+														        <image style="cursor:pointer" id="removeAllBtn" src="/img/leftleftarrow_g.png" onClick="@command('removeAll')"/>
+		   													</vbox>		
+		   												</div>
+														<listbox id="usuariosMensaje" height="240px" width="320px"  model="@load(vm.usuarioNotificacionAsignadoDTO.usuarioNotificacionVOs)">
+															<listhead>
+																<listheader>																
+																	<label value="Usuarios Asignados"></label>																
+																</listheader>																										
+															</listhead>
+															<template name="model">
+													            <listitem value="@load(each.idUsuarioNotificado)" label="@load(each.nombreUsuarioNotificado)"/>												            													            													                												              												            
+													        </template>	
+														</listbox>
+													</hbox>
+												</cell>
+											</row>																													
+										</rows>								
+									</grid>
+									<div align="center">										
+										<button sclass="button" image="/img/disk.png" label="Guardar"  id="guardarBtn" onClick="@command('save')"></button>										
+									</div>
+								</div>								
+							</panelchildren>										
+						</panel>
+					</groupbox>					
+				</vlayout>								
+			</groupbox>				
+		</div>				
+	</window>	
+</zk>

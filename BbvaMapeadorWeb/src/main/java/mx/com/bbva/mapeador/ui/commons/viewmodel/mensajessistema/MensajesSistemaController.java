@@ -1,4 +1,4 @@
-package mx.com.bbva.mapeador.ui.commons.viewmodel.mensajes;
+package mx.com.bbva.mapeador.ui.commons.viewmodel.mensajessistema;
 
 import java.lang.reflect.Field;
 import java.text.DateFormat;
@@ -45,7 +45,7 @@ import org.zkoss.zul.Image;
 import org.zkoss.zul.Label;
 import org.zkoss.zul.Textbox;
 
-public class MensajesController extends ControllerSupport implements IController {
+public class MensajesSistemaController extends ControllerSupport implements IController {
 
 	private static final long serialVersionUID = 4649691032075701267L;
 	@Wire
@@ -97,7 +97,7 @@ public class MensajesController extends ControllerSupport implements IController
 	private MensajeSalidaVO mensajeSalidaVO;
 	private String idStrEstatusObjeto;
 	
-	public MensajesController() {
+	public MensajesSistemaController() {
 		this.read();
 		this.mensajeSalidaVOs = mensajeSalidaDTO.getMensajeSalidaVOs();
 		flagMensaje = false;
@@ -116,7 +116,7 @@ public class MensajesController extends ControllerSupport implements IController
 	    mensajeSalidaDTO.setEstatusObjetoVOs(estatusObjetoDTO.getEstatusObjetoVOs());
 	    
 	    MensajeSalidaVO mensajeSalidaVO = new MensajeSalidaVO();
-	    mensajeSalidaVO.setTipoNotificacion(CommandConstants.TIPO_NOTIFICACION_NEGOCIO);
+	    mensajeSalidaVO.setTipoNotificacion(CommandConstants.TIPO_NOTIFICACION_SISTEMA);
 	    mensajeSalidaDTO.setMensajeSalidaVO(mensajeSalidaVO);
 		MensajeSalidaBO MensajeSalidaBO = new MensajeSalidaBO();
 		MensajeSalidaBO.readCommand(mensajeSalidaDTO);
@@ -133,7 +133,7 @@ public class MensajesController extends ControllerSupport implements IController
 		mensajeSalidaVO.setDescripcionMensajeSalida(StringUtil.validaLike(descripcionMensajeSalida.getValue()));
 		mensajeSalidaVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue().isEmpty()?"0":idEstatusObjeto.getValue()));
 		mensajeSalidaVO.setDescripcionAsuntoSalida(descripcionAsuntoSalida.getValue().isEmpty()?"%":"%"+descripcionAsuntoSalida.getValue().toUpperCase()+"%");
-		mensajeSalidaVO.setTipoNotificacion(CommandConstants.TIPO_NOTIFICACION_NEGOCIO);
+		mensajeSalidaVO.setTipoNotificacion(CommandConstants.TIPO_NOTIFICACION_SISTEMA);
 		mensajeSalidaVO.toString();
 		mensajeSalidaDTO.setMensajeSalidaVO(mensajeSalidaVO);
 		MensajeSalidaBO mensajeSalidaBO = new MensajeSalidaBO();
@@ -195,7 +195,7 @@ public class MensajesController extends ControllerSupport implements IController
 					mensajeSalidaVO.setDescripcionMensajeSalida(descripcionMensajeSalida.getValue().toUpperCase());
 					mensajeSalidaVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue()));
 					mensajeSalidaVO.setDescripcionAsuntoSalida(descripcionAsuntoSalida.getValue().toUpperCase());
-					mensajeSalidaVO.setTipoNotificacion(CommandConstants.TIPO_NOTIFICACION_NEGOCIO);
+					mensajeSalidaVO.setTipoNotificacion(CommandConstants.TIPO_NOTIFICACION_SISTEMA);
 					//mensajeSalidaVO.setIdMensajeSalida(Integer.parseInt(idMensajeSalida.getValue()));
 					mensajeSalidaDTO.setMensajeSalidaVO(mensajeSalidaVO);
 					mensajeSalidaBO.createCommand(mensajeSalidaDTO);
@@ -203,7 +203,7 @@ public class MensajesController extends ControllerSupport implements IController
 					controller.registrarEvento(mensajeSalidaVO, this.mensajeSalidaVO, CommandConstants.ALTA, "Catálogo de Mensajes de Notificación");
 					clean();
 					mensajeSalidaVO = new MensajeSalidaVO();
-					mensajeSalidaVO.setTipoNotificacion(CommandConstants.TIPO_NOTIFICACION_NEGOCIO);
+					mensajeSalidaVO.setTipoNotificacion(CommandConstants.TIPO_NOTIFICACION_SISTEMA);
 					mensajeSalidaDTO.setMensajeSalidaVO(mensajeSalidaVO);
 					mensajeSalidaVOs = mensajeSalidaBO.readCommand(mensajeSalidaDTO).getMensajeSalidaVOs();
 					Messagebox.show("!El Registro del Mensaje fue exitoso!",
@@ -215,7 +215,7 @@ public class MensajesController extends ControllerSupport implements IController
 					mensajeSalidaVO.setDescripcionMensajeSalida(StringUtil.validaLike(descripcionMensajeSalida.getValue()));
 					mensajeSalidaVO.setIdEstatusObjeto(0);
 					mensajeSalidaVO.toString();
-					mensajeSalidaVO.setTipoNotificacion(CommandConstants.TIPO_NOTIFICACION_NEGOCIO);
+					mensajeSalidaVO.setTipoNotificacion(CommandConstants.TIPO_NOTIFICACION_SISTEMA);
 					mensajeSalidaDTO.setMensajeSalidaVO(mensajeSalidaVO);
 					mensajeSalidaVOs = mensajeSalidaBO.readCommand(mensajeSalidaDTO).getMensajeSalidaVOs();
 					Messagebox.show("!No se puede registrar más de un Mensaje con el mismo Nombre!",
@@ -243,7 +243,7 @@ public class MensajesController extends ControllerSupport implements IController
 					mensajeSalidaVO.setNombreMensajeSalida(StringUtil.validaLike(nombreMensajeSalida.getValue()));
 					mensajeSalidaVO.setDescripcionMensajeSalida(StringUtil.validaLike(descripcionMensajeSalida.getValue()));
 					mensajeSalidaVO.setIdEstatusObjeto(0);
-					mensajeSalidaVO.setTipoNotificacion(CommandConstants.TIPO_NOTIFICACION_NEGOCIO);
+					mensajeSalidaVO.setTipoNotificacion(CommandConstants.TIPO_NOTIFICACION_SISTEMA);
 					mensajeSalidaVO.toString();
 					mensajeSalidaDTO.setMensajeSalidaVO(mensajeSalidaVO);
 					mensajeSalidaVOs = mensajeSalidaBO.readCommand(mensajeSalidaDTO).getMensajeSalidaVOs();
@@ -330,11 +330,11 @@ public class MensajesController extends ControllerSupport implements IController
 		headersReport.add("Fecha modificación");
 		headersReport.add("Status");
 		if(type.equals("xls")) {
-			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_EXCEL,"Mensajes de Notificación Negocio");
+			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_EXCEL,"Mensajes de Notificación Sistema");
 		} else {
-			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_TEXTO,"Mensajes de Notificación Negocio");
+			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_TEXTO,"Mensajes de Notificación Sistema");
 		}
-		controller.createReport(generaLista(), headersReport, type, "MENSAJES");
+		controller.createReport(generaLista(), headersReport, type, "MENSAJES-SISTEMA");
 	}	
 	
 	private ArrayList<BeanGenerico> generaLista() {

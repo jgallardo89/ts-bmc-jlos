@@ -19,6 +19,7 @@
 				/mapa=flowController  <!-- AKFG -->
 					<!-- Mensajes de Notificacion -->
 				/mensajes=flowController  <!-- AKFG -->
+				/mensajesSistema=flowController  <!-- AKFG -->
 				/palabraComodin=flowController  <!-- AKFG -->
 					<!-- Fin de Mensajes de Notificacion -->
 				/usuarioNotificacion=flowController  <!-- AKFG -->
@@ -40,6 +41,7 @@
 				/estatusObjeto=flowController  <!-- AKFG -->
 				/catalogoPantallas=flowController  <!-- AKFG -->
 				/catalogoComponentes=flowController  <!-- AKFG -->
+				/asignarUsuariosNot=flowController
 			</value>
 		</property>
 		<property name="defaultHandler">

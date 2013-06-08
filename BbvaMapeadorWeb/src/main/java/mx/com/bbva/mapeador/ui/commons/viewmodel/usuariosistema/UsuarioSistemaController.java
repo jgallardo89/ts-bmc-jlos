@@ -227,7 +227,7 @@ public class UsuarioSistemaController  extends ControllerSupport implements ICon
 				usuarioNotificacionDTOValida.setUsuarioNotificacionVO(notificacionVOValida);
 				usuarioNotificacionDTOValida = usuarioNotificacionBOValida.readCommandValidateExist(usuarioNotificacionDTOValida);				
 				if(usuarioNotificacionDTOValida.getUsuarioNotificacionVOs().get(0).getExiste()>0){
-					Messagebox.show("!Ya existe un usuario de negocio con el mismo email!",
+					Messagebox.show("!Ya existe un usuario de sistema con el mismo email!",
 							"Información", Messagebox.OK,
 							Messagebox.EXCLAMATION);
 				}else{
@@ -278,7 +278,7 @@ public class UsuarioSistemaController  extends ControllerSupport implements ICon
 				usuarioNotificacionDTOValida.setUsuarioNotificacionVO(notificacionVOValida);
 				usuarioNotificacionDTOValida = usuarioNotificacionBOValida.readCommandValidateExist(usuarioNotificacionDTOValida);
 				if(usuarioNotificacionDTOValida.getUsuarioNotificacionVOs().get(0).getExiste()>0){
-					Messagebox.show("!Ya existe un usuario de negocio con el mismo email!",
+					Messagebox.show("!Ya existe un usuario de sistema con el mismo email!",
 							"Información", Messagebox.OK,
 							Messagebox.EXCLAMATION);
 				}else{

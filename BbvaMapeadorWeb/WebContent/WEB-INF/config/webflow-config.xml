@@ -32,6 +32,7 @@
 		<webflow:flow-location id="mapa"  path="/WEB-INF/flows/mapa/mapa.xml" /> <!-- AKFG -->
 			<!-- Mensajes de Notificacion -->
 		<webflow:flow-location id="mensajes"  path="/WEB-INF/flows/mensajes/mensajes.xml" /> <!-- AKFG -->
+		<webflow:flow-location id="mensajesSistema"  path="/WEB-INF/flows/mensajesSistema/mensajesSistema.xml" /> <!-- AKFG -->
 		<webflow:flow-location id="palabraComodin"  path="/WEB-INF/flows/palabraComodin/palabraComodin.xml" /> <!-- AKFG -->
 			<!-- Fin de Mensajes de Notificacion -->
 		<webflow:flow-location id="usuarioNotificacion"  path="/WEB-INF/flows/usuarioNotificacion/usuarioNotificacion.xml" /> <!-- AKFG -->
@@ -52,6 +53,7 @@
 		<webflow:flow-location id="estatusObjeto"  path="/WEB-INF/flows/estatusObjeto/estatusObjeto.xml" /> <!-- AKFG -->
 		<webflow:flow-location id="catalogoPantallas"  path="/WEB-INF/flows/catalogoPantallas/catalogoPantallas.xml" /> <!-- AKFG -->
 		<webflow:flow-location id="catalogoComponentes"  path="/WEB-INF/flows/catalogoComponentes/catalogoComponentes.xml" /> <!-- AKFG -->
+		<webflow:flow-location id="asignarUsuariosNot"  path="/WEB-INF/flows/asignarUsuariosNot/asignarUsuariosNot.xml" /> <!-- AKFG -->		
 	</webflow:flow-registry>	
 		
 	<!-- Installs a listener to apply Spring Security authorities -->
