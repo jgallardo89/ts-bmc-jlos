@@ -89,4 +89,55 @@
 				AND CD_USUA_NOTIFICADO != #{idUsuarioNotificado}
 			</if>
 	</select>
+	<select id="obtenerUsuariosNotificacionSistemaNoAsignados" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.UsuarioNotificacionVO"
+		resultType="mx.com.bbva.bancomer.bussinnes.model.vo.UsuarioNotificacionVO">
+			Select Usuario.Cd_Usua_Notificado idUsuarioNotificado,
+			Usuario.Nb_Usua_Notificado || '-' ||Usuario.Tx_Email nombreUsuarioNotificado,
+			Usuario.Tx_Email descripcionEmail
+			From Tgm510_Usua_Notifi Usuario
+			Where Usuario.Tp_Notificacion = 'S'
+			And Usuario.Cd_St_Objeto != 20
+			Minus
+			Select Usuario.Cd_Usua_Notificado idUsuarioNotificado,
+			Usuario.Nb_Usua_Notificado || '-' ||Usuario.Tx_Email nombreUsuarioNotificado,
+			Usuario.Tx_Email descripcionEmail
+			From Tgm516_Mensaje_Sal Mensaje,
+			Tgm510_Usua_Notifi Usuario,
+			Tgm523_Msj_Usr_Ntf Usuariomensaje
+			Where Mensaje.Cd_Mensaje_Salida = Usuariomensaje.Cd_Mensaje_Salida
+			And Usuario.Cd_Usua_Notificado = Usuariomensaje.Cd_Usua_Notificado
+			And Mensaje.Tp_Notificacion = 'S'
+			And Usuario.Tp_Notificacion = 'S'
+			And Mensaje.Cd_St_Objeto != 17
+			And Usuario.Cd_St_Objeto != 20
+			AND mensaje.CD_MENSAJE_SALIDA = #{idMensajeNotificacion}
+	</select>
+	<select id="obtenerUsuariosNotificacionSistemaAsignados" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.UsuarioNotificacionVO"
+		resultType="mx.com.bbva.bancomer.bussinnes.model.vo.UsuarioNotificacionVO">
+			Select Usuario.Cd_Usua_Notificado idUsuarioNotificado,
+			Usuario.Nb_Usua_Notificado || '-' ||Usuario.Tx_Email nombreUsuarioNotificado,
+			Usuario.Tx_Email descripcionEmail
+			From Tgm516_Mensaje_Sal Mensaje,
+			Tgm510_Usua_Notifi Usuario,
+			Tgm523_Msj_Usr_Ntf Usuariomensaje
+			Where Mensaje.Cd_Mensaje_Salida = Usuariomensaje.Cd_Mensaje_Salida
+			And Usuario.Cd_Usua_Notificado = Usuariomensaje.Cd_Usua_Notificado
+			And Mensaje.Tp_Notificacion = 'S'
+			And Usuario.Tp_Notificacion = 'S'
+			And Mensaje.Cd_St_Objeto != 17
+			And Usuario.Cd_St_Objeto != 20
+			AND mensaje.CD_MENSAJE_SALIDA = #{idMensajeNotificacion}
+	</select>
+	<delete id="eliminaUsuarioMensaje" parameterType="int">
+		delete from Tgm523_Msj_Usr_Ntf where Cd_Mensaje_Salida = #{idMensajeNotificacion}
+	</delete>
+	<insert id="insertaUsuarioMensaje" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.UsuarioNotificacionVO">
+		Insert Into  Tgm523_Msj_Usr_Ntf (
+			Cd_Mensaje_Salida,
+			Cd_Usua_Notificado 
+		)Values(
+			#{idMensajeNotificacion},
+			#{idUsuarioNotificado}
+		)
+	</insert>
 </mapper>

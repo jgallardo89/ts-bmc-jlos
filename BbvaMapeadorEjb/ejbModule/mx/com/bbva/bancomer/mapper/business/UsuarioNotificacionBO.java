@@ -9,6 +9,7 @@ import org.apache.log4j.Logger;
 
 import mappers.usuarionotificacion.MapUsuarioNotificacion;
 import mx.com.bbva.bancomer.bussinnes.model.vo.UsuarioNotificacionVO;
+import mx.com.bbva.bancomer.commons.command.CommandConstants;
 import mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject;
 import mx.com.bbva.bancomer.contratacion.dto.ContratacionDTO;
 import mx.com.bbva.bancomer.usuarionotificacion.dto.UsuarioNotificacionDTO;
@@ -34,7 +35,35 @@ public class UsuarioNotificacionBO implements
 			mx.com.bbva.bancomer.commons.persistence.dao.BbvaIDataAccessObject bbvaIDataAccessObject) {
 		this.bbvaIDataAccessObject = bbvaIDataAccessObject;
 	}
-
+	public <T extends BbvaAbstractDataTransferObject> T createCommandUsuarioNotificacion(T bbvaAbstractDataTransferObject) {		
+		logger.debug( "Entrada createCommand          -- OK" );
+		logger.debug( "Datos de Entrada createCommand -- " + bbvaAbstractDataTransferObject.toString() );		
+		List<UsuarioNotificacionVO> usuarioNotificacionVOs = ((UsuarioNotificacionDTO)bbvaAbstractDataTransferObject).getUsuarioNotificacionVOs();		
+		if(usuarioNotificacionVOs != null){
+			SqlSession session = MapeadorSessionFactory.getSqlSessionFactory()
+					.openSession();
+			MapUsuarioNotificacion mapUsuarioNotificacion = session.getMapper(MapUsuarioNotificacion.class);
+			try {
+				mapUsuarioNotificacion.eliminaUsuarioMensaje(((UsuarioNotificacionDTO)bbvaAbstractDataTransferObject).getIdMensajeNotificacion());
+				for (UsuarioNotificacionVO usuarioNotificacionVO : usuarioNotificacionVOs) {
+					usuarioNotificacionVO.setIdMensajeNotificacion(((UsuarioNotificacionDTO)bbvaAbstractDataTransferObject).getIdMensajeNotificacion());
+					mapUsuarioNotificacion.insertaUsuarioMensaje(usuarioNotificacionVO);
+				}
+				session.commit();
+			} catch (Exception ex) {
+				session.rollback();
+				ex.printStackTrace();
+			} finally {
+				session.close();
+			}
+			logger.debug( "Datos de Salida invoke -- " + bbvaAbstractDataTransferObject.toString() );
+			logger.debug( "Salida invoke          -- OK" );
+		}else{
+			bbvaAbstractDataTransferObject.setErrorCode("0001");
+			bbvaAbstractDataTransferObject.setErrorDescription("El usuario ya existe");
+		}			
+		return bbvaAbstractDataTransferObject;	
+	}
 	@Override
 	public <T extends BbvaAbstractDataTransferObject> T createCommand(
 			T bbvaAbstractDataTransferObject) {		
@@ -80,8 +109,15 @@ public class UsuarioNotificacionBO implements
 					logger.debug(":::::::::::::::::::::" + usuarioNotificacionVO.toString());
 				}
 				try {
-					result = mapUsuarioNotificacion.obtenerUsuariosNotificacion(usuarioNotificacionVO);
-					
+					if(bbvaAbstractDataTransferObject.getCommandId()==CommandConstants.CONSULTA_USUARIOS_NO_ASIGNADOS){
+						logger.debug("Obteniendo CONSULTA_USUARIOS_NO_ASIGNADOS ......");
+						result = mapUsuarioNotificacion.obtenerUsuariosNotificacionSistemaNoAsignados(usuarioNotificacionVO);
+					}else if(bbvaAbstractDataTransferObject.getCommandId()==CommandConstants.CONSULTA_USUARIOS_ASIGNADOS){
+						logger.debug("Obteniendo CONSULTA_USUARIOS_ASIGNADOS ......");
+						result = mapUsuarioNotificacion.obtenerUsuariosNotificacionSistemaAsignados(usuarioNotificacionVO);
+					}else{
+						result = mapUsuarioNotificacion.obtenerUsuariosNotificacion(usuarioNotificacionVO);
+					}
 					session.commit();
 				} catch (Exception ex) {
 					session.rollback();

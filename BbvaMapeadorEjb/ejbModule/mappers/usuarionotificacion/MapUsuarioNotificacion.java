@@ -10,4 +10,8 @@ public interface MapUsuarioNotificacion {
 	public abstract void crearUsuarioNotificacion(UsuarioNotificacionVO usuarioNotificacionVO);
 	public abstract void actualizarUsuarioNotificacion(UsuarioNotificacionVO usuarioNotificacionVO);
 	public abstract List<UsuarioNotificacionVO> validaExisteUsuario(UsuarioNotificacionVO usuarioNotificacionVO);
+	public abstract List<UsuarioNotificacionVO> obtenerUsuariosNotificacionSistemaNoAsignados(UsuarioNotificacionVO usuarioNotificacionVO);
+	public abstract List<UsuarioNotificacionVO> obtenerUsuariosNotificacionSistemaAsignados(UsuarioNotificacionVO usuarioNotificacionVO);
+	public abstract void eliminaUsuarioMensaje(int idMensajeNotificacion);
+	public abstract void insertaUsuarioMensaje(UsuarioNotificacionVO usuarioNotificacionVO);
 }
