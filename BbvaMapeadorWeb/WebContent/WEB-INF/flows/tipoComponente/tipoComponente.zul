@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?page title="Catálogo Productos" contentType="text/html;charset=UTF-8"?>
+<?meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7"?>
+<?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
+<zk>
+	<window border="0" width="100%" height="110%"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('mx.com.bbva.mapeador.ui.commons.viewmodel.tipocomponente.TipoComponenteController')"
+		id="tipoComponenteWindows">
+		<include src="../../pages/styles.zul" />
+		<div sclass="BODY" height="100%" width="100%">
+			<groupbox height="100%">
+				<caption sclass="pageTitle" label="Sistema > Tipo Componentes"></caption>		
+					<vlayout>
+					<groupbox>
+					<div align="center">
+						<panel height="30%" width="50%" sclass="sectionPanelTitle" id="datosTipoComponentes"
+							title="Catálogo" collapsible="true" style="margin-bottom:10px"
+							border="normal">
+							<caption sclass="sectionPanelTitle" label="Sistema Tipo Componentes"></caption>
+							<panelchildren>
+								<div align="center">
+									<grid width="100%" style="border:0" oddRowSclass="row2">
+										<columns>
+											<column width="50%" />											
+											<column width="50%" />
+										</columns>
+										<rows>
+											<row sclass="row2">
+												<div align="right">
+													<label id="lblTipoComponente" width="100%" sclass="labelFill" value="Tipo de Componente: "></label>
+												</div>
+												<div align="left">
+													<textbox id="tipoComponente" width="100%" sclass="textboxUpperCase" maxlength="30"></textbox>
+												</div>		
+																																											
+											</row>																														
+										</rows>								
+									</grid>
+									<div align="center">
+										<image id="reporteExcelBtn" src="/img/xls.png" onClick="@command('onShowReport',type='xls')" />
+										<image id="reporteCsvBtn" src="/img/csv.png" onClick="@command('onShowReport',type='csv')" />
+										<button sclass="button" image="/img/clear.png" label="Limpiar" id="limpiarBtn" onClick="@command('clean')" ></button>										
+										<button sclass="button" image="/img/disk.png" label="Guardar" id="guardarBtn" onClick="@command('save')"></button>										
+									</div>
+								</div>
+							</panelchildren>										
+						</panel>
+					</div>
+					</groupbox>
+					<groupbox height="450px">
+					<div align="center">
+						<panel height="430px" sclass="sectionPanelTitle" width="50%" id="panelTipoComponenteMapeador"
+							title="Resultados Tipos de Componentes Mapeador" collapsible="true"
+							style="margin-bottom:10px">
+							<caption sclass="sectionPanelTitle" label="Listado de Tipos de Componente"></caption>
+							<panelchildren>
+								<grid width="99.7%" id="tipoComponentesGrid" mold="paging"
+									model="@load(vm.tipoComponenteVOs)" pagingPosition="both" pageSize="12"
+									vflex="true">									
+									<columns sizable="true" menupopup="auto">
+										<column hflex="0" align="center" image="/img/pencil-small.png" 
+												width="5%"></column>
+										<column hflex="1" label="Nombre Tipo Componente" style="text-wrap: normal;"
+											width="10%" sort="auto(nombreTipoComponente)"></column>																	
+									</columns>
+									<template name="model">
+										<row>
+											<image src="/img/pencil-small.png" onClick="@command('readSelected',idTipoComponente=each)"></image>
+											<label hflex="1" value="@load(each.nombreTipoComponente)"></label>																																	
+										</row>
+									</template>									
+								</grid>
+							</panelchildren>
+						</panel>
+					</div>
+					</groupbox>
+				</vlayout>							
+			</groupbox>				
+		</div>
+		<intbox id="idTipoComponente" value="0"></intbox>			
+	</window>
+</zk>

@@ -54,6 +54,7 @@
 		<webflow:flow-location id="catalogoPantallas"  path="/WEB-INF/flows/catalogoPantallas/catalogoPantallas.xml" /> <!-- AKFG -->
 		<webflow:flow-location id="catalogoComponentes"  path="/WEB-INF/flows/catalogoComponentes/catalogoComponentes.xml" /> <!-- AKFG -->
 		<webflow:flow-location id="asignarUsuariosNot"  path="/WEB-INF/flows/asignarUsuariosNot/asignarUsuariosNot.xml" /> <!-- AKFG -->		
+		<webflow:flow-location id="tipoComponente"  path="/WEB-INF/flows/tipoComponente/tipoComponente.xml" /> <!-- AKFG -->
 	</webflow:flow-registry>	
 		
 	<!-- Installs a listener to apply Spring Security authorities -->

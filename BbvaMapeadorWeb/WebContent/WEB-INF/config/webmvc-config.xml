@@ -42,6 +42,7 @@
 				/catalogoPantallas=flowController  <!-- AKFG -->
 				/catalogoComponentes=flowController  <!-- AKFG -->
 				/asignarUsuariosNot=flowController
+				/tipoComponente=flowController
 			</value>
 		</property>
 		<property name="defaultHandler">
