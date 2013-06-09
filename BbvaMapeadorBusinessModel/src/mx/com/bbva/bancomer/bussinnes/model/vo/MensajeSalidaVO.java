@@ -22,7 +22,32 @@ public class MensajeSalidaVO extends BbvaAbstractValueObject {
 	private String tipoNotificacion;
 	private int idBaja;
 	private int numMensaje;
-	
+	private String nombreUsuario;
+	private String mailUsuario;
+	/**
+	 * @return the nombreUsuario
+	 */
+	public final String getNombreUsuario() {
+		return nombreUsuario;
+	}
+	/**
+	 * @param nombreUsuario the nombreUsuario to set
+	 */
+	public final void setNombreUsuario(String nombreUsuario) {
+		this.nombreUsuario = nombreUsuario;
+	}
+	/**
+	 * @return the mailUsuario
+	 */
+	public final String getMailUsuario() {
+		return mailUsuario;
+	}
+	/**
+	 * @param mailUsuario the mailUsuario to set
+	 */
+	public final void setMailUsuario(String mailUsuario) {
+		this.mailUsuario = mailUsuario;
+	}
 	/**
 	 * @return the descripcionAsuntoSalida
 	 */
