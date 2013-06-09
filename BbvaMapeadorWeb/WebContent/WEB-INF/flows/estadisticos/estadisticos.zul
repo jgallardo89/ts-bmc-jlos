@@ -154,25 +154,78 @@
 							<panelchildren>
 								<zscript><![CDATA[
 							    java.util.Map quarters = new java.util.TreeMap();
-							    quarters.put("Q1", new java.util.ArrayList(java.util.Arrays.asList(new String[] {"Jan", "Feb", "Mar"})));
-							     quarters.put("Q2", new java.util.ArrayList(java.util.Arrays.asList(new String[] {"Apr", "May", "Jun"})));
-							     quarters.put("Q3", new java.util.ArrayList(java.util.Arrays.asList(new String[] {"Jul", "Aug", "Sep"})));
-							     quarters.put("Q4", new java.util.ArrayList(java.util.Arrays.asList(new String[] {"Oct", "Nov", "Dec"})));
+							    quarters.put("C1", new java.util.ArrayList(java.util.Arrays.asList(new String[] {"Jan", "Feb", "Mar"})));
+							     quarters.put("C2", new java.util.ArrayList(java.util.Arrays.asList(new String[] {"Apr", "May", "Jun"})));
+							     quarters.put("C3", new java.util.ArrayList(java.util.Arrays.asList(new String[] {"Jul", "Aug", "Sep"})));
+							     quarters.put("C4", new java.util.ArrayList(java.util.Arrays.asList(new String[] {"Oct", "Nov", "Dec"})));
+							     
+							     
+							     java.util.Map quarters1 = new java.util.TreeMap();
+								    quarters1.put("C1", new java.util.ArrayList(java.util.Arrays.asList(new String[] {"Jan", "Feb", "Mar"})));
+								     quarters1.put("C2", new java.util.ArrayList(java.util.Arrays.asList(new String[] {"Apr", "May", "Jun"})));
+								     quarters1.put("C3", new java.util.ArrayList(java.util.Arrays.asList(new String[] {"Jul", "Aug", "Sep"})));
+								     quarters1.put("C4", new java.util.ArrayList(java.util.Arrays.asList(new String[] {"Oct", "Nov", "Dec"})));
 							    ]]></zscript>
-							    <listbox>
-							            <listitem forEach="${quarters}">
-							                <listcell>
-							                    <listbox width="99.7%">
-									                    <listhead>
-															<listheader label="${each.key}"/>
-														</listhead>
-							                            <listitem forEach="${each.value}" label="${each}">
-								                            
-							                            </listitem>
-							                    </listbox>
-							                </listcell>
-							            </listitem>
-							    </listbox>							
+							    <grid width="99.7%" id="canalesGrid" mold="paging"
+									model="@load(vm.canalMockDTOs)" pagingPosition="both" pageSize="12"
+									vflex="true">
+									<columns>
+										<column label="CANAL"/>
+										<column label="" width="85%"/>
+									</columns>
+									<template name="model">
+									<row>
+									<hbox pack="left">
+										 <cell><label value="@load(each.nombreCanal)"></label></cell>
+									</hbox>
+					                       <cell>
+						                       <grid width="50.%"  mold="paging"
+													model="@load(each.clienteMockDTOs)" pagingPosition="both" pageSize="12"
+													vflex="true" >
+													<columns>
+														<column label="CLIENTE"/>
+														<column label="PRODUCTOS"  width="85%"/>
+													</columns>
+													<template name="model">						                
+									                    <row>
+									                        <cell>
+									                        	<label hflex="1" value="@load(each.nombreCliente)"></label>
+									                        </cell>
+									                        <cell>
+									                        	<grid width="50.%"  mold="paging"
+																	model="@load(each.productoVOs)" pagingPosition="both" pageSize="12"
+																	vflex="true" >
+																	<columns>
+																		<column label="FECHA"/>
+																		<column label="PRODUCTO"/>
+																		<column label="NOMBRE ARCHIVO"/>
+																		<column label="OPERACIONES"/>
+																	</columns>
+																	<template name="model">						                
+													                    <row>
+													                        <cell>
+													                        	<label hflex="1" value="@load(each.fechaAlta)"></label>
+													                        </cell>
+													                        <cell>
+													                        	<label hflex="1" value="@load(each.nombreProducto)"></label>
+													                        </cell>
+													                        <cell>
+													                        	<label hflex="1" value="@load(each.nombreFlujo)"></label>
+													                        </cell>
+													                        <cell>
+													                        	<label hflex="1" value="@load(each.nombreEstatusObjeto)"></label>
+													                        </cell>
+													                    </row>
+													                </template>
+													            </grid>
+									                        </cell>
+									                    </row>
+									                </template>
+									            </grid>
+								            </cell>
+					                    </row>
+					                </template>
+					            </grid>							
 							</panelchildren>
 						</panel>
 					</groupbox>
