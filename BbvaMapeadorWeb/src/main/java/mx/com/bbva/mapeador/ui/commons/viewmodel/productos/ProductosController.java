@@ -197,8 +197,8 @@ public class ProductosController extends ControllerSupport implements IControlle
 				if(validaProductoRegistrado(nombreProducto.getValue().toUpperCase(),0)) {
 					ProductoDTO productoDTO = new ProductoDTO();
 					ProductoVO productoVO = new ProductoVO();
-					productoVO.setNombreProducto(nombreProducto.getValue().toUpperCase());
-					productoVO.setDescripcionProducto(descripcionProducto.getValue().toUpperCase());
+					productoVO.setNombreProducto(nombreProducto.getValue().toUpperCase().trim());
+					productoVO.setDescripcionProducto(descripcionProducto.getValue().toUpperCase().trim());
 					productoVO.setIdEstatusObjeto(CommandConstants.ESTATUS_PRODUCTO_ACTIVO);
 					productoVO.setIdFlujo(Integer.parseInt(idFlujo.getValue()));
 					productoDTO.setProductoVO(productoVO);
@@ -239,8 +239,8 @@ public class ProductosController extends ControllerSupport implements IControlle
 							contratacionBO.readCommandValidaContratacion(contratacionVO)){
 						ProductoDTO productoDTO = new ProductoDTO();
 						ProductoVO productoVO = new ProductoVO();
-						productoVO.setNombreProducto(nombreProducto.getValue().toUpperCase());
-						productoVO.setDescripcionProducto(descripcionProducto.getValue().toUpperCase());
+						productoVO.setNombreProducto(nombreProducto.getValue().toUpperCase().trim());
+						productoVO.setDescripcionProducto(descripcionProducto.getValue().toUpperCase().trim());
 						productoVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue()));
 						productoVO.setIdFlujo(Integer.parseInt(idFlujo.getValue()));
 						productoVO.setIdProducto(Integer.parseInt(idProducto.getValue()));

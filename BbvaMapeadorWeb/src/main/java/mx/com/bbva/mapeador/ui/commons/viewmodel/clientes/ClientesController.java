@@ -184,9 +184,9 @@ public class ClientesController extends ControllerSupport implements IController
 				clienteDTO = clienteBO.readCommand(clienteVO);
 				
 				if(clienteDTO.getClienteVOs().size()==0) {
-					clienteVO.setIdIdentificador(idIdentificador.getValue().toUpperCase());
-					clienteVO.setNombreCliente(nombreCliente.getValue().toUpperCase());
-					clienteVO.setNombreCortoCliente(nombreCortoCliente.getValue().toUpperCase());
+					clienteVO.setIdIdentificador(idIdentificador.getValue().toUpperCase().trim());
+					clienteVO.setNombreCliente(nombreCliente.getValue().toUpperCase().trim());
+					clienteVO.setNombreCortoCliente(nombreCortoCliente.getValue().toUpperCase().trim());
 					clienteVO.setIdEstatusObjeto(CommandConstants.ESTATUS_OBJETO_ACTIVO_CLIENTES);
 					clienteDTO.setClienteVO(clienteVO);
 					clienteBO.createCommand(clienteDTO);
@@ -239,9 +239,9 @@ public class ClientesController extends ControllerSupport implements IController
 						ClienteDTO clienteDTO = new ClienteDTO();
 						clienteVO = new ClienteVO();
 						clienteVO.setIdCliente(Integer.parseInt(idCliente.getValue()));
-						clienteVO.setIdIdentificador(idIdentificador.getValue().toUpperCase());
-						clienteVO.setNombreCliente(nombreCliente.getValue().toUpperCase());
-						clienteVO.setNombreCortoCliente(nombreCortoCliente.getValue().toUpperCase());
+						clienteVO.setIdIdentificador(idIdentificador.getValue().toUpperCase().trim());
+						clienteVO.setNombreCliente(nombreCliente.getValue().toUpperCase().trim());
+						clienteVO.setNombreCortoCliente(nombreCortoCliente.getValue().toUpperCase().trim());
 						clienteVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue()));
 						clienteDTO.setClienteVO(clienteVO);
 						

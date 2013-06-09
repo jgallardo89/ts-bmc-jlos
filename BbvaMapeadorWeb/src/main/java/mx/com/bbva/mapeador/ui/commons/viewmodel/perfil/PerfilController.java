@@ -357,7 +357,7 @@ public class PerfilController extends ControllerSupport implements  IController{
 					PerfilVO perfilVOValida = new PerfilVO();
 					PerfilBO perfilBOvalida = new PerfilBO();
 					perfilVOValida.setIdPerfil(Integer.parseInt(idPerfil.getValue()));
-					perfilVOValida.setNombrebPerfil(nombrePerfil.getValue());
+					perfilVOValida.setNombrebPerfil(nombrePerfil.getValue().trim());
 					perfilDTOValida.setPerfilVO(perfilVOValida);
 					perfilDTOValida.setCommandId(CommandConstants.PERFIL_COMMAND_READ_ALL);
 					perfilDTOValida = perfilBOvalida.readCommand(perfilDTOValida);

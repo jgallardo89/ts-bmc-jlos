@@ -163,7 +163,7 @@ public class UsuarioSistemaController  extends ControllerSupport implements ICon
 		UsuarioNotificacionVO usuarioNotificacionVO = new UsuarioNotificacionVO(); 
 		//Textbox
 		usuarioNotificacionVO.setNombreUsuarioNotificado(nombreUsuario.getValue().isEmpty()?"%":"%"+nombreUsuario.getValue().toUpperCase()+"%");
-		usuarioNotificacionVO.setDescripcionEmail(email.getValue().isEmpty()?"%":"%"+email.getValue().toUpperCase()+"%");
+		usuarioNotificacionVO.setDescripcionEmail(email.getValue().isEmpty()?"%":"%"+email.getValue()+"%");
 		
 		//Combos Validar el nombre de los parametros en HTML VS Controller
 		usuarioNotificacionVO.setIdEstatusObjeto((Integer.parseInt(idEstatusObjeto.getValue().isEmpty()?"0":idEstatusObjeto.getValue())));
@@ -235,38 +235,71 @@ public class UsuarioSistemaController  extends ControllerSupport implements ICon
 					UsuarioNotificacionDTO usuarioNotificacionDTO = new UsuarioNotificacionDTO();
 					UsuarioNotificacionVO usuarioNotificacionVO = new UsuarioNotificacionVO();
 					usuarioNotificacionVO.setIdUsuarioNotificado(Integer.parseInt(idUsuarioNotificado.getValue().isEmpty()?"0":idUsuarioNotificado.getValue()));
-					usuarioNotificacionVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue().isEmpty()?"1":idEstatusObjeto.getValue()));
+					usuarioNotificacionVO.setIdEstatusObjeto(Integer.parseInt(status.getSelectedItem().getValue().toString()));
 					usuarioNotificacionVO.setTipoNotificacion(CommandConstants.TIPO_NOTIFICACION_SISTEMA);
-					usuarioNotificacionVO.setNombreUsuarioNotificado(nombreUsuario.getValue().toUpperCase());
-					usuarioNotificacionVO.setDescripcionEmail(email.getValue());
+					usuarioNotificacionVO.setNombreUsuarioNotificado(nombreUsuario.getValue().toUpperCase().trim());
+					usuarioNotificacionVO.setDescripcionEmail(email.getValue().trim());
 								
 					//Seteo de VO a DTO 
 					usuarioNotificacionDTO.setUsuarioNotificacionVO(usuarioNotificacionVO);
 					usuarioNotificacionDTO.toString(BbvaAbstractDataTransferObject.XML);	
 					
-					UsuarioNotificacionBO UsuarioNotificacionBO = new UsuarioNotificacionBO();
-					UsuarioNotificacionBO.updateCommand(usuarioNotificacionDTO);
-					ReportesController controller = new ReportesController();
-					controller.registrarEvento(usuarioNotificacionVO, this.usuarioNotificacionVO, CommandConstants.MODIFICACION, "Usuario Sistema");
-					clean();			
+					UsuarioNotificacionBO usuarioNotificacionBO = new UsuarioNotificacionBO();
 					
-					usuarioNotificacionVO = new UsuarioNotificacionVO();
-					usuarioNotificacionVO.setTipoNotificacion(CommandConstants.TIPO_NOTIFICACION_SISTEMA);
-					usuarioNotificacionDTO.setUsuarioNotificacionVO(usuarioNotificacionVO);
-					usuarioNotificacionDTO.toString(BbvaAbstractDataTransferObject.XML);	
-					
-					//LLamada a BO  UsuarioNotificacion para consulta por criterio
-					UsuarioNotificacionBO usuarioNotificacionBO = new UsuarioNotificacionBO();						
-					
-					//Asignacion resultado de consulta al mismo DTO de UsuarioNotificacion
-					usuarioNotificacionDTO = usuarioNotificacionBO.readCommand(usuarioNotificacionDTO);
-					
-					
-					Messagebox.show("Registro actualizado con exito!!",
-							"Confirmación", Messagebox.OK,
-							Messagebox.INFORMATION);
-					
-					usuarioNotificacionVOs = usuarioNotificacionDTO.getUsuarioNotificacionVOs();
+					if(Integer.parseInt(status.getSelectedItem().getValue().toString())==20 ||
+							Integer.parseInt(status.getSelectedItem().getValue().toString())==19){						
+						UsuarioNotificacionDTO usuarioNotificacionDTOValidaExiste = new UsuarioNotificacionDTO();
+						UsuarioNotificacionVO usuarioNotificacionVOValidaExiste  = new UsuarioNotificacionVO();
+						usuarioNotificacionVOValidaExiste.setIdUsuarioNotificado(Integer.parseInt(idUsuarioNotificado.getValue()));
+						usuarioNotificacionVOValidaExiste.setTipoNotificacion(CommandConstants.TIPO_NOTIFICACION_SISTEMA);
+						usuarioNotificacionDTOValidaExiste.setUsuarioNotificacionVO(usuarioNotificacionVOValidaExiste);
+						usuarioNotificacionDTOValidaExiste = usuarioNotificacionBO.readCommandValidateExistePermiso(usuarioNotificacionDTOValidaExiste);
+						if(usuarioNotificacionDTOValidaExiste.getUsuarioNotificacionVOs().get(0).getExiste()==1){							
+							Messagebox.show("El usuario no se puede desactivar o dar de baja debido a que esta asociado a notificaciones!!",
+									"Error", Messagebox.OK,
+									Messagebox.ERROR);
+						}else{
+							usuarioNotificacionBO.updateCommand(usuarioNotificacionDTO);
+							ReportesController controller = new ReportesController();
+							controller.registrarEvento(usuarioNotificacionVO, this.usuarioNotificacionVO, CommandConstants.MODIFICACION, "Usuario Negocio");
+							clean();			
+							
+							usuarioNotificacionVO = new UsuarioNotificacionVO();
+							usuarioNotificacionVO.setTipoNotificacion(CommandConstants.TIPO_NOTIFICACION_SISTEMA);
+							usuarioNotificacionDTO.setUsuarioNotificacionVO(usuarioNotificacionVO);
+							usuarioNotificacionDTO.toString(BbvaAbstractDataTransferObject.XML);																		
+							
+							//Asignacion resultado de consulta al mismo DTO de UsuarioNotificacion
+							usuarioNotificacionDTO = usuarioNotificacionBO.readCommand(usuarioNotificacionDTO);
+							
+							
+							Messagebox.show("Registro actualizado con exito!!",
+									"Confirmación", Messagebox.OK,
+									Messagebox.INFORMATION);
+							
+							usuarioNotificacionVOs = usuarioNotificacionDTO.getUsuarioNotificacionVOs();
+						}
+					}else{						
+						usuarioNotificacionBO.updateCommand(usuarioNotificacionDTO);
+						ReportesController controller = new ReportesController();
+						controller.registrarEvento(usuarioNotificacionVO, this.usuarioNotificacionVO, CommandConstants.MODIFICACION, "Usuario Negocio");
+						clean();			
+						
+						usuarioNotificacionVO = new UsuarioNotificacionVO();
+						usuarioNotificacionVO.setTipoNotificacion(CommandConstants.TIPO_NOTIFICACION_SISTEMA);
+						usuarioNotificacionDTO.setUsuarioNotificacionVO(usuarioNotificacionVO);
+						usuarioNotificacionDTO.toString(BbvaAbstractDataTransferObject.XML);																		
+						
+						//Asignacion resultado de consulta al mismo DTO de UsuarioNotificacion
+						usuarioNotificacionDTO = usuarioNotificacionBO.readCommand(usuarioNotificacionDTO);
+						
+						
+						Messagebox.show("Registro actualizado con exito!!",
+								"Confirmación", Messagebox.OK,
+								Messagebox.INFORMATION);
+						
+						usuarioNotificacionVOs = usuarioNotificacionDTO.getUsuarioNotificacionVOs();						
+					}
 				}
 			}else{ 
 				UsuarioNotificacionVO notificacionVOValida = new UsuarioNotificacionVO();
@@ -286,10 +319,10 @@ public class UsuarioSistemaController  extends ControllerSupport implements ICon
 					UsuarioNotificacionDTO usuarioNotificacionDTO = new UsuarioNotificacionDTO();
 					UsuarioNotificacionVO usuarioNotificacionVO = new UsuarioNotificacionVO();
 					usuarioNotificacionVO.setIdUsuarioNotificado(Integer.parseInt(idUsuarioNotificado.getValue().isEmpty()?"0":idUsuarioNotificado.getValue()));
-					usuarioNotificacionVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue().isEmpty()?"1":idEstatusObjeto.getValue()));
+					usuarioNotificacionVO.setIdEstatusObjeto(Integer.parseInt(status.getSelectedItem().getValue().toString()));
 					usuarioNotificacionVO.setTipoNotificacion(CommandConstants.TIPO_NOTIFICACION_SISTEMA);
-					usuarioNotificacionVO.setNombreUsuarioNotificado(nombreUsuario.getValue().toUpperCase());
-					usuarioNotificacionVO.setDescripcionEmail(email.getValue());
+					usuarioNotificacionVO.setNombreUsuarioNotificado(nombreUsuario.getValue().toUpperCase().trim());
+					usuarioNotificacionVO.setDescripcionEmail(email.getValue().trim());
 								
 					//Seteo de VO a DTO 
 					usuarioNotificacionDTO.setUsuarioNotificacionVO(usuarioNotificacionVO);
@@ -578,7 +611,7 @@ public class UsuarioSistemaController  extends ControllerSupport implements ICon
 		componentes.put(usuariosNegocioGrid.getId(), usuariosNegocioGrid);
 		componentes.put(reporteExcelBtn.getId(), reporteExcelBtn);
 		componentes.put(reporteCsvBtn.getId(), reporteCsvBtn);
-		super.applyPermission(MapeadorConstants.USUARIOS_NEGOCIO, componentes);
+		super.applyPermission(MapeadorConstants.USUARIOS_SISTEMA, componentes);
 		return isApplied;
 	}		
 	@Command

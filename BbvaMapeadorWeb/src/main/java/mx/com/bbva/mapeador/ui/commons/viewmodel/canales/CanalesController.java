@@ -193,8 +193,8 @@ public class CanalesController extends ControllerSupport implements IController 
 						contratacionBO.readCommandValidaContratacion(contratacionVO)) {
 					CanalDTO canalDTO = new CanalDTO();
 					CanalVO canalVO = new CanalVO();
-					canalVO.setNombreCanal(nombreCanal.getValue().toUpperCase().toUpperCase());
-					canalVO.setDescripcionCanal(descripcionCanal.getValue().toUpperCase().toUpperCase());
+					canalVO.setNombreCanal(nombreCanal.getValue().toUpperCase().trim());
+					canalVO.setDescripcionCanal(descripcionCanal.getValue().toUpperCase().trim());
 					canalVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue()));
 					canalVO.setIdCanal(Integer.parseInt(idCanal.getValue()));
 					canalDTO.setCanalVO(canalVO);

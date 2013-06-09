@@ -110,7 +110,10 @@ public class AsignarUsuariosNotController extends ControllerSupport implements  
 	public final void setMensajeSalidaDTO(MensajeSalidaDTO mensajeSalidaDTO) {
 		this.mensajeSalidaDTO = mensajeSalidaDTO;
 	}
-
+	@Wire
+	private Image reporteExcelBtn;
+	@Wire
+	private Image reporteCsvBtn;
 	@Wire
 	private Combobox mensajesSistema;
 	@Wire
@@ -211,6 +214,8 @@ public class AsignarUsuariosNotController extends ControllerSupport implements  
 		componentes.put(lblDescripcionMensaje.getId(),lblDescripcionMensaje);
 		componentes.put(usuarios.getId(),usuarios);
 		componentes.put(usuariosMensaje.getId(),usuariosMensaje);
+		componentes.put(reporteExcelBtn.getId(),reporteExcelBtn);
+		componentes.put(reporteCsvBtn.getId(),reporteCsvBtn);
 		super.applyPermission(MapeadorConstants.ASIGNAR_USUARIO_SISTEMA, componentes);
 		return isApplied;
 	}
@@ -290,6 +295,42 @@ public class AsignarUsuariosNotController extends ControllerSupport implements  
 			}
 			usuarioNotificacionAsignadoDTO.getUsuarioNotificacionVOs().clear();
 		}
+	}
+	@Command
+	public void onShowReport(@BindingParam("type") final String type) {
+		ReportesController controller = new ReportesController();
+		ArrayList<String> headersReport = new ArrayList<String>();
+		headersReport.add("Nombre de Usuario");
+		headersReport.add("Email");
+		headersReport.add("Nombre Mensaje Salida");
+		headersReport.add("Texto Mensaje Salida");
+		if(type.equals("xls")) {
+			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_EXCEL,"Usuarios Mensajes Sistema");
+		} else {			
+			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_TEXTO,"Usuarios Mensajes Sistema");
+		}
+		controller.createReport(generaLista(), headersReport, type, "USUARIOS-MENSAJES-SISTEMA");
+	}	
+	
+	private ArrayList<BeanGenerico> generaLista() {
+		ArrayList<BeanGenerico> beanGenericos = new ArrayList<BeanGenerico>();
+		BeanGenerico beanGenerico = null;
+		MensajeSalidaDTO mensajeSalidaDTO = new MensajeSalidaDTO();
+		mensajeSalidaDTO.setCommandId(CommandConstants.CONSULTA_MENSAJES_USUARIOS);
+		MensajeSalidaVO mensajeSalidaVOS = new MensajeSalidaVO();
+		mensajeSalidaDTO.setMensajeSalidaVO(mensajeSalidaVOS);
+		MensajeSalidaBO mensajeSalidaBO = new MensajeSalidaBO();
+		mensajeSalidaDTO = mensajeSalidaBO.readCommand(mensajeSalidaDTO);
+		List<MensajeSalidaVO> mensajeSalidaVOs = mensajeSalidaDTO.getMensajeSalidaVOs();
+		for(MensajeSalidaVO mensajeSalidaVO: mensajeSalidaVOs) {
+			beanGenerico = new BeanGenerico();
+			beanGenerico.setValor1(mensajeSalidaVO.getNombreUsuario());
+			beanGenerico.setValor2(mensajeSalidaVO.getMailUsuario());
+			beanGenerico.setValor3(mensajeSalidaVO.getNombreMensajeSalida());
+			beanGenerico.setValor4(mensajeSalidaVO.getDescripcionMensajeSalida());
+			beanGenericos.add(beanGenerico);
+		}
+		return beanGenericos;
 	}
 }
 	

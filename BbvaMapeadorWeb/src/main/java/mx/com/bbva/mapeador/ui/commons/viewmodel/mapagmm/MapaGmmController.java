@@ -234,8 +234,8 @@ public class MapaGmmController  extends ControllerSupport implements  IControlle
 				mapaGmmVO.setIdMapaGmm(Integer.parseInt(idMapaGmm.getValue().isEmpty()?"0":idMapaGmm.getValue()));
 				mapaGmmVO.setIdEstatusObjeto(Integer.parseInt(status.getSelectedItem().getValue().toString().isEmpty()?"1":status.getSelectedItem().getValue().toString()));
 				
-				mapaGmmVO.setNombreMapaGmm(identificadorMapa.getValue().toUpperCase());
-				mapaGmmVO.setDescripcionMapaGmm(descripcionMapa.getValue().toUpperCase());
+				mapaGmmVO.setNombreMapaGmm(identificadorMapa.getValue().toUpperCase().trim());
+				mapaGmmVO.setDescripcionMapaGmm(descripcionMapa.getValue().toUpperCase().trim());
 							
 				//Seteo de VO a DTO 
 				mapaGmmDTO.setMapaGmmVO(mapaGmmVO);

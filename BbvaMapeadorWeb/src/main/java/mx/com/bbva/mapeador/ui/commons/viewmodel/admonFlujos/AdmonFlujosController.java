@@ -179,8 +179,8 @@ public class AdmonFlujosController extends ControllerSupport implements IControl
 			if (productoDTO==null || productoDTO.getProductoVOs().size() == 0){
 				FlujoDTO flujoDTO = new FlujoDTO();
 				FlujoVO flujoVO = new FlujoVO();
-				flujoVO.setNombreFlujo(nombreFlujo.getValue().toUpperCase());
-				flujoVO.setDescripcionFlujo(descripcionFlujo.getValue().toUpperCase());
+				flujoVO.setNombreFlujo(nombreFlujo.getValue().toUpperCase().trim());
+				flujoVO.setDescripcionFlujo(descripcionFlujo.getValue().toUpperCase().trim());
 				flujoVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue()));
 				flujoVO.setIdFlujo(Integer.parseInt(idFlujo.getValue()));
 				flujoDTO.setFlujoVO(flujoVO);

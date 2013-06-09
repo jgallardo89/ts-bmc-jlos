@@ -191,10 +191,10 @@ public class MensajesController extends ControllerSupport implements IController
 				if(mensajeSalidaBO.readCommandValidaMensaje(mensajeSalidaVO)) {
 					MensajeSalidaDTO mensajeSalidaDTO = new MensajeSalidaDTO();
 					MensajeSalidaVO mensajeSalidaVO = new MensajeSalidaVO();
-					mensajeSalidaVO.setNombreMensajeSalida(nombreMensajeSalida.getValue().toUpperCase());
-					mensajeSalidaVO.setDescripcionMensajeSalida(descripcionMensajeSalida.getValue().toUpperCase());
+					mensajeSalidaVO.setNombreMensajeSalida(nombreMensajeSalida.getValue().toUpperCase().trim());
+					mensajeSalidaVO.setDescripcionMensajeSalida(descripcionMensajeSalida.getValue().toUpperCase().trim());
 					mensajeSalidaVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue()));
-					mensajeSalidaVO.setDescripcionAsuntoSalida(descripcionAsuntoSalida.getValue().toUpperCase());
+					mensajeSalidaVO.setDescripcionAsuntoSalida(descripcionAsuntoSalida.getValue().toUpperCase().trim());
 					mensajeSalidaVO.setTipoNotificacion(CommandConstants.TIPO_NOTIFICACION_NEGOCIO);
 					//mensajeSalidaVO.setIdMensajeSalida(Integer.parseInt(idMensajeSalida.getValue()));
 					mensajeSalidaDTO.setMensajeSalidaVO(mensajeSalidaVO);
@@ -230,11 +230,11 @@ public class MensajesController extends ControllerSupport implements IController
 						mapeadorBO.readCommandValidaMensajeContratMap(contratacionMapVO)) {
 					MensajeSalidaDTO mensajeSalidaDTO = new MensajeSalidaDTO();
 					MensajeSalidaVO mensajeSalidaVO = new MensajeSalidaVO();
-					mensajeSalidaVO.setNombreMensajeSalida(nombreMensajeSalida.getValue().toUpperCase());
-					mensajeSalidaVO.setDescripcionMensajeSalida(descripcionMensajeSalida.getValue().toUpperCase());
+					mensajeSalidaVO.setNombreMensajeSalida(nombreMensajeSalida.getValue().toUpperCase().trim());
+					mensajeSalidaVO.setDescripcionMensajeSalida(descripcionMensajeSalida.getValue().toUpperCase().trim());
 					mensajeSalidaVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue()));
 					mensajeSalidaVO.setIdMensajeSalida(Integer.parseInt(idMensajeSalida.getValue()));
-					mensajeSalidaVO.setDescripcionAsuntoSalida(descripcionAsuntoSalida.getValue().toUpperCase());
+					mensajeSalidaVO.setDescripcionAsuntoSalida(descripcionAsuntoSalida.getValue().toUpperCase().trim());
 					mensajeSalidaDTO.setMensajeSalidaVO(mensajeSalidaVO);
 					mensajeSalidaBO.updateCommand(mensajeSalidaDTO);
 					mensajeSalidaDTO.toString(BbvaAbstractDataTransferObject.XML);

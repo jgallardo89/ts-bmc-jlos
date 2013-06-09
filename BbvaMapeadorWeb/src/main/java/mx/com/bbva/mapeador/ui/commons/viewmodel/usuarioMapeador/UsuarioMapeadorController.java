@@ -221,9 +221,9 @@ public class UsuarioMapeadorController extends ControllerSupport implements ICon
 				UsuarioDTO usuarioDTO = new UsuarioDTO();
 				UsuarioVO usuarioVO = new UsuarioVO();
 				usuarioVO.setEstatusUsuario( Integer.parseInt(status.getSelectedItem().getValue().toString()));
-				usuarioVO.setIdCveUsuario( identificadorUsuario.getValue().toUpperCase() );
+				usuarioVO.setIdCveUsuario( identificadorUsuario.getValue().toUpperCase().trim() );
 				usuarioVO.setIdPerfil(Integer.parseInt(perfilesDisponibles.getSelectedItem().getValue().toString()));			
-				usuarioVO.setNombreUsuario( nombreUsuario.getValue().toUpperCase() );
+				usuarioVO.setNombreUsuario( nombreUsuario.getValue().toUpperCase().trim() );
 				usuarioDTO.setUsuarioVO(usuarioVO);
 				usuarioDTO.toString(BbvaAbstractDataTransferObject.XML);
 				UsuarioBO usuarioBO = new UsuarioBO();
@@ -256,9 +256,9 @@ public class UsuarioMapeadorController extends ControllerSupport implements ICon
 				UsuarioDTO usuarioDTO = new UsuarioDTO();
 				UsuarioVO usuarioVO = new UsuarioVO();
 				usuarioVO.setEstatusUsuario( Integer.parseInt(status.getSelectedItem().getValue().toString()));
-				usuarioVO.setIdCveUsuario(identificadorUsuario.getValue().toUpperCase() );
+				usuarioVO.setIdCveUsuario(identificadorUsuario.getValue().toUpperCase().trim() );
 				usuarioVO.setIdPerfil(Integer.parseInt(perfilesDisponibles.getSelectedItem().getValue().toString()));			
-				usuarioVO.setNombreUsuario( nombreUsuario.getValue().toUpperCase() );
+				usuarioVO.setNombreUsuario( nombreUsuario.getValue().toUpperCase().trim() );
 				logger.debug("**USER**---"+idUsuario.getValue());
 				usuarioVO.setIdUsuario(Integer.parseInt(idUsuario.getValue()));
 				usuarioDTO.setUsuarioVO(usuarioVO);

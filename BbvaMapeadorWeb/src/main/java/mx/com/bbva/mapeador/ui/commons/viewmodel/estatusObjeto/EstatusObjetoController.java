@@ -382,10 +382,10 @@ public class EstatusObjetoController extends ControllerSupport implements IContr
 				nombreTabla = pantallas.getSelectedItem().getLabel().toUpperCase();
 				EstatusObjetoDTO estatusObjetoDTO = new EstatusObjetoDTO();
 				EstatusObjetoVO estatusObjetoVO = new EstatusObjetoVO();
-				estatusObjetoVO.setDescripcionEstatusObjeto(descripcionEstatusObjeto.getValue().toUpperCase());
+				estatusObjetoVO.setDescripcionEstatusObjeto(descripcionEstatusObjeto.getValue().toUpperCase().trim());
 				estatusObjetoVO.setIdEstatusClave(Integer.parseInt(idEstatusClave.getValue()));
 				estatusObjetoVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue().isEmpty()?"0":idEstatusObjeto.getValue()));
-				estatusObjetoVO.setNombreEstatusObjeto(nombreEstatusObjeto.getValue().toUpperCase());
+				estatusObjetoVO.setNombreEstatusObjeto(nombreEstatusObjeto.getValue().toUpperCase().trim());
 				estatusObjetoVO.setNombreTabla(nombreTabla);
 				estatusObjetoDTO.setEstatusObjetoVO(estatusObjetoVO);
 				estatusObjetoDTO.toString(BbvaAbstractDataTransferObject.XML);
@@ -413,10 +413,10 @@ public class EstatusObjetoController extends ControllerSupport implements IContr
 				nombreTabla = pantallas.getSelectedItem().getLabel().toUpperCase();
 				EstatusObjetoDTO estatusObjetoDTO = new EstatusObjetoDTO();
 				EstatusObjetoVO estatusObjetoVO = new EstatusObjetoVO();
-				estatusObjetoVO.setDescripcionEstatusObjeto(descripcionEstatusObjeto.getValue().toUpperCase());
+				estatusObjetoVO.setDescripcionEstatusObjeto(descripcionEstatusObjeto.getValue().toUpperCase().trim());
 				estatusObjetoVO.setIdEstatusClave(Integer.parseInt(idEstatusClave.getValue()));
 				estatusObjetoVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue().isEmpty()?"0":idEstatusObjeto.getValue()));
-				estatusObjetoVO.setNombreEstatusObjeto(nombreEstatusObjeto.getValue().toUpperCase());
+				estatusObjetoVO.setNombreEstatusObjeto(nombreEstatusObjeto.getValue().toUpperCase().trim());
 				estatusObjetoVO.setNombreTabla(nombreTabla);
 				estatusObjetoDTO.setEstatusObjetoVO(estatusObjetoVO);
 				estatusObjetoDTO.toString(BbvaAbstractDataTransferObject.XML);
