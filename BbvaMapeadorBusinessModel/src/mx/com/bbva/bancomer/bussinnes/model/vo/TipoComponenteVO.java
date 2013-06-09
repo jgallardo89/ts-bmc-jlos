@@ -9,18 +9,18 @@ import mx.com.bbva.bancomer.commons.model.vo.BbvaAbstractValueObject;
  *
  */
 public class TipoComponenteVO extends BbvaAbstractValueObject {
-	private long idTipoComponente;
+	private int idTipoComponente;
 	private String nombreTipoComponente;
 	/**
 	 * @return the idTipoComponente
 	 */
-	public final long getIdTipoComponente() {
+	public final int getIdTipoComponente() {
 		return idTipoComponente;
 	}
 	/**
 	 * @param idTipoComponente the idTipoComponente to set
 	 */
-	public final void setIdTipoComponente(long idTipoComponente) {
+	public final void setIdTipoComponente(int idTipoComponente) {
 		this.idTipoComponente = idTipoComponente;
 	}
 	/**
