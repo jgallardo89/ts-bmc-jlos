@@ -6,35 +6,20 @@
 		Nb_Tp_Componen nombreTipoComponente
 		from Tgm506_Tp_Componen
 	</select>
-	<insert id="crearPantalla" keyProperty="idPantalla" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.PantallaVO">
-		<selectKey keyProperty="idPantalla" resultType="int" order="BEFORE"> 
-			<![CDATA[ select SQ_501_PANTALLA.nextval as idPantalla from dual ]]> 
+	<insert id="crearTipoComponente" keyProperty="idPantalla" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.TipoComponenteVO">
+		<selectKey keyProperty="idTipoComponente" resultType="int" order="BEFORE"> 
+			<![CDATA[ select SQ_506_TP_COMPONENTE.nextval as idTipoComponente from dual ]]> 
 		</selectKey>
-			INSERT INTO TGM501_PANTALLA (
-			CD_PANTALLA, 
-			CD_PANTALLA_PADRE, 
-			NB_PANTALLA, 
-			TX_URL_PANTALLA, 
-			TX_URL_ICON, 
-			NU_ORD_PANTALLA,
-			ST_PANTALLA) VALUES (
-			#{idPantalla}, 
-			#{idPantallaPadre},  
-			#{nombrePantalla}, 
-			#{descripcionUrlPantalla}, 
-			#{descripcionUrlIcon}, 
-			#{numeroOrdenPantalla}, 
-			#{estatusPantalla})
+			insert into tgm506_tp_componen(
+			cd_tp_componen,
+			nb_tp_componen) values(
+				#{idTipoComponente},
+				#{nombreTipoComponente}
+			)
 	</insert>
-	<update id="actualizarPantalla" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.PantallaVO">
-		UPDATE TGM501_PANTALLA SET  
-			CD_PANTALLA_PADRE = #{idPantallaPadre}, 
-			NB_PANTALLA = #{nombrePantalla}, 
-			TX_URL_PANTALLA = #{descripcionUrlPantalla}, 
-			TX_URL_ICON = #{descripcionUrlIcon}, 
-			NU_ORD_PANTALLA = #{numeroOrdenPantalla},  
-			ST_PANTALLA = #{estatusPantalla}
-		WHERE 
-		CD_PANTALLA = #{idPantalla}
+	<update id="actualizarTipoComponente" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.TipoComponenteVO">
+		UPDATE tgm506_tp_componen SET  
+			nb_tp_componen =#{nombreTipoComponente}			
+		WHERE cd_tp_componen = #{idTipoComponente}
 	</update>
 </mapper>

@@ -7,6 +7,6 @@ import mx.com.bbva.bancomer.bussinnes.model.vo.TipoComponenteVO;
 
 public abstract interface MapTipoComponente {
 	public abstract List<TipoComponenteVO> obtenerTiposComponentes();
-//	public abstract void crearPantalla(PantallaVO pantallaVO);
-//	public abstract void actualizarPantalla(PantallaVO pantallaVO);
+	public abstract void crearTipoComponente(TipoComponenteVO tipoComponenteVO);
+	public abstract void actualizarTipoComponente(TipoComponenteVO tipoComponenteVO);
 }
