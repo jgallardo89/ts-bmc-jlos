@@ -3,7 +3,7 @@
 <?meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7"?>
 <?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
 <zk>
-	<window border="0" width="100%" height="100%"
+	<window border="0" width="100%" height="150%"
 		apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('mx.com.bbva.mapeador.ui.commons.viewmodel.estadistico.EstadisticoController')"
 		id="estadisticoWindows">
@@ -144,39 +144,35 @@
 							</panelchildren>
 						</panel>
 					</groupbox>
-					<groupbox height="450px">
-						<panel height="430px" sclass="sectionPanelTitle"
+					<groupbox height="800px">
+						<panel height="800px" sclass="sectionPanelTitle"
 							width="100%" id="panelEstadistico" title="Resultados"
 							collapsible="true" style="margin-bottom:10px">
 							<caption sclass="sectionPanelTitle"
 								label="Lista de Resultados">
 							</caption>
-							<panelchildren > 
-								<div height="80%" apply=" mx.com.bbva.mapeador.ui.commons.viewmodel.estadistico.EstadisticoController">
-									<grid id="hGrid" height="100%" 
-										model="${$composer.canalVOs }">
-										<columns>
-											<column width="40px" />
-											<column label="Canal"
-												sort="auto(nombreCanal)" />
-
-										</columns>
-										<template name="model">
-											<row>
-												<custom-attributes
-													clienteVOs="${each.clienteVOs}" canalVO="${each}" />
-												<detail open="false" fulfill="onOpen">
-													<include
-														src="clientesDetalle.zul" canalVO="${canalVO}"
-														clienteVOs="${clienteVOs}" />
-												</detail>
-												<label
-													value="${each.nombreCanal}" />
-
-											</row>
-										</template>
-									</grid>
-								</div>
+							<panelchildren>
+								<zscript><![CDATA[
+							    java.util.Map quarters = new java.util.TreeMap();
+							    quarters.put("Q1", new java.util.ArrayList(java.util.Arrays.asList(new String[] {"Jan", "Feb", "Mar"})));
+							     quarters.put("Q2", new java.util.ArrayList(java.util.Arrays.asList(new String[] {"Apr", "May", "Jun"})));
+							     quarters.put("Q3", new java.util.ArrayList(java.util.Arrays.asList(new String[] {"Jul", "Aug", "Sep"})));
+							     quarters.put("Q4", new java.util.ArrayList(java.util.Arrays.asList(new String[] {"Oct", "Nov", "Dec"})));
+							    ]]></zscript>
+							    <listbox>
+							            <listitem forEach="${quarters}">
+							                <listcell>
+							                    <listbox width="99.7%">
+									                    <listhead>
+															<listheader label="${each.key}"/>
+														</listhead>
+							                            <listitem forEach="${each.value}" label="${each}">
+								                            
+							                            </listitem>
+							                    </listbox>
+							                </listcell>
+							            </listitem>
+							    </listbox>							
 							</panelchildren>
 						</panel>
 					</groupbox>
