@@ -3,6 +3,7 @@ package mx.com.bbva.mapeador.ui.commons.viewmodel.estadistico;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -16,7 +17,10 @@ import mx.com.bbva.bancomer.cliente.dto.ClienteDTO;
 import mx.com.bbva.bancomer.commons.command.CommandConstants;
 import mx.com.bbva.bancomer.commons.command.MapeadorConstants;
 import mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject;
+import mx.com.bbva.bancomer.estadistico.dto.CanalMockDTO;
+import mx.com.bbva.bancomer.estadistico.dto.ClienteMockDTO;
 import mx.com.bbva.bancomer.estadistico.dto.EstadisticoDTO;
+import mx.com.bbva.bancomer.estadistico.dto.EstadisticoMockDTO;
 import mx.com.bbva.bancomer.mapper.business.CanalBO;
 import mx.com.bbva.bancomer.mapper.business.ClienteBO;
 import mx.com.bbva.bancomer.mapper.business.EstadisticoBO;
@@ -70,7 +74,7 @@ public class EstadisticoController extends ControllerSupport implements  IContro
 	private Combobox cliente;
 	@Wire
 	private Combobox producto;
-	@Wire
+	@Wire	
 	private Datebox fechaInicio;
 	@Wire
 	private Datebox fechaFin;
@@ -135,11 +139,14 @@ public class EstadisticoController extends ControllerSupport implements  IContro
 	private String strIdProducto;
 	
 	private boolean executePermissionSet;
-	
+	private EstadisticoMockDTO estadisticoMockDTO;
+	private List<CanalMockDTO> canalMockDTOs;
 	private List<mx.com.bbva.mapeador.ui.commons.viewmodel.estadistico.CanalVO> canalVOs =  getListaCanalVOs();
+	
 	
 	@Override
 	public Object read() {
+		readList();
 		ReportesController controller = new ReportesController();
 		EstadisticoDTO estadisticoDTO = new EstadisticoDTO();
 		CanalDTO canalDTO = new CanalDTO();
@@ -172,9 +179,65 @@ public class EstadisticoController extends ControllerSupport implements  IContro
 		estadisticoDTO.setCanalVOs(canalDTO.getCanalVOs());
 		estadisticoDTO.setClienteVOs(clienteDTO.getClienteVOs());
 		estadisticoDTO.setProductoVOs(productoDTO.getProductoVOs());
-		controller.registrarEvento(estadisticoVO, estadisticoVO, CommandConstants.CONSULTAR, "Estadístico");
+		//controller.registrarEvento(estadisticoVO, estadisticoVO, CommandConstants.CONSULTAR, "Estadístico");
 		armarListaGrid(estadisticoDTO.getEstadisticoVOs());
 		return estadisticoDTO;
+	}
+	
+	@NotifyChange({"canalMockDTOs"})
+	public void readList() {
+		estadisticoMockDTO = new EstadisticoMockDTO();
+		
+		canalMockDTOs = new ArrayList<CanalMockDTO>();
+		
+		ArrayList<ClienteMockDTO> clienteMockDTOs = new ArrayList<ClienteMockDTO>();
+		ClienteMockDTO clienteMockDTO = new ClienteMockDTO();
+		
+		//Registro numero 1
+		ArrayList<ProductoVO> productoVOs = new ArrayList<ProductoVO>();
+		ProductoVO productoVO = new ProductoVO();
+		productoVO.setFechaAlta(new Date());
+		productoVO.setNombreProducto("TG-0923 CHINGON 1");
+		productoVO.setNombreFlujo("PEMEX_RECH001.SDR.GM");
+		productoVO.setNombreEstatusObjeto("5000");
+		productoVOs.add(productoVO);
+		
+		CanalMockDTO canalMockDTO = new CanalMockDTO();
+		canalMockDTO.setNombreCanal("CANAL CHINGON 1");
+		canalMockDTO.setIdCanal(1);
+		clienteMockDTO = new ClienteMockDTO();
+		clienteMockDTO.setNombreCliente("CLIENTE CHINGON 1");
+		clienteMockDTO.setProductoVOs(productoVOs);
+		clienteMockDTOs.add(clienteMockDTO);
+		canalMockDTO.setClienteMockDTOs(clienteMockDTOs);
+		canalMockDTOs.add(canalMockDTO);
+		
+		//Registro numero 2
+		productoVOs = new ArrayList<ProductoVO>();
+		productoVO = new ProductoVO();
+		productoVO.setFechaAlta(new Date());
+		productoVO.setNombreProducto("TG-0923 CHINGON 2");
+		productoVO.setNombreFlujo("PEMEX_RECH001.SDR.GM");
+		productoVO.setNombreEstatusObjeto("5000");
+		productoVOs.add(productoVO);
+		productoVO = new ProductoVO();
+		productoVO.setFechaAlta(new Date());
+		productoVO.setNombreProducto("TG-0923 CHINGON X");
+		productoVO.setNombreFlujo("PEMEX_RECH001.SDR.GM X");
+		productoVO.setNombreEstatusObjeto("5000 X");
+		productoVOs.add(productoVO);
+		
+		clienteMockDTOs = new ArrayList<ClienteMockDTO>();
+		CanalMockDTO canalMockDTO1 = new CanalMockDTO();
+		canalMockDTO1.setNombreCanal("CANAL CHINGON 2");
+		canalMockDTO1.setIdCanal(2);
+		ClienteMockDTO clienteMockDTO1 = new ClienteMockDTO();
+		clienteMockDTO1.setNombreCliente("CLIENTE CHINGON 2");
+		clienteMockDTO1.setProductoVOs(productoVOs);
+		clienteMockDTOs.add(clienteMockDTO1);
+		canalMockDTO1.setClienteMockDTOs(clienteMockDTOs);
+		canalMockDTOs.add(canalMockDTO1);
+		
 	}
 	
 	private void armarListaGrid(List<EstadisticoVO> listaEstadisticoVOs){
@@ -726,6 +789,34 @@ public class EstadisticoController extends ControllerSupport implements  IContro
 	public void setCanalVOs(
 			List<mx.com.bbva.mapeador.ui.commons.viewmodel.estadistico.CanalVO> canalVOs) {
 		this.canalVOs = canalVOs;
+	}
+
+	/**
+	 * @return the estadisticoMockDTO
+	 */
+	public EstadisticoMockDTO getEstadisticoMockDTO() {
+		return estadisticoMockDTO;
+	}
+
+	/**
+	 * @param estadisticoMockDTO the estadisticoMockDTO to set
+	 */
+	public void setEstadisticoMockDTO(EstadisticoMockDTO estadisticoMockDTO) {
+		this.estadisticoMockDTO = estadisticoMockDTO;
+	}
+
+	/**
+	 * @return the canalMockDTOs
+	 */
+	public List<CanalMockDTO> getCanalMockDTOs() {
+		return canalMockDTOs;
+	}
+
+	/**
+	 * @param canalMockDTOs the canalMockDTOs to set
+	 */
+	public void setCanalMockDTOs(List<CanalMockDTO> canalMockDTOs) {
+		this.canalMockDTOs = canalMockDTOs;
 	}	
 	
 }
