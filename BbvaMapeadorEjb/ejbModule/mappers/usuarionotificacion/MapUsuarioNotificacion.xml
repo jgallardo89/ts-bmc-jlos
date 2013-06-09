@@ -140,4 +140,14 @@
 			#{idUsuarioNotificado}
 		)
 	</insert>
+	<select id="existeUsuario" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.UsuarioNotificacionVO"
+		resultType="mx.com.bbva.bancomer.bussinnes.model.vo.UsuarioNotificacionVO">
+			Select Count(1) Existe
+			from Tgm510_Usua_Notifi Usuario,
+			Tgm523_Msj_Usr_Ntf Notifica
+			Where Notifica.Cd_Usua_Notificado = Usuario.Cd_Usua_Notificado
+			And Usuario.Cd_St_Objeto != 20
+			And Usuario.Tp_Notificacion = #{tipoNotificacion}
+			and Usuario.Cd_Usua_Notificado = #{idUsuarioNotificado}
+	</select> 
 </mapper>

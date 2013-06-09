@@ -74,7 +74,11 @@ public class MensajeSalidaBO implements
 				MapMensajeSalida mapMensajeSalida = session.getMapper(MapMensajeSalida.class);
 				try {
 					mensajeSalidaVO.setIdBaja(CommandConstants.ESTATUS_OBJETO_MENSAJE_SALIDA_BAJA);
-					result = mapMensajeSalida.obtenerMensajesSalida(mensajeSalidaVO);
+					if(bbvaAbstractDataTransferObject.getCommandId()==CommandConstants.CONSULTA_MENSAJES_USUARIOS){
+						result = mapMensajeSalida.obtenerMensajesSalidaUsuario();
+					}else{
+						result = mapMensajeSalida.obtenerMensajesSalida(mensajeSalidaVO);
+					}
 					session.commit();
 				} catch (Exception ex) {
 					session.rollback();

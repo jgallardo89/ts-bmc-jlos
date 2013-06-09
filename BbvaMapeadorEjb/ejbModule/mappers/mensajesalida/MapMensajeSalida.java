@@ -10,4 +10,5 @@ public abstract interface MapMensajeSalida {
 	public abstract void crearMensajeSalida(MensajeSalidaVO mensajeSalidaVO);
 	public abstract List<MensajeSalidaVO> obtenerMensajesCmbSalida();
 	public abstract MensajeSalidaVO validaMensajesSalida(MensajeSalidaVO mensajeSalidaVO);
+	public abstract List<MensajeSalidaVO> obtenerMensajesSalidaUsuario();
 }

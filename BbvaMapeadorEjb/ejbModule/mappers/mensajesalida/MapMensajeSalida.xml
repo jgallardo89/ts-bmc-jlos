@@ -86,4 +86,29 @@
 		WHERE NB_MENSAJE_SALIDA = #{nombreMensajeSalida}
 		AND CD_ST_OBJETO != #{idBaja}
 	</select>
+	<select id="obtenerMensajesSalidaUsuario" resultType="mx.com.bbva.bancomer.bussinnes.model.vo.MensajeSalidaVO">
+		SELECT MENSAJE.CD_MENSAJE_SALIDA idMensajeSalida,
+		  MENSAJE.NB_MENSAJE_SALIDA nombreMensajeSalida,
+		  MENSAJE.TX_MENSAJE_SALIDA descripcionMensajeSalida,
+		  MENSAJE.TM_ALTA fechaAlta,
+		  MENSAJE.TX_ASUNTO descripcionAsuntoSalida,
+		  MENSAJE.TM_MODIFICACION fechaModificacion,
+		  OBJETO.CD_ST_OBJETO idEstatusObjeto,
+		  OBJETO.NB_ST_OBJETO nombreEstatusObjeto,
+		  Usuario.Nb_Usua_Notificado nombreUsuario,
+  		  Usuario.Tx_Email mailUsuario
+		FROM TGM516_MENSAJE_SAL MENSAJE,
+		  Tgm534_St_Objeto Objeto,
+		  Tgm510_Usua_Notifi Usuario,
+		  Tgm523_Msj_Usr_Ntf msgusr
+		WHERE Mensaje.Cd_St_Objeto  = Objeto.Cd_St_Objeto
+		AND Mensaje.Tp_Notificacion ='S'
+		And Mensaje.Cd_St_Objeto   != 17
+		And Usuario.Tp_Notificacion = 'S'
+		And Usuario.Cd_Usua_Notificado = Msgusr.Cd_Usua_Notificado
+		and Mensaje.Cd_Mensaje_Salida = Msgusr.Cd_Mensaje_Salida
+		Order By Usuario.Nb_Usua_Notificado,
+		  Mensaje.Tx_Asunto,
+		  Mensaje.Tx_Mensaje_Salida
+	</select>
 </mapper>
