@@ -109,6 +109,8 @@ public abstract interface CommandConstants {
 	public static final int ESTADO_FINALIZA_USUARIO_PROCESO = 10;
 	public static final int ESTADO_ERROR_PROCESO = 9;
 	public static final int ESTADO_EXITO_PROCESO = 8;
+	public static final String TODOS = "TODOS";
+	public static final String IMG_U276_NORMAL_PNG = "/img/u276_normal.png";
 }
 
 
