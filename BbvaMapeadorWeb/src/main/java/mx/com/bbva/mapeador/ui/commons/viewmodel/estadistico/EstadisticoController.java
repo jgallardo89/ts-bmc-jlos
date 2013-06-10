@@ -197,16 +197,16 @@ public class EstadisticoController extends ControllerSupport implements  IContro
 		ArrayList<ProductoVO> productoVOs = new ArrayList<ProductoVO>();
 		ProductoVO productoVO = new ProductoVO();
 		productoVO.setFechaAlta(new Date());
-		productoVO.setNombreProducto("TG-0923 CHINGON 1");
+		productoVO.setNombreProducto("TG-0923 TEST-GRID 1");
 		productoVO.setNombreFlujo("PEMEX_RECH001.SDR.GM");
 		productoVO.setNombreEstatusObjeto("5000");
 		productoVOs.add(productoVO);
 		
 		CanalMockDTO canalMockDTO = new CanalMockDTO();
-		canalMockDTO.setNombreCanal("CANAL CHINGON 1");
+		canalMockDTO.setNombreCanal("CANAL TEST-GRID 1");
 		canalMockDTO.setIdCanal(1);
 		clienteMockDTO = new ClienteMockDTO();
-		clienteMockDTO.setNombreCliente("CLIENTE CHINGON 1");
+		clienteMockDTO.setNombreCliente("CLIENTE TEST-GRID 1");
 		clienteMockDTO.setProductoVOs(productoVOs);
 		clienteMockDTOs.add(clienteMockDTO);
 		canalMockDTO.setClienteMockDTOs(clienteMockDTOs);
@@ -216,23 +216,23 @@ public class EstadisticoController extends ControllerSupport implements  IContro
 		productoVOs = new ArrayList<ProductoVO>();
 		productoVO = new ProductoVO();
 		productoVO.setFechaAlta(new Date());
-		productoVO.setNombreProducto("TG-0923 CHINGON 2");
+		productoVO.setNombreProducto("TG-0923 TEST-GRID 2");
 		productoVO.setNombreFlujo("PEMEX_RECH001.SDR.GM");
 		productoVO.setNombreEstatusObjeto("5000");
 		productoVOs.add(productoVO);
 		productoVO = new ProductoVO();
 		productoVO.setFechaAlta(new Date());
-		productoVO.setNombreProducto("TG-0923 CHINGON X");
+		productoVO.setNombreProducto("TG-0923 TEST-GRID X");
 		productoVO.setNombreFlujo("PEMEX_RECH001.SDR.GM X");
 		productoVO.setNombreEstatusObjeto("5000 X");
 		productoVOs.add(productoVO);
 		
 		clienteMockDTOs = new ArrayList<ClienteMockDTO>();
 		CanalMockDTO canalMockDTO1 = new CanalMockDTO();
-		canalMockDTO1.setNombreCanal("CANAL CHINGON 2");
+		canalMockDTO1.setNombreCanal("CANAL TEST-GRID 2");
 		canalMockDTO1.setIdCanal(2);
 		ClienteMockDTO clienteMockDTO1 = new ClienteMockDTO();
-		clienteMockDTO1.setNombreCliente("CLIENTE CHINGON 2");
+		clienteMockDTO1.setNombreCliente("CLIENTE TEST-GRID 2");
 		clienteMockDTO1.setProductoVOs(productoVOs);
 		clienteMockDTOs.add(clienteMockDTO1);
 		canalMockDTO1.setClienteMockDTOs(clienteMockDTOs);
