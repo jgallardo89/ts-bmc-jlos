@@ -58,15 +58,31 @@
 														<comboitem value="@load(each.idProducto)" label="@load(each.nombreProducto)" height="100%"/>
 													</template>																								
 												</combobox>		
-												<div align="right">
-													<label id="lblEstatus" width="100%" sclass="labelFill" value="Estatus: "></label>
+												<div align="right" >
+													<label id="lblEstatus" width="100%" sclass="labelFill" value="Estatus Proceso: "></label>
 												</div>
-												<combobox sclass="textboxUpperCase" onChange="selectedValueEstatus()"
-													id="estatus" width="70%" model="@load(vm.monitoreoProcesosDTO.estatusObjetoVOs)" autodrop="true">		
-													<template name="model">										
-														<comboitem value="@load(each.idEstatusObjeto)" image="@load(each.imagenEstatus)" label="@load(each.nombreEstatusObjeto)" height="100%"/>
-													</template>																								
-												</combobox>																																
+												<grid id="demoGrid" mold="paging" pagingPosition="both"  autopaging="true" vflex="true">
+	    											<columns>
+					        							<column label=""/> 
+	   												 </columns>
+	    											<rows>
+												    	<row>
+	           										 		<checkbox onChange="selectedValueEstatusChechk()" id="todos" src="/img/u276_normal.png" onClick="@command('seleccionEstatus')"  value="1" disabled="false" label="TODOS"></checkbox>
+	       												</row>
+	       												<row>
+	           										 		<checkbox id="exito" src="/img/verde-exito.png" value="2" disabled="false" label="EXITO"></checkbox>
+	       												</row>
+	       												<row>
+	           										 		<checkbox id="error" src="/img/error-rojo.png" value="3" disabled="false" label="ERROR"></checkbox>
+	       												</row>
+	       												<row>
+	           										 		<checkbox id="finaliza" src="/img/azul-finalizausuario.png" value="4" disabled="false" label="FINALIZA USUARIO" ></checkbox>
+	       												</row>
+	       												<row>
+	           										 		<checkbox id="espera" src="/img/amarillo-espera.png" value="5" disabled="false" label="ESPERA"></checkbox>
+	       												</row>
+		   											</rows>
+											    </grid>																	
 											</row>
 											<row sclass="row2">
 												<div align="right">
@@ -103,60 +119,91 @@
 							style="margin-bottom:10px">
 							<caption sclass="sectionPanelTitle" label="Listado de Resultados"></caption>
 							<panelchildren>
-								<grid width="99.7%" id="procesosGrid" mold="paging"
-									model="@load(vm.monitoreoProcesosVOs)" pagingPosition="both" pageSize="12"
-									vflex="true" height="100%">									
-									<columns sizable="true" menupopup="auto">
-										<column hflex="1" label="Canal" style="text-wrap: normal;"
-											width="10%" sort="auto(vm.monitoreoProcesosDTO.monitoreoProcesosVO.nombreCanal)"></column>
-										<column hflex="1" label="Cliente" width="20%"
-											sort="auto(idIdentificador)"></column>
-										<column hflex="1" label="Producto" width="10%"
-											sort="auto(nombreProducto)"></column>
-										<column hflex="1" label="Estatus" width="10%"
-											sort="auto(nombreEstatusMapeador)"></column>	
-										<column hflex="1" label="Fecha Lote" width="20%"
-											sort="auto(fechaLote)"></column>
-										<column hflex="1" label="Lote" width="10%"
-											sort="auto(numeroLote)"></column>
-										<column hflex="1" label="Etapa" width="10%"
-											sort="auto(nombreEtapa)"></column>		
-										<column hflex="1" label="Nombre Archivo" width="10%"
-											sort="auto(nombreRegArchEntra)"></column>
-										<column hflex="1" label="Fecha Inicio" width="10%"
-											sort="auto(fechaStatusProceso)"></column>
-										<column hflex="1" label="Hora inicio" width="10%"
-											sort="auto(horaProcesoIni)"></column>
-										<column hflex="1" label="Hora fin" width="10%"
-											sort="auto(horaProcesoFin)"></column>
-										<column hflex="0" align="center" label="Detalle" width="5%"></column>							
-									</columns>	
+								<grid width="99.7%" id="canalesGrid" mold="paging"
+									model="@load(vm.procesoVOs)" pagingPosition="both" pageSize="12"
+									vflex="true">
+									<columns>
+										<column hflex="0" label="Canal" style="text-wrap: normal;" width="10%" ></column>
+										<column hflex="0" label="Cliente" width="10%"></column>
+										<column hflex="0" label="Producto" width="10%"></column>
+										<column hflex="0" label="Estatus" width="5%"></column>	
+										<column hflex="1" label="" width="5%"></column>	
+									</columns>
 									<template name="model">
-										<row>
-											<label hflex="1" value="@load(each.nombreCanal)"></label>											
-											<label hflex="1" value="@load(each.idIdentificador)"></label>
-											<label hflex="1" value="@load(each.nombreProducto)"></label>
-											<label hflex="1" value="@load(each.nombreEstatusMapeador)"></label> 		 																				
-											<label hflex="1" value="@load(each.fechaLote) @converter('formatedDate', format='dd/MM/yyyy')"></label>
-											<label hflex="1" value="@load(each.numeroLote)"></label>
-											<label hflex="1" value="@load(each.nombreEtapa)"></label>
-											<label hflex="1" value="@load(each.nombreRegArchEntra)"></label>
-											<label hflex="1" value="@load(each.fechaStatusProceso) @converter('formatedDate', format='dd/MM/yyyy')"></label>
-											<label hflex="1" value="@load(each.horaProcesoIni) @converter('formatedDate', format='hh:mm:ss')"></label>
-											<label hflex="1" value="@load(each.horaProcesoFin) @converter('formatedDate', format='hh:mm:ss')"></label>
-											<image src="@load(each.imagenEstatus)" onClick="@command('readEventDetail',idContratacion=each)"></image> 		
+										<row> 
+											 <cell><label value="@load(each.nombreCanal)"></label></cell>
+											 <cell><label value="@load(each.idIdentificador)"></label></cell>
+											 <cell><label value="@load(each.nombreProducto)"></label></cell>
+											 <cell><image src="@load(each.imagenEstatus)"></image></cell>
+											 <cell>
+												<grid width="50.%"  mold="paging"
+													model="@load(each.loteVOs)" pagingPosition="both" pageSize="12"
+													vflex="true" >
+													<columns>
+														<column width="8%"  label="Fecha Lote"/>
+														<column width="8%"  label="Lote"/> 
+														<column hflex="1" width="15%"  label=""/> 
+													</columns>
+													<template name="model">						                
+									                    <row>
+									                        <cell>
+									                        	<label hflex="1" value="@load(each.fechaLote) @converter('formatedDate', format='dd/MM/yyyy')"></label>
+									                        </cell>
+									                        <cell>
+									                        	<label hflex="1" value="@load(each.numeroLote)"></label>
+									                        </cell>
+									                        <cell>
+									                        	<grid width="50.%"  mold="paging"
+																	model="@load(each.etapaVOs)" pagingPosition="both" pageSize="12"
+																	vflex="true" >
+																	<columns>
+																		<column width="20%"  label="Etapa"/>
+																		<column width="20%"  label="Nombre Archivo"/> 
+																		<column width="10%"  label="Fecha Inicio"/> 
+																		<column width="8%"  label="Hora inicio"/> 
+																		<column width="8%"  label="Hora fin"/> 
+																		<column width="15%"  label="Estatus"/> 
+																	</columns>
+																	<template name="model">						                
+													                    <row>
+													                        <cell>
+													                        	<label hflex="1" value="@load(each.nombreEtapa)"></label>
+													                        </cell>
+													                        <cell>
+													                        	<label hflex="1" value="@load(each.nombreRegArchEntra)"></label>
+													                        </cell>
+													                        <cell>
+													                        	<label hflex="1" value="@load(each.fechaStatusProceso) @converter('formatedDate', format='dd/MM/yyyy')"></label>
+													                        </cell>
+													                        <cell>
+													                        	<label hflex="1" value="@load(each.horaProcesoIni) @converter('formatedDate', format='hh:mm:ss')"></label>
+													                        </cell>
+													                        <cell>
+													                        	<label hflex="1" value="@load(each.horaProcesoFin) @converter('formatedDate', format='hh:mm:ss')"></label>
+													                        </cell>
+													                        <cell>
+													                        	<image src="@load(each.imagenEstatus)" onClick="@command('readEventDetail',idContratacion=each)"></image> 
+													                        </cell>
+													                    </row>
+													                </template>
+													           </grid>
+									                        </cell>
+									                    </row>
+									                </template>
+									           </grid>
+									       </cell>
 										</row>
-									</template>						
-								</grid>
+									</template>
+								</grid>	
 							</panelchildren>
 						</panel>
 					</groupbox>
 				</vlayout>								
 			</groupbox>	
-			<textbox id="idCanal" value="@load(vm.monitoreoProcesosDTO.monitoreoProcesosVO.idCanal)" visible="false"></textbox>
-			<textbox id="idCliente" value="@load(vm.monitoreoProcesosDTO.monitoreoProcesosVO.idCliente)" visible="false"></textbox>
-			<textbox id="idProducto" value="@load(vm.monitoreoProcesosDTO.monitoreoProcesosVO.idProducto)" visible="false"></textbox>
-			<textbox id="idEstatus" value="@load(vm.monitoreoProcesosDTO.monitoreoProcesosVO.idEstatusMapeador)" visible="false"></textbox>
+			<textbox id="idCanal" value="" visible="false"></textbox>
+			<textbox id="idCliente" value="" visible="false"></textbox>
+			<textbox id="idProducto" value="" visible="false"></textbox>
+			<textbox id="idEstatus" value="" visible="false"></textbox>
 		</div>
 		<zscript>
 
@@ -184,6 +231,24 @@
 			public void selectedValueEstatus(){
 				try{
 					idEstatus.setValue(estatus.getSelectedItem().getValue().toString());
+				}catch(Exception ex){
+					idEstatus.setValue(null);
+				}
+			}
+			
+			public void selectedValueEstatusChechk(){
+				try{
+					if(todos.isChecked()){
+						exito.setDisabled(true);
+						error.setDisabled(true);
+						finaliza.setDisabled(true);
+						espera.setDisabled(true);
+					} else {
+						exito.setDisabled(false);
+						error.setDisabled(false);
+						finaliza.setDisabled(false);
+						espera.setDisabled(false);
+					}
 				}catch(Exception ex){
 					idEstatus.setValue(null);
 				}

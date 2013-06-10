@@ -50,7 +50,7 @@
 													</div>
 													<textbox
 														sclass="textboxUpperCase" maxlength="50" id="lote"
-														value="@load(arg.monitoreoProcesosVO.nombreEtapa)" disabled="true" width="100%">
+														value="@load(arg.etapaVO.nombreEtapa)" disabled="true" width="100%">
 													</textbox>
 												</row>
 												<row>
@@ -62,7 +62,7 @@
 													</div>
 													<textbox
 														sclass="textboxUpperCase" maxlength="50" id="archivo"
-														value="@load(arg.monitoreoProcesosVO.nombreRegArchEntra)" disabled="true" width="100%">
+														value="@load(arg.etapaVO.nombreRegArchEntra)" disabled="true" width="100%">
 													</textbox>
 												</row>
 												<row>
@@ -74,7 +74,7 @@
 													</div>
 													<textbox
 														sclass="textboxUpperCase" maxlength="50" id="folio"
-														value="@load(arg.monitoreoProcesosVO.numeroLote)" disabled="true" width="100%">
+														value="@load(arg.etapaVO.numeroLote)" disabled="true" width="100%">
 													</textbox>
 												</row>
 												<row sclass="row2">
@@ -101,9 +101,9 @@
 						</groupbox>
 					</vlayout>					
 				</groupbox>
-				<textbox id="idContratacion" value="@load(arg.monitoreoProcesosVO.numeroLote)" visible="false"></textbox>
-				<textbox id="idFlujo" value="@load(arg.monitoreoProcesosVO.numeroLote)" visible="false"></textbox>
-				<textbox id="idEtapa" value="@load(arg.monitoreoProcesosVO.numeroLote)" visible="false"></textbox>
+				<textbox id="idContratacion" value="@load(arg.etapaVO.numeroLote)" visible="false"></textbox>
+				<textbox id="idFlujo" value="@load(arg.etapaVO.numeroLote)" visible="false"></textbox>
+				<textbox id="idEtapa" value="@load(arg.etapaVO.numeroLote)" visible="false"></textbox>
 			</div>
 		</div>
 	</window>
