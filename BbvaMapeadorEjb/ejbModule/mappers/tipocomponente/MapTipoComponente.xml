@@ -6,6 +6,12 @@
 		Nb_Tp_Componen nombreTipoComponente
 		from Tgm506_Tp_Componen
 	</select>
+	<select id="validaExisteTiposComponentes" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.TipoComponenteVO"
+		resultType="mx.com.bbva.bancomer.bussinnes.model.vo.TipoComponenteVO">
+			Select count(1) existe
+			from Tgm506_Tp_Componen
+			where Nb_Tp_Componen  = #{nombreTipoComponente}
+	</select>	
 	<insert id="crearTipoComponente" keyProperty="idPantalla" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.TipoComponenteVO">
 		<selectKey keyProperty="idTipoComponente" resultType="int" order="BEFORE"> 
 			<![CDATA[ select SQ_506_TP_COMPONENTE.nextval as idTipoComponente from dual ]]> 

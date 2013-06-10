@@ -11,6 +11,7 @@ import mappers.cliente.MapCliente;
 import mappers.producto.MapProducto;
 import mappers.tipocomponente.MapTipoComponente;
 import mx.com.bbva.bancomer.bussinnes.model.vo.ClienteVO;
+import mx.com.bbva.bancomer.bussinnes.model.vo.ComponenteVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.ProductoVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.TipoComponenteVO;
 import mx.com.bbva.bancomer.cliente.dto.ClienteDTO;
@@ -76,8 +77,13 @@ public class TipoComponenteBO implements
 				SqlSession session = MapeadorSessionFactory
 						.getSqlSessionFactory().openSession();
 				MapTipoComponente mapTipoComponente = session.getMapper(MapTipoComponente.class);
-				try {					
-					result = mapTipoComponente.obtenerTiposComponentes();
+				try {
+					if(bbvaAbstractDataTransferObject.getCommandId()==CommandConstants.CONSULTA_EXISTE_TIPO_COMPONENTE){
+						TipoComponenteVO tipoComponenteVO = ((TipoComponenteDTO)bbvaAbstractDataTransferObject).getTipoComponenteVO();
+						result = mapTipoComponente.validaExisteTiposComponentes(tipoComponenteVO);
+					}else{
+						result = mapTipoComponente.obtenerTiposComponentes();
+					}
 					session.commit();
 				} catch (Exception ex) {
 					session.rollback();
