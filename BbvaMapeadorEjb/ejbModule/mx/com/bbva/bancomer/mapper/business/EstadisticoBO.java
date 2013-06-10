@@ -5,6 +5,7 @@ import java.util.List;
 import mappers.estadistico.MapEstadistico;
 import mx.com.bbva.bancomer.bussinnes.model.vo.EstadisticoVO;
 import mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject;
+import mx.com.bbva.bancomer.estadistico.dto.EstadisticaDTO;
 import mx.com.bbva.bancomer.estadistico.dto.EstadisticoDTO;
 import mx.com.bbva.mapeador.oralce.session.MapeadorSessionFactory;
 
@@ -28,7 +29,7 @@ public class EstadisticoBO  implements mx.com.bbva.bancomer.commons.business.Bbv
 			logger.debug( "Datos de Entrada createCommand -- " + bbvaAbstractDataTransferObject.toString() );					
 			try {
 				List<EstadisticoVO> result = null;
-				EstadisticoVO estadisticoVO = ((EstadisticoDTO)bbvaAbstractDataTransferObject).getEstadisticoVO();
+				EstadisticoVO estadisticoVO = ((EstadisticaDTO)bbvaAbstractDataTransferObject).getEstadisticoVO();
 				SqlSession session = MapeadorSessionFactory.getSqlSessionFactory()
 						.openSession();
 				MapEstadistico mapEstadistico = session
@@ -46,7 +47,7 @@ public class EstadisticoBO  implements mx.com.bbva.bancomer.commons.business.Bbv
 				} finally {
 					session.close();
 				}
-				((EstadisticoDTO)bbvaAbstractDataTransferObject).setEstadisticoVOs(result); 
+				((EstadisticaDTO)bbvaAbstractDataTransferObject).setEstadisticoVOs(result); 
 				logger.debug("result: " + result + " -- **fin**");
 				logger.debug( "Datos de Salida invoke -- " + bbvaAbstractDataTransferObject.toString() );
 				logger.debug( "Salida invoke          -- OK" );
