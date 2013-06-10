@@ -14,7 +14,7 @@
 	</select>	
 	<insert id="crearTipoComponente" keyProperty="idPantalla" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.TipoComponenteVO">
 		<selectKey keyProperty="idTipoComponente" resultType="int" order="BEFORE"> 
-			<![CDATA[ select SQ_506_TP_COMPONENTE.nextval as idTipoComponente from dual ]]> 
+			<![CDATA[ select SQ_506_TP_COMPONEN.nextval as idTipoComponente from dual ]]> 
 		</selectKey>
 			insert into tgm506_tp_componen(
 			cd_tp_componen,
