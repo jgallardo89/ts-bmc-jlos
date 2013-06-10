@@ -56,15 +56,6 @@ import org.zkoss.zul.Textbox;
 
 public class EstadisticoController extends ControllerSupport implements  IController{
 	private static final Logger logger = Logger.getLogger(EstadisticoController.class);
-	public SessionUser getSessionUser(){
-		logger.debug( "Entrada getSessionUser          -- OK" );		
-		String cveUsuario = null;
-		logger.debug( "Datos de usuario -- " + cveUsuario);
-		SessionUser sessionUser = new SessionUser();
-		sessionUser.setCveUsuario(cveUsuario);
-		logger.debug( "Salida getSessionUser          -- OK" );
-		return sessionUser;
-	}
 	/**
 	 * 
 	 */
@@ -146,8 +137,6 @@ public class EstadisticoController extends ControllerSupport implements  IContro
 	private List<CanalMockDTO> canalMockDTOs;
 	private List<mx.com.bbva.mapeador.ui.commons.viewmodel.estadistico.CanalVO> canalVOs =  getListaCanalVOs();
 	
-	
-	
 	@Override
 	public Object read() {
 		estadisticoDTO = new EstadisticoDTO();
@@ -175,9 +164,6 @@ public class EstadisticoController extends ControllerSupport implements  IContro
 		canalDTO = canalBO.readCommand(canalDTO);
 		clienteDTO = clienteBO.readCommand(clienteDTO);
 		productoDTO = productoBO.readCommand(productoDTO);
-		
-		
-		logger.info("::::::::::::::SIZE::::::::::" + estadisticoDTO.getEstadisticoVOs());
 		
 		estadisticoDTO.setCanalVOs(canalDTO.getCanalVOs());
 		estadisticoDTO.setClienteVOs(clienteDTO.getClienteVOs());
@@ -284,7 +270,7 @@ public class EstadisticoController extends ControllerSupport implements  IContro
 			
 			createListGrid(estadisticaDTO);
 			estadisticoDTO.setEstadisticoVOs(estadisticaDTO.getEstadisticoVOs());
-			//controller.registrarEvento(null, null, CommandConstants.CONSULTAR, "Estadístico");
+			controller.registrarEvento(null, null, CommandConstants.CONSULTAR, "Estadístico");
 		}
 	}
 	@Override
@@ -318,11 +304,11 @@ public class EstadisticoController extends ControllerSupport implements  IContro
 		headersReport.add("Producto"); 
 		headersReport.add("Nombre Archivo"); 
 		headersReport.add("Operaciones"); 
-//		if(type.equals("xls")) {
-//			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_EXCEL,"Estadístico");
-//		} else {
-//			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_TEXTO,"Estadístico");
-//		}
+		if(type.equals("xls")) {
+			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_EXCEL,"Estadístico");
+		} else {
+			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_TEXTO,"Estadístico");
+		}
 		controller.createReport(generaLista(), headersReport, type, "ESTADISTICO");
 	}	
 	
@@ -705,6 +691,15 @@ public class EstadisticoController extends ControllerSupport implements  IContro
 		return isApplied;
 	}
 
+	public SessionUser getSessionUser(){
+		logger.debug( "Entrada getSessionUser          -- OK" );		
+		String cveUsuario = null;
+		logger.debug( "Datos de usuario -- " + cveUsuario);
+		SessionUser sessionUser = new SessionUser();
+		sessionUser.setCveUsuario(cveUsuario);
+		logger.debug( "Salida getSessionUser          -- OK" );
+		return sessionUser;
+	}
 
 	/**
 	 * @param canalVOs the canalVOs to set
