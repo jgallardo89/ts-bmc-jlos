@@ -46,6 +46,7 @@ import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.Button;
+import org.zkoss.zul.Checkbox;
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Datebox;
 import org.zkoss.zul.Grid;
@@ -55,7 +56,6 @@ import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
 
 public class MonitoreoProcesosController extends ControllerSupport implements  IController{
-	
 	/**
 	 * 
 	 */
@@ -69,6 +69,18 @@ public class MonitoreoProcesosController extends ControllerSupport implements  I
 	private Combobox cliente;
 	@Wire
 	private Combobox estatus;
+	
+	@Wire
+	private Checkbox todos;
+	@Wire
+	private Checkbox exito;
+	@Wire
+	private Checkbox error;
+	@Wire
+	private Checkbox finaliza;
+	@Wire
+	private Checkbox espera;
+	
 	@Wire
 	private Combobox producto;
 	@Wire
@@ -152,6 +164,92 @@ public class MonitoreoProcesosController extends ControllerSupport implements  I
 	
 	private MonitoreoProcesosVO monitoreoProcesosVO;
 	
+	private EtapaVO etapaVO;
+	
+	private List<ProcesoVO> procesoVOs = getProcesoVOs();
+	
+	private void armarListaGrid(List<MonitoreoProcesosVO> listaMonitoreoProcesosVO){ 
+		List<ProcesoVO> procesoVOs =  new ArrayList<ProcesoVO>();
+		
+		if(listaMonitoreoProcesosVO != null){ 
+			for (MonitoreoProcesosVO mProcesosVO : listaMonitoreoProcesosVO) {
+				ProcesoVO procesoVO = new ProcesoVO();
+				procesoVO.setIdCanal(mProcesosVO.getIdCanal());
+				procesoVO.setNombreCanal(mProcesosVO.getNombreCanal());
+				procesoVO.setIdCliente(mProcesosVO.getIdCliente());
+				procesoVO.setIdIdentificador(mProcesosVO.getIdIdentificador());
+				procesoVO.setIdProducto(mProcesosVO.getIdProducto());
+				procesoVO.setNombreProducto(mProcesosVO.getNombreProducto());
+				if(mProcesosVO.getIdEstatusMapeador() == 8) {
+					procesoVO.setImagenEstatus(CommandConstants.IMG_VERDE_EXITO_PNG);
+				} else if(mProcesosVO.getIdEstatusMapeador() == 9) {
+					procesoVO.setImagenEstatus(CommandConstants.IMG_ERROR_ROJO_PNG);
+				} else if(mProcesosVO.getIdEstatusMapeador() == 10) {
+					procesoVO.setImagenEstatus(CommandConstants.IMG_AZUL_FINALIZAUSUARIO_PNG);
+				} else if(mProcesosVO.getIdEstatusMapeador() == 11) {
+					procesoVO.setImagenEstatus(CommandConstants.IMG_AMARILLO_ESPERA_PNG);
+				} else{
+					procesoVO.setImagenEstatus(CommandConstants.IMG_VERDE_EXITO_PNG);
+				}
+				procesoVOs.add(procesoVO);
+			}
+		
+			for (ProcesoVO procesoVO : procesoVOs) {
+				List<LoteVO> loteVOs = new ArrayList<LoteVO>();
+				for (MonitoreoProcesosVO mProcesosVO : listaMonitoreoProcesosVO) {
+					if(procesoVO.getIdCanal() == mProcesosVO.getIdCanal() && 
+							procesoVO.getIdCliente() == mProcesosVO.getIdCliente() && 
+								procesoVO.getIdProducto() == mProcesosVO.getIdProducto()){
+						LoteVO loteVO = new LoteVO();
+						loteVO.setNumeroLote(mProcesosVO.getNumeroLote());
+						loteVO.setFechaLote(mProcesosVO.getFechaLote());
+						loteVOs.add(loteVO);
+					}
+				}
+				procesoVO.setLoteVOs(loteVOs);
+			}
+		
+			for (ProcesoVO procesoVO : procesoVOs) {
+				List<LoteVO> listaLoteVOs = procesoVO.getLoteVOs();
+				for (LoteVO loteVO : listaLoteVOs) {
+					List<EtapaVO> etapaVOs = new ArrayList<EtapaVO>();
+					for (MonitoreoProcesosVO mProcesosVO : listaMonitoreoProcesosVO) {
+						if(procesoVO.getIdCanal() == mProcesosVO.getIdCanal() && 
+							procesoVO.getIdCliente() == mProcesosVO.getIdCliente() && 
+								procesoVO.getIdProducto() == mProcesosVO.getIdProducto() &&
+									loteVO.getNumeroLote() == mProcesosVO.getNumeroLote()){
+							EtapaVO etapaVO = new EtapaVO();
+							etapaVO.setNumeroLote(mProcesosVO.getNumeroLote());
+							etapaVO.setIdContratacion(mProcesosVO.getIdContratacion());
+							etapaVO.setIdFlujo(mProcesosVO.getIdFlujo());
+							etapaVO.setIdEtapa(mProcesosVO.getIdEtapa());
+							etapaVO.setNombreEtapa(mProcesosVO.getNombreEtapa());
+							etapaVO.setIdRegArchEntra(mProcesosVO.getIdRegArchEntra());
+							etapaVO.setNombreRegArchEntra(mProcesosVO.getNombreRegArchEntra());
+							etapaVO.setFechaStatusProceso(mProcesosVO.getFechaStatusProceso());
+							etapaVO.setHoraProcesoIni(mProcesosVO.getHoraProcesoIni());
+							etapaVO.setHoraProcesoFin(mProcesosVO.getHoraProcesoFin());
+							if(mProcesosVO.getIdEstatusMapeador() == 8) {
+								etapaVO.setImagenEstatus(CommandConstants.IMG_VERDE_EXITO_PNG);
+							} else if(mProcesosVO.getIdEstatusMapeador() == 9) {
+								etapaVO.setImagenEstatus(CommandConstants.IMG_ERROR_ROJO_PNG);
+							} else if(mProcesosVO.getIdEstatusMapeador() == 10) {
+								etapaVO.setImagenEstatus(CommandConstants.IMG_AZUL_FINALIZAUSUARIO_PNG);
+							} else if(mProcesosVO.getIdEstatusMapeador() == 11) {
+								etapaVO.setImagenEstatus(CommandConstants.IMG_AMARILLO_ESPERA_PNG);
+							} else{
+								etapaVO.setImagenEstatus(CommandConstants.IMG_VERDE_EXITO_PNG);
+							}
+							etapaVOs.add(etapaVO);
+						}
+					}
+					loteVO.setEtapaVOs(etapaVOs);
+				}
+			}
+		} 
+		setProcesoVOs(procesoVOs);
+	
+	}
 	@Override
 	@GlobalCommand
 	public Object read() {
@@ -167,7 +265,7 @@ public class MonitoreoProcesosController extends ControllerSupport implements  I
 		ClienteVO clienteVO = new ClienteVO();
 		ProductoVO productoVO = new ProductoVO();
 		EstatusObjetoVO estatusObjetoVO = new EstatusObjetoVO();
-		estatusObjetoVO.setNombreEstatusObjeto(CommandConstants.NOMBRE_TABLA_PROCESO);
+		estatusObjetoVO.setNombreTabla(CommandConstants.NOMBRE_TABLA_PROCESO);
 		monitoreoProcesosDTO.setMonitoreoProcesosVO(monitoreoProcesosVO);
 		canalDTO.setCanalVO(canalVO);
 		clienteDTO.setClienteVO(clienteVO);
@@ -203,15 +301,15 @@ public class MonitoreoProcesosController extends ControllerSupport implements  I
 			for (EstatusObjetoVO estatus : estatusObjetoDTO.getEstatusObjetoVOs()) {
 				if(estatus.getNombreTabla().equals(CommandConstants.NOMBRE_TABLA_PROCESO)){
 					if(estatus.getIdEstatusObjeto() == 8) {
-						estatus.setImagenEstatus("/img/verde-exito.png");
+						estatus.setImagenEstatus(CommandConstants.IMG_VERDE_EXITO_PNG);
 					} else if(estatus.getIdEstatusObjeto() == 9) {
-						estatus.setImagenEstatus("/img/error-rojo.png");
+						estatus.setImagenEstatus(CommandConstants.IMG_ERROR_ROJO_PNG);
 					} else if(estatus.getIdEstatusObjeto() == 10) {
-						estatus.setImagenEstatus("/img/azul-finalizausuario.png");
+						estatus.setImagenEstatus(CommandConstants.IMG_AZUL_FINALIZAUSUARIO_PNG);
 					} else if(estatus.getIdEstatusObjeto() == 11) {
-						estatus.setImagenEstatus("/img/amarillo-espera.png");
+						estatus.setImagenEstatus(CommandConstants.IMG_AMARILLO_ESPERA_PNG);
 					} else{
-						estatus.setImagenEstatus("/img/verde-exito.png");
+						estatus.setImagenEstatus(CommandConstants.IMG_VERDE_EXITO_PNG);
 					}
 					estatusObjetoVOs.add(estatus);
 				}
@@ -223,19 +321,20 @@ public class MonitoreoProcesosController extends ControllerSupport implements  I
 		if(monitoreoProcesosDTO.getMonitoreoProcesosVOs() != null) { 
 			for (MonitoreoProcesosVO entidad : monitoreoProcesosDTO.getMonitoreoProcesosVOs()) {
 				if(entidad.getIdEstatusMapeador() == 8) {
-					entidad.setImagenEstatus("/img/verde-exito.png");
+					entidad.setImagenEstatus(CommandConstants.IMG_VERDE_EXITO_PNG);
 				} else if(entidad.getIdEstatusMapeador() == 9) {
-					entidad.setImagenEstatus("/img/error-rojo.png");
+					entidad.setImagenEstatus(CommandConstants.IMG_ERROR_ROJO_PNG);
 				} else if(entidad.getIdEstatusMapeador() == 10) {
-					entidad.setImagenEstatus("/img/azul-finalizausuario.png");
+					entidad.setImagenEstatus(CommandConstants.IMG_AZUL_FINALIZAUSUARIO_PNG);
 				} else if(entidad.getIdEstatusMapeador() == 11) {
-					entidad.setImagenEstatus("/img/amarillo-espera.png");
+					entidad.setImagenEstatus(CommandConstants.IMG_AMARILLO_ESPERA_PNG);
 				} else{
-					entidad.setImagenEstatus("/img/verde-exito.png");
+					entidad.setImagenEstatus(CommandConstants.IMG_VERDE_EXITO_PNG);
 				}
 				
 			}
 		}
+		armarListaGrid(monitoreoProcesosDTO.getMonitoreoProcesosVOs());
 		controller.registrarEvento(monitoreoProcesosVO, monitoreoProcesosVO, CommandConstants.CONSULTAR, "Monitoreo de Procesos");
 		return monitoreoProcesosDTO;
 	}
@@ -245,14 +344,15 @@ public class MonitoreoProcesosController extends ControllerSupport implements  I
         Selectors.wireComponents(view, this, false);    
         executePermissionSet = this.applyPermision();
     }
-	//Cambiar al objeto que pertenezca el componente en este caso estadisticoVOs
-	@Command
-	@GlobalCommand
-	@NotifyChange({ "monitoreoProcesosVOs" })
+	//Cambiar al objeto que pertenezca el componente en este caso 
+	@Command 
+	@NotifyChange({ "monitoreoProcesosVOs", "procesoVOs" })
 	public void readWithFilters() {
 		if(fechaInicio.getValue().compareTo(fechaFin.getValue()) > 0 ){
 			fechaInicio.setErrorMessage("La fecha de inicio no puede ser mayor a la fecha de fin");
 		}else{
+			
+			
 			ReportesController controller = new ReportesController();
 			MonitoreoProcesosDTO monitoreoProcesosDTO = new MonitoreoProcesosDTO();
 			MonitoreoProcesosVO monitoreoProcesosVO = new MonitoreoProcesosVO(); 
@@ -268,9 +368,37 @@ public class MonitoreoProcesosController extends ControllerSupport implements  I
 			DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 			monitoreoProcesosVO.setFechaInicio(dateFormat.format(fechaInicio.getValue()));
 			monitoreoProcesosVO.setFechaFin(dateFormat.format(fechaFin.getValue()));
+			ArrayList<Integer> estados = new ArrayList<Integer>();
+			int []arregloEstados;
+			if(!todos.isChecked()) {
+				if(exito.isChecked()) {
+					estados.add(CommandConstants.ESTADO_EXITO_PROCESO);
+					logger.info("::::::::::::8");
+				}
+				if(error.isChecked()) {
+					estados.add(CommandConstants.ESTADO_ERROR_PROCESO);
+					logger.info("::::::::::::9");
+				}
+				if(finaliza.isChecked()) {
+					estados.add(CommandConstants.ESTADO_FINALIZA_USUARIO_PROCESO);
+					logger.info("::::::::::::10");
+				}
+				if(espera.isChecked()) {
+					estados.add(CommandConstants.ESTADO_ESPERA_PROCESO);
+					logger.info("::::::::::::11");
+				}
+				if(estados.size()>0){
+					arregloEstados = new int[estados.size()];
+					int count = 0;
+					for (Integer integer : estados) {
+						arregloEstados[count] = integer;
+						count ++;
+					}
+					logger.info(arregloEstados.toString());
+					monitoreoProcesosVO.setEstados(arregloEstados);
+				}
+			}
 			
-			
-	
 			monitoreoProcesosDTO.setMonitoreoProcesosVO(monitoreoProcesosVO);
 			monitoreoProcesosDTO.toString(BbvaAbstractDataTransferObject.XML);	
 			
@@ -284,15 +412,15 @@ public class MonitoreoProcesosController extends ControllerSupport implements  I
 			if(monitoreoProcesosDTO.getMonitoreoProcesosVOs() != null) { 
 					for (MonitoreoProcesosVO entidad : monitoreoProcesosDTO.getMonitoreoProcesosVOs()) {
 						if(entidad.getIdEstatusMapeador() == 8) {
-							entidad.setImagenEstatus("/img/verde-exito.png");
+							entidad.setImagenEstatus(CommandConstants.IMG_VERDE_EXITO_PNG);
 						} else if(entidad.getIdEstatusMapeador() == 9) {
-							entidad.setImagenEstatus("/img/error-rojo.png");
+							entidad.setImagenEstatus(CommandConstants.IMG_ERROR_ROJO_PNG);
 						} else if(entidad.getIdEstatusMapeador() == 10) {
-							entidad.setImagenEstatus("/img/azul-finalizausuario.png");
+							entidad.setImagenEstatus(CommandConstants.IMG_AZUL_FINALIZAUSUARIO_PNG);
 						} else if(entidad.getIdEstatusMapeador() == 11) {
-							entidad.setImagenEstatus("/img/amarillo-espera.png");
+							entidad.setImagenEstatus(CommandConstants.IMG_AMARILLO_ESPERA_PNG);
 						} else{
-							entidad.setImagenEstatus("/img/verde-exito.png");
+							entidad.setImagenEstatus(CommandConstants.IMG_VERDE_EXITO_PNG);
 						} 
 				}
 				logger.debug("size:"+ monitoreoProcesosDTO.getMonitoreoProcesosVOs().size());
@@ -301,15 +429,16 @@ public class MonitoreoProcesosController extends ControllerSupport implements  I
 			}
 			//Asignacion de la lista a la variable global de la clase
 			monitoreoProcesosVOs = monitoreoProcesosDTO.getMonitoreoProcesosVOs();
+			armarListaGrid(monitoreoProcesosDTO.getMonitoreoProcesosVOs());
 			controller.registrarEvento(monitoreoProcesosVO, monitoreoProcesosVO, CommandConstants.CONSULTAR,"Monitoreo de Procesos");
 		}
 	}
 	
 	@Command 
-	public void readEventDetail(@BindingParam("idContratacion") final MonitoreoProcesosVO monitoreoProcesosVO) {
-		setMonitoreoProcesosVO(monitoreoProcesosVO);
+	public void readEventDetail(@BindingParam("idContratacion") final EtapaVO etapaVO) {
+		setEtapaVO(etapaVO);
 		Map<String, Object> mapDatos = new HashMap<String, Object>();
-		mapDatos.put("monitoreoProcesosVO", monitoreoProcesosVO); 
+		mapDatos.put("etapaVO", etapaVO); 
 		Window window = (Window) Executions.createComponents(
 				"/WEB-INF/flows/procesos/detalleProceso.zul",
 				this.getSelf(), mapDatos);
@@ -331,10 +460,13 @@ public class MonitoreoProcesosController extends ControllerSupport implements  I
 
 	@Override
 	@Command
-	@NotifyChange({ "monitoreoProcesosVOs"})
+	@NotifyChange({ "monitoreoProcesosVOs" , "procesoVOs"})
 	public void save() {
 		ReportesController controller = new ReportesController();
 		//LLamada a BO  MonitoreoProcesosBO para consulta por criterio
+//		System.out.println(etapaVO.getIdContratacion());
+//		System.out.println(etapaVO.getIdFlujo());
+//		System.out.println(etapaVO.getIdEtapa());
 		MonitoreoProcesosBO monitoreoProcesosBO = new MonitoreoProcesosBO();
 		MonitoreoProcesosVO monitoreoProcesosVO = new MonitoreoProcesosVO();
 		monitoreoProcesosVO.setIdContratacion(Integer.parseInt(idContratacion.getValue()));
@@ -343,6 +475,7 @@ public class MonitoreoProcesosController extends ControllerSupport implements  I
 		monitoreoProcesosDTO.setMonitoreoProcesosVO(monitoreoProcesosVO);
 		//Asignacion resultado de consulta al mismo DTO de MonitoreoProcesos
 		monitoreoProcesosDTO = monitoreoProcesosBO.updateCommand(monitoreoProcesosDTO);
+		armarListaGrid(monitoreoProcesosDTO.getMonitoreoProcesosVOs());
 		controller.registrarEvento(monitoreoProcesosVO, this.monitoreoProcesosVO, CommandConstants.MODIFICACION,"Monitoreo de Procesos");
 		Messagebox.show("Registro actualizado con exito!!",
 				"Confirmación", Messagebox.OK,
@@ -360,16 +493,41 @@ public class MonitoreoProcesosController extends ControllerSupport implements  I
 	public void clean() {
 		canal.setValue(null); 
 		cliente.setValue(null);
-		estatus.setValue(null);
+//		estatus.setValue(null);
 		producto.setValue(null);
 		lote.setValue(null);
 		idCanal.setValue(null); 
 		idProducto.setValue(null);
 		idCliente.setValue(null);
+		todos.setChecked(false);
+		exito.setChecked(false);
+		error.setChecked(false);
+		finaliza.setChecked(false);
+		espera.setChecked(false);
 		idEstatus.setValue(null);
 //		idContratacion.setValue(null);
 //		idFlujo.setValue(null);
 //		idEtapa.setValue(null); 
+	}
+	 
+	@Command
+	public void seleccionEstatus() {
+		
+		if(todos.isChecked()){
+			exito.setChecked(false);
+			error.setChecked(false);
+			finaliza.setChecked(false);
+			espera.setChecked(false); 
+			exito.setDisabled(true);
+			error.setDisabled(true);
+			finaliza.setDisabled(true);
+			espera.setDisabled(true);
+		} else {
+			exito.setDisabled(false);
+			error.setDisabled(false);
+			finaliza.setDisabled(false);
+			espera.setDisabled(false);
+		}
 	}
 	
 	@Command
@@ -818,26 +976,124 @@ public class MonitoreoProcesosController extends ControllerSupport implements  I
 	public boolean applyPermision() {
 		boolean isApplied = false;
 		HashMap<String, Component> componentes = new HashMap<String, Component>();
-		componentes.put(lblCanal.getId(), lblCanal);
-		componentes.put(lblCliente.getId(), lblCliente);
-		componentes.put(lblProducto.getId(), lblProducto);
-		componentes.put(lblEstatus.getId(), lblEstatus);
-		componentes.put(lblFechaLote.getId(), lblFechaLote);
-		componentes.put(lblA.getId(), lblA);
-		componentes.put(lblLote.getId(), lblLote);
-		componentes.put(canal.getId(), canal);
-		componentes.put(cliente.getId(), cliente);
-		componentes.put(producto.getId(), producto);
-		componentes.put(estatus.getId(), estatus);
-		componentes.put(fechaInicio.getId(), fechaInicio);
-		componentes.put(fechaFin.getId(), fechaFin);
-		componentes.put(lote.getId(), lote);
-		componentes.put(reporteExcelBtn.getId(), reporteExcelBtn);
-		componentes.put(reporteCsvBtn.getId(), reporteCsvBtn);
-		componentes.put(limpiarBtn.getId(), limpiarBtn);
-		componentes.put(consultarBtn.getId(), consultarBtn);
-		componentes.put(procesosGrid.getId(), procesosGrid);
+//		componentes.put(lblCanal.getId(), lblCanal);
+//		componentes.put(lblCliente.getId(), lblCliente);
+//		componentes.put(lblProducto.getId(), lblProducto);
+//		componentes.put(lblEstatus.getId(), lblEstatus);
+//		componentes.put(lblFechaLote.getId(), lblFechaLote);
+//		componentes.put(lblA.getId(), lblA);
+//		componentes.put(lblLote.getId(), lblLote);
+//		componentes.put(canal.getId(), canal);
+//		componentes.put(cliente.getId(), cliente);
+//		componentes.put(producto.getId(), producto);
+////		componentes.put(estatus.getId(), estatus);
+//		componentes.put(fechaInicio.getId(), fechaInicio);
+//		componentes.put(fechaFin.getId(), fechaFin);
+//		componentes.put(lote.getId(), lote);
+//		componentes.put(reporteExcelBtn.getId(), reporteExcelBtn);
+//		componentes.put(reporteCsvBtn.getId(), reporteCsvBtn);
+//		componentes.put(limpiarBtn.getId(), limpiarBtn);
+//		componentes.put(consultarBtn.getId(), consultarBtn);
+////		componentes.put(procesosGrid.getId(), procesosGrid);
 		super.applyPermission(MapeadorConstants.MONITOREO, componentes);
 		return isApplied;
 	}
+
+	/**
+	 * @return the todos
+	 */
+	public Checkbox getTodos() {
+		return todos;
+	}
+
+	/**
+	 * @param todos the todos to set
+	 */
+	public void setTodos(Checkbox todos) {
+		this.todos = todos;
+	}
+
+	/**
+	 * @return the exito
+	 */
+	public Checkbox getExito() {
+		return exito;
+	}
+
+	/**
+	 * @param exito the exito to set
+	 */
+	public void setExito(Checkbox exito) {
+		this.exito = exito;
+	}
+
+	/**
+	 * @return the error
+	 */
+	public Checkbox getError() {
+		return error;
+	}
+
+	/**
+	 * @param error the error to set
+	 */
+	public void setError(Checkbox error) {
+		this.error = error;
+	}
+
+	/**
+	 * @return the finaliza
+	 */
+	public Checkbox getFinaliza() {
+		return finaliza;
+	}
+
+	/**
+	 * @param finaliza the finaliza to set
+	 */
+	public void setFinaliza(Checkbox finaliza) {
+		this.finaliza = finaliza;
+	}
+
+	/**
+	 * @return the espera
+	 */
+	public Checkbox getEspera() {
+		return espera;
+	}
+
+	/**
+	 * @param espera the espera to set
+	 */
+	public void setEspera(Checkbox espera) {
+		this.espera = espera;
+	}
+	/**
+	 * @return the procesoVOs
+	 */
+	public List<ProcesoVO> getProcesoVOs() {
+		return procesoVOs;
+	}
+	/**
+	 * @param procesoVOs the procesoVOs to set
+	 */
+	public void setProcesoVOs(List<ProcesoVO> procesoVOs) {
+		this.procesoVOs = procesoVOs;
+	}
+	/**
+	 * @return the etapaVO
+	 */
+	public EtapaVO getEtapaVO() {
+		return etapaVO;
+	}
+	/**
+	 * @param etapaVO the etapaVO to set
+	 */
+	public void setEtapaVO(EtapaVO etapaVO) {
+		this.etapaVO = etapaVO;
+	}
+ 
+	
+	
 }
+
