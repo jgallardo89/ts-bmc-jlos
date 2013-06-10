@@ -70,7 +70,10 @@ public class MonitoreoProcesosController extends ControllerSupport implements  I
 	private Combobox cliente;
 	@Wire
 	private Combobox estatus;
+	@Wire
+	private Button guardarBtn;
 	
+	private boolean btnGuardar;
 	@Wire
 	private Checkbox todos;
 	@Wire
@@ -230,6 +233,7 @@ public class MonitoreoProcesosController extends ControllerSupport implements  I
 							etapaVO.setFechaStatusProceso(mProcesosVO.getFechaStatusProceso());
 							etapaVO.setHoraProcesoIni(mProcesosVO.getHoraProcesoIni());
 							etapaVO.setHoraProcesoFin(mProcesosVO.getHoraProcesoFin());
+							etapaVO.setIdEstatusMapeador(mProcesosVO.getIdEstatusMapeador());
 							if(mProcesosVO.getIdEstatusMapeador() == 8) {
 								etapaVO.setImagenEstatus(CommandConstants.IMG_VERDE_EXITO_PNG);
 							} else if(mProcesosVO.getIdEstatusMapeador() == 9) {
@@ -435,15 +439,17 @@ public class MonitoreoProcesosController extends ControllerSupport implements  I
 		}
 	}
 	
-	@Command 
+	@Command  
 	public void readEventDetail(@BindingParam("idContratacion") final EtapaVO etapaVO) {
-		setEtapaVO(etapaVO);
-		Map<String, Object> mapDatos = new HashMap<String, Object>();
-		mapDatos.put("etapaVO", etapaVO); 
-		Window window = (Window) Executions.createComponents(
-				"/WEB-INF/flows/procesos/detalleProceso.zul",
-				this.getSelf(), mapDatos);
-		window.doModal();
+		if(etapaVO.getIdEstatusMapeador() == CommandConstants.ESTADO_ERROR_PROCESO){
+			setEtapaVO(etapaVO);
+			Map<String, Object> mapDatos = new HashMap<String, Object>();
+			mapDatos.put("etapaVO", etapaVO); 
+			Window window = (Window) Executions.createComponents(
+					"/WEB-INF/flows/procesos/detalleProceso.zul",
+					this.getSelf(), mapDatos);
+			window.doModal();
+		}
 	}
 	
 	@Wire
@@ -1092,6 +1098,30 @@ public class MonitoreoProcesosController extends ControllerSupport implements  I
 	 */
 	public void setEtapaVO(EtapaVO etapaVO) {
 		this.etapaVO = etapaVO;
+	}
+	/**
+	 * @return the guardarBtn
+	 */
+	public Button getGuardarBtn() {
+		return guardarBtn;
+	}
+	/**
+	 * @param guardarBtn the guardarBtn to set
+	 */
+	public void setGuardarBtn(Button guardarBtn) {
+		this.guardarBtn = guardarBtn;
+	}
+	/**
+	 * @return the btnGuardar
+	 */
+	public boolean isBtnGuardar() {
+		return btnGuardar;
+	}
+	/**
+	 * @param btnGuardar the btnGuardar to set
+	 */
+	public void setBtnGuardar(boolean btnGuardar) {
+		this.btnGuardar = btnGuardar;
 	}
  
 	
