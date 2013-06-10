@@ -1,13 +1,16 @@
 package mx.com.bbva.bancomer.estadistico.dto;
 
-import java.io.Serializable;
 import java.util.List;
 
-public class ClienteMockDTO implements Serializable {
+import mx.com.bbva.bancomer.bussinnes.model.vo.ProductoVO;
+import mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject;
+
+public class ClienteDTO extends BbvaAbstractDataTransferObject {
 
 	private static final long serialVersionUID = 676025520912830887L;
+	private int idCliente;
 	private String nombreCliente;
-	private List<ProductoEstadisticoDTO> productoVOs;
+	private List<ProductoVO> productoVOs;
 
 	
 	/**
@@ -27,15 +30,28 @@ public class ClienteMockDTO implements Serializable {
 	/**
 	 * @return the productoVOs
 	 */
-	public List<ProductoEstadisticoDTO> getProductoVOs() {
+	public List<ProductoVO> getProductoVOs() {
 		return productoVOs;
 	}
 
 	/**
 	 * @param productoVOs the productoVOs to set
 	 */
-	public void setProductoVOs(List<ProductoEstadisticoDTO> productoVOs) {
+	public void setProductoVOs(List<ProductoVO> productoVOs) {
 		this.productoVOs = productoVOs;
 	}
-	
+
+	/**
+	 * @return the idCliente
+	 */
+	public int getIdCliente() {
+		return idCliente;
+	}
+
+	/**
+	 * @param idCliente the idCliente to set
+	 */
+	public void setIdCliente(int idCliente) {
+		this.idCliente = idCliente;
+	}
 }
