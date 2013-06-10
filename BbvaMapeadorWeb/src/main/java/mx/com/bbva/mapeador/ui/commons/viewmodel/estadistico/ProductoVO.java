@@ -7,7 +7,7 @@ public class ProductoVO {
 	public String nombreProducto;
 	public long idRegArchEntra;
 	public String nombreRegArchEntra;
-	public long numeroOperacione;
+	public long numeroOperaciones;
 	public Date fechaStatusProceso;
 	private String fechaInicio;
 	private String fechaFin;
@@ -59,17 +59,18 @@ public class ProductoVO {
 	public void setNombreRegArchEntra(String nombreRegArchEntra) {
 		this.nombreRegArchEntra = nombreRegArchEntra;
 	}
+	
 	/**
-	 * @return the numeroOperacione
+	 * @return the numeroOperaciones
 	 */
-	public long getNumeroOperacione() {
-		return numeroOperacione;
+	public long getNumeroOperaciones() {
+		return numeroOperaciones;
 	}
 	/**
-	 * @param numeroOperacione the numeroOperacione to set
+	 * @param numeroOperaciones the numeroOperaciones to set
 	 */
-	public void setNumeroOperacione(long numeroOperacione) {
-		this.numeroOperacione = numeroOperacione;
+	public void setNumeroOperaciones(long numeroOperaciones) {
+		this.numeroOperaciones = numeroOperaciones;
 	}
 	/**
 	 * @return the fechaStatusProceso
