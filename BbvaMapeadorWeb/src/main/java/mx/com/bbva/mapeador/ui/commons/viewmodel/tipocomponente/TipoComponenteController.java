@@ -1,5 +1,6 @@
 package mx.com.bbva.mapeador.ui.commons.viewmodel.tipocomponente;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -22,6 +23,7 @@ import org.zkoss.zul.Textbox;
 
 import mx.com.bbva.bancomer.bussinnes.model.vo.PerfilVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.TipoComponenteVO;
+import mx.com.bbva.bancomer.canal.dto.BeanGenerico;
 import mx.com.bbva.bancomer.commons.command.CommandConstants;
 import mx.com.bbva.bancomer.commons.command.MapeadorConstants;
 import mx.com.bbva.bancomer.mapper.business.TipoComponenteBO;
@@ -189,4 +191,29 @@ public class TipoComponenteController extends ControllerSupport implements
         Selectors.wireComponents(view, this, false);        
         executePermissionSet = this.applyPermision();
     }
+	@Command
+	public void onShowReport(@BindingParam("type") final String type) {
+		ReportesController controller = new ReportesController();
+		ArrayList<String> headersReport = new ArrayList<String>();
+		headersReport.add("Identificador Tipo Componente");
+		headersReport.add("Nombre Tipo Componente");		
+		if(type.equals("xls")) {
+			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_EXCEL,"Tipo Componente");
+		} else {
+			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_TEXTO,"Tipo Componente");
+		}
+		controller.createReport(generaLista(), headersReport, type, "TIPO-COMPONENTE");				
+	}	
+	
+	private ArrayList<BeanGenerico> generaLista() {
+		ArrayList<BeanGenerico> beanGenericos = new ArrayList<BeanGenerico>();
+		BeanGenerico beanGenerico = null;
+		for(TipoComponenteVO tipoComponenteVO: tipoComponenteVOs) {
+			beanGenerico = new BeanGenerico();
+			beanGenerico.setValor1(Integer.toString(tipoComponenteVO.getIdTipoComponente()));
+			beanGenerico.setValor2(tipoComponenteVO.getNombreTipoComponente());					
+			beanGenericos.add(beanGenerico);
+		}
+		return beanGenericos;
+	}
 }

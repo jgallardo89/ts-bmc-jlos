@@ -4,7 +4,7 @@
 <?meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7"?>
 <?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
 <zk>
-	<window border="0" width="100%" height="100%"
+	<window border="0" width="100%" height="160%"
 		apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('mx.com.bbva.mapeador.ui.commons.viewmodel.monitoreoprocesos.MonitoreoProcesosController')"
 		id="monitoreoProcesosWindows">
@@ -113,8 +113,8 @@
 							</panelchildren>										
 						</panel>
 					</groupbox>
-					<groupbox height="400px">
-						<panel height="380px" sclass="sectionPanelTitle" width="100%" id="panelMonitoreoProcesos"
+					<groupbox height="700px">
+						<panel height="780px" sclass="sectionPanelTitle" width="100%" id="panelMonitoreoProcesos"
 							title="Resultados" collapsible="true"
 							style="margin-bottom:10px">
 							<caption sclass="sectionPanelTitle" label="Listado de Resultados"></caption>
