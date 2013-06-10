@@ -56,6 +56,7 @@ import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
 
 public class MonitoreoProcesosController extends ControllerSupport implements  IController{
+	
 	/**
 	 * 
 	 */
@@ -295,8 +296,8 @@ public class MonitoreoProcesosController extends ControllerSupport implements  I
 		if(estatusObjetoDTO.getEstatusObjetoVOs() != null){
 			EstatusObjetoVO estatusObjeto = new EstatusObjetoVO();
 			estatusObjeto.setIdEstatusObjeto(0);
-			estatusObjeto.setNombreEstatusObjeto("TODOS");
-			estatusObjeto.setImagenEstatus("/img/u276_normal.png");
+			estatusObjeto.setNombreEstatusObjeto(CommandConstants.TODOS);
+			estatusObjeto.setImagenEstatus(CommandConstants.IMG_U276_NORMAL_PNG);
 			estatusObjetoVOs.add(estatusObjeto);
 			for (EstatusObjetoVO estatus : estatusObjetoDTO.getEstatusObjetoVOs()) {
 				if(estatus.getNombreTabla().equals(CommandConstants.NOMBRE_TABLA_PROCESO)){
