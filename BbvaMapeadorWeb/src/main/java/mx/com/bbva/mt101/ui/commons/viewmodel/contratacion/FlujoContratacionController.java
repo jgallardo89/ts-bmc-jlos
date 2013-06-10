@@ -131,7 +131,6 @@ public class FlujoContratacionController extends Div  implements IController, Id
 	@Command
 	@NotifyChange({"guardarBtn"})
 	public void save() {
-		System.out.println("*****************GUARDADO 1************");
 		boolean errorGuardar = false;
 		if (mapaGMM.getSelectedItem() == null
 				|| mapaGMM.getSelectedItem().getValue() == null
@@ -146,20 +145,13 @@ public class FlujoContratacionController extends Div  implements IController, Id
 				nombreMensajeSalida.setErrorMessage("Favor de seleccionar el mensaje");
 				errorGuardar = true;
 			}
-			else {
-				errorGuardar = false;
-			}
 			if(contratacionUsuariosDTO.getUsuarioNotificacionContrataMapVOs().isEmpty()){
 				usuariosNotificacionActivo.setEmptyMessage("Favor de seleccionar al menos un Usuario");
 				errorGuardar = true;
-			} else {
-				errorGuardar = false;
-			}
-			System.out.println("*****************GUARDADO 2************" + errorGuardar + " " +usuariosNotificacionActivo.getSelectedCount());
+			} 
 		}
 		
 		if(!errorGuardar) {
-			System.out.println("*****************GUARDADO 3************");
 			contratacionMapVO = new ContratacionMapVO();
 			ContratacionMapeadorBO contratacionMapeadorBO = new ContratacionMapeadorBO();
 			
