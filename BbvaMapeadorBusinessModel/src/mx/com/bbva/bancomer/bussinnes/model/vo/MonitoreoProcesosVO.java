@@ -33,6 +33,7 @@ public class MonitoreoProcesosVO extends BbvaAbstractValueObject {
 	private String fechaInicio;
 	private String fechaFin; 
 	private String imagenEstatus; 
+	private int estados[];
 	/**
 	 * 
 	 */
@@ -371,6 +372,18 @@ public class MonitoreoProcesosVO extends BbvaAbstractValueObject {
 	 */
 	public void setImagenEstatus(String imagenEstatus) {
 		this.imagenEstatus = imagenEstatus;
+	}
+	/**
+	 * @return the estados
+	 */
+	public int[] getEstados() {
+		return estados;
+	}
+	/**
+	 * @param estados the estados to set
+	 */
+	public void setEstados(int[] estados) {
+		this.estados = estados;
 	}
 	
 }
