@@ -11,6 +11,19 @@ import mx.com.bbva.bancomer.commons.model.vo.BbvaAbstractValueObject;
 public class TipoComponenteVO extends BbvaAbstractValueObject {
 	private int idTipoComponente;
 	private String nombreTipoComponente;
+	private int existe;
+	/**
+	 * @return the existe
+	 */
+	public final int getExiste() {
+		return existe;
+	}
+	/**
+	 * @param existe the existe to set
+	 */
+	public final void setExiste(int existe) {
+		this.existe = existe;
+	}
 	/**
 	 * @return the idTipoComponente
 	 */
