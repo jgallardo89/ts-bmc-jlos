@@ -6,9 +6,6 @@ import mx.com.bbva.bancomer.commons.model.vo.BbvaAbstractValueObject;
 
 public class EstadisticoVO  extends BbvaAbstractValueObject {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -3633362440139077011L;
 	public long idCanal;
 	public String nombreCanal;
