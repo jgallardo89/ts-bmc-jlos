@@ -22,17 +22,20 @@ import org.zkoss.zul.Textbox;
 
 import mx.com.bbva.bancomer.bussinnes.model.vo.PerfilVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.TipoComponenteVO;
+import mx.com.bbva.bancomer.commons.command.CommandConstants;
 import mx.com.bbva.bancomer.commons.command.MapeadorConstants;
 import mx.com.bbva.bancomer.mapper.business.TipoComponenteBO;
 import mx.com.bbva.bancomer.tipocomponente.dto.TipoComponenteDTO;
 import mx.com.bbva.mapeador.ui.commons.controller.IController;
+import mx.com.bbva.mapeador.ui.commons.viewmodel.reportes.ReportesController;
 import mx.com.bbva.mapeador.ui.commons.viewmodel.support.ControllerSupport;
 
 public class TipoComponenteController extends ControllerSupport implements
 		IController {
 
-	List<TipoComponenteVO> tipoComponenteVOs;
-	TipoComponenteDTO tipoComponenteDTO; 
+	private List<TipoComponenteVO> tipoComponenteVOs;
+	private TipoComponenteDTO tipoComponenteDTO;
+	private TipoComponenteVO tipoComponenteVO;
 
 	private boolean executePermissionSet;
 	
@@ -105,25 +108,44 @@ public class TipoComponenteController extends ControllerSupport implements
 		if(tipoComponente.getValue().isEmpty()){
 			tipoComponente.setErrorMessage("Favor de introducir el nombre del tipo de componente.");
 		}else{
+						
 			tipoComponenteDTO = new TipoComponenteDTO();
 			TipoComponenteVO tipoComponenteVO = new TipoComponenteVO();
+			ReportesController reportesController = new ReportesController();
 			tipoComponenteVO.setIdTipoComponente(idTipoComponente.getValue());
-			tipoComponenteVO.setNombreTipoComponente(tipoComponente.getValue().toUpperCase().trim());
-			tipoComponenteDTO.setTipoComponenteVO(tipoComponenteVO);
-			TipoComponenteBO tipoComponenteBO = new TipoComponenteBO();			
-			if(idTipoComponente.getValue()!=0){
-				tipoComponenteBO.updateCommand(tipoComponenteDTO);
-				Messagebox.show("El registro se actualizó con exito",
-						"Información", Messagebox.OK,
-						Messagebox.INFORMATION);
+			tipoComponenteVO.setNombreTipoComponente(tipoComponente.getValue().toUpperCase().trim());			
+			tipoComponenteDTO.setTipoComponenteVO(tipoComponenteVO);			
+			TipoComponenteBO tipoComponenteBO = new TipoComponenteBO();
+			
+			TipoComponenteDTO tipoComponenteDTOValidaExiste = new TipoComponenteDTO();
+			TipoComponenteVO tipoComponenteVOValidaExiste = new TipoComponenteVO();
+			tipoComponenteVOValidaExiste.setNombreTipoComponente(tipoComponente.getValue().toUpperCase().trim());
+			tipoComponenteDTOValidaExiste.setCommandId(CommandConstants.CONSULTA_EXISTE_TIPO_COMPONENTE);
+			tipoComponenteDTOValidaExiste.setTipoComponenteVO(tipoComponenteVOValidaExiste);
+			tipoComponenteDTOValidaExiste = tipoComponenteBO.readCommand(tipoComponenteDTOValidaExiste);
+			tipoComponenteVOValidaExiste = tipoComponenteDTOValidaExiste.getTipoComponenteVOs().get(0);
+			int existe = tipoComponenteVOValidaExiste.getExiste();
+			if(existe==0){
+				if(idTipoComponente.getValue()!=0){
+					tipoComponenteBO.updateCommand(tipoComponenteDTO);
+					reportesController.registrarEvento(tipoComponenteVO, this.tipoComponenteVO, CommandConstants.MODIFICACION, "TIPO-COMPONENTE");
+					Messagebox.show("El registro se actualizó con exito",
+							"Información", Messagebox.OK,
+							Messagebox.INFORMATION);
+				}else{
+					tipoComponenteBO.createCommand(tipoComponenteDTO);
+					reportesController.registrarEvento(null, null, CommandConstants.ALTA, "TIPO-COMPONENTE");
+					Messagebox.show("El registro se creó con exito",
+							"Información", Messagebox.OK,
+							Messagebox.INFORMATION);
+				}						
+				clean();
+				tipoComponenteVOs = ((TipoComponenteDTO)this.read()).getTipoComponenteVOs();
 			}else{
-				tipoComponenteBO.createCommand(tipoComponenteDTO);
-				Messagebox.show("El registro se creó con exito",
-						"Información", Messagebox.OK,
-						Messagebox.INFORMATION);
+				Messagebox.show("El tipo de componente ya existe",
+						"Error", Messagebox.OK,
+						Messagebox.ERROR);
 			}
-			clean();
-			tipoComponenteVOs = ((TipoComponenteDTO)this.read()).getTipoComponenteVOs();
 		}
 	}
 
@@ -157,6 +179,7 @@ public class TipoComponenteController extends ControllerSupport implements
 
 	@Command		
 	public void readSelected(@BindingParam("idTipoComponente") final TipoComponenteVO tipoComponenteVO){
+		this.tipoComponenteVO = tipoComponenteVO;
 		this.tipoComponente.setValue(tipoComponenteVO.getNombreTipoComponente());		
 		this.idTipoComponente.setValue(tipoComponenteVO.getIdTipoComponente());		
 	}
