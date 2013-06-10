@@ -100,6 +100,15 @@ public abstract interface CommandConstants {
 	public static final int ID_PERFIL_BAJA = 26;
 	public static final String NB_PERFIL_ACTIVO = "ACTIVO";
 	public static final String NB_PERFIL_BAJA = "BAJA";
+	//Monitoreo de Procesos
+	public static final String IMG_AMARILLO_ESPERA_PNG = "/img/amarillo-espera.png";
+	public static final String IMG_AZUL_FINALIZAUSUARIO_PNG = "/img/azul-finalizausuario.png";
+	public static final String IMG_ERROR_ROJO_PNG = "/img/error-rojo.png";
+	public static final String IMG_VERDE_EXITO_PNG = "/img/verde-exito.png";
+	public static final int ESTADO_ESPERA_PROCESO = 11;
+	public static final int ESTADO_FINALIZA_USUARIO_PROCESO = 10;
+	public static final int ESTADO_ERROR_PROCESO = 9;
+	public static final int ESTADO_EXITO_PROCESO = 8;
 }
 
 
