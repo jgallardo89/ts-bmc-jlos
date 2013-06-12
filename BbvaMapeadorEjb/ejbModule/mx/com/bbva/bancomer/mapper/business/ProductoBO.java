@@ -1,43 +1,67 @@
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * Informacion Confidencial:
+ * Este software contiene informacion totalmente confidencial propiedad de Grupo Financiero BBVA Bancomer. 
+ * Queda totalmente prohibido su uso o divulgacion en forma parcial o total y solamente podra ser utilizada de acuerdo a los terminos y estatutos 
+ * que determine el Grupo Financiero BBVA Bancomer.
+ * 
+ * Todos los derechos reservados, Mexico 2013.
+ * 
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * DESCRIPCION DEL PROGRAMA
+ * Nombre de aplicación: MAPEADOR
+ * Nombre de proyecto: BbvaMapeadorEjb
+ * 
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ *
+ * HISTORIAL DE CAMBIOS:
+ * 
+ * Fecha:									         	
+ * 30-ABR-2013  
+ * @Author:	Jose Luis Ortiz Salazar
+ * @Email: jortizsalazar@gmail.com    	
+ * Razon: Creacion        
+ * Version: 1.0.0
+ * Nombre de clase: ProductoBO.java
+ * Nombre de paquete: mx.com.bbva.bancomer.mapper.business
+ *              
+ *           
+ *              
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package mx.com.bbva.bancomer.mapper.business;
 
 import java.util.List;
 
 import javax.ejb.Stateless;
 
-import org.apache.ibatis.session.SqlSession;
-import org.apache.log4j.Logger;
-
-import mappers.cliente.MapCliente;
 import mappers.producto.MapProducto;
-import mx.com.bbva.bancomer.bussinnes.model.vo.ClienteVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.ProductoVO;
-import mx.com.bbva.bancomer.cliente.dto.ClienteDTO;
 import mx.com.bbva.bancomer.commons.command.CommandConstants;
 import mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject;
 import mx.com.bbva.bancomer.producto.dto.ProductoDTO;
 import mx.com.bbva.mapeador.oralce.session.MapeadorSessionFactory;
 
+import org.apache.ibatis.session.SqlSession;
+import org.apache.log4j.Logger;
+
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ProductoBO.
+ */
 @Stateless(mappedName = "productoBO")
 public class ProductoBO implements
 		mx.com.bbva.bancomer.commons.business.BbvaIBusinessObject {
+	
+	/** The Constant logger. */
 	private static final org.apache.log4j.Logger logger = Logger
 			.getLogger(ProductoBO.class);
 
 	// @Autowired
+	/** The bbva i data access object. */
 	private mx.com.bbva.bancomer.commons.persistence.dao.BbvaIDataAccessObject bbvaIDataAccessObject;
 
-	/**
-	 * @return the bbvaIDataAccessObject
+	/* (non-Javadoc)
+	 * @see mx.com.bbva.bancomer.commons.business.BbvaIBusinessObject#createCommand(mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject)
 	 */
-	public final mx.com.bbva.bancomer.commons.persistence.dao.BbvaIDataAccessObject getBbvaIDataAccessObject() {
-		return bbvaIDataAccessObject;
-	}
-
-	public void setBbvaIDataAccessObject(
-			mx.com.bbva.bancomer.commons.persistence.dao.BbvaIDataAccessObject bbvaIDataAccessObject) {
-		this.bbvaIDataAccessObject = bbvaIDataAccessObject;
-	}
-
 	@Override
 	public <T extends BbvaAbstractDataTransferObject> T createCommand(
 			T bbvaAbstractDataTransferObject) {		
@@ -61,6 +85,28 @@ public class ProductoBO implements
 			return bbvaAbstractDataTransferObject;														
 	}
 
+	/* (non-Javadoc)
+	 * @see mx.com.bbva.bancomer.commons.business.BbvaIBusinessObject#deleteCommand(mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject)
+	 */
+	@Override
+	public <T extends BbvaAbstractDataTransferObject> T deleteCommand(
+			T bbvaAbstractDataTransferObject) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	/**
+	 * Gets the bbva i data access object.
+	 *
+	 * @return the bbvaIDataAccessObject
+	 */
+	public final mx.com.bbva.bancomer.commons.persistence.dao.BbvaIDataAccessObject getBbvaIDataAccessObject() {
+		return bbvaIDataAccessObject;
+	}
+
+	/* (non-Javadoc)
+	 * @see mx.com.bbva.bancomer.commons.business.BbvaIBusinessObject#readCommand(mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject)
+	 */
 	@Override
 	public <T extends BbvaAbstractDataTransferObject> T readCommand(
 			T bbvaAbstractDataTransferObject) {
@@ -101,6 +147,13 @@ public class ProductoBO implements
 		}
 	}
 	
+	/**
+	 * Read command cmb.
+	 *
+	 * @param <T> the generic type
+	 * @param productoVO the producto vo
+	 * @return the t
+	 */
 	public <T extends BbvaAbstractDataTransferObject> T readCommandCmb(ProductoVO productoVO) {
 		ProductoDTO productoDTO = new ProductoDTO();
 		try {
@@ -136,6 +189,19 @@ public class ProductoBO implements
 		}
 	}
 
+	/**
+	 * Sets the bbva i data access object.
+	 *
+	 * @param bbvaIDataAccessObject the new bbva i data access object
+	 */
+	public void setBbvaIDataAccessObject(
+			mx.com.bbva.bancomer.commons.persistence.dao.BbvaIDataAccessObject bbvaIDataAccessObject) {
+		this.bbvaIDataAccessObject = bbvaIDataAccessObject;
+	}
+
+	/* (non-Javadoc)
+	 * @see mx.com.bbva.bancomer.commons.business.BbvaIBusinessObject#updateCommand(mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject)
+	 */
 	@Override
 	public <T extends BbvaAbstractDataTransferObject> T updateCommand(
 			T bbvaAbstractDataTransferObject) {
@@ -157,13 +223,6 @@ public class ProductoBO implements
 		logger.debug( "Datos de Salida invoke -- " + bbvaAbstractDataTransferObject.toString() );
 		logger.debug( "Salida invoke          -- OK" );
 		return bbvaAbstractDataTransferObject;	
-	}
-
-	@Override
-	public <T extends BbvaAbstractDataTransferObject> T deleteCommand(
-			T bbvaAbstractDataTransferObject) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

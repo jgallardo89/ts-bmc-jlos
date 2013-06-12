@@ -23,7 +23,5 @@
 			<session-type>Stateless</session-type>				
 		</session>
 	</enterprise-beans>
-
-  <ejb-client-jar>BbvaMT101EjbClient.jar</ejb-client-jar>   
   
  </ejb-jar>

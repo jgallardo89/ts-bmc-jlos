@@ -1,11 +1,37 @@
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * Informacion Confidencial:
+ * Este software contiene informacion totalmente confidencial propiedad de Grupo Financiero BBVA Bancomer. 
+ * Queda totalmente prohibido su uso o divulgacion en forma parcial o total y solamente podra ser utilizada de acuerdo a los terminos y estatutos 
+ * que determine el Grupo Financiero BBVA Bancomer.
+ * 
+ * Todos los derechos reservados, Mexico 2013.
+ * 
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * DESCRIPCION DEL PROGRAMA
+ * Nombre de aplicación: MAPEADOR
+ * Nombre de proyecto: BbvaMapeadorEjb
+ * 
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ *
+ * HISTORIAL DE CAMBIOS:
+ * 
+ * Fecha:									         	
+ * 30-ABR-2013  
+ * @Author:	Jose Luis Ortiz Salazar
+ * @Email: jortizsalazar@gmail.com    	
+ * Razon: Creacion        
+ * Version: 1.0.0
+ * Nombre de clase: EstatusObjetoBO.java
+ * Nombre de paquete: mx.com.bbva.bancomer.mapper.business
+ *              
+ *           
+ *              
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package mx.com.bbva.bancomer.mapper.business;
 
 import java.util.List;
 
 import javax.ejb.Stateless;
-
-import org.apache.ibatis.session.SqlSession;
-import org.apache.log4j.Logger;
 
 import mappers.estatusobjeto.MapEstatusObjeto;
 import mx.com.bbva.bancomer.bussinnes.model.vo.EstatusClaveVO;
@@ -15,30 +41,29 @@ import mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject;
 import mx.com.bbva.bancomer.estatusobjeto.dto.EstatusObjetoDTO;
 import mx.com.bbva.mapeador.oralce.session.MapeadorSessionFactory;
 
+import org.apache.ibatis.session.SqlSession;
+import org.apache.log4j.Logger;
 
+
+// TODO: Auto-generated Javadoc
+/**
+ * The Class EstatusObjetoBO.
+ */
 @Stateless(mappedName="estatusObjetoBO")
 public class EstatusObjetoBO implements mx.com.bbva.bancomer.commons.business.BbvaIBusinessObject {
 	//  Atributos     - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 	//	Privados|estaticos
+	/** The Constant logger. */
 	private static final org.apache.log4j.Logger 	logger			 = Logger.getLogger(EstatusObjetoBO.class);
 	
 	//  Atributos     - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 	//	Privados	
+	/** The bbva i data access object. */
 	private mx.com.bbva.bancomer.commons.persistence.dao.BbvaIDataAccessObject bbvaIDataAccessObject;
 
-	/**
-	 * @return the bbvaIDataAccessObject
+	/* (non-Javadoc)
+	 * @see mx.com.bbva.bancomer.commons.business.BbvaIBusinessObject#createCommand(mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject)
 	 */
-	public final mx.com.bbva.bancomer.commons.persistence.dao.BbvaIDataAccessObject getBbvaIDataAccessObject() {
-		return bbvaIDataAccessObject;
-	}
-
-	//	Propiedades
-	//	public final mx.com.bbva.bancomer.commons.persistence.dao.BbvaIDataAccessObject getBbvaIDataAccessObject() 
-	//		{	return bbvaIDataAccessObject;							}
-	public void setBbvaIDataAccessObject( mx.com.bbva.bancomer.commons.persistence.dao.BbvaIDataAccessObject bbvaIDataAccessObject )
-		{	this.bbvaIDataAccessObject = bbvaIDataAccessObject;		}
-	
 	@Override
 	public <T extends BbvaAbstractDataTransferObject> T createCommand(
 			T bbvaAbstractDataTransferObject) {		
@@ -62,6 +87,53 @@ public class EstatusObjetoBO implements mx.com.bbva.bancomer.commons.business.Bb
 			return bbvaAbstractDataTransferObject;														
 	}
 
+	/* (non-Javadoc)
+	 * @see mx.com.bbva.bancomer.commons.business.BbvaIBusinessObject#deleteCommand(mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject)
+	 */
+	@Override
+	public <T extends BbvaAbstractDataTransferObject> T deleteCommand(
+			T bbvaAbstractDataTransferObject) {
+		logger.debug( "Entrada deleteCommand          -- OK" );
+		logger.debug( "Datos de Entrada deleteCommand -- " + bbvaAbstractDataTransferObject.toString() );
+		EstatusObjetoVO estatusObjetoVO = ((EstatusObjetoDTO)bbvaAbstractDataTransferObject).getEstatusObjetoVO();
+		SqlSession session = MapeadorSessionFactory.getSqlSessionFactory()
+				.openSession();
+		MapEstatusObjeto mapEstatusObjeto = session.getMapper(MapEstatusObjeto.class);
+		try {
+			logger.debug("revisando id:"+estatusObjetoVO.getIdEstatusObjeto());
+			EstatusObjetoVO estatusObjetoVOexist = mapEstatusObjeto.existEstatusObjeto(estatusObjetoVO);
+			logger.debug("revisando si nulo:"+estatusObjetoVOexist);
+			if(estatusObjetoVOexist==null){				
+				mapEstatusObjeto.eliminarEstatusObjeto(estatusObjetoVO);
+			}
+			else{ 
+				bbvaAbstractDataTransferObject.setErrorCode("0002");
+				bbvaAbstractDataTransferObject.setErrorDescription("El registro contiene referencias por lo que no pudo ser eliminado");
+			}
+			session.commit();
+		} catch (Exception ex) {
+			session.rollback();
+			ex.printStackTrace();
+		} finally {
+			session.close();
+		}
+		logger.debug( "Datos de Salida invoke -- " + bbvaAbstractDataTransferObject.toString() );
+		logger.debug( "Salida invoke          -- OK" );
+		return bbvaAbstractDataTransferObject;	
+	}
+	
+	/**
+	 * Gets the bbva i data access object.
+	 *
+	 * @return the bbvaIDataAccessObject
+	 */
+	public final mx.com.bbva.bancomer.commons.persistence.dao.BbvaIDataAccessObject getBbvaIDataAccessObject() {
+		return bbvaIDataAccessObject;
+	}
+
+	/* (non-Javadoc)
+	 * @see mx.com.bbva.bancomer.commons.business.BbvaIBusinessObject#readCommand(mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject)
+	 */
 	@Override
 	public <T extends BbvaAbstractDataTransferObject> T readCommand(
 			T bbvaAbstractDataTransferObject) {		
@@ -145,6 +217,20 @@ public class EstatusObjetoBO implements mx.com.bbva.bancomer.commons.business.Bb
 			}
 	}
 
+	//	Propiedades
+	//	public final mx.com.bbva.bancomer.commons.persistence.dao.BbvaIDataAccessObject getBbvaIDataAccessObject() 
+	//		{	return bbvaIDataAccessObject;							}
+	/**
+	 * Sets the bbva i data access object.
+	 *
+	 * @param bbvaIDataAccessObject the new bbva i data access object
+	 */
+	public void setBbvaIDataAccessObject( mx.com.bbva.bancomer.commons.persistence.dao.BbvaIDataAccessObject bbvaIDataAccessObject )
+		{	this.bbvaIDataAccessObject = bbvaIDataAccessObject;		}
+
+	/* (non-Javadoc)
+	 * @see mx.com.bbva.bancomer.commons.business.BbvaIBusinessObject#updateCommand(mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject)
+	 */
 	@Override
 	public <T extends BbvaAbstractDataTransferObject> T updateCommand(
 			T bbvaAbstractDataTransferObject) {
@@ -156,38 +242,6 @@ public class EstatusObjetoBO implements mx.com.bbva.bancomer.commons.business.Bb
 		MapEstatusObjeto mapEstatusObjeto = session.getMapper(MapEstatusObjeto.class);
 		try {
 			mapEstatusObjeto.actualizaEstatusObjeto(estatusObjetoVO);
-			session.commit();
-		} catch (Exception ex) {
-			session.rollback();
-			ex.printStackTrace();
-		} finally {
-			session.close();
-		}
-		logger.debug( "Datos de Salida invoke -- " + bbvaAbstractDataTransferObject.toString() );
-		logger.debug( "Salida invoke          -- OK" );
-		return bbvaAbstractDataTransferObject;	
-	}
-
-	@Override
-	public <T extends BbvaAbstractDataTransferObject> T deleteCommand(
-			T bbvaAbstractDataTransferObject) {
-		logger.debug( "Entrada deleteCommand          -- OK" );
-		logger.debug( "Datos de Entrada deleteCommand -- " + bbvaAbstractDataTransferObject.toString() );
-		EstatusObjetoVO estatusObjetoVO = ((EstatusObjetoDTO)bbvaAbstractDataTransferObject).getEstatusObjetoVO();
-		SqlSession session = MapeadorSessionFactory.getSqlSessionFactory()
-				.openSession();
-		MapEstatusObjeto mapEstatusObjeto = session.getMapper(MapEstatusObjeto.class);
-		try {
-			logger.debug("revisando id:"+estatusObjetoVO.getIdEstatusObjeto());
-			EstatusObjetoVO estatusObjetoVOexist = mapEstatusObjeto.existEstatusObjeto(estatusObjetoVO);
-			logger.debug("revisando si nulo:"+estatusObjetoVOexist);
-			if(estatusObjetoVOexist==null){				
-				mapEstatusObjeto.eliminarEstatusObjeto(estatusObjetoVO);
-			}
-			else{ 
-				bbvaAbstractDataTransferObject.setErrorCode("0002");
-				bbvaAbstractDataTransferObject.setErrorDescription("El registro contiene referencias por lo que no pudo ser eliminado");
-			}
 			session.commit();
 		} catch (Exception ex) {
 			session.rollback();
