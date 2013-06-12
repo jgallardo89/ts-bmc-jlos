@@ -691,16 +691,6 @@ public class EstadisticoController extends ControllerSupport implements  IContro
 		return isApplied;
 	}
 
-	public SessionUser getSessionUser(){
-		logger.debug( "Entrada getSessionUser          -- OK" );		
-		String cveUsuario = null;
-		logger.debug( "Datos de usuario -- " + cveUsuario);
-		SessionUser sessionUser = new SessionUser();
-		sessionUser.setCveUsuario(cveUsuario);
-		logger.debug( "Salida getSessionUser          -- OK" );
-		return sessionUser;
-	}
-
 	/**
 	 * @param canalVOs the canalVOs to set
 	 */
