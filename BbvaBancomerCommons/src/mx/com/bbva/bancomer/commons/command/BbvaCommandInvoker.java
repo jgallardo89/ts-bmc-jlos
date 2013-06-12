@@ -1,3 +1,32 @@
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * Informacion Confidencial:
+ * Este software contiene informacion totalmente confidencial propiedad de Grupo Financiero BBVA Bancomer. 
+ * Queda totalmente prohibido su uso o divulgacion en forma parcial o total y solamente podra ser utilizada de acuerdo a los terminos y estatutos 
+ * que determine el Grupo Financiero BBVA Bancomer.
+ * 
+ * Todos los derechos reservados, Mexico 2013.
+ * 
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * DESCRIPCION DEL PROGRAMA
+ * Nombre de aplicación: MAPEADOR
+ * Nombre de proyecto: BbvaBancomerCommons
+ * 
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ *
+ * HISTORIAL DE CAMBIOS:
+ * 
+ * Fecha:									         	
+ * 30-ABR-2013  
+ * @Author:	Jose Luis Ortiz Salazar
+ * @Email: jortizsalazar@gmail.com    	
+ * Razon: Creacion        
+ * Version: 1.0.0
+ * Nombre de clase: BbvaCommandInvoker.java
+ * Nombre de paquete: mx.com.bbva.bancomer.commons.command
+ *              
+ *           
+ *              
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package mx.com.bbva.bancomer.commons.command;
 
 import java.lang.reflect.InvocationTargetException;
@@ -10,6 +39,7 @@ import mx.com.bbva.bancomer.commons.model.vo.BbvaAbstractValueObject;
 
 import org.apache.log4j.Logger;
 
+// TODO: Auto-generated Javadoc
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * Informacion Confidencial:
  * Este software contiene informacion totalmente confidencial propiedad de Grupo Financiero BBVA Bancomer. 
@@ -31,40 +61,32 @@ import org.apache.log4j.Logger;
  *              Consultoria
  *              
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+/**
+ * The Class BbvaCommandInvoker.
+ */
 public 	class 		BbvaCommandInvoker 
 		implements 	BbvaICommandInvoker 
 	{
-	//  Atributos     - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-	//	Privados|estaticos
-	private static final org.apache.log4j.Logger 	logger			 = Logger.getLogger( BbvaAbstractValueObject.class );
-
-	//  Atributos     - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-	//	Privados
-	private static java.util.Properties dtoMappingProperties;
-	private static java.util.Properties	cmdMappingProperties;
+	/** The business object map. */
 	private static java.util.Map< java.lang.String, mx.com.bbva.bancomer.commons.business.BbvaIBusinessObject > businessObjectMap;
 
-	//	Propiedades
-//	public java.util.Map<java.lang.String, java.lang.String> getDtoMappingProperties()
-//		{	return dtoMappingProperties;					}
-	public void setDtoMappingProperties( final java.util.Properties dtoMappingProperties )
-		{	if ( BbvaCommandInvoker.dtoMappingProperties == null ) BbvaCommandInvoker.dtoMappingProperties = dtoMappingProperties;			}
-
-//	public java.util.Map<java.lang.String, mx.com.bbva.bancomer.commons.business.BbvaIBusinessObject> getBoMap()
-//		{	return boMap;					}
-	public void setBusinessObject( final java.util.Map< java.lang.String, mx.com.bbva.bancomer.commons.business.BbvaIBusinessObject > 
-	                                       businessObjectMap )
-		{	if ( BbvaCommandInvoker.businessObjectMap == null ) BbvaCommandInvoker.businessObjectMap = businessObjectMap;					}
-
-//	public java.util.Map<java.lang.String, java.lang.String> getCmdMappingProperties()
-//		{	return cmdMappingProperties;					}
-	public void setCmdMappingProperties( final java.util.Properties cmdMappingProperties )
-		{	if ( BbvaCommandInvoker.dtoMappingProperties == null ) BbvaCommandInvoker.cmdMappingProperties = cmdMappingProperties;			}
+	/** The cmd mapping properties. */
+	private static java.util.Properties	cmdMappingProperties;
+	
+	//  Atributos     - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+	//	Privados
+	/** The dto mapping properties. */
+	private static java.util.Properties dtoMappingProperties;
+	
+	//  Atributos     - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+	//	Privados|estaticos
+	/** The Constant logger. */
+	private static final org.apache.log4j.Logger 	logger			 = Logger.getLogger( BbvaAbstractValueObject.class );
 
 	//  Constructor   - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 	//	
 	/**
-	 * <b>BbvaCommandInvoker</b>
+	 * <b>BbvaCommandInvoker</b>.
 	 */
 	public BbvaCommandInvoker ( )
 		{
@@ -72,11 +94,13 @@ public 	class 		BbvaCommandInvoker
 		logger.info ( "Constructor BbvaCommandInvoker -- OK" );
 		logger.info ( "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -" );
 		}
-	/**
-	 * <b>BbvaCommandInvoker</b>
-	 * @param dtoMappingProperties
-	 * @param cmdMappingProperties
-	 * @param boMap
+
+/**
+	 * <b>BbvaCommandInvoker</b>.
+	 *
+	 * @param dtoMappingProperties the dto mapping properties
+	 * @param cmdMappingProperties the cmd mapping properties
+	 * @param businessObjectMap the business object map
 	 */
 	public BbvaCommandInvoker (	final java.util.Properties dtoMappingProperties,
 	                            final java.util.Properties cmdMappingProperties,
@@ -105,11 +129,12 @@ public 	class 		BbvaCommandInvoker
 		logger.info ( "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -" );
 		}
 
-	//  Metodos       - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+//  Metodos       - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 	//	
 	/* (non-Javadoc)
 	 * @see mx.com.bbva.bancomer.commons.command.BbvaICommandInvoker#invoke(T)
 	 */
+	@Override
 	@SuppressWarnings("unchecked")
 	public < T extends BbvaAbstractDataTransferObject > T invoke ( final T bbvaAbstractDataTransferObject )
 	throws mx.com.bbva.bancomer.commons.exception.BbvaBusinessException
@@ -165,4 +190,36 @@ public 	class 		BbvaCommandInvoker
 			throw new BbvaBusinessException( errorCode + "|BbvaCommandInvoker|invoke", exception );
 			} 
 		}
+
+	//	public java.util.Map<java.lang.String, mx.com.bbva.bancomer.commons.business.BbvaIBusinessObject> getBoMap()
+//		{	return boMap;					}
+	/**
+ * Sets the business object.
+ *
+ * @param businessObjectMap the business object map
+ */
+public void setBusinessObject( final java.util.Map< java.lang.String, mx.com.bbva.bancomer.commons.business.BbvaIBusinessObject > 
+	                                       businessObjectMap )
+		{	if ( BbvaCommandInvoker.businessObjectMap == null ) BbvaCommandInvoker.businessObjectMap = businessObjectMap;					}
+	
+	//	public java.util.Map<java.lang.String, java.lang.String> getCmdMappingProperties()
+//		{	return cmdMappingProperties;					}
+	/**
+ * Sets the cmd mapping properties.
+ *
+ * @param cmdMappingProperties the new cmd mapping properties
+ */
+public void setCmdMappingProperties( final java.util.Properties cmdMappingProperties )
+		{	if ( BbvaCommandInvoker.dtoMappingProperties == null ) BbvaCommandInvoker.cmdMappingProperties = cmdMappingProperties;			}
+
+	//	Propiedades
+//	public java.util.Map<java.lang.String, java.lang.String> getDtoMappingProperties()
+//		{	return dtoMappingProperties;					}
+	/**
+	 * Sets the dto mapping properties.
+	 *
+	 * @param dtoMappingProperties the new dto mapping properties
+	 */
+	public void setDtoMappingProperties( final java.util.Properties dtoMappingProperties )
+		{	if ( BbvaCommandInvoker.dtoMappingProperties == null ) BbvaCommandInvoker.dtoMappingProperties = dtoMappingProperties;			}
 	}

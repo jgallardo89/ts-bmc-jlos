@@ -1,3 +1,32 @@
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * Informacion Confidencial:
+ * Este software contiene informacion totalmente confidencial propiedad de Grupo Financiero BBVA Bancomer. 
+ * Queda totalmente prohibido su uso o divulgacion en forma parcial o total y solamente podra ser utilizada de acuerdo a los terminos y estatutos 
+ * que determine el Grupo Financiero BBVA Bancomer.
+ * 
+ * Todos los derechos reservados, Mexico 2013.
+ * 
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * DESCRIPCION DEL PROGRAMA
+ * Nombre de aplicación: MAPEADOR
+ * Nombre de proyecto: BbvaBancomerCommons
+ * 
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ *
+ * HISTORIAL DE CAMBIOS:
+ * 
+ * Fecha:									         	
+ * 30-ABR-2013  
+ * @Author:	Jose Luis Ortiz Salazar
+ * @Email: jortizsalazar@gmail.com    	
+ * Razon: Creacion        
+ * Version: 1.0.0
+ * Nombre de clase: MyBatisDAOTestCase.java
+ * Nombre de paquete: mx.com.bbva.bancomer.test.dao
+ *              
+ *           
+ *              
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package mx.com.bbva.bancomer.test.dao;
 
 import java.util.ArrayList;
@@ -11,6 +40,7 @@ import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
+// TODO: Auto-generated Javadoc
 //Consulta inicial SELECT * FROM "MAPEADOR"."TGM503_USUARIO"
 //CD_USUARIO CD_CVE_USUARIO NB_USUARIO TX_PASSWORD_USR TM_ALTA TM_MODIFICACION FH_USUARIO TM_CAMBIO_PWS NU_INTENTOS ST_USUARIO CD_PERFIL
 //---------- -------------- ---------- --------------- ------- --------------- ---------- ------------- ----------- ---------- ---------
@@ -24,81 +54,29 @@ import org.springframework.context.support.FileSystemXmlApplicationContext;
 //         7 prueba0123456789 Usuario de Prueba - Insercion qwerty          2013-05-08 14:20:35 2013-05-08 14:20:35 2013-05-08 14:20:35 2013-05-08 14:20:35           0          0         0
 //         9 prueba0123456789 Usuario de Prueba - Insercion qwerty          2013-05-08 14:20:35 2013-05-08 14:20:35 2013-05-08 14:20:35 2013-05-08 14:20:35           0          0         0
 
+/**
+ * The Class MyBatisDAOTestCase.
+ */
 public class MyBatisDAOTestCase 
 	{
+	
+	/** The Constant SPRINGFILEPATH. */
 	private static final String
 						 SPRINGFILEPATH		= "C:/workspace" +
 						 		                "/BbvaBancomerCommons" +
 						 		                  "/test/mx/com/bbva/bancomer/test/dao/application-context-dao.xml";
-
+	
+	/** The Constant applicationContext. */
 	private static final ApplicationContext 	
 						 applicationContext = new FileSystemXmlApplicationContext( SPRINGFILEPATH );
 
+	/** The Constant bbvaIDataAccessObject. */
 	private static final BbvaIDataAccessObject	
 						 bbvaIDataAccessObject = (BbvaIDataAccessObject)applicationContext.getBean( "bbvaMyBatisDAO" );
 
-	@Test
-	public final void testQueryForObjectString() throws BbvaDataBaseException
-		{
-		final	BbvaUsuarioVO 
-				bbvaUsuarioVO = bbvaIDataAccessObject.queryForObject( "MantenimientoCatalogoMapper|readBbvaUsuarioVO" );
+	
 
-		System.out.println( bbvaUsuarioVO );
-		}
-//	Ejecucion de JUnit 
-//	log4j:WARN No appenders could be found for logger (mx.com.bbva.bancomer.commons.model.vo.BbvaAbstractValueObject).
-//	log4j:WARN Please initialize the log4j system properly.
-//	log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.
-//	Entrada queryForObject -- OK
-//	Datos de Entrada       -- MantenimientoCatalogoMapper|readBbvaUsuarioVO
-//	Operacion read permitida -- OK
-//		Entrada validateQueryStructure -- OK
-//		Datos de Entrada               -- MantenimientoCatalogoMapper|readBbvaUsuarioVO
-//		Operacion de Base de Datos -- OK
-//		queryName -- OK
-//		mx.com.bbva.bancomer.mapper.persistence.sqlmapping.BbvaMantenimientoCatalogoMapper -- Existe -- OK
-//		readBbvaUsuarioVO -- Existe -- OK
-//		Datos de Salida                            -- mx.com.bbva.bancomer.mapper.persistence.sqlmapping.BbvaMantenimientoCatalogoMapper.readBbvaUsuarioVO
-//		Salida -- validateQueryStructure Ejecutado -- OK
-//	mx.com.bbva.bancomer.commons.exception.BbvaDataBaseException: 9954|queryForObject|BbvaMyBatisDAO
-	@Test
-	public final void testQueryForObjectStringT() throws BbvaDataBaseException
-		{
-		final	BbvaUsuarioVO 
-				bbvaUsuarioVO = new BbvaUsuarioVO();
-				bbvaUsuarioVO.setCdUsuario		( Integer.parseInt( "1" ) );
-				bbvaUsuarioVO.setCdCveUsuario	( "prueba0123456789" );
-				bbvaUsuarioVO.setNbUsuario		( "Usuario de Prueba - Insercion" );
-				bbvaUsuarioVO.setTxPasswordUsr	( "qwerty" );
-				bbvaUsuarioVO.setTmAlta			( new Date() );
-				bbvaUsuarioVO.setTmModificacion	( new Date() );
-				bbvaUsuarioVO.setFhUsuario		( new Date() );
-				bbvaUsuarioVO.setTmCambioPws	( new Date() );
-				bbvaUsuarioVO.setNuIntentos		( Integer.parseInt( "0" ) );
-				bbvaUsuarioVO.setStUsuario		( Integer.parseInt( "0" ) );
-				bbvaUsuarioVO.setCdPerfil		( Integer.parseInt( "0" ) );
-
-		System.out.println( "Insercion - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -" );
-		final	BbvaUsuarioVO
-				bbvaUsuario	= bbvaIDataAccessObject.queryForObject( "MantenimientoCatalogoMapper|createBbvaUsuarioVO", bbvaUsuarioVO );
-		System.out.println( bbvaUsuario.toString() );
-
-		System.out.println( "Consulta  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -" );
-		final	BbvaUsuarioVO
-				bbvaVO		= bbvaIDataAccessObject.queryForObject( "MantenimientoCatalogoMapper|readByAllRequiredBbvaUsuarioVO", bbvaUsuario );
-		System.out.println( bbvaVO.toString() );
-
-		System.out.println( "Actualizacion - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -" );
-				bbvaVO.setNbUsuario	( "Usuario de Prueba - Actualizacion" );
-				bbvaVO.setTmModificacion( new Date() );
-				bbvaVO.setNuIntentos	( Integer.parseInt( "0" ) );
-				bbvaVO.setStUsuario		( Integer.parseInt( "0" ) );
-				bbvaVO.setCdPerfil		( Integer.parseInt( "0" ) );
-		final	BbvaUsuarioVO
-				usuario		= bbvaIDataAccessObject.queryForObject( "MantenimientoCatalogoMapper|updateBbvaUsuarioVO", bbvaVO );
-		System.out.println( usuario.toString() );
-		}
-//	Insercion - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+	//	Insercion - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 //	Entrada queryForObject -- OK
 //	Datos de Entrada       -- MantenimientoCatalogoMapper|createBbvaUsuarioVO -- [BbvaUsuarioVO:CdUsuario=1,
 //	                                                                              CdCveUsuario=prueba0123456789,
@@ -175,7 +153,10 @@ public class MyBatisDAOTestCase
 //	Datos de Salida                    -- [BbvaUsuarioVO:CdUsuario=1,CdCveUsuario=prueba0123456789,NbUsuario=Usuario de Prueba - Actualizacion,TxPasswordUsr=qwerty,TmAlta=Wed May 08 13:43:29 CDT 2013,TmModificacion=Wed May 08 13:43:29 CDT 2013,FhUsuario=Wed May 08 13:43:29 CDT 2013,TmCambioPws=Wed May 08 13:43:29 CDT 2013,NuIntentos=0,StUsuario=0,CdPerfil=0]
 //	Salida -- queryForObject Ejecutado -- OK
 //	[BbvaUsuarioVO:CdUsuario=1,CdCveUsuario=prueba0123456789,NbUsuario=Usuario de Prueba - Actualizacion,TxPasswordUsr=qwerty,TmAlta=Wed May 08 13:43:29 CDT 2013,TmModificacion=Wed May 08 13:43:29 CDT 2013,FhUsuario=Wed May 08 13:43:29 CDT 2013,TmCambioPws=Wed May 08 13:43:29 CDT 2013,NuIntentos=0,StUsuario=0,CdPerfil=0]
-	@Test
+	/**
+ * Test query for list string.
+ */
+@Test
 	public final void testQueryForListString() 
 		{
 		try {
@@ -202,7 +183,10 @@ public class MyBatisDAOTestCase
 //	Datos de Salida                    -- [BbvaUsuarioVO:CdUsuario=1,CdCveUsuario=prueba0123456789,NbUsuario=Usuario de Prueba - Actualizacion,TxPasswordUsr=qwerty,TmAlta=Wed May 08 14:20:35 CDT 2013,TmModificacion=Wed May 08 14:20:35 CDT 2013,FhUsuario=Wed May 08 14:20:35 CDT 2013,TmCambioPws=Wed May 08 14:20:35 CDT 2013,NuIntentos=0,StUsuario=null,CdPerfil=0]
 //	Salida -- queryForObject Ejecutado -- OK
 //	[[BbvaUsuarioVO:CdUsuario=1,CdCveUsuario=prueba0123456789,NbUsuario=Usuario de Prueba - Actualizacion,TxPasswordUsr=qwerty,TmAlta=Wed May 08 14:20:35 CDT 2013,TmModificacion=Wed May 08 14:20:35 CDT 2013,FhUsuario=Wed May 08 14:20:35 CDT 2013,TmCambioPws=Wed May 08 14:20:35 CDT 2013,NuIntentos=0,StUsuario=null,CdPerfil=0]]
-	@Test
+	/**
+ * Test query for list string t.
+ */
+@Test
 	public final void testQueryForListStringT() 
 		{
 		try {
@@ -356,4 +340,75 @@ public class MyBatisDAOTestCase
 //	Datos de Salida                    -- [BbvaUsuarioVO:CdUsuario=8,CdCveUsuario=prueba0123456789,NbUsuario=Usuario de Prueba - Insercion,TxPasswordUsr=qwerty,TmAlta=Wed May 08 14:20:35 CDT 2013,TmModificacion=Wed May 08 14:20:35 CDT 2013,FhUsuario=Wed May 08 14:20:35 CDT 2013,TmCambioPws=Wed May 08 14:20:35 CDT 2013,NuIntentos=0,StUsuario=null,CdPerfil=0]
 //	Salida -- queryForObject Ejecutado -- OK
 //	[BbvaUsuarioVO:CdUsuario=8,CdCveUsuario=prueba0123456789,NbUsuario=Usuario de Prueba - Insercion,TxPasswordUsr=qwerty,TmAlta=Wed May 08 14:20:35 CDT 2013,TmModificacion=Wed May 08 14:20:35 CDT 2013,FhUsuario=Wed May 08 14:20:35 CDT 2013,TmCambioPws=Wed May 08 14:20:35 CDT 2013,NuIntentos=0,StUsuario=null,CdPerfil=0]
+/**
+	 * Test query for object string.
+	 *
+	 * @throws BbvaDataBaseException the bbva data base exception
+	 */
+	@Test
+	public final void testQueryForObjectString() throws BbvaDataBaseException
+		{
+		final	BbvaUsuarioVO 
+				bbvaUsuarioVO = bbvaIDataAccessObject.queryForObject( "MantenimientoCatalogoMapper|readBbvaUsuarioVO" );
+
+		System.out.println( bbvaUsuarioVO );
+		}
+//	Ejecucion de JUnit 
+//	log4j:WARN No appenders could be found for logger (mx.com.bbva.bancomer.commons.model.vo.BbvaAbstractValueObject).
+//	log4j:WARN Please initialize the log4j system properly.
+//	log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.
+//	Entrada queryForObject -- OK
+//	Datos de Entrada       -- MantenimientoCatalogoMapper|readBbvaUsuarioVO
+//	Operacion read permitida -- OK
+//		Entrada validateQueryStructure -- OK
+//		Datos de Entrada               -- MantenimientoCatalogoMapper|readBbvaUsuarioVO
+//		Operacion de Base de Datos -- OK
+//		queryName -- OK
+//		mx.com.bbva.bancomer.mapper.persistence.sqlmapping.BbvaMantenimientoCatalogoMapper -- Existe -- OK
+//		readBbvaUsuarioVO -- Existe -- OK
+//		Datos de Salida                            -- mx.com.bbva.bancomer.mapper.persistence.sqlmapping.BbvaMantenimientoCatalogoMapper.readBbvaUsuarioVO
+//		Salida -- validateQueryStructure Ejecutado -- OK
+//	mx.com.bbva.bancomer.commons.exception.BbvaDataBaseException: 9954|queryForObject|BbvaMyBatisDAO
+	/**
+ * Test query for object string t.
+ *
+ * @throws BbvaDataBaseException the bbva data base exception
+ */
+@Test
+	public final void testQueryForObjectStringT() throws BbvaDataBaseException
+		{
+		final	BbvaUsuarioVO 
+				bbvaUsuarioVO = new BbvaUsuarioVO();
+				bbvaUsuarioVO.setCdUsuario		( Integer.parseInt( "1" ) );
+				bbvaUsuarioVO.setCdCveUsuario	( "prueba0123456789" );
+				bbvaUsuarioVO.setNbUsuario		( "Usuario de Prueba - Insercion" );
+				bbvaUsuarioVO.setTxPasswordUsr	( "qwerty" );
+				bbvaUsuarioVO.setTmAlta			( new Date() );
+				bbvaUsuarioVO.setTmModificacion	( new Date() );
+				bbvaUsuarioVO.setFhUsuario		( new Date() );
+				bbvaUsuarioVO.setTmCambioPws	( new Date() );
+				bbvaUsuarioVO.setNuIntentos		( Integer.parseInt( "0" ) );
+				bbvaUsuarioVO.setStUsuario		( Integer.parseInt( "0" ) );
+				bbvaUsuarioVO.setCdPerfil		( Integer.parseInt( "0" ) );
+
+		System.out.println( "Insercion - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -" );
+		final	BbvaUsuarioVO
+				bbvaUsuario	= bbvaIDataAccessObject.queryForObject( "MantenimientoCatalogoMapper|createBbvaUsuarioVO", bbvaUsuarioVO );
+		System.out.println( bbvaUsuario.toString() );
+
+		System.out.println( "Consulta  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -" );
+		final	BbvaUsuarioVO
+				bbvaVO		= bbvaIDataAccessObject.queryForObject( "MantenimientoCatalogoMapper|readByAllRequiredBbvaUsuarioVO", bbvaUsuario );
+		System.out.println( bbvaVO.toString() );
+
+		System.out.println( "Actualizacion - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -" );
+				bbvaVO.setNbUsuario	( "Usuario de Prueba - Actualizacion" );
+				bbvaVO.setTmModificacion( new Date() );
+				bbvaVO.setNuIntentos	( Integer.parseInt( "0" ) );
+				bbvaVO.setStUsuario		( Integer.parseInt( "0" ) );
+				bbvaVO.setCdPerfil		( Integer.parseInt( "0" ) );
+		final	BbvaUsuarioVO
+				usuario		= bbvaIDataAccessObject.queryForObject( "MantenimientoCatalogoMapper|updateBbvaUsuarioVO", bbvaVO );
+		System.out.println( usuario.toString() );
+		}
 	}

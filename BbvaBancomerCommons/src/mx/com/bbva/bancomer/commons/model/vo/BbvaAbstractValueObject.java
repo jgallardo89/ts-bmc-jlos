@@ -1,9 +1,39 @@
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * Informacion Confidencial:
+ * Este software contiene informacion totalmente confidencial propiedad de Grupo Financiero BBVA Bancomer. 
+ * Queda totalmente prohibido su uso o divulgacion en forma parcial o total y solamente podra ser utilizada de acuerdo a los terminos y estatutos 
+ * que determine el Grupo Financiero BBVA Bancomer.
+ * 
+ * Todos los derechos reservados, Mexico 2013.
+ * 
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * DESCRIPCION DEL PROGRAMA
+ * Nombre de aplicación: MAPEADOR
+ * Nombre de proyecto: BbvaBancomerCommons
+ * 
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ *
+ * HISTORIAL DE CAMBIOS:
+ * 
+ * Fecha:									         	
+ * 30-ABR-2013  
+ * @Author:	Jose Luis Ortiz Salazar
+ * @Email: jortizsalazar@gmail.com    	
+ * Razon: Creacion        
+ * Version: 1.0.0
+ * Nombre de clase: BbvaAbstractValueObject.java
+ * Nombre de paquete: mx.com.bbva.bancomer.commons.model.vo
+ *              
+ *           
+ *              
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package mx.com.bbva.bancomer.commons.model.vo;
 
 import java.lang.reflect.Method;
 
 import org.apache.log4j.Logger;
 
+// TODO: Auto-generated Javadoc
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * Informacion Confidencial:
  * Este software contiene informacion totalmente confidencial propiedad de Grupo Financiero BBVA Bancomer. 
@@ -25,13 +55,19 @@ import org.apache.log4j.Logger;
  *              Consultoria
  *              
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+/**
+ * The Class BbvaAbstractValueObject.
+ */
 public 	abstract class 		BbvaAbstractValueObject 
 				 implements java.io.Serializable 
 	{
+	/** The Constant logger. */
+	private static final org.apache.log4j.Logger 	logger				= Logger.getLogger( BbvaAbstractValueObject.class );
+	
 	//  Atributos     - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 	//	Privados|estaticos
+	/** The Constant serialVersionUID. */
 	private static final long 						serialVersionUID	= -966884264279020290L;
-	private static final org.apache.log4j.Logger 	logger				= Logger.getLogger( BbvaAbstractValueObject.class );
 
 	//  Metodos       - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 	//	Publicos

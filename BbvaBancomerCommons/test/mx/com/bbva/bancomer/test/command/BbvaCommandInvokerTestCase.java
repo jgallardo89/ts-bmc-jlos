@@ -1,3 +1,32 @@
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * Informacion Confidencial:
+ * Este software contiene informacion totalmente confidencial propiedad de Grupo Financiero BBVA Bancomer. 
+ * Queda totalmente prohibido su uso o divulgacion en forma parcial o total y solamente podra ser utilizada de acuerdo a los terminos y estatutos 
+ * que determine el Grupo Financiero BBVA Bancomer.
+ * 
+ * Todos los derechos reservados, Mexico 2013.
+ * 
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * DESCRIPCION DEL PROGRAMA
+ * Nombre de aplicación: MAPEADOR
+ * Nombre de proyecto: BbvaBancomerCommons
+ * 
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ *
+ * HISTORIAL DE CAMBIOS:
+ * 
+ * Fecha:									         	
+ * 30-ABR-2013  
+ * @Author:	Jose Luis Ortiz Salazar
+ * @Email: jortizsalazar@gmail.com    	
+ * Razon: Creacion        
+ * Version: 1.0.0
+ * Nombre de clase: BbvaCommandInvokerTestCase.java
+ * Nombre de paquete: mx.com.bbva.bancomer.test.command
+ *              
+ *           
+ *              
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package mx.com.bbva.bancomer.test.command;
 
 import javax.xml.parsers.FactoryConfigurationError;
@@ -12,8 +41,26 @@ import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class BbvaCommandInvokerTestCase.
+ */
 public class BbvaCommandInvokerTestCase 
 	{
+	/** The Constant SPRINGFILEPATH. */
+	private static final String	 SPRINGFILEPATH		= "C:/workspace" +
+								 		                "/BbvaBancomerCommons" +
+								 		                  "/test/mx/com/bbva/bancomer/test/command/application-context-command.xml";
+	/** The Constant applicationContext. */
+	private static final ApplicationContext 	
+		 				 applicationContext = new FileSystemXmlApplicationContext( SPRINGFILEPATH );
+	
+	/** The Constant bbvaICommandInvoker. */
+	private static final BbvaICommandInvoker	
+						 bbvaICommandInvoker = (BbvaICommandInvoker)applicationContext.getBean( "bbvaCommandInvoker" );
+	
+	
+	
 	static	{
 			try	{
 				DOMConfigurator.configure( "C:/workspace" +
@@ -25,16 +72,6 @@ public class BbvaCommandInvokerTestCase
 				factoryConfigurationError.printStackTrace();
 				}
 			}
-	
-	private static final String	 SPRINGFILEPATH		= "C:/workspace" +
-								 		                "/BbvaBancomerCommons" +
-								 		                  "/test/mx/com/bbva/bancomer/test/command/application-context-command.xml";
-	
-	private static final ApplicationContext 	
-		 				 applicationContext = new FileSystemXmlApplicationContext( SPRINGFILEPATH );
-	
-	private static final BbvaICommandInvoker	
-						 bbvaICommandInvoker = (BbvaICommandInvoker)applicationContext.getBean( "bbvaCommandInvoker" );
 
 //	[09-05-13 12:56:38:056 LOG] [mx.com.bbva.bancomer.commons.business.BbvaAbstractBusinessObject] INFO  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 //	[09-05-13 12:56:38:056 LOG] [mx.com.bbva.bancomer.commons.business.BbvaAbstractBusinessObject] INFO  - Constructor Business Object -- OK -- class mx.com.bbva.bancomer.commons.persistence.dao.BbvaMyBatisDAO
@@ -48,7 +85,12 @@ public class BbvaCommandInvokerTestCase
 //	[09-05-13 12:56:38:056 LOG] [mx.com.bbva.bancomer.commons.model.vo.BbvaAbstractValueObject] DEBUG - Datos de Entrada                       -- {4=deleteCommand, 3=updateCommand, 2=readCommand, 1=createCommand}
 //	[09-05-13 12:56:38:056 LOG] [mx.com.bbva.bancomer.commons.model.vo.BbvaAbstractValueObject] DEBUG - Datos de Entrada                       -- {bbvaBusinessObject1=mx.com.bbva.bancomer.test.business.BbvaBusinessObject@213a213a, bbvaBusinessObject2=mx.com.bbva.bancomer.test.command.BbvaBusinessObject@143a143a}
 //	[09-05-13 12:56:38:056 LOG] [mx.com.bbva.bancomer.commons.model.vo.BbvaAbstractValueObject] INFO  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-	@Test
+	/**
+ * Test invoke.
+ *
+ * @throws BbvaBusinessException the bbva business exception
+ */
+@Test
 	public final void testInvoke() throws BbvaBusinessException 
 		{
 		System.out.println( "Consulta  1 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -" );
