@@ -78,7 +78,7 @@
 											sort="auto(nombreArchEntraHijo)"></column>
 										<column hflex="1" label="Estatus DATA" width="10%"
 											sort="auto(nombreEstadoArchivoHijo)"></column>		
-										<column hflex="1" label="Reproceso" width="10%"
+										<column hflex="0" label="Reproceso" width="10%"
 											sort="auto(nombreEstadoArchivoHijo)"></column>
 									</columns>
 									<template name="model">
@@ -87,7 +87,7 @@
 											<label hflex="1" value="@load(each.nombreEstadoArchivoPapa)"></label>
 											<label hflex="1" value="@load(each.nombreArchEntraHijo)"></label>
 											<label hflex="1" value="@load(each.nombreEstadoArchivoHijo)"></label>																					
-											<label hflex="1" value=""></label>
+											<image hflex="0" width="24px" height="24px" src="@load(each.urlImagenReproceso)"></image>											
 										</row>
 									</template>									
 								</grid>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-modules id="moduleCoreId" project-version="1.5.0">
-	<wb-module deploy-name="BbvaMT101Web">
+	<wb-module deploy-name="BbvaMapeadorWeb">
 		<wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
 		<wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
 		<wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
@@ -12,10 +12,10 @@
         <dependent-module archiveName="BbvaBancomerCommons.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/BbvaBancomerCommons/BbvaBancomerCommons">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="BbvaMT101Ejb.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/BbvaMapeadorEjb/BbvaMapeadorEjb">
+        <dependent-module archiveName="BbvaMapeadorEjb.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/BbvaMapeadorEjb/BbvaMapeadorEjb">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-		<property name="context-root" value="/mt101"/>
-		<property name="java-output-path" value="/BbvaMT101Web/WebContent/WEB-INF/classes"/>
+		<property name="context-root" value="/mapeador"/>
+		<property name="java-output-path" value="/BbvaMapeadorWeb/WebContent/WEB-INF/classes"/>
 	</wb-module>
 </project-modules>

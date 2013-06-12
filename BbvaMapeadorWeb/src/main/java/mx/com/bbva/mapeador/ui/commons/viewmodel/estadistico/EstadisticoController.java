@@ -1,3 +1,32 @@
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * Informacion Confidencial:
+ * Este software contiene informacion totalmente confidencial propiedad de Grupo Financiero BBVA Bancomer. 
+ * Queda totalmente prohibido su uso o divulgacion en forma parcial o total y solamente podra ser utilizada de acuerdo a los terminos y estatutos 
+ * que determine el Grupo Financiero BBVA Bancomer.
+ * 
+ * Todos los derechos reservados, Mexico 2013.
+ * 
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * DESCRIPCION DEL PROGRAMA
+ * Nombre de aplicación: MAPEADOR
+ * Nombre de proyecto: BbvaMapeadorWeb
+ * 
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ *
+ * HISTORIAL DE CAMBIOS:
+ * 
+ * Fecha:									         	
+ * 30-ABR-2013  
+ * @Author:	Jose Luis Ortiz Salazar
+ * @Email: jortizsalazar@gmail.com    	
+ * Razon: Creacion        
+ * Version: 1.0.0
+ * Nombre de clase: EstadisticoController.java
+ * Nombre de paquete: mx.com.bbva.mapeador.ui.commons.viewmodel.estadistico
+ *              
+ *           
+ *              
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package mx.com.bbva.mapeador.ui.commons.viewmodel.estadistico;
 
 import java.text.DateFormat;
@@ -8,10 +37,10 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
-import mx.com.bbva.bancomer.bussinnes.model.vo.ProductoVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.CanalVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.ClienteVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.EstadisticoVO;
+import mx.com.bbva.bancomer.bussinnes.model.vo.ProductoVO;
 import mx.com.bbva.bancomer.canal.dto.BeanGenerico;
 import mx.com.bbva.bancomer.canal.dto.CanalDTO;
 import mx.com.bbva.bancomer.cliente.dto.ClienteDTO;
@@ -29,7 +58,6 @@ import mx.com.bbva.bancomer.mapper.business.ClienteBO;
 import mx.com.bbva.bancomer.mapper.business.EstadisticoBO;
 import mx.com.bbva.bancomer.mapper.business.ProductoBO;
 import mx.com.bbva.bancomer.producto.dto.ProductoDTO;
-import mx.com.bbva.mapeador.security.session.user.SessionUser;
 import mx.com.bbva.mapeador.ui.commons.controller.IController;
 import mx.com.bbva.mapeador.ui.commons.viewmodel.reportes.ReportesController;
 import mx.com.bbva.mapeador.ui.commons.viewmodel.support.ControllerSupport;
@@ -54,89 +82,564 @@ import org.zkoss.zul.ListModel;
 import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Textbox;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class EstadisticoController.
+ */
 public class EstadisticoController extends ControllerSupport implements  IController{
+	
+	/** The Constant logger. */
 	private static final Logger logger = Logger.getLogger(EstadisticoController.class);
-	/**
-	 * 
-	 */
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
-	@Wire
-	private Combobox criterio;
+	
+	/** The canal. */
 	@Wire
 	private Combobox canal;
+	
+	/** The canal mock dt os. */
+	private List<CanalMockDTO> canalMockDTOs;
+	
+	/** The canal v os. */
+	private List<mx.com.bbva.mapeador.ui.commons.viewmodel.estadistico.CanalVO> canalVOs =  getListaCanalVOs();
+	
+	/** The cliente. */
 	@Wire
 	private Combobox cliente;
-	@Wire
-	private Combobox producto;
-	@Wire	
-	private Datebox fechaInicio;
-	@Wire
-	private Datebox fechaFin;
-	@Wire
-	private Textbox idCriterio;
-	@Wire
-	private Textbox idCanal;
-	@Wire
-	private Textbox idCliente;
-	@Wire
-	private Textbox idProducto;
 	
-	@Wire
-	private Label lblCanal;
-	@Wire
-	private Label lblIdCliente;
-	@Wire
-	private Label lblProducto;
-	@Wire
-	private Label lblFechaAlta;
-	@Wire
-	private Label lblA;
-	@Wire
-	private Combobox scanal;
-	@Wire
-	private Combobox scliente;
-	@Wire
-	private Combobox sproducto;
-	@Wire
-	private Image reporteExcelBtn;
-	@Wire
-	private Image reporteCsvBtn;
-	@Wire
-	private Button limpiarBtn;
+	/** The consultar btn. */
 	@Wire
 	private Button consultarBtn;
+	
+	/** The criterio. */
+	@Wire
+	private Combobox criterio;
+	
+	/** The estadistico dto. */
+	private EstadisticoDTO estadisticoDTO = (EstadisticoDTO) read();
+	
+	/** The estadistico mock dto. */
+	private EstadisticoMockDTO estadisticoMockDTO;
+	
+	/** The estadisticos grid. */
 	@Wire
 	private Grid estadisticosGrid;
 	
-	private EstadisticoDTO estadisticoDTO = (EstadisticoDTO) read();
-	
+	/** The estadistico v os. */
 	private List<EstadisticoVO> estadisticoVOs = estadisticoDTO.getEstadisticoVOs();
-		
-	private String strCriterio;
 	
+	/** The execute permission set. */
+	private boolean executePermissionSet;
+	
+	/** The fecha fin. */
+	@Wire
+	private Datebox fechaFin;
+	
+	/** The fecha inicio. */
+	@Wire	
+	private Datebox fechaInicio;
+	
+	/** The id canal. */
+	@Wire
+	private Textbox idCanal;
+	
+	/** The id cliente. */
+	@Wire
+	private Textbox idCliente;
+	
+	/** The id criterio. */
+	@Wire
+	private Textbox idCriterio;
+	
+	/** The id producto. */
+	@Wire
+	private Textbox idProducto;
+	
+	/** The lbl a. */
+	@Wire
+	private Label lblA;
+	
+	/** The lbl canal. */
+	@Wire
+	private Label lblCanal;
+	
+	/** The lbl fecha alta. */
+	@Wire
+	private Label lblFechaAlta;
+	
+	/** The lbl id cliente. */
+	@Wire
+	private Label lblIdCliente;
+	
+	/** The lbl producto. */
+	@Wire
+	private Label lblProducto;
+	
+	/** The limpiar btn. */
+	@Wire
+	private Button limpiarBtn;
+	
+	/** The producto. */
+	@Wire
+	private Combobox producto;
+	
+	/** The reporte csv btn. */
+	@Wire
+	private Image reporteCsvBtn;
+		
+	/** The reporte excel btn. */
+	@Wire
+	private Image reporteExcelBtn;
+	
+	/** The scanal. */
+	@Wire
+	private Combobox scanal;
+	
+	/** The scliente. */
+	@Wire
+	private Combobox scliente;
+	
+	/** The sproducto. */
+	@Wire
+	private Combobox sproducto;
+	
+	/** The str canal. */
 	private String strCanal;
 	
+	/** The str cliente. */
 	private String strCliente;
 	
-	private String strProducto;
+	/** The str criterio. */
+	private String strCriterio;
 	
-	private String strFechaInicio;
-	
+	/** The str fecha fin. */
 	private String strFechaFin;
 	
-	private String strIdCriterio;
+	/** The str fecha inicio. */
+	private String strFechaInicio;
 	
+	/** The str id canal. */
 	private String strIdCanal;
 	
+	/** The str id cliente. */
 	private String strIdCliente;
 	
+	/** The str id criterio. */
+	private String strIdCriterio;
+	
+	/** The str id producto. */
 	private String strIdProducto;
 	
-	private boolean executePermissionSet;
-	private EstadisticoMockDTO estadisticoMockDTO;
-	private List<CanalMockDTO> canalMockDTOs;
-	private List<mx.com.bbva.mapeador.ui.commons.viewmodel.estadistico.CanalVO> canalVOs =  getListaCanalVOs();
+	/** The str producto. */
+	private String strProducto;
 	
+	/**
+	 * After compose.
+	 *
+	 * @param view the view
+	 */
+	@AfterCompose
+    public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
+        Selectors.wireComponents(view, this, false);        
+        executePermissionSet = this.applyPermision();
+    }
+	
+	/* (non-Javadoc)
+	 * @see mx.com.bbva.mapeador.ui.commons.controller.IController#applyPermision()
+	 */
+	@Override
+	public boolean applyPermision() {
+		boolean isApplied = false;
+		HashMap<String, Component> componentes = new HashMap<String, Component>();
+		componentes.put(lblCanal.getId(), lblCanal);
+		componentes.put(lblIdCliente.getId(), lblIdCliente);
+		componentes.put(lblProducto.getId(), lblProducto);
+		componentes.put(lblFechaAlta.getId(), lblFechaAlta);
+		componentes.put(lblA.getId(), lblA);
+		componentes.put(canal.getId(), canal);
+		componentes.put(cliente.getId(), cliente);
+		componentes.put(producto.getId(), producto);
+		componentes.put(fechaInicio.getId(), fechaInicio);
+		componentes.put(fechaFin.getId(), fechaFin);
+		componentes.put(reporteExcelBtn.getId(), reporteExcelBtn);
+		componentes.put(reporteCsvBtn.getId(), reporteCsvBtn);
+		componentes.put(limpiarBtn.getId(), limpiarBtn);
+		componentes.put(consultarBtn.getId(), consultarBtn);
+//		componentes.put(estadisticosGrid.getId(), estadisticosGrid);
+		super.applyPermission(MapeadorConstants.ESTADISTICO, componentes);
+		return isApplied;
+	}
+	
+	/* (non-Javadoc)
+	 * @see mx.com.bbva.mapeador.ui.commons.controller.IController#clean()
+	 */
+	@Override
+	@Command
+	public void clean() {
+		//Mensajes HTML
+		canal.clearErrorMessage();
+		cliente.clearErrorMessage();
+		producto.clearErrorMessage();
+		
+		//Mensajes Setear a Null
+		canal.setValue(null);
+		cliente.setValue(null);
+		producto.setValue(null);  
+		fechaFin.setValue(null);
+		fechaInicio.setValue(null);
+		//Setear IDs Invisibles
+		idCanal.setValue(null);
+		idCliente.setValue(null);
+		idProducto.setValue(null);
+		
+	}
+	
+	/**
+	 * Creates the list grid.
+	 *
+	 * @param estadisticaDTO the estadistica dto
+	 */
+	private void createListGrid(EstadisticaDTO estadisticaDTO) {
+		canalMockDTOs = new ArrayList<CanalMockDTO>();
+		HashMap<Integer, String> mapCliente = new HashMap<Integer, String>();
+		
+		for(EstadisticoVO estadisticoVO:estadisticaDTO.getEstadisticoVOs()) {
+			mapCliente.put((int) estadisticoVO.idCanal, estadisticoVO.nombreCanal+":"+estadisticoVO.idIdentificador);
+		}
+		
+		Collection<String> clienteC = mapCliente.values();
+   	 	Iterator<String> iteratorC = clienteC.iterator();
+		
+	   	 while(iteratorC.hasNext()){
+	   		ArrayList<ProductoEstadisticoDTO> productoVOs = new ArrayList<ProductoEstadisticoDTO>();
+	   		ArrayList<ClienteMockDTO> clienteMockDTOs = new ArrayList<ClienteMockDTO>();
+	   		CanalMockDTO canalMockDTO = new CanalMockDTO();
+	   		String cliente = iteratorC.next();
+	   		String[] str_array = cliente.split(":");
+			String nombreCanal = str_array[0]; 
+			String idIdentificador = str_array[1];
+			ClienteMockDTO clienteMockDTO = new ClienteMockDTO();
+			clienteMockDTO.setNombreCliente(idIdentificador);
+			canalMockDTO.setNombreCanal(nombreCanal);
+			for(EstadisticoVO estadisticoVO:estadisticaDTO.getEstadisticoVOs()) {
+				if(estadisticoVO.getNombreCanal().equals(nombreCanal) && estadisticoVO.getIdIdentificador().equals(idIdentificador)) {
+					ProductoEstadisticoDTO productoVO = new ProductoEstadisticoDTO();
+					productoVO.setFechaStatusProceso(estadisticoVO.getFechaStatusProceso());
+					productoVO.setNombreProducto(estadisticoVO.getNombreProducto());
+					productoVO.setNombreRegArchEntra(estadisticoVO.getNombreRegArchEntra());
+					productoVO.setNumeroOperaciones(estadisticoVO.getNumeroOperacione());
+					productoVOs.add(productoVO);
+				}
+			}
+			clienteMockDTO.setProductoVOs(productoVOs);
+			clienteMockDTOs.add(clienteMockDTO);
+			canalMockDTO.setClienteMockDTOs(clienteMockDTOs);
+		   	canalMockDTOs.add(canalMockDTO);
+	   	 }
+	} 
+	
+	/* (non-Javadoc)
+	 * @see mx.com.bbva.mapeador.ui.commons.controller.IController#delete()
+	 */
+	@Override
+	public void delete() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	/**
+	 * Genera lista.
+	 *
+	 * @return the array list
+	 */
+	private ArrayList<BeanGenerico> generaLista() {
+		ArrayList<BeanGenerico> beanGenericos = new ArrayList<BeanGenerico>();
+		BeanGenerico beanGenerico = null;
+		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm");
+		for(EstadisticoVO estadisticoVO: estadisticoVOs) {
+			beanGenerico = new BeanGenerico();
+			beanGenerico.setValor1(estadisticoVO.getNombreCanal());
+			beanGenerico.setValor2(estadisticoVO.getIdIdentificador());
+			beanGenerico.setValor3(dateFormat.format(estadisticoVO.getFechaStatusProceso()));
+			beanGenerico.setValor4(estadisticoVO.getNombreProducto()); 
+			beanGenerico.setValor5(estadisticoVO.getNombreRegArchEntra()); 
+			beanGenerico.setValor6(String.valueOf(estadisticoVO.getNumeroOperacione())); 
+			
+			beanGenericos.add(beanGenerico);
+		}
+		return beanGenericos;
+	}
+	
+	/**
+	 * Gets the canal.
+	 *
+	 * @return the canal
+	 */
+	public Combobox getCanal() {
+		return canal;
+	}
+	
+	/**
+	 * Gets the canal mock dt os.
+	 *
+	 * @return the canalMockDTOs
+	 */
+	public List<CanalMockDTO> getCanalMockDTOs() {
+		return canalMockDTOs;
+	}	
+	
+	/**
+	 * Gets the canal v os.
+	 *
+	 * @return the canal v os
+	 */
+	public ListModel<mx.com.bbva.mapeador.ui.commons.viewmodel.estadistico.CanalVO> getCanalVOs() {
+		return new ListModelList<mx.com.bbva.mapeador.ui.commons.viewmodel.estadistico.CanalVO>(getListaCanalVOs());
+	}
+	
+	/**
+	 * Gets the cliente.
+	 *
+	 * @return the cliente
+	 */
+	public Combobox getCliente() {
+		return cliente;
+	}
+
+	/**
+	 * Gets the criterio.
+	 *
+	 * @return the criterio
+	 */
+	public Combobox getCriterio() {
+		return criterio;
+	}
+
+	/**
+	 * Gets the estadistico dto.
+	 *
+	 * @return the estadisticoDTO
+	 */
+	public EstadisticoDTO getEstadisticoDTO() {
+		return estadisticoDTO;
+	}
+
+	/**
+	 * Gets the estadistico mock dto.
+	 *
+	 * @return the estadisticoMockDTO
+	 */
+	public EstadisticoMockDTO getEstadisticoMockDTO() {
+		return estadisticoMockDTO;
+	}
+
+	/**
+	 * Gets the estadistico v os.
+	 *
+	 * @return the estadisticoVOs
+	 */
+	public List<EstadisticoVO> getEstadisticoVOs() {
+		return estadisticoVOs;
+	}
+
+	/**
+	 * Gets the fecha fin.
+	 *
+	 * @return the fechaFin
+	 */
+	public Datebox getFechaFin() {
+		return fechaFin;
+	}
+
+	/**
+	 * Gets the fecha inicio.
+	 *
+	 * @return the fechaInicio
+	 */
+	public Datebox getFechaInicio() {
+		return fechaInicio;
+	}
+
+	/**
+	 * Gets the id canal.
+	 *
+	 * @return the idCanal
+	 */
+	public Textbox getIdCanal() {
+		return idCanal;
+	}
+
+	/**
+	 * Gets the id cliente.
+	 *
+	 * @return the idCliente
+	 */
+	public Textbox getIdCliente() {
+		return idCliente;
+	}
+
+	/**
+	 * Gets the id criterio.
+	 *
+	 * @return the idCriterio
+	 */
+	public Textbox getIdCriterio() {
+		return idCriterio;
+	}
+
+	/**
+	 * Gets the id producto.
+	 *
+	 * @return the idProducto
+	 */
+	public Textbox getIdProducto() {
+		return idProducto;
+	}
+
+	/**
+	 * Gets the lista canal v os.
+	 *
+	 * @return the lista canal v os
+	 */
+	public List<mx.com.bbva.mapeador.ui.commons.viewmodel.estadistico.CanalVO> getListaCanalVOs() {
+		return canalVOs;
+	}
+
+	/**
+	 * Gets the producto.
+	 *
+	 * @return the producto
+	 */
+	public Combobox getProducto() {
+		return producto;
+	}
+
+	/**
+	 * Gets the str canal.
+	 *
+	 * @return the strCanal
+	 */
+	public String getStrCanal() {
+		return strCanal;
+	}
+
+	/**
+	 * Gets the str cliente.
+	 *
+	 * @return the strCliente
+	 */
+	public String getStrCliente() {
+		return strCliente;
+	}
+
+	/**
+	 * Gets the str criterio.
+	 *
+	 * @return the strCriterio
+	 */
+	public String getStrCriterio() {
+		return strCriterio;
+	}
+
+	/**
+	 * Gets the str fecha fin.
+	 *
+	 * @return the strFechaFin
+	 */
+	public String getStrFechaFin() {
+		return strFechaFin;
+	}
+
+	/**
+	 * Gets the str fecha inicio.
+	 *
+	 * @return the strFechaInicio
+	 */
+	public String getStrFechaInicio() {
+		return strFechaInicio;
+	}
+
+	/**
+	 * Gets the str id canal.
+	 *
+	 * @return the strIdCanal
+	 */
+	public String getStrIdCanal() {
+		return strIdCanal;
+	}
+
+	/**
+	 * Gets the str id cliente.
+	 *
+	 * @return the strIdCliente
+	 */
+	public String getStrIdCliente() {
+		return strIdCliente;
+	}
+
+	/**
+	 * Gets the str id criterio.
+	 *
+	 * @return the strIdCriterio
+	 */
+	public String getStrIdCriterio() {
+		return strIdCriterio;
+	}
+
+	/**
+	 * Gets the str id producto.
+	 *
+	 * @return the strIdProducto
+	 */
+	public String getStrIdProducto() {
+		return strIdProducto;
+	}
+
+	/**
+	 * Gets the str producto.
+	 *
+	 * @return the strProducto
+	 */
+	public String getStrProducto() {
+		return strProducto;
+	}
+
+	/**
+	 * Checks if is execute permission set.
+	 *
+	 * @return the executePermissionSet
+	 */
+	public boolean isExecutePermissionSet() {
+		return executePermissionSet;
+	}
+
+	/**
+	 * On show report.
+	 *
+	 * @param type the type
+	 */
+	@Command
+	public void onShowReport(@BindingParam("type") final String type) {
+		ReportesController controller = new ReportesController();
+		ArrayList<String> headersReport = new ArrayList<String>();
+		headersReport.add("Canal");
+		headersReport.add("Cliente");
+		headersReport.add("Fecha");
+		headersReport.add("Producto"); 
+		headersReport.add("Nombre Archivo"); 
+		headersReport.add("Operaciones"); 
+		if(type.equals("xls")) {
+			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_EXCEL,"Estadístico");
+		} else {
+			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_TEXTO,"Estadístico");
+		}
+		controller.createReport(generaLista(), headersReport, type, "ESTADISTICO");
+	}
+
+	/* (non-Javadoc)
+	 * @see mx.com.bbva.mapeador.ui.commons.controller.IController#read()
+	 */
 	@Override
 	public Object read() {
 		estadisticoDTO = new EstadisticoDTO();
@@ -174,61 +677,20 @@ public class EstadisticoController extends ControllerSupport implements  IContro
 		createListGrid(estadisticaDTO);
 		return estadisticoDTO;
 	}
-	
-	private void createListGrid(EstadisticaDTO estadisticaDTO) {
-		canalMockDTOs = new ArrayList<CanalMockDTO>();
-		HashMap<Integer, String> mapCliente = new HashMap<Integer, String>();
-		
-		for(EstadisticoVO estadisticoVO:estadisticaDTO.getEstadisticoVOs()) {
-			mapCliente.put((int) estadisticoVO.idCanal, estadisticoVO.nombreCanal+":"+estadisticoVO.idIdentificador);
-		}
-		
-		Collection<String> clienteC = mapCliente.values();
-   	 	Iterator<String> iteratorC = clienteC.iterator();
-		
-	   	 while(iteratorC.hasNext()){
-	   		ArrayList<ProductoEstadisticoDTO> productoVOs = new ArrayList<ProductoEstadisticoDTO>();
-	   		ArrayList<ClienteMockDTO> clienteMockDTOs = new ArrayList<ClienteMockDTO>();
-	   		CanalMockDTO canalMockDTO = new CanalMockDTO();
-	   		String cliente = (String)iteratorC.next();
-	   		String[] str_array = cliente.split(":");
-			String nombreCanal = str_array[0]; 
-			String idIdentificador = str_array[1];
-			ClienteMockDTO clienteMockDTO = new ClienteMockDTO();
-			clienteMockDTO.setNombreCliente(idIdentificador);
-			canalMockDTO.setNombreCanal(nombreCanal);
-			for(EstadisticoVO estadisticoVO:estadisticaDTO.getEstadisticoVOs()) {
-				if(estadisticoVO.getNombreCanal().equals(nombreCanal) && estadisticoVO.getIdIdentificador().equals(idIdentificador)) {
-					ProductoEstadisticoDTO productoVO = new ProductoEstadisticoDTO();
-					productoVO.setFechaStatusProceso(estadisticoVO.getFechaStatusProceso());
-					productoVO.setNombreProducto(estadisticoVO.getNombreProducto());
-					productoVO.setNombreRegArchEntra(estadisticoVO.getNombreRegArchEntra());
-					productoVO.setNumeroOperaciones(estadisticoVO.getNumeroOperacione());
-					productoVOs.add(productoVO);
-				}
-			}
-			clienteMockDTO.setProductoVOs(productoVOs);
-			clienteMockDTOs.add(clienteMockDTO);
-			canalMockDTO.setClienteMockDTOs(clienteMockDTOs);
-		   	canalMockDTOs.add(canalMockDTO);
-	   	 }
+
+	/* (non-Javadoc)
+	 * @see mx.com.bbva.mapeador.ui.commons.controller.IController#read(java.lang.Object)
+	 */
+	@Override
+	public Object read(Object t) {
+		// TODO Auto-generated method stub
+		return null;
 	}
-	
-	public ListModel<mx.com.bbva.mapeador.ui.commons.viewmodel.estadistico.CanalVO> getCanalVOs() {
-		return new ListModelList<mx.com.bbva.mapeador.ui.commons.viewmodel.estadistico.CanalVO>(getListaCanalVOs());
-	}
-	
-	public List<mx.com.bbva.mapeador.ui.commons.viewmodel.estadistico.CanalVO> getListaCanalVOs() {
-		return canalVOs;
-	} 
-	
-	@AfterCompose
-    public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
-        Selectors.wireComponents(view, this, false);        
-        executePermissionSet = this.applyPermision();
-    }
-	
+
 	//Cambiar al objeto que pertenezca el componente en este caso estadisticoVOs
+	/**
+	 * Read with filters.
+	 */
 	@Command
 	@NotifyChange({"canalMockDTOs"})
 	public void readWithFilters() {
@@ -273,103 +735,19 @@ public class EstadisticoController extends ControllerSupport implements  IContro
 			controller.registrarEvento(null, null, CommandConstants.CONSULTAR, "Estadístico");
 		}
 	}
-	@Override
-	@Command
-	public void clean() {
-		//Mensajes HTML
-		canal.clearErrorMessage();
-		cliente.clearErrorMessage();
-		producto.clearErrorMessage();
-		
-		//Mensajes Setear a Null
-		canal.setValue(null);
-		cliente.setValue(null);
-		producto.setValue(null);  
-		fechaFin.setValue(null);
-		fechaInicio.setValue(null);
-		//Setear IDs Invisibles
-		idCanal.setValue(null);
-		idCliente.setValue(null);
-		idProducto.setValue(null);
-		
-	}
-	
-	@Command
-	public void onShowReport(@BindingParam("type") final String type) {
-		ReportesController controller = new ReportesController();
-		ArrayList<String> headersReport = new ArrayList<String>();
-		headersReport.add("Canal");
-		headersReport.add("Cliente");
-		headersReport.add("Fecha");
-		headersReport.add("Producto"); 
-		headersReport.add("Nombre Archivo"); 
-		headersReport.add("Operaciones"); 
-		if(type.equals("xls")) {
-			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_EXCEL,"Estadístico");
-		} else {
-			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_TEXTO,"Estadístico");
-		}
-		controller.createReport(generaLista(), headersReport, type, "ESTADISTICO");
-	}	
-	
-	private ArrayList<BeanGenerico> generaLista() {
-		ArrayList<BeanGenerico> beanGenericos = new ArrayList<BeanGenerico>();
-		BeanGenerico beanGenerico = null;
-		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm");
-		for(EstadisticoVO estadisticoVO: estadisticoVOs) {
-			beanGenerico = new BeanGenerico();
-			beanGenerico.setValor1(estadisticoVO.getNombreCanal());
-			beanGenerico.setValor2(estadisticoVO.getIdIdentificador());
-			beanGenerico.setValor3(dateFormat.format(estadisticoVO.getFechaStatusProceso()));
-			beanGenerico.setValor4(estadisticoVO.getNombreProducto()); 
-			beanGenerico.setValor5(estadisticoVO.getNombreRegArchEntra()); 
-			beanGenerico.setValor6(String.valueOf(estadisticoVO.getNumeroOperacione())); 
-			
-			beanGenericos.add(beanGenerico);
-		}
-		return beanGenericos;
-	}
-	
-	@Override
-	public Object read(Object t) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
+	/* (non-Javadoc)
+	 * @see mx.com.bbva.mapeador.ui.commons.controller.IController#save()
+	 */
 	@Override
 	public void save() {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
-	public void delete() {
-		// TODO Auto-generated method stub
-		
-	}
-
 	/**
-	 * @return the criterio
-	 */
-	public Combobox getCriterio() {
-		return criterio;
-	}
-
-	/**
-	 * @param criterio the criterio to set
-	 */
-	public void setCriterio(Combobox criterio) {
-		this.criterio = criterio;
-	}
-
-	/**
-	 * @return the canal
-	 */
-	public Combobox getCanal() {
-		return canal;
-	}
-
-	/**
+	 * Sets the canal.
+	 *
 	 * @param canal the canal to set
 	 */
 	public void setCanal(Combobox canal) {
@@ -377,321 +755,17 @@ public class EstadisticoController extends ControllerSupport implements  IContro
 	}
 
 	/**
-	 * @return the cliente
+	 * Sets the canal mock dt os.
+	 *
+	 * @param canalMockDTOs the canalMockDTOs to set
 	 */
-	public Combobox getCliente() {
-		return cliente;
+	public void setCanalMockDTOs(List<CanalMockDTO> canalMockDTOs) {
+		this.canalMockDTOs = canalMockDTOs;
 	}
 
 	/**
-	 * @param cliente the cliente to set
-	 */
-	public void setCliente(Combobox cliente) {
-		this.cliente = cliente;
-	}
-
-	/**
-	 * @return the producto
-	 */
-	public Combobox getProducto() {
-		return producto;
-	}
-
-	/**
-	 * @param producto the producto to set
-	 */
-	public void setProducto(Combobox producto) {
-		this.producto = producto;
-	}
-
-	/**
-	 * @return the fechaInicio
-	 */
-	public Datebox getFechaInicio() {
-		return fechaInicio;
-	}
-
-	/**
-	 * @param fechaInicio the fechaInicio to set
-	 */
-	public void setFechaInicio(Datebox fechaInicio) {
-		this.fechaInicio = fechaInicio;
-	}
-
-	/**
-	 * @return the fechaFin
-	 */
-	public Datebox getFechaFin() {
-		return fechaFin;
-	}
-
-	/**
-	 * @param fechaFin the fechaFin to set
-	 */
-	public void setFechaFin(Datebox fechaFin) {
-		this.fechaFin = fechaFin;
-	}
-
-	/**
-	 * @return the idCriterio
-	 */
-	public Textbox getIdCriterio() {
-		return idCriterio;
-	}
-
-	/**
-	 * @param idCriterio the idCriterio to set
-	 */
-	public void setIdCriterio(Textbox idCriterio) {
-		this.idCriterio = idCriterio;
-	}
-
-	/**
-	 * @return the idCanal
-	 */
-	public Textbox getIdCanal() {
-		return idCanal;
-	}
-
-	/**
-	 * @param idCanal the idCanal to set
-	 */
-	public void setIdCanal(Textbox idCanal) {
-		this.idCanal = idCanal;
-	}
-
-	/**
-	 * @return the idCliente
-	 */
-	public Textbox getIdCliente() {
-		return idCliente;
-	}
-
-	/**
-	 * @param idCliente the idCliente to set
-	 */
-	public void setIdCliente(Textbox idCliente) {
-		this.idCliente = idCliente;
-	}
-
-	/**
-	 * @return the idProducto
-	 */
-	public Textbox getIdProducto() {
-		return idProducto;
-	}
-
-	/**
-	 * @param idProducto the idProducto to set
-	 */
-	public void setIdProducto(Textbox idProducto) {
-		this.idProducto = idProducto;
-	}
-
-	/**
-	 * @return the estadisticoDTO
-	 */
-	public EstadisticoDTO getEstadisticoDTO() {
-		return estadisticoDTO;
-	}
-
-	/**
-	 * @param estadisticoDTO the estadisticoDTO to set
-	 */
-	public void setEstadisticoDTO(EstadisticoDTO estadisticoDTO) {
-		this.estadisticoDTO = estadisticoDTO;
-	}
-
-	/**
-	 * @return the estadisticoVOs
-	 */
-	public List<EstadisticoVO> getEstadisticoVOs() {
-		return estadisticoVOs;
-	}
-
-	/**
-	 * @param estadisticoVOs the estadisticoVOs to set
-	 */
-	public void setEstadisticoVOs(List<EstadisticoVO> estadisticoVOs) {
-		this.estadisticoVOs = estadisticoVOs;
-	}
-
-	/**
-	 * @return the strCriterio
-	 */
-	public String getStrCriterio() {
-		return strCriterio;
-	}
-
-	/**
-	 * @param strCriterio the strCriterio to set
-	 */
-	public void setStrCriterio(String strCriterio) {
-		this.strCriterio = strCriterio;
-	}
-
-	/**
-	 * @return the strCanal
-	 */
-	public String getStrCanal() {
-		return strCanal;
-	}
-
-	/**
-	 * @param strCanal the strCanal to set
-	 */
-	public void setStrCanal(String strCanal) {
-		this.strCanal = strCanal;
-	}
-
-	/**
-	 * @return the strCliente
-	 */
-	public String getStrCliente() {
-		return strCliente;
-	}
-
-	/**
-	 * @param strCliente the strCliente to set
-	 */
-	public void setStrCliente(String strCliente) {
-		this.strCliente = strCliente;
-	}
-
-	/**
-	 * @return the strProducto
-	 */
-	public String getStrProducto() {
-		return strProducto;
-	}
-
-	/**
-	 * @param strProducto the strProducto to set
-	 */
-	public void setStrProducto(String strProducto) {
-		this.strProducto = strProducto;
-	}
-
-	/**
-	 * @return the strFechaInicio
-	 */
-	public String getStrFechaInicio() {
-		return strFechaInicio;
-	}
-
-	/**
-	 * @param strFechaInicio the strFechaInicio to set
-	 */
-	public void setStrFechaInicio(String strFechaInicio) {
-		this.strFechaInicio = strFechaInicio;
-	}
-
-	/**
-	 * @return the strFechaFin
-	 */
-	public String getStrFechaFin() {
-		return strFechaFin;
-	}
-
-	/**
-	 * @param strFechaFin the strFechaFin to set
-	 */
-	public void setStrFechaFin(String strFechaFin) {
-		this.strFechaFin = strFechaFin;
-	}
-
-	/**
-	 * @return the strIdCriterio
-	 */
-	public String getStrIdCriterio() {
-		return strIdCriterio;
-	}
-
-	/**
-	 * @param strIdCriterio the strIdCriterio to set
-	 */
-	public void setStrIdCriterio(String strIdCriterio) {
-		this.strIdCriterio = strIdCriterio;
-	}
-
-	/**
-	 * @return the strIdCanal
-	 */
-	public String getStrIdCanal() {
-		return strIdCanal;
-	}
-
-	/**
-	 * @param strIdCanal the strIdCanal to set
-	 */
-	public void setStrIdCanal(String strIdCanal) {
-		this.strIdCanal = strIdCanal;
-	}
-
-	/**
-	 * @return the strIdCliente
-	 */
-	public String getStrIdCliente() {
-		return strIdCliente;
-	}
-
-	/**
-	 * @param strIdCliente the strIdCliente to set
-	 */
-	public void setStrIdCliente(String strIdCliente) {
-		this.strIdCliente = strIdCliente;
-	}
-
-	/**
-	 * @return the strIdProducto
-	 */
-	public String getStrIdProducto() {
-		return strIdProducto;
-	}
-
-	/**
-	 * @param strIdProducto the strIdProducto to set
-	 */
-	public void setStrIdProducto(String strIdProducto) {
-		this.strIdProducto = strIdProducto;
-	}
-
-	/**
-	 * @return the executePermissionSet
-	 */
-	public boolean isExecutePermissionSet() {
-		return executePermissionSet;
-	}
-	/**
-	 * @param executePermissionSet the executePermissionSet to set
-	 */
-	public void setExecutePermissionSet(boolean executePermissionSet) {
-		this.executePermissionSet = executePermissionSet;
-	}
-	@Override
-	public boolean applyPermision() {
-		boolean isApplied = false;
-		HashMap<String, Component> componentes = new HashMap<String, Component>();
-		componentes.put(lblCanal.getId(), lblCanal);
-		componentes.put(lblIdCliente.getId(), lblIdCliente);
-		componentes.put(lblProducto.getId(), lblProducto);
-		componentes.put(lblFechaAlta.getId(), lblFechaAlta);
-		componentes.put(lblA.getId(), lblA);
-		componentes.put(canal.getId(), canal);
-		componentes.put(cliente.getId(), cliente);
-		componentes.put(producto.getId(), producto);
-		componentes.put(fechaInicio.getId(), fechaInicio);
-		componentes.put(fechaFin.getId(), fechaFin);
-		componentes.put(reporteExcelBtn.getId(), reporteExcelBtn);
-		componentes.put(reporteCsvBtn.getId(), reporteCsvBtn);
-		componentes.put(limpiarBtn.getId(), limpiarBtn);
-		componentes.put(consultarBtn.getId(), consultarBtn);
-//		componentes.put(estadisticosGrid.getId(), estadisticosGrid);
-		super.applyPermission(MapeadorConstants.ESTADISTICO, componentes);
-		return isApplied;
-	}
-
-	/**
+	 * Sets the canal v os.
+	 *
 	 * @param canalVOs the canalVOs to set
 	 */
 	public void setCanalVOs(
@@ -700,13 +774,35 @@ public class EstadisticoController extends ControllerSupport implements  IContro
 	}
 
 	/**
-	 * @return the estadisticoMockDTO
+	 * Sets the cliente.
+	 *
+	 * @param cliente the cliente to set
 	 */
-	public EstadisticoMockDTO getEstadisticoMockDTO() {
-		return estadisticoMockDTO;
+	public void setCliente(Combobox cliente) {
+		this.cliente = cliente;
 	}
 
 	/**
+	 * Sets the criterio.
+	 *
+	 * @param criterio the criterio to set
+	 */
+	public void setCriterio(Combobox criterio) {
+		this.criterio = criterio;
+	}
+
+	/**
+	 * Sets the estadistico dto.
+	 *
+	 * @param estadisticoDTO the estadisticoDTO to set
+	 */
+	public void setEstadisticoDTO(EstadisticoDTO estadisticoDTO) {
+		this.estadisticoDTO = estadisticoDTO;
+	}
+
+	/**
+	 * Sets the estadistico mock dto.
+	 *
 	 * @param estadisticoMockDTO the estadisticoMockDTO to set
 	 */
 	public void setEstadisticoMockDTO(EstadisticoMockDTO estadisticoMockDTO) {
@@ -714,17 +810,174 @@ public class EstadisticoController extends ControllerSupport implements  IContro
 	}
 
 	/**
-	 * @return the canalMockDTOs
+	 * Sets the estadistico v os.
+	 *
+	 * @param estadisticoVOs the estadisticoVOs to set
 	 */
-	public List<CanalMockDTO> getCanalMockDTOs() {
-		return canalMockDTOs;
+	public void setEstadisticoVOs(List<EstadisticoVO> estadisticoVOs) {
+		this.estadisticoVOs = estadisticoVOs;
 	}
 
 	/**
-	 * @param canalMockDTOs the canalMockDTOs to set
+	 * Sets the execute permission set.
+	 *
+	 * @param executePermissionSet the executePermissionSet to set
 	 */
-	public void setCanalMockDTOs(List<CanalMockDTO> canalMockDTOs) {
-		this.canalMockDTOs = canalMockDTOs;
+	public void setExecutePermissionSet(boolean executePermissionSet) {
+		this.executePermissionSet = executePermissionSet;
+	}
+
+	/**
+	 * Sets the fecha fin.
+	 *
+	 * @param fechaFin the fechaFin to set
+	 */
+	public void setFechaFin(Datebox fechaFin) {
+		this.fechaFin = fechaFin;
+	}
+
+	/**
+	 * Sets the fecha inicio.
+	 *
+	 * @param fechaInicio the fechaInicio to set
+	 */
+	public void setFechaInicio(Datebox fechaInicio) {
+		this.fechaInicio = fechaInicio;
+	}
+
+	/**
+	 * Sets the id canal.
+	 *
+	 * @param idCanal the idCanal to set
+	 */
+	public void setIdCanal(Textbox idCanal) {
+		this.idCanal = idCanal;
+	}
+
+	/**
+	 * Sets the id cliente.
+	 *
+	 * @param idCliente the idCliente to set
+	 */
+	public void setIdCliente(Textbox idCliente) {
+		this.idCliente = idCliente;
+	}
+
+	/**
+	 * Sets the id criterio.
+	 *
+	 * @param idCriterio the idCriterio to set
+	 */
+	public void setIdCriterio(Textbox idCriterio) {
+		this.idCriterio = idCriterio;
+	}
+
+	/**
+	 * Sets the id producto.
+	 *
+	 * @param idProducto the idProducto to set
+	 */
+	public void setIdProducto(Textbox idProducto) {
+		this.idProducto = idProducto;
+	}
+
+	/**
+	 * Sets the producto.
+	 *
+	 * @param producto the producto to set
+	 */
+	public void setProducto(Combobox producto) {
+		this.producto = producto;
+	}
+
+	/**
+	 * Sets the str canal.
+	 *
+	 * @param strCanal the strCanal to set
+	 */
+	public void setStrCanal(String strCanal) {
+		this.strCanal = strCanal;
+	}
+
+	/**
+	 * Sets the str cliente.
+	 *
+	 * @param strCliente the strCliente to set
+	 */
+	public void setStrCliente(String strCliente) {
+		this.strCliente = strCliente;
+	}
+
+	/**
+	 * Sets the str criterio.
+	 *
+	 * @param strCriterio the strCriterio to set
+	 */
+	public void setStrCriterio(String strCriterio) {
+		this.strCriterio = strCriterio;
+	}
+	
+	/**
+	 * Sets the str fecha fin.
+	 *
+	 * @param strFechaFin the strFechaFin to set
+	 */
+	public void setStrFechaFin(String strFechaFin) {
+		this.strFechaFin = strFechaFin;
+	}
+	
+	/**
+	 * Sets the str fecha inicio.
+	 *
+	 * @param strFechaInicio the strFechaInicio to set
+	 */
+	public void setStrFechaInicio(String strFechaInicio) {
+		this.strFechaInicio = strFechaInicio;
+	}
+
+	/**
+	 * Sets the str id canal.
+	 *
+	 * @param strIdCanal the strIdCanal to set
+	 */
+	public void setStrIdCanal(String strIdCanal) {
+		this.strIdCanal = strIdCanal;
+	}
+
+	/**
+	 * Sets the str id cliente.
+	 *
+	 * @param strIdCliente the strIdCliente to set
+	 */
+	public void setStrIdCliente(String strIdCliente) {
+		this.strIdCliente = strIdCliente;
+	}
+
+	/**
+	 * Sets the str id criterio.
+	 *
+	 * @param strIdCriterio the strIdCriterio to set
+	 */
+	public void setStrIdCriterio(String strIdCriterio) {
+		this.strIdCriterio = strIdCriterio;
+	}
+
+	/**
+	 * Sets the str id producto.
+	 *
+	 * @param strIdProducto the strIdProducto to set
+	 */
+	public void setStrIdProducto(String strIdProducto) {
+		this.strIdProducto = strIdProducto;
+	}
+
+	/**
+	 * Sets the str producto.
+	 *
+	 * @param strProducto the strProducto to set
+	 */
+	public void setStrProducto(String strProducto) {
+		this.strProducto = strProducto;
 	}	
 	
 }

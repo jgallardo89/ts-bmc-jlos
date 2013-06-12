@@ -1,3 +1,32 @@
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * Informacion Confidencial:
+ * Este software contiene informacion totalmente confidencial propiedad de Grupo Financiero BBVA Bancomer. 
+ * Queda totalmente prohibido su uso o divulgacion en forma parcial o total y solamente podra ser utilizada de acuerdo a los terminos y estatutos 
+ * que determine el Grupo Financiero BBVA Bancomer.
+ * 
+ * Todos los derechos reservados, Mexico 2013.
+ * 
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * DESCRIPCION DEL PROGRAMA
+ * Nombre de aplicación: MAPEADOR
+ * Nombre de proyecto: BbvaMapeadorWeb
+ * 
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ *
+ * HISTORIAL DE CAMBIOS:
+ * 
+ * Fecha:									         	
+ * 30-ABR-2013  
+ * @Author:	Jose Luis Ortiz Salazar
+ * @Email: jortizsalazar@gmail.com    	
+ * Razon: Creacion        
+ * Version: 1.0.0
+ * Nombre de clase: ClientesController.java
+ * Nombre de paquete: mx.com.bbva.mapeador.ui.commons.viewmodel.clientes
+ *              
+ *           
+ *              
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package mx.com.bbva.mapeador.ui.commons.viewmodel.clientes;
 
 import java.text.DateFormat;
@@ -30,7 +59,6 @@ import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.NotifyChange;
-import org.zkoss.zhtml.Messagebox;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
@@ -42,65 +70,119 @@ import org.zkoss.zul.Image;
 import org.zkoss.zul.Label;
 import org.zkoss.zul.Textbox;
 
+// TODO: Auto-generated Javadoc
 /**
- * @author Julio Morales
+ * The Class ClientesController.
  *
+ * @author Julio Morales
  */
 public class ClientesController extends ControllerSupport implements IController {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 6447535392970904023L;
 	
-	@Wire
-	private Textbox idCliente;
-	@Wire
-	private Textbox idIdentificador;
-	@Wire
-	private Textbox nombreCliente;
-	@Wire
-	private Textbox nombreCortoCliente;
-	@Wire
-	private Textbox idEstatusObjeto;
-	@Wire
-	private Combobox statusObjeto;	
+	/** The btn guardar. */
+	@SuppressWarnings("unused")
+	private boolean btnGuardar;
 	
-	@Wire
-	private Label lblIdentificador;
-	@Wire
-	private Label lblNombreCliente;
-	@Wire
-	private Label lblFechaAlta;
-	@Wire
-	private Label lblDescripcionCliente;
-	@Wire
-	private Label lblFechaModificacion;
-	@Wire
-	private Label lblEstatus;
-	@Wire
-	private Datebox fechaAlta;
-	@Wire
-	private Datebox fechaModificacion;
-	@Wire
-	private Image reporteExcelBtn;
-	@Wire
-	private Image reporteCsvBtn;
-	@Wire
-	private Button limpiarBtn;
-	@Wire
-	private Button guardarBtn;
-	@Wire
-	private Button consultarBtn;
+	/** The cliente dto. */
+	private ClienteDTO clienteDTO;
+	
+	/** The clientes grid. */
 	@Wire
 	private Grid clientesGrid;
 	
-	private ClienteDTO clienteDTO;
-	private List<ClienteVO> clientesVOs;
+	/** The clientes vo. */
 	private ClienteVO clientesVO;
-	private boolean btnGuardar;
-	private boolean flagEstatus;
+	
+	/** The clientes v os. */
+	private List<ClienteVO> clientesVOs;
+	
+	/** The consultar btn. */
+	@Wire
+	private Button consultarBtn;	
+	
+	/** The execute permission set. */
 	private boolean executePermissionSet;
 	
+	/** The fecha alta. */
+	@Wire
+	private Datebox fechaAlta;
+	
+	/** The fecha modificacion. */
+	@Wire
+	private Datebox fechaModificacion;
+	
+	/** The flag estatus. */
+	@SuppressWarnings("unused")
+	private boolean flagEstatus;
+	
+	/** The guardar btn. */
+	@Wire
+	private Button guardarBtn;
+	
+	/** The id cliente. */
+	@Wire
+	private Textbox idCliente;
+	
+	/** The id estatus objeto. */
+	@Wire
+	private Textbox idEstatusObjeto;
+	
+	/** The id identificador. */
+	@Wire
+	private Textbox idIdentificador;
+	
+	/** The lbl descripcion cliente. */
+	@Wire
+	private Label lblDescripcionCliente;
+	
+	/** The lbl estatus. */
+	@Wire
+	private Label lblEstatus;
+	
+	/** The lbl fecha alta. */
+	@Wire
+	private Label lblFechaAlta;
+	
+	/** The lbl fecha modificacion. */
+	@Wire
+	private Label lblFechaModificacion;
+	
+	/** The lbl identificador. */
+	@Wire
+	private Label lblIdentificador;
+	
+	/** The lbl nombre cliente. */
+	@Wire
+	private Label lblNombreCliente;
+	
+	/** The limpiar btn. */
+	@Wire
+	private Button limpiarBtn;
+	
+	/** The nombre cliente. */
+	@Wire
+	private Textbox nombreCliente;
+	
+	/** The nombre corto cliente. */
+	@Wire
+	private Textbox nombreCortoCliente;
+	
+	/** The reporte csv btn. */
+	@Wire
+	private Image reporteCsvBtn;
+	
+	/** The reporte excel btn. */
+	@Wire
+	private Image reporteExcelBtn;
+	
+	/** The status objeto. */
+	@Wire
+	private Combobox statusObjeto;
+	
 	/**
-	 * Constructor de CanalesController
+	 * Constructor de CanalesController.
 	 */
 	public ClientesController() {
 		this.read();
@@ -109,6 +191,170 @@ public class ClientesController extends ControllerSupport implements IController
 		flagEstatus = true;
 	}
 	
+	/**
+	 * After compose.
+	 *
+	 * @param view the view
+	 */
+	@AfterCompose
+    public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
+        Selectors.wireComponents(view, this, false);   
+        executePermissionSet = this.applyPermision();
+        defaultValues();
+    }
+	
+	/* (non-Javadoc)
+	 * @see mx.com.bbva.mapeador.ui.commons.controller.IController#applyPermision()
+	 */
+	@Override
+	public boolean applyPermision() {
+		boolean isApplied = false;
+		HashMap<String, Component> componentes = new HashMap<String, Component>();
+		componentes.put(lblIdentificador.getId(), lblIdentificador);
+		componentes.put(lblNombreCliente.getId(), lblNombreCliente);
+		componentes.put(lblFechaAlta.getId(), lblFechaAlta);
+		componentes.put(lblDescripcionCliente.getId(), lblDescripcionCliente);
+		componentes.put(lblFechaModificacion.getId(), lblFechaModificacion);
+		componentes.put(lblEstatus.getId(), lblEstatus);
+		componentes.put(idIdentificador.getId(), idIdentificador);
+		componentes.put(nombreCliente.getId(), nombreCliente);
+		componentes.put(nombreCortoCliente.getId(), nombreCortoCliente);
+		componentes.put(fechaAlta.getId(), fechaAlta);
+		componentes.put(fechaModificacion.getId(), fechaModificacion);
+		componentes.put(statusObjeto.getId(), statusObjeto);
+		componentes.put(reporteExcelBtn.getId(), reporteExcelBtn);
+		componentes.put(reporteCsvBtn.getId(), reporteCsvBtn);
+		componentes.put(limpiarBtn.getId(), limpiarBtn);
+		componentes.put(guardarBtn.getId(), guardarBtn);	
+		componentes.put(consultarBtn.getId(), consultarBtn);
+		componentes.put(clientesGrid.getId(), clientesGrid);
+		super.applyPermission(MapeadorConstants.CLIENTES, componentes);
+		return isApplied;
+	}
+
+	/* (non-Javadoc)
+	 * @see mx.com.bbva.mapeador.ui.commons.controller.IController#clean()
+	 */
+	@Override
+	@Command
+	public void clean() {
+		idIdentificador.clearErrorMessage();
+		nombreCliente.clearErrorMessage();
+		nombreCortoCliente.clearErrorMessage();
+		idCliente.clearErrorMessage();
+
+		idIdentificador.setValue(null);
+		nombreCliente.setValue(null);
+		nombreCortoCliente.setValue(null);
+		idCliente.setValue(null);
+		defaultValues();
+	}
+
+	/**
+	 * Default values.
+	 */
+	private void defaultValues() {
+		statusObjeto.setValue(CommandConstants.NB_CLIENTE_ACTIVO);
+        idEstatusObjeto.setValue(String.valueOf(CommandConstants.ID_CLIENTE_ACTIVO));
+        fechaAlta.setValue(new Date());
+		fechaModificacion.setValue(new Date());
+	}
+
+	/* (non-Javadoc)
+	 * @see mx.com.bbva.mapeador.ui.commons.controller.IController#delete()
+	 */
+	@Override
+	@Command
+	public void delete() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	/**
+	 * Genera lista.
+	 *
+	 * @return the array list
+	 */
+	private ArrayList<BeanGenerico> generaLista() {
+		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+		ArrayList<BeanGenerico> beanGenericos = new ArrayList<BeanGenerico>();
+		BeanGenerico beanGenerico = null;
+		for(ClienteVO clienteVO: clientesVOs) {
+			beanGenerico = new BeanGenerico();
+			beanGenerico.setValor1(clienteVO.getIdIdentificador());
+			beanGenerico.setValor2(clienteVO.getNombreCliente());
+			beanGenerico.setValor3(clienteVO.getNombreCortoCliente());
+			beanGenerico.setValor4(dateFormat.format(clienteVO.getFechaAlta()));
+			if(clienteVO.getFechaModificacion()!=null)
+				beanGenerico.setValor5(dateFormat.format(clienteVO.getFechaModificacion()));
+			beanGenerico.setValor6(clienteVO.getNombreEstatusObjeto());
+			beanGenericos.add(beanGenerico);
+		}
+		return beanGenericos;
+	}
+	
+	/**
+	 * Gets the cliente dto.
+	 *
+	 * @return the clienteDTO
+	 */
+	public ClienteDTO getClienteDTO() {
+		return clienteDTO;
+	}
+	
+	/**
+	 * Gets the clientes v os.
+	 *
+	 * @return the clientesVOs
+	 */
+	public List<ClienteVO> getClientesVOs() {
+		return clientesVOs;
+	}	
+	
+	/**
+	 * Gets the status objeto.
+	 *
+	 * @return the statusObjeto
+	 */
+	public Combobox getStatusObjeto() {		
+		return statusObjeto;
+	}
+	
+	/**
+	 * Checks if is execute permission set.
+	 *
+	 * @return the executePermissionSet
+	 */
+	public boolean isExecutePermissionSet() {
+		return executePermissionSet;
+	}
+	
+	/**
+	 * On show report.
+	 *
+	 * @param type the type
+	 */
+	@Command
+	public void onShowReport(@BindingParam("type") final String type) {
+		ReportesController controller = new ReportesController();
+		ArrayList<String> headersReport = new ArrayList<String>();
+		headersReport.add("Identificador");
+		headersReport.add("Nombre cliente");
+		headersReport.add("Descripción cliente");
+		headersReport.add("Fecha y Hora de alta");
+		headersReport.add("Fecha y Hora de modificación");
+		headersReport.add("Status");
+		if(type.equals("xls")) {
+			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_EXCEL,"Catálogo Clientes");
+		} else {
+			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_TEXTO,"Catálogo Clientes");
+		}
+		controller.createReport(generaLista(), headersReport, type, "CLIENTES");
+	}
+
+	/* (non-Javadoc)
+	 * @see mx.com.bbva.mapeador.ui.commons.controller.IController#read()
+	 */
 	@Override
 	public Object read() {
 		ClienteVO clienteVO = new ClienteVO();
@@ -127,7 +373,43 @@ public class ClientesController extends ControllerSupport implements IController
 		clienteBO.readCommand(clienteDTO);
 		return clienteDTO;
 	}
-	
+
+	/* (non-Javadoc)
+	 * @see mx.com.bbva.mapeador.ui.commons.controller.IController#read(java.lang.Object)
+	 */
+	@Override
+	@Command
+	public Object read(Object t) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	/**
+	 * Read selected.
+	 *
+	 * @param clienteVO the cliente vo
+	 */
+	@Command
+	@NotifyChange({"btnGuardar","flagEstatus"})
+	public void readSelected(@BindingParam("idCliente") final ClienteVO clienteVO){
+		clientesVO = clienteVO;
+		clienteVO.toString();
+		idIdentificador.setValue(clienteVO.getIdIdentificador());
+		nombreCliente.setValue(clienteVO.getNombreCliente());
+		nombreCortoCliente.setValue(clienteVO.getNombreCortoCliente());
+		statusObjeto.setValue(clienteVO.getNombreEstatusObjeto());
+		idCliente.setValue(Integer.toString(clienteVO.getIdCliente()));
+		idEstatusObjeto.setValue(Integer.toString(clienteVO.getIdEstatusObjeto()));
+		btnGuardar = false;
+		flagEstatus = false;
+		
+		fechaAlta.setValue(clienteVO.getFechaAlta());
+		fechaModificacion.setValue(clienteVO.getFechaModificacion());
+	}
+
+	/**
+	 * Read with filters.
+	 */
 	@Command
 	@NotifyChange({ "clientesVOs" })
 	public void readWithFilters() {
@@ -147,13 +429,9 @@ public class ClientesController extends ControllerSupport implements IController
 		controller.registrarEvento(null, null, CommandConstants.CONSULTAR, "Catálogo Clientes");
 	}
 
-	@Override
-	@Command
-	public Object read(Object t) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	/* (non-Javadoc)
+	 * @see mx.com.bbva.mapeador.ui.commons.controller.IController#save()
+	 */
 	@Override
 	@Command
 	@NotifyChange({ "clientesVOs", "btnGuardar", "flagEstatus"})
@@ -202,9 +480,9 @@ public class ClientesController extends ControllerSupport implements IController
 					clienteVO.toString();
 					clienteDTO.setClienteVO(clienteVO);
 					clientesVOs = clienteBO.readCommand(clienteDTO).getClienteVOs();
-					Messagebox.show("!El Registro del Cliente fue exitoso!",
-							"Información", Messagebox.OK,
-							Messagebox.INFORMATION);
+					org.zkoss.zul.Messagebox.show("!El Registro del Cliente fue exitoso!",
+							"Información", org.zkoss.zul.Messagebox.OK,
+							org.zkoss.zul.Messagebox.INFORMATION);
 				} else {
 					clean();
 //					clienteVO.setIdIdentificador(StringUtil.validaLike(idIdentificador.getValue()));
@@ -216,9 +494,9 @@ public class ClientesController extends ControllerSupport implements IController
 //					clienteVO.toString();
 //					clienteDTO.setClienteVO(clienteVO);
 //					clientesVOs = clienteBO.readCommand(clienteDTO).getClienteVOs();
-					Messagebox.show("!Ya existe un Cliente con el mismo Identificador!",
-							"Información", Messagebox.OK,
-							Messagebox.EXCLAMATION);
+					org.zkoss.zul.Messagebox.show("!Ya existe un Cliente con el mismo Identificador!",
+							"Información", org.zkoss.zul.Messagebox.OK,
+							org.zkoss.zul.Messagebox.EXCLAMATION);
 				}
 			} else {
 				ContratacionBO contratacionBO = new ContratacionBO();
@@ -230,9 +508,9 @@ public class ClientesController extends ControllerSupport implements IController
 				clienteVO.setIdCliente(Integer.parseInt(idCliente.getValue()));
 				clienteDTO = clienteBO.readCommand(clienteVO);
 				if(clienteDTO.getClienteVOs()!=null && clienteDTO.getClienteVOs().size()>0){
-					Messagebox.show("!Ya existe un Cliente con el mismo Identificador!",
-							"Información", Messagebox.OK,
-							Messagebox.EXCLAMATION);
+					org.zkoss.zul.Messagebox.show("!Ya existe un Cliente con el mismo Identificador!",
+							"Información", org.zkoss.zul.Messagebox.OK,
+							org.zkoss.zul.Messagebox.EXCLAMATION);
 				}else{
 					if(Integer.parseInt(idEstatusObjeto.getValue()) == CommandConstants.ESTATUS_OBJETO_ACTIVO_CLIENTES || 
 							contratacionBO.readCommandValidaContratacion(contratacionVO)){
@@ -257,9 +535,9 @@ public class ClientesController extends ControllerSupport implements IController
 						clienteDTO.setClienteVO(clienteVO);
 						clientesVOs = clienteBO.readCommand(clienteDTO).getClienteVOs();
 						
-						Messagebox.show("!La Actualización del Cliente fue exitoso!",
-								"Información", Messagebox.OK,
-								Messagebox.INFORMATION);
+						org.zkoss.zul.Messagebox.show("!La Actualización del Cliente fue exitoso!",
+								"Información", org.zkoss.zul.Messagebox.OK,
+								org.zkoss.zul.Messagebox.INFORMATION);
 					} else {
 						clean();
 	//					ClienteVO clienteVO = new ClienteVO();
@@ -270,9 +548,9 @@ public class ClientesController extends ControllerSupport implements IController
 	//					clienteVO.toString();
 	//					clienteDTO.setClienteVO(clienteVO);
 	//					clientesVOs = clienteBO.readCommand(clienteDTO).getClienteVOs();
-						Messagebox.show("!No se puede dar de Baja, ya que esta siendo Usado por la Contratación!",
-								"Información", Messagebox.OK,
-								Messagebox.EXCLAMATION);
+						org.zkoss.zul.Messagebox.show("!No se puede dar de Baja, ya que esta siendo Usado por la Contratación!",
+								"Información", org.zkoss.zul.Messagebox.OK,
+								org.zkoss.zul.Messagebox.EXCLAMATION);
 					}
 				}
 			}
@@ -280,118 +558,19 @@ public class ClientesController extends ControllerSupport implements IController
 		btnGuardar = true;
 		flagEstatus = true;
 	}
-
-	@Override
-	@Command
-	public void delete() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	@Command
-	public void clean() {
-		idIdentificador.clearErrorMessage();
-		nombreCliente.clearErrorMessage();
-		nombreCortoCliente.clearErrorMessage();
-		idCliente.clearErrorMessage();
-
-		idIdentificador.setValue(null);
-		nombreCliente.setValue(null);
-		nombreCortoCliente.setValue(null);
-		idCliente.setValue(null);
-		defaultValues();
-	}
 	
-	@Command
-	@NotifyChange({"btnGuardar","flagEstatus"})
-	public void readSelected(@BindingParam("idCliente") final ClienteVO clienteVO){
-		clientesVO = clienteVO;
-		clienteVO.toString();
-		idIdentificador.setValue(clienteVO.getIdIdentificador());
-		nombreCliente.setValue(clienteVO.getNombreCliente());
-		nombreCortoCliente.setValue(clienteVO.getNombreCortoCliente());
-		statusObjeto.setValue(clienteVO.getNombreEstatusObjeto());
-		idCliente.setValue(Integer.toString(clienteVO.getIdCliente()));
-		idEstatusObjeto.setValue(Integer.toString(clienteVO.getIdEstatusObjeto()));
-		btnGuardar = false;
-		flagEstatus = false;
-		
-		fechaAlta.setValue(clienteVO.getFechaAlta());
-		fechaModificacion.setValue(clienteVO.getFechaModificacion());
-	}
-	
-	@Command
-	public void onShowReport(@BindingParam("type") final String type) {
-		ReportesController controller = new ReportesController();
-		ArrayList<String> headersReport = new ArrayList<String>();
-		headersReport.add("Identificador");
-		headersReport.add("Nombre cliente");
-		headersReport.add("Descripción cliente");
-		headersReport.add("Fecha y Hora de alta");
-		headersReport.add("Fecha y Hora de modificación");
-		headersReport.add("Status");
-		if(type.equals("xls")) {
-			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_EXCEL,"Catálogo Clientes");
-		} else {
-			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_TEXTO,"Catálogo Clientes");
-		}
-		controller.createReport(generaLista(), headersReport, type, "CLIENTES");
-	}	
-	
-	private ArrayList<BeanGenerico> generaLista() {
-		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-		ArrayList<BeanGenerico> beanGenericos = new ArrayList<BeanGenerico>();
-		BeanGenerico beanGenerico = null;
-		for(ClienteVO clienteVO: clientesVOs) {
-			beanGenerico = new BeanGenerico();
-			beanGenerico.setValor1(clienteVO.getIdIdentificador());
-			beanGenerico.setValor2(clienteVO.getNombreCliente());
-			beanGenerico.setValor3(clienteVO.getNombreCortoCliente());
-			beanGenerico.setValor4(dateFormat.format(clienteVO.getFechaAlta()));
-			if(clienteVO.getFechaModificacion()!=null)
-				beanGenerico.setValor5(dateFormat.format(clienteVO.getFechaModificacion()));
-			beanGenerico.setValor6(clienteVO.getNombreEstatusObjeto());
-			beanGenericos.add(beanGenerico);
-		}
-		return beanGenericos;
-	}
-	
-	@AfterCompose
-    public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
-        Selectors.wireComponents(view, this, false);   
-        executePermissionSet = this.applyPermision();
-        defaultValues();
-    }
-	private void defaultValues() {
-		statusObjeto.setValue(CommandConstants.NB_CLIENTE_ACTIVO);
-        idEstatusObjeto.setValue(String.valueOf(CommandConstants.ID_CLIENTE_ACTIVO));
-        fechaAlta.setValue(new Date());
-		fechaModificacion.setValue(new Date());
-	}
-
 	/**
-	 * @return the clienteDTO
-	 */
-	public ClienteDTO getClienteDTO() {
-		return clienteDTO;
-	}
-
-	/**
+	 * Sets the cliente dto.
+	 *
 	 * @param clienteDTO the clienteDTO to set
 	 */
 	public void setClienteDTO(ClienteDTO clienteDTO) {
 		this.clienteDTO = clienteDTO;
 	}
-
+	
 	/**
-	 * @return the clientesVOs
-	 */
-	public List<ClienteVO> getClientesVOs() {
-		return clientesVOs;
-	}
-
-	/**
+	 * Sets the clientes v os.
+	 *
 	 * @param clientesVOs the clientesVOs to set
 	 */
 	public void setClientesVOs(List<ClienteVO> clientesVOs) {
@@ -399,51 +578,17 @@ public class ClientesController extends ControllerSupport implements IController
 	}
 
 	/**
-	 * @return the executePermissionSet
-	 */
-	public boolean isExecutePermissionSet() {
-		return executePermissionSet;
-	}
-	/**
+	 * Sets the execute permission set.
+	 *
 	 * @param executePermissionSet the executePermissionSet to set
 	 */
 	public void setExecutePermissionSet(boolean executePermissionSet) {
 		this.executePermissionSet = executePermissionSet;
 	}
-	@Override
-	public boolean applyPermision() {
-		boolean isApplied = false;
-		HashMap<String, Component> componentes = new HashMap<String, Component>();
-		componentes.put(lblIdentificador.getId(), lblIdentificador);
-		componentes.put(lblNombreCliente.getId(), lblNombreCliente);
-		componentes.put(lblFechaAlta.getId(), lblFechaAlta);
-		componentes.put(lblDescripcionCliente.getId(), lblDescripcionCliente);
-		componentes.put(lblFechaModificacion.getId(), lblFechaModificacion);
-		componentes.put(lblEstatus.getId(), lblEstatus);
-		componentes.put(idIdentificador.getId(), idIdentificador);
-		componentes.put(nombreCliente.getId(), nombreCliente);
-		componentes.put(nombreCortoCliente.getId(), nombreCortoCliente);
-		componentes.put(fechaAlta.getId(), fechaAlta);
-		componentes.put(fechaModificacion.getId(), fechaModificacion);
-		componentes.put(statusObjeto.getId(), statusObjeto);
-		componentes.put(reporteExcelBtn.getId(), reporteExcelBtn);
-		componentes.put(reporteCsvBtn.getId(), reporteCsvBtn);
-		componentes.put(limpiarBtn.getId(), limpiarBtn);
-		componentes.put(guardarBtn.getId(), guardarBtn);
-		componentes.put(consultarBtn.getId(), consultarBtn);
-		componentes.put(clientesGrid.getId(), clientesGrid);
-		super.applyPermission(MapeadorConstants.CLIENTES, componentes);
-		return isApplied;
-	}
 
 	/**
-	 * @return the statusObjeto
-	 */
-	public Combobox getStatusObjeto() {		
-		return statusObjeto;
-	}
-
-	/**
+	 * Sets the status objeto.
+	 *
 	 * @param statusObjeto the statusObjeto to set
 	 */
 	public void setStatusObjeto(Combobox statusObjeto) {

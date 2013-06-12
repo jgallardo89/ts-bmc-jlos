@@ -1,3 +1,32 @@
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * Informacion Confidencial:
+ * Este software contiene informacion totalmente confidencial propiedad de Grupo Financiero BBVA Bancomer. 
+ * Queda totalmente prohibido su uso o divulgacion en forma parcial o total y solamente podra ser utilizada de acuerdo a los terminos y estatutos 
+ * que determine el Grupo Financiero BBVA Bancomer.
+ * 
+ * Todos los derechos reservados, Mexico 2013.
+ * 
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * DESCRIPCION DEL PROGRAMA
+ * Nombre de aplicación: MAPEADOR
+ * Nombre de proyecto: BbvaMapeadorWeb
+ * 
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ *
+ * HISTORIAL DE CAMBIOS:
+ * 
+ * Fecha:									         	
+ * 30-ABR-2013  
+ * @Author:	Jose Luis Ortiz Salazar
+ * @Email: jortizsalazar@gmail.com    	
+ * Razon: Creacion        
+ * Version: 1.0.0
+ * Nombre de clase: MensajesSistemaController.java
+ * Nombre de paquete: mx.com.bbva.mapeador.ui.commons.viewmodel.mensajessistema
+ *              
+ *           
+ *              
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package mx.com.bbva.mapeador.ui.commons.viewmodel.mensajessistema;
 
 import java.lang.reflect.Field;
@@ -33,7 +62,6 @@ import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.NotifyChange;
-import org.zkoss.zhtml.Messagebox;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
@@ -45,64 +73,314 @@ import org.zkoss.zul.Image;
 import org.zkoss.zul.Label;
 import org.zkoss.zul.Textbox;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class MensajesSistemaController.
+ */
 public class MensajesSistemaController extends ControllerSupport implements IController {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 4649691032075701267L;
-	@Wire
-	private Label lblAsuntoMensaje;
-	@Wire
-	private Textbox descripcionAsuntoSalida;
-	@Wire
-	private Textbox idMensajeSalida;
-	@Wire
-	private Textbox nombreMensajeSalida;
-	@Wire
-	private Textbox descripcionMensajeSalida;
-	@Wire
-	private Textbox idEstatusObjeto;
-	@Wire
-	private Combobox statusObjeto;
 	
-	@Wire
-	private Label lblIdentificadorMensaje;
-	@Wire
-	private Label lblEstatus;
-	@Wire
-	private Label lblTextoMensaje;
-	@Wire
-	private Label lblFechaAlta;
-	@Wire
-	private Label lblFechaModificacion;
-	@Wire
-	private Datebox fechaAlta;
-	@Wire
-	private Datebox fechaModificacion;
-	@Wire
-	private Image reporteExcelBtn;
-	@Wire
-	private Image reporteCsvBtn;
-	@Wire
-	private Button limpiarBtn;
-	@Wire
-	private Button guardarBtn;
+	/** The consultar btn. */
 	@Wire
 	private Button consultarBtn;
+	
+	/** The descripcion asunto salida. */
+	@Wire
+	private Textbox descripcionAsuntoSalida;
+	
+	/** The descripcion mensaje salida. */
+	@Wire
+	private Textbox descripcionMensajeSalida;
+	
+	/** The execute permission set. */
+	private boolean executePermissionSet;
+	
+	/** The fecha alta. */
+	@Wire
+	private Datebox fechaAlta;
+	
+	/** The fecha modificacion. */
+	@Wire
+	private Datebox fechaModificacion;
+	
+	/** The flag mensaje. */
+	private boolean flagMensaje;
+	
+	/** The guardar btn. */
+	@Wire
+	private Button guardarBtn;
+	
+	/** The id estatus objeto. */
+	@Wire
+	private Textbox idEstatusObjeto;
+	
+	/** The id mensaje salida. */
+	@Wire
+	private Textbox idMensajeSalida;
+	
+	/** The id str estatus objeto. */
+	private String idStrEstatusObjeto;
+	
+	/** The lbl asunto mensaje. */
+	@Wire
+	private Label lblAsuntoMensaje;
+	
+	/** The lbl estatus. */
+	@Wire
+	private Label lblEstatus;
+	
+	/** The lbl fecha alta. */
+	@Wire
+	private Label lblFechaAlta;
+	
+	/** The lbl fecha modificacion. */
+	@Wire
+	private Label lblFechaModificacion;
+	
+	/** The lbl identificador mensaje. */
+	@Wire
+	private Label lblIdentificadorMensaje;
+	
+	/** The lbl texto mensaje. */
+	@Wire
+	private Label lblTextoMensaje;
+	
+	/** The limpiar btn. */
+	@Wire
+	private Button limpiarBtn;
+	
+	/** The mensaje salida dto. */
+	private MensajeSalidaDTO mensajeSalidaDTO;
+	
+	/** The mensaje salida vo. */
+	private MensajeSalidaVO mensajeSalidaVO;
+	
+	/** The mensaje salida v os. */
+	private List<MensajeSalidaVO> mensajeSalidaVOs;
+	
+	/** The mensajes grid. */
 	@Wire
 	private Grid mensajesGrid;
 	
-	private boolean flagMensaje;
-	private boolean executePermissionSet;
-	private MensajeSalidaDTO mensajeSalidaDTO;
-	private List<MensajeSalidaVO> mensajeSalidaVOs;
-	private MensajeSalidaVO mensajeSalidaVO;
-	private String idStrEstatusObjeto;
+	/** The nombre mensaje salida. */
+	@Wire
+	private Textbox nombreMensajeSalida;
 	
+	/** The reporte csv btn. */
+	@Wire
+	private Image reporteCsvBtn;
+	
+	/** The reporte excel btn. */
+	@Wire
+	private Image reporteExcelBtn;
+	
+	/** The status objeto. */
+	@Wire
+	private Combobox statusObjeto;
+	
+	/**
+	 * Instantiates a new mensajes sistema controller.
+	 */
 	public MensajesSistemaController() {
 		this.read();
 		this.mensajeSalidaVOs = mensajeSalidaDTO.getMensajeSalidaVOs();
 		flagMensaje = false;
 	}
 	
+	/**
+	 * After compose.
+	 *
+	 * @param view the view
+	 */
+	@AfterCompose
+    public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
+        Selectors.wireComponents(view, this, false);   
+        executePermissionSet = this.applyPermision();
+        statusObjeto.setValue(CommandConstants.NB_MENSAJE_ACTIVO);
+        idStrEstatusObjeto = String.valueOf(CommandConstants.ID_MENSAJE_ACTIVO);
+        
+    }
+	
+	/* (non-Javadoc)
+	 * @see mx.com.bbva.mapeador.ui.commons.controller.IController#applyPermision()
+	 */
+	@Override
+	public boolean applyPermision() {
+		boolean isApplied = false;
+		HashMap<String, Component> componentes = new HashMap<String, Component>();
+		componentes.put(lblIdentificadorMensaje.getId(), lblIdentificadorMensaje);
+		componentes.put(lblEstatus.getId(), lblEstatus);
+		componentes.put(lblTextoMensaje.getId(), lblTextoMensaje);
+		componentes.put(lblFechaAlta.getId(), lblFechaAlta);
+		componentes.put(lblFechaModificacion.getId(), lblFechaModificacion);
+		componentes.put(nombreMensajeSalida.getId(), nombreMensajeSalida);
+		componentes.put(descripcionMensajeSalida.getId(), descripcionMensajeSalida);
+		componentes.put(statusObjeto.getId(), statusObjeto);
+		componentes.put(fechaAlta.getId(), fechaAlta);
+		componentes.put(fechaModificacion.getId(), fechaModificacion);
+		componentes.put(reporteExcelBtn.getId(), reporteExcelBtn);
+		componentes.put(reporteCsvBtn.getId(), reporteCsvBtn);
+		componentes.put(limpiarBtn.getId(), limpiarBtn);
+		componentes.put(guardarBtn.getId(), guardarBtn);
+		componentes.put(consultarBtn.getId(), consultarBtn);
+		componentes.put(mensajesGrid.getId(), mensajesGrid);
+		componentes.put(lblAsuntoMensaje.getId(), lblAsuntoMensaje);
+		componentes.put(descripcionAsuntoSalida.getId(), descripcionAsuntoSalida);
+		
+		super.applyPermission(MapeadorConstants.MENSAJES_SISTEMA, componentes);
+		return isApplied;
+	}
+	
+	/* (non-Javadoc)
+	 * @see mx.com.bbva.mapeador.ui.commons.controller.IController#clean()
+	 */
+	@Override
+	@Command
+	@NotifyChange({"idStrEstatusObjeto","statusObjeto"})
+	public void clean() {
+		nombreMensajeSalida.clearErrorMessage();
+		descripcionMensajeSalida.clearErrorMessage();
+		idEstatusObjeto.clearErrorMessage();
+		statusObjeto.clearErrorMessage();
+		idMensajeSalida.clearErrorMessage();
+		descripcionAsuntoSalida.clearErrorMessage();
+		
+		nombreMensajeSalida.setValue(null);
+		nombreMensajeSalida.setReadonly(false);
+		nombreMensajeSalida.setDisabled(false);
+		descripcionMensajeSalida.setValue(null);
+		statusObjeto.setValue(CommandConstants.NB_MENSAJE_ACTIVO);
+        idStrEstatusObjeto = String.valueOf(CommandConstants.ID_MENSAJE_ACTIVO);
+        fechaAlta.setValue(new Date());
+		fechaModificacion.setValue(new Date());
+		idMensajeSalida.setValue(null);
+		descripcionAsuntoSalida.setValue(null);
+	}
+
+	/* (non-Javadoc)
+	 * @see mx.com.bbva.mapeador.ui.commons.controller.IController#delete()
+	 */
+	@Override
+	public void delete() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	/**
+	 * Genera lista.
+	 *
+	 * @return the array list
+	 */
+	private ArrayList<BeanGenerico> generaLista() {
+		ArrayList<BeanGenerico> beanGenericos = new ArrayList<BeanGenerico>();
+		BeanGenerico beanGenerico = null;
+		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+		for(MensajeSalidaVO mensajeSalidaVO: mensajeSalidaVOs) {
+			beanGenerico = new BeanGenerico();
+			beanGenerico.setValor1(mensajeSalidaVO.getNombreMensajeSalida());
+			beanGenerico.setValor2(mensajeSalidaVO.getDescripcionAsuntoSalida());
+			beanGenerico.setValor3(mensajeSalidaVO.getDescripcionMensajeSalida());
+			if (mensajeSalidaVO.getFechaAlta() != null)
+				beanGenerico.setValor4(dateFormat.format(mensajeSalidaVO.getFechaAlta()));				
+			if (mensajeSalidaVO.getFechaModificacion() != null)
+				beanGenerico.setValor5(dateFormat.format(mensajeSalidaVO.getFechaModificacion()));
+			beanGenerico.setValor6(mensajeSalidaVO.getNombreEstatusObjeto());
+			beanGenericos.add(beanGenerico);
+		}
+		return beanGenericos;
+	}
+
+	/**
+	 * Gets the id estatus objeto.
+	 *
+	 * @return the idEstatusObjeto
+	 */
+	public Textbox getIdEstatusObjeto() {
+		return idEstatusObjeto;
+	}
+
+	/**
+	 * Gets the id str estatus objeto.
+	 *
+	 * @return the idStrEstatusObjeto
+	 */
+	public String getIdStrEstatusObjeto() {
+		return idStrEstatusObjeto;
+	}
+	
+	/**
+	 * Gets the mensaje salida dto.
+	 *
+	 * @return the mensajeSalidaDTO
+	 */
+	public MensajeSalidaDTO getMensajeSalidaDTO() {
+		return mensajeSalidaDTO;
+	}
+	
+	/**
+	 * Gets the mensaje salida vo.
+	 *
+	 * @return the mensajeSalidaVO
+	 */
+	public MensajeSalidaVO getMensajeSalidaVO() {
+		return mensajeSalidaVO;
+	}
+
+	/**
+	 * Gets the mensaje salida v os.
+	 *
+	 * @return the mensajeSalidaVOs
+	 */
+	public List<MensajeSalidaVO> getMensajeSalidaVOs() {
+		return mensajeSalidaVOs;
+	}	
+	
+	/**
+	 * Checks if is execute permission set.
+	 *
+	 * @return the executePermissionSet
+	 */
+	public boolean isExecutePermissionSet() {
+		return executePermissionSet;
+	}
+	
+	/**
+	 * Checks if is flag mensaje.
+	 *
+	 * @return the flagMensaje
+	 */
+	public boolean isFlagMensaje() {
+		return flagMensaje;
+	}
+
+	/**
+	 * On show report.
+	 *
+	 * @param type the type
+	 */
+	@Command
+	public void onShowReport(@BindingParam("type") final String type) {
+		ReportesController controller = new ReportesController();
+		ArrayList<String> headersReport = new ArrayList<String>();
+		headersReport.add("Identificador del Mensaje");
+		headersReport.add("Asunto de mensaje");
+		headersReport.add("Texto de mensaje");
+		headersReport.add("Fecha alta");
+		headersReport.add("Fecha modificación");
+		headersReport.add("Status");
+		if(type.equals("xls")) {
+			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_EXCEL,"Mensajes de Notificación Sistema");
+		} else {
+			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_TEXTO,"Mensajes de Notificación Sistema");
+		}
+		controller.createReport(generaLista(), headersReport, type, "MENSAJES-SISTEMA");
+	}
+
+	/* (non-Javadoc)
+	 * @see mx.com.bbva.mapeador.ui.commons.controller.IController#read()
+	 */
 	@Override
 	public Object read() {
 		mensajeSalidaDTO = new MensajeSalidaDTO();
@@ -122,7 +400,40 @@ public class MensajesSistemaController extends ControllerSupport implements ICon
 		MensajeSalidaBO.readCommand(mensajeSalidaDTO);
 		return mensajeSalidaDTO;
 	}
+
+	/* (non-Javadoc)
+	 * @see mx.com.bbva.mapeador.ui.commons.controller.IController#read(java.lang.Object)
+	 */
+	@Override
+	public Object read(Object t) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	/**
+	 * Read selected.
+	 *
+	 * @param mensajeSalidaVO the mensaje salida vo
+	 */
+	@Command
+	@NotifyChange({"flagMensaje"})
+	public void readSelected(@BindingParam("idMensajeSalida") final MensajeSalidaVO mensajeSalidaVO){
+		this.mensajeSalidaVO = mensajeSalidaVO;
+		mensajeSalidaVO.toString();
+		nombreMensajeSalida.setValue(mensajeSalidaVO.getNombreMensajeSalida());
+		descripcionMensajeSalida.setValue(mensajeSalidaVO.getDescripcionMensajeSalida());
+		statusObjeto.setValue(mensajeSalidaVO.getNombreEstatusObjeto());
+		idMensajeSalida.setValue(Integer.toString(mensajeSalidaVO.getIdMensajeSalida()));
+		idEstatusObjeto.setValue(Integer.toString(mensajeSalidaVO.getIdEstatusObjeto()));
+		fechaAlta.setValue(mensajeSalidaVO.getFechaAlta());
+		fechaModificacion.setValue(mensajeSalidaVO.getFechaModificacion());
+		descripcionAsuntoSalida.setValue(mensajeSalidaVO.getDescripcionAsuntoSalida());
+		flagMensaje = true;
+	}
 	
+	/**
+	 * Read with filters.
+	 */
 	@Command
 	@NotifyChange({ "mensajeSalidaVOs" })
 	public void readWithFilters() {
@@ -142,6 +453,12 @@ public class MensajesSistemaController extends ControllerSupport implements ICon
 		registraBitacora(mensajeSalidaVO, 2);
 	}
 	
+	/**
+	 * Registra bitacora.
+	 *
+	 * @param mensajeSalidaVO the mensaje salida vo
+	 * @param evento the evento
+	 */
 	private void registraBitacora(MensajeSalidaVO mensajeSalidaVO, int evento) {
 		List<CampoDTO> campoDTOs = new ArrayList<CampoDTO>(); 
 		BitacoraDTO dto = new BitacoraDTO();
@@ -153,14 +470,11 @@ public class MensajesSistemaController extends ControllerSupport implements ICon
 		}		
 		dto.setCampoDTOs(campoDTOs);
 		registraEvento(dto, "Catálogo de Mensajes de Notificación", evento);
-	}
+	}	
 
-	@Override
-	public Object read(Object t) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	/* (non-Javadoc)
+	 * @see mx.com.bbva.mapeador.ui.commons.controller.IController#save()
+	 */
 	@Override
 	@Command
 	@NotifyChange({ "mensajeSalidaVOs","flagMensaje"})
@@ -206,9 +520,9 @@ public class MensajesSistemaController extends ControllerSupport implements ICon
 					mensajeSalidaVO.setTipoNotificacion(CommandConstants.TIPO_NOTIFICACION_SISTEMA);
 					mensajeSalidaDTO.setMensajeSalidaVO(mensajeSalidaVO);
 					mensajeSalidaVOs = mensajeSalidaBO.readCommand(mensajeSalidaDTO).getMensajeSalidaVOs();
-					Messagebox.show("!El Registro del Mensaje fue exitoso!",
-							"Información", Messagebox.OK,
-							Messagebox.INFORMATION);
+					org.zkoss.zul.Messagebox.show("!El Registro del Mensaje fue exitoso!",
+							"Información", org.zkoss.zul.Messagebox.OK,
+							org.zkoss.zul.Messagebox.INFORMATION);
 				} else {
 					clean();
 					mensajeSalidaVO.setNombreMensajeSalida(StringUtil.validaLike(nombreMensajeSalida.getValue()));
@@ -218,9 +532,9 @@ public class MensajesSistemaController extends ControllerSupport implements ICon
 					mensajeSalidaVO.setTipoNotificacion(CommandConstants.TIPO_NOTIFICACION_SISTEMA);
 					mensajeSalidaDTO.setMensajeSalidaVO(mensajeSalidaVO);
 					mensajeSalidaVOs = mensajeSalidaBO.readCommand(mensajeSalidaDTO).getMensajeSalidaVOs();
-					Messagebox.show("!No se puede registrar más de un Mensaje con el mismo Nombre!",
-							"Información", Messagebox.OK,
-							Messagebox.EXCLAMATION);
+					org.zkoss.zul.Messagebox.show("!No se puede registrar más de un Mensaje con el mismo Nombre!",
+							"Información", org.zkoss.zul.Messagebox.OK,
+							org.zkoss.zul.Messagebox.EXCLAMATION);
 				}
 			} else {
 				ContratacionMapeadorBO mapeadorBO = new ContratacionMapeadorBO();
@@ -247,189 +561,36 @@ public class MensajesSistemaController extends ControllerSupport implements ICon
 					mensajeSalidaVO.toString();
 					mensajeSalidaDTO.setMensajeSalidaVO(mensajeSalidaVO);
 					mensajeSalidaVOs = mensajeSalidaBO.readCommand(mensajeSalidaDTO).getMensajeSalidaVOs();
-					Messagebox.show("!La Actualización del Mensaje fue exitoso!",
-							"Información", Messagebox.OK,
-							Messagebox.INFORMATION);
+					org.zkoss.zul.Messagebox.show("!La Actualización del Mensaje fue exitoso!",
+							"Información", org.zkoss.zul.Messagebox.OK,
+							org.zkoss.zul.Messagebox.INFORMATION);
 				} else {
 					mensajeSalidaVO = new MensajeSalidaVO();
 					clean();
 					mensajeSalidaVO.toString();
 					mensajeSalidaDTO.setMensajeSalidaVO(mensajeSalidaVO);
 					mensajeSalidaVOs = mensajeSalidaBO.readCommand(mensajeSalidaDTO).getMensajeSalidaVOs();
-					Messagebox.show("!No se puede dar de Baja o Inactivar, ya que esta siendo Usado por la Contratación Mapeador!",
-							"Información", Messagebox.OK,
-							Messagebox.EXCLAMATION);
+					org.zkoss.zul.Messagebox.show("!No se puede dar de Baja o Inactivar, ya que esta siendo Usado por la Contratación Mapeador!",
+							"Información", org.zkoss.zul.Messagebox.OK,
+							org.zkoss.zul.Messagebox.EXCLAMATION);
 				}
 			}
 		}
 		flagMensaje = false;
 	}
 
-	@Override
-	public void delete() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	@Command
-	@NotifyChange({"idStrEstatusObjeto","statusObjeto"})
-	public void clean() {
-		nombreMensajeSalida.clearErrorMessage();
-		descripcionMensajeSalida.clearErrorMessage();
-		idEstatusObjeto.clearErrorMessage();
-		statusObjeto.clearErrorMessage();
-		idMensajeSalida.clearErrorMessage();
-		descripcionAsuntoSalida.clearErrorMessage();
-		
-		nombreMensajeSalida.setValue(null);
-		nombreMensajeSalida.setReadonly(false);
-		nombreMensajeSalida.setDisabled(false);
-		descripcionMensajeSalida.setValue(null);
-		statusObjeto.setValue(CommandConstants.NB_MENSAJE_ACTIVO);
-        idStrEstatusObjeto = String.valueOf(CommandConstants.ID_MENSAJE_ACTIVO);
-        fechaAlta.setValue(new Date());
-		fechaModificacion.setValue(new Date());
-		idMensajeSalida.setValue(null);
-		descripcionAsuntoSalida.setValue(null);
-	}
-	
-	@Command
-	@NotifyChange({"flagMensaje"})
-	public void readSelected(@BindingParam("idMensajeSalida") final MensajeSalidaVO mensajeSalidaVO){
-		this.mensajeSalidaVO = mensajeSalidaVO;
-		mensajeSalidaVO.toString();
-		nombreMensajeSalida.setValue(mensajeSalidaVO.getNombreMensajeSalida());
-		descripcionMensajeSalida.setValue(mensajeSalidaVO.getDescripcionMensajeSalida());
-		statusObjeto.setValue(mensajeSalidaVO.getNombreEstatusObjeto());
-		idMensajeSalida.setValue(Integer.toString(mensajeSalidaVO.getIdMensajeSalida()));
-		idEstatusObjeto.setValue(Integer.toString(mensajeSalidaVO.getIdEstatusObjeto()));
-		fechaAlta.setValue(mensajeSalidaVO.getFechaAlta());
-		fechaModificacion.setValue(mensajeSalidaVO.getFechaModificacion());
-		descripcionAsuntoSalida.setValue(mensajeSalidaVO.getDescripcionAsuntoSalida());
-		flagMensaje = true;
-	}
-	
-	@AfterCompose
-    public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
-        Selectors.wireComponents(view, this, false);   
-        executePermissionSet = this.applyPermision();
-        statusObjeto.setValue(CommandConstants.NB_MENSAJE_ACTIVO);
-        idStrEstatusObjeto = String.valueOf(CommandConstants.ID_MENSAJE_ACTIVO);
-        
-    }
-
-	@Command
-	public void onShowReport(@BindingParam("type") final String type) {
-		ReportesController controller = new ReportesController();
-		ArrayList<String> headersReport = new ArrayList<String>();
-		headersReport.add("Identificador del Mensaje");
-		headersReport.add("Asunto de mensaje");
-		headersReport.add("Texto de mensaje");
-		headersReport.add("Fecha alta");
-		headersReport.add("Fecha modificación");
-		headersReport.add("Status");
-		if(type.equals("xls")) {
-			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_EXCEL,"Mensajes de Notificación Sistema");
-		} else {
-			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_TEXTO,"Mensajes de Notificación Sistema");
-		}
-		controller.createReport(generaLista(), headersReport, type, "MENSAJES-SISTEMA");
-	}	
-	
-	private ArrayList<BeanGenerico> generaLista() {
-		ArrayList<BeanGenerico> beanGenericos = new ArrayList<BeanGenerico>();
-		BeanGenerico beanGenerico = null;
-		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
-		for(MensajeSalidaVO mensajeSalidaVO: mensajeSalidaVOs) {
-			beanGenerico = new BeanGenerico();
-			beanGenerico.setValor1(mensajeSalidaVO.getNombreMensajeSalida());
-			beanGenerico.setValor2(mensajeSalidaVO.getDescripcionAsuntoSalida());
-			beanGenerico.setValor3(mensajeSalidaVO.getDescripcionMensajeSalida());
-			if (mensajeSalidaVO.getFechaAlta() != null)
-				beanGenerico.setValor4(dateFormat.format(mensajeSalidaVO.getFechaAlta()));				
-			if (mensajeSalidaVO.getFechaModificacion() != null)
-				beanGenerico.setValor5(dateFormat.format(mensajeSalidaVO.getFechaModificacion()));
-			beanGenerico.setValor6(mensajeSalidaVO.getNombreEstatusObjeto());
-			beanGenericos.add(beanGenerico);
-		}
-		return beanGenericos;
-	}
 	/**
-	 * @return the mensajeSalidaDTO
-	 */
-	public MensajeSalidaDTO getMensajeSalidaDTO() {
-		return mensajeSalidaDTO;
-	}
-
-	/**
-	 * @param mensajeSalidaDTO the mensajeSalidaDTO to set
-	 */
-	public void setMensajeSalidaDTO(MensajeSalidaDTO mensajeSalidaDTO) {
-		this.mensajeSalidaDTO = mensajeSalidaDTO;
-	}
-
-	/**
-	 * @return the mensajeSalidaVOs
-	 */
-	public List<MensajeSalidaVO> getMensajeSalidaVOs() {
-		return mensajeSalidaVOs;
-	}
-
-	/**
-	 * @param mensajeSalidaVOs the mensajeSalidaVOs to set
-	 */
-	public void setMensajeSalidaVOs(List<MensajeSalidaVO> mensajeSalidaVOs) {
-		this.mensajeSalidaVOs = mensajeSalidaVOs;
-	}
-
-	/**
-	 * @return the executePermissionSet
-	 */
-	public boolean isExecutePermissionSet() {
-		return executePermissionSet;
-	}
-	/**
+	 * Sets the execute permission set.
+	 *
 	 * @param executePermissionSet the executePermissionSet to set
 	 */
 	public void setExecutePermissionSet(boolean executePermissionSet) {
 		this.executePermissionSet = executePermissionSet;
 	}
-	@Override
-	public boolean applyPermision() {
-		boolean isApplied = false;
-		HashMap<String, Component> componentes = new HashMap<String, Component>();
-		componentes.put(lblIdentificadorMensaje.getId(), lblIdentificadorMensaje);
-		componentes.put(lblEstatus.getId(), lblEstatus);
-		componentes.put(lblTextoMensaje.getId(), lblTextoMensaje);
-		componentes.put(lblFechaAlta.getId(), lblFechaAlta);
-		componentes.put(lblFechaModificacion.getId(), lblFechaModificacion);
-		componentes.put(nombreMensajeSalida.getId(), nombreMensajeSalida);
-		componentes.put(descripcionMensajeSalida.getId(), descripcionMensajeSalida);
-		componentes.put(statusObjeto.getId(), statusObjeto);
-		componentes.put(fechaAlta.getId(), fechaAlta);
-		componentes.put(fechaModificacion.getId(), fechaModificacion);
-		componentes.put(reporteExcelBtn.getId(), reporteExcelBtn);
-		componentes.put(reporteCsvBtn.getId(), reporteCsvBtn);
-		componentes.put(limpiarBtn.getId(), limpiarBtn);
-		componentes.put(guardarBtn.getId(), guardarBtn);
-		componentes.put(consultarBtn.getId(), consultarBtn);
-		componentes.put(mensajesGrid.getId(), mensajesGrid);
-		componentes.put(lblAsuntoMensaje.getId(), lblAsuntoMensaje);
-		componentes.put(descripcionAsuntoSalida.getId(), descripcionAsuntoSalida);
-		
-		super.applyPermission(MapeadorConstants.MENSAJES_SISTEMA, componentes);
-		return isApplied;
-	}	
 
 	/**
-	 * @return the flagMensaje
-	 */
-	public boolean isFlagMensaje() {
-		return flagMensaje;
-	}
-
-	/**
+	 * Sets the flag mensaje.
+	 *
 	 * @param flagMensaje the flagMensaje to set
 	 */
 	public void setFlagMensaje(boolean flagMensaje) {
@@ -437,27 +598,8 @@ public class MensajesSistemaController extends ControllerSupport implements ICon
 	}
 
 	/**
-	 * @return the mensajeSalidaVO
-	 */
-	public MensajeSalidaVO getMensajeSalidaVO() {
-		return mensajeSalidaVO;
-	}
-
-	/**
-	 * @param mensajeSalidaVO the mensajeSalidaVO to set
-	 */
-	public void setMensajeSalidaVO(MensajeSalidaVO mensajeSalidaVO) {
-		this.mensajeSalidaVO = mensajeSalidaVO;
-	}
-
-	/**
-	 * @return the idEstatusObjeto
-	 */
-	public Textbox getIdEstatusObjeto() {
-		return idEstatusObjeto;
-	}
-
-	/**
+	 * Sets the id estatus objeto.
+	 *
 	 * @param idEstatusObjeto the idEstatusObjeto to set
 	 */
 	public void setIdEstatusObjeto(Textbox idEstatusObjeto) {
@@ -465,17 +607,39 @@ public class MensajesSistemaController extends ControllerSupport implements ICon
 	}
 
 	/**
-	 * @return the idStrEstatusObjeto
-	 */
-	public String getIdStrEstatusObjeto() {
-		return idStrEstatusObjeto;
-	}
-
-	/**
+	 * Sets the id str estatus objeto.
+	 *
 	 * @param idStrEstatusObjeto the idStrEstatusObjeto to set
 	 */
 	public void setIdStrEstatusObjeto(String idStrEstatusObjeto) {
 		this.idStrEstatusObjeto = idStrEstatusObjeto;
+	}
+
+	/**
+	 * Sets the mensaje salida dto.
+	 *
+	 * @param mensajeSalidaDTO the mensajeSalidaDTO to set
+	 */
+	public void setMensajeSalidaDTO(MensajeSalidaDTO mensajeSalidaDTO) {
+		this.mensajeSalidaDTO = mensajeSalidaDTO;
+	}
+
+	/**
+	 * Sets the mensaje salida vo.
+	 *
+	 * @param mensajeSalidaVO the mensajeSalidaVO to set
+	 */
+	public void setMensajeSalidaVO(MensajeSalidaVO mensajeSalidaVO) {
+		this.mensajeSalidaVO = mensajeSalidaVO;
+	}
+
+	/**
+	 * Sets the mensaje salida v os.
+	 *
+	 * @param mensajeSalidaVOs the mensajeSalidaVOs to set
+	 */
+	public void setMensajeSalidaVOs(List<MensajeSalidaVO> mensajeSalidaVOs) {
+		this.mensajeSalidaVOs = mensajeSalidaVOs;
 	}
 
 }

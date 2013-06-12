@@ -1,3 +1,32 @@
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * Informacion Confidencial:
+ * Este software contiene informacion totalmente confidencial propiedad de Grupo Financiero BBVA Bancomer. 
+ * Queda totalmente prohibido su uso o divulgacion en forma parcial o total y solamente podra ser utilizada de acuerdo a los terminos y estatutos 
+ * que determine el Grupo Financiero BBVA Bancomer.
+ * 
+ * Todos los derechos reservados, Mexico 2013.
+ * 
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * DESCRIPCION DEL PROGRAMA
+ * Nombre de aplicación: MAPEADOR
+ * Nombre de proyecto: BbvaMapeadorWeb
+ * 
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ *
+ * HISTORIAL DE CAMBIOS:
+ * 
+ * Fecha:									         	
+ * 30-ABR-2013  
+ * @Author:	Jose Luis Ortiz Salazar
+ * @Email: jortizsalazar@gmail.com    	
+ * Razon: Creacion        
+ * Version: 1.0.0
+ * Nombre de clase: MapaGmmController.java
+ * Nombre de paquete: mx.com.bbva.mapeador.ui.commons.viewmodel.mapagmm
+ *              
+ *           
+ *              
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package mx.com.bbva.mapeador.ui.commons.viewmodel.mapagmm;
 
 import java.text.DateFormat;
@@ -16,7 +45,6 @@ import mx.com.bbva.bancomer.estatusobjeto.dto.EstatusObjetoDTO;
 import mx.com.bbva.bancomer.mapper.business.EstatusObjetoBO;
 import mx.com.bbva.bancomer.mapper.business.MapaGmmBO;
 import mx.com.bbva.bancomer.mappers.mapagmm.dto.MapaGmmDTO;
-import mx.com.bbva.mapeador.security.session.user.SessionUser;
 import mx.com.bbva.mapeador.ui.commons.controller.IController;
 import mx.com.bbva.mapeador.ui.commons.viewmodel.pantalla.PantallaController;
 import mx.com.bbva.mapeador.ui.commons.viewmodel.reportes.ReportesController;
@@ -29,7 +57,6 @@ import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.NotifyChange;
-import org.zkoss.zhtml.Messagebox;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
@@ -41,76 +68,422 @@ import org.zkoss.zul.Image;
 import org.zkoss.zul.Label;
 import org.zkoss.zul.Textbox;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class MapaGmmController.
+ */
 public class MapaGmmController  extends ControllerSupport implements  IController{
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -1420939655567271610L;
-	private static final Logger logger = Logger.getLogger(PantallaController.class);	
+	/** The Constant logger. */
+	private static final Logger logger = Logger.getLogger(PantallaController.class);
 	
-	@Wire
-	private Textbox identificadorMapa;
-	@Wire
-	private Datebox fechaAlta;
-	@Wire
-	private Datebox fechaModificacion;
-	@Wire
-	private Textbox descripcionMapa;
-	@Wire
-	private Combobox status;
-	@Wire
-	private Textbox idStatus;
-	@Wire
-	private Textbox idMapaGmm;	
+	/** The Constant serialVersionUID. */
+	private static final long serialVersionUID = -1420939655567271610L;	
 	
+	/** The btn guardar. */
+	private boolean btnGuardar = true;
 	
-	@Wire
-	private Label lblIdentificadorMapa;
-	@Wire
-	private Label lblFechaAlta;
-	@Wire
-	private Label lblDescricionMapa;
-	@Wire
-	private Label lblFechaModificacion;
-	@Wire
-	private Label lblEstatus;
-	@Wire
-	private Image reporteExcelBtn;
-	@Wire
-	private Image reporteCsvBtn;
-
-	@Wire
-	private Button limpiarBtn;
-	@Wire
-	private Button guardarBtn;
+	/** The consultar btn. */
 	@Wire
 	private Button consultarBtn;
+	
+	/** The descripcion mapa. */
+	@Wire
+	private Textbox descripcionMapa;
+	
+	/** The execute permission set. */
+	private boolean executePermissionSet;
+	
+	/** The fecha alta. */
+	@Wire
+	private Datebox fechaAlta;
+	
+	/** The fecha modificacion. */
+	@Wire
+	private Datebox fechaModificacion;
+	
+	/** The guardar btn. */
+	@Wire
+	private Button guardarBtn;	
+	
+	
+	/** The identificador mapa. */
+	@Wire
+	private Textbox identificadorMapa;
+	
+	/** The id mapa gmm. */
+	@Wire
+	private Textbox idMapaGmm;
+	
+	/** The id status. */
+	@Wire
+	private Textbox idStatus;
+	
+	/** The lbl descricion mapa. */
+	@Wire
+	private Label lblDescricionMapa;
+	
+	/** The lbl estatus. */
+	@Wire
+	private Label lblEstatus;
+	
+	/** The lbl fecha alta. */
+	@Wire
+	private Label lblFechaAlta;
+	
+	/** The lbl fecha modificacion. */
+	@Wire
+	private Label lblFechaModificacion;
 
+	/** The lbl identificador mapa. */
+	@Wire
+	private Label lblIdentificadorMapa;
+	
+	/** The limpiar btn. */
+	@Wire
+	private Button limpiarBtn;
+	
+	/** The mapa gmm dto. */
+	private MapaGmmDTO mapaGmmDTO =  (MapaGmmDTO) this.read();
+
+	/** The mapa gmms grid. */
 	@Wire
 	private Grid mapaGmmsGrid;
 	
-	private MapaGmmDTO mapaGmmDTO =  (MapaGmmDTO) this.read();
+	/** The mapa gmm vo. */
+	private MapaGmmVO mapaGmmVO;
 	
+	/** The mapa gmm v os. */
 	private List<MapaGmmVO> mapaGmmVOs = mapaGmmDTO.getMapaGmmVOs(); 
 	
-	private String strIdentificadorMapa;
+	/** The reporte csv btn. */
+	@Wire
+	private Image reporteCsvBtn;
 	
-	private String strFechaAlta;
+	/** The reporte excel btn. */
+	@Wire
+	private Image reporteExcelBtn;
 	
-	private String strFechaModificacion;
+	/** The status. */
+	@Wire
+	private Combobox status;
 	
+	/** The str descripcion mapa. */
 	private String strDescripcionMapa;
 	
-	private String strStatus;
+	/** The str fecha alta. */
+	private String strFechaAlta;
 	
+	/** The str fecha modificacion. */
+	private String strFechaModificacion;
+	
+	/** The str identificador mapa. */
+	private String strIdentificadorMapa;
+
+	/** The str id mapa gmm. */
+	private String strIdMapaGmm;
+	
+	/** The str id status. */
 	private String strIdStatus;
 	
-	private String strIdMapaGmm;
+	/** The str status. */
+	private String strStatus;
+	
+	/**
+	 * After compose.
+	 *
+	 * @param view the view
+	 */
+	@AfterCompose
+    public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
+        Selectors.wireComponents(view, this, false); 
+        executePermissionSet = this.applyPermision();
+    }
 
-	private MapaGmmVO mapaGmmVO;
-	private boolean executePermissionSet;
-	private boolean btnGuardar = true;
+	/* (non-Javadoc)
+	 * @see mx.com.bbva.mapeador.ui.commons.controller.IController#applyPermision()
+	 */
+	@Override
+	public boolean applyPermision() {
+		boolean isApplied = false;
+		HashMap<String, Component> componentes = new HashMap<String, Component>();
+		componentes.put(lblIdentificadorMapa.getId(), lblIdentificadorMapa);
+		componentes.put(lblFechaAlta.getId(), lblFechaAlta);
+		componentes.put(lblDescricionMapa.getId(), lblDescricionMapa);
+		componentes.put(lblFechaModificacion.getId(), lblFechaModificacion);
+		componentes.put(lblEstatus.getId(), lblEstatus);
+		componentes.put(identificadorMapa.getId(), identificadorMapa);
+		componentes.put(descripcionMapa.getId(), descripcionMapa);
+		componentes.put(status.getId(), status);
+		componentes.put(fechaAlta.getId(), fechaAlta);
+		componentes.put(fechaModificacion.getId(), fechaModificacion);
+		componentes.put(reporteExcelBtn.getId(), reporteExcelBtn);
+		componentes.put(reporteCsvBtn.getId(), reporteCsvBtn);
+		componentes.put(limpiarBtn.getId(), limpiarBtn);
+		componentes.put(guardarBtn.getId(), guardarBtn);
+		componentes.put(consultarBtn.getId(), consultarBtn);
+		componentes.put(mapaGmmsGrid.getId(), mapaGmmsGrid);
+		super.applyPermission(MapeadorConstants.MAPAS, componentes);
+		return isApplied;
+	}
+	
+	/* (non-Javadoc)
+	 * @see mx.com.bbva.mapeador.ui.commons.controller.IController#clean()
+	 */
+	@Override
+	@Command
+	@NotifyChange({"btnGuardar"})
+	public void clean() {
+		//Mensajes HTML
+		identificadorMapa.clearErrorMessage();
+		fechaAlta.clearErrorMessage();
+		fechaModificacion.clearErrorMessage();
+		descripcionMapa.clearErrorMessage();
+		status.clearErrorMessage();
+		
+		
+		//Mensajes Setear a Null
+		identificadorMapa.setValue(null); 
+		descripcionMapa.setValue(null);
+		status.setValue(null);
+		 
+		//Setear IDs Invisibles
+		idMapaGmm.setValue(null);
+		idStatus.setValue(null);
+		
+		identificadorMapa.setDisabled(false);
+		btnGuardar = true;
+		
+	}
+	
+	/* (non-Javadoc)
+	 * @see mx.com.bbva.mapeador.ui.commons.controller.IController#delete()
+	 */
+	@Override
+	public void delete() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	/**
+	 * Genera lista.
+	 *
+	 * @return the array list
+	 */
+	private ArrayList<BeanGenerico> generaLista() {
+		ArrayList<BeanGenerico> beanGenericos = new ArrayList<BeanGenerico>();
+		BeanGenerico beanGenerico = null;
+		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+		for(MapaGmmVO mapaGmmVO: mapaGmmVOs) {
+			beanGenerico = new BeanGenerico();
+			beanGenerico.setValor1(mapaGmmVO.getNombreMapaGmm());
+			beanGenerico.setValor2(mapaGmmVO.getDescripcionMapaGmm());
+			beanGenerico.setValor3(dateFormat.format(mapaGmmVO.getFechaAlta()));
+			beanGenerico.setValor4(dateFormat.format(mapaGmmVO.getFechaModificacion())); 
+			beanGenerico.setValor5(mapaGmmVO.getNombreEstatusObjeto());  
+			
+			beanGenericos.add(beanGenerico);
+		}
+		return beanGenericos;
+	}
+
+	/**
+	 * Gets the descripcion mapa.
+	 *
+	 * @return the descripcionMapa
+	 */
+	public Textbox getDescripcionMapa() {
+		return descripcionMapa;
+	}
+	
+	/**
+	 * Gets the fecha alta.
+	 *
+	 * @return the fechaAlta
+	 */
+	public Datebox getFechaAlta() {
+		return fechaAlta;
+	}
+	
+	/**
+	 * Gets the fecha modificacion.
+	 *
+	 * @return the fechaModificacion
+	 */
+	public Datebox getFechaModificacion() {
+		return fechaModificacion;
+	}
+	
+	/**
+	 * Gets the identificador mapa.
+	 *
+	 * @return the identificadorMapa
+	 */
+	public Textbox getIdentificadorMapa() {
+		return identificadorMapa;
+	}	
+	
+	/**
+	 * Gets the id mapa gmm.
+	 *
+	 * @return the idMapaGmm
+	 */
+	public Textbox getIdMapaGmm() {
+		return idMapaGmm;
+	}
+	
+	/**
+	 * Gets the id status.
+	 *
+	 * @return the idStatus
+	 */
+	public Textbox getIdStatus() {
+		return idStatus;
+	}
+
+	/**
+	 * Gets the mapa gmm dto.
+	 *
+	 * @return the mapaGmmDTO
+	 */
+	public MapaGmmDTO getMapaGmmDTO() {
+		return mapaGmmDTO;
+	}
+
+	
+
+	/**
+	 * Gets the mapa gmm vo.
+	 *
+	 * @return the mapaGmmVO
+	 */
+	public MapaGmmVO getMapaGmmVO() {
+		return mapaGmmVO;
+	}
+
+	/**
+	 * Gets the mapa gmm v os.
+	 *
+	 * @return the mapaGmmVOs
+	 */
+	public List<MapaGmmVO> getMapaGmmVOs() {
+		return mapaGmmVOs;
+	}
+
+	/**
+	 * Gets the status.
+	 *
+	 * @return the status
+	 */
+	public Combobox getStatus() {
+		return status;
+	}
+
+	/**
+	 * Gets the str descripcion mapa.
+	 *
+	 * @return the strDescripcionMapa
+	 */
+	public String getStrDescripcionMapa() {
+		return strDescripcionMapa;
+	}
+
+	/**
+	 * Gets the str fecha alta.
+	 *
+	 * @return the strFechaAlta
+	 */
+	public String getStrFechaAlta() {
+		return strFechaAlta;
+	}
+
+	/**
+	 * Gets the str fecha modificacion.
+	 *
+	 * @return the strFechaModificacion
+	 */
+	public String getStrFechaModificacion() {
+		return strFechaModificacion;
+	}
+
+	/**
+	 * Gets the str identificador mapa.
+	 *
+	 * @return the strIdentificadorMapa
+	 */
+	public String getStrIdentificadorMapa() {
+		return strIdentificadorMapa;
+	}
+
+	/**
+	 * Gets the str id mapa gmm.
+	 *
+	 * @return the strIdMapaGmm
+	 */
+	public String getStrIdMapaGmm() {
+		return strIdMapaGmm;
+	}
+
+	/**
+	 * Gets the str id status.
+	 *
+	 * @return the strIdStatus
+	 */
+	public String getStrIdStatus() {
+		return strIdStatus;
+	}
+
+	/**
+	 * Gets the str status.
+	 *
+	 * @return the strStatus
+	 */
+	public String getStrStatus() {
+		return strStatus;
+	}
+
+	/**
+	 * Checks if is btn guardar.
+	 *
+	 * @return the btnGuardar
+	 */
+	public boolean isBtnGuardar() {
+		return btnGuardar;
+	}
+
+	/**
+	 * Checks if is execute permission set.
+	 *
+	 * @return the executePermissionSet
+	 */
+	public boolean isExecutePermissionSet() {
+		return executePermissionSet;
+	}
+
+	/**
+	 * On show report.
+	 *
+	 * @param type the type
+	 */
+	@Command
+	public void onShowReport(@BindingParam("type") final String type) {
+		ReportesController controller = new ReportesController();
+		ArrayList<String> headersReport = new ArrayList<String>();
+		headersReport.add("Descripción");
+		headersReport.add("Fecha alta");
+		headersReport.add("Fecha modificación"); 
+		headersReport.add("Status");
+		if(type.equals("xls")) {
+			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_EXCEL,"Catálogo de Mapas");
+		} else {
+			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_TEXTO,"Catálogo de Mapas");
+		}
+		controller.createReport(generaLista(), headersReport, type, "MAPA");
+	}
+
+	/* (non-Javadoc)
+	 * @see mx.com.bbva.mapeador.ui.commons.controller.IController#read()
+	 */
 	@Override
 	public Object read() {
 		//Catalogo Estatus
@@ -133,12 +506,20 @@ public class MapaGmmController  extends ControllerSupport implements  IControlle
 		return mapaGmmDTO;
 	}
 
-	@AfterCompose
-    public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
-        Selectors.wireComponents(view, this, false); 
-        executePermissionSet = this.applyPermision();
-    }
-	
+	/* (non-Javadoc)
+	 * @see mx.com.bbva.mapeador.ui.commons.controller.IController#read(java.lang.Object)
+	 */
+	@Override
+	public Object read(Object t) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	/**
+	 * Read selected.
+	 *
+	 * @param mapaGmmVO the mapa gmm vo
+	 */
 	@Command
 	@NotifyChange({ "btnGuardar"})
 	public void readSelected(@BindingParam("idMapaGmm") final MapaGmmVO mapaGmmVO){
@@ -154,8 +535,11 @@ public class MapaGmmController  extends ControllerSupport implements  IControlle
 		identificadorMapa.setDisabled(true);
 		btnGuardar = false;
 	}
-	
+
 	//Cambiar al objeto que pertenezca el componente en este caso mapaGmmVOs
+	/**
+	 * Read with filters.
+	 */
 	@Command
 	@NotifyChange({ "mapaGmmVOs" })
 	public void readWithFilters() {
@@ -197,12 +581,10 @@ public class MapaGmmController  extends ControllerSupport implements  IControlle
 
 		
 	}
-	@Override
-	public Object read(Object t) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
+	/* (non-Javadoc)
+	 * @see mx.com.bbva.mapeador.ui.commons.controller.IController#save()
+	 */
 	@Override
 	@Command
 	@NotifyChange({ "mapaGmmVOs", "btnGuardar" })
@@ -261,9 +643,9 @@ public class MapaGmmController  extends ControllerSupport implements  IControlle
 				mapaGmmDTO = MapaGmmBO.readCommand(mapaGmmDTO);
 				
 				btnGuardar = true;
-				Messagebox.show("Registro actualizado con exito!!",
-						"Confirmación", Messagebox.OK,
-						Messagebox.INFORMATION);
+				org.zkoss.zul.Messagebox.show("Registro actualizado con exito!!",
+						"Confirmación", org.zkoss.zul.Messagebox.OK,
+						org.zkoss.zul.Messagebox.INFORMATION);
 				
 				mapaGmmVOs = mapaGmmDTO.getMapaGmmVOs();
 				identificadorMapa.setDisabled(false);
@@ -307,122 +689,19 @@ public class MapaGmmController  extends ControllerSupport implements  IControlle
 			}
 		}
 	}
-	
-	@Override
-	@Command
-	@NotifyChange({"btnGuardar"})
-	public void clean() {
-		//Mensajes HTML
-		identificadorMapa.clearErrorMessage();
-		fechaAlta.clearErrorMessage();
-		fechaModificacion.clearErrorMessage();
-		descripcionMapa.clearErrorMessage();
-		status.clearErrorMessage();
-		
-		
-		//Mensajes Setear a Null
-		identificadorMapa.setValue(null); 
-		descripcionMapa.setValue(null);
-		status.setValue(null);
-		 
-		//Setear IDs Invisibles
-		idMapaGmm.setValue(null);
-		idStatus.setValue(null);
-		
-		identificadorMapa.setDisabled(false);
-		btnGuardar = true;
-		
-	}
-	@Override
-	public void delete() {
-		// TODO Auto-generated method stub
-		
-	}
-	@Command
-	public void onShowReport(@BindingParam("type") final String type) {
-		ReportesController controller = new ReportesController();
-		ArrayList<String> headersReport = new ArrayList<String>();
-		headersReport.add("Descripción");
-		headersReport.add("Fecha alta");
-		headersReport.add("Fecha modificación"); 
-		headersReport.add("Status");
-		if(type.equals("xls")) {
-			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_EXCEL,"Catálogo de Mapas");
-		} else {
-			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_TEXTO,"Catálogo de Mapas");
-		}
-		controller.createReport(generaLista(), headersReport, type, "MAPA");
-	}	
-	
-	private ArrayList<BeanGenerico> generaLista() {
-		ArrayList<BeanGenerico> beanGenericos = new ArrayList<BeanGenerico>();
-		BeanGenerico beanGenerico = null;
-		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
-		for(MapaGmmVO mapaGmmVO: mapaGmmVOs) {
-			beanGenerico = new BeanGenerico();
-			beanGenerico.setValor1(mapaGmmVO.getNombreMapaGmm());
-			beanGenerico.setValor2(mapaGmmVO.getDescripcionMapaGmm());
-			beanGenerico.setValor3(dateFormat.format(mapaGmmVO.getFechaAlta()));
-			beanGenerico.setValor4(dateFormat.format(mapaGmmVO.getFechaModificacion())); 
-			beanGenerico.setValor5(mapaGmmVO.getNombreEstatusObjeto());  
-			
-			beanGenericos.add(beanGenerico);
-		}
-		return beanGenericos;
-	}
-	
+
 	/**
-	 * @return the identificadorMapa
+	 * Sets the btn guardar.
+	 *
+	 * @param btnGuardar the btnGuardar to set
 	 */
-	public Textbox getIdentificadorMapa() {
-		return identificadorMapa;
+	public void setBtnGuardar(boolean btnGuardar) {
+		this.btnGuardar = btnGuardar;
 	}
 
 	/**
-	 * @param identificadorMapa the identificadorMapa to set
-	 */
-	public void setIdentificadorMapa(Textbox identificadorMapa) {
-		this.identificadorMapa = identificadorMapa;
-	}
-
-	
-
-	/**
-	 * @return the fechaAlta
-	 */
-	public Datebox getFechaAlta() {
-		return fechaAlta;
-	}
-
-	/**
-	 * @param fechaAlta the fechaAlta to set
-	 */
-	public void setFechaAlta(Datebox fechaAlta) {
-		this.fechaAlta = fechaAlta;
-	}
-
-	/**
-	 * @return the fechaModificacion
-	 */
-	public Datebox getFechaModificacion() {
-		return fechaModificacion;
-	}
-
-	/**
-	 * @param fechaModificacion the fechaModificacion to set
-	 */
-	public void setFechaModificacion(Datebox fechaModificacion) {
-		this.fechaModificacion = fechaModificacion;
-	}
-
-	/**
-	 * @return the descripcionMapa
-	 */
-	public Textbox getDescripcionMapa() {
-		return descripcionMapa;
-	}
-
-	/**
+	 * Sets the descripcion mapa.
+	 *
 	 * @param descripcionMapa the descripcionMapa to set
 	 */
 	public void setDescripcionMapa(Textbox descripcionMapa) {
@@ -430,154 +709,45 @@ public class MapaGmmController  extends ControllerSupport implements  IControlle
 	}
 
 	/**
-	 * @return the status
+	 * Sets the execute permission set.
+	 *
+	 * @param executePermissionSet the executePermissionSet to set
 	 */
-	public Combobox getStatus() {
-		return status;
+	public void setExecutePermissionSet(boolean executePermissionSet) {
+		this.executePermissionSet = executePermissionSet;
 	}
 
 	/**
-	 * @param status the status to set
+	 * Sets the fecha alta.
+	 *
+	 * @param fechaAlta the fechaAlta to set
 	 */
-	public void setStatus(Combobox status) {
-		this.status = status;
-	}
-
-	/**
-	 * @return the idStatus
-	 */
-	public Textbox getIdStatus() {
-		return idStatus;
-	}
-
-	/**
-	 * @param idStatus the idStatus to set
-	 */
-	public void setIdStatus(Textbox idStatus) {
-		this.idStatus = idStatus;
-	}
-
-	/**
-	 * @return the mapaGmmDTO
-	 */
-	public MapaGmmDTO getMapaGmmDTO() {
-		return mapaGmmDTO;
-	}
-
-	/**
-	 * @param mapaGmmDTO the mapaGmmDTO to set
-	 */
-	public void setMapaGmmDTO(MapaGmmDTO mapaGmmDTO) {
-		this.mapaGmmDTO = mapaGmmDTO;
-	}
-
-	/**
-	 * @return the mapaGmmVOs
-	 */
-	public List<MapaGmmVO> getMapaGmmVOs() {
-		return mapaGmmVOs;
-	}
-
-	/**
-	 * @param mapaGmmVOs the mapaGmmVOs to set
-	 */
-	public void setMapaGmmVOs(List<MapaGmmVO> mapaGmmVOs) {
-		this.mapaGmmVOs = mapaGmmVOs;
-	}
-
-	/**
-	 * @return the strIdentificadorMapa
-	 */
-	public String getStrIdentificadorMapa() {
-		return strIdentificadorMapa;
-	}
-
-	/**
-	 * @param strIdentificadorMapa the strIdentificadorMapa to set
-	 */
-	public void setStrIdentificadorMapa(String strIdentificadorMapa) {
-		this.strIdentificadorMapa = strIdentificadorMapa;
-	}
-
-	/**
-	 * @return the strFechaAlta
-	 */
-	public String getStrFechaAlta() {
-		return strFechaAlta;
-	}
-
-	/**
-	 * @param strFechaAlta the strFechaAlta to set
-	 */
-	public void setStrFechaAlta(String strFechaAlta) {
-		this.strFechaAlta = strFechaAlta;
-	}
-
-	/**
-	 * @return the strFechaModificacion
-	 */
-	public String getStrFechaModificacion() {
-		return strFechaModificacion;
-	}
-
-	/**
-	 * @param strFechaModificacion the strFechaModificacion to set
-	 */
-	public void setStrFechaModificacion(String strFechaModificacion) {
-		this.strFechaModificacion = strFechaModificacion;
-	}
-
-	/**
-	 * @return the strDescripcionMapa
-	 */
-	public String getStrDescripcionMapa() {
-		return strDescripcionMapa;
-	}
-
-	/**
-	 * @param strDescripcionMapa the strDescripcionMapa to set
-	 */
-	public void setStrDescripcionMapa(String strDescripcionMapa) {
-		this.strDescripcionMapa = strDescripcionMapa;
+	public void setFechaAlta(Datebox fechaAlta) {
+		this.fechaAlta = fechaAlta;
 	}
 
 
 	/**
-	 * @return the strStatus
+	 * Sets the fecha modificacion.
+	 *
+	 * @param fechaModificacion the fechaModificacion to set
 	 */
-	public String getStrStatus() {
-		return strStatus;
+	public void setFechaModificacion(Datebox fechaModificacion) {
+		this.fechaModificacion = fechaModificacion;
 	}
 
 	/**
-	 * @param strStatus the strStatus to set
+	 * Sets the identificador mapa.
+	 *
+	 * @param identificadorMapa the identificadorMapa to set
 	 */
-	public void setStrStatus(String strStatus) {
-		this.strStatus = strStatus;
+	public void setIdentificadorMapa(Textbox identificadorMapa) {
+		this.identificadorMapa = identificadorMapa;
 	}
 
 	/**
-	 * @return the strIdStatus
-	 */
-	public String getStrIdStatus() {
-		return strIdStatus;
-	}
-
-	/**
-	 * @param strIdStatus the strIdStatus to set
-	 */
-	public void setStrIdStatus(String strIdStatus) {
-		this.strIdStatus = strIdStatus;
-	}
-
-	/**
-	 * @return the idMapaGmm
-	 */
-	public Textbox getIdMapaGmm() {
-		return idMapaGmm;
-	}
-
-	/**
+	 * Sets the id mapa gmm.
+	 *
 	 * @param idMapaGmm the idMapaGmm to set
 	 */
 	public void setIdMapaGmm(Textbox idMapaGmm) {
@@ -585,64 +755,26 @@ public class MapaGmmController  extends ControllerSupport implements  IControlle
 	}
 
 	/**
-	 * @return the strIdMapaGmm
+	 * Sets the id status.
+	 *
+	 * @param idStatus the idStatus to set
 	 */
-	public String getStrIdMapaGmm() {
-		return strIdMapaGmm;
+	public void setIdStatus(Textbox idStatus) {
+		this.idStatus = idStatus;
 	}
 
 	/**
-	 * @param strIdMapaGmm the strIdMapaGmm to set
+	 * Sets the mapa gmm dto.
+	 *
+	 * @param mapaGmmDTO the mapaGmmDTO to set
 	 */
-	public void setStrIdMapaGmm(String strIdMapaGmm) {
-		this.strIdMapaGmm = strIdMapaGmm;
+	public void setMapaGmmDTO(MapaGmmDTO mapaGmmDTO) {
+		this.mapaGmmDTO = mapaGmmDTO;
 	}
 
 	/**
-	 * @return the executePermissionSet
-	 */
-	public boolean isExecutePermissionSet() {
-		return executePermissionSet;
-	}
-	/**
-	 * @param executePermissionSet the executePermissionSet to set
-	 */
-	public void setExecutePermissionSet(boolean executePermissionSet) {
-		this.executePermissionSet = executePermissionSet;
-	}
-	@Override
-	public boolean applyPermision() {
-		boolean isApplied = false;
-		HashMap<String, Component> componentes = new HashMap<String, Component>();
-		componentes.put(lblIdentificadorMapa.getId(), lblIdentificadorMapa);
-		componentes.put(lblFechaAlta.getId(), lblFechaAlta);
-		componentes.put(lblDescricionMapa.getId(), lblDescricionMapa);
-		componentes.put(lblFechaModificacion.getId(), lblFechaModificacion);
-		componentes.put(lblEstatus.getId(), lblEstatus);
-		componentes.put(identificadorMapa.getId(), identificadorMapa);
-		componentes.put(descripcionMapa.getId(), descripcionMapa);
-		componentes.put(status.getId(), status);
-		componentes.put(fechaAlta.getId(), fechaAlta);
-		componentes.put(fechaModificacion.getId(), fechaModificacion);
-		componentes.put(reporteExcelBtn.getId(), reporteExcelBtn);
-		componentes.put(reporteCsvBtn.getId(), reporteCsvBtn);
-		componentes.put(limpiarBtn.getId(), limpiarBtn);
-		componentes.put(guardarBtn.getId(), guardarBtn);
-		componentes.put(consultarBtn.getId(), consultarBtn);
-		componentes.put(mapaGmmsGrid.getId(), mapaGmmsGrid);
-		super.applyPermission(MapeadorConstants.MAPAS, componentes);
-		return isApplied;
-	}	
-
-	
-	/**
-	 * @return the mapaGmmVO
-	 */
-	public MapaGmmVO getMapaGmmVO() {
-		return mapaGmmVO;
-	}
-
-	/**
+	 * Sets the mapa gmm vo.
+	 *
 	 * @param mapaGmmVO the mapaGmmVO to set
 	 */
 	public void setMapaGmmVO(MapaGmmVO mapaGmmVO) {
@@ -650,17 +782,85 @@ public class MapaGmmController  extends ControllerSupport implements  IControlle
 	}
 
 	/**
-	 * @return the btnGuardar
+	 * Sets the mapa gmm v os.
+	 *
+	 * @param mapaGmmVOs the mapaGmmVOs to set
 	 */
-	public boolean isBtnGuardar() {
-		return btnGuardar;
+	public void setMapaGmmVOs(List<MapaGmmVO> mapaGmmVOs) {
+		this.mapaGmmVOs = mapaGmmVOs;
 	}
 
 	/**
-	 * @param btnGuardar the btnGuardar to set
+	 * Sets the status.
+	 *
+	 * @param status the status to set
 	 */
-	public void setBtnGuardar(boolean btnGuardar) {
-		this.btnGuardar = btnGuardar;
+	public void setStatus(Combobox status) {
+		this.status = status;
+	}
+
+	/**
+	 * Sets the str descripcion mapa.
+	 *
+	 * @param strDescripcionMapa the strDescripcionMapa to set
+	 */
+	public void setStrDescripcionMapa(String strDescripcionMapa) {
+		this.strDescripcionMapa = strDescripcionMapa;
+	}
+	
+	/**
+	 * Sets the str fecha alta.
+	 *
+	 * @param strFechaAlta the strFechaAlta to set
+	 */
+	public void setStrFechaAlta(String strFechaAlta) {
+		this.strFechaAlta = strFechaAlta;
+	}
+	
+	/**
+	 * Sets the str fecha modificacion.
+	 *
+	 * @param strFechaModificacion the strFechaModificacion to set
+	 */
+	public void setStrFechaModificacion(String strFechaModificacion) {
+		this.strFechaModificacion = strFechaModificacion;
+	}	
+
+	
+	/**
+	 * Sets the str identificador mapa.
+	 *
+	 * @param strIdentificadorMapa the strIdentificadorMapa to set
+	 */
+	public void setStrIdentificadorMapa(String strIdentificadorMapa) {
+		this.strIdentificadorMapa = strIdentificadorMapa;
+	}
+
+	/**
+	 * Sets the str id mapa gmm.
+	 *
+	 * @param strIdMapaGmm the strIdMapaGmm to set
+	 */
+	public void setStrIdMapaGmm(String strIdMapaGmm) {
+		this.strIdMapaGmm = strIdMapaGmm;
+	}
+
+	/**
+	 * Sets the str id status.
+	 *
+	 * @param strIdStatus the strIdStatus to set
+	 */
+	public void setStrIdStatus(String strIdStatus) {
+		this.strIdStatus = strIdStatus;
+	}
+
+	/**
+	 * Sets the str status.
+	 *
+	 * @param strStatus the strStatus to set
+	 */
+	public void setStrStatus(String strStatus) {
+		this.strStatus = strStatus;
 	}
 	
 }

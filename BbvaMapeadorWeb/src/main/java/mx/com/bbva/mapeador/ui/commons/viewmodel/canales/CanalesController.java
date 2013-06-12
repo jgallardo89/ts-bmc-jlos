@@ -1,3 +1,32 @@
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * Informacion Confidencial:
+ * Este software contiene informacion totalmente confidencial propiedad de Grupo Financiero BBVA Bancomer. 
+ * Queda totalmente prohibido su uso o divulgacion en forma parcial o total y solamente podra ser utilizada de acuerdo a los terminos y estatutos 
+ * que determine el Grupo Financiero BBVA Bancomer.
+ * 
+ * Todos los derechos reservados, Mexico 2013.
+ * 
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * DESCRIPCION DEL PROGRAMA
+ * Nombre de aplicación: MAPEADOR
+ * Nombre de proyecto: BbvaMapeadorWeb
+ * 
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ *
+ * HISTORIAL DE CAMBIOS:
+ * 
+ * Fecha:									         	
+ * 30-ABR-2013  
+ * @Author:	Jose Luis Ortiz Salazar
+ * @Email: jortizsalazar@gmail.com    	
+ * Razon: Creacion        
+ * Version: 1.0.0
+ * Nombre de clase: CanalesController.java
+ * Nombre de paquete: mx.com.bbva.mapeador.ui.commons.viewmodel.canales
+ *              
+ *           
+ *              
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package mx.com.bbva.mapeador.ui.commons.viewmodel.canales;
 
 import java.text.DateFormat;
@@ -29,7 +58,6 @@ import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.NotifyChange;
-import org.zkoss.zhtml.Messagebox;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
@@ -41,59 +69,108 @@ import org.zkoss.zul.Image;
 import org.zkoss.zul.Label;
 import org.zkoss.zul.Textbox;
 
+// TODO: Auto-generated Javadoc
 /**
- * @author Julio Morales
+ * The Class CanalesController.
  *
+ * @author Julio Morales
  */
 public class CanalesController extends ControllerSupport implements IController {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
-	@Wire
-	private Textbox idEstatusObjeto;
-	@Wire
-	private Textbox idCanal;
 	
-	@Wire
-	private Label lblClave;
-	@Wire
-	private Label lblFechaHoraAlta;
-	@Wire
-	private Label lblDescripcionCanal;
-	@Wire
-	private Label lblEstatus;
-	@Wire
-	private Textbox nombreCanal;
-	@Wire
-	private Textbox descripcionCanal;
-	@Wire
-	private Datebox fechaInicio;
-	@Wire
-	private Datebox fechaFin;
-	@Wire
-	private Combobox statusObjeto;
-	@Wire
-	private Image reporteExcelBtn;
-	@Wire
-	private Image reporteCsvBtn;
-	@Wire
-	private Button limpiarBtn;
-	@Wire
-	private Button guardarBtn;
-	@Wire
-	private Button consultarBtn;
+	/** The btn guardar. */
+	private boolean btnGuardar;
+	
+	/** The canal dto. */
+	private CanalDTO canalDTO;
+	
+	/** The canales grid. */
 	@Wire
 	private Grid canalesGrid;
 	
-	private boolean btnGuardar;
-	private boolean flagClave;
-	private boolean executePermissionSet;
-	private CanalDTO canalDTO;
-	private String strIdCanal;
-	private List<CanalVO> canalesVOs;
+	/** The canales vo. */
 	private CanalVO canalesVO;
 	
+	/** The canales v os. */
+	private List<CanalVO> canalesVOs;
+	
+	/** The consultar btn. */
+	@Wire
+	private Button consultarBtn;
+	
+	/** The descripcion canal. */
+	@Wire
+	private Textbox descripcionCanal;
+	
+	/** The execute permission set. */
+	private boolean executePermissionSet;
+	
+	/** The fecha fin. */
+	@Wire
+	private Datebox fechaFin;
+	
+	/** The fecha inicio. */
+	@Wire
+	private Datebox fechaInicio;
+	
+	/** The flag clave. */
+	private boolean flagClave;
+	
+	/** The guardar btn. */
+	@Wire
+	private Button guardarBtn;
+	
+	/** The id canal. */
+	@Wire
+	private Textbox idCanal;
+	
+	/** The id estatus objeto. */
+	@Wire
+	private Textbox idEstatusObjeto;
+	
+	/** The lbl clave. */
+	@Wire
+	private Label lblClave;
+	
+	/** The lbl descripcion canal. */
+	@Wire
+	private Label lblDescripcionCanal;
+	
+	/** The lbl estatus. */
+	@Wire
+	private Label lblEstatus;
+	
+	/** The lbl fecha hora alta. */
+	@Wire
+	private Label lblFechaHoraAlta;
+	
+	/** The limpiar btn. */
+	@Wire
+	private Button limpiarBtn;
+	
+	/** The nombre canal. */
+	@Wire
+	private Textbox nombreCanal;
+	
+	/** The reporte csv btn. */
+	@Wire
+	private Image reporteCsvBtn;
+	
+	/** The reporte excel btn. */
+	@Wire
+	private Image reporteExcelBtn;
+	
+	/** The status objeto. */
+	@Wire
+	private Combobox statusObjeto;
+	
+	/** The str id canal. */
+	private String strIdCanal;
+	
 	/**
-	 * Constructor de CanalesController
+	 * Constructor de CanalesController.
 	 */
 	public CanalesController() {
 		this.read();
@@ -101,6 +178,180 @@ public class CanalesController extends ControllerSupport implements IController 
 		btnGuardar = true;
 	}
 	
+	/**
+	 * After compose.
+	 *
+	 * @param view the view
+	 */
+	@AfterCompose
+    public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
+        Selectors.wireComponents(view, this, false);        
+        executePermissionSet = this.applyPermision();
+    }
+	
+	/* (non-Javadoc)
+	 * @see mx.com.bbva.mapeador.ui.commons.controller.IController#applyPermision()
+	 */
+	@Override
+	public boolean applyPermision() {
+		boolean isApplied = false;
+		HashMap<String, Component> componentes = new HashMap<String, Component>();
+		componentes.put(lblClave.getId(), lblClave);
+		componentes.put(lblFechaHoraAlta.getId(), lblFechaHoraAlta);
+		componentes.put(lblDescripcionCanal.getId(), lblDescripcionCanal);
+		componentes.put(lblEstatus.getId(), lblEstatus);
+		componentes.put(nombreCanal.getId(), nombreCanal);
+		componentes.put(descripcionCanal.getId(), descripcionCanal);
+		componentes.put(fechaInicio.getId(), fechaInicio);
+		componentes.put(fechaFin.getId(), fechaFin);
+		componentes.put(statusObjeto.getId(), statusObjeto);
+		componentes.put(reporteExcelBtn.getId(), reporteExcelBtn);
+		componentes.put(reporteCsvBtn.getId(), reporteCsvBtn);
+		componentes.put(limpiarBtn.getId(), limpiarBtn);
+		componentes.put(guardarBtn.getId(), guardarBtn);
+		componentes.put(consultarBtn.getId(), consultarBtn);
+		componentes.put(canalesGrid.getId(), canalesGrid);
+		super.applyPermission(MapeadorConstants.CANALES, componentes);
+		return isApplied;
+	}
+	
+	/* (non-Javadoc)
+	 * @see mx.com.bbva.mapeador.ui.commons.controller.IController#clean()
+	 */
+	@Override
+	@Command
+	@NotifyChange({"btnGuardar", "flagClave" })
+	public void clean() {
+		nombreCanal.clearErrorMessage();
+		descripcionCanal.clearErrorMessage();
+		statusObjeto.clearErrorMessage();
+		
+		nombreCanal.setValue(null);
+		descripcionCanal.setValue(null);
+		statusObjeto.setValue(null);
+		
+		idCanal.setValue(null);
+		idEstatusObjeto.setValue(null);
+		btnGuardar = true;
+		flagClave = false;
+	}
+	
+	/* (non-Javadoc)
+	 * @see mx.com.bbva.mapeador.ui.commons.controller.IController#delete()
+	 */
+	@Override
+	public void delete() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	/**
+	 * Genera lista.
+	 *
+	 * @return the array list
+	 */
+	private ArrayList<BeanGenerico> generaLista() {
+		ArrayList<BeanGenerico> beanGenericos = new ArrayList<BeanGenerico>();
+		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+		BeanGenerico beanGenerico = null;
+		for(CanalVO canalVO: canalesVOs) {
+			beanGenerico = new BeanGenerico();
+			beanGenerico.setValor1(canalVO.getNombreCanal());
+			beanGenerico.setValor2(canalVO.getDescripcionCanal());
+			beanGenerico.setValor3(dateFormat.format(canalVO.getFechaAlta()));
+			beanGenerico.setValor4(canalVO.getNombreEstatusObjeto());
+			beanGenericos.add(beanGenerico);
+		}
+		return beanGenericos;
+	}
+	
+	/**
+	 * Gets the canal dto.
+	 *
+	 * @return the canalDTO
+	 */
+	public CanalDTO getCanalDTO() {
+		return canalDTO;
+	}
+
+	/**
+	 * Gets the canales vo.
+	 *
+	 * @return the canalesVO
+	 */
+	public CanalVO getCanalesVO() {
+		return canalesVO;
+	}
+
+	/**
+	 * Gets the canales v os.
+	 *
+	 * @return the canalesVOs
+	 */
+	public List<CanalVO> getCanalesVOs() {
+		return canalesVOs;
+	}
+
+	/**
+	 * Gets the str id canal.
+	 *
+	 * @return the strIdCanal
+	 */
+	public String getStrIdCanal() {
+		return strIdCanal;
+	}
+	
+	/**
+	 * Checks if is btn guardar.
+	 *
+	 * @return the btnGuardar
+	 */
+	public boolean isBtnGuardar() {
+		return btnGuardar;
+	}
+	
+	/**
+	 * Checks if is execute permission set.
+	 *
+	 * @return the executePermissionSet
+	 */
+	public boolean isExecutePermissionSet() {
+		return executePermissionSet;
+	}
+
+	/**
+	 * Checks if is flag clave.
+	 *
+	 * @return the flagClave
+	 */
+	public boolean isFlagClave() {
+		return flagClave;
+	}
+
+	/**
+	 * On show report.
+	 *
+	 * @param type the type
+	 */
+	@Command
+	public void onShowReport(@BindingParam("type") final String type) {
+		ReportesController controller = new ReportesController();
+		ArrayList<String> headersReport = new ArrayList<String>();
+		headersReport.add("Clave");
+		headersReport.add("Descripción canal");
+		headersReport.add("Fecha y Hora de alta");
+		headersReport.add("Status");
+		if(type.equals("xls")) {
+			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_EXCEL,"Catálogo Canales");
+		} else {
+			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_TEXTO,"Catálogo Canales");
+		}
+		controller.createReport(generaLista(), headersReport, type, "CANALES");
+	}
+
+	/* (non-Javadoc)
+	 * @see mx.com.bbva.mapeador.ui.commons.controller.IController#read()
+	 */
 	@Override
 	public Object read() {
 		canalDTO = new CanalDTO();
@@ -119,6 +370,38 @@ public class CanalesController extends ControllerSupport implements IController 
 		return canalDTO;
 	}
 	
+	/* (non-Javadoc)
+	 * @see mx.com.bbva.mapeador.ui.commons.controller.IController#read(java.lang.Object)
+	 */
+	@Override
+	public Object read(Object t) {
+		// TODO Auto-generated method stub
+		return null;
+	}	
+	
+	/**
+	 * Read selected.
+	 *
+	 * @param canalVO the canal vo
+	 */
+	@Command
+	@NotifyChange({"btnGuardar","flagClave"})
+	public void readSelected(@BindingParam("idCanal") final CanalVO canalVO){
+		canalesVO = canalVO;
+		canalVO.toString();
+		nombreCanal.setValue(canalVO.getNombreCanal());
+		descripcionCanal.setValue(canalVO.getDescripcionCanal());
+		statusObjeto.setValue(canalVO.getNombreEstatusObjeto());
+		idCanal.setValue(Integer.toString(canalVO.getIdCanal()));
+		idEstatusObjeto.setValue(Integer.toString(canalVO.getIdEstatusObjeto()));
+		fechaInicio.setValue(canalVO.getFechaAlta());
+		btnGuardar = false;
+		flagClave = true;
+	}
+	
+	/**
+	 * Read with filters.
+	 */
 	@Command
 	@NotifyChange({ "canalesVOs" })
 	public void readWithFilters() {
@@ -143,7 +426,10 @@ public class CanalesController extends ControllerSupport implements IController 
 			controller.registrarEvento(canalVO, canalVO, CommandConstants.CONSULTAR, "Catálogo Canal");
 		}
 	}
-	
+
+	/* (non-Javadoc)
+	 * @see mx.com.bbva.mapeador.ui.commons.controller.IController#save()
+	 */
 	@Override
 	@Command
 	@NotifyChange({ "canalesVOs", "btnGuardar", "flagClave" })
@@ -212,9 +498,9 @@ public class CanalesController extends ControllerSupport implements IController 
 					canalesVOs = canalBO.readCommand(canalDTO).getCanalVOs();
 					
 					btnGuardar = true;
-					Messagebox.show("!La Actualización del Canal fue exitoso!",
-							"Información", Messagebox.OK,
-							Messagebox.INFORMATION);
+					org.zkoss.zul.Messagebox.show("!La Actualización del Canal fue exitoso!",
+							"Información", org.zkoss.zul.Messagebox.OK,
+							org.zkoss.zul.Messagebox.INFORMATION);
 				  } else {
 					  clean();
 					  canalDTO = new CanalDTO();
@@ -225,147 +511,18 @@ public class CanalesController extends ControllerSupport implements IController 
 					  canalVO.toString();
 					  canalDTO.setCanalVO(canalVO);
 					  canalesVOs = canalBO.readCommand(canalDTO).getCanalVOs();
-					  Messagebox.show("!No se puede dar de Baja, ya que esta siendo Usado por la Contratación!",
-								"Información", Messagebox.OK,
-								Messagebox.EXCLAMATION);
+					  org.zkoss.zul.Messagebox.show("!No se puede dar de Baja, ya que esta siendo Usado por la Contratación!",
+								"Información", org.zkoss.zul.Messagebox.OK,
+								org.zkoss.zul.Messagebox.EXCLAMATION);
 				  }
 			}
 			flagClave = false;
 		}
 	}
-	
-	@Override
-	@Command
-	@NotifyChange({"btnGuardar", "flagClave" })
-	public void clean() {
-		nombreCanal.clearErrorMessage();
-		descripcionCanal.clearErrorMessage();
-		statusObjeto.clearErrorMessage();
-		
-		nombreCanal.setValue(null);
-		descripcionCanal.setValue(null);
-		statusObjeto.setValue(null);
-		
-		idCanal.setValue(null);
-		idEstatusObjeto.setValue(null);
-		btnGuardar = true;
-		flagClave = false;
-	}
-	
-	@Command
-	@NotifyChange({"btnGuardar","flagClave"})
-	public void readSelected(@BindingParam("idCanal") final CanalVO canalVO){
-		canalesVO = canalVO;
-		canalVO.toString();
-		nombreCanal.setValue(canalVO.getNombreCanal());
-		descripcionCanal.setValue(canalVO.getDescripcionCanal());
-		statusObjeto.setValue(canalVO.getNombreEstatusObjeto());
-		idCanal.setValue(Integer.toString(canalVO.getIdCanal()));
-		idEstatusObjeto.setValue(Integer.toString(canalVO.getIdEstatusObjeto()));
-		fechaInicio.setValue(canalVO.getFechaAlta());
-		btnGuardar = false;
-		flagClave = true;
-	}
-	
-	@Override
-	public Object read(Object t) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void delete() {
-		// TODO Auto-generated method stub
-		
-	}
 
 	/**
-	 * @return the canalDTO
-	 */
-	public CanalDTO getCanalDTO() {
-		return canalDTO;
-	}
-
-	/**
-	 * @param canalDTO the canalDTO to set
-	 */
-	public void setCanalDTO(CanalDTO canalDTO) {
-		this.canalDTO = canalDTO;
-	}
-	
-	/**
-	 * @return the canalesVOs
-	 */
-	public List<CanalVO> getCanalesVOs() {
-		return canalesVOs;
-	}
-	
-	/**
-	 * @param canalesVOs the canalesVOs to set
-	 */
-	public void setCanalesVOs(List<CanalVO> canalesVOs) {
-		this.canalesVOs = canalesVOs;
-	}
-
-	/**
-	 * @return the strIdCanal
-	 */
-	public String getStrIdCanal() {
-		return strIdCanal;
-	}
-
-	/**
-	 * @param strIdCanal the strIdCanal to set
-	 */
-	public void setStrIdCanal(String strIdCanal) {
-		this.strIdCanal = strIdCanal;
-	}
-
-	@AfterCompose
-    public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
-        Selectors.wireComponents(view, this, false);        
-        executePermissionSet = this.applyPermision();
-    }
-	
-	@Command
-	public void onShowReport(@BindingParam("type") final String type) {
-		ReportesController controller = new ReportesController();
-		ArrayList<String> headersReport = new ArrayList<String>();
-		headersReport.add("Clave");
-		headersReport.add("Descripción canal");
-		headersReport.add("Fecha y Hora de alta");
-		headersReport.add("Status");
-		if(type.equals("xls")) {
-			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_EXCEL,"Catálogo Canales");
-		} else {
-			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_TEXTO,"Catálogo Canales");
-		}
-		controller.createReport(generaLista(), headersReport, type, "CANALES");
-	}	
-	
-	private ArrayList<BeanGenerico> generaLista() {
-		ArrayList<BeanGenerico> beanGenericos = new ArrayList<BeanGenerico>();
-		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-		BeanGenerico beanGenerico = null;
-		for(CanalVO canalVO: canalesVOs) {
-			beanGenerico = new BeanGenerico();
-			beanGenerico.setValor1(canalVO.getNombreCanal());
-			beanGenerico.setValor2(canalVO.getDescripcionCanal());
-			beanGenerico.setValor3(dateFormat.format(canalVO.getFechaAlta()));
-			beanGenerico.setValor4(canalVO.getNombreEstatusObjeto());
-			beanGenericos.add(beanGenerico);
-		}
-		return beanGenericos;
-	}
-	
-	/**
-	 * @return the btnGuardar
-	 */
-	public boolean isBtnGuardar() {
-		return btnGuardar;
-	}
-
-	/**
+	 * Sets the btn guardar.
+	 *
 	 * @param btnGuardar the btnGuardar to set
 	 */
 	public void setBtnGuardar(boolean btnGuardar) {
@@ -373,13 +530,17 @@ public class CanalesController extends ControllerSupport implements IController 
 	}
 
 	/**
-	 * @return the canalesVO
+	 * Sets the canal dto.
+	 *
+	 * @param canalDTO the canalDTO to set
 	 */
-	public CanalVO getCanalesVO() {
-		return canalesVO;
+	public void setCanalDTO(CanalDTO canalDTO) {
+		this.canalDTO = canalDTO;
 	}
 
 	/**
+	 * Sets the canales vo.
+	 *
 	 * @param canalesVO the canalesVO to set
 	 */
 	public void setCanalesVO(CanalVO canalesVO) {
@@ -387,50 +548,38 @@ public class CanalesController extends ControllerSupport implements IController 
 	}
 
 	/**
-	 * @return the flagClave
+	 * Sets the canales v os.
+	 *
+	 * @param canalesVOs the canalesVOs to set
 	 */
-	public boolean isFlagClave() {
-		return flagClave;
+	public void setCanalesVOs(List<CanalVO> canalesVOs) {
+		this.canalesVOs = canalesVOs;
 	}
-
+	
 	/**
-	 * @param flagClave the flagClave to set
-	 */
-	public void setFlagClave(boolean flagClave) {
-		this.flagClave = flagClave;
-	}
-	/**
-	 * @return the executePermissionSet
-	 */
-	public boolean isExecutePermissionSet() {
-		return executePermissionSet;
-	}
-	/**
+	 * Sets the execute permission set.
+	 *
 	 * @param executePermissionSet the executePermissionSet to set
 	 */
 	public void setExecutePermissionSet(boolean executePermissionSet) {
 		this.executePermissionSet = executePermissionSet;
 	}
-	@Override
-	public boolean applyPermision() {
-		boolean isApplied = false;
-		HashMap<String, Component> componentes = new HashMap<String, Component>();
-		componentes.put(lblClave.getId(), lblClave);
-		componentes.put(lblFechaHoraAlta.getId(), lblFechaHoraAlta);
-		componentes.put(lblDescripcionCanal.getId(), lblDescripcionCanal);
-		componentes.put(lblEstatus.getId(), lblEstatus);
-		componentes.put(nombreCanal.getId(), nombreCanal);
-		componentes.put(descripcionCanal.getId(), descripcionCanal);
-		componentes.put(fechaInicio.getId(), fechaInicio);
-		componentes.put(fechaFin.getId(), fechaFin);
-		componentes.put(statusObjeto.getId(), statusObjeto);
-		componentes.put(reporteExcelBtn.getId(), reporteExcelBtn);
-		componentes.put(reporteCsvBtn.getId(), reporteCsvBtn);
-		componentes.put(limpiarBtn.getId(), limpiarBtn);
-		componentes.put(guardarBtn.getId(), guardarBtn);
-		componentes.put(consultarBtn.getId(), consultarBtn);
-		componentes.put(canalesGrid.getId(), canalesGrid);
-		super.applyPermission(MapeadorConstants.CANALES, componentes);
-		return isApplied;
+	
+	/**
+	 * Sets the flag clave.
+	 *
+	 * @param flagClave the flagClave to set
+	 */
+	public void setFlagClave(boolean flagClave) {
+		this.flagClave = flagClave;
+	}
+	
+	/**
+	 * Sets the str id canal.
+	 *
+	 * @param strIdCanal the strIdCanal to set
+	 */
+	public void setStrIdCanal(String strIdCanal) {
+		this.strIdCanal = strIdCanal;
 	}	
 }

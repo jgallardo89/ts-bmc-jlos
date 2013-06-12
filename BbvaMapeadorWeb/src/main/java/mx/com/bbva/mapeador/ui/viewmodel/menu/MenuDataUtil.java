@@ -1,30 +1,79 @@
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * Informacion Confidencial:
+ * Este software contiene informacion totalmente confidencial propiedad de Grupo Financiero BBVA Bancomer. 
+ * Queda totalmente prohibido su uso o divulgacion en forma parcial o total y solamente podra ser utilizada de acuerdo a los terminos y estatutos 
+ * que determine el Grupo Financiero BBVA Bancomer.
+ * 
+ * Todos los derechos reservados, Mexico 2013.
+ * 
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * DESCRIPCION DEL PROGRAMA
+ * Nombre de aplicación: MAPEADOR
+ * Nombre de proyecto: BbvaMapeadorWeb
+ * 
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ *
+ * HISTORIAL DE CAMBIOS:
+ * 
+ * Fecha:									         	
+ * 30-ABR-2013  
+ * @Author:	Jose Luis Ortiz Salazar
+ * @Email: jortizsalazar@gmail.com    	
+ * Razon: Creacion        
+ * Version: 1.0.0
+ * Nombre de clase: MenuDataUtil.java
+ * Nombre de paquete: mx.com.bbva.mapeador.ui.viewmodel.menu
+ *              
+ *           
+ *              
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package mx.com.bbva.mapeador.ui.viewmodel.menu;
 
 import java.util.List;
 
 import javax.ejb.EJB;
 
-import org.apache.log4j.Logger;
-
-
-import sun.util.logging.resources.logging;
-
 import mx.com.bbva.mapeador.ejb.menu.logicanegocio.MenuService;
 import mx.com.bbva.mapeador.ejb.menu.negocio.IMenu;
 import mx.com.bbva.mapeador.entity.tgm501pantalla.Tgm501Pantalla;
 
+import org.apache.log4j.Logger;
+
+// TODO: Auto-generated Javadoc
+/**
+ * The Class MenuDataUtil.
+ */
 public class MenuDataUtil {
-	@EJB
-	IMenu menuService;
-	private String cdCveUsuario;
-	private MenuTreeNode<MenuData> root;
-	private List<Tgm501Pantalla> menu;
-	private List<Tgm501Pantalla> menuPrimerNivel;
-	private List<Tgm501Pantalla> menuSegundoNivel;
 	
+	/** The Constant logger. */
 	private static final Logger logger = Logger
 			.getLogger(MenuDataUtil.class);
 	
+	/** The cd cve usuario. */
+	private String cdCveUsuario;
+	
+	/** The menu. */
+	private List<Tgm501Pantalla> menu;
+	
+	/** The menu primer nivel. */
+	private List<Tgm501Pantalla> menuPrimerNivel;
+	
+	/** The menu segundo nivel. */
+	private List<Tgm501Pantalla> menuSegundoNivel;
+	
+	/** The menu service. */
+	@EJB
+	IMenu menuService;
+	
+	/** The root. */
+	private MenuTreeNode<MenuData> root;
+	
+	/**
+	 * Gets the root.
+	 *
+	 * @param userId the user id
+	 * @return the root
+	 */
 	public MenuTreeNode<MenuData> getRoot(String userId){
 		cdCveUsuario = userId;
 		root =  new MenuTreeNode<MenuData>(null, new MenuTreeNodeCollection<MenuData>()) {

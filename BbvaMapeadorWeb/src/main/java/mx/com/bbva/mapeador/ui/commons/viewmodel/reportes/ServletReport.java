@@ -1,6 +1,39 @@
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * Informacion Confidencial:
+ * Este software contiene informacion totalmente confidencial propiedad de Grupo Financiero BBVA Bancomer. 
+ * Queda totalmente prohibido su uso o divulgacion en forma parcial o total y solamente podra ser utilizada de acuerdo a los terminos y estatutos 
+ * que determine el Grupo Financiero BBVA Bancomer.
+ * 
+ * Todos los derechos reservados, Mexico 2013.
+ * 
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * DESCRIPCION DEL PROGRAMA
+ * Nombre de aplicación: MAPEADOR
+ * Nombre de proyecto: BbvaMapeadorWeb
+ * 
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ *
+ * HISTORIAL DE CAMBIOS:
+ * 
+ * Fecha:									         	
+ * 30-ABR-2013  
+ * @Author:	Jose Luis Ortiz Salazar
+ * @Email: jortizsalazar@gmail.com    	
+ * Razon: Creacion        
+ * Version: 1.0.0
+ * Nombre de clase: ServletReport.java
+ * Nombre de paquete: mx.com.bbva.mapeador.ui.commons.viewmodel.reportes
+ *              
+ *           
+ *              
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package mx.com.bbva.mapeador.ui.commons.viewmodel.reportes;
 
-import java.io.*;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -8,8 +41,12 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
+import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import mx.com.bbva.bancomer.canal.dto.BeanGenerico;
 import net.sf.jasperreports.engine.JRDataSource;
@@ -21,22 +58,67 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.export.JRCsvExporter;
 import net.sf.jasperreports.engine.export.JRCsvExporterParameter;
+import net.sf.jasperreports.engine.export.JRXlsAbstractExporterParameter;
 import net.sf.jasperreports.engine.export.JRXlsExporter;
-import net.sf.jasperreports.engine.export.JRXlsExporterParameter;
 
+// TODO: Auto-generated Javadoc
 /**
+ * The Class ServletReport.
  *
  * @author Julio Morales
- * @version 
+ * @version
  */
 public class ServletReport extends HttpServlet {
   
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1045887506771008190L;
 
-/** Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
+/**
+   * Handles the HTTP <code>GET</code> method.
+   *
    * @param request servlet request
    * @param response servlet response
+   * @throws ServletException the servlet exception
+   * @throws IOException Signals that an I/O exception has occurred.
    */
+  @Override
+protected void doGet(HttpServletRequest request, HttpServletResponse response)
+  throws ServletException, IOException {
+    processRequest(request, response);
+  }
+  
+  /**
+   * Handles the HTTP <code>POST</code> method.
+   *
+   * @param request servlet request
+   * @param response servlet response
+   * @throws ServletException the servlet exception
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
+  @Override
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+  throws ServletException, IOException {
+    processRequest(request, response);
+  }
+  
+  /**
+   * Returns a short description of the servlet.
+   *
+   * @return the servlet info
+   */
+  @Override
+public String getServletInfo() {
+    return "Short description";
+  }
+  
+  /**
+ * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
+ *
+ * @param request servlet request
+ * @param response servlet response
+ * @throws ServletException the servlet exception
+ * @throws IOException Signals that an I/O exception has occurred.
+ */
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response)
 	throws ServletException, IOException {
 		ServletOutputStream ouputStream = response.getOutputStream();
@@ -75,7 +157,7 @@ public class ServletReport extends HttpServlet {
 					baos = new ByteArrayOutputStream();
 					exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
 					exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, baos );
-					exporter.setParameter(JRXlsExporterParameter.SHEET_NAMES,new String[] {nameReport});
+					exporter.setParameter(JRXlsAbstractExporterParameter.SHEET_NAMES,new String[] {nameReport});
 					exporter.exportReport();
 				} else {
 					response.setContentType("application/csv");
@@ -109,28 +191,4 @@ public class ServletReport extends HttpServlet {
 			}
 		}
 	}
-  
-  /** Handles the HTTP <code>GET</code> method.
-   * @param request servlet request
-   * @param response servlet response
-   */
-  protected void doGet(HttpServletRequest request, HttpServletResponse response)
-  throws ServletException, IOException {
-    processRequest(request, response);
-  }
-  
-  /** Handles the HTTP <code>POST</code> method.
-   * @param request servlet request
-   * @param response servlet response
-   */
-  protected void doPost(HttpServletRequest request, HttpServletResponse response)
-  throws ServletException, IOException {
-    processRequest(request, response);
-  }
-  
-  /** Returns a short description of the servlet.
-   */
-  public String getServletInfo() {
-    return "Short description";
-  }
 }

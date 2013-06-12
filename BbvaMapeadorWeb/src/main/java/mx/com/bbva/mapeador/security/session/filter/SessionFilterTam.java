@@ -1,3 +1,32 @@
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * Informacion Confidencial:
+ * Este software contiene informacion totalmente confidencial propiedad de Grupo Financiero BBVA Bancomer. 
+ * Queda totalmente prohibido su uso o divulgacion en forma parcial o total y solamente podra ser utilizada de acuerdo a los terminos y estatutos 
+ * que determine el Grupo Financiero BBVA Bancomer.
+ * 
+ * Todos los derechos reservados, Mexico 2013.
+ * 
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * DESCRIPCION DEL PROGRAMA
+ * Nombre de aplicación: MAPEADOR
+ * Nombre de proyecto: BbvaMapeadorWeb
+ * 
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ *
+ * HISTORIAL DE CAMBIOS:
+ * 
+ * Fecha:									         	
+ * 30-ABR-2013  
+ * @Author:	Jose Luis Ortiz Salazar
+ * @Email: jortizsalazar@gmail.com    	
+ * Razon: Creacion        
+ * Version: 1.0.0
+ * Nombre de clase: SessionFilterTam.java
+ * Nombre de paquete: mx.com.bbva.mapeador.security.session.filter
+ *              
+ *           
+ *              
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package mx.com.bbva.mapeador.security.session.filter;
 import java.io.IOException;
 import java.util.Enumeration;
@@ -20,16 +49,27 @@ import mx.com.bbva.bancomer.mapper.business.UsuarioBO;
 
 import org.apache.log4j.Logger;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class SessionFilterTam.
+ */
 public class SessionFilterTam implements Filter{
 
+	/** The Constant logger. */
 	private static final Logger logger = Logger.getLogger(SessionFilterTam.class);
 	
+	/* (non-Javadoc)
+	 * @see javax.servlet.Filter#destroy()
+	 */
 	@Override
 	public void destroy() {
 		// TODO Auto-generated method stub
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see javax.servlet.Filter#doFilter(javax.servlet.ServletRequest, javax.servlet.ServletResponse, javax.servlet.FilterChain)
+	 */
 	@SuppressWarnings({ "unchecked", "unused" })
 	@Override
 	public void doFilter(ServletRequest req, ServletResponse res,
@@ -38,10 +78,10 @@ public class SessionFilterTam implements Filter{
 		HttpServletResponse response = (HttpServletResponse) res;
 		
 		Enumeration<String> headerNames = null; 
-		headerNames = ((Enumeration<String>)request.getHeaderNames());
+		headerNames = (request.getHeaderNames());
 		Map<String, Object> sessionValues = new HashMap<String, Object>();
 	    while(headerNames.hasMoreElements()) {
-	      String headerName = (String)headerNames.nextElement();
+	      String headerName = headerNames.nextElement();
 	      logger.debug("headerName:"+headerName);
 	      logger.debug("headerNameValue:"+request.getHeader(headerName));	      
 	      sessionValues.put(headerName, request.getHeader(headerName).toUpperCase());
@@ -77,6 +117,9 @@ public class SessionFilterTam implements Filter{
 	    }	    
 	}
 
+	/* (non-Javadoc)
+	 * @see javax.servlet.Filter#init(javax.servlet.FilterConfig)
+	 */
 	@Override
 	public void init(FilterConfig arg0) throws ServletException {
 		// TODO Auto-generated method stub

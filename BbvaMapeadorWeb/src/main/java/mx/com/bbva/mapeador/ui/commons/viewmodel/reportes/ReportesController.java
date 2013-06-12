@@ -1,3 +1,32 @@
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * Informacion Confidencial:
+ * Este software contiene informacion totalmente confidencial propiedad de Grupo Financiero BBVA Bancomer. 
+ * Queda totalmente prohibido su uso o divulgacion en forma parcial o total y solamente podra ser utilizada de acuerdo a los terminos y estatutos 
+ * que determine el Grupo Financiero BBVA Bancomer.
+ * 
+ * Todos los derechos reservados, Mexico 2013.
+ * 
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * DESCRIPCION DEL PROGRAMA
+ * Nombre de aplicación: MAPEADOR
+ * Nombre de proyecto: BbvaMapeadorWeb
+ * 
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ *
+ * HISTORIAL DE CAMBIOS:
+ * 
+ * Fecha:									         	
+ * 30-ABR-2013  
+ * @Author:	Jose Luis Ortiz Salazar
+ * @Email: jortizsalazar@gmail.com    	
+ * Razon: Creacion        
+ * Version: 1.0.0
+ * Nombre de clase: ReportesController.java
+ * Nombre de paquete: mx.com.bbva.mapeador.ui.commons.viewmodel.reportes
+ *              
+ *           
+ *              
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package mx.com.bbva.mapeador.ui.commons.viewmodel.reportes;
 
 import java.lang.reflect.Field;
@@ -17,20 +46,40 @@ import mx.com.bbva.mapeador.ui.commons.viewmodel.support.ControllerSupport;
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
-import org.zkoss.zhtml.Messagebox;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.select.Selectors;
 
+// TODO: Auto-generated Javadoc
 /**
- * @author Julio Morales
+ * The Class ReportesController.
  *
+ * @author Julio Morales
  */
 public class ReportesController extends ControllerSupport {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	
+	/**
+	 * After compose.
+	 *
+	 * @param view the view
+	 */
+	@AfterCompose
+    public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
+        Selectors.wireComponents(view, this, false);        
+    }
+	
+	/**
+	 * Creates the report.
+	 *
+	 * @param fieldsReport the fields report
+	 * @param headersReport the headers report
+	 * @param typeReport the type report
+	 * @param nameReport the name report
+	 */
 	public void createReport(ArrayList<BeanGenerico> fieldsReport, ArrayList<String> headersReport,String typeReport, String nameReport) {
 		Sessions.getCurrent().setAttribute("listBeanGenerico", fieldsReport);
 		Sessions.getCurrent().setAttribute("headersReport", headersReport);
@@ -38,9 +87,17 @@ public class ReportesController extends ControllerSupport {
 		Sessions.getCurrent().setAttribute("nameReport", nameReport);
 		
 		Executions.sendRedirect("/ServletReport");
-		Messagebox.show("!Se genero el Reporte de tipo "+typeReport+" con éxito");
+		org.zkoss.zul.Messagebox.show("!Se genero el Reporte de tipo "+typeReport+" con éxito");
     }
 	
+	/**
+	 * Registrar evento.
+	 *
+	 * @param nuevo the nuevo
+	 * @param anterior the anterior
+	 * @param idEvento the id evento
+	 * @param nombreBitacora the nombre bitacora
+	 */
 	public void registrarEvento(Object nuevo, Object anterior, int idEvento, String nombreBitacora){
 		List<CampoDTO> campoDTOs = new ArrayList<CampoDTO>(); 
 		BitacoraDTO dto = new BitacoraDTO(); 
@@ -97,6 +154,14 @@ public class ReportesController extends ControllerSupport {
 		super.registraEvento(dto, nombreBitacora, idEvento);
 	}
 	
+	/**
+	 * Registrar evento perfil.
+	 *
+	 * @param nuevo the nuevo
+	 * @param anterior the anterior
+	 * @param idEvento the id evento
+	 * @param nombreBitacora the nombre bitacora
+	 */
 	public void registrarEventoPerfil(PerfilDTO nuevo,PerfilDTO anterior, int idEvento, String nombreBitacora){
 		List<CampoDTO> campoDTOs = new ArrayList<CampoDTO>(); 
 		BitacoraDTO dto = new BitacoraDTO(); 
@@ -149,9 +214,4 @@ public class ReportesController extends ControllerSupport {
 		dto.setCampoDTOs(campoDTOs);
 		super.registraEvento(dto, nombreBitacora, idEvento);
 	}
-	
-	@AfterCompose
-    public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
-        Selectors.wireComponents(view, this, false);        
-    }
 }

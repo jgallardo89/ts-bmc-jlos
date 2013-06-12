@@ -1,3 +1,32 @@
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * Informacion Confidencial:
+ * Este software contiene informacion totalmente confidencial propiedad de Grupo Financiero BBVA Bancomer. 
+ * Queda totalmente prohibido su uso o divulgacion en forma parcial o total y solamente podra ser utilizada de acuerdo a los terminos y estatutos 
+ * que determine el Grupo Financiero BBVA Bancomer.
+ * 
+ * Todos los derechos reservados, Mexico 2013.
+ * 
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * DESCRIPCION DEL PROGRAMA
+ * Nombre de aplicación: MAPEADOR
+ * Nombre de proyecto: BbvaMapeadorWeb
+ * 
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ *
+ * HISTORIAL DE CAMBIOS:
+ * 
+ * Fecha:									         	
+ * 30-ABR-2013  
+ * @Author:	Jose Luis Ortiz Salazar
+ * @Email: jortizsalazar@gmail.com    	
+ * Razon: Creacion        
+ * Version: 1.0.0
+ * Nombre de clase: BitacoraWebController.java
+ * Nombre de paquete: mx.com.bbva.mapeador.ui.commons.viewmodel.bitacoraWeb
+ *              
+ *           
+ *              
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package mx.com.bbva.mapeador.ui.commons.viewmodel.bitacoraWeb;
 
 import java.io.ByteArrayInputStream;
@@ -46,57 +75,262 @@ import org.zkoss.zul.Window;
 
 import com.wutka.jox.JOXBeanInputStream;
 
+// TODO: Auto-generated Javadoc
 /**
- * @author Julio Morales
+ * The Class BitacoraWebController.
  *
+ * @author Julio Morales
  */
 public class BitacoraWebController extends ControllerSupport implements IController {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -3648403161872767250L;
 
-	@Wire
-	private Textbox idUsuario;
-	@Wire
-	private Textbox idEventoMapeador;
-	@Wire
-	private Label lblFechaInicio;
-	@Wire
-	private Label lblFechaFin;
-	@Wire
-	private Label lbIdentificadorMensaje;
-	@Wire
-	private Label lblUsuario;
-	@Wire
-	private Datebox fechaInicio;
-	@Wire
-	private Datebox fechaFin;
-	@Wire
-	private Combobox tipoEvento;
-	@Wire
-	private Combobox usuario;
-	@Wire
-	private Image reporteExcelBtn;
-	@Wire
-	private Image reporteCsvBtn;
-	@Wire
-	private Button consultarBtn;
+	/** The bitacora dto. */
+	private BitacoraDTO bitacoraDTO;
+	
+	/** The bitacora grid. */
 	@Wire
 	private Grid bitacoraGrid;
-
-	private BitacoraDTO bitacoraDTO;
+	
+	/** The bitacora v os. */
 	private List<BitacoraVO> bitacoraVOs;
-	private List<CampoDTO> campoDTOs;
-	private List<UsuarioVO> usuarioVOs;
-	private EventoMapeadorDTO eventoMapeadorDTO;
+	
+	/** The campo dto. */
 	private CampoDTO campoDTO;
+	
+	/** The campo dt os. */
+	private List<CampoDTO> campoDTOs;
+	
+	/** The consultar btn. */
+	@Wire
+	private Button consultarBtn;
+	
+	/** The detalle bitacora window. */
+	@Wire
+    Window detalleBitacoraWindow;
+	
+	/** The evento mapeador dto. */
+	private EventoMapeadorDTO eventoMapeadorDTO;
+	
+	/** The execute permission set. */
 	private boolean executePermissionSet;
 	
+	/** The fecha fin. */
+	@Wire
+	private Datebox fechaFin;
+	
+	/** The fecha inicio. */
+	@Wire
+	private Datebox fechaInicio;
+	
+	/** The id evento mapeador. */
+	@Wire
+	private Textbox idEventoMapeador;
+	
+	/** The id usuario. */
+	@Wire
+	private Textbox idUsuario;
+	
+	/** The lb identificador mensaje. */
+	@Wire
+	private Label lbIdentificadorMensaje;
+
+	/** The lbl fecha fin. */
+	@Wire
+	private Label lblFechaFin;
+	
+	/** The lbl fecha inicio. */
+	@Wire
+	private Label lblFechaInicio;
+	
+	/** The lbl usuario. */
+	@Wire
+	private Label lblUsuario;
+	
+	/** The reporte csv btn. */
+	@Wire
+	private Image reporteCsvBtn;
+	
+	/** The reporte excel btn. */
+	@Wire
+	private Image reporteExcelBtn;
+	
+	/** The tipo evento. */
+	@Wire
+	private Combobox tipoEvento;
+	
+	/** The usuario. */
+	@Wire
+	private Combobox usuario;
+	
+	/** The usuario v os. */
+	private List<UsuarioVO> usuarioVOs;
+	
+	/**
+	 * Instantiates a new bitacora web controller.
+	 */
 	public BitacoraWebController() {
 		this.read();
 		this.bitacoraVOs = bitacoraDTO.getBitacoraVOs();
 		this.campoDTOs = new ArrayList<CampoDTO>();
 	}
 	
+	/**
+	 * After compose.
+	 *
+	 * @param view the view
+	 */
+	@AfterCompose
+    public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
+        Selectors.wireComponents(view, this, false);        
+        executePermissionSet = this.applyPermision();
+    }
+	
+	/* (non-Javadoc)
+	 * @see mx.com.bbva.mapeador.ui.commons.controller.IController#applyPermision()
+	 */
+	@Override
+	public boolean applyPermision() {
+		boolean isApplied = false;
+		HashMap<String, Component> componentes = new HashMap<String, Component>();
+		try{
+			componentes.put(lblFechaInicio.getId(), lblFechaInicio);
+			componentes.put(lblFechaFin.getId(), lblFechaFin);
+			componentes.put(lbIdentificadorMensaje.getId(), lbIdentificadorMensaje);
+			componentes.put(lblUsuario.getId(), lblUsuario);
+			componentes.put(fechaInicio.getId(), fechaInicio);
+			componentes.put(fechaFin.getId(), fechaFin);
+			componentes.put(tipoEvento.getId(), tipoEvento);
+			componentes.put(usuario.getId(), usuario);
+			componentes.put(reporteExcelBtn.getId(), reporteExcelBtn);
+			componentes.put(reporteCsvBtn.getId(), reporteCsvBtn);
+			componentes.put(consultarBtn.getId(), consultarBtn);
+			componentes.put(bitacoraGrid.getId(), bitacoraGrid);
+			super.applyPermission(MapeadorConstants.BITACORA, componentes);
+		}catch(Exception ex){}
+		return isApplied;
+	}
+	
+	/* (non-Javadoc)
+	 * @see mx.com.bbva.mapeador.ui.commons.controller.IController#clean()
+	 */
+	@Override
+	@Command
+	public void clean() {
+		idUsuario.setValue(null);
+		idEventoMapeador.setValue(null);
+	}
+	
+	/* (non-Javadoc)
+	 * @see mx.com.bbva.mapeador.ui.commons.controller.IController#delete()
+	 */
+	@Override
+	public void delete() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	/**
+	 * Genera lista.
+	 *
+	 * @return the array list
+	 */
+	private ArrayList<BeanGenerico> generaLista() {
+		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+		ArrayList<BeanGenerico> beanGenericos = new ArrayList<BeanGenerico>();
+		BeanGenerico beanGenerico = null;
+		for(BitacoraVO bitacoraVO: bitacoraVOs) {
+			beanGenerico = new BeanGenerico();
+			beanGenerico.setValor1(dateFormat.format(bitacoraVO.getFechaBitacora()));
+			beanGenerico.setValor2(bitacoraVO.getNombreUsuario());
+			beanGenerico.setValor3(bitacoraVO.getDescripcionBitacoraWeb());
+			beanGenericos.add(beanGenerico);
+		}
+		return beanGenericos;
+	}	
+	
+	/**
+	 * Gets the bitacora dto.
+	 *
+	 * @return the bitacoraDTO
+	 */
+	public BitacoraDTO getBitacoraDTO() {
+		return bitacoraDTO;
+	}
+	
+	/**
+	 * Gets the bitacora v os.
+	 *
+	 * @return the bitacoraVOs
+	 */
+	public List<BitacoraVO> getBitacoraVOs() {
+		return bitacoraVOs;
+	}
+
+	/**
+	 * Gets the campo dto.
+	 *
+	 * @return the campoDTO
+	 */
+	public CampoDTO getCampoDTO() {
+		return campoDTO;
+	}
+
+	/**
+	 * Gets the campo dt os.
+	 *
+	 * @return the campoDTOs
+	 */
+	public List<CampoDTO> getCampoDTOs() {
+		return campoDTOs;
+	}
+
+	/**
+	 * Gets the evento mapeador dto.
+	 *
+	 * @return the eventoMapeadorDTO
+	 */
+	public EventoMapeadorDTO getEventoMapeadorDTO() {
+		return eventoMapeadorDTO;
+	}
+	
+	/**
+	 * Gets the usuario v os.
+	 *
+	 * @return the usuarioVOs
+	 */
+	public List<UsuarioVO> getUsuarioVOs() {
+		return usuarioVOs;
+	}
+
+	/**
+	 * Checks if is execute permission set.
+	 *
+	 * @return the executePermissionSet
+	 */
+	public boolean isExecutePermissionSet() {
+		return executePermissionSet;
+	}
+
+	/**
+	 * On show report.
+	 *
+	 * @param type the type
+	 */
+	@Command
+	public void onShowReport(@BindingParam("type") final String type) {
+		ReportesController controller = new ReportesController();
+		ArrayList<String> headersReport = new ArrayList<String>();
+		headersReport.add("Fecha y Hora");
+		headersReport.add("Usuario");
+		headersReport.add("Tipo Evento");
+		controller.createReport(generaLista(), headersReport, type, "BITACORA_WEB");
+	}
+
+	/* (non-Javadoc)
+	 * @see mx.com.bbva.mapeador.ui.commons.controller.IController#read()
+	 */
 	@Override
 	public Object read() {
 		bitacoraDTO = new BitacoraDTO();
@@ -113,30 +347,21 @@ public class BitacoraWebController extends ControllerSupport implements IControl
 
 		return bitacoraDTO;
 	}
-	
-	@Command
-	@NotifyChange({ "bitacoraVOs" })
-	public void readWithFilters() {
-		if(fechaInicio.getValue().compareTo(fechaFin.getValue()) > 0 ){
-			fechaInicio.setErrorMessage("La fecha de inicio no puede ser mayor a la fecha de fin");
-		}else{
-			BitacoraDTO bitacoraDTO = new BitacoraDTO();
-			BitacoraVO bitacoraVO = new BitacoraVO();
-			
-			DateFormat dateFormatInicio = new SimpleDateFormat("dd-MM-yyyy 00:00");
-			DateFormat dateFormatFin = new SimpleDateFormat("dd-MM-yyyy 23:59");
-			
-			bitacoraVO.setFechaInicio(fechaInicio.getValue());
-			bitacoraVO.setFechaFin(fechaFin.getValue());
-			bitacoraVO.setIdEventoMapeador(Integer.parseInt(idEventoMapeador.getValue().isEmpty()?"0":idEventoMapeador.getValue()));
-			bitacoraVO.setIdUsuario(Integer.parseInt(idUsuario.getValue().isEmpty()?"0":idUsuario.getValue()));
-			bitacoraVO.toString();
-			bitacoraDTO.setBitacoraVO(bitacoraVO);
-			BitacoraBO bitacoraBO = new BitacoraBO();
-			bitacoraVOs = bitacoraBO.readCommand(bitacoraDTO).getBitacoraVOs();
-		}
+
+	/* (non-Javadoc)
+	 * @see mx.com.bbva.mapeador.ui.commons.controller.IController#read(java.lang.Object)
+	 */
+	@Override
+	public Object read(Object t) {
+		// TODO Auto-generated method stub
+		return null;
 	}
-	
+
+	/**
+	 * Read event detail.
+	 *
+	 * @param bitacoraVO the bitacora vo
+	 */
 	@Command
 	@NotifyChange({ "campoDTOs" })
 	public void readEventDetail(@BindingParam("idBitacora") final BitacoraVO bitacoraVO) {
@@ -171,78 +396,45 @@ public class BitacoraWebController extends ControllerSupport implements IControl
 				this.getSelf(), mapDatos);
 		window.doModal();
 	}
-	
-	@Wire
-    Window detalleBitacoraWindow;
-	
-	@Command
-    public void showModal() {
-		detalleBitacoraWindow.detach();
-    }
 
+	/**
+	 * Read with filters.
+	 */
 	@Command
-	public void onShowReport(@BindingParam("type") final String type) {
-		ReportesController controller = new ReportesController();
-		ArrayList<String> headersReport = new ArrayList<String>();
-		headersReport.add("Fecha y Hora");
-		headersReport.add("Usuario");
-		headersReport.add("Tipo Evento");
-		controller.createReport(generaLista(), headersReport, type, "BITACORA_WEB");
-	}	
-	
-	private ArrayList<BeanGenerico> generaLista() {
-		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
-		ArrayList<BeanGenerico> beanGenericos = new ArrayList<BeanGenerico>();
-		BeanGenerico beanGenerico = null;
-		for(BitacoraVO bitacoraVO: bitacoraVOs) {
-			beanGenerico = new BeanGenerico();
-			beanGenerico.setValor1(dateFormat.format(bitacoraVO.getFechaBitacora()));
-			beanGenerico.setValor2(bitacoraVO.getNombreUsuario());
-			beanGenerico.setValor3(bitacoraVO.getDescripcionBitacoraWeb());
-			beanGenericos.add(beanGenerico);
+	@NotifyChange({ "bitacoraVOs" })
+	public void readWithFilters() {
+		if(fechaInicio.getValue().compareTo(fechaFin.getValue()) > 0 ){
+			fechaInicio.setErrorMessage("La fecha de inicio no puede ser mayor a la fecha de fin");
+		}else{
+			BitacoraDTO bitacoraDTO = new BitacoraDTO();
+			BitacoraVO bitacoraVO = new BitacoraVO();
+			
+			DateFormat dateFormatInicio = new SimpleDateFormat("dd-MM-yyyy 00:00");
+			DateFormat dateFormatFin = new SimpleDateFormat("dd-MM-yyyy 23:59");
+			
+			bitacoraVO.setFechaInicio(fechaInicio.getValue());
+			bitacoraVO.setFechaFin(fechaFin.getValue());
+			bitacoraVO.setIdEventoMapeador(Integer.parseInt(idEventoMapeador.getValue().isEmpty()?"0":idEventoMapeador.getValue()));
+			bitacoraVO.setIdUsuario(Integer.parseInt(idUsuario.getValue().isEmpty()?"0":idUsuario.getValue()));
+			bitacoraVO.toString();
+			bitacoraDTO.setBitacoraVO(bitacoraVO);
+			BitacoraBO bitacoraBO = new BitacoraBO();
+			bitacoraVOs = bitacoraBO.readCommand(bitacoraDTO).getBitacoraVOs();
 		}
-		return beanGenericos;
-	}
-	
-	@Override
-	public Object read(Object t) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
+	/* (non-Javadoc)
+	 * @see mx.com.bbva.mapeador.ui.commons.controller.IController#save()
+	 */
 	@Override
 	public void save() {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
-	public void delete() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	@Command
-	public void clean() {
-		idUsuario.setValue(null);
-		idEventoMapeador.setValue(null);
-	}
-	
-	@AfterCompose
-    public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
-        Selectors.wireComponents(view, this, false);        
-        executePermissionSet = this.applyPermision();
-    }
-
 	/**
-	 * @return the bitacoraDTO
-	 */
-	public BitacoraDTO getBitacoraDTO() {
-		return bitacoraDTO;
-	}
-
-	/**
+	 * Sets the bitacora dto.
+	 *
 	 * @param bitacoraDTO the bitacoraDTO to set
 	 */
 	public void setBitacoraDTO(BitacoraDTO bitacoraDTO) {
@@ -250,13 +442,8 @@ public class BitacoraWebController extends ControllerSupport implements IControl
 	}
 
 	/**
-	 * @return the bitacoraVOs
-	 */
-	public List<BitacoraVO> getBitacoraVOs() {
-		return bitacoraVOs;
-	}
-
-	/**
+	 * Sets the bitacora v os.
+	 *
 	 * @param bitacoraVOs the bitacoraVOs to set
 	 */
 	public void setBitacoraVOs(List<BitacoraVO> bitacoraVOs) {
@@ -264,13 +451,17 @@ public class BitacoraWebController extends ControllerSupport implements IControl
 	}
 
 	/**
-	 * @return the campoDTOs
+	 * Sets the campo dto.
+	 *
+	 * @param campoDTO the campoDTO to set
 	 */
-	public List<CampoDTO> getCampoDTOs() {
-		return campoDTOs;
+	public void setCampoDTO(CampoDTO campoDTO) {
+		this.campoDTO = campoDTO;
 	}
 
 	/**
+	 * Sets the campo dt os.
+	 *
 	 * @param campoDTOs the campoDTOs to set
 	 */
 	public void setCampoDTOs(List<CampoDTO> campoDTOs) {
@@ -278,78 +469,38 @@ public class BitacoraWebController extends ControllerSupport implements IControl
 	}
 
 	/**
-	 * @return the usuarioVOs
-	 */
-	public List<UsuarioVO> getUsuarioVOs() {
-		return usuarioVOs;
-	}
-
-	/**
-	 * @param usuarioVOs the usuarioVOs to set
-	 */
-	public void setUsuarioVOs(List<UsuarioVO> usuarioVOs) {
-		this.usuarioVOs = usuarioVOs;
-	}
-
-	/**
-	 * @return the eventoMapeadorDTO
-	 */
-	public EventoMapeadorDTO getEventoMapeadorDTO() {
-		return eventoMapeadorDTO;
-	}
-
-	/**
+	 * Sets the evento mapeador dto.
+	 *
 	 * @param eventoMapeadorDTO the eventoMapeadorDTO to set
 	 */
 	public void setEventoMapeadorDTO(EventoMapeadorDTO eventoMapeadorDTO) {
 		this.eventoMapeadorDTO = eventoMapeadorDTO;
 	}
-
+	
 	/**
-	 * @return the campoDTO
-	 */
-	public CampoDTO getCampoDTO() {
-		return campoDTO;
-	}
-
-	/**
-	 * @param campoDTO the campoDTO to set
-	 */
-	public void setCampoDTO(CampoDTO campoDTO) {
-		this.campoDTO = campoDTO;
-	}
-	/**
-	 * @return the executePermissionSet
-	 */
-	public boolean isExecutePermissionSet() {
-		return executePermissionSet;
-	}
-	/**
+	 * Sets the execute permission set.
+	 *
 	 * @param executePermissionSet the executePermissionSet to set
 	 */
 	public void setExecutePermissionSet(boolean executePermissionSet) {
 		this.executePermissionSet = executePermissionSet;
 	}
-	@Override
-	public boolean applyPermision() {
-		boolean isApplied = false;
-		HashMap<String, Component> componentes = new HashMap<String, Component>();
-		try{
-			componentes.put(lblFechaInicio.getId(), lblFechaInicio);
-			componentes.put(lblFechaFin.getId(), lblFechaFin);
-			componentes.put(lbIdentificadorMensaje.getId(), lbIdentificadorMensaje);
-			componentes.put(lblUsuario.getId(), lblUsuario);
-			componentes.put(fechaInicio.getId(), fechaInicio);
-			componentes.put(fechaFin.getId(), fechaFin);
-			componentes.put(tipoEvento.getId(), tipoEvento);
-			componentes.put(usuario.getId(), usuario);
-			componentes.put(reporteExcelBtn.getId(), reporteExcelBtn);
-			componentes.put(reporteCsvBtn.getId(), reporteCsvBtn);
-			componentes.put(consultarBtn.getId(), consultarBtn);
-			componentes.put(bitacoraGrid.getId(), bitacoraGrid);
-			super.applyPermission(MapeadorConstants.BITACORA, componentes);
-		}catch(Exception ex){}
-		return isApplied;
+	
+	/**
+	 * Sets the usuario v os.
+	 *
+	 * @param usuarioVOs the usuarioVOs to set
+	 */
+	public void setUsuarioVOs(List<UsuarioVO> usuarioVOs) {
+		this.usuarioVOs = usuarioVOs;
 	}
+	
+	/**
+	 * Show modal.
+	 */
+	@Command
+    public void showModal() {
+		detalleBitacoraWindow.detach();
+    }
 	
 }

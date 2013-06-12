@@ -1,3 +1,32 @@
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * Informacion Confidencial:
+ * Este software contiene informacion totalmente confidencial propiedad de Grupo Financiero BBVA Bancomer. 
+ * Queda totalmente prohibido su uso o divulgacion en forma parcial o total y solamente podra ser utilizada de acuerdo a los terminos y estatutos 
+ * que determine el Grupo Financiero BBVA Bancomer.
+ * 
+ * Todos los derechos reservados, Mexico 2013.
+ * 
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * DESCRIPCION DEL PROGRAMA
+ * Nombre de aplicación: MAPEADOR
+ * Nombre de proyecto: BbvaMapeadorWeb
+ * 
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ *
+ * HISTORIAL DE CAMBIOS:
+ * 
+ * Fecha:									         	
+ * 30-ABR-2013  
+ * @Author:	Jose Luis Ortiz Salazar
+ * @Email: jortizsalazar@gmail.com    	
+ * Razon: Creacion        
+ * Version: 1.0.0
+ * Nombre de clase: MonitoreoProcesosController.java
+ * Nombre de paquete: mx.com.bbva.mapeador.ui.commons.viewmodel.monitoreoprocesos
+ *              
+ *           
+ *              
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package mx.com.bbva.mapeador.ui.commons.viewmodel.monitoreoprocesos;
 
 import java.text.DateFormat;
@@ -38,7 +67,6 @@ import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.NotifyChange;
-import org.zkoss.zhtml.Messagebox;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
@@ -55,123 +83,261 @@ import org.zkoss.zul.Label;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class MonitoreoProcesosController.
+ */
 public class MonitoreoProcesosController extends ControllerSupport implements  IController{
 	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+	/** The Constant logger. */
 	private static final Logger logger = Logger.getLogger(MonitoreoProcesosController.class);
-	@Wire
-	private Combobox criterio;
+	
+	/** The Constant serialVersionUID. */
+	private static final long serialVersionUID = 1L;
+	
+	/** The btn guardar. */
+	private boolean btnGuardar;
+	
+	/** The canal. */
 	@Wire
 	private Combobox canal;
+	
+	/** The cliente. */
 	@Wire
 	private Combobox cliente;
-	@Wire
-	private Combobox estatus;
-	@Wire
-	private Button guardarBtn;
 	
-	private boolean btnGuardar;
+	/** The consultar btn. */
 	@Wire
-	private Checkbox todos;
+	private Button consultarBtn;
+	
+	/** The criterio. */
 	@Wire
-	private Checkbox exito;
+	private Combobox criterio;
+	
+	/** The detalle proceso window. */
+	@Wire
+    Window detalleProcesoWindow;
+	
+	/** The error. */
 	@Wire
 	private Checkbox error;
-	@Wire
-	private Checkbox finaliza;
+	
+	/** The espera. */
 	@Wire
 	private Checkbox espera;
 	
+	/** The estatus. */
 	@Wire
-	private Combobox producto;
+	private Combobox estatus;
+	
+	/** The etapa vo. */
+	private EtapaVO etapaVO;
+	
+	/** The execute permission set. */
+	private boolean executePermissionSet;
+	
+	/** The exito. */
 	@Wire
-	private Datebox fechaInicio;
+	private Checkbox exito;
+	
+	/** The fecha fin. */
 	@Wire
 	private Datebox fechaFin;
+	
+	/** The fecha inicio. */
 	@Wire
-	private Textbox lote;
+	private Datebox fechaInicio;
+	
+	/** The finaliza. */
 	@Wire
-	private Textbox idCriterio;
+	private Checkbox finaliza;
+	
+	/** The guardar btn. */
+	@Wire
+	private Button guardarBtn;
+	
+	/** The id canal. */
 	@Wire
 	private Textbox idCanal;
+	
+	/** The id cliente. */
 	@Wire
 	private Textbox idCliente;
-	@Wire
-	private Textbox idEstatus;
-	@Wire
-	private Textbox idProducto;
+	
+	/** The id contratacion. */
 	@Wire
 	private Textbox idContratacion;
+	
+	/** The id criterio. */
 	@Wire
-	private Textbox idFlujo;
+	private Textbox idCriterio;
+	
+	/** The id estatus. */
 	@Wire
-	private Textbox idEtapa;	
+	private Textbox idEstatus;
+	
+	/** The id etapa. */
+	@Wire
+	private Textbox idEtapa;
+	
+	/** The id flujo. */
+	@Wire
+	private Textbox idFlujo;	
 	
 	
+	/** The id producto. */
 	@Wire
-	private Label lblCanal;
-	@Wire
-	private Label lblCliente;
-	@Wire
-	private Label lblProducto;
-	@Wire
-	private Label lblEstatus;
-	@Wire
-	private Label lblFechaLote;
+	private Textbox idProducto;
+	
+	/** The lbl a. */
 	@Wire
 	private Label lblA;
+	
+	/** The lbl canal. */
+	@Wire
+	private Label lblCanal;
+	
+	/** The lbl cliente. */
+	@Wire
+	private Label lblCliente;
+	
+	/** The lbl estatus. */
+	@Wire
+	private Label lblEstatus;
+	
+	/** The lbl fecha lote. */
+	@Wire
+	private Label lblFechaLote;
+	
+	/** The lbl lote. */
 	@Wire
 	private Label lblLote;
+	
+	/** The lbl producto. */
 	@Wire
-	private Image reporteExcelBtn;
-	@Wire
-	private Image reporteCsvBtn;
+	private Label lblProducto;
+	
+	/** The limpiar btn. */
 	@Wire
 	private Button limpiarBtn;
+	
+	/** The lote. */
 	@Wire
-	private Button consultarBtn;
+	private Textbox lote;
+	
+	/** The monitoreo procesos dto. */
+	private MonitoreoProcesosDTO monitoreoProcesosDTO = (MonitoreoProcesosDTO) this.read();
+	
+	/** The monitoreo procesos vo. */
+	private MonitoreoProcesosVO monitoreoProcesosVO;
+	
+	/** The monitoreo procesos v os. */
+	private List<MonitoreoProcesosVO> monitoreoProcesosVOs = monitoreoProcesosDTO.getMonitoreoProcesosVOs();
+	
+	/** The procesos grid. */
 	@Wire
 	private Grid procesosGrid;
 	
-	private MonitoreoProcesosDTO monitoreoProcesosDTO = (MonitoreoProcesosDTO) this.read();
-	
-	private List<MonitoreoProcesosVO> monitoreoProcesosVOs = monitoreoProcesosDTO.getMonitoreoProcesosVOs();
-	
-	private String strCanal;
-	
-	private String strCliente;
-	
-	private String strEstatus;
-	
-	private String strProducto;
-	
-	private String strFechaInicio;
-	
-	private String strFechaFin;
-	
-	private String strLote;
-	
-	private String strIdCriterio;
-	
-	private String strIdCanal;
-	
-	private String strIdCliente;
-	
-	private String strIdEstatus;
-	
-	private String strIdProducto;
-	
-	private boolean executePermissionSet;
-	
-	private MonitoreoProcesosVO monitoreoProcesosVO;
-	
-	private EtapaVO etapaVO;
-	
+	/** The proceso v os. */
 	private List<ProcesoVO> procesoVOs = getProcesoVOs();
 	
+	/** The producto. */
+	@Wire
+	private Combobox producto;
+	
+	/** The reporte csv btn. */
+	@Wire
+	private Image reporteCsvBtn;
+	
+	/** The reporte excel btn. */
+	@Wire
+	private Image reporteExcelBtn;
+	
+	/** The str canal. */
+	private String strCanal;
+	
+	/** The str cliente. */
+	private String strCliente;
+	
+	/** The str estatus. */
+	private String strEstatus;
+	
+	/** The str fecha fin. */
+	private String strFechaFin;
+	
+	/** The str fecha inicio. */
+	private String strFechaInicio;
+	
+	/** The str id canal. */
+	private String strIdCanal;
+	
+	/** The str id cliente. */
+	private String strIdCliente;
+	
+	/** The str id criterio. */
+	private String strIdCriterio;
+	
+	/** The str id estatus. */
+	private String strIdEstatus;
+	
+	/** The str id producto. */
+	private String strIdProducto;
+	
+	/** The str lote. */
+	private String strLote;
+	
+	/** The str producto. */
+	private String strProducto;
+	
+	/** The todos. */
+	@Wire
+	private Checkbox todos;
+	
+	/**
+	 * After compose.
+	 *
+	 * @param view the view
+	 */
+	@AfterCompose
+    public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
+        Selectors.wireComponents(view, this, false);    
+        executePermissionSet = this.applyPermision();
+    }
+	
+	/* (non-Javadoc)
+	 * @see mx.com.bbva.mapeador.ui.commons.controller.IController#applyPermision()
+	 */
+	@Override
+	public boolean applyPermision() {
+		boolean isApplied = false;
+		HashMap<String, Component> componentes = new HashMap<String, Component>();
+//		componentes.put(lblCanal.getId(), lblCanal);
+//		componentes.put(lblCliente.getId(), lblCliente);
+//		componentes.put(lblProducto.getId(), lblProducto);
+//		componentes.put(lblEstatus.getId(), lblEstatus);
+//		componentes.put(lblFechaLote.getId(), lblFechaLote);
+//		componentes.put(lblA.getId(), lblA);
+//		componentes.put(lblLote.getId(), lblLote);
+//		componentes.put(canal.getId(), canal);
+//		componentes.put(cliente.getId(), cliente);
+//		componentes.put(producto.getId(), producto);
+////		componentes.put(estatus.getId(), estatus);
+//		componentes.put(fechaInicio.getId(), fechaInicio);
+//		componentes.put(fechaFin.getId(), fechaFin);
+//		componentes.put(lote.getId(), lote);
+//		componentes.put(reporteExcelBtn.getId(), reporteExcelBtn);
+//		componentes.put(reporteCsvBtn.getId(), reporteCsvBtn);
+//		componentes.put(limpiarBtn.getId(), limpiarBtn);
+//		componentes.put(consultarBtn.getId(), consultarBtn);
+////		componentes.put(procesosGrid.getId(), procesosGrid);
+		super.applyPermission(MapeadorConstants.MONITOREO, componentes);
+		return isApplied;
+	}
+	/**
+	 * Armar lista grid.
+	 *
+	 * @param listaMonitoreoProcesosVO the lista monitoreo procesos vo
+	 */
 	private void armarListaGrid(List<MonitoreoProcesosVO> listaMonitoreoProcesosVO){ 
 		List<ProcesoVO> procesoVOs =  new ArrayList<ProcesoVO>();
 		
@@ -255,6 +421,472 @@ public class MonitoreoProcesosController extends ControllerSupport implements  I
 		setProcesoVOs(procesoVOs);
 	
 	}
+	
+	/* (non-Javadoc)
+	 * @see mx.com.bbva.mapeador.ui.commons.controller.IController#clean()
+	 */
+	@Override
+	@Command
+	public void clean() {
+		canal.setValue(null); 
+		cliente.setValue(null);
+//		estatus.setValue(null);
+		producto.setValue(null);
+		lote.setValue(null);
+		idCanal.setValue(null); 
+		idProducto.setValue(null);
+		idCliente.setValue(null);
+		todos.setChecked(false);
+		exito.setChecked(false);
+		error.setChecked(false);
+		finaliza.setChecked(false);
+		espera.setChecked(false);
+		idEstatus.setValue(null);
+//		idContratacion.setValue(null);
+//		idFlujo.setValue(null);
+//		idEtapa.setValue(null); 
+	}
+	
+	/* (non-Javadoc)
+	 * @see mx.com.bbva.mapeador.ui.commons.controller.IController#delete()
+	 */
+	@Override
+	public void delete() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	/**
+	 * Genera lista.
+	 *
+	 * @return the array list
+	 */
+	private ArrayList<BeanGenerico> generaLista() {
+		ArrayList<BeanGenerico> beanGenericos = new ArrayList<BeanGenerico>();
+		BeanGenerico beanGenerico = null;
+		DateFormat dateFormatFecha = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+		DateFormat dateFormatHora = new SimpleDateFormat("hh:mm:ss");
+		for(MonitoreoProcesosVO monitoreoProcesosVO: monitoreoProcesosVOs) {
+			beanGenerico = new BeanGenerico();
+			beanGenerico.setValor1(monitoreoProcesosVO.getNombreCanal());
+			beanGenerico.setValor2(monitoreoProcesosVO.getIdIdentificador()); 
+			beanGenerico.setValor3(monitoreoProcesosVO.getNombreProducto());
+			beanGenerico.setValor4(monitoreoProcesosVO.getNombreEstatusMapeador());
+			beanGenerico.setValor5(dateFormatFecha.format(monitoreoProcesosVO.getFechaLote()));
+			beanGenerico.setValor6(String.valueOf(monitoreoProcesosVO.getNumeroLote()));
+			beanGenerico.setValor7(monitoreoProcesosVO.getNombreEtapa());
+			beanGenerico.setValor8(monitoreoProcesosVO.getNombreRegArchEntra());
+			beanGenerico.setValor9(dateFormatFecha.format(monitoreoProcesosVO.getFechaStatusProceso()));
+			beanGenerico.setValor10(dateFormatHora.format(monitoreoProcesosVO.getHoraProcesoIni()));
+			beanGenerico.setValor11(dateFormatHora.format(monitoreoProcesosVO.getHoraProcesoFin()));
+			beanGenerico.setValor12(monitoreoProcesosVO.getNombreEstatusMapeador());
+			beanGenericos.add(beanGenerico);
+		}
+		return beanGenericos;
+	}
+	
+	/**
+	 * Gets the canal.
+	 *
+	 * @return the canal
+	 */
+	public Combobox getCanal() {
+		return canal;
+	}
+
+	/**
+	 * Gets the cliente.
+	 *
+	 * @return the cliente
+	 */
+	public Combobox getCliente() {
+		return cliente;
+	}
+	
+	/**
+	 * Gets the criterio.
+	 *
+	 * @return the criterio
+	 */
+	public Combobox getCriterio() {
+		return criterio;
+	}
+	
+	/**
+	 * Gets the error.
+	 *
+	 * @return the error
+	 */
+	public Checkbox getError() {
+		return error;
+	}
+	 
+	/**
+	 * Gets the espera.
+	 *
+	 * @return the espera
+	 */
+	public Checkbox getEspera() {
+		return espera;
+	}
+	
+	/**
+	 * Gets the estatus.
+	 *
+	 * @return the estatus
+	 */
+	public Combobox getEstatus() {
+		return estatus;
+	}	
+	
+	/**
+	 * Gets the etapa vo.
+	 *
+	 * @return the etapaVO
+	 */
+	public EtapaVO getEtapaVO() {
+		return etapaVO;
+	}
+	
+	/**
+	 * Gets the exito.
+	 *
+	 * @return the exito
+	 */
+	public Checkbox getExito() {
+		return exito;
+	}
+	
+	/**
+	 * Gets the fecha fin.
+	 *
+	 * @return the fechaFin
+	 */
+	public Datebox getFechaFin() {
+		return fechaFin;
+	}
+	
+	/**
+	 * Gets the fecha inicio.
+	 *
+	 * @return the fechaInicio
+	 */
+	public Datebox getFechaInicio() {
+		return fechaInicio;
+	}
+	
+	/**
+	 * Gets the finaliza.
+	 *
+	 * @return the finaliza
+	 */
+	public Checkbox getFinaliza() {
+		return finaliza;
+	}
+	
+	/**
+	 * Gets the guardar btn.
+	 *
+	 * @return the guardarBtn
+	 */
+	public Button getGuardarBtn() {
+		return guardarBtn;
+	}
+	
+	/**
+	 * Gets the id canal.
+	 *
+	 * @return the idCanal
+	 */
+	public Textbox getIdCanal() {
+		return idCanal;
+	}
+	
+	/**
+	 * Gets the id cliente.
+	 *
+	 * @return the idCliente
+	 */
+	public Textbox getIdCliente() {
+		return idCliente;
+	}
+	
+	/**
+	 * Gets the id contratacion.
+	 *
+	 * @return the idContratacion
+	 */
+	public Textbox getIdContratacion() {
+		return idContratacion;
+	}
+	
+	/**
+	 * Gets the id criterio.
+	 *
+	 * @return the idCriterio
+	 */
+	public Textbox getIdCriterio() {
+		return idCriterio;
+	}
+	
+	/**
+	 * Gets the id estatus.
+	 *
+	 * @return the idEstatus
+	 */
+	public Textbox getIdEstatus() {
+		return idEstatus;
+	}
+	
+	/**
+	 * Gets the id etapa.
+	 *
+	 * @return the idEtapa
+	 */
+	public Textbox getIdEtapa() {
+		return idEtapa;
+	}
+	
+	/**
+	 * Gets the id flujo.
+	 *
+	 * @return the idFlujo
+	 */
+	public Textbox getIdFlujo() {
+		return idFlujo;
+	}
+	
+	/**
+	 * Gets the id producto.
+	 *
+	 * @return the idProducto
+	 */
+	public Textbox getIdProducto() {
+		return idProducto;
+	}
+	
+	/**
+	 * Gets the lote.
+	 *
+	 * @return the lote
+	 */
+	public Textbox getLote() {
+		return lote;
+	}
+	
+	/**
+	 * Gets the monitoreo procesos dto.
+	 *
+	 * @return the monitoreoProcesosDTO
+	 */
+	public MonitoreoProcesosDTO getMonitoreoProcesosDTO() {
+		return monitoreoProcesosDTO;
+	}
+	
+	/**
+	 * Gets the monitoreo procesos vo.
+	 *
+	 * @return the monitoreoProcesosVO
+	 */
+	public MonitoreoProcesosVO getMonitoreoProcesosVO() {
+		return monitoreoProcesosVO;
+	}
+	
+	/**
+	 * Gets the monitoreo procesos v os.
+	 *
+	 * @return the monitoreoProcesosVOs
+	 */
+	public List<MonitoreoProcesosVO> getMonitoreoProcesosVOs() {
+		return monitoreoProcesosVOs;
+	}
+	
+	/**
+	 * Gets the proceso v os.
+	 *
+	 * @return the procesoVOs
+	 */
+	public List<ProcesoVO> getProcesoVOs() {
+		return procesoVOs;
+	}
+	
+	/**
+	 * Gets the producto.
+	 *
+	 * @return the producto
+	 */
+	public Combobox getProducto() {
+		return producto;
+	}
+	
+	/**
+	 * Gets the str canal.
+	 *
+	 * @return the strCanal
+	 */
+	public String getStrCanal() {
+		return strCanal;
+	}
+	
+	/**
+	 * Gets the str cliente.
+	 *
+	 * @return the strCliente
+	 */
+	public String getStrCliente() {
+		return strCliente;
+	}
+	
+	/**
+	 * Gets the str estatus.
+	 *
+	 * @return the strEstatus
+	 */
+	public String getStrEstatus() {
+		return strEstatus;
+	}
+	
+	/**
+	 * Gets the str fecha fin.
+	 *
+	 * @return the strFechaFin
+	 */
+	public String getStrFechaFin() {
+		return strFechaFin;
+	}
+	
+	/**
+	 * Gets the str fecha inicio.
+	 *
+	 * @return the strFechaInicio
+	 */
+	public String getStrFechaInicio() {
+		return strFechaInicio;
+	}
+	
+	/**
+	 * Gets the str id canal.
+	 *
+	 * @return the strIdCanal
+	 */
+	public String getStrIdCanal() {
+		return strIdCanal;
+	}
+	
+	/**
+	 * Gets the str id cliente.
+	 *
+	 * @return the strIdCliente
+	 */
+	public String getStrIdCliente() {
+		return strIdCliente;
+	}
+	
+	/**
+	 * Gets the str id criterio.
+	 *
+	 * @return the strIdCriterio
+	 */
+	public String getStrIdCriterio() {
+		return strIdCriterio;
+	}
+	
+	/**
+	 * Gets the str id estatus.
+	 *
+	 * @return the strIdEstatus
+	 */
+	public String getStrIdEstatus() {
+		return strIdEstatus;
+	}
+	
+	/**
+	 * Gets the str id producto.
+	 *
+	 * @return the strIdProducto
+	 */
+	public String getStrIdProducto() {
+		return strIdProducto;
+	}
+	
+	/**
+	 * Gets the str lote.
+	 *
+	 * @return the strLote
+	 */
+	public String getStrLote() {
+		return strLote;
+	}
+	
+	/**
+	 * Gets the str producto.
+	 *
+	 * @return the strProducto
+	 */
+	public String getStrProducto() {
+		return strProducto;
+	}
+	
+	/**
+	 * Gets the todos.
+	 *
+	 * @return the todos
+	 */
+	public Checkbox getTodos() {
+		return todos;
+	}
+	
+	/**
+	 * Checks if is btn guardar.
+	 *
+	 * @return the btnGuardar
+	 */
+	public boolean isBtnGuardar() {
+		return btnGuardar;
+	}
+	
+	/**
+	 * Checks if is execute permission set.
+	 *
+	 * @return the executePermissionSet
+	 */
+	public boolean isExecutePermissionSet() {
+		return executePermissionSet;
+	}
+	
+	/**
+	 * On show report.
+	 *
+	 * @param type the type
+	 */
+	@Command
+	public void onShowReport(@BindingParam("type") final String type) {
+		ReportesController controller = new ReportesController();
+		ArrayList<String> headersReport = new ArrayList<String>();
+		String titleReport = "Monitoreo de Procesos";
+		headersReport.add("Canal");
+		headersReport.add("Cliente");
+		headersReport.add("Producto");
+		headersReport.add("Estatus"); 
+		headersReport.add("Fecha Lote");
+		headersReport.add("Lote");
+		headersReport.add("Etapa");
+		headersReport.add("Nombre Archivo");
+		headersReport.add("Fecha Inicio");
+		headersReport.add("Hora inicio");
+		headersReport.add("Hora fin");
+		headersReport.add("Estatus");
+		if(type.equals("xls")) {
+			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_EXCEL,"Monitoreo de Procesos");
+		} else {
+			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_TEXTO,"Monitoreo de Procesos");
+		}
+		controller.createReport(generaLista(), headersReport, titleReport, "MONITOREO_PROCESOS");
+	}
+	
+	/* (non-Javadoc)
+	 * @see mx.com.bbva.mapeador.ui.commons.controller.IController#read()
+	 */
 	@Override
 	@GlobalCommand
 	public Object read() {
@@ -344,12 +976,37 @@ public class MonitoreoProcesosController extends ControllerSupport implements  I
 		return monitoreoProcesosDTO;
 	}
 	
-	@AfterCompose
-    public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
-        Selectors.wireComponents(view, this, false);    
-        executePermissionSet = this.applyPermision();
-    }
+	/* (non-Javadoc)
+	 * @see mx.com.bbva.mapeador.ui.commons.controller.IController#read(java.lang.Object)
+	 */
+	@Override
+	public Object read(Object t) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	/**
+	 * Read event detail.
+	 *
+	 * @param etapaVO the etapa vo
+	 */
+	@Command  
+	public void readEventDetail(@BindingParam("idContratacion") final EtapaVO etapaVO) {
+		if(etapaVO.getIdEstatusMapeador() == CommandConstants.ESTADO_ERROR_PROCESO){
+			setEtapaVO(etapaVO);
+			Map<String, Object> mapDatos = new HashMap<String, Object>();
+			mapDatos.put("etapaVO", etapaVO); 
+			Window window = (Window) Executions.createComponents(
+					"/WEB-INF/flows/procesos/detalleProceso.zul",
+					this.getSelf(), mapDatos);
+			window.doModal();
+		}
+	}
+	
 	//Cambiar al objeto que pertenezca el componente en este caso 
+	/**
+	 * Read with filters.
+	 */
 	@Command 
 	@NotifyChange({ "monitoreoProcesosVOs", "procesoVOs" })
 	public void readWithFilters() {
@@ -439,32 +1096,9 @@ public class MonitoreoProcesosController extends ControllerSupport implements  I
 		}
 	}
 	
-	@Command  
-	public void readEventDetail(@BindingParam("idContratacion") final EtapaVO etapaVO) {
-		if(etapaVO.getIdEstatusMapeador() == CommandConstants.ESTADO_ERROR_PROCESO){
-			setEtapaVO(etapaVO);
-			Map<String, Object> mapDatos = new HashMap<String, Object>();
-			mapDatos.put("etapaVO", etapaVO); 
-			Window window = (Window) Executions.createComponents(
-					"/WEB-INF/flows/procesos/detalleProceso.zul",
-					this.getSelf(), mapDatos);
-			window.doModal();
-		}
-	}
-	
-	@Wire
-    Window detalleProcesoWindow;
-	
-	@Listen("onClick = #closeBtn")
-    public void showModal(Event e) {
-		detalleProcesoWindow.detach();
-    }
-	@Override
-	public Object read(Object t) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	/* (non-Javadoc)
+	 * @see mx.com.bbva.mapeador.ui.commons.controller.IController#save()
+	 */
 	@Override
 	@Command
 	@NotifyChange({ "monitoreoProcesosVOs" , "procesoVOs"})
@@ -484,39 +1118,16 @@ public class MonitoreoProcesosController extends ControllerSupport implements  I
 		monitoreoProcesosDTO = monitoreoProcesosBO.updateCommand(monitoreoProcesosDTO);
 		armarListaGrid(monitoreoProcesosDTO.getMonitoreoProcesosVOs());
 		controller.registrarEvento(monitoreoProcesosVO, this.monitoreoProcesosVO, CommandConstants.MODIFICACION,"Monitoreo de Procesos");
-		Messagebox.show("Registro actualizado con exito!!",
-				"Confirmación", Messagebox.OK,
-				Messagebox.INFORMATION);
+		org.zkoss.zul.Messagebox.show("Registro actualizado con exito!!",
+				"Confirmación", org.zkoss.zul.Messagebox.OK,
+				org.zkoss.zul.Messagebox.INFORMATION);
 		
 		
 	}
-	@Override
-	public void delete() {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	@Command
-	public void clean() {
-		canal.setValue(null); 
-		cliente.setValue(null);
-//		estatus.setValue(null);
-		producto.setValue(null);
-		lote.setValue(null);
-		idCanal.setValue(null); 
-		idProducto.setValue(null);
-		idCliente.setValue(null);
-		todos.setChecked(false);
-		exito.setChecked(false);
-		error.setChecked(false);
-		finaliza.setChecked(false);
-		espera.setChecked(false);
-		idEstatus.setValue(null);
-//		idContratacion.setValue(null);
-//		idFlujo.setValue(null);
-//		idEtapa.setValue(null); 
-	}
-	 
+	
+	/**
+	 * Seleccion estatus.
+	 */
 	@Command
 	public void seleccionEstatus() {
 		
@@ -537,525 +1148,117 @@ public class MonitoreoProcesosController extends ControllerSupport implements  I
 		}
 	}
 	
-	@Command
-	public void onShowReport(@BindingParam("type") final String type) {
-		ReportesController controller = new ReportesController();
-		ArrayList<String> headersReport = new ArrayList<String>();
-		String titleReport = "Monitoreo de Procesos";
-		headersReport.add("Canal");
-		headersReport.add("Cliente");
-		headersReport.add("Producto");
-		headersReport.add("Estatus"); 
-		headersReport.add("Fecha Lote");
-		headersReport.add("Lote");
-		headersReport.add("Etapa");
-		headersReport.add("Nombre Archivo");
-		headersReport.add("Fecha Inicio");
-		headersReport.add("Hora inicio");
-		headersReport.add("Hora fin");
-		headersReport.add("Estatus");
-		if(type.equals("xls")) {
-			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_EXCEL,"Monitoreo de Procesos");
-		} else {
-			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_TEXTO,"Monitoreo de Procesos");
-		}
-		controller.createReport(generaLista(), headersReport, titleReport, "MONITOREO_PROCESOS");
-	}	
-	
-	private ArrayList<BeanGenerico> generaLista() {
-		ArrayList<BeanGenerico> beanGenericos = new ArrayList<BeanGenerico>();
-		BeanGenerico beanGenerico = null;
-		DateFormat dateFormatFecha = new SimpleDateFormat("dd-MM-yyyy HH:mm");
-		DateFormat dateFormatHora = new SimpleDateFormat("hh:mm:ss");
-		for(MonitoreoProcesosVO monitoreoProcesosVO: monitoreoProcesosVOs) {
-			beanGenerico = new BeanGenerico();
-			beanGenerico.setValor1(monitoreoProcesosVO.getNombreCanal());
-			beanGenerico.setValor2(monitoreoProcesosVO.getIdIdentificador()); 
-			beanGenerico.setValor3(monitoreoProcesosVO.getNombreProducto());
-			beanGenerico.setValor4(monitoreoProcesosVO.getNombreEstatusMapeador());
-			beanGenerico.setValor5(dateFormatFecha.format(monitoreoProcesosVO.getFechaLote()));
-			beanGenerico.setValor6(String.valueOf(monitoreoProcesosVO.getNumeroLote()));
-			beanGenerico.setValor7(monitoreoProcesosVO.getNombreEtapa());
-			beanGenerico.setValor8(monitoreoProcesosVO.getNombreRegArchEntra());
-			beanGenerico.setValor9(dateFormatFecha.format(monitoreoProcesosVO.getFechaStatusProceso()));
-			beanGenerico.setValor10(dateFormatHora.format(monitoreoProcesosVO.getHoraProcesoIni()));
-			beanGenerico.setValor11(dateFormatHora.format(monitoreoProcesosVO.getHoraProcesoFin()));
-			beanGenerico.setValor12(monitoreoProcesosVO.getNombreEstatusMapeador());
-			beanGenericos.add(beanGenerico);
-		}
-		return beanGenericos;
+	/**
+	 * Sets the btn guardar.
+	 *
+	 * @param btnGuardar the btnGuardar to set
+	 */
+	public void setBtnGuardar(boolean btnGuardar) {
+		this.btnGuardar = btnGuardar;
 	}
 	
 	/**
-	 * @return the criterio
-	 */
-	public Combobox getCriterio() {
-		return criterio;
-	}
-	/**
-	 * @param criterio the criterio to set
-	 */
-	public void setCriterio(Combobox criterio) {
-		this.criterio = criterio;
-	}
-	/**
-	 * @return the canal
-	 */
-	public Combobox getCanal() {
-		return canal;
-	}
-	/**
+	 * Sets the canal.
+	 *
 	 * @param canal the canal to set
 	 */
 	public void setCanal(Combobox canal) {
 		this.canal = canal;
 	}
+	
 	/**
-	 * @return the cliente
-	 */
-	public Combobox getCliente() {
-		return cliente;
-	}
-	/**
+	 * Sets the cliente.
+	 *
 	 * @param cliente the cliente to set
 	 */
 	public void setCliente(Combobox cliente) {
 		this.cliente = cliente;
 	}
+	
 	/**
-	 * @return the estatus
+	 * Sets the criterio.
+	 *
+	 * @param criterio the criterio to set
 	 */
-	public Combobox getEstatus() {
-		return estatus;
+	public void setCriterio(Combobox criterio) {
+		this.criterio = criterio;
 	}
+	
 	/**
-	 * @param estatus the estatus to set
-	 */
-	public void setEstatus(Combobox estatus) {
-		this.estatus = estatus;
-	}
-	/**
-	 * @return the producto
-	 */
-	public Combobox getProducto() {
-		return producto;
-	}
-	/**
-	 * @param producto the producto to set
-	 */
-	public void setProducto(Combobox producto) {
-		this.producto = producto;
-	}
-	/**
-	 * @return the fechaInicio
-	 */
-	public Datebox getFechaInicio() {
-		return fechaInicio;
-	}
-	/**
-	 * @param fechaInicio the fechaInicio to set
-	 */
-	public void setFechaInicio(Datebox fechaInicio) {
-		this.fechaInicio = fechaInicio;
-	}
-	/**
-	 * @return the fechaFin
-	 */
-	public Datebox getFechaFin() {
-		return fechaFin;
-	}
-	/**
-	 * @param fechaFin the fechaFin to set
-	 */
-	public void setFechaFin(Datebox fechaFin) {
-		this.fechaFin = fechaFin;
-	}
-	/**
-	 * @return the lote
-	 */
-	public Textbox getLote() {
-		return lote;
-	}
-	/**
-	 * @param lote the lote to set
-	 */
-	public void setLote(Textbox lote) {
-		this.lote = lote;
-	}
-	/**
-	 * @return the idCriterio
-	 */
-	public Textbox getIdCriterio() {
-		return idCriterio;
-	}
-	/**
-	 * @param idCriterio the idCriterio to set
-	 */
-	public void setIdCriterio(Textbox idCriterio) {
-		this.idCriterio = idCriterio;
-	}
-	/**
-	 * @return the idCanal
-	 */
-	public Textbox getIdCanal() {
-		return idCanal;
-	}
-	/**
-	 * @param idCanal the idCanal to set
-	 */
-	public void setIdCanal(Textbox idCanal) {
-		this.idCanal = idCanal;
-	}
-	/**
-	 * @return the idCliente
-	 */
-	public Textbox getIdCliente() {
-		return idCliente;
-	}
-	/**
-	 * @param idCliente the idCliente to set
-	 */
-	public void setIdCliente(Textbox idCliente) {
-		this.idCliente = idCliente;
-	}
-	/**
-	 * @return the idEstatus
-	 */
-	public Textbox getIdEstatus() {
-		return idEstatus;
-	}
-	/**
-	 * @param idEstatus the idEstatus to set
-	 */
-	public void setIdEstatus(Textbox idEstatus) {
-		this.idEstatus = idEstatus;
-	}
-	/**
-	 * @return the idProducto
-	 */
-	public Textbox getIdProducto() {
-		return idProducto;
-	}
-	/**
-	 * @param idProducto the idProducto to set
-	 */
-	public void setIdProducto(Textbox idProducto) {
-		this.idProducto = idProducto;
-	}
-	/**
-	 * @return the monitoreoProcesosDTO
-	 */
-	public MonitoreoProcesosDTO getMonitoreoProcesosDTO() {
-		return monitoreoProcesosDTO;
-	}
-	/**
-	 * @param monitoreoProcesosDTO the monitoreoProcesosDTO to set
-	 */
-	public void setMonitoreoProcesosDTO(MonitoreoProcesosDTO monitoreoProcesosDTO) {
-		this.monitoreoProcesosDTO = monitoreoProcesosDTO;
-	}
-	/**
-	 * @return the monitoreoProcesosVOs
-	 */
-	public List<MonitoreoProcesosVO> getMonitoreoProcesosVOs() {
-		return monitoreoProcesosVOs;
-	}
-	/**
-	 * @param monitoreoProcesosVOs the monitoreoProcesosVOs to set
-	 */
-	public void setMonitoreoProcesosVOs(
-			List<MonitoreoProcesosVO> monitoreoProcesosVOs) {
-		this.monitoreoProcesosVOs = monitoreoProcesosVOs;
-	}
-	/**
-	 * @return the strCanal
-	 */
-	public String getStrCanal() {
-		return strCanal;
-	}
-	/**
-	 * @param strCanal the strCanal to set
-	 */
-	public void setStrCanal(String strCanal) {
-		this.strCanal = strCanal;
-	}
-	/**
-	 * @return the strCliente
-	 */
-	public String getStrCliente() {
-		return strCliente;
-	}
-	/**
-	 * @param strCliente the strCliente to set
-	 */
-	public void setStrCliente(String strCliente) {
-		this.strCliente = strCliente;
-	}
-	/**
-	 * @return the strEstatus
-	 */
-	public String getStrEstatus() {
-		return strEstatus;
-	}
-	/**
-	 * @param strEstatus the strEstatus to set
-	 */
-	public void setStrEstatus(String strEstatus) {
-		this.strEstatus = strEstatus;
-	}
-	/**
-	 * @return the strProducto
-	 */
-	public String getStrProducto() {
-		return strProducto;
-	}
-	/**
-	 * @param strProducto the strProducto to set
-	 */
-	public void setStrProducto(String strProducto) {
-		this.strProducto = strProducto;
-	}
-	/**
-	 * @return the strFechaInicio
-	 */
-	public String getStrFechaInicio() {
-		return strFechaInicio;
-	}
-	/**
-	 * @param strFechaInicio the strFechaInicio to set
-	 */
-	public void setStrFechaInicio(String strFechaInicio) {
-		this.strFechaInicio = strFechaInicio;
-	}
-	/**
-	 * @return the strFechaFin
-	 */
-	public String getStrFechaFin() {
-		return strFechaFin;
-	}
-	/**
-	 * @param strFechaFin the strFechaFin to set
-	 */
-	public void setStrFechaFin(String strFechaFin) {
-		this.strFechaFin = strFechaFin;
-	}
-	/**
-	 * @return the strLote
-	 */
-	public String getStrLote() {
-		return strLote;
-	}
-	/**
-	 * @param strLote the strLote to set
-	 */
-	public void setStrLote(String strLote) {
-		this.strLote = strLote;
-	}
-	/**
-	 * @return the strIdCriterio
-	 */
-	public String getStrIdCriterio() {
-		return strIdCriterio;
-	}
-	/**
-	 * @param strIdCriterio the strIdCriterio to set
-	 */
-	public void setStrIdCriterio(String strIdCriterio) {
-		this.strIdCriterio = strIdCriterio;
-	}
-	/**
-	 * @return the strIdCanal
-	 */
-	public String getStrIdCanal() {
-		return strIdCanal;
-	}
-	/**
-	 * @param strIdCanal the strIdCanal to set
-	 */
-	public void setStrIdCanal(String strIdCanal) {
-		this.strIdCanal = strIdCanal;
-	}
-	/**
-	 * @return the strIdCliente
-	 */
-	public String getStrIdCliente() {
-		return strIdCliente;
-	}
-	/**
-	 * @param strIdCliente the strIdCliente to set
-	 */
-	public void setStrIdCliente(String strIdCliente) {
-		this.strIdCliente = strIdCliente;
-	}
-	/**
-	 * @return the strIdEstatus
-	 */
-	public String getStrIdEstatus() {
-		return strIdEstatus;
-	}
-	/**
-	 * @param strIdEstatus the strIdEstatus to set
-	 */
-	public void setStrIdEstatus(String strIdEstatus) {
-		this.strIdEstatus = strIdEstatus;
-	}
-	/**
-	 * @return the strIdProducto
-	 */
-	public String getStrIdProducto() {
-		return strIdProducto;
-	}
-	/**
-	 * @param strIdProducto the strIdProducto to set
-	 */
-	public void setStrIdProducto(String strIdProducto) {
-		this.strIdProducto = strIdProducto;
-	}
-
-	/**
-	 * @return the idContratacion
-	 */
-	public Textbox getIdContratacion() {
-		return idContratacion;
-	}
-
-	/**
-	 * @param idContratacion the idContratacion to set
-	 */
-	public void setIdContratacion(Textbox idContratacion) {
-		this.idContratacion = idContratacion;
-	}
-
-	/**
-	 * @return the idFlujo
-	 */
-	public Textbox getIdFlujo() {
-		return idFlujo;
-	}
-
-	/**
-	 * @param idFlujo the idFlujo to set
-	 */
-	public void setIdFlujo(Textbox idFlujo) {
-		this.idFlujo = idFlujo;
-	}
-
-	/**
-	 * @return the idEtapa
-	 */
-	public Textbox getIdEtapa() {
-		return idEtapa;
-	}
-
-	/**
-	 * @param idEtapa the idEtapa to set
-	 */
-	public void setIdEtapa(Textbox idEtapa) {
-		this.idEtapa = idEtapa;
-	}	
-
-	/**
-	 * @return the monitoreoProcesosVO
-	 */
-	public MonitoreoProcesosVO getMonitoreoProcesosVO() {
-		return monitoreoProcesosVO;
-	}
-
-	/**
-	 * @param monitoreoProcesosVO the monitoreoProcesosVO to set
-	 */
-	public void setMonitoreoProcesosVO(MonitoreoProcesosVO monitoreoProcesosVO) {
-		this.monitoreoProcesosVO = monitoreoProcesosVO;
-	}
-	/**
-	 * @return the executePermissionSet
-	 */
-	public boolean isExecutePermissionSet() {
-		return executePermissionSet;
-	}
-	/**
-	 * @param executePermissionSet the executePermissionSet to set
-	 */
-	public void setExecutePermissionSet(boolean executePermissionSet) {
-		this.executePermissionSet = executePermissionSet;
-	}
-	@Override
-	public boolean applyPermision() {
-		boolean isApplied = false;
-		HashMap<String, Component> componentes = new HashMap<String, Component>();
-//		componentes.put(lblCanal.getId(), lblCanal);
-//		componentes.put(lblCliente.getId(), lblCliente);
-//		componentes.put(lblProducto.getId(), lblProducto);
-//		componentes.put(lblEstatus.getId(), lblEstatus);
-//		componentes.put(lblFechaLote.getId(), lblFechaLote);
-//		componentes.put(lblA.getId(), lblA);
-//		componentes.put(lblLote.getId(), lblLote);
-//		componentes.put(canal.getId(), canal);
-//		componentes.put(cliente.getId(), cliente);
-//		componentes.put(producto.getId(), producto);
-////		componentes.put(estatus.getId(), estatus);
-//		componentes.put(fechaInicio.getId(), fechaInicio);
-//		componentes.put(fechaFin.getId(), fechaFin);
-//		componentes.put(lote.getId(), lote);
-//		componentes.put(reporteExcelBtn.getId(), reporteExcelBtn);
-//		componentes.put(reporteCsvBtn.getId(), reporteCsvBtn);
-//		componentes.put(limpiarBtn.getId(), limpiarBtn);
-//		componentes.put(consultarBtn.getId(), consultarBtn);
-////		componentes.put(procesosGrid.getId(), procesosGrid);
-		super.applyPermission(MapeadorConstants.MONITOREO, componentes);
-		return isApplied;
-	}
-
-	/**
-	 * @return the todos
-	 */
-	public Checkbox getTodos() {
-		return todos;
-	}
-
-	/**
-	 * @param todos the todos to set
-	 */
-	public void setTodos(Checkbox todos) {
-		this.todos = todos;
-	}
-
-	/**
-	 * @return the exito
-	 */
-	public Checkbox getExito() {
-		return exito;
-	}
-
-	/**
-	 * @param exito the exito to set
-	 */
-	public void setExito(Checkbox exito) {
-		this.exito = exito;
-	}
-
-	/**
-	 * @return the error
-	 */
-	public Checkbox getError() {
-		return error;
-	}
-
-	/**
+	 * Sets the error.
+	 *
 	 * @param error the error to set
 	 */
 	public void setError(Checkbox error) {
 		this.error = error;
 	}
-
+	
 	/**
-	 * @return the finaliza
+	 * Sets the espera.
+	 *
+	 * @param espera the espera to set
 	 */
-	public Checkbox getFinaliza() {
-		return finaliza;
+	public void setEspera(Checkbox espera) {
+		this.espera = espera;
 	}
-
+	
 	/**
+	 * Sets the estatus.
+	 *
+	 * @param estatus the estatus to set
+	 */
+	public void setEstatus(Combobox estatus) {
+		this.estatus = estatus;
+	}
+	
+	/**
+	 * Sets the etapa vo.
+	 *
+	 * @param etapaVO the etapaVO to set
+	 */
+	public void setEtapaVO(EtapaVO etapaVO) {
+		this.etapaVO = etapaVO;
+	}
+	
+	/**
+	 * Sets the execute permission set.
+	 *
+	 * @param executePermissionSet the executePermissionSet to set
+	 */
+	public void setExecutePermissionSet(boolean executePermissionSet) {
+		this.executePermissionSet = executePermissionSet;
+	}
+	
+	/**
+	 * Sets the exito.
+	 *
+	 * @param exito the exito to set
+	 */
+	public void setExito(Checkbox exito) {
+		this.exito = exito;
+	}
+	
+	/**
+	 * Sets the fecha fin.
+	 *
+	 * @param fechaFin the fechaFin to set
+	 */
+	public void setFechaFin(Datebox fechaFin) {
+		this.fechaFin = fechaFin;
+	}
+	
+	/**
+	 * Sets the fecha inicio.
+	 *
+	 * @param fechaInicio the fechaInicio to set
+	 */
+	public void setFechaInicio(Datebox fechaInicio) {
+		this.fechaInicio = fechaInicio;
+	}
+	
+	/**
+	 * Sets the finaliza.
+	 *
 	 * @param finaliza the finaliza to set
 	 */
 	public void setFinaliza(Checkbox finaliza) {
@@ -1063,66 +1266,267 @@ public class MonitoreoProcesosController extends ControllerSupport implements  I
 	}
 
 	/**
-	 * @return the espera
-	 */
-	public Checkbox getEspera() {
-		return espera;
-	}
-
-	/**
-	 * @param espera the espera to set
-	 */
-	public void setEspera(Checkbox espera) {
-		this.espera = espera;
-	}
-	/**
-	 * @return the procesoVOs
-	 */
-	public List<ProcesoVO> getProcesoVOs() {
-		return procesoVOs;
-	}
-	/**
-	 * @param procesoVOs the procesoVOs to set
-	 */
-	public void setProcesoVOs(List<ProcesoVO> procesoVOs) {
-		this.procesoVOs = procesoVOs;
-	}
-	/**
-	 * @return the etapaVO
-	 */
-	public EtapaVO getEtapaVO() {
-		return etapaVO;
-	}
-	/**
-	 * @param etapaVO the etapaVO to set
-	 */
-	public void setEtapaVO(EtapaVO etapaVO) {
-		this.etapaVO = etapaVO;
-	}
-	/**
-	 * @return the guardarBtn
-	 */
-	public Button getGuardarBtn() {
-		return guardarBtn;
-	}
-	/**
+	 * Sets the guardar btn.
+	 *
 	 * @param guardarBtn the guardarBtn to set
 	 */
 	public void setGuardarBtn(Button guardarBtn) {
 		this.guardarBtn = guardarBtn;
 	}
+
 	/**
-	 * @return the btnGuardar
+	 * Sets the id canal.
+	 *
+	 * @param idCanal the idCanal to set
 	 */
-	public boolean isBtnGuardar() {
-		return btnGuardar;
+	public void setIdCanal(Textbox idCanal) {
+		this.idCanal = idCanal;
 	}
+
 	/**
-	 * @param btnGuardar the btnGuardar to set
+	 * Sets the id cliente.
+	 *
+	 * @param idCliente the idCliente to set
 	 */
-	public void setBtnGuardar(boolean btnGuardar) {
-		this.btnGuardar = btnGuardar;
+	public void setIdCliente(Textbox idCliente) {
+		this.idCliente = idCliente;
 	}
+
+	/**
+	 * Sets the id contratacion.
+	 *
+	 * @param idContratacion the idContratacion to set
+	 */
+	public void setIdContratacion(Textbox idContratacion) {
+		this.idContratacion = idContratacion;
+	}
+
+	/**
+	 * Sets the id criterio.
+	 *
+	 * @param idCriterio the idCriterio to set
+	 */
+	public void setIdCriterio(Textbox idCriterio) {
+		this.idCriterio = idCriterio;
+	}
+
+	/**
+	 * Sets the id estatus.
+	 *
+	 * @param idEstatus the idEstatus to set
+	 */
+	public void setIdEstatus(Textbox idEstatus) {
+		this.idEstatus = idEstatus;
+	}	
+
+	/**
+	 * Sets the id etapa.
+	 *
+	 * @param idEtapa the idEtapa to set
+	 */
+	public void setIdEtapa(Textbox idEtapa) {
+		this.idEtapa = idEtapa;
+	}
+
+	/**
+	 * Sets the id flujo.
+	 *
+	 * @param idFlujo the idFlujo to set
+	 */
+	public void setIdFlujo(Textbox idFlujo) {
+		this.idFlujo = idFlujo;
+	}
+	
+	/**
+	 * Sets the id producto.
+	 *
+	 * @param idProducto the idProducto to set
+	 */
+	public void setIdProducto(Textbox idProducto) {
+		this.idProducto = idProducto;
+	}
+	
+	/**
+	 * Sets the lote.
+	 *
+	 * @param lote the lote to set
+	 */
+	public void setLote(Textbox lote) {
+		this.lote = lote;
+	}
+	
+	/**
+	 * Sets the monitoreo procesos dto.
+	 *
+	 * @param monitoreoProcesosDTO the monitoreoProcesosDTO to set
+	 */
+	public void setMonitoreoProcesosDTO(MonitoreoProcesosDTO monitoreoProcesosDTO) {
+		this.monitoreoProcesosDTO = monitoreoProcesosDTO;
+	}
+
+	/**
+	 * Sets the monitoreo procesos vo.
+	 *
+	 * @param monitoreoProcesosVO the monitoreoProcesosVO to set
+	 */
+	public void setMonitoreoProcesosVO(MonitoreoProcesosVO monitoreoProcesosVO) {
+		this.monitoreoProcesosVO = monitoreoProcesosVO;
+	}
+
+	/**
+	 * Sets the monitoreo procesos v os.
+	 *
+	 * @param monitoreoProcesosVOs the monitoreoProcesosVOs to set
+	 */
+	public void setMonitoreoProcesosVOs(
+			List<MonitoreoProcesosVO> monitoreoProcesosVOs) {
+		this.monitoreoProcesosVOs = monitoreoProcesosVOs;
+	}
+
+	/**
+	 * Sets the proceso v os.
+	 *
+	 * @param procesoVOs the procesoVOs to set
+	 */
+	public void setProcesoVOs(List<ProcesoVO> procesoVOs) {
+		this.procesoVOs = procesoVOs;
+	}
+
+	/**
+	 * Sets the producto.
+	 *
+	 * @param producto the producto to set
+	 */
+	public void setProducto(Combobox producto) {
+		this.producto = producto;
+	}
+
+	/**
+	 * Sets the str canal.
+	 *
+	 * @param strCanal the strCanal to set
+	 */
+	public void setStrCanal(String strCanal) {
+		this.strCanal = strCanal;
+	}
+
+	/**
+	 * Sets the str cliente.
+	 *
+	 * @param strCliente the strCliente to set
+	 */
+	public void setStrCliente(String strCliente) {
+		this.strCliente = strCliente;
+	}
+
+	/**
+	 * Sets the str estatus.
+	 *
+	 * @param strEstatus the strEstatus to set
+	 */
+	public void setStrEstatus(String strEstatus) {
+		this.strEstatus = strEstatus;
+	}
+
+	/**
+	 * Sets the str fecha fin.
+	 *
+	 * @param strFechaFin the strFechaFin to set
+	 */
+	public void setStrFechaFin(String strFechaFin) {
+		this.strFechaFin = strFechaFin;
+	}
+
+	/**
+	 * Sets the str fecha inicio.
+	 *
+	 * @param strFechaInicio the strFechaInicio to set
+	 */
+	public void setStrFechaInicio(String strFechaInicio) {
+		this.strFechaInicio = strFechaInicio;
+	}
+
+	/**
+	 * Sets the str id canal.
+	 *
+	 * @param strIdCanal the strIdCanal to set
+	 */
+	public void setStrIdCanal(String strIdCanal) {
+		this.strIdCanal = strIdCanal;
+	}
+	
+	/**
+	 * Sets the str id cliente.
+	 *
+	 * @param strIdCliente the strIdCliente to set
+	 */
+	public void setStrIdCliente(String strIdCliente) {
+		this.strIdCliente = strIdCliente;
+	}
+	
+	/**
+	 * Sets the str id criterio.
+	 *
+	 * @param strIdCriterio the strIdCriterio to set
+	 */
+	public void setStrIdCriterio(String strIdCriterio) {
+		this.strIdCriterio = strIdCriterio;
+	}
+	
+	/**
+	 * Sets the str id estatus.
+	 *
+	 * @param strIdEstatus the strIdEstatus to set
+	 */
+	public void setStrIdEstatus(String strIdEstatus) {
+		this.strIdEstatus = strIdEstatus;
+	}
+	
+	/**
+	 * Sets the str id producto.
+	 *
+	 * @param strIdProducto the strIdProducto to set
+	 */
+	public void setStrIdProducto(String strIdProducto) {
+		this.strIdProducto = strIdProducto;
+	}
+	
+	/**
+	 * Sets the str lote.
+	 *
+	 * @param strLote the strLote to set
+	 */
+	public void setStrLote(String strLote) {
+		this.strLote = strLote;
+	}
+	
+	/**
+	 * Sets the str producto.
+	 *
+	 * @param strProducto the strProducto to set
+	 */
+	public void setStrProducto(String strProducto) {
+		this.strProducto = strProducto;
+	}
+	
+	/**
+	 * Sets the todos.
+	 *
+	 * @param todos the todos to set
+	 */
+	public void setTodos(Checkbox todos) {
+		this.todos = todos;
+	}
+	
+	/**
+	 * Show modal.
+	 *
+	 * @param e the e
+	 */
+	@Listen("onClick = #closeBtn")
+    public void showModal(Event e) {
+		detalleProcesoWindow.detach();
+    }
  
 	
 	

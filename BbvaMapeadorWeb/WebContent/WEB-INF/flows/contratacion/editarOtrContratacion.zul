@@ -5,11 +5,11 @@
 <zk>
 	<window border="0" width="65%" height="95%"
 		apply="org.zkoss.bind.BindComposer"
-		viewModel="@id('vm') @init('mx.com.bbva.mt101.ui.commons.viewmodel.contratacion.ContratacionController')"
+		viewModel="@id('vm') @init('mx.com.bbva.mapeador.ui.commons.viewmodel.contratacion.ContratacionController')"
 		id="editarContratacionWindows">
 		<include src="../../pages/styles.zul" />
 		<div sclass="BODY" height="100%" width="100%">
-		<groupbox height="27%" width="100%" apply="mx.com.bbva.mt101.ui.commons.viewmodel.contratacion.ContratacionController">
+		<groupbox height="27%" width="100%" apply="mx.com.bbva.mapeador.ui.commons.viewmodel.contratacion.ContratacionController">
 			<panel width="100%" height="100%" sclass="sectionPanelTitle" id="datosContratacion"
 					title="Contratación" collapsible="true" style="margin-bottom:10px"
 					border="normal">

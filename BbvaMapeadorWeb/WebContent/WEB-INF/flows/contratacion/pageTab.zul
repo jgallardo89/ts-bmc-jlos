@@ -4,8 +4,8 @@
 <?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
 <zk>
 	<window border="0" width="100%" height="100%"
-		apply="org.zkoss.bind.BindComposer"
-		viewModel="@id('vm') @init('mx.com.bbva.mt101.ui.commons.viewmodel.contratacion.FlujoContratacionController')"
+		apply="org.zkoss.bind.BindComposer" 
+		viewModel="@id('vm') @init('mx.com.bbva.mapeador.ui.commons.viewmodel.contratacion.FlujoContratacionController')"
 		id="contratacionTabWindows">
 		<include src="../../pages/styles.zul" />
 		<div sclass="BODY" height="100%">

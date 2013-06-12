@@ -9,7 +9,7 @@
 		id="openImageWindow">
 		<include src="../../pages/styles.zul" />
 		<div apply="mx.com.bbva.mapeador.ui.commons.viewmodel.admonFlujos.AdmonFlujosController" sclass="BODY" height="95%" 
-		viewModel="@id('vm') @init('mx.com.bbva.mt101.ui.commons.viewmodel.admonFlujos.AdmonFlujosController')">
+		viewModel="@id('vm') @init('mx.com.bbva.mapeador.ui.commons.viewmodel.admonFlujos.AdmonFlujosController')">
 			<groupbox height="100%">
 				<caption sclass="pageTitle" label="Flujo"></caption>
 				<div align="center">		
