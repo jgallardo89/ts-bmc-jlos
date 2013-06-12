@@ -22,6 +22,7 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.export.JRCsvExporter;
 import net.sf.jasperreports.engine.export.JRCsvExporterParameter;
 import net.sf.jasperreports.engine.export.JRXlsExporter;
+import net.sf.jasperreports.engine.export.JRXlsExporterParameter;
 
 /**
  *
@@ -74,6 +75,7 @@ public class ServletReport extends HttpServlet {
 					baos = new ByteArrayOutputStream();
 					exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
 					exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, baos );
+					exporter.setParameter(JRXlsExporterParameter.SHEET_NAMES,new String[] {nameReport});
 					exporter.exportReport();
 				} else {
 					response.setContentType("application/csv");
