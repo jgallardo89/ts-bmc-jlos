@@ -65,6 +65,22 @@ public class MonitoreoProcesosDTO extends BbvaAbstractDataTransferObject {
 	/** The producto v os. */
 	private List<ProductoVO> productoVOs;
 	
+	private int tipoReporte;
+	
+	/**
+	 * @return the tipoReporte
+	 */
+	public final int getTipoReporte() {
+		return tipoReporte;
+	}
+
+	/**
+	 * @param tipoReporte the tipoReporte to set
+	 */
+	public final void setTipoReporte(int tipoReporte) {
+		this.tipoReporte = tipoReporte;
+	}
+
 	/**
 	 * Gets the canal v os.
 	 *

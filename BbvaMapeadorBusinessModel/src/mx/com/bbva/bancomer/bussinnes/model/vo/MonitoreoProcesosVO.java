@@ -96,6 +96,23 @@ public class MonitoreoProcesosVO extends BbvaAbstractValueObject {
 	/** The nombre canal. */
 	private String nombreCanal;
 	
+	/** The nombre cliente. */
+	private String nombreCliente;
+	
+	/**
+	 * @return the nombreCliente
+	 */
+	public final String getNombreCliente() {
+		return nombreCliente;
+	}
+
+	/**
+	 * @param nombreCliente the nombreCliente to set
+	 */
+	public final void setNombreCliente(String nombreCliente) {
+		this.nombreCliente = nombreCliente;
+	}
+
 	/** The nombre estatus mapeador. */
 	private String nombreEstatusMapeador;
 	
