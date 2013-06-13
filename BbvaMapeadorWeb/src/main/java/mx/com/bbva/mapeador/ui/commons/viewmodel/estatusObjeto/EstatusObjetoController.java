@@ -30,6 +30,7 @@
 package mx.com.bbva.mapeador.ui.commons.viewmodel.estatusObjeto;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -193,7 +194,8 @@ public class EstatusObjetoController extends ControllerSupport implements IContr
 	 */
 	@AfterCompose
     public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
-        Selectors.wireComponents(view, this, false);        
+        Selectors.wireComponents(view, this, false);
+        defaultValues();
     }
 
 	/* (non-Javadoc)
@@ -650,6 +652,14 @@ public class EstatusObjetoController extends ControllerSupport implements IContr
 			}
 		}
 		
+	}
+
+	/**
+	 * Default values.
+	 */
+	private void defaultValues() {
+		idEstatusClave.setValue(String.valueOf(CommandConstants.ESTATUS_OBJETO_ACTIVO));
+		statusClave.setValue(CommandConstants.NB_ESTATUS_ACTIVO);
 	}
 
 	/**

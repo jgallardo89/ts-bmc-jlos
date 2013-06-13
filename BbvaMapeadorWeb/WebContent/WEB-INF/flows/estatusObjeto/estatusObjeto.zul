@@ -46,7 +46,7 @@
 												<div align="right">
 													<label id="lblDescEstatusObjeto" width="100%" sclass="labelFill" value="Descripción estatus objeto:"></label>												
 												</div>
-												<textbox sclass="textboxUpperCase" maxlength="50"
+												<textbox sclass="textboxUpperCase" maxlength="200"
 													id="descripcionEstatusObjeto" value="@load(vm.strDescripcionEstatusObjeto)" width="100%"></textbox>												
 												<div align="right">
 													<label id="lblEstatus" width="100%" sclass="labelFill" value="Status:"></label>												

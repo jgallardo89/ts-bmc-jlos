@@ -149,6 +149,12 @@ public abstract interface CommandConstants {
 	/** The Constant ESTATUS_PRODUCTO_ACTIVO. */
 	public static final int ESTATUS_PRODUCTO_ACTIVO = 7;
 	
+	/** The Constant ESTATUS_USUARIO_ACTIVO. */
+	public static final int ESTATUS_USUARIO_ACTIVO = 27;
+
+	/** The Constant ESTATUS_USUARIO_ACTIVO. */
+	public static final int ESTATUS_USUARIO_NOTIFICACION_ACTIVO = 18;
+	
 	/** The Constant EXPORTAR_EXCEL. */
 	public static final int EXPORTAR_EXCEL = 8;
 	
@@ -231,6 +237,18 @@ public abstract interface CommandConstants {
 	
 	/** The Constant MODIFICACION. */
 	public static final int MODIFICACION = 4;
+
+	/** The Constant NB PANTALLA ACTIVO. */
+	public static final String NB_PANTALLA_ACTIVO = "ACTIVO";
+	
+	/** The Constant NB USUARIO ACTIVO. */
+	public static final String NB_USUARIO_ACTIVO = "ACTIVO";
+	
+	/** The Constant NB USUARIO NOTIFICACION ACTIVO. */
+	public static final String NB_USUARIO_NOTIFICACION_ACTIVO = "ACTIVO";	
+	
+	/** The Constant NB ESTATUS ACTIVO. */
+	public static final String NB_ESTATUS_ACTIVO = "ACTIVO";
 	
 	/** The Constant NB_CANAL_ACTIVO. */
 	public static final String NB_CANAL_ACTIVO = "ACTIVO";

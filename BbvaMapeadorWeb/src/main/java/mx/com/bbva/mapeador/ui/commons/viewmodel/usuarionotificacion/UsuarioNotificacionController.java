@@ -171,6 +171,8 @@ public class UsuarioNotificacionController  extends ControllerSupport implements
     public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
         Selectors.wireComponents(view, this, false);        
         executePermissionSet = this.applyPermision();
+		status.setValue(CommandConstants.NB_USUARIO_NOTIFICACION_ACTIVO);
+		idEstatusObjeto.setValue(String.valueOf(CommandConstants.ESTATUS_USUARIO_NOTIFICACION_ACTIVO));             
     }
 	
 	/* (non-Javadoc)

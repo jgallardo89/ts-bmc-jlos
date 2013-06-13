@@ -168,6 +168,8 @@ public class UsuarioMapeadorController extends ControllerSupport implements ICon
     public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
         Selectors.wireComponents(view, this, false);
         executePermissionSet = this.applyPermision();
+        status.setValue(CommandConstants.NB_USUARIO_ACTIVO);
+        idEstatusObjeto.setValue(String.valueOf(CommandConstants.ESTATUS_USUARIO_ACTIVO));
     }
 	
 	/* (non-Javadoc)

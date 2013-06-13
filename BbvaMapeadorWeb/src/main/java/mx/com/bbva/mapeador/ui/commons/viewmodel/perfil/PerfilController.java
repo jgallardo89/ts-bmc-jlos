@@ -203,6 +203,8 @@ public class PerfilController extends ControllerSupport implements  IController{
     public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
         Selectors.wireComponents(view, this, false);        
         executePermissionSet = this.applyPermision();
+        status.setValue(CommandConstants.NB_PERFIL_ACTIVO);
+        strStatus = String.valueOf(CommandConstants.ESTATUS_PERFIL);
     }
 	
 	/* (non-Javadoc)
