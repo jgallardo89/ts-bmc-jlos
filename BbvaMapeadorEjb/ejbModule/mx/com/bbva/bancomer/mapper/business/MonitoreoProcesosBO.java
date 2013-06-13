@@ -35,6 +35,7 @@ import java.util.Set;
 
 import mappers.monitoreoprocesos.MapMonitoreoProcesos;
 import mx.com.bbva.bancomer.bussinnes.model.vo.MonitoreoProcesosVO;
+import mx.com.bbva.bancomer.commons.command.CommandConstants;
 import mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject;
 import mx.com.bbva.bancomer.monitoreoprocesos.dto.MonitoreoProcesosDTO;
 import mx.com.bbva.mapeador.oralce.session.MapeadorSessionFactory;
@@ -91,7 +92,13 @@ public class MonitoreoProcesosBO implements mx.com.bbva.bancomer.commons.busines
 					logger.debug(":::::::::::::::::::::" + monitoreoProcesosVO.toString());
 				}
 				try {
-					monitoreoProcesosVOs = mapMonitoreoProcesos.obtenerMonitoreoProcesosVO(monitoreoProcesosVO);
+					if(bbvaAbstractDataTransferObject.getCommandId()==CommandConstants.PROCESOS_CANAL){
+						monitoreoProcesosVOs = mapMonitoreoProcesos.obtieneCanalesProcesos(monitoreoProcesosVO);
+					}else if(bbvaAbstractDataTransferObject.getCommandId()==CommandConstants.PROCESOS_ARCHIVOS){
+						monitoreoProcesosVOs = mapMonitoreoProcesos.obtieneEtapasArchivos(monitoreoProcesosVO);
+					}else{
+						monitoreoProcesosVOs = mapMonitoreoProcesos.obtenerMonitoreoProcesosVO(monitoreoProcesosVO);
+					}
 					Set<String> canal = new  HashSet<String>();
 					Set<String> cliente = new  HashSet<String>();
 					Set<String> producto = new  HashSet<String>();
