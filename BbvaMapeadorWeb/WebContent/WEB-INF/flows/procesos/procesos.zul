@@ -113,13 +113,13 @@
 							</panelchildren>										
 						</panel>
 					</groupbox>
-					<groupbox height="700px">
-						<panel height="780px" sclass="sectionPanelTitle" width="100%" id="panelMonitoreoProcesos"
+					<groupbox height="560px">
+						<panel height="550px" sclass="sectionPanelTitle" width="100%" id="panelMonitoreoProcesos"
 							title="Resultados" collapsible="true"
 							style="margin-bottom:10px">
 							<caption sclass="sectionPanelTitle" label="Listado de Resultados"></caption>
 							<panelchildren>
-								
+								<div id="divTabla" sclass="BODY" height="100%"/>
 							</panelchildren>
 						</panel>
 					</groupbox>
