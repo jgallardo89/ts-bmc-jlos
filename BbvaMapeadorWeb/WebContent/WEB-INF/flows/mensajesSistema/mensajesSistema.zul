@@ -65,7 +65,7 @@
 												</div>
 												<datebox height="20px" value="@load(vm.mensajeSalidaDTO.mensajeSalidaVO.fechaAlta)" maxlength="50" width="100%" id="fechaAlta" readonly="true" buttonVisible="false" onCreate="self.value = new Date()" format="dd/MM/yyyy HH:mm"></datebox>
 												<div align="right">
-													<label id="lblFechaModificacion" width="100%" sclass="labelFill" value="Descripción flujo: "></label>												
+													<label id="lblFechaModificacion" width="100%" sclass="labelFill" value="Fecha modificación: "></label>												
 												</div>
 												<datebox height="20px" value="@load(vm.mensajeSalidaDTO.mensajeSalidaVO.fechaModificacion)" maxlength="50" width="100%" id="fechaModificacion" readonly="true" buttonVisible="false" onCreate="self.value = new Date()" format="dd/MM/yyyy HH:mm"></datebox>																										
 											</row>																						
