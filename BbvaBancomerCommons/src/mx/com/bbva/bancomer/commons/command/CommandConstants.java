@@ -38,11 +38,45 @@ public abstract interface CommandConstants {
 	/** The Constant ACCESO. */
 	public static final int ACCESO = 1;
 	
+
+	/** The Constant CONSULTAR. */
+	public static final int CONSULTAR = 2;
+	
 	/** The Constant ALTA. */
 	public static final int ALTA = 3;
 	
+	/** The Constant MODIFICACION. */
+	public static final int MODIFICACION = 4;
+	
+	/** The Constant ELIMINACION. */
+	public static final int ELIMINACION = 5;	
+	
 	/** The Constant BAJA. */
 	public static final int BAJA = 6;
+
+	/** The Constant INACTIVACION. */
+	public static final int INACTIVACION = 7;
+	
+	/** The Constant EXPORTAR_EXCEL. */
+	public static final int EXPORTAR_EXCEL = 8;
+	
+	/** The Constant EXPORTAR_TEXTO. */
+	public static final int EXPORTAR_TEXTO = 9;
+	
+	/** The Constant ALTA. */
+	public static final int ALTA_FALLIDA = 10;
+	
+	/** The Constant MODIFICACION. */
+	public static final int MODIFICACION_FALLIDA = 11;
+	
+	/** The Constant ELIMINACION. */
+	public static final int ELIMINACION_FALLIDA = 12;	
+	
+	/** The Constant BAJA. */
+	public static final int BAJA_FALLIDA = 13;
+
+	/** The Constant INACTIVACION. */
+	public static final int INACTIVACION_FALLIDA = 14;
 	
 	/** The Constant COMPONENTE_PANTALLA. */
 	public static final int COMPONENTE_PANTALLA = 1;
@@ -68,12 +102,7 @@ public abstract interface CommandConstants {
 	/** The Constant CONSULTA_USUARIOS_NO_ASIGNADOS. */
 	public static final int CONSULTA_USUARIOS_NO_ASIGNADOS = 3;
 	
-	/** The Constant CONSULTAR. */
-	public static final int CONSULTAR = 2;
-	
-	/** The Constant ELIMINACION. */
-	public static final int ELIMINACION = 5;
-	
+
 	/** The Constant ESTADO_ERROR_PROCESO. */
 	public static final int ESTADO_ERROR_PROCESO = 9;
 	
@@ -155,11 +184,7 @@ public abstract interface CommandConstants {
 	/** The Constant ESTATUS_USUARIO_ACTIVO. */
 	public static final int ESTATUS_USUARIO_NOTIFICACION_ACTIVO = 18;
 	
-	/** The Constant EXPORTAR_EXCEL. */
-	public static final int EXPORTAR_EXCEL = 8;
-	
-	/** The Constant EXPORTAR_TEXTO. */
-	public static final int EXPORTAR_TEXTO = 9;
+
 	
 	//Estatus del Catálogo de Canales
 	/** The Constant ID_CANAL_ACTIVO. */
@@ -232,11 +257,6 @@ public abstract interface CommandConstants {
 	/** The Constant IMG_VERDE_EXITO_PNG. */
 	public static final String IMG_VERDE_EXITO_PNG = "/img/verde-exito.png";
 	
-	/** The Constant INACTIVACION. */
-	public static final int INACTIVACION = 7;
-	
-	/** The Constant MODIFICACION. */
-	public static final int MODIFICACION = 4;
 
 	/** The Constant NB PANTALLA ACTIVO. */
 	public static final String NB_PANTALLA_ACTIVO = "ACTIVO";
