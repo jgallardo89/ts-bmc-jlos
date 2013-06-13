@@ -398,6 +398,9 @@ public abstract interface CommandConstants {
 	/** The Constant PROCESOS_CANAL. */
 	public static final int PROCESOS_CANAL = 3;
 	
+	/** The Constant PROCESOS_ESTATUS. */
+	public static final int PROCESOS_ESTATUS = 5;
+	
 	/** The Constant PRODUCTO_CANAL_CLIENTE. */
 	public static final int PRODUCTO_CANAL_CLIENTE= 3;
 	
@@ -409,6 +412,9 @@ public abstract interface CommandConstants {
 	
 	/** The Constant TODOS. */
 	public static final String TODOS = "TODOS";
+	
+	
+	
 }
 
 
