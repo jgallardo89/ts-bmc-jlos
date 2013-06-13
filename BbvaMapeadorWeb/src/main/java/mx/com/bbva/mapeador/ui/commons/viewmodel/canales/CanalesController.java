@@ -423,7 +423,7 @@ public class CanalesController extends ControllerSupport implements IController 
 			CanalBO canalBO = new CanalBO();
 			canalesVOs = canalBO.readCommand(canalDTO).getCanalVOs();
 			
-			controller.registrarEvento(canalVO, canalVO, CommandConstants.CONSULTAR, "Catálogo Canal");
+			controller.registrarEvento(canalVO, canalVO, CommandConstants.CONSULTAR, "Catálogo Canales");
 		}
 	}
 
@@ -488,7 +488,7 @@ public class CanalesController extends ControllerSupport implements IController 
 					canalDTO.toString(BbvaAbstractDataTransferObject.XML);
 					clean();
 					
-					controller.registrarEvento(canalVO, canalesVO, CommandConstants.MODIFICACION, "Catálogo Canal");
+					controller.registrarEvento(canalVO, canalesVO, CommandConstants.MODIFICACION, "Catálogo Canales");
 					
 					canalVO.setNombreCanal(StringUtil.validaLike(nombreCanal.getValue()));
 					canalVO.setDescripcionCanal(StringUtil.validaLike(descripcionCanal.getValue()));
