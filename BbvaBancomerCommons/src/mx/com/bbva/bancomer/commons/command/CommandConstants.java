@@ -38,52 +38,24 @@ public abstract interface CommandConstants {
 	/** The Constant ACCESO. */
 	public static final int ACCESO = 1;
 	
-
-	/** The Constant CONSULTAR. */
-	public static final int CONSULTAR = 2;
-	
 	/** The Constant ALTA. */
 	public static final int ALTA = 3;
 	
-	/** The Constant MODIFICACION. */
-	public static final int MODIFICACION = 4;
-	
-	/** The Constant ELIMINACION. */
-	public static final int ELIMINACION = 5;	
-	
-	/** The Constant BAJA. */
-	public static final int BAJA = 6;
-
-	/** The Constant INACTIVACION. */
-	public static final int INACTIVACION = 7;
-	
-	/** The Constant EXPORTAR_EXCEL. */
-	public static final int EXPORTAR_EXCEL = 8;
-	
-	/** The Constant EXPORTAR_TEXTO. */
-	public static final int EXPORTAR_TEXTO = 9;
-	
 	/** The Constant ALTA. */
 	public static final int ALTA_FALLIDA = 10;
-	
-	/** The Constant MODIFICACION. */
-	public static final int MODIFICACION_FALLIDA = 11;
-	
-	/** The Constant ELIMINACION. */
-	public static final int ELIMINACION_FALLIDA = 12;	
-	
+	/** The Constant BAJA. */
+	public static final int BAJA = 6;
 	/** The Constant BAJA. */
 	public static final int BAJA_FALLIDA = 13;
-
-	/** The Constant INACTIVACION. */
-	public static final int INACTIVACION_FALLIDA = 14;
-	
+	/** The Constant CANAL_CLIENTE_PRODUCTO. */
+	public static final int CANAL_CLIENTE_PRODUCTO = 1;
+	/** The Constant CLIENTE_CANAL_PRODUCTO. */
+	public static final int CLIENTE_CANAL_PRODUCTO = 2;
 	/** The Constant COMPONENTE_PANTALLA. */
 	public static final int COMPONENTE_PANTALLA = 1;
-	
 	/** The Constant COMPONENTE_PANTALLA_PERFIL. */
 	public static final int COMPONENTE_PANTALLA_PERFIL = 3;
-	
+
 	/** The Constant COMPONENTE_PANTALLA_PERFIL_ALL. */
 	public static final int COMPONENTE_PANTALLA_PERFIL_ALL = 4;
 	
@@ -102,7 +74,12 @@ public abstract interface CommandConstants {
 	/** The Constant CONSULTA_USUARIOS_NO_ASIGNADOS. */
 	public static final int CONSULTA_USUARIOS_NO_ASIGNADOS = 3;
 	
-
+	/** The Constant CONSULTAR. */
+	public static final int CONSULTAR = 2;
+	
+	/** The Constant ELIMINACION. */
+	public static final int ELIMINACION = 5;
+	
 	/** The Constant ESTADO_ERROR_PROCESO. */
 	public static final int ESTADO_ERROR_PROCESO = 9;
 	
@@ -180,32 +157,32 @@ public abstract interface CommandConstants {
 	
 	/** The Constant ESTATUS_USUARIO_ACTIVO. */
 	public static final int ESTATUS_USUARIO_ACTIVO = 27;
-
+	
 	/** The Constant ESTATUS_USUARIO_ACTIVO. */
 	public static final int ESTATUS_USUARIO_NOTIFICACION_ACTIVO = 18;
-	
+	/** The Constant EXPORTAR_EXCEL. */
+	public static final int EXPORTAR_EXCEL = 8;
 
-	
+	/** The Constant EXPORTAR_TEXTO. */
+	public static final int EXPORTAR_TEXTO = 9;
 	//Estatus del Catálogo de Canales
 	/** The Constant ID_CANAL_ACTIVO. */
 	public static final int ID_CANAL_ACTIVO = 1;
-
-	/** The Constant ID_CANAL_INACTIVO. */
-	public static final int ID_CANAL_INACTIVO = 2;	
 	
 	/** The Constant ID_CANAL_BAJA. */
 	public static final int ID_CANAL_BAJA = 3;
-	
+	/** The Constant ID_CANAL_INACTIVO. */
+	public static final int ID_CANAL_INACTIVO = 2;
 	//Estatus del Catálogo de Clientes
 	/** The Constant ID_CLIENTE_ACTIVO. */
 	public static final int ID_CLIENTE_ACTIVO = 4;									
-
-	/** The Constant ID_CLIENTE_BAJA. */
-	public static final int ID_CLIENTE_INACTIVO = 5;
 	
 	/** The Constant ID_CLIENTE_BAJA. */
 	public static final int ID_CLIENTE_BAJA = 6;
-	
+
+	/** The Constant ID_CLIENTE_BAJA. */
+	public static final int ID_CLIENTE_INACTIVO = 5;
+
 	//Estatus del Catálogo de Contratación
 	/** The Constant ID_CONTRATACION_ACTIVO. */
 	public static final int ID_CONTRATACION_ACTIVO = 21;
@@ -223,6 +200,12 @@ public abstract interface CommandConstants {
 	/** The Constant ID_FLUJO_INACTIVO. */
 	public static final int ID_FLUJO_INACTIVO = 11;
 	
+	/** The Constant ID_MAPA_ACTIVO. */
+	public static final int ID_MAPA_ACTIVO = 13;
+	
+	/** The Constant ID_MAPA_INACTIVO. */
+	public static final int ID_MAPA_INACTIVO = 14;
+	
 	//Estatus del Catálogo de Mensaje
 	/** The Constant ID_MENSAJE_ACTIVO. */
 	public static final int ID_MENSAJE_ACTIVO = 15;
@@ -236,26 +219,20 @@ public abstract interface CommandConstants {
 	
 	/** The Constant ID_PERFIL_BAJA. */
 	public static final int ID_PERFIL_BAJA = 26;
-	
+
 	/** The Constant ID_PERFIL_INACTIVO. */
 	public static final int ID_PERFIL_INACTIVO = 25;
 	
 	//Estatus del Catálogo de Producto
 	/** The Constant ID_PRODUCTO_ACTIVO. */
 	public static final int ID_PRODUCTO_ACTIVO = 7;
-
-	/** The Constant ID_PRODUCTO_INACTIVO. */
-	public static final int ID_PRODUCTO_INACTIVO = 8;
+	
 	
 	/** The Constant ID_PRODUCTO_BAJA. */
 	public static final int ID_PRODUCTO_BAJA = 9;
 	
-	
-	/** The Constant ID_MAPA_ACTIVO. */
-	public static final int ID_MAPA_ACTIVO = 13;
-	
-	/** The Constant ID_MAPA_INACTIVO. */
-	public static final int ID_MAPA_INACTIVO = 14;
+	/** The Constant ID_PRODUCTO_INACTIVO. */
+	public static final int ID_PRODUCTO_INACTIVO = 8;
 	
 	
 	//Monitoreo de Procesos
@@ -274,25 +251,22 @@ public abstract interface CommandConstants {
 	/** The Constant IMG_VERDE_EXITO_PNG. */
 	public static final String IMG_VERDE_EXITO_PNG = "/img/verde-exito.png";
 	
-
-	/** The Constant NB PANTALLA ACTIVO. */
-	public static final String NB_PANTALLA_ACTIVO = "ACTIVO";
+	/** The Constant INACTIVACION. */
+	public static final int INACTIVACION = 7;
 	
-	/** The Constant NB USUARIO ACTIVO. */
-	public static final String NB_USUARIO_ACTIVO = "ACTIVO";
+	/** The Constant INACTIVACION. */
+	public static final int INACTIVACION_FALLIDA = 14;
+	/** The Constant MODIFICACION. */
+	public static final int MODIFICACION = 4;
 	
-	/** The Constant NB USUARIO NOTIFICACION ACTIVO. */
-	public static final String NB_USUARIO_NOTIFICACION_ACTIVO = "ACTIVO";	
-	
-	/** The Constant NB ESTATUS ACTIVO. */
-	public static final String NB_ESTATUS_ACTIVO = "ACTIVO";
+	/** The Constant MODIFICACION. */
+	public static final int MODIFICACION_FALLIDA = 11;
 	
 	/** The Constant NB_CANAL_ACTIVO. */
-	public static final String NB_CANAL_ACTIVO = "ACTIVO";
+	public static final String NB_CANAL_ACTIVO = "ACTIVO";	
 	
 	/** The Constant NB_CANAL_BAJA. */
 	public static final String NB_CANAL_BAJA = "BAJA";
-	
 	/** The Constant NB_CLIENTE_ACTIVO. */
 	public static final String NB_CLIENTE_ACTIVO = "ACTIVO";
 	
@@ -304,6 +278,9 @@ public abstract interface CommandConstants {
 	
 	/** The Constant NB_CONTRATACION_BAJA. */
 	public static final String NB_CONTRATACION_BAJA = "BAJA";
+	
+	/** The Constant NB ESTATUS ACTIVO. */
+	public static final String NB_ESTATUS_ACTIVO = "ACTIVO";
 	
 	/** The Constant NB_FLUJO_ACTIVO. */
 	public static final String NB_FLUJO_ACTIVO = "ACTIVO";
@@ -317,6 +294,9 @@ public abstract interface CommandConstants {
 	/** The Constant NB_MENSAJE_BAJA. */
 	public static final String NB_MENSAJE_BAJA = "BAJA";
 	
+	/** The Constant NB PANTALLA ACTIVO. */
+	public static final String NB_PANTALLA_ACTIVO = "ACTIVO";
+	
 	/** The Constant NB_PERFIL_ACTIVO. */
 	public static final String NB_PERFIL_ACTIVO = "ACTIVO";
 	
@@ -328,6 +308,12 @@ public abstract interface CommandConstants {
 	
 	/** The Constant NB_PRODUCTO_BAJA. */
 	public static final String NB_PRODUCTO_BAJA = "BAJA";
+	
+	/** The Constant NB USUARIO ACTIVO. */
+	public static final String NB_USUARIO_ACTIVO = "ACTIVO";
+	
+	/** The Constant NB USUARIO NOTIFICACION ACTIVO. */
+	public static final String NB_USUARIO_NOTIFICACION_ACTIVO = "ACTIVO";
 	
 	/** The Constant NOMBRE_PANTALLA. */
 	public static final int NOMBRE_PANTALLA = 4;
@@ -346,12 +332,12 @@ public abstract interface CommandConstants {
 	
 	/** The Constant NOMBRE_TABLA_MAPA. */
 	public static final String NOMBRE_TABLA_MAPA = "TGM514_MAPA_GMM";
-	
 	/** The Constant NOMBRE_TABLA_MENSAJE. */
 	public static final String NOMBRE_TABLA_MENSAJE= "TGM516_MENSAJE_SAL";
 	
 	/** The Constant NOMBRE_TABLA_PANTALLA. */
 	public static final String NOMBRE_TABLA_PANTALLA = "TGM501_PANTALLA";
+	
 	/** The Constant NOMBRE_TABLA_PERFIL. */
 	public static final String NOMBRE_TABLA_PERFIL = "TGM504_PERFIL";
 	
@@ -372,6 +358,27 @@ public abstract interface CommandConstants {
 	
 	/** The Constant PERFIL_COMMAND_READ_PERMISSION. */
 	public static final int PERFIL_COMMAND_READ_PERMISSION = 3;
+	
+	/** The Constant PROCESO_ERROR_ROJO. */
+	public static final int PROCESO_ERROR_ROJO = 35;
+	
+	/** The Constant PROCESO_ESPERA_AMARILLO. */
+	public static final int PROCESO_ESPERA_AMARILLO = 37;
+	
+	/** The Constant PROCESO_EXITO_VERDE. */
+	public static final int PROCESO_EXITO_VERDE = 34;
+	
+	/** The Constant PROCESO_FINALIZA_USUARIO_AZUL. */
+	public static final int PROCESO_FINALIZA_USUARIO_AZUL = 36;
+	
+	/** The Constant PROCESOS_ARCHIVOS. */
+	public static final int PROCESOS_ARCHIVOS = 4;
+	
+	/** The Constant PROCESOS_CANAL. */
+	public static final int PROCESOS_CANAL = 3;
+	
+	/** The Constant PRODUCTO_CANAL_CLIENTE. */
+	public static final int PRODUCTO_CANAL_CLIENTE= 3;
 	
 	/** The Constant TIPO_NOTIFICACION_NEGOCIO. */
 	public static final String TIPO_NOTIFICACION_NEGOCIO = "N";
