@@ -67,6 +67,12 @@ import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.NotifyChange;
+import org.zkoss.zhtml.Table;
+import org.zkoss.zhtml.Tbody;
+import org.zkoss.zhtml.Td;
+import org.zkoss.zhtml.Th;
+import org.zkoss.zhtml.Thead;
+import org.zkoss.zhtml.Tr;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
@@ -77,6 +83,7 @@ import org.zkoss.zul.Button;
 import org.zkoss.zul.Checkbox;
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Datebox;
+import org.zkoss.zul.Div;
 import org.zkoss.zul.Grid;
 import org.zkoss.zul.Image;
 import org.zkoss.zul.Label;
@@ -97,6 +104,9 @@ public class MonitoreoProcesosController extends ControllerSupport implements  I
 	
 	/** The btn guardar. */
 	private boolean btnGuardar;
+	
+	Table table;
+	Tbody tbody; 
 	
 	/** The canal. */
 	@Wire
@@ -155,6 +165,10 @@ public class MonitoreoProcesosController extends ControllerSupport implements  I
 	/** The guardar btn. */
 	@Wire
 	private Button guardarBtn;
+	
+	/** The div Tabla. */
+	@Wire
+	private Div divTabla;
 	
 	/** The id canal. */
 	@Wire
@@ -332,6 +346,187 @@ public class MonitoreoProcesosController extends ControllerSupport implements  I
 ////		componentes.put(procesosGrid.getId(), procesosGrid);
 		super.applyPermission(MapeadorConstants.MONITOREO, componentes);
 		return isApplied;
+	}
+	/**
+	 * Armar lista grid.
+	 *
+	 */
+	private void armarListaGrid(MonitoreoProcesosDTO monitoreoProcesosDTO){
+		
+		//Leo los canales
+		MonitoreoProcesosBO monitoreoProcesosBO = new MonitoreoProcesosBO();
+		monitoreoProcesosDTO.setCommandId(CommandConstants.PROCESOS_CANAL);
+		List<MonitoreoProcesosVO> monitoreoProcesosVOsCanal;
+		monitoreoProcesosVOsCanal = ((MonitoreoProcesosDTO)monitoreoProcesosBO.readCommand(monitoreoProcesosDTO)).getMonitoreoProcesosVOs();
+		
+		armaEstiloTabla();		
+		armaEncabezadoTabla(monitoreoProcesosDTO.getTipoReporte());
+		
+		List<MonitoreoProcesosVO> monitoreoProcesosVOsProductos;
+		MonitoreoProcesosDTO monitoreoProcesosDTOProductos = new MonitoreoProcesosDTO();
+		MonitoreoProcesosVO monitoreoProcesosVOProductos;
+		for (MonitoreoProcesosVO monitoreoProcesosVO : monitoreoProcesosVOsCanal) {			
+			armaRegistroNivel1(monitoreoProcesosVO);
+			armaEncabezadoNivel1();
+			monitoreoProcesosDTOProductos.setCommandId(CommandConstants.PROCESOS_ARCHIVOS);
+			monitoreoProcesosVOProductos = new MonitoreoProcesosVO();
+			monitoreoProcesosVOProductos.setIdCanal(monitoreoProcesosVO.getIdCanal());
+			monitoreoProcesosVOProductos.setIdCliente(monitoreoProcesosVO.getIdCliente());
+			monitoreoProcesosVOProductos.setIdProducto(monitoreoProcesosVO.getIdProducto());
+			monitoreoProcesosDTOProductos.setMonitoreoProcesosVO(monitoreoProcesosVOProductos);
+			monitoreoProcesosVOsProductos = ((MonitoreoProcesosDTO)monitoreoProcesosBO.readCommand(monitoreoProcesosDTOProductos)).getMonitoreoProcesosVOs();
+			logger.debug("monitoreoProcesosVOsProductos:"+monitoreoProcesosVOsProductos.size());
+			armaHijos(monitoreoProcesosVOsProductos);
+		}											
+	}
+	
+	public void armaEstiloTabla(){
+		try{
+			divTabla.removeChild(table);
+		}catch(Exception ex){
+			//NO HACER NADA
+		}
+		divTabla.setSclass("divTabla");
+		table = new Table();
+		tbody = new Tbody();
+		table.setStyle("width:100%");
+		table.appendChild(tbody);		
+		divTabla.appendChild(table);
+	}
+	
+	public void armaEncabezadoTabla(int tipoReporte){		
+		switch (tipoReporte) {
+			case CommandConstants.CANAL_CLIENTE_PRODUCTO:
+				Thead thead = new Thead();			
+				Th th1 = new Th();
+				th1.appendChild(new Label("Canal"));
+				Th th2 = new Th();
+				th2.appendChild(new Label("Cliente"));
+				Th th3 = new Th();
+				th3.appendChild(new Label("Producto"));
+				Th th4 = new Th();
+				th4.appendChild(new Label("Fecha Lote"));
+				Th th5 = new Th();
+				th5.appendChild(new Label("Lote"));
+				Th th6 = new Th();
+				th6.appendChild(new Label("Status"));	
+				thead.setSclass("sClassThead");
+				thead.appendChild(th1);
+				thead.appendChild(th2);
+				thead.appendChild(th3);			
+				thead.appendChild(th4);
+				thead.appendChild(th5);
+				thead.appendChild(th6);				
+				table.appendChild(thead);
+				break;
+			case CommandConstants.CLIENTE_CANAL_PRODUCTO:
+		
+				break;
+			case CommandConstants.PRODUCTO_CANAL_CLIENTE:
+				
+				break;
+			default:
+				break;
+		}				
+	}
+	
+	public void armaEncabezadoNivel1(){
+		Tr tr = new Tr();	
+		tr.setSclass("sClassTitulos");
+		Td td1 = new Td();
+		td1.appendChild(new Label("ETAPA"));
+		Td td2 = new Td();
+		td2.appendChild(new Label("NOMBRE ARCHIVO"));
+		Td td3 = new Td();
+		td3.appendChild(new Label("FECHA INICIO"));
+		Td td4 = new Td();
+		td4.appendChild(new Label("HORA INICIO"));
+		Td td5 = new Td();
+		td5.appendChild(new Label("HORA FIN"));
+		Td td6 = new Td();
+		td6.appendChild(new Label("STATUS"));		
+		tr.appendChild(td1);
+		tr.appendChild(td2);
+		tr.appendChild(td3);
+		tr.appendChild(td4);
+		tr.appendChild(td5);
+		tr.appendChild(td6);
+		tbody.appendChild(tr);
+	}
+	public void armaRegistroNivel1(MonitoreoProcesosVO monitoreoProcesosVO){
+		Tr tr = new Tr();	
+		tr.setSclass("sClassDatosPrimerNivel");
+		Td td1 = new Td();
+		td1.appendChild(new Label(monitoreoProcesosVO.getNombreCanal()));
+		Td td2 = new Td();
+		td2.appendChild(new Label(monitoreoProcesosVO.getNombreCliente()));
+		Td td3 = new Td();
+		td3.appendChild(new Label(monitoreoProcesosVO.getNombreProducto()));
+		Td td4 = new Td();
+		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+		td4.appendChild(new Label(dateFormat.format(monitoreoProcesosVO.getFechaStatusProceso())));
+		Td td5 = new Td();
+		td5.appendChild(new Label(Long.toString(monitoreoProcesosVO.getNumeroLote())));
+		Td td6 = new Td();
+		String urlImage = "";
+		if(monitoreoProcesosVO.getIdEstatusMapeador()==CommandConstants.PROCESO_EXITO_VERDE)
+			urlImage = CommandConstants.IMG_VERDE_EXITO_PNG; 
+		else if(monitoreoProcesosVO.getIdEstatusMapeador()==CommandConstants.PROCESO_ERROR_ROJO)
+			urlImage = CommandConstants.IMG_ERROR_ROJO_PNG;
+		else if(monitoreoProcesosVO.getIdEstatusMapeador()==CommandConstants.PROCESO_ESPERA_AMARILLO)
+			urlImage = CommandConstants.IMG_AMARILLO_ESPERA_PNG;
+		else if(monitoreoProcesosVO.getIdEstatusMapeador()==CommandConstants.PROCESO_FINALIZA_USUARIO_AZUL)
+			urlImage = CommandConstants.IMG_AZUL_FINALIZAUSUARIO_PNG;
+		td6.appendChild(new Image(urlImage));		
+		tr.appendChild(td1);
+		tr.appendChild(td2);
+		tr.appendChild(td3);
+		tr.appendChild(td4);
+		tr.appendChild(td5);
+		tr.appendChild(td6);
+		tbody.appendChild(tr);
+	}
+	public void armaHijos(List<MonitoreoProcesosVO> monitoreoProcesosVOsProductos){
+		Tr tr;
+		Td td1;
+		Td td2;
+		Td td3;
+		Td td4;
+		Td td5;
+		Td td6;
+		for (MonitoreoProcesosVO monitoreoProcesosVO : monitoreoProcesosVOsProductos) {
+			tr = new Tr();	
+			tr.setSclass("sClassArchivos");
+			td1 = new Td();
+			td1.appendChild(new Label(monitoreoProcesosVO.getNombreEtapa()));
+			td2 = new Td();
+			td2.appendChild(new Label(monitoreoProcesosVO.getNombreRegArchEntra()));
+			td3 = new Td();
+			DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+			td3.appendChild(new Label(dateFormat.format(monitoreoProcesosVO.getFechaStatusProceso())));
+			td4 = new Td();
+			td4.appendChild(new Label(monitoreoProcesosVO.getFechaInicio()));
+			td5 = new Td();
+			td5.appendChild(new Label(monitoreoProcesosVO.getFechaFin()));
+			td6 = new Td();
+			String urlImage = "";
+			if(monitoreoProcesosVO.getIdEstatusMapeador()==CommandConstants.PROCESO_EXITO_VERDE)
+				urlImage = CommandConstants.IMG_VERDE_EXITO_PNG; 
+			else if(monitoreoProcesosVO.getIdEstatusMapeador()==CommandConstants.PROCESO_ERROR_ROJO)
+				urlImage = CommandConstants.IMG_ERROR_ROJO_PNG;
+			else if(monitoreoProcesosVO.getIdEstatusMapeador()==CommandConstants.PROCESO_ESPERA_AMARILLO)
+				urlImage = CommandConstants.IMG_AMARILLO_ESPERA_PNG;
+			else if(monitoreoProcesosVO.getIdEstatusMapeador()==CommandConstants.PROCESO_FINALIZA_USUARIO_AZUL)
+				urlImage = CommandConstants.IMG_AZUL_FINALIZAUSUARIO_PNG;
+			td6.appendChild(new Image(urlImage));		
+			tr.appendChild(td1);
+			tr.appendChild(td2);
+			tr.appendChild(td3);
+			tr.appendChild(td4);
+			tr.appendChild(td5);
+			tr.appendChild(td6);
+			tbody.appendChild(tr);
+		}
 	}
 	/**
 	 * Armar lista grid.
@@ -1064,35 +1259,39 @@ public class MonitoreoProcesosController extends ControllerSupport implements  I
 			monitoreoProcesosDTO.setMonitoreoProcesosVO(monitoreoProcesosVO);
 			monitoreoProcesosDTO.toString(BbvaAbstractDataTransferObject.XML);	
 			
-			//LLamada a BO  MonitoreoProcesosBO para consulta por criterio
-			MonitoreoProcesosBO monitoreoProcesosBO = new MonitoreoProcesosBO();
+			monitoreoProcesosDTO.setTipoReporte(CommandConstants.CANAL_CLIENTE_PRODUCTO);
 			
-			//Asignacion resultado de consulta al mismo DTO de MonitoreoProcesos
-			monitoreoProcesosDTO = monitoreoProcesosBO.readCommand(monitoreoProcesosDTO);
+			armarListaGrid(monitoreoProcesosDTO);
 			
-			//Tamaño de la lista de acuerdo al criterio de busqueda y objeto MonitoreoProcesos
-			if(monitoreoProcesosDTO.getMonitoreoProcesosVOs() != null) { 
-					for (MonitoreoProcesosVO entidad : monitoreoProcesosDTO.getMonitoreoProcesosVOs()) {
-						if(entidad.getIdEstatusMapeador() == 8) {
-							entidad.setImagenEstatus(CommandConstants.IMG_VERDE_EXITO_PNG);
-						} else if(entidad.getIdEstatusMapeador() == 9) {
-							entidad.setImagenEstatus(CommandConstants.IMG_ERROR_ROJO_PNG);
-						} else if(entidad.getIdEstatusMapeador() == 10) {
-							entidad.setImagenEstatus(CommandConstants.IMG_AZUL_FINALIZAUSUARIO_PNG);
-						} else if(entidad.getIdEstatusMapeador() == 11) {
-							entidad.setImagenEstatus(CommandConstants.IMG_AMARILLO_ESPERA_PNG);
-						} else{
-							entidad.setImagenEstatus(CommandConstants.IMG_VERDE_EXITO_PNG);
-						} 
-				}
-				logger.debug("size:"+ monitoreoProcesosDTO.getMonitoreoProcesosVOs().size());
-			} else{
-				logger.debug(":::::::::::Lista Vacia::::::::::");
-			}
-			//Asignacion de la lista a la variable global de la clase
-			monitoreoProcesosVOs = monitoreoProcesosDTO.getMonitoreoProcesosVOs();
-			armarListaGrid(monitoreoProcesosDTO.getMonitoreoProcesosVOs());
-			controller.registrarEvento(monitoreoProcesosVO, monitoreoProcesosVO, CommandConstants.CONSULTAR,"Monitoreo de Procesos");
+//			//LLamada a BO  MonitoreoProcesosBO para consulta por criterio
+//			MonitoreoProcesosBO monitoreoProcesosBO = new MonitoreoProcesosBO();
+//			
+//			//Asignacion resultado de consulta al mismo DTO de MonitoreoProcesos
+//			monitoreoProcesosDTO = monitoreoProcesosBO.readCommand(monitoreoProcesosDTO);
+//			
+//			//Tamaño de la lista de acuerdo al criterio de busqueda y objeto MonitoreoProcesos
+//			if(monitoreoProcesosDTO.getMonitoreoProcesosVOs() != null) { 
+//					for (MonitoreoProcesosVO entidad : monitoreoProcesosDTO.getMonitoreoProcesosVOs()) {
+//						if(entidad.getIdEstatusMapeador() == 8) {
+//							entidad.setImagenEstatus(CommandConstants.IMG_VERDE_EXITO_PNG);
+//						} else if(entidad.getIdEstatusMapeador() == 9) {
+//							entidad.setImagenEstatus(CommandConstants.IMG_ERROR_ROJO_PNG);
+//						} else if(entidad.getIdEstatusMapeador() == 10) {
+//							entidad.setImagenEstatus(CommandConstants.IMG_AZUL_FINALIZAUSUARIO_PNG);
+//						} else if(entidad.getIdEstatusMapeador() == 11) {
+//							entidad.setImagenEstatus(CommandConstants.IMG_AMARILLO_ESPERA_PNG);
+//						} else{
+//							entidad.setImagenEstatus(CommandConstants.IMG_VERDE_EXITO_PNG);
+//						} 
+//				}
+//				logger.debug("size:"+ monitoreoProcesosDTO.getMonitoreoProcesosVOs().size());
+//			} else{
+//				logger.debug(":::::::::::Lista Vacia::::::::::");
+//			}
+//			//Asignacion de la lista a la variable global de la clase
+//			monitoreoProcesosVOs = monitoreoProcesosDTO.getMonitoreoProcesosVOs();
+//			armarListaGrid(monitoreoProcesosDTO.getMonitoreoProcesosVOs());
+//			controller.registrarEvento(monitoreoProcesosVO, monitoreoProcesosVO, CommandConstants.CONSULTAR,"Monitoreo de Procesos");
 		}
 	}
 	
