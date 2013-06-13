@@ -156,4 +156,60 @@
 			CD_FLUJO =  #{idFlujo} and 
 			CD_ETAPA = #{idEtapa}
 	</update>
+	<select id="obtieneCanalesProcesos" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.MonitoreoProcesosVO"
+		resultType="mx.com.bbva.bancomer.bussinnes.model.vo.MonitoreoProcesosVO">
+		select unique cn.cd_canal idCanal,
+		  canal.nb_canal nombreCanal,
+		  cn.cd_cliente idCliente,
+		  cliente.nb_corto_cliente nombreCliente,
+		  cn.cd_producto idProducto,
+		  producto.nb_producto nombreProducto,
+		  stp.fh_st_proceso fechaStatusProceso,
+		  stp.nu_lote numeroLote,    
+		  stp.cd_st_mapeador idEstatusMapeador
+		FROM tgm522_st_proceso stp,
+		  tgm519_cntratacion cn,
+		  tgm536_reg_arch_en ra,
+		  tgm517_etapa eta,
+		  tgm511_canal canal,
+		  tgm512_cliente cliente,
+		  tgm515_producto producto
+		WHERE stp.cd_contratacion = cn.cd_contratacion
+		AND stp.cd_reg_arch_entra = ra.cd_reg_arch_entra
+		and stp.cd_etapa          = eta.cd_etapa
+		and canal.cd_canal  = cn.cd_canal
+		and cliente.cd_cliente  = cn.cd_cliente
+		and producto.cd_producto  = cn.cd_producto
+		ORDER BY cn.cd_canal,
+		  cn.cd_cliente,
+		  cn.cd_producto	
+	</select>
+	<select id="obtieneEtapasArchivos" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.MonitoreoProcesosVO"
+		resultType="mx.com.bbva.bancomer.bussinnes.model.vo.MonitoreoProcesosVO">
+		SELECT cn.cd_canal idCanal,
+		  cn.cd_cliente idCliente,
+		  cn.cd_producto idProducto,
+		  to_char(stp.fh_st_proceso,'dd/MM/yyyy') fechaStatusProceso,
+		  stp.nu_lote numeroLote,
+		  eta.nb_etapa nombreEtapa,
+		  ra.nb_reg_arch_entra nombreRegArchEntra,
+		  to_char(stp.tm_st_proceso_ini,'hh:mm:ss') fechaInicio,
+		  to_char(stp.tm_st_proceso_fin,'hh:mm:ss') fechaFin,
+		  stp.cd_st_mapeador idEstatusMapeador
+		FROM tgm522_st_proceso stp,
+		  tgm519_cntratacion cn,
+		  tgm536_reg_arch_en ra,
+		  tgm517_etapa eta
+		WHERE stp.cd_contratacion = cn.cd_contratacion
+		AND stp.cd_reg_arch_entra = ra.cd_reg_arch_entra
+		and stp.cd_etapa          = eta.cd_etapa
+		and cn.cd_canal = #{idCanal}
+		and cn.cd_cliente = #{idCliente} 
+		and cn.cd_producto = #{idProducto}
+		ORDER BY cn.cd_canal,
+		  cn.cd_cliente,
+		  cn.cd_producto,
+		  ra.nb_reg_arch_entra	
+	</select>
+	
 </mapper>
