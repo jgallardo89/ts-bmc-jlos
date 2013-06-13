@@ -84,6 +84,9 @@ public class ProductosController extends ControllerSupport implements IControlle
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 4844657161922105877L;
 	
+	/** The nombre Pantalla */
+	private static final String nombrePantalla="Catálogo Productos";
+	
 	/** The consultar btn. */
 	@Wire
 	private Button consultarBtn;
@@ -361,9 +364,9 @@ public class ProductosController extends ControllerSupport implements IControlle
 		headersReport.add("Fecha modificación");
 		headersReport.add("Status");
 		if(type.equals("xls")) {
-			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_EXCEL,"Catálogo Productos");
+			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_EXCEL,nombrePantalla);
 		} else {
-			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_TEXTO,"Catálogo Productos");
+			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_TEXTO,nombrePantalla);
 		}
 		controller.createReport(generaLista(), headersReport, type, "PRODUCTO");
 	}
@@ -444,7 +447,7 @@ public class ProductosController extends ControllerSupport implements IControlle
 	
 		ProductoBO productoBO = new ProductoBO();
 		productoVOs = productoBO.readCommand(productoDTO).getProductoVOs();
-		controller.registrarEvento(productoVO, productoVO, CommandConstants.CONSULTAR, "Catálogo de Productos");
+		controller.registrarEvento(productoVO, productoVO, CommandConstants.CONSULTAR, nombrePantalla);
 		flagEstatus = false;
 	}
 
@@ -477,7 +480,7 @@ public class ProductosController extends ControllerSupport implements IControlle
 		if(!errorGuardar){
 			if(idProducto.getValue().isEmpty() || idProducto.getValue().equals("0")){
 				System.out.println("********************** "+nombreProducto.getValue());
-				if(validaProductoRegistrado(nombreProducto.getValue().toUpperCase(),0)) {
+				if(validaProductoRegistrado(nombreProducto.getValue().toUpperCase().trim(),0)) {
 					ProductoDTO productoDTO = new ProductoDTO();
 					ProductoVO productoVO = new ProductoVO();
 					productoVO.setNombreProducto(nombreProducto.getValue().toUpperCase().trim());
@@ -487,7 +490,17 @@ public class ProductosController extends ControllerSupport implements IControlle
 					productoDTO.setProductoVO(productoVO);
 					productoBO.createCommand(productoDTO);
 					productoDTO.toString(BbvaAbstractDataTransferObject.XML);
-					controller.registrarEvento(productoVO, productoVO, CommandConstants.ALTA, "Catálogo de Productos");
+					
+					ProductoVO productoNuevo = new ProductoVO();
+					productoNuevo.setNombreProducto("");
+					productoNuevo.setDescripcionProducto("");
+					productoNuevo.setIdEstatusObjeto(CommandConstants.ESTATUS_PRODUCTO_ACTIVO);
+					productoNuevo.setIdFlujo(0);
+					logger.debug(productoVO.getNombreProducto() + " " +  productoNuevo.getNombreProducto());
+					logger.debug(productoVO.getDescripcionProducto() + " " +  productoNuevo.getDescripcionProducto());	
+					logger.debug(productoVO.getIdEstatusObjeto() + " " +  productoNuevo.getIdEstatusObjeto());
+					logger.debug(productoVO.getIdFlujo() + " " +  productoNuevo.getIdFlujo());						
+					controller.registrarEvento(productoVO, productoNuevo, CommandConstants.ALTA, nombrePantalla);
 					clean();
 					productoVO.setIdFlujo(Integer.parseInt(idFlujo.getValue().isEmpty()?"0":idFlujo.getValue()));
 					productoVO.setNombreProducto(StringUtil.validaLike(nombreProducto.getValue()));
@@ -500,14 +513,24 @@ public class ProductosController extends ControllerSupport implements IControlle
 							"Información", org.zkoss.zul.Messagebox.OK,
 							org.zkoss.zul.Messagebox.INFORMATION);
 				} else {
-					clean();
-//					productoVO.setIdFlujo(Integer.parseInt(idFlujo.getValue().isEmpty()?"0":idFlujo.getValue()));
-//					productoVO.setNombreProducto(StringUtil.validaLike(nombreProducto.getValue()));
-//					productoVO.setDescripcionProducto(StringUtil.validaLike(descripcionProducto.getValue()));
-//					productoVO.setIdEstatusObjeto(0);
-//					productoVO.toString();
-//					productoDTO.setProductoVO(productoVO);
-//					productoVOs = productoBO.readCommand(productoDTO).getProductoVOs();
+					ProductoVO productoVO = new ProductoVO();
+					productoVO.setNombreProducto(nombreProducto.getValue().toUpperCase().trim());
+					productoVO.setDescripcionProducto(descripcionProducto.getValue().toUpperCase().trim());
+					productoVO.setIdEstatusObjeto(CommandConstants.ESTATUS_PRODUCTO_ACTIVO);
+					productoVO.setIdFlujo(Integer.parseInt(idFlujo.getValue()));
+					
+					ProductoVO productoNuevo = new ProductoVO();
+					productoNuevo.setNombreProducto("");
+					productoNuevo.setDescripcionProducto("");
+					productoNuevo.setIdEstatusObjeto(CommandConstants.ESTATUS_PRODUCTO_ACTIVO);
+					productoNuevo.setIdFlujo(0);
+
+					logger.debug(productoVO.getNombreProducto() + " " +  productoNuevo.getNombreProducto());
+					logger.debug(productoVO.getDescripcionProducto() + " " +  productoNuevo.getDescripcionProducto());	
+					logger.debug(productoVO.getIdEstatusObjeto() + " " +  productoNuevo.getIdEstatusObjeto());
+					logger.debug(productoVO.getIdFlujo() + " " +  productoNuevo.getIdFlujo());	
+					controller.registrarEvento(productoVO, productoNuevo, CommandConstants.ALTA_FALLIDA, nombrePantalla);
+
 					org.zkoss.zul.Messagebox.show("!Ya existe Un Producto registrado con ese Nombre!",
 							"Información", org.zkoss.zul.Messagebox.OK,
 							org.zkoss.zul.Messagebox.EXCLAMATION);
@@ -517,7 +540,7 @@ public class ProductosController extends ControllerSupport implements IControlle
 				ContratacionBO contratacionBO = new ContratacionBO();
 				ContratacionVO contratacionVO = new ContratacionVO();
 				contratacionVO.setIdProducto(Integer.parseInt(idProducto.getValue()));
-				if(validaProductoRegistrado(nombreProducto.getValue().toUpperCase(),Integer.parseInt(idProducto.getValue()))) {
+				if(validaProductoRegistrado(nombreProducto.getValue().toUpperCase().trim(),Integer.parseInt(idProducto.getValue()))) {
 					if(Integer.parseInt(idEstatusObjeto.getValue()) == CommandConstants.ESTATUS_OBJETO_PRODUCTO_ACTIVO || 
 							contratacionBO.readCommandValidaContratacion(contratacionVO)){
 						ProductoDTO productoDTO = new ProductoDTO();
@@ -530,7 +553,20 @@ public class ProductosController extends ControllerSupport implements IControlle
 						productoDTO.setProductoVO(productoVO);
 						productoBO.updateCommand(productoDTO);
 						productoDTO.toString(BbvaAbstractDataTransferObject.XML);
-						controller.registrarEvento(productoVO, this.productoVO, CommandConstants.MODIFICACION, "Catálogo de Productos");
+						logger.debug("Estatus--"+estatusObjeto.getSelectedItem().getValue().toString());
+						logger.debug(productoVO.getNombreProducto() + " " +  this.productoVO.getNombreProducto());
+						logger.debug(productoVO.getDescripcionProducto() + " " +  this.productoVO.getDescripcionProducto());
+						logger.debug(productoVO.getIdEstatusObjeto() + " " +  this.productoVO.getIdEstatusObjeto());
+						logger.debug(productoVO.getIdFlujo() + " " +  this.productoVO.getIdFlujo());
+						if (Integer.parseInt(estatusObjeto.getSelectedItem().getValue().toString())==CommandConstants.ID_PRODUCTO_BAJA) {
+							controller.registrarEvento(productoVO, this.productoVO, CommandConstants.BAJA, nombrePantalla);					
+						} else if (Integer.parseInt(estatusObjeto.getSelectedItem().getValue().toString())==CommandConstants.ID_PRODUCTO_INACTIVO) { 
+							controller.registrarEvento(productoVO, this.productoVO, CommandConstants.INACTIVACION, nombrePantalla);				
+						} else {
+							controller.registrarEvento(productoVO, this.productoVO, CommandConstants.MODIFICACION, nombrePantalla);
+						}						
+
+						
 						clean();
 						productoVO.setIdFlujo(Integer.parseInt(idFlujo.getValue().isEmpty()?"0":idFlujo.getValue()));
 						productoVO.setNombreProducto(StringUtil.validaLike(nombreProducto.getValue()));
@@ -544,19 +580,42 @@ public class ProductosController extends ControllerSupport implements IControlle
 								org.zkoss.zul.Messagebox.INFORMATION);
 					}				
 					else {
-	//					productoVO.setIdFlujo(Integer.parseInt(idFlujo.getValue().isEmpty()?"0":idFlujo.getValue()));
-	//					productoVO.setNombreProducto(StringUtil.validaLike(nombreProducto.getValue()));
-	//					productoVO.setDescripcionProducto(StringUtil.validaLike(descripcionProducto.getValue()));
-	//					productoVO.setIdEstatusObjeto(0);
-	//					productoVO.toString();
-	//					productoDTO.setProductoVO(productoVO);
-	//					productoVOs = productoBO.readCommand(productoDTO).getProductoVOs();
+						ProductoVO productoVO = new ProductoVO();
+						productoVO.setNombreProducto(nombreProducto.getValue().toUpperCase().trim());
+						productoVO.setDescripcionProducto(descripcionProducto.getValue().toUpperCase().trim());
+						productoVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue()));
+						productoVO.setIdFlujo(Integer.parseInt(idFlujo.getValue()));
+						productoVO.setIdProducto(Integer.parseInt(idProducto.getValue()));						
+						logger.debug("Estatus--"+estatusObjeto.getSelectedItem().getValue().toString());
+						logger.debug(productoVO.getNombreProducto() + " " +  this.productoVO.getNombreProducto());
+						logger.debug(productoVO.getDescripcionProducto() + " " +  this.productoVO.getDescripcionProducto());
+						logger.debug(productoVO.getIdEstatusObjeto() + " " +  this.productoVO.getIdEstatusObjeto());
+						logger.debug(productoVO.getIdFlujo() + " " +  this.productoVO.getIdFlujo());
+						if (Integer.parseInt(estatusObjeto.getSelectedItem().getValue().toString())==CommandConstants.ID_PRODUCTO_BAJA) {
+							controller.registrarEvento(productoVO, this.productoVO, CommandConstants.BAJA_FALLIDA, nombrePantalla);					
+						} else if (Integer.parseInt(estatusObjeto.getSelectedItem().getValue().toString())==CommandConstants.ID_PRODUCTO_INACTIVO) { 
+							controller.registrarEvento(productoVO, this.productoVO, CommandConstants.INACTIVACION_FALLIDA, nombrePantalla);				
+						} else {
+							controller.registrarEvento(productoVO, this.productoVO, CommandConstants.MODIFICACION_FALLIDA, nombrePantalla);
+						}							
 						org.zkoss.zul.Messagebox.show("!El Producto no puede darse de Baja, porque esta siendo usado por la Contratación!",
 								"Información", org.zkoss.zul.Messagebox.OK,
 								org.zkoss.zul.Messagebox.EXCLAMATION);
 						clean();
 					}
 				}else{
+					ProductoVO productoVO = new ProductoVO();
+					productoVO.setNombreProducto(nombreProducto.getValue().toUpperCase().trim());
+					productoVO.setDescripcionProducto(descripcionProducto.getValue().toUpperCase().trim());
+					productoVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue()));
+					productoVO.setIdFlujo(Integer.parseInt(idFlujo.getValue()));
+					productoVO.setIdProducto(Integer.parseInt(idProducto.getValue()));					
+					logger.debug("Estatus--"+estatusObjeto.getSelectedItem().getValue().toString());
+					logger.debug(productoVO.getNombreProducto() + " " +  this.productoVO.getNombreProducto());
+					logger.debug(productoVO.getDescripcionProducto() + " " +  this.productoVO.getDescripcionProducto());
+					logger.debug(productoVO.getIdEstatusObjeto() + " " +  this.productoVO.getIdEstatusObjeto());
+					logger.debug(productoVO.getIdFlujo() + " " +  this.productoVO.getIdFlujo());
+					controller.registrarEvento(productoVO, this.productoVO, CommandConstants.MODIFICACION_FALLIDA, nombrePantalla);
 					org.zkoss.zul.Messagebox.show("!Ya existe Un Producto registrado con ese Nombre!",
 							"Información", org.zkoss.zul.Messagebox.OK,
 							org.zkoss.zul.Messagebox.EXCLAMATION);
@@ -633,10 +692,10 @@ public class ProductosController extends ControllerSupport implements IControlle
 		productoDTO = new ProductoDTO();
 		productoVO.setNombreProducto(nombreProducto);
 		productoVO.setIdProducto(idProducto);
-		System.out.println("********************* " + nombreProducto  );
+//		System.out.println("********************* " + nombreProducto  );
 		ProductoBO productoBO = new ProductoBO();
 		productoDTO = productoBO.readCommandCmb(productoVO);
-		System.out.println("*************************** "+productoDTO.getProductoVOs().size()+" ***************************");
+//		System.out.println("*************************** "+productoDTO.getProductoVOs().size()+" ***************************");
 		if (productoDTO.getProductoVOs().size() == 0)
 			return true;
 		else 

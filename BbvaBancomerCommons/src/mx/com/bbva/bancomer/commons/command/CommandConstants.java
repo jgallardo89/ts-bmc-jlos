@@ -189,6 +189,9 @@ public abstract interface CommandConstants {
 	//Estatus del Catálogo de Canales
 	/** The Constant ID_CANAL_ACTIVO. */
 	public static final int ID_CANAL_ACTIVO = 1;
+
+	/** The Constant ID_CANAL_INACTIVO. */
+	public static final int ID_CANAL_INACTIVO = 2;	
 	
 	/** The Constant ID_CANAL_BAJA. */
 	public static final int ID_CANAL_BAJA = 3;
@@ -196,6 +199,9 @@ public abstract interface CommandConstants {
 	//Estatus del Catálogo de Clientes
 	/** The Constant ID_CLIENTE_ACTIVO. */
 	public static final int ID_CLIENTE_ACTIVO = 4;									
+
+	/** The Constant ID_CLIENTE_BAJA. */
+	public static final int ID_CLIENTE_INACTIVO = 5;
 	
 	/** The Constant ID_CLIENTE_BAJA. */
 	public static final int ID_CLIENTE_BAJA = 6;
@@ -237,9 +243,20 @@ public abstract interface CommandConstants {
 	//Estatus del Catálogo de Producto
 	/** The Constant ID_PRODUCTO_ACTIVO. */
 	public static final int ID_PRODUCTO_ACTIVO = 7;
+
+	/** The Constant ID_PRODUCTO_INACTIVO. */
+	public static final int ID_PRODUCTO_INACTIVO = 8;
 	
 	/** The Constant ID_PRODUCTO_BAJA. */
 	public static final int ID_PRODUCTO_BAJA = 9;
+	
+	
+	/** The Constant ID_MAPA_ACTIVO. */
+	public static final int ID_MAPA_ACTIVO = 13;
+	
+	/** The Constant ID_MAPA_INACTIVO. */
+	public static final int ID_MAPA_INACTIVO = 14;
+	
 	
 	//Monitoreo de Procesos
 	/** The Constant IMG_AMARILLO_ESPERA_PNG. */

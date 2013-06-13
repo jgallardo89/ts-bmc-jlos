@@ -80,6 +80,9 @@ public class CanalesController extends ControllerSupport implements IController 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	
+	/** The nombre Pantalla */
+	private static final String nombrePantalla="Catálogo Canales";
+	
 	/** The btn guardar. */
 	private boolean btnGuardar;
 	
@@ -342,9 +345,9 @@ public class CanalesController extends ControllerSupport implements IController 
 		headersReport.add("Fecha y Hora de alta");
 		headersReport.add("Status");
 		if(type.equals("xls")) {
-			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_EXCEL,"Catálogo Canales");
+			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_EXCEL,nombrePantalla);
 		} else {
-			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_TEXTO,"Catálogo Canales");
+			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_TEXTO,nombrePantalla);
 		}
 		controller.createReport(generaLista(), headersReport, type, "CANALES");
 	}
@@ -423,7 +426,7 @@ public class CanalesController extends ControllerSupport implements IController 
 			CanalBO canalBO = new CanalBO();
 			canalesVOs = canalBO.readCommand(canalDTO).getCanalVOs();
 			
-			controller.registrarEvento(canalVO, canalVO, CommandConstants.CONSULTAR, "Catálogo Canales");
+			controller.registrarEvento(canalVO, canalVO, CommandConstants.CONSULTAR, nombrePantalla);
 		}
 	}
 
@@ -486,9 +489,16 @@ public class CanalesController extends ControllerSupport implements IController 
 					canalDTO.setCanalVO(canalVO);
 					canalBO.updateCommand(canalDTO);
 					canalDTO.toString(BbvaAbstractDataTransferObject.XML);
+					if (Integer.parseInt(statusObjeto.getSelectedItem().getValue().toString())==CommandConstants.ID_CANAL_BAJA) {
+						controller.registrarEvento(canalVO, this.canalesVO, CommandConstants.BAJA, nombrePantalla);					
+					} else if (Integer.parseInt(statusObjeto.getSelectedItem().getValue().toString())==CommandConstants.ID_CANAL_INACTIVO) { 
+						controller.registrarEvento(canalVO, this.canalesVO, CommandConstants.INACTIVACION, nombrePantalla);				
+					} else {
+						controller.registrarEvento(canalVO, this.canalesVO, CommandConstants.MODIFICACION, nombrePantalla);
+					}
 					clean();
 					
-					controller.registrarEvento(canalVO, canalesVO, CommandConstants.MODIFICACION, "Catálogo Canales");
+
 					
 					canalVO.setNombreCanal(StringUtil.validaLike(nombreCanal.getValue()));
 					canalVO.setDescripcionCanal(StringUtil.validaLike(descripcionCanal.getValue()));
@@ -502,9 +512,21 @@ public class CanalesController extends ControllerSupport implements IController 
 							"Información", org.zkoss.zul.Messagebox.OK,
 							org.zkoss.zul.Messagebox.INFORMATION);
 				  } else {
+						CanalVO canalVO = new CanalVO();
+						canalVO.setNombreCanal(nombreCanal.getValue().toUpperCase().trim());
+						canalVO.setDescripcionCanal(descripcionCanal.getValue().toUpperCase().trim());
+						canalVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue()));
+						canalVO.setIdCanal(Integer.parseInt(idCanal.getValue()));					  
+						if (Integer.parseInt(statusObjeto.getSelectedItem().getValue().toString())==CommandConstants.ID_CANAL_BAJA) {
+							controller.registrarEvento(canalVO, this.canalesVO, CommandConstants.BAJA_FALLIDA, nombrePantalla);					
+						} else if (Integer.parseInt(statusObjeto.getSelectedItem().getValue().toString())==CommandConstants.ID_CANAL_INACTIVO) { 
+							controller.registrarEvento(canalVO, this.canalesVO, CommandConstants.INACTIVACION_FALLIDA, nombrePantalla);				
+						} else {
+							controller.registrarEvento(canalVO, this.canalesVO, CommandConstants.MODIFICACION_FALLIDA, nombrePantalla);
+						}				  
 					  clean();
 					  canalDTO = new CanalDTO();
-					  CanalVO canalVO = new CanalVO();
+					  canalVO = new CanalVO();
 					  canalVO.setNombreCanal(StringUtil.validaLike(nombreCanal.getValue()));
 					  canalVO.setDescripcionCanal(StringUtil.validaLike(descripcionCanal.getValue()));
 					  canalVO.setIdEstatusObjeto(0);

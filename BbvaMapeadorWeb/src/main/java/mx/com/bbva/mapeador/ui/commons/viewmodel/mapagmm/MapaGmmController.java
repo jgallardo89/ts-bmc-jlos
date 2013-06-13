@@ -80,6 +80,9 @@ public class MapaGmmController  extends ControllerSupport implements  IControlle
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -1420939655567271610L;	
 	
+	/** The nombre Pantalla */
+	private static final String nombrePantalla="Catálogo Mapas";
+	
 	/** The btn guardar. */
 	private boolean btnGuardar = true;
 	
@@ -474,9 +477,9 @@ public class MapaGmmController  extends ControllerSupport implements  IControlle
 		headersReport.add("Fecha modificación"); 
 		headersReport.add("Status");
 		if(type.equals("xls")) {
-			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_EXCEL,"Catálogo de Mapas");
+			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_EXCEL, nombrePantalla);
 		} else {
-			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_TEXTO,"Catálogo de Mapas");
+			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_TEXTO, nombrePantalla);
 		}
 		controller.createReport(generaLista(), headersReport, type, "MAPA");
 	}
@@ -502,7 +505,7 @@ public class MapaGmmController  extends ControllerSupport implements  IControlle
 		logger.info("::::::::::::::SIZE::::::::::" + mapaGmmDTO.getMapaGmmVOs());
 		//Seteo Catalogo de Estatus
 		mapaGmmDTO.setEstatusObjetoVOs(estatusObjetoDTO.getEstatusObjetoVOs());
-		controller.registrarEvento(mapaGmmVO, mapaGmmVO, CommandConstants.CONSULTAR,"Catálogo de Mapa");
+		//controller.registrarEvento(mapaGmmVO, mapaGmmVO, CommandConstants.CONSULTAR, nombrePantalla);
 		return mapaGmmDTO;
 	}
 
@@ -605,7 +608,7 @@ public class MapaGmmController  extends ControllerSupport implements  IControlle
 		} 
 		if (descripcionMapa.getValue().isEmpty()) {
 			descripcionMapa
-					.setErrorMessage("Favor de introducir Descripcion Mapa");
+					.setErrorMessage("Favor de introducir Descripción Mapa");
 			errorGuardar = true;
 		} 
 		if(!errorGuardar){
@@ -614,7 +617,7 @@ public class MapaGmmController  extends ControllerSupport implements  IControlle
 				MapaGmmDTO mapaGmmDTO = new MapaGmmDTO();
 				MapaGmmVO mapaGmmVO = new MapaGmmVO();
 				mapaGmmVO.setIdMapaGmm(Integer.parseInt(idMapaGmm.getValue().isEmpty()?"0":idMapaGmm.getValue()));
-				mapaGmmVO.setIdEstatusObjeto(Integer.parseInt(status.getSelectedItem().getValue().toString().isEmpty()?"1":status.getSelectedItem().getValue().toString()));
+				mapaGmmVO.setIdEstatusObjeto(Integer.parseInt(status.getSelectedItem().getValue().toString().isEmpty()? ""+ CommandConstants.ID_MAPA_ACTIVO:status.getSelectedItem().getValue().toString()));
 				
 				mapaGmmVO.setNombreMapaGmm(identificadorMapa.getValue().toUpperCase().trim());
 				mapaGmmVO.setDescripcionMapaGmm(descripcionMapa.getValue().toUpperCase().trim());
@@ -625,7 +628,13 @@ public class MapaGmmController  extends ControllerSupport implements  IControlle
 				
 				MapaGmmBO mapaGmmBO = new MapaGmmBO();
 				mapaGmmBO.updateCommand(mapaGmmDTO);
-				controller.registrarEvento(mapaGmmVO, this.mapaGmmVO, CommandConstants.MODIFICACION,"Catálogo de Mapa");
+				if (Integer.parseInt(status.getSelectedItem().getValue().toString())==CommandConstants.ID_MAPA_INACTIVO) { 
+					controller.registrarEvento(mapaGmmVO, this.mapaGmmVO, CommandConstants.INACTIVACION, nombrePantalla);				
+				} else {
+					controller.registrarEvento(mapaGmmVO, this.mapaGmmVO, CommandConstants.MODIFICACION,nombrePantalla);
+				}
+				
+				
 				clean();			
 				
 				//Textbox
@@ -652,40 +661,7 @@ public class MapaGmmController  extends ControllerSupport implements  IControlle
 				
 			}else{ 
 				logger.info("::::::NO Crea::::"); 
-//				MapaGmmDTO mapaGmmDTO = new MapaGmmDTO();
-//				MapaGmmVO mapaGmmVO = new MapaGmmVO();
-//				mapaGmmVO.setIdMapaGmm(Integer.parseInt(idMapaGmm.getValue().isEmpty()?"0":idMapaGmm.getValue()));
-//				mapaGmmVO.setIdEstatusObjeto(Integer.parseInt((status.getSelectedItem().getValue().toString().isEmpty())?"1":status.getSelectedItem().getValue().toString()));
-//				
-//				mapaGmmVO.setNombreMapaGmm(identificadorMapa.getValue().toUpperCase());
-//				mapaGmmVO.setDescripcionMapaGmm(descripcionMapa.getValue().toUpperCase());
-//							
-//				//Seteo de VO a DTO 
-//				mapaGmmDTO.setMapaGmmVO(mapaGmmVO);
-//				mapaGmmDTO.toString(BbvaAbstractDataTransferObject.XML);	
-//				
-//				MapaGmmBO mapaGmmBO = new MapaGmmBO();
-//				mapaGmmBO.createCommand(mapaGmmDTO);
-//				clean();			
-//				
-//				//Textbox
-//				mapaGmmVO = new MapaGmmVO();
-//				//Consulta Parametrizada
-//
-//				mapaGmmDTO.setMapaGmmVO(mapaGmmVO);
-//				mapaGmmDTO.toString(BbvaAbstractDataTransferObject.XML);	
-//				
-//				//LLamada a BO  MapaGmm para consulta por criterio
-//				MapaGmmBO MapaGmmBO = new MapaGmmBO();
-//				
-//				//Asignacion resultado de consulta al mismo DTO de MapaGmm
-//				mapaGmmDTO = MapaGmmBO.readCommand(mapaGmmDTO);
-//				
-//				
-//				Messagebox.show("Registro creo con exito!!",
-//						"Confirmación", Messagebox.OK,
-//						Messagebox.INFORMATION);
-//				mapaGmmVOs = mapaGmmDTO.getMapaGmmVOs();
+
 			}
 		}
 	}
