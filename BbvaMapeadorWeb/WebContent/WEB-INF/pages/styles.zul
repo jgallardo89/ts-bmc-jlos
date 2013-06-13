@@ -406,6 +406,73 @@
 			text-decoration: none !important;
 			border: 0 !important;			
 			background: none !important;
-		}		
+		}
+		.sClassDatosPrimerNivel{
+			overflow: hidden;
+			padding: 0 0 0 2px;
+			position: relative;
+			white-space: nowrap;
+			background: none no-repeat scroll 99% center transparent;			
+			padding-right: 9px;
+			background: rgb(0,158,229);
+			border: 1px solid rgb(0,158,229);
+			color: white;
+		    border: medium none;
+		    font-family: arial,sans-serif;
+		    font-size: 12px;
+		    font-weight: normal;
+		    padding-left: 10px;
+		    padding-right: 10px;
+		}
+		.sClassTitulos{
+			overflow: hidden;
+			padding: 0 0 0 2px;
+			position: relative;
+			white-space: nowrap;
+			background: none no-repeat scroll 99% center transparent;			
+			padding-right: 9px;
+			background: rgb(137,209,243);
+			border: 1px solid rgb(137,209,243);			
+		    border: medium none;
+		    font-family: arial,sans-serif;
+		    font-size: 12px;
+		    font-weight: normal;
+		    padding-left: 10px;
+		    padding-right: 10px;	
+		}
+		.sClassThead{							
+			overflow: hidden;
+			padding: 0 0 0 2px;
+			position: relative;
+			white-space: nowrap;
+			background: none no-repeat scroll 99% center transparent;
+			cursor: pointer;
+			padding-right: 9px;
+			background: rgb(9,79,164);
+			border: 1px solid rgb(9,79,164);
+			color: white;		    
+		    font-family: arial,sans-serif;
+		    font-size: 12px;
+		    font-weight: normal;
+		    padding-left: 10px;
+		    padding-right: 10px;			
+		}
+		.divTabla{
+			overflow:auto;
+		}
+		.sClassArchivos{
+		overflow: hidden;
+			padding: 0 0 0 2px;
+			position: relative;
+			white-space: nowrap;
+			background: none no-repeat scroll 99% center transparent;
+			cursor: pointer;
+			padding-right: 9px;						   
+		    font-family: arial,sans-serif;
+		    font-size: 12px;
+		    font-weight: normal;
+		    padding-left: 10px;
+		    padding-right: 10px;
+		}
 	</style>
 </zk>
