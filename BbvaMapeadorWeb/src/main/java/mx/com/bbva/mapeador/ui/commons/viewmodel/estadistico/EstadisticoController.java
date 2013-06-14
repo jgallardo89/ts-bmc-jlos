@@ -271,6 +271,8 @@ public class EstadisticoController extends ControllerSupport implements  IContro
 	 */
 	@Override
 	public Object read() {
+		fechaInicio.setValue(null);
+		fechaFin.setValue(null);
 		estadisticoDTO = new EstadisticoDTO();
 		EstadisticoVO estadisticoVO = new EstadisticoVO();
 		EstadisticaDTO estadisticaDTO = new EstadisticaDTO();
@@ -488,7 +490,7 @@ public class EstadisticoController extends ControllerSupport implements  IContro
 				createCanalClienteProducto(estadisticaDTO);
 			} else if(tipoFiltro.getValue().equals("CLIENTE-CANAL-PRODUCTO")) {
 				createClienteCanalProducto(estadisticaDTO);
-			} else {
+			} else if(tipoFiltro.getValue().equals("PRODUCTO-CANAL-CLIENTE")) {
 				createProductoCanalCliente(estadisticaDTO);
 			}
 
