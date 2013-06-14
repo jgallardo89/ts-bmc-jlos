@@ -79,6 +79,9 @@ public class EstatusObjetoController extends ControllerSupport implements IContr
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	
+	/** The nombre Pantalla */
+	private static final String nombrePantalla="Catálogo Estatus Objeto";	
+	
 	/** The clientes grid. */
 	@Wire
 	private Grid clientesGrid;
@@ -257,6 +260,7 @@ public class EstatusObjetoController extends ControllerSupport implements IContr
 					org.zkoss.zul.Messagebox.QUESTION, new EventListener<Event>() {
 						@Override
 						public void onEvent(Event event) throws Exception {
+							ReportesController controller = new ReportesController();
 							EstatusObjetoDTO estatusObjetoDTO = new EstatusObjetoDTO();
 							EstatusObjetoVO estatusObjetoVO = new EstatusObjetoVO();
 							estatusObjetoVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue()));
@@ -265,6 +269,7 @@ public class EstatusObjetoController extends ControllerSupport implements IContr
 							estatusObjetoDTO.toString(BbvaAbstractDataTransferObject.XML);
 							estatusObjetoDTO = estatusObjetoBO.deleteCommand(estatusObjetoDTO);
 							if(estatusObjetoDTO.getErrorCode().equals("0002")){
+								controller.registrarEvento(null, null, CommandConstants.ELIMINACION_FALLIDA,nombrePantalla);
 								org.zkoss.zul.Messagebox.show(estatusObjetoDTO.getErrorDescription(),
 										"Error", org.zkoss.zul.Messagebox.OK,
 										org.zkoss.zul.Messagebox.ERROR);
@@ -276,6 +281,7 @@ public class EstatusObjetoController extends ControllerSupport implements IContr
 												"resetGridEstatusObjetos",
 												null);
 							}else{
+								controller.registrarEvento(null, null, CommandConstants.ELIMINACION,nombrePantalla);
 								org.zkoss.zul.Messagebox.show("!El registro fue eliminado!",
 										"Información", org.zkoss.zul.Messagebox.OK,
 										org.zkoss.zul.Messagebox.INFORMATION);
@@ -444,9 +450,9 @@ public class EstatusObjetoController extends ControllerSupport implements IContr
 		headersReport.add("Descripción estatus objeto");
 		headersReport.add("Status");		
 		if(type.equals("xls")) {
-			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_EXCEL,"Catálogo Estatus");
+			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_EXCEL,nombrePantalla);
 		} else {
-			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_TEXTO,"Catálogo Estatus");
+			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_TEXTO,nombrePantalla);
 		}
 		controller.createReport(generaLista(), headersReport, type, "ESTATUS-OBJETO");
 	}
@@ -529,7 +535,7 @@ public class EstatusObjetoController extends ControllerSupport implements IContr
 		logger.debug("size:"+estatusObjetoDTO.getEstatusObjetoVOs().size());
 		estatusObjetoVOs = estatusObjetoDTO.getEstatusObjetoVOs();
 		ReportesController controller = new ReportesController();
-		controller.registrarEvento(null, null, CommandConstants.CONSULTAR, "Estatus Objeto");
+		controller.registrarEvento(null, null, CommandConstants.CONSULTAR, nombrePantalla);
 	}
 	
 	/**
@@ -599,8 +605,14 @@ public class EstatusObjetoController extends ControllerSupport implements IContr
 				estatusObjetoDTO.setEstatusObjetoVO(estatusObjetoVO);
 				estatusObjetoDTO.toString(BbvaAbstractDataTransferObject.XML);
 				EstatusObjetoBO estatusObjetoBO = new EstatusObjetoBO();
-				estatusObjetoBO.createCommand(estatusObjetoDTO);				
-				controller.registrarEvento(null, null, CommandConstants.ALTA, "Estatus Objeto");
+				estatusObjetoBO.createCommand(estatusObjetoDTO);	
+				EstatusObjetoVO estatusObjetoNuevo = new EstatusObjetoVO();
+				estatusObjetoNuevo.setDescripcionEstatusObjeto("");
+				estatusObjetoNuevo.setIdEstatusClave(-1);
+				estatusObjetoNuevo.setIdEstatusObjeto(-1);
+				estatusObjetoNuevo.setNombreEstatusObjeto("");
+				estatusObjetoNuevo.setNombreTabla("");
+				controller.registrarEvento(estatusObjetoVO, estatusObjetoNuevo, CommandConstants.ALTA, nombrePantalla);
 				clean();			
 				logger.debug("*estatusObjetoVO*");
 				estatusObjetoDTO.setCommandId(CommandConstants.ESTATUS_OBJETO);
@@ -631,7 +643,9 @@ public class EstatusObjetoController extends ControllerSupport implements IContr
 				estatusObjetoDTO.toString(BbvaAbstractDataTransferObject.XML);
 				EstatusObjetoBO estatusObjetoBO = new EstatusObjetoBO();
 				estatusObjetoBO.updateCommand(estatusObjetoDTO);
-				controller.registrarEvento(estatusObjetoVO, this.estatusObjetoVO, CommandConstants.MODIFICACION, "Estatus Objeto");
+
+				controller.registrarEvento(estatusObjetoVO, this.estatusObjetoVO, CommandConstants.MODIFICACION, nombrePantalla);
+
 				clean();			
 				logger.debug("*estatusObjetoVO*");
 				estatusObjetoDTO.setCommandId(CommandConstants.ESTATUS_OBJETO);

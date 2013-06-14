@@ -76,6 +76,10 @@ public class PantallaController extends ControllerSupport implements  IControlle
 	
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 6786596344010411900L;
+	
+	/** The nombre Pantalla */
+	private static final String tituloPantalla="Pantallas";	
+
 		
 	/** The consultar btn. */
 	@Wire
@@ -555,9 +559,9 @@ public class PantallaController extends ControllerSupport implements  IControlle
 		headersReport.add("Orden");
 		headersReport.add("Status");
 		if(type.equals("xls")) {
-			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_EXCEL,"Catálogo Pantallas");
+			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_EXCEL,tituloPantalla);
 		} else {
-			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_TEXTO,"Catálogo Pantallas");
+			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_TEXTO,tituloPantalla);
 		}
 		controller.createReport(generaLista(), headersReport, type, "PANTALLAS");
 	}
@@ -584,7 +588,7 @@ public class PantallaController extends ControllerSupport implements  IControlle
 		logger.info("::::::::::::::SIZE::::::::::" + pantallaDTO.getPantallaVOs());
 		estatusObjetoDTO = estatusObjetoBO.readCommand(estatusObjetoDTO);
 		pantallaDTO.setEstatusObjetoVOs(estatusObjetoDTO.getEstatusObjetoVOs());
-		controller.registrarEvento(pantallaVO, pantallaVO, CommandConstants.CONSULTAR,"Catálogo Pantalla");
+		
 		return pantallaDTO;
 	}
 
@@ -657,7 +661,7 @@ public class PantallaController extends ControllerSupport implements  IControlle
 		}
 		//Asignacion de la lista a la variable global de la clase
 		pantallaVOs = pantallaDTO.getPantallaVOs();
-		controller.registrarEvento(pantallaVO, pantallaVO, CommandConstants.CONSULTAR,"Catálogo Pantalla");
+		controller.registrarEvento(null, null, CommandConstants.CONSULTAR,"Catálogo Pantalla");
 	}
 
 	/* (non-Javadoc)
@@ -721,6 +725,13 @@ public class PantallaController extends ControllerSupport implements  IControlle
 				
 				PantallaBO pantallaBO = new PantallaBO();
 				pantallaBO.updateCommand(pantallaDTO);
+				if (Integer.parseInt(status.getSelectedItem().getValue().toString())==CommandConstants.ID_PANTALLA_BAJA) {
+					controller.registrarEvento(pantallaVO, this.pantallaVO, CommandConstants.BAJA_FALLIDA, tituloPantalla);					
+				} else if (Integer.parseInt(status.getSelectedItem().getValue().toString())==CommandConstants.ID_PANTALLA_INACTIVO) { 
+					controller.registrarEvento(pantallaVO, this.pantallaVO, CommandConstants.INACTIVACION_FALLIDA, tituloPantalla);
+				} else {				
+					controller.registrarEvento(pantallaVO, this.pantallaVO, CommandConstants.MODIFICACION, tituloPantalla);
+				}
 				clean();			
 				pantallaVO = new PantallaVO();							
 				//Consulta Parametrizada
@@ -731,8 +742,7 @@ public class PantallaController extends ControllerSupport implements  IControlle
 				
 				//Asignacion resultado de consulta al mismo DTO de pantalla
 				pantallaDTO = pantallaBO.readCommand(pantallaDTO);
-				controller.registrarEvento(pantallaVO, this.pantallaVO, CommandConstants.MODIFICACION, "Catálogo Pantallas");
-				
+
 				org.zkoss.zul.Messagebox.show("Registro actualizado con exito!!",
 						"Confirmación", org.zkoss.zul.Messagebox.OK,
 						org.zkoss.zul.Messagebox.INFORMATION);
@@ -757,7 +767,16 @@ public class PantallaController extends ControllerSupport implements  IControlle
 				
 				PantallaBO pantallaBO = new PantallaBO();
 				pantallaBO.createCommand(pantallaDTO);
-				controller.registrarEvento(pantallaVO, pantallaVO, CommandConstants.ALTA,"Catálogo Pantallas");
+				
+				PantallaVO pantallaNuevo = new PantallaVO();
+				pantallaNuevo.setIdPantallaPadre(-1);
+				pantallaNuevo.setEstatusPantalla(-1);
+				pantallaNuevo.setNumeroOrdenPantalla(-1);
+				
+				pantallaNuevo.setNombrePantalla("");
+				pantallaNuevo.setDescripcionUrlPantalla("");
+				pantallaNuevo.setDescripcionUrlIcon("");				
+				controller.registrarEvento(pantallaVO, pantallaNuevo, CommandConstants.ALTA,tituloPantalla);
 				clean();	
 				pantallaVO = new PantallaVO();
 				pantallaDTO.setPantallaVO(pantallaVO);

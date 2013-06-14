@@ -276,6 +276,16 @@ public abstract interface CommandConstants {
 	
 	/** The Constant ID_USUARIO_BAJA. */
 	public static final int ID_USUARIO_BAJA = 29;
+
+	// Estatus de Pantalla
+	/** The Constant ID_USUARIO_ACTIVO. */
+	public static final int ID_PANTALLA_ACTIVO = 31;
+
+	/** The Constant ID_USUARIO_INACTIVO. */
+	public static final int ID_PANTALLA_INACTIVO = 32;
+	
+	/** The Constant ID_USUARIO_BAJA. */
+	public static final int ID_PANTALLA_BAJA = 33;
 	
 	//Estatus del catálogo de Mapas
 	/** The Constant ID_MAPA_ACTIVO. */
