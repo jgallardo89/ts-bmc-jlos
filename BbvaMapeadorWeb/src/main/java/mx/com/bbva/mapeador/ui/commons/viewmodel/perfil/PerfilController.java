@@ -87,10 +87,13 @@ public class PerfilController extends ControllerSupport implements  IController{
 	/** The Constant logger. */
 	private static final Logger logger = Logger
 			.getLogger(PerfilController.class);
+
+	/** The nombre Pantalla */
+	private static final String nombrePantalla="Perfiles";	
 	
 	/** The cantidad registros. */
 	private int cantidadRegistros;
-		
+	
 	
 	/** The componente pantalla dto. */
 	private ComponenteDTO componentePantallaDTO;
@@ -328,14 +331,18 @@ public class PerfilController extends ControllerSupport implements  IController{
 			perfilDTO.toString(BbvaAbstractDataTransferObject.XML);
 			PerfilBO perfilBO = new PerfilBO();
 			perfilBO.createCommand(perfilDTO);
-			ReportesController controller = new ReportesController();			
-			controller.registrarEventoPerfil(perfilDTO, this.perfilDTO, CommandConstants.ALTA, "Catálogo Perfiles");
+			ReportesController controller = new ReportesController();	
+			
+			PerfilVO perfilNuevoVO = new PerfilVO();
+			perfilNuevoVO.setNombrebPerfil("");
+			perfilNuevoVO.setDescripcionPerfil("");
+			perfilNuevoVO.setEstatusPerfil(-1);
+			perfilNuevoVO.setIdPerfilACopiar(-1);
+			controller.registrarEventoPerfil(perfilDTO, this.perfilDTO, CommandConstants.ALTA, nombrePantalla);
 			clean();
 			perfilDTO = (PerfilDTO)this.read();
 			perfilVOs = perfilDTO.getPerfilVOs();
-			Messagebox.show("Registro creado con exito!!",
-					"Confirmación", Messagebox.OK,
-					Messagebox.INFORMATION);
+			Messagebox.show("Registro creado con exito!!","Confirmación", Messagebox.OK,Messagebox.INFORMATION);
 		}
 	}
 
@@ -469,9 +476,9 @@ public class PerfilController extends ControllerSupport implements  IController{
 		headersReport.add("Descripción de perfil");
 		headersReport.add("Status");		
 		if(type.equals("xls")) {
-			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_EXCEL,"Catálogo Perfiles");
+			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_EXCEL,nombrePantalla);
 		} else {
-			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_TEXTO,"Catálogo Perfiles");
+			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_TEXTO,nombrePantalla);
 		}
 		controller.createReport(generaLista(), headersReport, type, "PERFILES");				
 	}
@@ -608,7 +615,7 @@ public class PerfilController extends ControllerSupport implements  IController{
 		perfilVOs = perfilDTO.getPerfilVOs();
 		
 		ReportesController controller = new ReportesController();
-		controller.registrarEventoPerfil(null, null, CommandConstants.CONSULTAR, "Catálogo Perfiles");
+		controller.registrarEvento(null, null, CommandConstants.CONSULTAR, nombrePantalla);
 	}
 	
 	/**
@@ -648,6 +655,7 @@ public class PerfilController extends ControllerSupport implements  IController{
 	@NotifyChange({"componentePantallaDTO", "componentePantallaPerfilDTO", "perfilDTO", "perfilVOs", "componentePantallaPerfilAllDTO"})
 	public void save() {
 		boolean error = false;
+		ReportesController controller = new ReportesController();
 		if(nombrePerfil.getValue().isEmpty()){
 			nombrePerfil.setErrorMessage("Favor de Introducir el Nombre del Perfil.");
 			error = true;
@@ -675,6 +683,19 @@ public class PerfilController extends ControllerSupport implements  IController{
 					usuarioDTO.setUsuarioVO(usuarioVO);
 					usuarioDTO = usuarioBO.readCommand(usuarioDTO);
 					if(usuarioDTO.getUsuarioVOs().size()>0){
+						PerfilVO perfil = new PerfilVO();
+						perfil.setNombrebPerfil(nombrePerfil.getValue()==null?"":nombrePerfil.getValue().toUpperCase().trim());
+						perfil.setDescripcionPerfil(descripcionPerfil.getValue()==null?"":descripcionPerfil.getValue().toUpperCase().trim());
+						perfil.setEstatusPerfil(Integer.parseInt(status.getSelectedItem().getValue().toString()));
+						perfil.setDescipcionEstatus(status.getSelectedItem().getLabel());
+						perfil.setIdPerfil(Integer.parseInt(idPerfil.getValue()));
+						perfil.setIdPantalla(pantallas.getSelectedItem()==null?0:Integer.parseInt(pantallas.getSelectedItem().getValue().toString()));						
+
+						if (Integer.parseInt(status.getSelectedItem().getValue().toString())==CommandConstants.ID_PERFIL_BAJA) {
+							controller.registrarEvento(perfil, this.perfilVO, CommandConstants.BAJA_FALLIDA, nombrePantalla);					
+						} else if (Integer.parseInt(status.getSelectedItem().getValue().toString())==CommandConstants.ID_PERFIL_INACTIVO) { 
+							controller.registrarEvento(perfil, this.perfilVO, CommandConstants.INACTIVACION_FALLIDA, nombrePantalla);				
+						} 												
 						Messagebox.show("El perfil no puede ser cancelado o inactivado ya que existen usuarios activos o inactivos.",
 								"Confirmación", Messagebox.OK,
 								Messagebox.EXCLAMATION);
@@ -683,14 +704,22 @@ public class PerfilController extends ControllerSupport implements  IController{
 				}
 				if(!error){
 					PerfilDTO perfilDTOValida = new PerfilDTO();
-					PerfilVO perfilVOValida = new PerfilVO();
 					PerfilBO perfilBOvalida = new PerfilBO();
+					PerfilVO perfilVOValida = new PerfilVO();
 					perfilVOValida.setIdPerfil(Integer.parseInt(idPerfil.getValue()));
 					perfilVOValida.setNombrebPerfil(nombrePerfil.getValue().trim());
 					perfilDTOValida.setPerfilVO(perfilVOValida);
 					perfilDTOValida.setCommandId(CommandConstants.PERFIL_COMMAND_READ_ALL);
 					perfilDTOValida = perfilBOvalida.readCommand(perfilDTOValida);
 					if(perfilDTOValida.getPerfilVOs().size()>0){
+						PerfilVO perfil = new PerfilVO();
+						perfil.setNombrebPerfil(nombrePerfil.getValue()==null?"":nombrePerfil.getValue().toUpperCase().trim());
+						perfil.setDescripcionPerfil(descripcionPerfil.getValue()==null?"":descripcionPerfil.getValue().toUpperCase().trim());
+						perfil.setEstatusPerfil(Integer.parseInt(status.getSelectedItem().getValue().toString()));
+						perfil.setDescipcionEstatus(status.getSelectedItem().getLabel());
+						perfil.setIdPerfil(Integer.parseInt(idPerfil.getValue()));
+						perfil.setIdPantalla(pantallas.getSelectedItem()==null?0:Integer.parseInt(pantallas.getSelectedItem().getValue().toString()));						
+						controller.registrarEvento(perfil, this.perfilVO, CommandConstants.MODIFICACION_FALLIDA, nombrePantalla);
 						Messagebox.show("Ya existe un perfil con el mismo identificador",
 								"Confirmación", Messagebox.OK,
 								Messagebox.EXCLAMATION);
@@ -722,7 +751,7 @@ public class PerfilController extends ControllerSupport implements  IController{
 						PerfilBO perfilBO = new PerfilBO();
 						perfilBO.updateCommand(perfilDTO);
 						
-						ReportesController controller = new ReportesController();
+
 						List<ControlPermisoVO> controlPermiso2VOs = new ArrayList<ControlPermisoVO>(); 
 						PerfilVO perfilVO2 = new PerfilVO();
 						if(componentePantallaDTO!=null){
@@ -738,7 +767,7 @@ public class PerfilController extends ControllerSupport implements  IController{
 						}
 						this.perfilDTO.setPerfilVO(this.perfilVO);
 						this.perfilDTO.getPerfilVO().setControlPermisoVOs(controlPermiso2VOs);				
-						controller.registrarEventoPerfil(perfilDTO, this.perfilDTO, CommandConstants.MODIFICACION, "Catálogo Perfiles");
+						controller.registrarEventoPerfil(perfilDTO, this.perfilDTO, CommandConstants.MODIFICACION, nombrePantalla);
 						
 						clean();
 						perfilDTO = (PerfilDTO)this.read();
@@ -758,6 +787,14 @@ public class PerfilController extends ControllerSupport implements  IController{
 				perfilDTOValida.setCommandId(CommandConstants.PERFIL_COMMAND_READ_ALL);
 				perfilDTOValida = perfilBOvalida.readCommand(perfilDTOValida);
 				if(perfilDTOValida.getPerfilVOs().size()>0){
+					PerfilVO perfil = new PerfilVO();
+					perfil.setNombrebPerfil(nombrePerfil.getValue()==null?"":nombrePerfil.getValue().toUpperCase().trim());
+					perfil.setDescripcionPerfil(descripcionPerfil.getValue()==null?"":descripcionPerfil.getValue().toUpperCase().trim());
+					perfil.setEstatusPerfil(Integer.parseInt(status.getSelectedItem().getValue().toString()));
+					perfil.setDescipcionEstatus(status.getSelectedItem().getLabel());
+					perfil.setIdPerfil(Integer.parseInt(idPerfil.getValue()));
+					perfil.setIdPantalla(pantallas.getSelectedItem()==null?0:Integer.parseInt(pantallas.getSelectedItem().getValue().toString()));						
+					controller.registrarEvento(perfil, this.perfilVO, CommandConstants.MODIFICACION_FALLIDA, nombrePantalla);					
 					Messagebox.show("Ya existe un perfil con el mismo identificador",
 							"Confirmación", Messagebox.OK,
 							Messagebox.EXCLAMATION);
@@ -773,8 +810,7 @@ public class PerfilController extends ControllerSupport implements  IController{
 					PerfilBO perfilBO = new PerfilBO();
 					perfilBO.createCommand(perfilDTO);
 					
-					ReportesController controller = new ReportesController();
-					controller.registrarEventoPerfil(perfilDTO, this.perfilDTO, CommandConstants.ALTA, "Catálogo Perfiles");
+					controller.registrarEventoPerfil(perfilDTO, this.perfilDTO, CommandConstants.ALTA, nombrePantalla);
 					
 					perfilDTO = (PerfilDTO)this.read();
 					perfilVOs = perfilDTO.getPerfilVOs();
