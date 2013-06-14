@@ -3,37 +3,95 @@
 <mapper namespace="mappers.monitoreoarchivos.MapMonitoreoArchivos">
 	<select id="obtenerMonitoreoArchivoVO" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.MonitoreoArchivosVO"
 		resultType="mx.com.bbva.bancomer.bussinnes.model.vo.MonitoreoArchivosVO">
-		SELECT 
-			PAPA.CD_REG_ARCH_ENTRA idRegArchEntraPapa, 
-			PAPA.CD_REG_ARCH_CIR idRegArchCirPapa,
-			PAPA.NB_REG_ARCH_ENTRA nombreArchEntraPapa, 
-			PAPA.FH_REG_ARCH_ENTRA fechaRegArchEntraPapa,
-			ESTADO.CD_ESTADO_ARCHIVO idEstadoArchivoPapa,
-			ESTADO.NB_ESTADO_ARCHIVO nombreEstadoArchivoPapa,
-			HIJO.CD_REG_ARCH_ENTRA idRegArchEntraHijo, 
-			HIJO.NB_REG_ARCH_ENTRA nombreArchEntraHijo,
-			ESTADO_HIJO.CD_ESTADO_ARCHIVO idEstadoArchivoHijo,
-			ESTADO_HIJO.NB_ESTADO_ARCHIVO nombreEstadoArchivoHijo
-		FROM 
-			TGM536_REG_ARCH_EN PAPA LEFT OUTER  JOIN TGM536_REG_ARCH_EN HIJO ON 
-			HIJO.CD_REG_ARCH_CIR = PAPA.CD_REG_ARCH_ENTRA
-			JOIN TGM537_EDO_ARCHIVO EDO ON 
-			PAPA.CD_REG_ARCH_ENTRA = EDO.CD_REG_ARCH_ENTRA
-			LEFT OUTER JOIN TGM538_ESTADO_ARCH  ESTADO ON
-			EDO.CD_ESTADO_ARCHIVO = ESTADO.CD_ESTADO_ARCHIVO
-			JOIN  TGM537_EDO_ARCHIVO EDO_HIJO ON 
-			HIJO.CD_REG_ARCH_ENTRA =  EDO_HIJO.CD_REG_ARCH_ENTRA
-			LEFT OUTER JOIN TGM538_ESTADO_ARCH  ESTADO_HIJO ON
-			EDO_HIJO.CD_ESTADO_ARCHIVO = ESTADO_HIJO.CD_ESTADO_ARCHIVO 
-		WHERE 
-	        PAPA.CD_REG_ARCH_ENTRA IS NOT NULL  
+		select idRegArchEntraPapa,
+		  nombreArchEntraPapa,  
+		  idEstadoArchivoPapa,
+		  nombreEstadoArchivoPapa,
+		  idRegArchEntraHijo,
+		  nombreArchEntraHijo,
+		  idEstadoArchivoHijo,
+		  nombreEstadoArchivohijo
+		from(
+		SELECT PAPA.CD_REG_ARCH_ENTRA idRegArchEntraPapa,
+		  PAPA.NB_REG_ARCH_ENTRA nombreArchEntraPapa,  
+		  ESTADO.CD_ESTADO_ARCHIVO idEstadoArchivoPapa,
+		  ESTADO.NB_ESTADO_ARCHIVO nombreEstadoArchivoPapa,
+		  HIJO.CD_REG_ARCH_ENTRA idRegArchEntraHijo,
+		  HIJO.NB_REG_ARCH_ENTRA nombreArchEntraHijo,
+		  ESTADO_HIJO.CD_ESTADO_ARCHIVO idEstadoArchivoHijo,
+		  ESTADO_HIJO.NB_ESTADO_ARCHIVO nombreEstadoArchivoHijo
+		from tgm536_reg_arch_en papa,
+		  tgm536_reg_arch_en hijo,
+		  tgm537_edo_archivo edo,
+		  tgm538_estado_arch estado,
+		  TGM537_EDO_ARCHIVO EDO_HIJO,
+		  tgm538_estado_arch estado_hijo
+		WHERE papa.cd_reg_arch_entra  IS NOT NULL
+		AND hijo.cd_reg_arch_cir       = papa.cd_reg_arch_entra
+		AND papa.cd_reg_arch_entra     = edo.cd_reg_arch_entra
+		AND edo.cd_estado_archivo      = estado.cd_estado_archivo
+		AND hijo.cd_reg_arch_entra     = edo_hijo.cd_reg_arch_entra
+		and edo_hijo.cd_estado_archivo = estado_hijo.cd_estado_archivo
+		AND edo.tm_estado_archivo   IN
+		  (SELECT MAX(ea2.tm_estado_archivo)
+		  FROM tgm537_edo_archivo ea2
+		  where ea2.cd_reg_arch_entra = papa.cd_reg_arch_entra
+		  )
+		union
+		select rae.cd_reg_arch_entra idregarchentrapapa,
+		  rae.nb_reg_arch_entra nombrearchentrapapa,
+		  ea.cd_estado_archivo idestadoarchivopapa,
+		  cea.nb_estado_archivo nombreestadoarchivopapa , 
+		  0 idregarchentrahijo,
+		  '' nombrearchentrahijo,
+		  0 idestadoarchivohijo,
+		  '' nombreEstadoArchivoHijo
+		FROM tgm536_reg_arch_en rae,
+		  tgm537_edo_archivo ea,
+		  tgm538_estado_arch cea
+		WHERE rae.cd_reg_arch_entra = ea.cd_reg_arch_entra
+		AND ea.cd_estado_archivo    = cea.cd_estado_archivo
+		and rae.cd_reg_arch_cir    is null
+		AND ea.tm_estado_archivo   IN
+		  (SELECT MAX(ea2.tm_estado_archivo)
+		  FROM tgm537_edo_archivo ea2
+		  WHERE ea2.cd_reg_arch_entra = rae.cd_reg_arch_entra
+		  )
+		minus
+		SELECT PAPA.CD_REG_ARCH_ENTRA idRegArchEntraPapa,
+		  PAPA.NB_REG_ARCH_ENTRA nombreArchEntraPapa,  
+		  ESTADO.CD_ESTADO_ARCHIVO idEstadoArchivoPapa,
+		  ESTADO.NB_ESTADO_ARCHIVO nombreEstadoArchivoPapa,
+		  0 idRegArchEntraHijo,
+		  '' nombrearchentrahijo,
+		  0 idEstadoArchivoHijo,
+		  '' nombreEstadoArchivoHijo
+		from tgm536_reg_arch_en papa,
+		  tgm536_reg_arch_en hijo,
+		  tgm537_edo_archivo edo,
+		  tgm538_estado_arch estado,
+		  TGM537_EDO_ARCHIVO EDO_HIJO,
+		  tgm538_estado_arch estado_hijo
+		WHERE papa.cd_reg_arch_entra  IS NOT NULL
+		AND hijo.cd_reg_arch_cir       = papa.cd_reg_arch_entra
+		AND papa.cd_reg_arch_entra     = edo.cd_reg_arch_entra
+		AND edo.cd_estado_archivo      = estado.cd_estado_archivo
+		AND hijo.cd_reg_arch_entra     = edo_hijo.cd_reg_arch_entra
+		and edo_hijo.cd_estado_archivo = estado_hijo.cd_estado_archivo
+		AND edo.tm_estado_archivo   IN
+		  (SELECT MAX(ea2.tm_estado_archivo)
+		  FROM tgm537_edo_archivo ea2
+		  where ea2.cd_reg_arch_entra = papa.cd_reg_arch_entra
+		  )
+		)
+		where idRegArchEntraPapa is not null  
 		<if test="idEstadoArchivoPapa != null and idEstadoArchivoPapa != 0">
-			AND ESTADO.CD_ESTADO_ARCHIVO = #{idEstadoArchivoPapa}
+			AND idEstadoArchivoPapa = #{idEstadoArchivoPapa}
 		</if>		
 		<if test="idEstadoArchivoHijo != null and idEstadoArchivoHijo != 0">
-			AND  ESTADO_HIJO.CD_ESTADO_ARCHIVO = #{idEstadoArchivoHijo}
+			AND  idEstadoArchivoHijo = #{idEstadoArchivoHijo}
 		</if>	
-		ORDER BY PAPA.CD_REG_ARCH_ENTRA
+		ORDER BY idRegArchEntraPapa
 	</select>
 	
 	<select id="obtenerEdosArchivo" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.EstadoArchivoVO"
