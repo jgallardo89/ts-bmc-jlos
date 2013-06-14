@@ -98,7 +98,8 @@
 		resultType="mx.com.bbva.bancomer.bussinnes.model.vo.EstadoArchivoVO">
 		SELECT 
 	        ESTADO.CD_ESTADO_ARCHIVO idEstadoArchivo,
-	        ESTADO.NB_ESTADO_ARCHIVO nombreEstadoArchivo
+	        ESTADO.NB_ESTADO_ARCHIVO nombreEstadoArchivo,
+	        ESTADO.TX_ESTADO_ARCHIVO descripcionEstadoArchivo
 		FROM   
       		TGM538_ESTADO_ARCH ESTADO  
 	</select>
