@@ -23,6 +23,12 @@
 			font-weight: normal;
 			text-align: right;
 		}
+		.labelFillBold{
+			color: #055A78; 
+			display: inline; 
+			font-weight: bold;
+			text-align: right;
+		}
 		.textboxUpperCase{
     		text-transform:uppercase;
     	}
