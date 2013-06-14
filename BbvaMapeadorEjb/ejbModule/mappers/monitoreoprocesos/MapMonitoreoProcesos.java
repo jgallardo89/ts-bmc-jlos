@@ -66,7 +66,10 @@ public interface MapMonitoreoProcesos {
 	
 	List<MonitoreoProcesosVO> obtieneCanalesProcesos(MonitoreoProcesosVO monitoreoProcesosVO);
 	
-	List<MonitoreoProcesosVO> obtieneEtapasArchivos(MonitoreoProcesosVO monitoreoProcesosVO);	
+	List<MonitoreoProcesosVO> obtieneEtapasArchivos(MonitoreoProcesosVO monitoreoProcesosVO);
+	
+	List<MonitoreoProcesosVO> obtieneEstatusProceso(MonitoreoProcesosVO monitoreoProcesosVO);
+	
 	/**
 	 * Obtener registros proceso.
 	 *

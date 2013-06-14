@@ -150,11 +150,12 @@
 	<update id="actualizarEstatusProceso" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.MonitoreoProcesosVO">
 		UPDATE TGM522_ST_PROCESO 
 		SET 
-			CD_ST_MAPEADOR = #{idEstatusMapeador}
+			CD_ST_MAPEADOR = 36
 		WHERE 
 			CD_CONTRATACION = #{idContratacion} and 
 			CD_FLUJO =  #{idFlujo} and 
-			CD_ETAPA = #{idEtapa}
+			CD_ETAPA = #{idEtapa} and
+			CD_REG_ARCH_ENTRA = #{idRegArchEntra}
 	</update>
 	<select id="obtieneCanalesProcesos" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.MonitoreoProcesosVO"
 		resultType="mx.com.bbva.bancomer.bussinnes.model.vo.MonitoreoProcesosVO">
@@ -165,8 +166,7 @@
 		  cn.cd_producto idProducto,
 		  producto.nb_producto nombreProducto,
 		  stp.fh_st_proceso fechaStatusProceso,
-		  stp.nu_lote numeroLote,    
-		  stp.cd_st_mapeador idEstatusMapeador
+		  stp.nu_lote numeroLote   		  
 		FROM tgm522_st_proceso stp,
 		  tgm519_cntratacion cn,
 		  tgm536_reg_arch_en ra,
@@ -180,22 +180,53 @@
 		and canal.cd_canal  = cn.cd_canal
 		and cliente.cd_cliente  = cn.cd_cliente
 		and producto.cd_producto  = cn.cd_producto
-		ORDER BY cn.cd_canal,
-		  cn.cd_cliente,
-		  cn.cd_producto	
+		<if test="idCanal != null and idCanal != 0">
+			AND cn.CD_CANAL = #{idCanal}
+		</if>		
+		<if test="idCliente != null and idCliente != 0">
+			AND cn.CD_CLIENTE = #{idCliente}
+		</if>	
+		<if test="idProducto != null and idProducto != 0">
+			AND cn.CD_PRODUCTO = #{idProducto}
+		</if>	
+		<if test="numeroLote != null and numeroLote != 0">
+			AND stp.NU_LOTE = #{numeroLote}
+		</if>		
+		<if test="fechaInicio != null and fechaFin != null">    
+			AND to_date(stp.FH_ST_PROCESO,'dd-MM-rrrr') BETWEEN to_date(#{fechaInicio},'dd-MM-rrrr') AND to_date(#{fechaFin},'dd-MM-rrrr')
+		</if>
+		<if test="tipoReporte == 1">
+			ORDER BY cn.cd_canal,
+			  cn.cd_cliente,
+			  cn.cd_producto	
+		</if>
+		<if test="tipoReporte == 2">
+			ORDER BY cn.cd_cliente,
+			  cn.cd_canal,
+			  cn.cd_producto	
+		</if>
+		<if test="tipoReporte == 3">
+			ORDER BY cn.cd_producto,
+			  cn.cd_canal,
+			  cn.cd_cliente			  	
+		</if>
 	</select>
 	<select id="obtieneEtapasArchivos" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.MonitoreoProcesosVO"
 		resultType="mx.com.bbva.bancomer.bussinnes.model.vo.MonitoreoProcesosVO">
-		SELECT cn.cd_canal idCanal,
+		SELECT stp.cd_Contratacion idContratacion, 
+		  cn.cd_canal idCanal,
 		  cn.cd_cliente idCliente,
 		  cn.cd_producto idProducto,
-		  to_char(stp.fh_st_proceso,'dd/MM/yyyy') fechaStatusProceso,
+		  stp.cd_etapa idEtapa,
+		  stp.cd_flujo idFlujo,
+		  stp.fh_st_proceso fechaStatusProceso,
 		  stp.nu_lote numeroLote,
 		  eta.nb_etapa nombreEtapa,
+		  stp.cd_Reg_Arch_Entra idRegArchEntra,
 		  ra.nb_reg_arch_entra nombreRegArchEntra,
-		  to_char(stp.tm_st_proceso_ini,'hh:mm:ss') fechaInicio,
-		  to_char(stp.tm_st_proceso_fin,'hh:mm:ss') fechaFin,
-		  stp.cd_st_mapeador idEstatusMapeador
+		  to_char(stp.tm_st_proceso_ini,'HH:mm:ss') fechaInicio,
+		  to_char(stp.tm_st_proceso_fin,'HH:mm:ss') fechaFin,
+		  stp.cd_st_mapeador idEstatusMapeador		  
 		FROM tgm522_st_proceso stp,
 		  tgm519_cntratacion cn,
 		  tgm536_reg_arch_en ra,
@@ -206,10 +237,32 @@
 		and cn.cd_canal = #{idCanal}
 		and cn.cd_cliente = #{idCliente} 
 		and cn.cd_producto = #{idProducto}
+		and stp.nu_lote = #{numeroLote}
+		<if test="estados != null">
+				AND stp.CD_ST_MAPEADOR IN
+			<foreach item="item" index="index" collection="estados"
+	             open="(" separator="," close=")">
+	        		#{item}
+	   		</foreach>
+	   	</if>
 		ORDER BY cn.cd_canal,
 		  cn.cd_cliente,
 		  cn.cd_producto,
 		  ra.nb_reg_arch_entra	
 	</select>
-	
+	<select id="obtieneEstatusProceso" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.MonitoreoProcesosVO"
+		resultType="mx.com.bbva.bancomer.bussinnes.model.vo.MonitoreoProcesosVO">
+			SELECT unique stp.cd_st_mapeador idEstatusMapeador
+			FROM tgm522_st_proceso stp,
+			  tgm519_cntratacion cn,
+			  tgm536_reg_arch_en ra,
+			  tgm517_etapa eta
+			WHERE stp.cd_contratacion = cn.cd_contratacion
+			AND stp.cd_reg_arch_entra = ra.cd_reg_arch_entra
+			AND stp.cd_etapa          = eta.cd_etapa
+			and cn.cd_canal = #{idCanal}
+			and cn.cd_cliente = #{idCliente} 
+			and cn.cd_producto = #{idProducto}
+			and stp.nu_lote = #{numeroLote}					
+	</select>
 </mapper>

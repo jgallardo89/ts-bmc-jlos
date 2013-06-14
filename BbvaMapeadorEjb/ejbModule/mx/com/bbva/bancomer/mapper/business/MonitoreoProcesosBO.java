@@ -96,6 +96,8 @@ public class MonitoreoProcesosBO implements mx.com.bbva.bancomer.commons.busines
 						monitoreoProcesosVOs = mapMonitoreoProcesos.obtieneCanalesProcesos(monitoreoProcesosVO);
 					}else if(bbvaAbstractDataTransferObject.getCommandId()==CommandConstants.PROCESOS_ARCHIVOS){
 						monitoreoProcesosVOs = mapMonitoreoProcesos.obtieneEtapasArchivos(monitoreoProcesosVO);
+					}else if(bbvaAbstractDataTransferObject.getCommandId()==CommandConstants.PROCESOS_ESTATUS){
+						monitoreoProcesosVOs = mapMonitoreoProcesos.obtieneEstatusProceso(monitoreoProcesosVO);
 					}else{
 						monitoreoProcesosVOs = mapMonitoreoProcesos.obtenerMonitoreoProcesosVO(monitoreoProcesosVO);
 					}
