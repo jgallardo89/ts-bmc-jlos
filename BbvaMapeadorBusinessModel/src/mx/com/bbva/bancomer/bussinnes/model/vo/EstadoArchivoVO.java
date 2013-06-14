@@ -46,6 +46,22 @@ public class EstadoArchivoVO extends BbvaAbstractValueObject {
 	/** The nombre estado archivo. */
 	public String nombreEstadoArchivo;
 	
+	public String descripcionEstadoArchivo;
+	
+	/**
+	 * @return the descripcionEstadoArchivo
+	 */
+	public final String getDescripcionEstadoArchivo() {
+		return descripcionEstadoArchivo;
+	}
+
+	/**
+	 * @param descripcionEstadoArchivo the descripcionEstadoArchivo to set
+	 */
+	public final void setDescripcionEstadoArchivo(String descripcionEstadoArchivo) {
+		this.descripcionEstadoArchivo = descripcionEstadoArchivo;
+	}
+
 	/**
 	 * Instantiates a new estado archivo vo.
 	 */
