@@ -31,9 +31,27 @@
 										</columns>
 										<rows>
 											<row sclass="row2">
-												<cell colspan="6" align="center">
-													<label id="lblCriterio"
-														width="100%" sclass="labelFill" value="Consulta por: CANAL-CLIENTE-PRODUCTO">
+												<div align="right">
+													<label id="lblFiltro"
+														width="100%" sclass="labelFill" value="Criterio a Consultar: ">
+													</label>
+												</div>
+												<cell align="center">
+													<combobox sclass="textboxUpperCase" id="tipoFiltro" width="100%" onChange="selectedValueCriterio()" 
+													autodrop="true">
+													    <comboitem label="CANAL-CLIENTE-PRODUCTO" value="1"/>
+													    <comboitem label="CLIENTE-CANAL-PRODUCTO" value="2"/>
+													    <comboitem label="PRODUCTO-CANAL-CLIENTE" value="3"/>
+													</combobox>
+												</cell>
+												<cell align="right">
+													<label id="lblConsulta"
+														width="100%" sclass="labelFillBold" value="Consulta por: ">
+													</label>
+												</cell>
+												<cell align="left">
+													<label id="lblCliterio"
+														width="100%" sclass="labelFillBold" value="CANAL-CLIENTE-PRODUCTO">
 													</label>
 												</cell>
 												<div align="right"/>
@@ -108,21 +126,21 @@
 												<div align="right"/>
 											</row>
 											<row sclass="row2">
-												<div align="right">
-													<label id="lblFechaAlta" width="100%" sclass="labelFill" value="Fecha inicio:  "></label>												
-												</div>
-												<datebox value="@load(vm.estadisticoDTO.estadisticoVO.fechaInicio) @converter('formatedDate', format='dd/MM/yyyy')" maxlength="50" width="90%" id="fechaInicio" readonly="true" buttonVisible="true" onCreate="self.value = new Date()" format="dd/MM/yyyy 00:00"></datebox>
-												<div align="right">
-													<label id="lblA" width="100%" sclass="labelFill" value="a: "></label>												
-												</div>
-												<datebox value="@load(vm.estadisticoDTO.estadisticoVO.fechaFin) @converter('formatedDate', format='dd/MM/yyyy')" maxlength="50" width="50%" id="fechaFin" readonly="true" buttonVisible="true" onCreate="self.value = new Date()" format="dd/MM/yyyy 23:59"></datebox>
 												<div align="right"/>
+												<cell align="center" colspan="1">
+													<label id="lblFechaAlta" width="100%" sclass="labelFill" value="Fecha inicio:  "></label>
+													<datebox value="@load(vm.estadisticoDTO.estadisticoVO.fechaInicio) @converter('formatedDate', format='dd/MM/yyyy')" maxlength="50" width="70%" id="fechaInicio" readonly="true" buttonVisible="true" onCreate="self.value = new Date()" format="dd/MM/yyyy 00:00"></datebox>
+												</cell>
+												<cell align="center" colspan="1">
+													<label id="lblA" width="100%" sclass="labelFill" value="a: "></label>
+													<datebox value="@load(vm.estadisticoDTO.estadisticoVO.fechaFin) @converter('formatedDate', format='dd/MM/yyyy')" maxlength="50" width="70%" id="fechaFin" readonly="true" buttonVisible="true" onCreate="self.value = new Date()" format="dd/MM/yyyy 23:59"></datebox>
+												</cell>
 												<div align="right"/>
 												<div align="right"/>
 											</row>
 										</rows>
 									</grid>
-									<div>
+									<div align="center">
 										<image id="reporteExcelBtn" src="/img/xls.png" onClick="@command('onShowReport',type='xls')" />
 										<image id="reporteCsvBtn" src="/img/csv.png" onClick="@command('onShowReport',type='csv')" />
 										<button sclass="button" image="/img/clear.png"  label="Limpiar" id="limpiarBtn" onClick="@command('clean')" ></button>
@@ -132,77 +150,17 @@
 							</panelchildren>
 						</panel>
 					</groupbox>
-					<groupbox height="800px">
-						<panel height="800px" sclass="sectionPanelTitle"
+					<groupbox height="1000px">
+						<panel height="100%" sclass="sectionPanelTitle"
 							width="100%" id="panelEstadistico" title="Resultados"
 							collapsible="true" style="margin-bottom:10px">
 							<caption sclass="sectionPanelTitle"
 								label="Lista de Resultados">
 							</caption>
 							<panelchildren>
-							    <grid width="99.7%" id="canalesGrid" mold="paging" 
-									model="@load(vm.canalMockDTOs)" pagingPosition="both" pageSize="12"
-									vflex="true">
-									<columns>
-										<column label="CANAL"/>
-										<column label="" width="90%"/>
-									</columns>
-									<template name="model">
-										<row>
-										   <cell>
-											   <label value="@load(each.nombreCanal)"></label>
-										   </cell>
-					                       <cell>
-						                       <grid width="99%"  mold="paging"
-													model="@load(each.clienteMockDTOs)" pagingPosition="both" pageSize="12"
-													vflex="true" >
-													<columns>
-														<column label="CLIENTE"/>
-														<column label=""  width="85%"/>
-													</columns>
-													<template name="model">			                
-									                    <row>
-									                        <cell>
-									                        	<label hflex="1" value="@load(each.nombreCliente)"></label>
-									                        </cell>
-									                        <cell>
-									                        	<grid width="99%"  mold="paging"
-																	model="@load(each.productoVOs)" pagingPosition="both" pageSize="12"
-																	vflex="true" >
-																	<auxhead sclass="category-center">
-															            <auxheader label="PRODUCTOS" colspan="4" rowspan="1" />
-															        </auxhead>
-																	<columns>
-																		<column label="FECHA"/>
-																		<column label="PRODUCTO"/>
-																		<column label="NOMBRE ARCHIVO"/>
-																		<column label="OPERACIONES"/>
-																	</columns>
-																	<template name="model">						                
-													                    <row>
-													                        <cell>
-													                        	<label hflex="1" value="@load(each.fechaStatusProceso) @converter('formatedDate', format='dd/MM/yyyy  HH:mm')"></label>
-													                        </cell>
-													           	             <cell>
-													                        	<label hflex="1" value="@load(each.nombreProducto)"></label>
-													                        </cell>
-													                        <cell>
-													                        	<label hflex="1" value="@load(each.nombreRegArchEntra)"></label>
-													                        </cell>
-													                        <cell>
-													                        	<label hflex="1" value="@load(each.numeroOperaciones)"></label>
-													                        </cell>
-													                    </row>
-													                </template>
-													            </grid>
-									                        </cell>
-									                    </row>
-									                </template>
-									            </grid>
-								            </cell>
-					                    </row>
-					              </template>
-					            </grid>							
+							    
+							    <div id="divTabla" sclass="BODY" height="100%"/>
+							    							
 							</panelchildren>
 						</panel>
 					</groupbox>
@@ -229,6 +187,15 @@
 			idCanal.setValue(null);
 		}
 	}
+	
+	public void selectedValueCriterio() {
+		try {
+			lblCliterio.setValue(tipoFiltro.getSelectedItem().getLabel().toString());
+		} catch (Exception ex) {
+			lblCliterio.setValue(null);
+		}
+	}
+	
 	public void selectedValueCliente() {
 		try {
 			idCliente.setValue(cliente.getSelectedItem().getValue().toString());
