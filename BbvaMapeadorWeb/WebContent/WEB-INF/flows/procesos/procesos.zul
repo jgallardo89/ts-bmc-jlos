@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?page title="Monitoreo de Procesos" contentType="text/html;charset=UTF-8"?>
-
 <?meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7"?>
 <?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c"?>
 <zk>
 	<window border="0" width="100%" height="160%"
 		apply="org.zkoss.bind.BindComposer"
@@ -32,7 +32,7 @@
 												<div align="right">
 													<label id="lblCriterio" width="100%" sclass="labelFill" value="Criterio a consultar: "></label>
 												</div>
-												<combobox readonly="true" id="criterios" width="70%" value="CANAL-CLIENTE-PRODUCTO">
+												<combobox readonly="true" id="criterios" width="100%" value="CANAL-CLIENTE-PRODUCTO">
 													<comboitem value="1" label="CANAL-CLIENTE-PRODUCTO"></comboitem>
 													<comboitem value="2" label="CLIENTE-CANAL-PRODUCTO"></comboitem>
 													<comboitem value="3" label="PRODUCTO-CANAL-CLIENTE"></comboitem>
@@ -43,18 +43,18 @@
 													<label id="lblCanal" width="100%" sclass="labelFill" value="Canal: "></label>
 												</div>
 												<combobox sclass="textboxUpperCase" onChange="selectedValueCanal()"
-													id="canal" width="70%" model="@load(vm.monitoreoProcesosDTO.canalVOs)" autodrop="true">		
+													id="canal" width="100%" model="@load(vm.monitoreoProcesosDTO.canalVOs)" autodrop="true">		
 													<template name="model">										
-														<comboitem value="@load(each.idCanal)"  label="@load(each.nombreCanal)" height="100%"/>
+														<comboitem value="@load(each.idCanal)"  label="@load(c:cat3(each.nombreCanal, ' - ',each.descripcionCanal))" height="100%"/>
 													</template>																								
 												</combobox>
 												<div align="right">
 													<label id="lblCliente" width="100%" sclass="labelFill" value="Identificador Cliente: "></label>
 												</div>
 												<combobox sclass="textboxUpperCase" onChange="selectedValueCliente()"
-													id="cliente" width="70%" model="@load(vm.monitoreoProcesosDTO.clienteVOs)" autodrop="true">		
+													id="cliente" width="700%" model="@load(vm.monitoreoProcesosDTO.clienteVOs)" autodrop="true">		
 													<template name="model">										
-														<comboitem value="@load(each.idCliente)" label="@load(each.idIdentificador)" height="100%"/>
+														<comboitem value="@load(each.idCliente)" label="@load(c:cat3(each.idIdentificador, ' - ',each.nombreCortoCliente))" height="100%"/>
 													</template>																								
 												</combobox>																						
 											</row>
@@ -63,9 +63,9 @@
 													<label id="lblProducto" width="100%" sclass="labelFill" value="Clave Producto: "></label>												
 												</div>
 												<combobox sclass="textboxUpperCase" onChange="selectedValueProducto()"
-													id="producto" width="70%" model="@load(vm.monitoreoProcesosDTO.productoVOs)" autodrop="true">		
+													id="producto" width="100%" model="@load(vm.monitoreoProcesosDTO.productoVOs)" autodrop="true">		
 													<template name="model">										
-														<comboitem value="@load(each.idProducto)" label="@load(each.nombreProducto)" height="100%"/>
+														<comboitem value="@load(each.idProducto)" label="@load(c:cat3(each.nombreProducto, ' - ',each.descripcionProducto))" height="100%"/>
 													</template>																								
 												</combobox>		
 												<div align="right" >

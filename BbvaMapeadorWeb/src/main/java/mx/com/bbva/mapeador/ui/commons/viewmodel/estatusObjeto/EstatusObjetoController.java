@@ -260,38 +260,39 @@ public class EstatusObjetoController extends ControllerSupport implements IContr
 					org.zkoss.zul.Messagebox.QUESTION, new EventListener<Event>() {
 						@Override
 						public void onEvent(Event event) throws Exception {
-							ReportesController controller = new ReportesController();
-							EstatusObjetoDTO estatusObjetoDTO = new EstatusObjetoDTO();
-							EstatusObjetoVO estatusObjetoVO = new EstatusObjetoVO();
-							estatusObjetoVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue()));
-							estatusObjetoDTO.setEstatusObjetoVO(estatusObjetoVO);
-							EstatusObjetoBO estatusObjetoBO = new EstatusObjetoBO();
-							estatusObjetoDTO.toString(BbvaAbstractDataTransferObject.XML);
-							estatusObjetoDTO = estatusObjetoBO.deleteCommand(estatusObjetoDTO);
-							if(estatusObjetoDTO.getErrorCode().equals("0002")){
-								controller.registrarEvento(null, null, CommandConstants.ELIMINACION_FALLIDA,nombrePantalla);
-								org.zkoss.zul.Messagebox.show(estatusObjetoDTO.getErrorDescription(),
-										"Error", org.zkoss.zul.Messagebox.OK,
-										org.zkoss.zul.Messagebox.ERROR);
-								clean();
-								BindUtils
-										.postGlobalCommand(
-												null,
-												null,
-												"resetGridEstatusObjetos",
-												null);
-							}else{
-								controller.registrarEvento(null, null, CommandConstants.ELIMINACION,nombrePantalla);
-								org.zkoss.zul.Messagebox.show("!El registro fue eliminado!",
-										"Información", org.zkoss.zul.Messagebox.OK,
-										org.zkoss.zul.Messagebox.INFORMATION);
-								clean();
-								BindUtils
-										.postGlobalCommand(
-												null,
-												null,
-												"resetGridEstatusObjetos",
-												null);
+							if (event.getName().equals(org.zkoss.zul.Messagebox.ON_YES)) {
+								ReportesController controller = new ReportesController();
+								EstatusObjetoDTO estatusObjetoDTO = new EstatusObjetoDTO();
+								EstatusObjetoVO estatusObjetoVO = new EstatusObjetoVO();
+								estatusObjetoVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue()));
+								estatusObjetoDTO.setEstatusObjetoVO(estatusObjetoVO);
+								EstatusObjetoBO estatusObjetoBO = new EstatusObjetoBO();
+								estatusObjetoDTO.toString(BbvaAbstractDataTransferObject.XML);
+								estatusObjetoDTO = estatusObjetoBO.deleteCommand(estatusObjetoDTO);
+								if(estatusObjetoDTO.getErrorCode().equals("0002")){
+									org.zkoss.zul.Messagebox.show(estatusObjetoDTO.getErrorDescription(),
+											"Error", org.zkoss.zul.Messagebox.OK,
+											org.zkoss.zul.Messagebox.ERROR);
+									clean();
+									BindUtils
+											.postGlobalCommand(
+													null,
+													null,
+													"resetGridEstatusObjetos",
+													null);
+								}else{
+									controller.registrarEvento(null, null, CommandConstants.ELIMINACION,nombrePantalla);
+									org.zkoss.zul.Messagebox.show("!El registro fue eliminado!",
+											"Información", org.zkoss.zul.Messagebox.OK,
+											org.zkoss.zul.Messagebox.INFORMATION);
+									clean();
+									BindUtils
+											.postGlobalCommand(
+													null,
+													null,
+													"resetGridEstatusObjetos",
+													null);
+								}
 							}
 						}
 					});

@@ -60,6 +60,7 @@ import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.NotifyChange;
+import org.zkoss.zhtml.Messagebox;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
@@ -246,22 +247,24 @@ public class ComponenteController extends ControllerSupport implements  IControl
 					org.zkoss.zul.Messagebox.QUESTION, new EventListener<Event>() {
 						@Override
 						public void onEvent(Event event) throws Exception {
-							ReportesController controller = new ReportesController();
-							ComponenteDTO componenteDTO = new ComponenteDTO();
-							ComponenteVO componenteVO = new ComponenteVO();
-							componenteVO.setIdComponente(Integer.parseInt(idComponente.getValue().isEmpty()?"0":idComponente.getValue()));
-							componenteDTO.setComponenteVO(componenteVO);
-							ComponenteBO componenteBO = new ComponenteBO();
-							componenteDTO.toString(BbvaAbstractDataTransferObject.XML);
-							componenteBO.deleteCommand(componenteDTO);
-							controller.registrarEvento(null, null, CommandConstants.ELIMINACION,nombrePantalla);
-							clean();
-							BindUtils
-									.postGlobalCommand(
-											null,
-											null,
-											"resetGridComponente",
-											null);
+							if (event.getName().equals(Messagebox.ON_YES)) {
+								ReportesController controller = new ReportesController();
+								ComponenteDTO componenteDTO = new ComponenteDTO();
+								ComponenteVO componenteVO = new ComponenteVO();
+								componenteVO.setIdComponente(Integer.parseInt(idComponente.getValue().isEmpty()?"0":idComponente.getValue()));
+								componenteDTO.setComponenteVO(componenteVO);
+								ComponenteBO componenteBO = new ComponenteBO();
+								componenteDTO.toString(BbvaAbstractDataTransferObject.XML);
+								componenteBO.deleteCommand(componenteDTO);
+								controller.registrarEvento(null, null, CommandConstants.ELIMINACION,nombrePantalla);
+								clean();
+								BindUtils
+										.postGlobalCommand(
+												null,
+												null,
+												"resetGridComponente",
+												null);
+							}
 						}
 					});
 		}else{

@@ -326,6 +326,7 @@ public class MonitoreoProcesosController extends ControllerSupport implements  I
         executePermissionSet = this.applyPermision();
         fechaFin.setValue(new Date());
         fechaInicio.setValue(new Date());
+        todos.setChecked(true);
         readWithFilters();
     }
 	
@@ -626,14 +627,16 @@ public class MonitoreoProcesosController extends ControllerSupport implements  I
 								org.zkoss.zul.Messagebox.QUESTION, new EventListener<Event>() {
 							@Override
 							public void onEvent(Event event) throws Exception {
-								monitoreoProcesosDTOUpdate = monitoreoProcesosBO.updateCommand(monitoreoProcesosDTOUpdate);
-								MonitoreoProcesosVO monitoreoProcesosVOAnt = monitoreoProcesosVO;
-								monitoreoProcesosVOAnt.setIdEstatusMapeador(CommandConstants.PROCESO_ERROR_ROJO);
-								controller.registrarEvento(monitoreoProcesosVO, monitoreoProcesosVOAnt, CommandConstants.MODIFICACION,"Monitoreo de Procesos");
-								BindUtils.postGlobalCommand(null, null, "readWithFilters", null);
-								Messagebox.show("Registro actualizado con exito!!",
-										"Confirmación", org.zkoss.zul.Messagebox.OK,
-										org.zkoss.zul.Messagebox.INFORMATION);
+								if (event.getName().equals(Messagebox.ON_YES)) {
+									monitoreoProcesosDTOUpdate = monitoreoProcesosBO.updateCommand(monitoreoProcesosDTOUpdate);
+									MonitoreoProcesosVO monitoreoProcesosVOAnt = monitoreoProcesosVO;
+									monitoreoProcesosVOAnt.setIdEstatusMapeador(CommandConstants.PROCESO_ERROR_ROJO);
+									controller.registrarEvento(monitoreoProcesosVO, monitoreoProcesosVOAnt, CommandConstants.MODIFICACION,"Monitoreo de Procesos");
+									BindUtils.postGlobalCommand(null, null, "readWithFilters", null);
+									Messagebox.show("Registro actualizado con exito!!",
+											"Confirmación", org.zkoss.zul.Messagebox.OK,
+											org.zkoss.zul.Messagebox.INFORMATION);
+								}
 							}
 						});	
 					}
