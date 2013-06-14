@@ -283,7 +283,7 @@ public class EstadisticoController extends ControllerSupport implements  IContro
 		CanalVO canalVO = new CanalVO();
 		ClienteVO clienteVO = new ClienteVO();
 		mx.com.bbva.bancomer.bussinnes.model.vo.ProductoVO productoVO = new ProductoVO();
-		estadisticoVO.setNumeroFiltro(CommandConstants.CANAL_CLIENTE_PRODUCTO);
+
 		estadisticoDTO.setEstadisticoVO(estadisticoVO);
 		canalDTO.setCanalVO(canalVO);
 		clienteDTO.setClienteVO(clienteVO);
