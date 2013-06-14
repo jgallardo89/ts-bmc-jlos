@@ -48,11 +48,9 @@ import mx.com.bbva.bancomer.commons.command.CommandConstants;
 import mx.com.bbva.bancomer.commons.command.MapeadorConstants;
 import mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject;
 import mx.com.bbva.bancomer.estadistico.dto.CanalMockDTO;
-import mx.com.bbva.bancomer.estadistico.dto.ClienteMockDTO;
 import mx.com.bbva.bancomer.estadistico.dto.EstadisticaDTO;
 import mx.com.bbva.bancomer.estadistico.dto.EstadisticoDTO;
 import mx.com.bbva.bancomer.estadistico.dto.EstadisticoMockDTO;
-import mx.com.bbva.bancomer.estadistico.dto.ProductoEstadisticoDTO;
 import mx.com.bbva.bancomer.mapper.business.CanalBO;
 import mx.com.bbva.bancomer.mapper.business.ClienteBO;
 import mx.com.bbva.bancomer.mapper.business.EstadisticoBO;
@@ -69,12 +67,17 @@ import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.NotifyChange;
+import org.zkoss.zhtml.Table;
+import org.zkoss.zhtml.Tbody;
+import org.zkoss.zhtml.Td;
+import org.zkoss.zhtml.Tr;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.Button;
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Datebox;
+import org.zkoss.zul.Div;
 import org.zkoss.zul.Grid;
 import org.zkoss.zul.Image;
 import org.zkoss.zul.Label;
@@ -117,7 +120,7 @@ public class EstadisticoController extends ControllerSupport implements  IContro
 	private Combobox criterio;
 	
 	/** The estadistico dto. */
-	private EstadisticoDTO estadisticoDTO = (EstadisticoDTO) read();
+	private EstadisticoDTO estadisticoDTO;//= (EstadisticoDTO) read();
 	
 	/** The estadistico mock dto. */
 	private EstadisticoMockDTO estadisticoMockDTO;
@@ -127,7 +130,7 @@ public class EstadisticoController extends ControllerSupport implements  IContro
 	private Grid estadisticosGrid;
 	
 	/** The estadistico v os. */
-	private List<EstadisticoVO> estadisticoVOs = estadisticoDTO.getEstadisticoVOs();
+	private List<EstadisticoVO> estadisticoVOs;// = estadisticoDTO.getEstadisticoVOs();
 	
 	/** The execute permission set. */
 	private boolean executePermissionSet;
@@ -184,6 +187,10 @@ public class EstadisticoController extends ControllerSupport implements  IContro
 	@Wire
 	private Combobox producto;
 	
+	/** The Criterio de Consulta. */
+	@Wire
+	private Combobox tipoFiltro;
+	
 	/** The reporte csv btn. */
 	@Wire
 	private Image reporteCsvBtn;
@@ -234,6 +241,16 @@ public class EstadisticoController extends ControllerSupport implements  IContro
 	/** The str producto. */
 	private String strProducto;
 	
+	/** The Tabla. */
+	Table table;
+	
+	/** The Table Body Tabla. */
+	Tbody tbody;
+	
+	/** The div Tabla. */
+	@Wire
+	private Div divTabla;
+		
 	/**
 	 * After compose.
 	 *
@@ -242,9 +259,340 @@ public class EstadisticoController extends ControllerSupport implements  IContro
 	@AfterCompose
     public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
         Selectors.wireComponents(view, this, false);        
-        executePermissionSet = this.applyPermision();
+        executePermissionSet = this.applyPermision();        
+        estadisticoVOs = new ArrayList<EstadisticoVO>();
+        estadisticoDTO = (EstadisticoDTO) read();
+        estadisticoVOs = estadisticoDTO.getEstadisticoVOs();        
     }
 	
+	/* 
+	 * (non-Javadoc)
+	 * @see mx.com.bbva.mapeador.ui.commons.controller.IController#read()
+	 */
+	@Override
+	public Object read() {
+		estadisticoDTO = new EstadisticoDTO();
+		EstadisticoVO estadisticoVO = new EstadisticoVO();
+		EstadisticaDTO estadisticaDTO = new EstadisticaDTO();
+		CanalDTO canalDTO = new CanalDTO();
+		ClienteDTO clienteDTO = new ClienteDTO();
+		ProductoDTO productoDTO = new ProductoDTO();
+
+		CanalVO canalVO = new CanalVO();
+		ClienteVO clienteVO = new ClienteVO();
+		mx.com.bbva.bancomer.bussinnes.model.vo.ProductoVO productoVO = new ProductoVO();
+		estadisticoVO.setNumeroFiltro(CommandConstants.CANAL_CLIENTE_PRODUCTO);
+		estadisticoDTO.setEstadisticoVO(estadisticoVO);
+		canalDTO.setCanalVO(canalVO);
+		clienteDTO.setClienteVO(clienteVO);
+		productoDTO.setProductoVO(productoVO);
+		
+		EstadisticoBO estadisticoBO = new EstadisticoBO();
+		CanalBO canalBO = new CanalBO();
+		ClienteBO clienteBO = new ClienteBO();
+		ProductoBO productoBO = new ProductoBO();
+		estadisticaDTO.setEstadisticoVO(estadisticoVO);
+		estadisticaDTO = estadisticoBO.readCommand(estadisticaDTO);
+		canalDTO = canalBO.readCommand(canalDTO);
+		clienteDTO = clienteBO.readCommand(clienteDTO);
+		productoDTO = productoBO.readCommand(productoDTO);
+		
+		estadisticoDTO.setCanalVOs(canalDTO.getCanalVOs());
+		estadisticoDTO.setClienteVOs(clienteDTO.getClienteVOs());
+		estadisticoDTO.setProductoVOs(productoDTO.getProductoVOs());
+		estadisticoDTO.setEstadisticoVOs(estadisticaDTO.getEstadisticoVOs());
+		//controller.registrarEvento(estadisticoVO, estadisticoVO, CommandConstants.CONSULTAR, "Estadístico");
+		//armarListaGrid(estadisticoDTO.getEstadisticoVOs());
+		createCanalClienteProducto(estadisticaDTO);
+		return estadisticoDTO;
+	}
+
+	
+	/**
+	 * Creates the list grid order: CANAL-CLIENTE-PRODUCTO
+	 * @param estadisticaDTO
+	 */
+	private void createCanalClienteProducto(EstadisticaDTO estadisticaDTO) {
+		canalMockDTOs = new ArrayList<CanalMockDTO>();
+		HashMap<Integer, String> mapCanal = new HashMap<Integer, String>();
+		
+		for(EstadisticoVO estadisticoVO:estadisticaDTO.getEstadisticoVOs()) {
+			mapCanal.put((int) estadisticoVO.idCanal, estadisticoVO.nombreCanal);
+		}
+		
+		Collection<String> canalC = mapCanal.values();
+   	 	Iterator<String> iteratorC = canalC.iterator();
+   	 	armaEstiloTabla();
+		
+	   	 while(iteratorC.hasNext()){
+	   		HashMap<String, String> mapCliente = new HashMap<String, String>();
+	   		String canal = iteratorC.next();
+	   		//armaEncabezadoTabla(1);
+	   		
+	   		cabecera("CANAL",1);
+	   		armaRegistroNivel2(canal);
+			for(EstadisticoVO estadisticoVO:estadisticaDTO.getEstadisticoVOs()) {
+				if(estadisticoVO.getNombreCanal().equals(canal)) {
+					mapCliente.put(""+estadisticoVO.getIdCliente(),estadisticoVO.getIdCanal()+":"+estadisticoVO.getIdIdentificador());
+				}
+			}
+			Collection<String> client = mapCliente.values();
+	   	 	Iterator<String> iteratorCli = client.iterator();
+	   	
+		   	 while(iteratorCli.hasNext()){
+		   		cabecera("CLIENTE",2);
+		   		String identificador = iteratorCli.next();
+		   		
+		   		String[] str_array = identificador.split(":");
+				String ident = str_array[1];
+				armaHijos(ident);
+				armaEncabezadoNivel3();
+		   		for(EstadisticoVO estadisticoVO:estadisticaDTO.getEstadisticoVOs()) {
+					if((estadisticoVO.getIdCanal()+":"+estadisticoVO.getIdIdentificador()).equals(identificador)) {
+						armaHijos2(estadisticoVO);
+					}
+				}
+		   	 }
+	   	 }
+	} 
+	
+	
+	/**
+	 * Creates the list grid order: CLIENTE-CANAL-PRODUCTO 
+	 * @param estadisticaDTO
+	 */
+	private void createClienteCanalProducto(EstadisticaDTO estadisticaDTO) {
+		HashMap<Integer, String> mapCliente = new HashMap<Integer, String>();
+		
+		
+		for(EstadisticoVO estadisticoVO:estadisticaDTO.getEstadisticoVOs()) {
+			mapCliente.put((int) estadisticoVO.idCliente, estadisticoVO.idIdentificador);
+		}
+		
+		Collection<String> clienteC = mapCliente.values();
+   	 	Iterator<String> iteratorC = clienteC.iterator();
+   	 	armaEstiloTabla();
+		
+	   	 while(iteratorC.hasNext()){
+	   		HashMap<Integer, String> mapCanal = new HashMap<Integer, String>();
+	   		String cliente = iteratorC.next();
+	   		//armaEncabezadoTabla(1);
+	   		
+	   		cabecera("CLIENTE",1);
+	   		armaRegistroNivel2(cliente);
+			for(EstadisticoVO estadisticoVO:estadisticaDTO.getEstadisticoVOs()) {
+				if(estadisticoVO.getIdIdentificador().equals(cliente)) {
+					mapCanal.put((int)estadisticoVO.getIdCanal(),estadisticoVO.getIdCliente()+":"+estadisticoVO.getNombreCanal());
+				}
+			}
+			Collection<String> can = mapCanal.values();
+	   	 	Iterator<String> iteratorCan = can.iterator();
+	   	
+		   	 while(iteratorCan.hasNext()){
+		   		cabecera("CANAL",2);
+		   		String identificador = iteratorCan.next();
+		   		
+		   		String[] str_array = identificador.split(":");
+				String ident = str_array[1];
+				armaHijos(ident);
+				armaEncabezadoNivel3();
+		   		for(EstadisticoVO estadisticoVO:estadisticaDTO.getEstadisticoVOs()) {
+					if((estadisticoVO.getIdCliente()+":"+estadisticoVO.getNombreCanal()).equals(identificador)) {
+						armaHijos2(estadisticoVO);
+					}
+				}
+		   	 }
+	   	 }
+	}
+	
+	/**
+	 * Creates the list grid order: PRODUCTO-CANAL-CLIENTE
+	 * @param estadisticaDTO
+	 */
+	private void createProductoCanalCliente(EstadisticaDTO estadisticaDTO) {		
+		armaEstiloTabla();
+		for(EstadisticoVO estadisticoVO:estadisticaDTO.getEstadisticoVOs()) {
+	   		cabecera("PRODUCTO",1);
+	   		armaEncabezadoNivel3();
+	   		armaHijos2(estadisticoVO);
+	   		
+	   		cabecera("CANAL",2);
+	   		armaRegistroNivel2(estadisticoVO.getNombreCanal());
+			
+	   		cabecera("CLIENTE",2);
+	   		armaRegistroNivel2(estadisticoVO.getIdIdentificador());	
+	   	 }
+	}
+	
+	
+	/**
+	 * Creates Style Table
+	 */
+	public void armaEstiloTabla(){
+		try{
+			divTabla.removeChild(table);
+		}catch(Exception ex){
+			//NO HACER NADA
+		}
+		divTabla.setSclass("divTabla");
+		table = new Table();
+		tbody = new Tbody();
+		table.setStyle("width:100%");
+		table.appendChild(tbody);		
+		divTabla.appendChild(table);
+	}
+	
+	/**
+	 * Read with filters.
+	 */
+	@Command
+	@NotifyChange({"canalMockDTOs"})
+	public void readWithFilters() {
+		if(fechaInicio.getValue()!=null && fechaInicio.getValue() != null && fechaInicio.getValue().compareTo(fechaFin.getValue()) > 0 ){
+			fechaInicio.setErrorMessage("La fecha de inicio no puede ser mayor a la fecha de fin");
+		}else{
+			ReportesController controller = new ReportesController();
+			
+			EstadisticaDTO estadisticaDTO = new EstadisticaDTO();
+			EstadisticoVO estadisticoVO = new EstadisticoVO(); 
+			
+			//Combos Validar el nombre de los parametros en HTML VS Controller
+			estadisticoVO.setIdCanal((Integer.parseInt(idCanal.getValue().isEmpty()?"0":idCanal.getValue())));
+			estadisticoVO.setIdCliente((Integer.parseInt(idCliente.getValue().isEmpty()?"0":idCliente.getValue())));
+			estadisticoVO.setIdProducto((Integer.parseInt(idProducto.getValue().isEmpty()?"0":idProducto.getValue())));
+			
+			//Fechas
+			DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+			if(fechaInicio.getValue()!=null)
+			estadisticoVO.setFechaInicio(dateFormat.format(fechaInicio.getValue()));
+			if(fechaFin.getValue()!=null)
+			estadisticoVO.setFechaFin(dateFormat.format(fechaFin.getValue()));
+	
+			estadisticaDTO.setEstadisticoVO(estadisticoVO);
+			estadisticaDTO.toString(BbvaAbstractDataTransferObject.XML);	
+			
+			//LLamada a BO  EstadisticoBO para consulta por criterio
+			EstadisticoBO estadisticoBO = new EstadisticoBO();
+			
+			//Asignacion resultado de consulta al mismo DTO de Estadistico
+			estadisticaDTO = estadisticoBO.readCommand(estadisticaDTO);
+			
+			//Tamaño de la lista de acuerdo al criterio de busqueda y objeto Estadistico
+			if(estadisticaDTO.getEstadisticoVOs() != null) {
+				logger.debug("size:"+estadisticaDTO.getEstadisticoVOs().size());
+			} else{
+				logger.debug(":::::::::::Lista Vacia::::::::::");
+			}
+							
+			if(tipoFiltro.getValue().equals("CANAL-CLIENTE-PRODUCTO")) {
+				createCanalClienteProducto(estadisticaDTO);
+			} else if(tipoFiltro.getValue().equals("CLIENTE-CANAL-PRODUCTO")) {
+				createClienteCanalProducto(estadisticaDTO);
+			} else {
+				createProductoCanalCliente(estadisticaDTO);
+			}
+
+			estadisticoDTO.setEstadisticoVOs(estadisticaDTO.getEstadisticoVOs());
+			controller.registrarEvento(null, null, CommandConstants.CONSULTAR, "Estadístico");
+		}
+	}
+	
+	/**
+	 * 
+	 */
+	public void armaEncabezadoNivel3(){
+		Tr tr = new Tr();	
+		tr.setSclass("sClassTitulos");
+		Td td1 = new Td();
+		td1.appendChild(new Label("FECHA"));
+		Td td2 = new Td();
+		td2.appendChild(new Label("PRODUCTO"));
+		Td td3 = new Td();
+		td3.appendChild(new Label("NOMBRE ARCHIVO"));
+		Td td4 = new Td();
+		td4.appendChild(new Label("OPERACIONES"));	
+		tr.appendChild(td1);
+		tr.appendChild(td2);
+		tr.appendChild(td3);
+		tr.appendChild(td4);
+		tbody.appendChild(tr);
+	}
+	
+	/**
+	 * @param identificador
+	 */
+	public void armaHijos(String identificador){
+		Tr tr;
+		Td td1;
+		tr = new Tr();	
+		tr.setSclass("sClassArchivos");
+		td1 = new Td();
+		td1.setDynamicProperty("colspan", "4");
+		td1.appendChild(new Label(identificador));
+		
+		tr.appendChild(td1);
+		
+		tbody.appendChild(tr);
+		
+	}
+	
+	/**
+	 * @param pro
+	 */
+	public void armaHijos2(EstadisticoVO pro){
+		Tr tr = new Tr();	
+		tr.setSclass("sClassArchivos");
+		Td td1 = new Td();
+		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+		td1.appendChild(new Label(dateFormat.format(pro.getFechaStatusProceso())));
+		Td td2 = new Td();
+		td2.appendChild(new Label(pro.getNombreProducto()));
+		Td td3 = new Td();
+		td3.appendChild(new Label(pro.getNombreRegArchEntra()));
+		Td td4 = new Td();
+		td4.appendChild(new Label(String.valueOf(pro.getNumeroOperacione())));
+		tr.appendChild(td1);
+		tr.appendChild(td2);
+		tr.appendChild(td3);
+		tr.appendChild(td4);
+		tbody.appendChild(tr);
+		
+	}
+	
+	/**
+	 * @param nombre
+	 * @param noCabecera
+	 */
+	public void cabecera(String nombre, int noCabecera){
+		Tr tr = new Tr();	
+		
+		if(noCabecera==1)
+			tr.setSclass("sClassThead");
+		else if(noCabecera==2)
+			tr.setSclass("sClassDatosPrimerNivel");
+		else
+			tr.setSclass("sClassTitulos");
+		
+		Td td1 = new Td();
+		td1.setDynamicProperty("colspan", "4");	
+		td1.appendChild(new Label(nombre));
+		tr.appendChild(td1);
+		tbody.appendChild(tr);
+	}
+	
+	
+	/**
+	 * @param nombre
+	 */
+	public void armaRegistroNivel2(String nombre){
+		Tr tr = new Tr();	
+		tr.setSclass("sClassArchivos");
+		Td td1 = new Td();
+		td1.setDynamicProperty("colspan", "4");	
+		td1.appendChild(new Label(nombre));
+		tr.appendChild(td1);
+		tbody.appendChild(tr);
+	}
 	/* (non-Javadoc)
 	 * @see mx.com.bbva.mapeador.ui.commons.controller.IController#applyPermision()
 	 */
@@ -295,49 +643,7 @@ public class EstadisticoController extends ControllerSupport implements  IContro
 		
 	}
 	
-	/**
-	 * Creates the list grid.
-	 *
-	 * @param estadisticaDTO the estadistica dto
-	 */
-	private void createListGrid(EstadisticaDTO estadisticaDTO) {
-		canalMockDTOs = new ArrayList<CanalMockDTO>();
-		HashMap<Integer, String> mapCliente = new HashMap<Integer, String>();
-		
-		for(EstadisticoVO estadisticoVO:estadisticaDTO.getEstadisticoVOs()) {
-			mapCliente.put((int) estadisticoVO.idCanal, estadisticoVO.nombreCanal+":"+estadisticoVO.idIdentificador);
-		}
-		
-		Collection<String> clienteC = mapCliente.values();
-   	 	Iterator<String> iteratorC = clienteC.iterator();
-		
-	   	 while(iteratorC.hasNext()){
-	   		ArrayList<ProductoEstadisticoDTO> productoVOs = new ArrayList<ProductoEstadisticoDTO>();
-	   		ArrayList<ClienteMockDTO> clienteMockDTOs = new ArrayList<ClienteMockDTO>();
-	   		CanalMockDTO canalMockDTO = new CanalMockDTO();
-	   		String cliente = iteratorC.next();
-	   		String[] str_array = cliente.split(":");
-			String nombreCanal = str_array[0]; 
-			String idIdentificador = str_array[1];
-			ClienteMockDTO clienteMockDTO = new ClienteMockDTO();
-			clienteMockDTO.setNombreCliente(idIdentificador);
-			canalMockDTO.setNombreCanal(nombreCanal);
-			for(EstadisticoVO estadisticoVO:estadisticaDTO.getEstadisticoVOs()) {
-				if(estadisticoVO.getNombreCanal().equals(nombreCanal) && estadisticoVO.getIdIdentificador().equals(idIdentificador)) {
-					ProductoEstadisticoDTO productoVO = new ProductoEstadisticoDTO();
-					productoVO.setFechaStatusProceso(estadisticoVO.getFechaStatusProceso());
-					productoVO.setNombreProducto(estadisticoVO.getNombreProducto());
-					productoVO.setNombreRegArchEntra(estadisticoVO.getNombreRegArchEntra());
-					productoVO.setNumeroOperaciones(estadisticoVO.getNumeroOperacione());
-					productoVOs.add(productoVO);
-				}
-			}
-			clienteMockDTO.setProductoVOs(productoVOs);
-			clienteMockDTOs.add(clienteMockDTO);
-			canalMockDTO.setClienteMockDTOs(clienteMockDTOs);
-		   	canalMockDTOs.add(canalMockDTO);
-	   	 }
-	} 
+	
 	
 	/* (non-Javadoc)
 	 * @see mx.com.bbva.mapeador.ui.commons.controller.IController#delete()
@@ -637,47 +943,7 @@ public class EstadisticoController extends ControllerSupport implements  IContro
 		controller.createReport(generaLista(), headersReport, type, "ESTADISTICO");
 	}
 
-	/* (non-Javadoc)
-	 * @see mx.com.bbva.mapeador.ui.commons.controller.IController#read()
-	 */
-	@Override
-	public Object read() {
-		estadisticoDTO = new EstadisticoDTO();
-		EstadisticoVO estadisticoVO = new EstadisticoVO();
-		EstadisticaDTO estadisticaDTO = new EstadisticaDTO();
-		CanalDTO canalDTO = new CanalDTO();
-		ClienteDTO clienteDTO = new ClienteDTO();
-		ProductoDTO productoDTO = new ProductoDTO();
-
-		CanalVO canalVO = new CanalVO();
-		ClienteVO clienteVO = new ClienteVO();
-		mx.com.bbva.bancomer.bussinnes.model.vo.ProductoVO productoVO = new ProductoVO();
-		
-		estadisticoDTO.setEstadisticoVO(estadisticoVO);
-		canalDTO.setCanalVO(canalVO);
-		clienteDTO.setClienteVO(clienteVO);
-		productoDTO.setProductoVO(productoVO);
-		
-		EstadisticoBO estadisticoBO = new EstadisticoBO();
-		CanalBO canalBO = new CanalBO();
-		ClienteBO clienteBO = new ClienteBO();
-		ProductoBO productoBO = new ProductoBO();
-		estadisticaDTO.setEstadisticoVO(estadisticoVO);
-		estadisticaDTO = estadisticoBO.readCommand(estadisticaDTO);
-		canalDTO = canalBO.readCommand(canalDTO);
-		clienteDTO = clienteBO.readCommand(clienteDTO);
-		productoDTO = productoBO.readCommand(productoDTO);
-		
-		estadisticoDTO.setCanalVOs(canalDTO.getCanalVOs());
-		estadisticoDTO.setClienteVOs(clienteDTO.getClienteVOs());
-		estadisticoDTO.setProductoVOs(productoDTO.getProductoVOs());
-		estadisticoDTO.setEstadisticoVOs(estadisticaDTO.getEstadisticoVOs());
-		//controller.registrarEvento(estadisticoVO, estadisticoVO, CommandConstants.CONSULTAR, "Estadístico");
-		//armarListaGrid(estadisticoDTO.getEstadisticoVOs());
-		createListGrid(estadisticaDTO);
-		return estadisticoDTO;
-	}
-
+	
 	/* (non-Javadoc)
 	 * @see mx.com.bbva.mapeador.ui.commons.controller.IController#read(java.lang.Object)
 	 */
@@ -685,55 +951,6 @@ public class EstadisticoController extends ControllerSupport implements  IContro
 	public Object read(Object t) {
 		// TODO Auto-generated method stub
 		return null;
-	}
-
-	//Cambiar al objeto que pertenezca el componente en este caso estadisticoVOs
-	/**
-	 * Read with filters.
-	 */
-	@Command
-	@NotifyChange({"canalMockDTOs"})
-	public void readWithFilters() {
-		if(fechaInicio.getValue()!=null && fechaInicio.getValue() != null && fechaInicio.getValue().compareTo(fechaFin.getValue()) > 0 ){
-			fechaInicio.setErrorMessage("La fecha de inicio no puede ser mayor a la fecha de fin");
-		}else{
-			ReportesController controller = new ReportesController();
-			
-			EstadisticaDTO estadisticaDTO = new EstadisticaDTO();
-			EstadisticoVO estadisticoVO = new EstadisticoVO(); 
-			
-			//Combos Validar el nombre de los parametros en HTML VS Controller
-			estadisticoVO.setIdCanal((Integer.parseInt(idCanal.getValue().isEmpty()?"0":idCanal.getValue())));
-			estadisticoVO.setIdCliente((Integer.parseInt(idCliente.getValue().isEmpty()?"0":idCliente.getValue())));
-			estadisticoVO.setIdProducto((Integer.parseInt(idProducto.getValue().isEmpty()?"0":idProducto.getValue())));
-			
-			//Fechas
-			DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-			if(fechaInicio.getValue()!=null)
-			estadisticoVO.setFechaInicio(dateFormat.format(fechaInicio.getValue()));
-			if(fechaFin.getValue()!=null)
-			estadisticoVO.setFechaFin(dateFormat.format(fechaFin.getValue()));
-	
-			estadisticaDTO.setEstadisticoVO(estadisticoVO);
-			estadisticaDTO.toString(BbvaAbstractDataTransferObject.XML);	
-			
-			//LLamada a BO  EstadisticoBO para consulta por criterio
-			EstadisticoBO estadisticoBO = new EstadisticoBO();
-			
-			//Asignacion resultado de consulta al mismo DTO de Estadistico
-			estadisticaDTO = estadisticoBO.readCommand(estadisticaDTO);
-			
-			//Tamaño de la lista de acuerdo al criterio de busqueda y objeto Estadistico
-			if(estadisticaDTO.getEstadisticoVOs() != null) {
-				logger.debug("size:"+estadisticaDTO.getEstadisticoVOs().size());
-			} else{
-				logger.debug(":::::::::::Lista Vacia::::::::::");
-			}
-			
-			createListGrid(estadisticaDTO);
-			estadisticoDTO.setEstadisticoVOs(estadisticaDTO.getEstadisticoVOs());
-			controller.registrarEvento(null, null, CommandConstants.CONSULTAR, "Estadístico");
-		}
 	}
 
 	/* (non-Javadoc)
