@@ -78,6 +78,9 @@ public class UsuarioNotificacionController  extends ControllerSupport implements
 	
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 7183766729268869941L;
+
+	/** The nombre Pantalla */
+	private static final String nombrePantalla="Usuarios Notificación Negocio";
 	
 	/** The consultar btn. */
 	@Wire
@@ -386,9 +389,9 @@ public class UsuarioNotificacionController  extends ControllerSupport implements
 		headersReport.add("e-mail");
 		headersReport.add("Status");		
 		if(type.equals("xls")) {
-			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_EXCEL,"Usuarios Notificación Negocio");
+			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_EXCEL,nombrePantalla);
 		} else {
-			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_TEXTO,"Usuarios Notificación Negocio");
+			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_TEXTO,nombrePantalla);
 		}
 		controller.createReport(generaLista(), headersReport, type, "USUARIOS-NEGOCIO");
 	}
@@ -468,7 +471,7 @@ public class UsuarioNotificacionController  extends ControllerSupport implements
 		usuarioNotificacionDTO = usuarioNotificacionBO.readCommand(usuarioNotificacionDTO);
 		
 		ReportesController controller = new ReportesController();
-		controller.registrarEvento(usuarioNotificacionVO, this.usuarioNotificacionVO, CommandConstants.CONSULTAR, "Usuario Negocio");
+		controller.registrarEvento(usuarioNotificacionVO, this.usuarioNotificacionVO, CommandConstants.CONSULTAR, nombrePantalla);
 		//Tamaño de la lista de acuerdo al criterio de busqueda y objeto UsuarioNotificacion
 		if(usuarioNotificacionDTO.getUsuarioNotificacionVOs() != null) {
 			logger.debug("Tamaño de la lista de acuerdo al criterio de busqueda y objeto UsuarioNotificacion size:"+usuarioNotificacionDTO.getUsuarioNotificacionVOs().size());
@@ -506,6 +509,7 @@ public class UsuarioNotificacionController  extends ControllerSupport implements
 	@Command
 	@NotifyChange({ "usuarioNotificacionVOs" })
 	public void save() {
+		ReportesController controller = new ReportesController();
 		//Validar Todos Los campos de pantalla
 		boolean errorGuardar = false; 
 		if (status.getSelectedItem() == null
@@ -530,15 +534,24 @@ public class UsuarioNotificacionController  extends ControllerSupport implements
 		}
 		if(!errorGuardar){
 			if(!idUsuarioNotificado.getValue().isEmpty()){
-				UsuarioNotificacionVO notificacionVOValida = new UsuarioNotificacionVO();
+				
 				UsuarioNotificacionBO usuarioNotificacionBOValida = new UsuarioNotificacionBO();
-				UsuarioNotificacionDTO usuarioNotificacionDTOValida = new UsuarioNotificacionDTO();				
+				UsuarioNotificacionDTO usuarioNotificacionDTOValida = new UsuarioNotificacionDTO();		
+				UsuarioNotificacionVO notificacionVOValida = new UsuarioNotificacionVO();
+				notificacionVOValida.setNombreUsuarioNotificado(nombreUsuario.getValue().toUpperCase().trim());
 				notificacionVOValida.setTipoNotificacion(CommandConstants.TIPO_NOTIFICACION_NEGOCIO);
 				notificacionVOValida.setDescripcionEmail(email.getValue());
 				notificacionVOValida.setIdUsuarioNotificado(Integer.parseInt(idUsuarioNotificado.getValue()));
 				usuarioNotificacionDTOValida.setUsuarioNotificacionVO(notificacionVOValida);
 				usuarioNotificacionDTOValida = usuarioNotificacionBOValida.readCommandValidateExist(usuarioNotificacionDTOValida);				
 				if(usuarioNotificacionDTOValida.getUsuarioNotificacionVOs().get(0).getExiste()>0){
+					UsuarioNotificacionVO notificacionNuevo = new UsuarioNotificacionVO();
+					notificacionNuevo.setNombreUsuarioNotificado("");
+					notificacionNuevo.setTipoNotificacion("");
+					notificacionNuevo.setDescripcionEmail("");
+					notificacionNuevo.setIdUsuarioNotificado(-1);					
+					controller.registrarEvento(notificacionVOValida, notificacionNuevo, CommandConstants.ALTA_FALLIDA, nombrePantalla);	
+					
 					org.zkoss.zul.Messagebox.show("!Ya existe un usuario de negocio con el mismo email!",
 							"Información", org.zkoss.zul.Messagebox.OK,
 							org.zkoss.zul.Messagebox.EXCLAMATION);
@@ -556,22 +569,30 @@ public class UsuarioNotificacionController  extends ControllerSupport implements
 					usuarioNotificacionDTO.setUsuarioNotificacionVO(usuarioNotificacionVO);
 					usuarioNotificacionDTO.toString(BbvaAbstractDataTransferObject.XML);	
 					UsuarioNotificacionBO usuarioNotificacionBO = new UsuarioNotificacionBO();
-					if(Integer.parseInt(status.getSelectedItem().getValue().toString())==20 ||
-							Integer.parseInt(status.getSelectedItem().getValue().toString())==19){						
+					if(Integer.parseInt(status.getSelectedItem().getValue().toString())==CommandConstants.ESTATUS_OBJETO_USUARIO_NOTIFICACION_BAJA ||
+							Integer.parseInt(status.getSelectedItem().getValue().toString())==CommandConstants.ESTATUS_OBJETO_USUARIO_NOTIFICACION_INACTIVO){						
 						UsuarioNotificacionDTO usuarioNotificacionDTOValidaExiste = new UsuarioNotificacionDTO();
 						UsuarioNotificacionVO usuarioNotificacionVOValidaExiste  = new UsuarioNotificacionVO();
 						usuarioNotificacionVOValidaExiste.setIdUsuarioNotificado(Integer.parseInt(idUsuarioNotificado.getValue()));
 						usuarioNotificacionVOValidaExiste.setTipoNotificacion(CommandConstants.TIPO_NOTIFICACION_NEGOCIO);
 						usuarioNotificacionDTOValidaExiste.setUsuarioNotificacionVO(usuarioNotificacionVOValidaExiste);
+						
 						usuarioNotificacionDTOValidaExiste = usuarioNotificacionBO.readCommandValidateExistePermiso(usuarioNotificacionDTOValidaExiste);
+						
+												
+						if (Integer.parseInt(status.getSelectedItem().getValue().toString())==CommandConstants.ESTATUS_OBJETO_USUARIO_NOTIFICACION_BAJA) {
+							controller.registrarEvento(usuarioNotificacionVO, this.usuarioNotificacionVO, CommandConstants.BAJA_FALLIDA, nombrePantalla);					
+						} else if (Integer.parseInt(status.getSelectedItem().getValue().toString())==CommandConstants.ESTATUS_OBJETO_USUARIO_NOTIFICACION_INACTIVO) { 
+							controller.registrarEvento(usuarioNotificacionVO, this.usuarioNotificacionVO, CommandConstants.INACTIVACION_FALLIDA, nombrePantalla);				
+						}
+						
 						if(usuarioNotificacionDTOValidaExiste.getUsuarioNotificacionVOs().get(0).getExiste()==1){							
 							org.zkoss.zul.Messagebox.show("El usuario no se puede desactivar o dar de baja debido a que esta asociado a notificaciones!!",
 									"Error", org.zkoss.zul.Messagebox.OK,
 									org.zkoss.zul.Messagebox.ERROR);
 						}else{
 							usuarioNotificacionBO.updateCommand(usuarioNotificacionDTO);
-							ReportesController controller = new ReportesController();
-							controller.registrarEvento(usuarioNotificacionVO, this.usuarioNotificacionVO, CommandConstants.MODIFICACION, "Usuario Negocio");
+							controller.registrarEvento(usuarioNotificacionVO, this.usuarioNotificacionVO, CommandConstants.MODIFICACION, nombrePantalla);
 							clean();			
 							
 							usuarioNotificacionVO = new UsuarioNotificacionVO();
@@ -591,8 +612,8 @@ public class UsuarioNotificacionController  extends ControllerSupport implements
 						}
 					}else{						
 						usuarioNotificacionBO.updateCommand(usuarioNotificacionDTO);
-						ReportesController controller = new ReportesController();
-						controller.registrarEvento(usuarioNotificacionVO, this.usuarioNotificacionVO, CommandConstants.MODIFICACION, "Usuario Negocio");
+
+						controller.registrarEvento(usuarioNotificacionVO, this.usuarioNotificacionVO, CommandConstants.MODIFICACION, nombrePantalla);
 						clean();			
 						
 						usuarioNotificacionVO = new UsuarioNotificacionVO();
@@ -617,9 +638,11 @@ public class UsuarioNotificacionController  extends ControllerSupport implements
 				UsuarioNotificacionDTO usuarioNotificacionDTOValida = new UsuarioNotificacionDTO();
 				notificacionVOValida.setTipoNotificacion(CommandConstants.TIPO_NOTIFICACION_NEGOCIO);
 				notificacionVOValida.setDescripcionEmail(email.getValue());
-				notificacionVOValida.setIdUsuarioNotificado(0);				
+				notificacionVOValida.setIdUsuarioNotificado(0);
+				notificacionVOValida.setNombreUsuarioNotificado(nombreUsuario.getValue().toUpperCase().trim());
 				usuarioNotificacionDTOValida.setUsuarioNotificacionVO(notificacionVOValida);
 				usuarioNotificacionDTOValida = usuarioNotificacionBOValida.readCommandValidateExist(usuarioNotificacionDTOValida);
+				controller.registrarEvento(usuarioNotificacionVO, this.usuarioNotificacionVO, CommandConstants.MODIFICACION_FALLIDA, nombrePantalla);
 				if(usuarioNotificacionDTOValida.getUsuarioNotificacionVOs().get(0).getExiste()>0){
 					org.zkoss.zul.Messagebox.show("!Ya existe un usuario de negocio con el mismo email!",
 							"Información", org.zkoss.zul.Messagebox.OK,
@@ -641,8 +664,13 @@ public class UsuarioNotificacionController  extends ControllerSupport implements
 					UsuarioNotificacionBO UsuarioNotificacionBO = new UsuarioNotificacionBO();
 	
 					UsuarioNotificacionBO.createCommand(usuarioNotificacionDTO);
-					ReportesController controller = new ReportesController();
-					controller.registrarEvento(null, null, CommandConstants.ALTA, "Usuario Negocio");
+
+					UsuarioNotificacionVO notificacionNuevo = new UsuarioNotificacionVO();
+					notificacionNuevo.setTipoNotificacion("");
+					notificacionNuevo.setDescripcionEmail("");
+					notificacionNuevo.setIdUsuarioNotificado(-1);
+					notificacionNuevo.setNombreUsuarioNotificado("");
+					controller.registrarEvento(usuarioNotificacionVO, notificacionNuevo, CommandConstants.ALTA, nombrePantalla);
 					clean();	
 	
 					usuarioNotificacionVO = new UsuarioNotificacionVO();

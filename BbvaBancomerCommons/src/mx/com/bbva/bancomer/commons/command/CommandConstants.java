@@ -167,6 +167,16 @@ public abstract interface CommandConstants {
 	/** The Constant ESTATUS_OBJETO_MENSAJE_SALIDA_BAJA. */
 	public static final int ESTATUS_OBJETO_MENSAJE_SALIDA_BAJA = 17;
 	
+	/** The Constant ESTATUS_OBJETO_USUARIO_NOTIFICACION_ACTIVO. */
+	public static final int ESTATUS_OBJETO_USUARIO_NOTIFICACION_ACTIVO = 18;
+	
+	/** The Constant ESTATUS_USUARIO_NOTIFICACION_INACTIVO. */
+	public static final int ESTATUS_OBJETO_USUARIO_NOTIFICACION_INACTIVO = 19;
+	
+	/** The Constant ESTATUS_OBJETO_USUARIO_NOTIFICACION_BAJA. */
+	public static final int ESTATUS_OBJETO_USUARIO_NOTIFICACION_BAJA = 20;
+
+	
 	/** The Constant ESTATUS_OBJETO_PANTALLA_SALIDA_BAJA. */
 	public static final int ESTATUS_OBJETO_PANTALLA_SALIDA_BAJA = 33;
 	
@@ -257,7 +267,17 @@ public abstract interface CommandConstants {
 	/** The Constant ID_PRODUCTO_BAJA. */
 	public static final int ID_PRODUCTO_BAJA = 9;
 	
+	// Estatus de Usuarios
+	/** The Constant ID_USUARIO_ACTIVO. */
+	public static final int ID_USUARIO_ACTIVO = 27;
+
+	/** The Constant ID_USUARIO_INACTIVO. */
+	public static final int ID_USUARIO_INACTIVO = 28;
 	
+	/** The Constant ID_USUARIO_BAJA. */
+	public static final int ID_USUARIO_BAJA = 29;
+	
+	//Estatus del catálogo de Mapas
 	/** The Constant ID_MAPA_ACTIVO. */
 	public static final int ID_MAPA_ACTIVO = 13;
 	

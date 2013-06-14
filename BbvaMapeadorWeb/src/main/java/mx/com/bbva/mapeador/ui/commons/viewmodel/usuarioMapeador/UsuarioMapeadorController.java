@@ -79,6 +79,9 @@ public class UsuarioMapeadorController extends ControllerSupport implements ICon
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -2636239878370242704L;
 
+	/** The nombre Pantalla */
+	private static final String nombrePantalla="Catálogo Usuarios Web";	
+	
 	/** The consultar btn. */
 	@Wire
 	private Button consultarBtn;	
@@ -346,9 +349,9 @@ public class UsuarioMapeadorController extends ControllerSupport implements ICon
 		headersReport.add("Perfil");
 		headersReport.add("Status");
 		if(type.equals("xls")) {
-			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_EXCEL,"Catálogo Usuarios WEB");
+			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_EXCEL,nombrePantalla);
 		} else {
-			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_TEXTO,"Catálogo Usuarios WEB");
+			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_TEXTO,nombrePantalla);
 		}
 		controller.createReport(generaLista(), headersReport, type, "USUARIOS-WEB");
 	}
@@ -428,7 +431,7 @@ public class UsuarioMapeadorController extends ControllerSupport implements ICon
 		usuarioDTO = usuarioBO.readCommand(usuarioDTO);
 		logger.debug("size:"+usuarioDTO.getUsuarioVOs().size());
 		ReportesController controller = new ReportesController();
-		controller.registrarEvento(null, null, CommandConstants.CONSULTAR, "USUARIO-WEB");
+		controller.registrarEvento(null, null, CommandConstants.CONSULTAR, nombrePantalla);
 		usuarioVOs = usuarioDTO.getUsuarioVOs();
 		
 	}
@@ -470,12 +473,29 @@ public class UsuarioMapeadorController extends ControllerSupport implements ICon
 				UsuarioBO usuarioBO = new UsuarioBO();
 				usuarioDTO = usuarioBO.createCommand(usuarioDTO);
 				ReportesController controller = new ReportesController();
-				controller.registrarEvento(null, null, CommandConstants.ALTA, "USUARIO-WEB");
+
+
 				if(usuarioDTO.getErrorCode().equals("0001")){
+					UsuarioVO usuarioAnterior = new UsuarioVO();
+					usuarioAnterior.setEstatusUsuario(CommandConstants.ESTATUS_USUARIO_ACTIVO);
+					usuarioAnterior.setIdCveUsuario("");
+					usuarioAnterior.setIdPerfil(-1);			
+					usuarioAnterior.setNombreUsuario("");
+					
+					controller.registrarEvento(usuarioVO, usuarioAnterior, CommandConstants.ALTA_FALLIDA, nombrePantalla);					
 					org.zkoss.zul.Messagebox.show("!"+usuarioDTO.getErrorDescription()+"!",
 							"Error", org.zkoss.zul.Messagebox.OK,
 							org.zkoss.zul.Messagebox.ERROR);
 				}else{
+
+					UsuarioVO usuarioAnterior = new UsuarioVO();
+					usuarioAnterior.setEstatusUsuario(CommandConstants.ESTATUS_USUARIO_ACTIVO);
+					usuarioAnterior.setIdCveUsuario("");
+					usuarioAnterior.setIdPerfil(-1);			
+					usuarioAnterior.setNombreUsuario("");
+					
+					controller.registrarEvento(usuarioVO, usuarioAnterior, CommandConstants.ALTA, nombrePantalla);
+					
 					clean();
 					usuarioBO = new UsuarioBO();
 					usuarioDTO = new UsuarioDTO();
@@ -489,6 +509,8 @@ public class UsuarioMapeadorController extends ControllerSupport implements ICon
 					usuarioDTO = usuarioBO.readCommand(usuarioDTO);
 					logger.debug("size:"+usuarioDTO.getUsuarioVOs().size());
 					usuarioVOs = usuarioDTO.getUsuarioVOs();
+					
+					
 					org.zkoss.zul.Messagebox.show("!El registro del usuario fue exitoso!",
 							"Información", org.zkoss.zul.Messagebox.OK,
 							org.zkoss.zul.Messagebox.INFORMATION);
@@ -507,12 +529,27 @@ public class UsuarioMapeadorController extends ControllerSupport implements ICon
 				UsuarioBO usuarioBO = new UsuarioBO();
 				usuarioBO.updateCommand(usuarioDTO);
 				ReportesController controller = new ReportesController();
-				controller.registrarEvento(usuarioVO, this.usuarioVO, CommandConstants.MODIFICACION, "USUARIO-WEB");
+
 				if(usuarioDTO.getErrorCode().equals("0001")){
+					if (Integer.parseInt(status.getSelectedItem().getValue().toString())==CommandConstants.ID_USUARIO_BAJA) {
+						controller.registrarEvento(usuarioVO, this.usuarioVO, CommandConstants.BAJA_FALLIDA, nombrePantalla);					
+					} else if (Integer.parseInt(status.getSelectedItem().getValue().toString())==CommandConstants.ID_USUARIO_INACTIVO) { 
+						controller.registrarEvento(usuarioVO, this.usuarioVO, CommandConstants.INACTIVACION_FALLIDA, nombrePantalla);				
+					} else {
+						controller.registrarEvento(usuarioVO, this.usuarioVO, CommandConstants.MODIFICACION_FALLIDA, nombrePantalla);
+					}						
 					org.zkoss.zul.Messagebox.show("!"+usuarioDTO.getErrorDescription()+"!",
 							"Error", org.zkoss.zul.Messagebox.OK,
 							org.zkoss.zul.Messagebox.ERROR);
 				}else{
+
+					if (Integer.parseInt(status.getSelectedItem().getValue().toString())==CommandConstants.ID_USUARIO_BAJA) {
+						controller.registrarEvento(usuarioVO, this.usuarioVO, CommandConstants.BAJA, nombrePantalla);					
+					} else if (Integer.parseInt(status.getSelectedItem().getValue().toString())==CommandConstants.ID_USUARIO_INACTIVO) { 
+						controller.registrarEvento(usuarioVO, this.usuarioVO, CommandConstants.INACTIVACION, nombrePantalla);				
+					} else {
+						controller.registrarEvento(usuarioVO, this.usuarioVO, CommandConstants.MODIFICACION, nombrePantalla);
+					}					
 					clean();
 					usuarioBO = new UsuarioBO();
 					usuarioDTO = new UsuarioDTO();
@@ -527,6 +564,8 @@ public class UsuarioMapeadorController extends ControllerSupport implements ICon
 					usuarioDTO = usuarioBO.readCommand(usuarioDTO);
 					logger.debug("size:"+usuarioDTO.getUsuarioVOs().size());
 					usuarioVOs = usuarioDTO.getUsuarioVOs();
+
+	
 					
 					org.zkoss.zul.Messagebox.show("!La actualizacón del usuario fue exitosa!",
 							"Información", org.zkoss.zul.Messagebox.OK,
