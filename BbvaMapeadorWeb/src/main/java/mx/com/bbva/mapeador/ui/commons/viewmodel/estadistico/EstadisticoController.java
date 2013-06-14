@@ -283,7 +283,7 @@ public class EstadisticoController extends ControllerSupport implements  IContro
 		CanalVO canalVO = new CanalVO();
 		ClienteVO clienteVO = new ClienteVO();
 		mx.com.bbva.bancomer.bussinnes.model.vo.ProductoVO productoVO = new ProductoVO();
-
+		estadisticoVO.setNumeroFiltro(CommandConstants.CANAL_CLIENTE_PRODUCTO);
 		estadisticoDTO.setEstadisticoVO(estadisticoVO);
 		canalDTO.setCanalVO(canalVO);
 		clienteDTO.setClienteVO(clienteVO);
@@ -315,7 +315,6 @@ public class EstadisticoController extends ControllerSupport implements  IContro
 	 * @param estadisticaDTO
 	 */
 	private void createCanalClienteProducto(EstadisticaDTO estadisticaDTO) {
-		canalMockDTOs = new ArrayList<CanalMockDTO>();
 		HashMap<Integer, String> mapCanal = new HashMap<Integer, String>();
 		
 		for(EstadisticoVO estadisticoVO:estadisticaDTO.getEstadisticoVOs()) {
@@ -412,17 +411,46 @@ public class EstadisticoController extends ControllerSupport implements  IContro
 	 * @param estadisticaDTO
 	 */
 	private void createProductoCanalCliente(EstadisticaDTO estadisticaDTO) {		
-		armaEstiloTabla();
+		HashMap<Integer, String> mapProducto = new HashMap<Integer, String>();
+		
+		
 		for(EstadisticoVO estadisticoVO:estadisticaDTO.getEstadisticoVOs()) {
-	   		cabecera("PRODUCTO",1);
-	   		armaEncabezadoNivel3();
-	   		armaHijos2(estadisticoVO);
+			mapProducto.put((int) estadisticoVO.getIdProducto(), estadisticoVO.getNombreProducto());
+		}
+		
+		Collection<String> proC = mapProducto.values();
+   	 	Iterator<String> iteratorP = proC.iterator();
+   	 	armaEstiloTabla();
+		
+	   	 while(iteratorP.hasNext()){
+	   		HashMap<Integer, String> mapCanal = new HashMap<Integer, String>();
+	   		String producto = iteratorP.next();
 	   		
-	   		cabecera("CANAL",2);
-	   		armaRegistroNivel2(estadisticoVO.getNombreCanal());
-			
-	   		cabecera("CLIENTE",2);
-	   		armaRegistroNivel2(estadisticoVO.getIdIdentificador());	
+	   		cabecera("PRODUCTO",1);
+	   		armaRegistroNivel2(producto);
+			for(EstadisticoVO estadisticoVO:estadisticaDTO.getEstadisticoVOs()) {
+				if(estadisticoVO.getNombreProducto().equals(producto)) {
+					mapCanal.put((int)estadisticoVO.getIdCanal(),estadisticoVO.getIdProducto()+":"+estadisticoVO.getNombreCanal());
+				}
+			}
+			Collection<String> can = mapCanal.values();
+	   	 	Iterator<String> iteratorCan = can.iterator();
+	   	
+		   	 while(iteratorCan.hasNext()){
+		   		cabecera("CANAL",2);
+		   		String identificador = iteratorCan.next();
+		   		
+		   		String[] str_array = identificador.split(":");
+				String ident = str_array[1];
+				armaRegistroNivel2(ident);
+				cabecera("CLIENTE",2);
+		   		armaEncabezadoNivelCliente();
+		   		for(EstadisticoVO estadisticoVO:estadisticaDTO.getEstadisticoVOs()) {
+					if((estadisticoVO.getIdProducto()+":"+estadisticoVO.getNombreCanal()).equals(identificador)) {
+						armaHijosCliente(estadisticoVO);
+					}
+				}
+		   	 }
 	   	 }
 	}
 	
@@ -521,6 +549,27 @@ public class EstadisticoController extends ControllerSupport implements  IContro
 	}
 	
 	/**
+	 * 
+	 */
+	public void armaEncabezadoNivelCliente(){
+		Tr tr = new Tr();	
+		tr.setSclass("sClassTitulos");
+		Td td1 = new Td();
+		td1.appendChild(new Label("FECHA"));
+		Td td2 = new Td();
+		td2.appendChild(new Label("CLIENTE"));
+		Td td3 = new Td();
+		td3.appendChild(new Label("NOMBRE ARCHIVO"));
+		Td td4 = new Td();
+		td4.appendChild(new Label("OPERACIONES"));	
+		tr.appendChild(td1);
+		tr.appendChild(td2);
+		tr.appendChild(td3);
+		tr.appendChild(td4);
+		tbody.appendChild(tr);
+	}
+	
+	/**
 	 * @param identificador
 	 */
 	public void armaHijos(String identificador){
@@ -549,6 +598,30 @@ public class EstadisticoController extends ControllerSupport implements  IContro
 		td1.appendChild(new Label(dateFormat.format(pro.getFechaStatusProceso())));
 		Td td2 = new Td();
 		td2.appendChild(new Label(pro.getNombreProducto()));
+		Td td3 = new Td();
+		td3.appendChild(new Label(pro.getNombreRegArchEntra()));
+		Td td4 = new Td();
+		td4.appendChild(new Label(String.valueOf(pro.getNumeroOperacione())));
+		tr.appendChild(td1);
+		tr.appendChild(td2);
+		tr.appendChild(td3);
+		tr.appendChild(td4);
+		tbody.appendChild(tr);
+		
+	}
+	
+
+	/**
+	 * @param pro
+	 */
+	public void armaHijosCliente(EstadisticoVO pro){
+		Tr tr = new Tr();	
+		tr.setSclass("sClassArchivos");
+		Td td1 = new Td();
+		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+		td1.appendChild(new Label(dateFormat.format(pro.getFechaStatusProceso())));
+		Td td2 = new Td();
+		td2.appendChild(new Label(pro.getIdIdentificador()));
 		Td td3 = new Td();
 		td3.appendChild(new Label(pro.getNombreRegArchEntra()));
 		Td td4 = new Td();
