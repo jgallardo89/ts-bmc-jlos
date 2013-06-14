@@ -30,6 +30,16 @@
 										<rows>
 											<row sclass="row1">
 												<div align="right">
+													<label id="lblCriterio" width="100%" sclass="labelFill" value="Criterio a consultar: "></label>
+												</div>
+												<combobox readonly="true" id="criterios" width="70%" value="CANAL-CLIENTE-PRODUCTO">
+													<comboitem value="1" label="CANAL-CLIENTE-PRODUCTO"></comboitem>
+													<comboitem value="2" label="CLIENTE-CANAL-PRODUCTO"></comboitem>
+													<comboitem value="3" label="PRODUCTO-CANAL-CLIENTE"></comboitem>
+												</combobox>
+											</row>
+											<row sclass="row1">
+												<div align="right">
 													<label id="lblCanal" width="100%" sclass="labelFill" value="Canal: "></label>
 												</div>
 												<combobox sclass="textboxUpperCase" onChange="selectedValueCanal()"
@@ -88,11 +98,11 @@
 												<div align="right">
 													<label id="lblFechaLote" width="100%" sclass="labelFill" value="Fecha Lote: "></label>												
 												</div>
-												<datebox value="@load(vm.monitoreoProcesosDTO.monitoreoProcesosVO.fechaInicio)"  maxlength="50"  width="100%" id="fechaInicio" readonly="true" buttonVisible="true" onCreate="self.value = new Date()" format="dd/MM/yyyy HH:MM"></datebox>
+												<datebox value="@load(vm.monitoreoProcesosDTO.monitoreoProcesosVO.fechaInicio)"  maxlength="50"  width="100%" id="fechaInicio" readonly="true" buttonVisible="true" onCreate="self.value = new Date()" format="dd/MM/yyyy"></datebox>
 												<div align="right">
 													<label id="lblA" width="100%" sclass="labelFill" value="a: "></label>												
 												</div>
-												<datebox value="@load(vm.monitoreoProcesosDTO.monitoreoProcesosVO.fechaFin)"  maxlength="50"  width="100%" id="fechaFin" readonly="true" buttonVisible="true" onCreate="self.value = new Date()" format="dd/MM/yyyy HH:MM"></datebox>
+												<datebox value="@load(vm.monitoreoProcesosDTO.monitoreoProcesosVO.fechaFin)"  maxlength="50"  width="100%" id="fechaFin" readonly="true" buttonVisible="true" onCreate="self.value = new Date()" format="dd/MM/yyyy"></datebox>
 											</row>
 											<row sclass="row2">
 												<div align="right">

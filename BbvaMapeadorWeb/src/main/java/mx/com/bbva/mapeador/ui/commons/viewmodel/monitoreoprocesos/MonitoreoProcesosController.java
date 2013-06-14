@@ -32,6 +32,7 @@ package mx.com.bbva.mapeador.ui.commons.viewmodel.monitoreoprocesos;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -60,6 +61,7 @@ import mx.com.bbva.mapeador.ui.commons.viewmodel.reportes.ReportesController;
 import mx.com.bbva.mapeador.ui.commons.viewmodel.support.ControllerSupport;
 
 import org.apache.log4j.Logger;
+import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
@@ -76,6 +78,7 @@ import org.zkoss.zhtml.Tr;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
+import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.Wire;
@@ -95,7 +98,7 @@ import org.zkoss.zul.Window;
  * The Class MonitoreoProcesosController.
  */
 public class MonitoreoProcesosController extends ControllerSupport implements  IController{
-	
+	private MonitoreoProcesosVO monitoreoProcesosVO1;
 	/** The Constant logger. */
 	private static final Logger logger = Logger.getLogger(MonitoreoProcesosController.class);
 	
@@ -111,6 +114,10 @@ public class MonitoreoProcesosController extends ControllerSupport implements  I
 	/** The canal. */
 	@Wire
 	private Combobox canal;
+	
+	/** The criterios. */
+	@Wire
+	private Combobox criterios;
 	
 	/** The cliente. */
 	@Wire
@@ -314,8 +321,11 @@ public class MonitoreoProcesosController extends ControllerSupport implements  I
 	 */
 	@AfterCompose
     public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
-        Selectors.wireComponents(view, this, false);    
+        Selectors.wireComponents(view, this, false);        
         executePermissionSet = this.applyPermision();
+        fechaFin.setValue(new Date());
+        fechaInicio.setValue(new Date());
+        readWithFilters();
     }
 	
 	/* (non-Javadoc)
@@ -351,35 +361,74 @@ public class MonitoreoProcesosController extends ControllerSupport implements  I
 	 * Armar lista grid.
 	 *
 	 */
-	private void armarListaGrid(MonitoreoProcesosDTO monitoreoProcesosDTO){
-		
+	private void armarListaGrid(MonitoreoProcesosDTO monitoreoProcesosDTO){			
+		int tipoReporte = monitoreoProcesosDTO.getTipoReporte();
+		armaEstiloTabla();		
+		armaEncabezadoTabla(tipoReporte);
+		monitoreoProcesosDTO.getMonitoreoProcesosVO().setTipoReporte(tipoReporte);		
+		armaCuerpoTablaCanalClienteProducto(monitoreoProcesosDTO);												
+	}
+	public void armaCuerpoTablaCanalClienteProducto(MonitoreoProcesosDTO monitoreoProcesosDTO){
 		//Leo los canales
 		MonitoreoProcesosBO monitoreoProcesosBO = new MonitoreoProcesosBO();
 		monitoreoProcesosDTO.setCommandId(CommandConstants.PROCESOS_CANAL);
 		List<MonitoreoProcesosVO> monitoreoProcesosVOsCanal;
 		monitoreoProcesosVOsCanal = ((MonitoreoProcesosDTO)monitoreoProcesosBO.readCommand(monitoreoProcesosDTO)).getMonitoreoProcesosVOs();
-		
-		armaEstiloTabla();		
-		armaEncabezadoTabla(monitoreoProcesosDTO.getTipoReporte());
-		
 		List<MonitoreoProcesosVO> monitoreoProcesosVOsProductos;
 		MonitoreoProcesosDTO monitoreoProcesosDTOProductos = new MonitoreoProcesosDTO();
 		MonitoreoProcesosVO monitoreoProcesosVOProductos;
+		MonitoreoProcesosDTO monitoreoProcesosDTOEstatusProceso = new MonitoreoProcesosDTO();
+		List<MonitoreoProcesosVO> monitoreoProcesosVOsEstatus;
+		int estatusProceso;
 		for (MonitoreoProcesosVO monitoreoProcesosVO : monitoreoProcesosVOsCanal) {			
-			armaRegistroNivel1(monitoreoProcesosVO);
+			monitoreoProcesosDTOEstatusProceso.setMonitoreoProcesosVO(monitoreoProcesosVO);
+			monitoreoProcesosDTOEstatusProceso.setCommandId(CommandConstants.PROCESOS_ESTATUS);
+			monitoreoProcesosVOsEstatus = ((MonitoreoProcesosDTO)monitoreoProcesosBO.readCommand(monitoreoProcesosDTOEstatusProceso)).getMonitoreoProcesosVOs();
+			estatusProceso = obtieneEstatusProceso(monitoreoProcesosVOsEstatus);
+			monitoreoProcesosVO.setIdEstatusMapeador(estatusProceso);
+			armaRegistroNivel1(monitoreoProcesosVO,monitoreoProcesosDTO.getTipoReporte());
 			armaEncabezadoNivel1();
 			monitoreoProcesosDTOProductos.setCommandId(CommandConstants.PROCESOS_ARCHIVOS);
 			monitoreoProcesosVOProductos = new MonitoreoProcesosVO();
 			monitoreoProcesosVOProductos.setIdCanal(monitoreoProcesosVO.getIdCanal());
 			monitoreoProcesosVOProductos.setIdCliente(monitoreoProcesosVO.getIdCliente());
 			monitoreoProcesosVOProductos.setIdProducto(monitoreoProcesosVO.getIdProducto());
+			monitoreoProcesosVOProductos.setNumeroLote(monitoreoProcesosVO.getNumeroLote());
 			monitoreoProcesosDTOProductos.setMonitoreoProcesosVO(monitoreoProcesosVOProductos);
+			monitoreoProcesosDTOProductos.getMonitoreoProcesosVO().setEstados(monitoreoProcesosDTO.getMonitoreoProcesosVO().getEstados());
 			monitoreoProcesosVOsProductos = ((MonitoreoProcesosDTO)monitoreoProcesosBO.readCommand(monitoreoProcesosDTOProductos)).getMonitoreoProcesosVOs();
 			logger.debug("monitoreoProcesosVOsProductos:"+monitoreoProcesosVOsProductos.size());
 			armaHijos(monitoreoProcesosVOsProductos);
-		}											
+		}			
 	}
-	
+	public int obtieneEstatusProceso(List<MonitoreoProcesosVO> monitoreoProcesosVOsEstatus){
+		int estatus =0;
+		int amarillo = 0;
+		int rojo = 0;
+		int azul = 0;
+		int verde = 0;
+		for (MonitoreoProcesosVO monitoreoProcesosVO : monitoreoProcesosVOsEstatus) {
+			if(monitoreoProcesosVO.getIdEstatusMapeador()==CommandConstants.PROCESO_ERROR_ROJO){
+				rojo++;
+			}else if(monitoreoProcesosVO.getIdEstatusMapeador()==CommandConstants.PROCESO_FINALIZA_USUARIO_AZUL){
+				azul++;				
+			}else if(monitoreoProcesosVO.getIdEstatusMapeador()==CommandConstants.PROCESO_ESPERA_AMARILLO){
+				amarillo++;				
+			}else if(monitoreoProcesosVO.getIdEstatusMapeador()==CommandConstants.PROCESO_EXITO_VERDE){
+				verde++;				
+			}
+			
+		}
+		if(rojo!=0)
+			estatus = CommandConstants.PROCESO_ERROR_ROJO;
+		else if(azul!=0)
+			estatus = CommandConstants.PROCESO_FINALIZA_USUARIO_AZUL;
+		else if(amarillo!=0)
+			estatus = CommandConstants.PROCESO_ESPERA_AMARILLO;
+		else if(verde!=0)
+			estatus = CommandConstants.PROCESO_EXITO_VERDE;
+		return estatus;
+	}
 	public void armaEstiloTabla(){
 		try{
 			divTabla.removeChild(table);
@@ -394,40 +443,50 @@ public class MonitoreoProcesosController extends ControllerSupport implements  I
 		divTabla.appendChild(table);
 	}
 	
-	public void armaEncabezadoTabla(int tipoReporte){		
+	public void armaEncabezadoTabla(int tipoReporte){
+		Thead thead = new Thead();
+		Th th1 = new Th();
+		Th th2 = new Th();
+		Th th3 = new Th();
+		Th th4 = new Th();
+		Th th5 = new Th();
+		Th th6 = new Th();
 		switch (tipoReporte) {
-			case CommandConstants.CANAL_CLIENTE_PRODUCTO:
-				Thead thead = new Thead();			
-				Th th1 = new Th();
-				th1.appendChild(new Label("Canal"));
-				Th th2 = new Th();
-				th2.appendChild(new Label("Cliente"));
-				Th th3 = new Th();
-				th3.appendChild(new Label("Producto"));
-				Th th4 = new Th();
-				th4.appendChild(new Label("Fecha Lote"));
-				Th th5 = new Th();
-				th5.appendChild(new Label("Lote"));
-				Th th6 = new Th();
-				th6.appendChild(new Label("Status"));	
-				thead.setSclass("sClassThead");
-				thead.appendChild(th1);
-				thead.appendChild(th2);
-				thead.appendChild(th3);			
-				thead.appendChild(th4);
-				thead.appendChild(th5);
-				thead.appendChild(th6);				
-				table.appendChild(thead);
+			case CommandConstants.CANAL_CLIENTE_PRODUCTO:										
+				th1.appendChild(new Label("Canal"));				
+				th2.appendChild(new Label("Cliente"));				
+				th3.appendChild(new Label("Producto"));				
+				th4.appendChild(new Label("Fecha Lote"));				
+				th5.appendChild(new Label("Lote"));				
+				th6.appendChild(new Label("Status"));					
 				break;
 			case CommandConstants.CLIENTE_CANAL_PRODUCTO:
-		
+				th1.appendChild(new Label("Cliente"));				
+				th2.appendChild(new Label("Canal"));				
+				th3.appendChild(new Label("Producto"));				
+				th4.appendChild(new Label("Fecha Lote"));				
+				th5.appendChild(new Label("Lote"));				
+				th6.appendChild(new Label("Status"));	
 				break;
 			case CommandConstants.PRODUCTO_CANAL_CLIENTE:
-				
+				th1.appendChild(new Label("Producto"));				
+				th2.appendChild(new Label("Canal"));				
+				th3.appendChild(new Label("Cliente"));				
+				th4.appendChild(new Label("Fecha Lote"));				
+				th5.appendChild(new Label("Lote"));				
+				th6.appendChild(new Label("Status"));	
 				break;
 			default:
 				break;
-		}				
+		}		
+		thead.setSclass("sClassThead");
+		thead.appendChild(th1);
+		thead.appendChild(th2);
+		thead.appendChild(th3);			
+		thead.appendChild(th4);
+		thead.appendChild(th5);
+		thead.appendChild(th6);				
+		table.appendChild(thead);
 	}
 	
 	public void armaEncabezadoNivel1(){
@@ -453,21 +512,38 @@ public class MonitoreoProcesosController extends ControllerSupport implements  I
 		tr.appendChild(td6);
 		tbody.appendChild(tr);
 	}
-	public void armaRegistroNivel1(MonitoreoProcesosVO monitoreoProcesosVO){
+	public void armaRegistroNivel1(MonitoreoProcesosVO monitoreoProcesosVO, int tipoReporte){
+		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 		Tr tr = new Tr();	
 		tr.setSclass("sClassDatosPrimerNivel");
 		Td td1 = new Td();
-		td1.appendChild(new Label(monitoreoProcesosVO.getNombreCanal()));
 		Td td2 = new Td();
-		td2.appendChild(new Label(monitoreoProcesosVO.getNombreCliente()));
 		Td td3 = new Td();
-		td3.appendChild(new Label(monitoreoProcesosVO.getNombreProducto()));
 		Td td4 = new Td();
-		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-		td4.appendChild(new Label(dateFormat.format(monitoreoProcesosVO.getFechaStatusProceso())));
 		Td td5 = new Td();
-		td5.appendChild(new Label(Long.toString(monitoreoProcesosVO.getNumeroLote())));
 		Td td6 = new Td();
+		switch (tipoReporte) {
+		case CommandConstants.CANAL_CLIENTE_PRODUCTO:
+			td1.appendChild(new Label(monitoreoProcesosVO.getNombreCanal()));		
+			td2.appendChild(new Label(monitoreoProcesosVO.getNombreCliente()));		
+			td3.appendChild(new Label(monitoreoProcesosVO.getNombreProducto()));							
+			break;
+		case CommandConstants.CLIENTE_CANAL_PRODUCTO:
+			td1.appendChild(new Label(monitoreoProcesosVO.getNombreCliente()));		
+			td2.appendChild(new Label(monitoreoProcesosVO.getNombreCanal()));		
+			td3.appendChild(new Label(monitoreoProcesosVO.getNombreProducto()));
+			break;
+		case CommandConstants.PRODUCTO_CANAL_CLIENTE:
+			td1.appendChild(new Label(monitoreoProcesosVO.getNombreProducto()));
+			td2.appendChild(new Label(monitoreoProcesosVO.getNombreCanal()));		
+			td3.appendChild(new Label(monitoreoProcesosVO.getNombreCliente()));					
+			break;
+		default:
+			break;
+		}
+		
+		td4.appendChild(new Label(dateFormat.format(monitoreoProcesosVO.getFechaStatusProceso())));		
+		td5.appendChild(new Label(Long.toString(monitoreoProcesosVO.getNumeroLote())));		
 		String urlImage = "";
 		if(monitoreoProcesosVO.getIdEstatusMapeador()==CommandConstants.PROCESO_EXITO_VERDE)
 			urlImage = CommandConstants.IMG_VERDE_EXITO_PNG; 
@@ -477,7 +553,8 @@ public class MonitoreoProcesosController extends ControllerSupport implements  I
 			urlImage = CommandConstants.IMG_AMARILLO_ESPERA_PNG;
 		else if(monitoreoProcesosVO.getIdEstatusMapeador()==CommandConstants.PROCESO_FINALIZA_USUARIO_AZUL)
 			urlImage = CommandConstants.IMG_AZUL_FINALIZAUSUARIO_PNG;
-		td6.appendChild(new Image(urlImage));		
+		td6.appendChild(new Image(urlImage));
+		
 		tr.appendChild(td1);
 		tr.appendChild(td2);
 		tr.appendChild(td3);
@@ -494,31 +571,70 @@ public class MonitoreoProcesosController extends ControllerSupport implements  I
 		Td td4;
 		Td td5;
 		Td td6;
-		for (MonitoreoProcesosVO monitoreoProcesosVO : monitoreoProcesosVOsProductos) {
+		for (MonitoreoProcesosVO monitoreoProcesosVO2 : monitoreoProcesosVOsProductos) {
+			monitoreoProcesosVO1 = monitoreoProcesosVO2;
 			tr = new Tr();	
 			tr.setSclass("sClassArchivos");
 			td1 = new Td();
-			td1.appendChild(new Label(monitoreoProcesosVO.getNombreEtapa()));
+			td1.appendChild(new Label(monitoreoProcesosVO1.getNombreEtapa()));
 			td2 = new Td();
-			td2.appendChild(new Label(monitoreoProcesosVO.getNombreRegArchEntra()));
+			td2.appendChild(new Label(monitoreoProcesosVO1.getNombreRegArchEntra()));
 			td3 = new Td();
 			DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-			td3.appendChild(new Label(dateFormat.format(monitoreoProcesosVO.getFechaStatusProceso())));
-			td4 = new Td();
-			td4.appendChild(new Label(monitoreoProcesosVO.getFechaInicio()));
-			td5 = new Td();
-			td5.appendChild(new Label(monitoreoProcesosVO.getFechaFin()));
+			td3.appendChild(new Label(dateFormat.format(monitoreoProcesosVO1.getFechaStatusProceso())));			
+			td4 = new Td();			
+			td4.appendChild(new Label(monitoreoProcesosVO1.getFechaInicio()));
+			td5 = new Td();			
+			td5.appendChild(new Label(monitoreoProcesosVO1.getFechaFin()));
 			td6 = new Td();
 			String urlImage = "";
-			if(monitoreoProcesosVO.getIdEstatusMapeador()==CommandConstants.PROCESO_EXITO_VERDE)
+			Image image = new Image();
+			if(monitoreoProcesosVO1.getIdEstatusMapeador()==CommandConstants.PROCESO_EXITO_VERDE)
 				urlImage = CommandConstants.IMG_VERDE_EXITO_PNG; 
-			else if(monitoreoProcesosVO.getIdEstatusMapeador()==CommandConstants.PROCESO_ERROR_ROJO)
+			else if(monitoreoProcesosVO1.getIdEstatusMapeador()==CommandConstants.PROCESO_ERROR_ROJO){
 				urlImage = CommandConstants.IMG_ERROR_ROJO_PNG;
-			else if(monitoreoProcesosVO.getIdEstatusMapeador()==CommandConstants.PROCESO_ESPERA_AMARILLO)
+				image.setAttribute("idProceso", monitoreoProcesosVO);				
+				String data;
+				data = monitoreoProcesosVO1.getIdContratacion()+"-"+
+					monitoreoProcesosVO1.getIdFlujo()+"-"+
+					monitoreoProcesosVO1.getIdEtapa()+"-"+
+					monitoreoProcesosVO1.getIdRegArchEntra();
+				image.setAutag(data);
+				image.addEventListener("onClick", new EventListener<Event>() {
+					@Override
+					public void onEvent(Event event) throws Exception {
+						MonitoreoProcesosBO monitoreoProcesosBO = new MonitoreoProcesosBO();
+						MonitoreoProcesosDTO monitoreoProcesosDTOUpdate = new MonitoreoProcesosDTO();
+						ReportesController  controller = new ReportesController();
+						logger.debug("target:"+	event.getTarget());
+						MonitoreoProcesosVO monitoreoProcesosVO;						
+						logger.debug("monitoreoProcesosVO..to..update:"+event.getTarget().getAutag());
+						
+						String[] valuesToUpdate = event.getTarget().getAutag().split("-");
+						logger.debug(valuesToUpdate.length);
+						
+						monitoreoProcesosVO = new MonitoreoProcesosVO();
+						
+						monitoreoProcesosVO.setIdContratacion(Long.parseLong(valuesToUpdate[0]));
+						monitoreoProcesosVO.setIdFlujo(Long.parseLong(valuesToUpdate[1]));
+						monitoreoProcesosVO.setIdEtapa(Long.parseLong(valuesToUpdate[2]));
+						monitoreoProcesosVO.setIdRegArchEntra(Long.parseLong(valuesToUpdate[3]));
+						monitoreoProcesosDTOUpdate.setMonitoreoProcesosVO(monitoreoProcesosVO);
+						monitoreoProcesosDTOUpdate = monitoreoProcesosBO.updateCommand(monitoreoProcesosDTOUpdate);
+						MonitoreoProcesosVO monitoreoProcesosVOAnt = monitoreoProcesosVO;
+						monitoreoProcesosVOAnt.setIdEstatusMapeador(CommandConstants.PROCESO_ERROR_ROJO);
+						controller.registrarEvento(monitoreoProcesosVO, monitoreoProcesosVOAnt, CommandConstants.MODIFICACION,"Monitoreo de Procesos");
+						BindUtils.postGlobalCommand(null, null, "readWithFilters", null);
+					}
+				});
+				td6.setStyle("cursor: pointer;");
+			}
+			else if(monitoreoProcesosVO1.getIdEstatusMapeador()==CommandConstants.PROCESO_ESPERA_AMARILLO)
 				urlImage = CommandConstants.IMG_AMARILLO_ESPERA_PNG;
-			else if(monitoreoProcesosVO.getIdEstatusMapeador()==CommandConstants.PROCESO_FINALIZA_USUARIO_AZUL)
+			else if(monitoreoProcesosVO1.getIdEstatusMapeador()==CommandConstants.PROCESO_FINALIZA_USUARIO_AZUL)
 				urlImage = CommandConstants.IMG_AZUL_FINALIZAUSUARIO_PNG;
-			td6.appendChild(new Image(urlImage));		
+			image.setSrc(urlImage);			
+			td6.appendChild(image);		
 			tr.appendChild(td1);
 			tr.appendChild(td2);
 			tr.appendChild(td3);
@@ -527,6 +643,17 @@ public class MonitoreoProcesosController extends ControllerSupport implements  I
 			tr.appendChild(td6);
 			tbody.appendChild(tr);
 		}
+	}
+	@Command
+	public void updateEtapa(){
+		logger.debug("updateEtapa-monitoreoProcesosVO:"+monitoreoProcesosVO);
+//		monitoreoProcesosDTO.setMonitoreoProcesosVO(monitoreoProcesosVO);
+//		monitoreoProcesosDTO = monitoreoProcesosBO.updateCommand(monitoreoProcesosDTO);
+//		armarListaGrid(monitoreoProcesosDTO.getMonitoreoProcesosVOs());
+//		controller.registrarEvento(monitoreoProcesosVO, this.monitoreoProcesosVO, CommandConstants.MODIFICACION,"Monitoreo de Procesos");
+//		org.zkoss.zul.Messagebox.show("Registro actualizado con exito!!",
+//				"Confirmación", org.zkoss.zul.Messagebox.OK,
+//				org.zkoss.zul.Messagebox.INFORMATION);
 	}
 	/**
 	 * Armar lista grid.
@@ -1202,7 +1329,8 @@ public class MonitoreoProcesosController extends ControllerSupport implements  I
 	/**
 	 * Read with filters.
 	 */
-	@Command 
+	@Command
+	@GlobalCommand
 	@NotifyChange({ "monitoreoProcesosVOs", "procesoVOs" })
 	public void readWithFilters() {
 		if(fechaInicio.getValue().compareTo(fechaFin.getValue()) > 0 ){
@@ -1222,26 +1350,26 @@ public class MonitoreoProcesosController extends ControllerSupport implements  I
 			monitoreoProcesosVO.setIdEstatusMapeador((Integer.parseInt(idEstatus.getValue().isEmpty()?"0":idEstatus.getValue())));
 			
 			//Fechas
-			DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+			DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 			monitoreoProcesosVO.setFechaInicio(dateFormat.format(fechaInicio.getValue()));
 			monitoreoProcesosVO.setFechaFin(dateFormat.format(fechaFin.getValue()));
 			ArrayList<Integer> estados = new ArrayList<Integer>();
 			int []arregloEstados;
 			if(!todos.isChecked()) {
 				if(exito.isChecked()) {
-					estados.add(CommandConstants.ESTADO_EXITO_PROCESO);
+					estados.add(CommandConstants.PROCESO_EXITO_VERDE);
 					logger.info("::::::::::::8");
 				}
 				if(error.isChecked()) {
-					estados.add(CommandConstants.ESTADO_ERROR_PROCESO);
+					estados.add(CommandConstants.PROCESO_ERROR_ROJO);
 					logger.info("::::::::::::9");
 				}
 				if(finaliza.isChecked()) {
-					estados.add(CommandConstants.ESTADO_FINALIZA_USUARIO_PROCESO);
+					estados.add(CommandConstants.PROCESO_FINALIZA_USUARIO_AZUL);
 					logger.info("::::::::::::10");
 				}
 				if(espera.isChecked()) {
-					estados.add(CommandConstants.ESTADO_ESPERA_PROCESO);
+					estados.add(CommandConstants.PROCESO_ESPERA_AMARILLO);
 					logger.info("::::::::::::11");
 				}
 				if(estados.size()>0){
@@ -1259,10 +1387,10 @@ public class MonitoreoProcesosController extends ControllerSupport implements  I
 			monitoreoProcesosDTO.setMonitoreoProcesosVO(monitoreoProcesosVO);
 			monitoreoProcesosDTO.toString(BbvaAbstractDataTransferObject.XML);	
 			
-			monitoreoProcesosDTO.setTipoReporte(CommandConstants.CANAL_CLIENTE_PRODUCTO);
+			monitoreoProcesosDTO.setTipoReporte(Integer.parseInt(criterios.getSelectedItem().getValue().toString()));
 			
 			armarListaGrid(monitoreoProcesosDTO);
-			
+			controller.registrarEvento(monitoreoProcesosVO, monitoreoProcesosVO, CommandConstants.CONSULTAR,"Monitoreo de Procesos");
 //			//LLamada a BO  MonitoreoProcesosBO para consulta por criterio
 //			MonitoreoProcesosBO monitoreoProcesosBO = new MonitoreoProcesosBO();
 //			
@@ -1299,21 +1427,15 @@ public class MonitoreoProcesosController extends ControllerSupport implements  I
 	 * @see mx.com.bbva.mapeador.ui.commons.controller.IController#save()
 	 */
 	@Override
-	@Command
-	@NotifyChange({ "monitoreoProcesosVOs" , "procesoVOs"})
+	@Command	
 	public void save() {
 		ReportesController controller = new ReportesController();
-		//LLamada a BO  MonitoreoProcesosBO para consulta por criterio
-//		System.out.println(etapaVO.getIdContratacion());
-//		System.out.println(etapaVO.getIdFlujo());
-//		System.out.println(etapaVO.getIdEtapa());
 		MonitoreoProcesosBO monitoreoProcesosBO = new MonitoreoProcesosBO();
 		MonitoreoProcesosVO monitoreoProcesosVO = new MonitoreoProcesosVO();
 		monitoreoProcesosVO.setIdContratacion(Integer.parseInt(idContratacion.getValue()));
 		monitoreoProcesosVO.setIdFlujo(Integer.parseInt(idFlujo.getValue()));
 		monitoreoProcesosVO.setIdEtapa(Integer.parseInt(idEtapa.getValue()));
 		monitoreoProcesosDTO.setMonitoreoProcesosVO(monitoreoProcesosVO);
-		//Asignacion resultado de consulta al mismo DTO de MonitoreoProcesos
 		monitoreoProcesosDTO = monitoreoProcesosBO.updateCommand(monitoreoProcesosDTO);
 		armarListaGrid(monitoreoProcesosDTO.getMonitoreoProcesosVOs());
 		controller.registrarEvento(monitoreoProcesosVO, this.monitoreoProcesosVO, CommandConstants.MODIFICACION,"Monitoreo de Procesos");

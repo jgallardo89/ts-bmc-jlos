@@ -461,12 +461,11 @@
 			overflow:auto;
 		}
 		.sClassArchivos{
-		overflow: hidden;
+			overflow: hidden;
 			padding: 0 0 0 2px;
 			position: relative;
 			white-space: nowrap;
-			background: none no-repeat scroll 99% center transparent;
-			cursor: pointer;
+			background: none no-repeat scroll 99% center transparent;			
 			padding-right: 9px;						   
 		    font-family: arial,sans-serif;
 		    font-size: 12px;
