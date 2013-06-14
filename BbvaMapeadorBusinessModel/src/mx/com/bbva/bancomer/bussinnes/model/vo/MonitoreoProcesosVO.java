@@ -45,6 +45,23 @@ public class MonitoreoProcesosVO extends BbvaAbstractValueObject {
 	/** The estados. */
 	private int estados[];
 	
+	/** The tipoReporte. */
+	private int tipoReporte;
+	
+	/**
+	 * @return the tipoReporte
+	 */
+	public final int getTipoReporte() {
+		return tipoReporte;
+	}
+
+	/**
+	 * @param tipoReporte the tipoReporte to set
+	 */
+	public final void setTipoReporte(int tipoReporte) {
+		this.tipoReporte = tipoReporte;
+	}
+
 	/** The fecha fin. */
 	private String fechaFin;
 	
