@@ -79,10 +79,14 @@ import org.zkoss.zul.Textbox;
 public class ComponenteController extends ControllerSupport implements  IController{
 
 	/** The Constant logger. */
-	private static final Logger logger = Logger.getLogger(PantallaController.class);
+	private static final Logger logger = Logger.getLogger(ComponenteController.class);
 	
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -3505275489025917085L;
+	
+	/** The nombre Pantalla */
+	private static final String nombrePantalla="Componentes";	
+	
 		
 	/** The componente dto. */
 	private ComponenteDTO componenteDTO =  (ComponenteDTO) this.read();
@@ -233,6 +237,7 @@ public class ComponenteController extends ControllerSupport implements  IControl
 	@Override
 	@Command
 	public void delete() {
+		
 		logger.debug("Eliminando registro:"+idComponente.getValue());
 		if(!idComponente.getValue().isEmpty()){
 			org.zkoss.zul.Messagebox.show(
@@ -241,13 +246,15 @@ public class ComponenteController extends ControllerSupport implements  IControl
 					org.zkoss.zul.Messagebox.QUESTION, new EventListener<Event>() {
 						@Override
 						public void onEvent(Event event) throws Exception {
+							ReportesController controller = new ReportesController();
 							ComponenteDTO componenteDTO = new ComponenteDTO();
 							ComponenteVO componenteVO = new ComponenteVO();
 							componenteVO.setIdComponente(Integer.parseInt(idComponente.getValue().isEmpty()?"0":idComponente.getValue()));
 							componenteDTO.setComponenteVO(componenteVO);
 							ComponenteBO componenteBO = new ComponenteBO();
 							componenteDTO.toString(BbvaAbstractDataTransferObject.XML);
-							componenteBO.deleteCommand(componenteDTO); 
+							componenteBO.deleteCommand(componenteDTO);
+							controller.registrarEvento(null, null, CommandConstants.ELIMINACION,nombrePantalla);
 							clean();
 							BindUtils
 									.postGlobalCommand(
@@ -415,9 +422,9 @@ public class ComponenteController extends ControllerSupport implements  IControl
 		headersReport.add("Tipo componente");
 		headersReport.add("Default");		
 		if(type.equals("xls")) {
-			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_EXCEL,"Catálogo Componentes");
+			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_EXCEL,nombrePantalla);
 		} else {
-			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_TEXTO,"Catálogo Componentes");
+			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_TEXTO,nombrePantalla);
 		}
 		controller.createReport(generaLista(), headersReport, type, "COMPONENTES");
 	}
@@ -502,7 +509,7 @@ public class ComponenteController extends ControllerSupport implements  IControl
 		}
 		//Asignacion de la lista a la variable global de la clase
 		ReportesController controller = new ReportesController();
-		controller.registrarEvento(null, null, CommandConstants.CONSULTAR,"Catálogo Componentes");
+		controller.registrarEvento(null, null, CommandConstants.CONSULTAR,nombrePantalla);
 		componenteVOs = componenteDTO.getComponenteVOs();
 		
 	}
@@ -570,6 +577,10 @@ public class ComponenteController extends ControllerSupport implements  IControl
 				
 				ComponenteBO componenteBO = new ComponenteBO();
 				componenteBO.updateCommand(componenteDTO);
+
+				ReportesController controller = new ReportesController();
+				controller.registrarEvento(componenteVO, this.componenteDTO.getComponenteVO(), CommandConstants.MODIFICACION,nombrePantalla);
+
 				clean();			
 				
 				//Textbox
@@ -580,8 +591,6 @@ public class ComponenteController extends ControllerSupport implements  IControl
 	
 				componenteDTO.setComponenteVO(componenteVO);
 				componenteDTO.toString(BbvaAbstractDataTransferObject.XML);	
-				ReportesController controller = new ReportesController();
-				controller.registrarEvento(componenteVO, this.componenteDTO.getComponenteVO(), CommandConstants.MODIFICACION,"Catálogo Componentes");
 				
 				//Asignacion resultado de consulta al mismo DTO de Componente
 				componenteDTO = componenteBO.readCommand(componenteDTO);
@@ -606,6 +615,17 @@ public class ComponenteController extends ControllerSupport implements  IControl
 				
 				ComponenteBO componenteBO = new ComponenteBO();
 				componenteBO.createCommand(componenteDTO);
+				
+				ReportesController controller = new ReportesController();
+				
+				ComponenteVO componenteNuevo = new ComponenteVO();
+				componenteNuevo.setIdComponente(-1);
+				componenteNuevo.setIdPantalla(-1);
+				componenteNuevo.setNombreComponente("");
+				componenteNuevo.setIdTipoComponente(-1);
+				componenteNuevo.setIdDefault("");	
+				
+				controller.registrarEvento(componenteVO, componenteNuevo, CommandConstants.ALTA,nombrePantalla);
 				clean();	
 				//Textbox
 				componenteVO.setNombreComponente(null);
@@ -618,8 +638,7 @@ public class ComponenteController extends ControllerSupport implements  IControl
 	
 				componenteDTO.setComponenteVO(componenteVO);
 				componenteDTO.toString(BbvaAbstractDataTransferObject.XML);	
-				ReportesController controller = new ReportesController();
-				controller.registrarEvento(componenteVO, this.componenteDTO.getComponenteVO(), CommandConstants.ALTA,"Catálogo Componentes");
+
 				//Asignacion resultado de consulta al mismo DTO de Componente
 				componenteDTO = componenteBO.readCommand(componenteDTO);
 				

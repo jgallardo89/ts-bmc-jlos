@@ -67,8 +67,17 @@ import org.zkoss.zul.Textbox;
 public class TipoComponenteController extends ControllerSupport implements
 		IController {
 
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4795789725353243716L;
+
 	/** The execute permission set. */
 	private boolean executePermissionSet;
+	
+	/** The nombre Pantalla */
+	private static final String nombrePantalla="Tipos Componente";	
 	
 	/** The guardar btn. */
 	@Wire
@@ -214,9 +223,9 @@ public class TipoComponenteController extends ControllerSupport implements
 		headersReport.add("Identificador Tipo Componente");
 		headersReport.add("Nombre Tipo Componente");		
 		if(type.equals("xls")) {
-			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_EXCEL,"Tipo Componente");
+			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_EXCEL,nombrePantalla);
 		} else {
-			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_TEXTO,"Tipo Componente");
+			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_TEXTO,nombrePantalla);
 		}
 		controller.createReport(generaLista(), headersReport, type, "TIPO-COMPONENTE");				
 	}
@@ -283,13 +292,17 @@ public class TipoComponenteController extends ControllerSupport implements
 			if(existe==0){
 				if(idTipoComponente.getValue()!=0){
 					tipoComponenteBO.updateCommand(tipoComponenteDTO);
-					reportesController.registrarEvento(tipoComponenteVO, this.tipoComponenteVO, CommandConstants.MODIFICACION, "TIPO-COMPONENTE");
+					
+					reportesController.registrarEvento(tipoComponenteVO, this.tipoComponenteVO, CommandConstants.MODIFICACION, nombrePantalla);
 					Messagebox.show("El registro se actualizó con exito",
 							"Información", Messagebox.OK,
 							Messagebox.INFORMATION);
 				}else{
 					tipoComponenteBO.createCommand(tipoComponenteDTO);
-					reportesController.registrarEvento(null, null, CommandConstants.ALTA, "TIPO-COMPONENTE");
+					TipoComponenteVO tipoComponenteNuevo = new TipoComponenteVO();
+					tipoComponenteNuevo.setIdTipoComponente(-1);
+					tipoComponenteNuevo.setNombreTipoComponente("");						
+					reportesController.registrarEvento(tipoComponenteVO, tipoComponenteNuevo, CommandConstants.ALTA, nombrePantalla);
 					Messagebox.show("El registro se creó con exito",
 							"Información", Messagebox.OK,
 							Messagebox.INFORMATION);
@@ -297,6 +310,14 @@ public class TipoComponenteController extends ControllerSupport implements
 				clean();
 				tipoComponenteVOs = ((TipoComponenteDTO)this.read()).getTipoComponenteVOs();
 			}else{
+				if(idTipoComponente.getValue()!=0){
+					reportesController.registrarEvento(tipoComponenteVO, this.tipoComponenteVO, CommandConstants.MODIFICACION_FALLIDA, nombrePantalla);
+				} else {
+					TipoComponenteVO tipoComponenteNuevo = new TipoComponenteVO();
+					tipoComponenteNuevo.setIdTipoComponente(-1);
+					tipoComponenteNuevo.setNombreTipoComponente("");
+					reportesController.registrarEvento(tipoComponenteVO, tipoComponenteNuevo, CommandConstants.ALTA_FALLIDA, nombrePantalla);
+				}
 				Messagebox.show("El tipo de componente ya existe",
 						"Error", Messagebox.OK,
 						Messagebox.ERROR);
