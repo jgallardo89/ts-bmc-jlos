@@ -347,12 +347,15 @@ public class MonitoreoArchivosController extends ControllerSupport implements  I
 		monitoreoArchivosDTO = monitoreoArchivosBO.readCommand(monitoreoArchivosDTO);
 		estadoArchivoDTO = estadoArchivoBO.readCommand(estadoArchivoDTO);
 		List<MonitoreoArchivosVO> monitoreoArchivosVOsLocal = monitoreoArchivosDTO.getMonitoreoArchivosVOs();
-		long estadoArchivo;
+		long estadoArchivoHijo;
+		long estadoArchivoPapa;
 		for (MonitoreoArchivosVO monitoreoArchivosVOLocal : monitoreoArchivosVOsLocal) {
-			estadoArchivo = monitoreoArchivosVOLocal.getIdEstadoArchivoHijo();
-			if(estadoArchivo!=4 && estadoArchivo!=5 && estadoArchivo!=9){
+			estadoArchivoHijo = monitoreoArchivosVOLocal.getIdEstadoArchivoHijo();
+			estadoArchivoPapa = monitoreoArchivosVOLocal.getIdEstadoArchivoPapa();
+			if(estadoArchivoHijo!=4 && estadoArchivoHijo!=5 && estadoArchivoHijo!=9 &&
+					estadoArchivoPapa!=4 && estadoArchivoPapa!=5 && estadoArchivoPapa!=9){
 				monitoreoArchivosVOLocal.setUrlImagenReproceso("/img/valid.jpg");
-			}else if(estadoArchivo==4){
+			}else if(estadoArchivoHijo==4 || estadoArchivoPapa==4){
 				monitoreoArchivosVOLocal.setUrlImagenReproceso("/img/Cancel.png");
 			}
 		}
@@ -383,14 +386,27 @@ public class MonitoreoArchivosController extends ControllerSupport implements  I
 
 		MonitoreoArchivosVO monitoreoArchivosVO = new MonitoreoArchivosVO(); 
 		
-		monitoreoArchivosVO.setIdEstadoArchivoPapa((Integer.parseInt(idEstatusPapa.getValue().isEmpty()?"0":idEstatusPapa.getValue())));
-		monitoreoArchivosVO.setIdEstadoArchivoHijo((Integer.parseInt(idEstatusHijo.getValue().isEmpty()?"0":idEstatusHijo.getValue())));
+		monitoreoArchivosVO.setIdEstadoArchivoPapa((Integer.parseInt(statusPapa.getSelectedItem()==null?"0":statusPapa.getSelectedItem().getValue().toString())));
+		monitoreoArchivosVO.setIdEstadoArchivoHijo((Integer.parseInt(statusHijo.getSelectedItem()==null?"0":statusHijo.getSelectedItem().getValue().toString())));
 		monitoreoArchivosDTO.setMonitoreoArchivosVO(monitoreoArchivosVO);
 		monitoreoArchivosDTO.toString(BbvaAbstractDataTransferObject.XML);
 		
 		MonitoreoArchivosBO monitoreoArchivosBO = new MonitoreoArchivosBO();
 		monitoreoArchivosDTO = monitoreoArchivosBO.readCommand(monitoreoArchivosDTO);
-		
+		List<MonitoreoArchivosVO> monitoreoArchivosVOsLocal = monitoreoArchivosDTO.getMonitoreoArchivosVOs();
+		long estadoArchivoHijo;
+		long estadoArchivoPapa;
+		for (MonitoreoArchivosVO monitoreoArchivosVOLocal : monitoreoArchivosVOsLocal) {
+			estadoArchivoHijo = monitoreoArchivosVOLocal.getIdEstadoArchivoHijo();
+			estadoArchivoPapa = monitoreoArchivosVOLocal.getIdEstadoArchivoPapa();
+			if(estadoArchivoHijo!=4 && estadoArchivoHijo!=5 && estadoArchivoHijo!=9 &&
+					estadoArchivoPapa!=4 && estadoArchivoPapa!=5 && estadoArchivoPapa!=9){
+				monitoreoArchivosVOLocal.setUrlImagenReproceso("/img/valid.jpg");
+			}else if(estadoArchivoHijo==4 || estadoArchivoPapa==4){
+				monitoreoArchivosVOLocal.setUrlImagenReproceso("/img/Cancel.png");
+			}
+		}
+		monitoreoArchivosDTO.setMonitoreoArchivosVOs(monitoreoArchivosVOsLocal);
 		monitoreoArchivosVOs = monitoreoArchivosDTO.getMonitoreoArchivosVOs();
 	}
 
