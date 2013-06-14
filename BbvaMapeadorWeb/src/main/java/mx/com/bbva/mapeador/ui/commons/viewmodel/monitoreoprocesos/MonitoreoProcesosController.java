@@ -69,6 +69,7 @@ import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.NotifyChange;
+import org.zkoss.zhtml.Messagebox;
 import org.zkoss.zhtml.Table;
 import org.zkoss.zhtml.Tbody;
 import org.zkoss.zhtml.Td;
@@ -101,7 +102,7 @@ public class MonitoreoProcesosController extends ControllerSupport implements  I
 	private MonitoreoProcesosVO monitoreoProcesosVO1;
 	/** The Constant logger. */
 	private static final Logger logger = Logger.getLogger(MonitoreoProcesosController.class);
-	
+	private MonitoreoProcesosDTO monitoreoProcesosDTOUpdate;
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	
@@ -602,12 +603,12 @@ public class MonitoreoProcesosController extends ControllerSupport implements  I
 				image.setAutag(data);
 				image.addEventListener("onClick", new EventListener<Event>() {
 					@Override
-					public void onEvent(Event event) throws Exception {
-						MonitoreoProcesosBO monitoreoProcesosBO = new MonitoreoProcesosBO();
-						MonitoreoProcesosDTO monitoreoProcesosDTOUpdate = new MonitoreoProcesosDTO();
-						ReportesController  controller = new ReportesController();
+					public void onEvent(Event event) throws Exception {						
+						final MonitoreoProcesosBO monitoreoProcesosBO = new MonitoreoProcesosBO();
+						monitoreoProcesosDTOUpdate = new MonitoreoProcesosDTO();
+						final ReportesController  controller = new ReportesController();
 						logger.debug("target:"+	event.getTarget());
-						MonitoreoProcesosVO monitoreoProcesosVO;						
+						final MonitoreoProcesosVO monitoreoProcesosVO;						
 						logger.debug("monitoreoProcesosVO..to..update:"+event.getTarget().getAutag());
 						
 						String[] valuesToUpdate = event.getTarget().getAutag().split("-");
@@ -620,11 +621,21 @@ public class MonitoreoProcesosController extends ControllerSupport implements  I
 						monitoreoProcesosVO.setIdEtapa(Long.parseLong(valuesToUpdate[2]));
 						monitoreoProcesosVO.setIdRegArchEntra(Long.parseLong(valuesToUpdate[3]));
 						monitoreoProcesosDTOUpdate.setMonitoreoProcesosVO(monitoreoProcesosVO);
-						monitoreoProcesosDTOUpdate = monitoreoProcesosBO.updateCommand(monitoreoProcesosDTOUpdate);
-						MonitoreoProcesosVO monitoreoProcesosVOAnt = monitoreoProcesosVO;
-						monitoreoProcesosVOAnt.setIdEstatusMapeador(CommandConstants.PROCESO_ERROR_ROJO);
-						controller.registrarEvento(monitoreoProcesosVO, monitoreoProcesosVOAnt, CommandConstants.MODIFICACION,"Monitoreo de Procesos");
-						BindUtils.postGlobalCommand(null, null, "readWithFilters", null);
+						Messagebox.show("¿Está seguro que desea actualizar el estatus?",
+								"Pregunta", org.zkoss.zul.Messagebox.YES | org.zkoss.zul.Messagebox.NO,
+								org.zkoss.zul.Messagebox.QUESTION, new EventListener<Event>() {
+							@Override
+							public void onEvent(Event event) throws Exception {
+								monitoreoProcesosDTOUpdate = monitoreoProcesosBO.updateCommand(monitoreoProcesosDTOUpdate);
+								MonitoreoProcesosVO monitoreoProcesosVOAnt = monitoreoProcesosVO;
+								monitoreoProcesosVOAnt.setIdEstatusMapeador(CommandConstants.PROCESO_ERROR_ROJO);
+								controller.registrarEvento(monitoreoProcesosVO, monitoreoProcesosVOAnt, CommandConstants.MODIFICACION,"Monitoreo de Procesos");
+								BindUtils.postGlobalCommand(null, null, "readWithFilters", null);
+								Messagebox.show("Registro actualizado con exito!!",
+										"Confirmación", org.zkoss.zul.Messagebox.OK,
+										org.zkoss.zul.Messagebox.INFORMATION);
+							}
+						});	
 					}
 				});
 				td6.setStyle("cursor: pointer;");
