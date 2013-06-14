@@ -882,7 +882,7 @@ public class ContratacionController extends ControllerSupport implements IContro
 		ContratacionBO contratacionBO = new ContratacionBO();
 		contratacionVOs = contratacionBO.readCommand(contratacionDTO).getContratacionVOs();
 		botonEditar = true;
-		registraBitacora(contratacionVO, 2);		
+		registraBitacora(contratacionVO, CommandConstants.CONSULTAR);		
 	}
 
 	/**
@@ -972,7 +972,7 @@ public class ContratacionController extends ControllerSupport implements IContro
 					contratacionDTO.setContratacionVO(contratacionVO);
 					contratacionBO = new ContratacionBO();
 					contratacionVOs = contratacionBO.readCommand(contratacionDTO).getContratacionVOs();
-					
+					registraBitacora(contratacionVO, CommandConstants.ALTA);
 					disabledComponents();
 					botonGuardarModal = true;
 					org.zkoss.zul.Messagebox.show("!El Registro de la Contratación fue exitoso!",
@@ -1002,6 +1002,7 @@ public class ContratacionController extends ControllerSupport implements IContro
 					contratacionBO = new ContratacionBO();
 					contratacionVOs = contratacionBO.readCommand(contratacionDTO).getContratacionVOs();
 					botonGuardarModal = true;
+					registraBitacora(contratacionVO, CommandConstants.MODIFICACION);
 					org.zkoss.zul.Messagebox.show("!La Actualización del Estado de la Contratación fue exitoso!",
 							"Información", org.zkoss.zul.Messagebox.OK,
 							org.zkoss.zul.Messagebox.INFORMATION);

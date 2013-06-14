@@ -29,14 +29,18 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package mx.com.bbva.mapeador.ui.commons.viewmodel.contratacion;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
+import mx.com.bbva.bancomer.bitacora.dto.BitacoraDTO;
+import mx.com.bbva.bancomer.bitacora.dto.CampoDTO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.ContratacionMapVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.ContratacionVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.MapaGmmVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.MensajeSalidaVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.UsuarioNotificacionVO;
+import mx.com.bbva.bancomer.commons.command.CommandConstants;
 import mx.com.bbva.bancomer.contratacion.dto.ContratacionDTO;
 import mx.com.bbva.bancomer.contratacionmap.dto.ContratacionMapDTO;
 import mx.com.bbva.bancomer.mapper.business.ContratacionMapeadorBO;
@@ -47,6 +51,7 @@ import mx.com.bbva.bancomer.mappers.mapagmm.dto.MapaGmmDTO;
 import mx.com.bbva.bancomer.mensajesalida.dto.MensajeSalidaDTO;
 import mx.com.bbva.bancomer.usuarionotificacion.dto.UsuarioNotificacionDTO;
 import mx.com.bbva.mapeador.ui.commons.controller.IController;
+import mx.com.bbva.mapeador.ui.commons.viewmodel.support.ControllerSupport;
 
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.Command;
@@ -71,7 +76,7 @@ import org.zkoss.zul.Window;
 /**
  * The Class FlujoContratacionController.
  */
-public class FlujoContratacionController extends Div  implements IController, IdSpace {
+public class FlujoContratacionController extends Div implements IController, IdSpace {
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -7046754339941749911L;
@@ -709,6 +714,7 @@ public class FlujoContratacionController extends Div  implements IController, Id
 			if(Sessions.getCurrent().getAttribute("idContratacionReg") != null || idTransaccion.getValue().equals("0")) {
 				contratacionMapDTO.setContratacionMapVO(contratacionMapVO);
 				contratacionMapeadorBO.createCommand(contratacionMapDTO);
+				registraBitacora(contratacionMapVO, CommandConstants.ALTA);
 				org.zkoss.zul.Messagebox.show("!La Contratación fue guardada exitosamente!",
 						"Información", org.zkoss.zul.Messagebox.OK,
 						org.zkoss.zul.Messagebox.INFORMATION);
@@ -717,12 +723,34 @@ public class FlujoContratacionController extends Div  implements IController, Id
 				contratacionMapVO.setIdContratacion(Integer.parseInt(idContratacion.getValue()));
 				contratacionMapDTO.setContratacionMapVO(contratacionMapVO);
 				contratacionMapeadorBO.updateCommand(contratacionMapDTO);
+				registraBitacora(contratacionMapVO, CommandConstants.MODIFICACION);
 				org.zkoss.zul.Messagebox.show("!La Actualización de la Contratación fue exitosa!",
 						"Información", org.zkoss.zul.Messagebox.OK,
 						org.zkoss.zul.Messagebox.INFORMATION);
 			}
 		}
 	}
+	
+	/**
+	 * Registra bitacora.
+	 *
+	 * @param contratacionVO the contratacion vo
+	 * @param evento the evento
+	 */
+	private void registraBitacora(ContratacionMapVO contratacionMapVO, int evento) {
+		List<CampoDTO> campoDTOs = new ArrayList<CampoDTO>(); 
+		BitacoraDTO dto = new BitacoraDTO();
+		Field[] atributos = contratacionMapVO.getClass().getFields(); 
+		for (int i = 0; i < atributos.length; i++) {
+			CampoDTO campo = new CampoDTO();
+			campo.setNombre_campo(atributos[i].getName()); 
+			campoDTOs.add(campo);
+		}		
+		dto.setCampoDTOs(campoDTOs);
+		ControllerSupport controllerSupport = new ControllerSupport();
+		controllerSupport.registraEvento(dto, "Contratación", evento);
+	}
+	
 	
 	/**
 	 * Sets the boton editar.
