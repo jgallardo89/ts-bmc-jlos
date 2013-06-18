@@ -257,7 +257,7 @@
 			  tgm519_cntratacion cn,
 			  tgm536_reg_arch_en ra,
 			  tgm517_etapa eta
-			WHERE stp.cd_contratacion = cn.cd_contratacion
+			WHERE stp.cd_contratacion(+) = cn.cd_contratacion
 			AND stp.cd_reg_arch_entra = ra.cd_reg_arch_entra
 			AND stp.cd_etapa          = eta.cd_etapa
 			and cn.cd_canal = #{idCanal}
