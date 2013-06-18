@@ -12,8 +12,8 @@
 			<groupbox height="100%">
 				<caption sclass="pageTitle" label="Notificaciones > Mensajes Sistema"></caption>		
 					<vlayout>
-					<groupbox>
-						<panel height="40%" width="100%" sclass="sectionPanelTitle" id="datosMensajes"
+					<groupbox height="320px">
+						<panel height="100%" width="100%" sclass="sectionPanelTitle" id="datosMensajes"
 							title="Notificaciones" collapsible="true" style="margin-bottom:10px"
 							border="normal">
 							<caption sclass="sectionPanelTitle" label="Mensajes de Notificación"></caption>

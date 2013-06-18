@@ -13,8 +13,8 @@
 			<groupbox height="100%">
 				<caption sclass="pageTitle" label="Monitoreo > Procesos"></caption>		
 					<vlayout>
-						<groupbox>
-						<panel height="30%" width="100%" sclass="sectionPanelTitle" id="datosMonitoreoProcesos"
+						<groupbox height="460px">
+						<panel height="100%" width="100%" sclass="sectionPanelTitle" id="datosMonitoreoProcesos"
 							title="Monitoreo" collapsible="true" style="margin-bottom:10px"
 							border="normal">
 							<caption sclass="sectionPanelTitle" label="Monitoreo de Procesos"></caption>

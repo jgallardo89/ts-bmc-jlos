@@ -12,7 +12,7 @@
 			<groupbox height="100%" apply="mx.com.bbva.mapeador.ui.commons.viewmodel.contratacion.ContratacionController">
 				<caption sclass="pageTitle" label="Contratación"></caption>		
 					<vlayout>
-					<groupbox>
+					<groupbox height="230px">
 						<panel width="100%" sclass="sectionPanelTitle" id="datosContratacion"
 							title="Contratacion" collapsible="true" style="margin-bottom:10px"
 							border="normal">
@@ -94,26 +94,16 @@
 												<div align="right"/>
 												<div align="right"/>																										
 											</row>
-											<row sclass="row2">
-												<div align="right" width="70%">
-													<image id="imgXLSReport" src="/img/xls.png" onClick="@command('onShowReport',type='xls')" />
-													<image id="imgCSVReport" src="/img/csv.png" onClick="@command('onShowReport',type='csv')" />
-												</div>
-												<div align="right" width="70%">
-													<button sclass="button" image="/img/clear.png"  label="Limpiar" id="limpiarBtn" onClick="@command('clean')" ></button>
-												</div>
-												<div align="right" width="70%">
-													<button sclass="button" image="/img/search.png" label="Consultar" id="consultarBtn" onClick="@command('readWithFilters')"></button>
-												</div>
-												<div align="right" width="70%">
-													<button sclass="button" image="/img/disk.png" label="Editar" id="editarBtn" disabled="@load(vm.botonEditar)" onClick="@command('editaContratacion')"></button>
-												</div>
-												<div align="right" width="70%">
-													<button sclass="button" image="/img/disk.png" disabled="@load(vm.botonGuardar)" label="Nueva" id="nuevaBtn" onClick="@command('nuevaContratacion',contratacion='nueva')"></button>
-												</div>			
-											</row>
-										</rows>								
+										</rows>																														
 									</grid>
+									<div align="center">
+										<image id="imgXLSReport" src="/img/xls.png" onClick="@command('onShowReport',type='xls')" />
+										<image id="imgCSVReport" src="/img/csv.png" onClick="@command('onShowReport',type='csv')" />
+										<button sclass="button" image="/img/clear.png"  label="Limpiar" id="limpiarBtn" onClick="@command('clean')" ></button>
+										<button sclass="button" image="/img/search.png" label="Consultar" id="consultarBtn" onClick="@command('readWithFilters')"></button>
+										<button sclass="button" image="/img/disk.png" label="Editar" id="editarBtn" disabled="@load(vm.botonEditar)" onClick="@command('editaContratacion')"></button>
+										<button sclass="button" image="/img/disk.png" disabled="@load(vm.botonGuardar)" label="Nueva" id="nuevaBtn" onClick="@command('nuevaContratacion',contratacion='nueva')"></button>
+									</div>
 									<textbox id="idEstatusObjeto" value="@load(vm.contratacionDTO.contratacionVO.idEstatusObjeto)" visible="false"/>
 									<textbox id="idCanal" value="@load(vm.contratacionDTO.contratacionVO.idCanal)" visible="false"/>
 									<textbox id="idCanalSalida" value="@load(vm.contratacionDTO.contratacionVO.idCanalSalida)" visible="false"/>

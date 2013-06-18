@@ -12,8 +12,8 @@
 			<groupbox height="100%">
 				<caption sclass="pageTitle" label="Sistemas > Pantallas"></caption>		
 					<vlayout>
-						<groupbox>
-						<panel height="30%" width="100%" sclass="sectionPanelTitle" id="datosPantalla"
+						<groupbox height="200px">
+						<panel height="100%" width="100%" sclass="sectionPanelTitle" id="datosPantalla"
 							title="Sistemas" collapsible="true" style="margin-bottom:10px"
 							border="normal">
 							<caption sclass="sectionPanelTitle" label="Catálogo Pantallas"></caption>
@@ -69,24 +69,16 @@
 														<comboitem value="@load(each.idEstatusObjeto)" label="@load(each.nombreEstatusObjeto)" height="100%"/>
 													</template>																								
 												</combobox>		
-											</row>
-											<row sclass="row2">	
-												<div align="right" width="70%">
-													<image id="reporteExcelBtn" src="/img/xls.png" onClick="@command('onShowReport',type='xls')" />
-													<image id="reporteCsvBtn" src="/img/csv.png" onClick="@command('onShowReport',type='csv')" />
-												</div>							
-												<div align="right" width="70%">
-													<button sclass="button" image="/img/clear.png" label="Limpiar" id="limpiarBtn" onClick="@command('clean')" ></button>
-												</div>	
-												<div align="right" width="70%">
-													<button sclass="button" image="/img/disk.png" label="Guardar" id="guardarBtn" onClick="@command('save')"></button>
-												</div>
-												<div align="right" width="70%">
-													<button sclass="button" image="/img/search.png" label="Consultar" id="consultarBtn" onClick="@command('readWithFilters')"></button>
-												</div>
-											</row>
-										</rows>								
+											</row>																						
+										</rows>																	
 									</grid>
+									<div align="center">
+										<image id="reporteExcelBtn" src="/img/xls.png" onClick="@command('onShowReport',type='xls')" />
+										<image id="reporteCsvBtn" src="/img/csv.png" onClick="@command('onShowReport',type='csv')" />
+										<button sclass="button" image="/img/clear.png" label="Limpiar" id="limpiarBtn" onClick="@command('clean')" ></button>
+										<button sclass="button" image="/img/disk.png" label="Guardar" id="guardarBtn" onClick="@command('save')"></button>
+										<button sclass="button" image="/img/search.png" label="Consultar" id="consultarBtn" onClick="@command('readWithFilters')"></button>
+									</div>
 								</div>
 							</panelchildren>										
 						</panel>

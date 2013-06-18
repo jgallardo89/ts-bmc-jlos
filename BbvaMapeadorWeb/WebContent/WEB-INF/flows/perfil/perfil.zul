@@ -8,11 +8,10 @@
 		viewModel="@id('vm') @init('mx.com.bbva.mapeador.ui.commons.viewmodel.perfil.PerfilController')"
 		id="perfilWindows">
 		<include src="../../pages/styles.zul" />
-		<div sclass="BODY" height="100%" width="100%">
-		
+		<div sclass="BODY" height="100%" width="100%">		
 					<vlayout>
-						<groupbox height="100%">
-							<panel vflex="1" width="100%" sclass="sectionPanelTitle" id="datosPerfil"
+						<groupbox height="330px">
+							<panel width="100%" sclass="sectionPanelTitle" id="datosPerfil"
 								title="Seguridad" collapsible="true" style="margin-bottom:10px"
 								border="normal">	
 								<caption sclass="sectionPanelTitle" label="Perfiles"></caption>						

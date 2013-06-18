@@ -12,14 +12,14 @@
 			<groupbox height="100%" width="100%">
 				<caption sclass="pageTitle" label="Notificaciones > Palabras Comodín"></caption>		
 					<vlayout>
-						<groupbox>
-						<panel height="17%" width="100%" sclass="sectionPanelTitle" id="datosPalabrasComodín"
+						<groupbox height="150px">
+						<panel height="100%" width="100%" sclass="sectionPanelTitle" id="datosPalabrasComodín"
 							title="Notificaciones" collapsible="true" style="margin-bottom:10px"
 							border="normal" >
 							<caption sclass="sectionPanelTitle" label="Palabras Comodín"></caption>
 							<panelchildren>
 								<div align="center">
-									<grid width="80%" style="border:0" oddRowSclass="row2" >
+									<grid width="100%" style="border:0" oddRowSclass="row2" >
 										<columns>
 											<column width="25%" />
 											<column width="25%" />
@@ -36,23 +36,15 @@
 												</div>
 												<textbox sclass="textboxUpperCase" maxlength="300"
 													id="descripcionPalabraComodin" value="@load(vm.palabraComodinDTO.palabraComodinVO.descripcionPalabraComodin)" width="70%"></textbox> 																													
-											</row>
-											<row sclass="row2">
-												<div align="right" width="70%">
-													<image id="reporteExcelBtn" src="/img/xls.png" onClick="@command('onShowReport',type='xls')" />
-													<image id="reporteCsvBtn" src="/img/csv.png" onClick="@command('onShowReport',type='csv')" />
-												</div>												
-												<div align="right" width="82%">
-													<button sclass="button" image="/img/clear.png" label="Limpiar" id="limpiarBtn" onClick="@command('clean')" ></button>
-												</div>
-												<div align="right" width="82%">
-													<button sclass="button" image="/img/search.png" label="Consultar" id="consultarBtn" onClick="@command('readWithFilters')"></button>
-												</div>
-												<div align="right">
-												</div>
-											</row>
+											</row>											
 										</rows>								
 									</grid>
+									<div align="center">
+										<image id="reporteExcelBtn" src="/img/xls.png" onClick="@command('onShowReport',type='xls')" />
+										<image id="reporteCsvBtn" src="/img/csv.png" onClick="@command('onShowReport',type='csv')" />
+										<button sclass="button" image="/img/clear.png" label="Limpiar" id="limpiarBtn" onClick="@command('clean')" ></button>
+										<button sclass="button" image="/img/search.png" label="Consultar" id="consultarBtn" onClick="@command('readWithFilters')"></button>
+									</div>
 								</div>
 							</panelchildren>										
 						</panel>

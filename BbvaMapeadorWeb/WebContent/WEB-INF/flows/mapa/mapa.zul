@@ -12,8 +12,8 @@
 			<groupbox height="100%">
 				<caption sclass="pageTitle" label="Catálogos > Mapas"></caption>		
 					<vlayout>
-						<groupbox>
-						<panel height="30%" width="100%" sclass="sectionPanelTitle" id="datosComponente"
+						<groupbox height="200px">
+						<panel height="100%" width="100%" sclass="sectionPanelTitle" id="datosComponente"
 							title="Catálogo" collapsible="true" style="margin-bottom:10px"
 							border="normal">
 							<caption sclass="sectionPanelTitle" label="Catálogo Mapas"></caption>

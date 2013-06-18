@@ -12,8 +12,8 @@
 			<groupbox height="100%">
 				<caption sclass="pageTitle" label="Notificaciones > Usuarios Negocio"></caption>		
 					<vlayout>
-						<groupbox>
-						<panel width="100%" sclass="sectionPanelTitle" id="datosComponente"
+						<groupbox height="200px">
+						<panel width="100%" height="100%" sclass="sectionPanelTitle" id="datosComponente"
 							title="Notificaciones" collapsible="true" style="margin-bottom:10px"
 							border="normal">
 							<caption sclass="sectionPanelTitle" label="Usuarios para Notificación"></caption>

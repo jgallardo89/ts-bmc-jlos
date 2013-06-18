@@ -12,8 +12,8 @@
 			<groupbox height="100%">
 				<caption sclass="pageTitle" label="Seguridad > Usuarios	"></caption>		
 					<vlayout>
-						<groupbox>
-						<panel width="100%" height="23%" sclass="sectionPanelTitle" id="datosOpeDup"
+						<groupbox height="170px">
+						<panel width="100%" height="100%" sclass="sectionPanelTitle" id="datosOpeDup"
 							title="Seguridad" collapsible="true" style="margin-bottom:10px"
 							border="normal">
 							<caption sclass="sectionPanelTitle" label="Usuarios"></caption>

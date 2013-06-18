@@ -13,8 +13,8 @@
 			<groupbox height="100%">
 				<caption sclass="pageTitle" label="Monitoreo > Archivos"></caption>		
 					<vlayout>
-					<groupbox>
-						<panel height="20%" width="100%" sclass="sectionPanelTitle" id="datosArchivos"
+					<groupbox height="130px">
+						<panel height="100%" width="100%" sclass="sectionPanelTitle" id="datosArchivos"
 							title="Monitoreo" collapsible="true" style="margin-bottom:10px"
 							border="normal">
 							<caption sclass="sectionPanelTitle" label="Monitoreo de Archivos"></caption>

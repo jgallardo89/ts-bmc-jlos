@@ -12,8 +12,8 @@
 			<groupbox height="100%" apply="mx.com.bbva.mapeador.ui.commons.viewmodel.admonFlujos.AdmonFlujosController">
 				<caption sclass="pageTitle" label="Catálogos > Flujos"></caption>		
 					<vlayout>
-					<groupbox>
-						<panel height="30%" width="100%" sclass="sectionPanelTitle" id="datosFlujos"
+					<groupbox height="200px">
+						<panel height="100%" width="100%" sclass="sectionPanelTitle" id="datosFlujos"
 							title="Catálogo" collapsible="true" style="margin-bottom:10px"
 							border="normal">
 							<caption sclass="sectionPanelTitle" label="Catálogo Flujos"></caption>
