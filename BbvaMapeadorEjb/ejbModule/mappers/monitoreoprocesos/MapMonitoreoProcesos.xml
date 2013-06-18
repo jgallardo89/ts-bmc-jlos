@@ -175,7 +175,7 @@
 		  tgm512_cliente cliente,
 		  tgm515_producto producto
 		WHERE stp.cd_contratacion = cn.cd_contratacion
-		AND stp.cd_reg_arch_entra = ra.cd_reg_arch_entra
+		AND stp.cd_reg_arch_entra  = ra.cd_reg_arch_entra (+)
 		and stp.cd_etapa          = eta.cd_etapa
 		and canal.cd_canal  = cn.cd_canal
 		and cliente.cd_cliente  = cn.cd_cliente
@@ -223,7 +223,7 @@
 		  stp.nu_lote numeroLote,
 		  eta.nb_etapa nombreEtapa,
 		  stp.cd_Reg_Arch_Entra idRegArchEntra,
-		  ra.nb_reg_arch_entra nombreRegArchEntra,
+		  nvl(ra.nb_reg_arch_entra,'') nombreRegArchEntra,
 		  to_char(stp.tm_st_proceso_ini,'HH:mm:ss') fechaInicio,
 		  to_char(stp.tm_st_proceso_fin,'HH:mm:ss') fechaFin,
 		  stp.cd_st_mapeador idEstatusMapeador		  
@@ -232,7 +232,7 @@
 		  tgm536_reg_arch_en ra,
 		  tgm517_etapa eta
 		WHERE stp.cd_contratacion = cn.cd_contratacion
-		AND stp.cd_reg_arch_entra = ra.cd_reg_arch_entra
+		AND stp.cd_reg_arch_entra = ra.cd_reg_arch_entra (+) 
 		and stp.cd_etapa          = eta.cd_etapa
 		and cn.cd_canal = #{idCanal}
 		and cn.cd_cliente = #{idCliente} 
@@ -257,8 +257,8 @@
 			  tgm519_cntratacion cn,
 			  tgm536_reg_arch_en ra,
 			  tgm517_etapa eta
-			WHERE stp.cd_contratacion(+) = cn.cd_contratacion
-			AND stp.cd_reg_arch_entra = ra.cd_reg_arch_entra
+			WHERE stp.cd_contratacion = cn.cd_contratacion
+			AND stp.cd_reg_arch_entra = ra.cd_reg_arch_entra (+)
 			AND stp.cd_etapa          = eta.cd_etapa
 			and cn.cd_canal = #{idCanal}
 			and cn.cd_cliente = #{idCliente} 
