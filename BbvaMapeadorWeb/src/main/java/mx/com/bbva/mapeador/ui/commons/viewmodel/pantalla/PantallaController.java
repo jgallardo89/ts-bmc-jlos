@@ -717,7 +717,7 @@ public class PantallaController extends ControllerSupport implements  IControlle
 				pantallaVO.setNumeroOrdenPantalla(Integer.parseInt(orden.getValue()));								
 				pantallaVO.setNombrePantalla(nombrePantalla.getValue().toUpperCase().trim());
 				pantallaVO.setDescripcionUrlPantalla(url.getValue().trim());
-				pantallaVO.setDescripcionUrlIcon(icono.getValue().toUpperCase().trim());
+				pantallaVO.setDescripcionUrlIcon(icono.getValue().trim());
 				
 				//Seteo de VO a DTO 
 				pantallaDTO.setPantallaVO(pantallaVO);
