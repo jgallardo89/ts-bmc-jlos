@@ -98,7 +98,7 @@
 									</grid>
 									<div align="center">
 										<image id="imgXLSReport" src="/img/xls.png" onClick="@command('onShowReport',type='xls')" />
-										<image id="imgCSVReport" src="/img/csv.png" onClick="@command('onShowReport',type='csv')" />
+										<image id="imgCSVReport" src="/img/csv.png" onClick="@command('onShowReport',type='bbva.txt')" />
 										<button sclass="button" image="/img/clear.png"  label="Limpiar" id="limpiarBtn" onClick="@command('clean')" ></button>
 										<button sclass="button" image="/img/search.png" label="Consultar" id="consultarBtn" onClick="@command('readWithFilters')"></button>
 										<button sclass="button" image="/img/disk.png" label="Editar" id="editarBtn" disabled="@load(vm.botonEditar)" onClick="@command('editaContratacion')"></button>
