@@ -11,7 +11,7 @@
 		<div sclass="BODY" height="100%" width="100%">
 		<groupbox height="27%" width="100%" apply="mx.com.bbva.mapeador.ui.commons.viewmodel.contratacion.ContratacionController">
 			<panel width="100%" height="100%" sclass="sectionPanelTitle" id="datosContratacion"
-					title="Contratación" collapsible="true" style="margin-bottom:10px"
+					title="Contratación" collapsible="false" style="margin-bottom:10px"
 					border="normal">
 				<caption sclass="sectionPanelTitle" label="Editar Contratación"></caption>
 				<panelchildren>

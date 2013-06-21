@@ -14,7 +14,7 @@
 					<vlayout>
 					<groupbox height="230px">
 						<panel width="100%" sclass="sectionPanelTitle" id="datosContratacion"
-							title="Contratacion" collapsible="true" style="margin-bottom:10px"
+							title="Contratacion" collapsible="false" style="margin-bottom:10px"
 							border="normal">
 							<caption sclass="sectionPanelTitle" label="Contratación"></caption>
 							<panelchildren>
@@ -116,7 +116,7 @@
 					</groupbox>
 					<groupbox>
 						<panel sclass="sectionPanelTitle" width="100%" id="panelContratacion"
-							title="Contratación" collapsible="true"
+							title="Contratación" collapsible="false"
 							style="margin-bottom:10px">
 							<caption sclass="sectionPanelTitle" label="Listado de Contrataciones"></caption>
 							<panelchildren>

@@ -14,7 +14,7 @@
 					<vlayout>
 						<groupbox height="150px">
 						<panel height="100%" width="100%" sclass="sectionPanelTitle" id="datosPalabrasComodín"
-							title="Notificaciones" collapsible="true" style="margin-bottom:10px"
+							title="Notificaciones" collapsible="false" style="margin-bottom:10px"
 							border="normal" >
 							<caption sclass="sectionPanelTitle" label="Palabras Comodín"></caption>
 							<panelchildren>
@@ -51,7 +51,7 @@
 					</groupbox>
 					<groupbox>
 						<panel height="80%" sclass="sectionPanelTitle" width="100%" id="panelPalabraComodin"
-							title="Resultados Palabras Comodín" collapsible="true"
+							title="Resultados Palabras Comodín" collapsible="false"
 							style="margin-bottom:10px">
 							<caption sclass="sectionPanelTitle" label="Listado de Palabras Comodín"></caption>
 							<panelchildren>

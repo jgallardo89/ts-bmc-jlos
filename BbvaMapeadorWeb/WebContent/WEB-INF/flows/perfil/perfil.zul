@@ -12,7 +12,7 @@
 					<vlayout>
 						<groupbox height="330px">
 							<panel width="100%" sclass="sectionPanelTitle" id="datosPerfil"
-								title="Seguridad" collapsible="true" style="margin-bottom:10px"
+								title="Seguridad" collapsible="false" style="margin-bottom:10px"
 								border="normal">	
 								<caption sclass="sectionPanelTitle" label="Perfiles"></caption>						
 								<panelchildren>
@@ -137,7 +137,7 @@
 						</groupbox>						
 						<groupbox height="650px">					
 							<panel height="640px" sclass="sectionPanelTitle" width="100%" id="panelUsuarioMapeador"
-								title="Resultados Perfiles Mapeador" collapsible="true"
+								title="Resultados Perfiles Mapeador" collapsible="false"
 								style="margin-bottom:10px">
 								<caption sclass="sectionPanelTitle" label="Lista de Perfiles"></caption>
 								<panelchildren>

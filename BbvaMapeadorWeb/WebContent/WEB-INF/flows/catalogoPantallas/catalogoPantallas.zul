@@ -14,7 +14,7 @@
 					<vlayout>
 						<groupbox height="200px">
 						<panel height="100%" width="100%" sclass="sectionPanelTitle" id="datosPantalla"
-							title="Sistemas" collapsible="true" style="margin-bottom:10px"
+							title="Sistemas" collapsible="false" style="margin-bottom:10px"
 							border="normal">
 							<caption sclass="sectionPanelTitle" label="Catálogo Pantallas"></caption>
 							<panelchildren>
@@ -85,7 +85,7 @@
 					</groupbox>
 					<groupbox height="410px">
 						<panel height="400px" sclass="sectionPanelTitle" width="100%" id="panelCatalogoPantallas"
-							title="Resultados Catálogo Pantallas" collapsible="true"
+							title="Resultados Catálogo Pantallas" collapsible="false"
 							style="margin-bottom:10px">
 							<caption sclass="sectionPanelTitle" label="Listado de Pantallas"></caption>
 							<panelchildren>

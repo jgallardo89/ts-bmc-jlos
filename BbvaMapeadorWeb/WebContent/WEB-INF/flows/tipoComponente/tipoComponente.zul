@@ -15,7 +15,7 @@
 					<groupbox height="125px">
 					<div align="center">
 						<panel height="100%" width="50%" sclass="sectionPanelTitle" id="datosTipoComponentes"
-							title="Catálogo" collapsible="true" style="margin-bottom:10px"
+							title="Catálogo" collapsible="false" style="margin-bottom:10px"
 							border="normal">
 							<caption sclass="sectionPanelTitle" label="Sistema Tipo Componentes"></caption>
 							<panelchildren>
@@ -51,7 +51,7 @@
 					<groupbox height="450px">
 					<div align="center">
 						<panel height="430px" sclass="sectionPanelTitle" width="50%" id="panelTipoComponenteMapeador"
-							title="Resultados Tipos de Componentes Mapeador" collapsible="true"
+							title="Resultados Tipos de Componentes Mapeador" collapsible="false"
 							style="margin-bottom:10px">
 							<caption sclass="sectionPanelTitle" label="Listado de Tipos de Componente"></caption>
 							<panelchildren>

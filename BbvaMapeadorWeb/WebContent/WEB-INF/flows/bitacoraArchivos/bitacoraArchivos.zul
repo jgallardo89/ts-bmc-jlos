@@ -14,7 +14,7 @@
 					<vlayout>
 						<groupbox height="170px">
 						<panel height="100%" width="100%" sclass="sectionPanelTitle" id="datosBitacira"
-							title="Bitácora" collapsible="true" style="margin-bottom:10px"
+							title="Bitácora" collapsible="false" style="margin-bottom:10px"
 							border="normal">
 							<caption sclass="sectionPanelTitle" label="Bitácora Archivos"></caption>
 							<panelchildren>
@@ -66,7 +66,7 @@
 					</groupbox>
 					<groupbox height="450px">
 						<panel height="430px" sclass="sectionPanelTitle" width="100%" id="panelbitacoraArchivo"
-							title="Resultados Bitacora Archivo" collapsible="true"
+							title="Resultados Bitacora Archivo" collapsible="false"
 							style="margin-bottom:10px">
 							<caption sclass="sectionPanelTitle" label="Lista de Archivos"></caption>
 							<panelchildren>

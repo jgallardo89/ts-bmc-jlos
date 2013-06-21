@@ -16,7 +16,7 @@
 						<groupbox height="250px">
 						<panel height="230px" width="100%"
 							sclass="sectionPanelTitle" id="datosEstadistico" title="Catalogo"
-							collapsible="true" style="margin-bottom:10px" border="normal">
+							collapsible="false" style="margin-bottom:10px" border="normal">
 							<caption sclass="sectionPanelTitle"
 								label="Estadístico">
 							</caption>
@@ -153,7 +153,7 @@
 					<groupbox height="1000px">
 						<panel height="100%" sclass="sectionPanelTitle"
 							width="100%" id="panelEstadistico" title="Resultados"
-							collapsible="true" style="margin-bottom:10px">
+							collapsible="false" style="margin-bottom:10px">
 							<caption sclass="sectionPanelTitle"
 								label="Lista de Resultados">
 							</caption>

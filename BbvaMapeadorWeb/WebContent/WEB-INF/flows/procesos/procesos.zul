@@ -15,7 +15,7 @@
 					<vlayout>
 						<groupbox height="460px">
 						<panel height="100%" width="100%" sclass="sectionPanelTitle" id="datosMonitoreoProcesos"
-							title="Monitoreo" collapsible="true" style="margin-bottom:10px"
+							title="Monitoreo" collapsible="false" style="margin-bottom:10px"
 							border="normal">
 							<caption sclass="sectionPanelTitle" label="Monitoreo de Procesos"></caption>
 							<panelchildren>
@@ -125,7 +125,7 @@
 					</groupbox>
 					<groupbox height="560px">
 						<panel height="550px" sclass="sectionPanelTitle" width="100%" id="panelMonitoreoProcesos"
-							title="Resultados" collapsible="true"
+							title="Resultados" collapsible="false"
 							style="margin-bottom:10px">
 							<caption sclass="sectionPanelTitle" label="Listado de Resultados"></caption>
 							<panelchildren>

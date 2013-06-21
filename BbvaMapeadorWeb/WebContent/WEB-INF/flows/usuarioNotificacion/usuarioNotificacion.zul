@@ -14,7 +14,7 @@
 					<vlayout>
 						<groupbox height="200px">
 						<panel width="100%" height="100%" sclass="sectionPanelTitle" id="datosComponente"
-							title="Notificaciones" collapsible="true" style="margin-bottom:10px"
+							title="Notificaciones" collapsible="false" style="margin-bottom:10px"
 							border="normal">
 							<caption sclass="sectionPanelTitle" label="Usuarios para Notificación"></caption>
 							<panelchildren>
@@ -66,7 +66,7 @@
 					</groupbox>
 					<groupbox height="430px">
 						<panel height="410px" sclass="sectionPanelTitle" width="100%" id="panelUsuarioNotificacion"
-							title="Resultados Usuarios para Notificación" collapsible="true"
+							title="Resultados Usuarios para Notificación" collapsible="false"
 							style="margin-bottom:10px">
 							<caption sclass="sectionPanelTitle" label="Lista de Usuarios para Notificación"></caption>
 							<panelchildren>

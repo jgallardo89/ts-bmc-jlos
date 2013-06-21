@@ -15,7 +15,7 @@
 					<vlayout>
 					<groupbox height="130px">
 						<panel height="100%" width="100%" sclass="sectionPanelTitle" id="datosArchivos"
-							title="Monitoreo" collapsible="true" style="margin-bottom:10px"
+							title="Monitoreo" collapsible="false" style="margin-bottom:10px"
 							border="normal">
 							<caption sclass="sectionPanelTitle" label="Monitoreo de Archivos"></caption>
 							<panelchildren>
@@ -63,7 +63,7 @@
 					</groupbox>
 					<groupbox height="500px">
 						<panel height="480px" sclass="sectionPanelTitle" width="100%" id="panelArchivo"
-							title="Resultados Archivos" collapsible="true"
+							title="Resultados Archivos" collapsible="false"
 							style="margin-bottom:10px">
 							<caption sclass="sectionPanelTitle" label="Lista de Archivos"></caption>
 							<panelchildren>

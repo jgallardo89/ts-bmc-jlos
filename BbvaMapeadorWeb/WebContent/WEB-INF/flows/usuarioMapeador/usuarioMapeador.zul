@@ -14,7 +14,7 @@
 					<vlayout>
 						<groupbox height="170px">
 						<panel width="100%" height="100%" sclass="sectionPanelTitle" id="datosOpeDup"
-							title="Seguridad" collapsible="true" style="margin-bottom:10px"
+							title="Seguridad" collapsible="false" style="margin-bottom:10px"
 							border="normal">
 							<caption sclass="sectionPanelTitle" label="Usuarios"></caption>
 							<panelchildren>								
@@ -70,7 +70,7 @@
 					</groupbox>
 					<groupbox height="450px">
 						<panel height="430px" sclass="sectionPanelTitle" width="100%" id="panelUsuarioMapeador"
-							title="Resultados Usuarios Mapeador" collapsible="true"
+							title="Resultados Usuarios Mapeador" collapsible="false"
 							style="margin-bottom:10px">
 							<caption sclass="sectionPanelTitle" label="Listado de Usuarios"></caption>
 							<panelchildren>
