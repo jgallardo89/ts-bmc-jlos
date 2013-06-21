@@ -87,7 +87,9 @@ public class ReportesController extends ControllerSupport {
 		Sessions.getCurrent().setAttribute("nameReport", nameReport);
 		
 		Executions.sendRedirect("/ServletReport");
-		org.zkoss.zul.Messagebox.show("!Se genero el Reporte de tipo "+typeReport+" con éxito");
+		org.zkoss.zul.Messagebox.show("!Se generó el Reporte de tipo "+typeReport+" con éxito",
+				"Información", org.zkoss.zul.Messagebox.OK,
+				org.zkoss.zul.Messagebox.INFORMATION);
     }
 	
 	/**
