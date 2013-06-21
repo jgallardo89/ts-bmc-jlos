@@ -9,12 +9,12 @@
 		id="aignarUsuarioWindows">
 		<include src="../../pages/styles.zul" />
 		<div sclass="BODY" height="100%" width="100%">
-			<groupbox height="100%">
+			<groupbox height="100%" closable="false">
 				<caption sclass="pageTitle" label="Notificaciones > Asignar Usuarios Sistema"></caption>		
 					<vlayout>
-					<groupbox height="435px">
+					<groupbox height="435px"  closable="false">
 						<panel height="100%" width="100%" sclass="sectionPanelTitle" id="datosFlujos"
-							title="Notificaciones" collapsible="false"sible="true" style="margin-bottom:10px"
+							title="Notificaciones" collapsible="false" style="margin-bottom:10px"
 							border="normal">
 							<caption sclass="sectionPanelTitle" label="Asignar Usuarios sistema"></caption>
 							<panelchildren>

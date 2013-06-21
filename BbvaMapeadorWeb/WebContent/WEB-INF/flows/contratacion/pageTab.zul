@@ -10,7 +10,7 @@
 		<include src="../../pages/styles.zul" />
 		<div sclass="BODY" height="100%">
 			<panel width="100%" height="100%" sclass="sectionPanelTitle" id="datosContratacion"
-					title="@load(vm.titulo)" collapsible="true" style="margin-bottom:10px"
+					title="@load(vm.titulo)" collapsible="false" style="margin-bottom:10px"
 					border="normal">
 				<panelchildren>
 					<div align="center" height="98%">
@@ -42,7 +42,7 @@
 							</rows>								
 						</grid>
 						
-				 <groupbox mold="3d" height="95%" width="98%">
+				 <groupbox mold="3d" height="95%" width="98%" closable="false">
                     <caption image="/img/list.png" label="Notificaciones" />
 						
 						<grid width="98%" height="98%" style="border:0" oddRowSclass="row2">

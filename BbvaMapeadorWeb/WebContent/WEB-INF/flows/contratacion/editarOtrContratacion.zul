@@ -9,7 +9,7 @@
 		id="editarContratacionWindows">
 		<include src="../../pages/styles.zul" />
 		<div sclass="BODY" height="100%" width="100%">
-		<groupbox height="27%" width="100%" apply="mx.com.bbva.mapeador.ui.commons.viewmodel.contratacion.ContratacionController">
+		<groupbox height="27%" width="100%" apply="mx.com.bbva.mapeador.ui.commons.viewmodel.contratacion.ContratacionController" closable="false">
 			<panel width="100%" height="100%" sclass="sectionPanelTitle" id="datosContratacion"
 					title="Contratación" collapsible="false" style="margin-bottom:10px"
 					border="normal">
@@ -108,11 +108,11 @@
 		<textbox id="idProducto" value="@load(vm.contratacionDTO.contratacionVO.idProducto)" visible="false"></textbox>
 		<textbox id="idContratacion" value="@load(vm.contratacionDTO.contratacionVO.idContratacion)" visible="false"></textbox>
 		<separator height="5px"></separator>
-		<groupbox mold="3d" height="72%" width="100%">
+		<groupbox mold="3d" height="72%" width="100%" closable="false">
 			<caption sclass="pageTitle" label="Contratación"></caption>		
 				<tabbox id="tabs" height="100%" width="100%">
 				    <tabs id="tabNohome">
-				        <tab id="nohome" label="Bienvenido" closable="true" visible="false"/>        
+				        <tab id="nohome" label="Bienvenido" closable="false" visible="false"/>        
 				    </tabs>
 				    <tabpanels>
 				        <tabpanel>

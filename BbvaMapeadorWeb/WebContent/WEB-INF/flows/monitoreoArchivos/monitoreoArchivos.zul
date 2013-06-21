@@ -10,7 +10,7 @@
 		id="bitacoraWebWindows">
 		<include src="../../pages/styles.zul" />
 		<div sclass="BODY" height="100%"  width="100%">
-			<groupbox height="100%">
+			<groupbox height="100%" closable="false">
 				<caption sclass="pageTitle" label="Monitoreo > Archivos"></caption>		
 					<vlayout>
 					<groupbox height="130px">

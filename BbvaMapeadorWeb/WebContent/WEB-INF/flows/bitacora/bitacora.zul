@@ -8,7 +8,7 @@
 		viewModel="@id('vm') @init('')"
 		id="bitacoraWindows">
    		<div>
-   			<groupbox>	
+   			<groupbox closable="false">	
    			<div align="right">
 					<label width="100%" sclass="labelFill" value="Descripción Canal:"></label>												
 			</div>

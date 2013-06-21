@@ -9,7 +9,7 @@
 		id="palabraComodinWindows">
 		<include src="../../pages/styles.zul" />
 		<div sclass="BODY" height="100%">
-			<groupbox height="100%" width="100%">
+			<groupbox height="100%" width="100%" closable="false">
 				<caption sclass="pageTitle" label="Notificaciones > Palabras Comodín"></caption>		
 					<vlayout>
 						<groupbox height="150px">

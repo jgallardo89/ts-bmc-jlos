@@ -9,7 +9,7 @@
 		id="usuarioMapeadorWindows">
 		<include src="../../pages/styles.zul" />
 		<div sclass="BODY" width="100%" height="100%">
-			<groupbox height="100%">
+			<groupbox height="100%" closable="false">
 				<caption sclass="pageTitle" label="Seguridad > Usuarios	"></caption>		
 					<vlayout>
 						<groupbox height="170px">

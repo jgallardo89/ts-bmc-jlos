@@ -9,7 +9,7 @@
 		id="contratacionWindows">
 		<include src="../../pages/styles.zul" />
 		<div sclass="BODY" height="100%">
-			<groupbox height="100%" apply="mx.com.bbva.mapeador.ui.commons.viewmodel.contratacion.ContratacionController">
+			<groupbox height="100%" apply="mx.com.bbva.mapeador.ui.commons.viewmodel.contratacion.ContratacionController" closable="false">
 				<caption sclass="pageTitle" label="Contratación"></caption>		
 					<vlayout>
 					<groupbox height="230px">

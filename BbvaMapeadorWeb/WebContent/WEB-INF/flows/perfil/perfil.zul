@@ -10,7 +10,7 @@
 		<include src="../../pages/styles.zul" />
 		<div sclass="BODY" height="100%" width="100%">		
 					<vlayout>
-						<groupbox height="330px">
+						<groupbox height="330px" closable="false">
 							<panel width="100%" sclass="sectionPanelTitle" id="datosPerfil"
 								title="Seguridad" collapsible="false" style="margin-bottom:10px"
 								border="normal">	
