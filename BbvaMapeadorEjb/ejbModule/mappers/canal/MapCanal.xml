@@ -28,7 +28,7 @@
 					AND OBJETO.CD_ST_OBJETO = #{idEstatusObjeto}
 				</if>
 				<if test="fechaInicio != null and fechaFin != null">    
-					AND CANAL.TM_ALTA BETWEEN to_date(#{fechaInicio},'dd/MM/rrrr HH24:MI') AND to_date(#{fechaFin},'dd/MM/rrrr HH24:MI')					
+					AND to_date(CANAL.TM_ALTA BETWEEN,'dd/MM/rrrr') to_date(#{fechaInicio},'dd/MM/rrrr') AND to_date(#{fechaFin},'dd/MM/rrrr')					
 				</if>
 				ORDER BY CD_CANAL
 	</select>
