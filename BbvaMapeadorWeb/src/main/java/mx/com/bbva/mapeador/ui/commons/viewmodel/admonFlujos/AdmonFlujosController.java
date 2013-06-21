@@ -56,15 +56,18 @@ import mx.com.bbva.mapeador.ui.commons.viewmodel.reportes.ReportesController;
 import mx.com.bbva.mapeador.ui.commons.viewmodel.support.ControllerSupport;
 
 import org.apache.log4j.Logger;
+import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
+import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
+import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.Wire;
@@ -74,6 +77,7 @@ import org.zkoss.zul.Datebox;
 import org.zkoss.zul.Grid;
 import org.zkoss.zul.Image;
 import org.zkoss.zul.Label;
+import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
 
@@ -168,9 +172,7 @@ public class AdmonFlujosController extends ControllerSupport implements IControl
 	@Wire
 	private Textbox nombreFlujo;
 	
-	/** The open image window. */
-	@Wire
-    Window openImageWindow;
+	
 	
 	/** The reporte csv btn. */
 	@Wire
@@ -250,8 +252,8 @@ public class AdmonFlujosController extends ControllerSupport implements IControl
 		idFlujo.setValue(null);
 		idEstatusObjeto.setValue(null);
 		setFlagBtnGuardar(true);
-		fechaAlta.setValue(new Date());
-		fechaModificacion.setValue(new Date());
+		fechaAlta.setValue(null);
+		fechaModificacion.setValue(null);
 	}
 
 	/* (non-Javadoc)
@@ -425,6 +427,7 @@ public class AdmonFlujosController extends ControllerSupport implements IControl
 	/**
 	 * Read with filters.
 	 */
+	@GlobalCommand
 	@Command
 	@NotifyChange({ "flujoVOs" })
 	public void readWithFilters() {
@@ -448,8 +451,8 @@ public class AdmonFlujosController extends ControllerSupport implements IControl
 	@Command
 	@NotifyChange({ "flujoVOs","flagBtnGuardar" })
 	public void save() {
-		ReportesController controller = new ReportesController();
-		FlujoBO flujoBO = new FlujoBO();
+		final ReportesController controller = new ReportesController();
+		final FlujoBO flujoBO = new FlujoBO();
 		boolean errorGuardar = false;
 		if (nombreFlujo.getValue().isEmpty()) {
 			nombreFlujo
@@ -462,64 +465,80 @@ public class AdmonFlujosController extends ControllerSupport implements IControl
 			errorGuardar = true;
 		}
 		if(!errorGuardar && !idFlujo.getValue().isEmpty()){
-			ProductoDTO productoDTO = null;
-			logger.debug("statusObjeto:"+statusObjeto.getSelectedItem().getValue());
-			if(Integer.parseInt(statusObjeto.getSelectedItem().getValue().toString())==CommandConstants.ID_FLUJO_BAJA
-					||Integer.parseInt(statusObjeto.getSelectedItem().getValue().toString())==CommandConstants.ID_FLUJO_INACTIVO){
-				ProductoBO productoBO = new ProductoBO();
-				ProductoVO productoVO = new ProductoVO();
-				productoVO.setIdFlujo(Integer.parseInt(idFlujo.getValue()));
-				productoDTO = productoBO.readCommandCmb(productoVO);
-			}
-			logger.debug("productoDTO:"+productoDTO);
-			if (productoDTO==null || productoDTO.getProductoVOs().size() == 0){
-				FlujoDTO flujoDTO = new FlujoDTO();
-				FlujoVO flujoVO = new FlujoVO();
-				flujoVO.setNombreFlujo(nombreFlujo.getValue().toUpperCase().trim());
-				flujoVO.setDescripcionFlujo(descripcionFlujo.getValue().toUpperCase().trim());
-				flujoVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue()));
-				flujoVO.setIdFlujo(Integer.parseInt(idFlujo.getValue()));
-				flujoDTO.setFlujoVO(flujoVO);
-				flujoBO.updateCommand(flujoDTO);
-				flujoDTO.toString(BbvaAbstractDataTransferObject.XML);
-				
-				if (Integer.parseInt(statusObjeto.getSelectedItem().getValue().toString())==CommandConstants.ID_FLUJO_BAJA) {
-					controller.registrarEvento(flujoVO, this.flujoVO, CommandConstants.BAJA, nombrePantalla);					
-				} else if (Integer.parseInt(statusObjeto.getSelectedItem().getValue().toString())==CommandConstants.ID_FLUJO_INACTIVO) { 
-					controller.registrarEvento(flujoVO, this.flujoVO, CommandConstants.INACTIVACION, nombrePantalla);				
-				} else {
-					controller.registrarEvento(flujoVO, this.flujoVO, CommandConstants.MODIFICACION, nombrePantalla);
-				}				
-				clean();
-				flujoVO.setNombreFlujo(StringUtil.validaLike(nombreFlujo.getValue()));
-				flujoVO.setDescripcionFlujo(StringUtil.validaLike(descripcionFlujo.getValue()));
-				flujoVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue().isEmpty()?"0":statusObjeto.getSelectedItem().getValue().toString()));
-				flujoVO.toString();
-				flujoDTO.setFlujoVO(flujoVO);
-				flujoVOs = flujoBO.readCommand(flujoDTO).getFlujoVOs();
-				org.zkoss.zul.Messagebox.show("!La Actualización del Flujo fue exitoso!",
-						"Información", org.zkoss.zul.Messagebox.OK,
-						org.zkoss.zul.Messagebox.INFORMATION);
-			} else {
-				FlujoVO flujoVO = new FlujoVO();
-				flujoVO.setNombreFlujo(nombreFlujo.getValue().toUpperCase().trim());
-				flujoVO.setDescripcionFlujo(descripcionFlujo.getValue().toUpperCase().trim());
-				flujoVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue()));
-				flujoVO.setIdFlujo(Integer.parseInt(idFlujo.getValue()));
-//				flujoVO.toString();
-//				flujoDTO.setFlujoVO(flujoVO);
-//				flujoVOs = flujoBO.readCommand(flujoDTO).getFlujoVOs();
-				if (Integer.parseInt(statusObjeto.getSelectedItem().getValue().toString())==CommandConstants.ID_FLUJO_BAJA) {
-					controller.registrarEvento(flujoVO, this.flujoVO, CommandConstants.BAJA_FALLIDA, nombrePantalla);					
-				} else if (Integer.parseInt(statusObjeto.getSelectedItem().getValue().toString())==CommandConstants.ID_FLUJO_INACTIVO) { 
-					controller.registrarEvento(flujoVO, this.flujoVO, CommandConstants.INACTIVACION_FALLIDA, nombrePantalla);				
-				} else {
-					controller.registrarEvento(flujoVO, this.flujoVO, CommandConstants.MODIFICACION_FALLIDA, nombrePantalla);
-				}				
-				  org.zkoss.zul.Messagebox.show("!No se puede dar de Baja, ya que esta siendo usado por algún Producto!",
-							"Información", org.zkoss.zul.Messagebox.OK,
-							org.zkoss.zul.Messagebox.EXCLAMATION);
-			}
+			Messagebox.show(
+					"¿Está seguro que desea continuar con la operación?",
+					"Pregunta", org.zkoss.zul.Messagebox.YES | org.zkoss.zul.Messagebox.NO,
+				org.zkoss.zul.Messagebox.QUESTION, new EventListener<Event>() {
+				@Override
+				public void onEvent(Event event) throws Exception {
+					if (event.getName().equals(org.zkoss.zul.Messagebox.ON_YES)) {
+						ProductoDTO productoDTO = null;
+						logger.debug("statusObjeto:"+statusObjeto.getSelectedItem().getValue());
+						if(Integer.parseInt(statusObjeto.getSelectedItem().getValue().toString())==CommandConstants.ID_FLUJO_BAJA
+								||Integer.parseInt(statusObjeto.getSelectedItem().getValue().toString())==CommandConstants.ID_FLUJO_INACTIVO){
+							ProductoBO productoBO = new ProductoBO();
+							ProductoVO productoVOL = new ProductoVO();
+							productoVOL.setIdFlujo(Integer.parseInt(idFlujo.getValue()));
+							productoDTO = productoBO.readCommandCmb(productoVOL);
+						}
+						logger.debug("productoDTO:"+productoDTO);
+						if (productoDTO==null || productoDTO.getProductoVOs().size() == 0){
+							FlujoDTO flujoDTO = new FlujoDTO();
+							FlujoVO flujoVOL = new FlujoVO();
+							flujoVOL.setNombreFlujo(nombreFlujo.getValue().toUpperCase().trim());
+							flujoVOL.setDescripcionFlujo(descripcionFlujo.getValue().toUpperCase().trim());
+							flujoVOL.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue()));
+							flujoVOL.setIdFlujo(Integer.parseInt(idFlujo.getValue()));
+							flujoDTO.setFlujoVO(flujoVOL);
+							flujoBO.updateCommand(flujoDTO);
+							flujoDTO.toString(BbvaAbstractDataTransferObject.XML);
+							
+							if (Integer.parseInt(statusObjeto.getSelectedItem().getValue().toString())==CommandConstants.ID_FLUJO_BAJA) {
+								controller.registrarEvento(flujoVOL, flujoVO, CommandConstants.BAJA, nombrePantalla);					
+							} else if (Integer.parseInt(statusObjeto.getSelectedItem().getValue().toString())==CommandConstants.ID_FLUJO_INACTIVO) { 
+								controller.registrarEvento(flujoVOL, flujoVO, CommandConstants.INACTIVACION, nombrePantalla);				
+							} else {
+								controller.registrarEvento(flujoVOL, flujoVO, CommandConstants.MODIFICACION, nombrePantalla);
+							}				
+							clean();
+							flujoVOL.setNombreFlujo(StringUtil.validaLike(nombreFlujo.getValue()));
+							flujoVOL.setDescripcionFlujo(StringUtil.validaLike(descripcionFlujo.getValue()));
+							flujoVOL.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue().isEmpty()?"0":statusObjeto.getSelectedItem().getValue().toString()));
+							flujoVOL.toString();
+							flujoDTO.setFlujoVO(flujoVOL);
+							flujoVOs = flujoBO.readCommand(flujoDTO).getFlujoVOs();
+							org.zkoss.zul.Messagebox.show("!La Actualización del Flujo fue exitoso!",
+									"Información", org.zkoss.zul.Messagebox.OK,
+									org.zkoss.zul.Messagebox.INFORMATION);
+						} else {
+							FlujoVO flujoVOL = new FlujoVO();
+							flujoVOL.setNombreFlujo(nombreFlujo.getValue().toUpperCase().trim());
+							flujoVOL.setDescripcionFlujo(descripcionFlujo.getValue().toUpperCase().trim());
+							flujoVOL.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue()));
+							flujoVOL.setIdFlujo(Integer.parseInt(idFlujo.getValue()));
+			//				flujoVO.toString();
+			//				flujoDTO.setFlujoVO(flujoVO);
+			//				flujoVOs = flujoBO.readCommand(flujoDTO).getFlujoVOs();
+							if (Integer.parseInt(statusObjeto.getSelectedItem().getValue().toString())==CommandConstants.ID_FLUJO_BAJA) {
+								controller.registrarEvento(flujoVOL, flujoVO, CommandConstants.BAJA_FALLIDA, nombrePantalla);					
+							} else if (Integer.parseInt(statusObjeto.getSelectedItem().getValue().toString())==CommandConstants.ID_FLUJO_INACTIVO) { 
+								controller.registrarEvento(flujoVOL, flujoVO, CommandConstants.INACTIVACION_FALLIDA, nombrePantalla);				
+							} else {
+								controller.registrarEvento(flujoVOL, flujoVO, CommandConstants.MODIFICACION_FALLIDA, nombrePantalla);
+							}				
+							  org.zkoss.zul.Messagebox.show("!No se puede dar de Baja, ya que esta siendo usado por algún Producto!",
+										"Información", org.zkoss.zul.Messagebox.OK,
+										org.zkoss.zul.Messagebox.EXCLAMATION);
+						}
+						BindUtils
+						.postGlobalCommand(
+								null,
+								null,
+								"readWithFilters",
+								null);
+					}
+				}
+			});
 		}
 	}
 
@@ -567,15 +586,5 @@ public class AdmonFlujosController extends ControllerSupport implements IControl
 	public void setFlujoVOs(List<FlujoVO> flujoVOs) {
 		this.flujoVOs = flujoVOs;
 	}
-
-	/**
-	 * Show modal.
-	 *
-	 * @param e the e
-	 */
-	@Listen("onClick = #closeBtn")
-    public void showModal(Event e) {
-		openImageWindow.detach();
-    }	
-
+	
 }

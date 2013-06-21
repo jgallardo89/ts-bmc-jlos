@@ -36,11 +36,11 @@
 													id="nombreCanal" value="@load(vm.canalDTO.canalVO.nombreCanal)" width="98%"></textbox>
 												<div align="right">
 													<label id="lblFechaHoraAlta" width="100%" sclass="labelFill" value="Fecha de alta:"></label>
-													<datebox value="@load(vm.canalDTO.canalVO.fechaInicio) @converter('formatedDate', format='dd/MM/yyyy HH:mm')" maxlength="25" width="50%" id="fechaInicio" readonly="true" buttonVisible="true" onCreate="self.value = new Date()" format="dd/MM/yyyy 00:00"></datebox>												
+													<datebox value="@load(vm.canalDTO.canalVO.fechaInicio) @converter('formatedDate', format='dd/MM/yyyy HH:mm')" maxlength="25" width="50%" id="fechaInicio" readonly="true" buttonVisible="true" format="dd/MM/yyyy 00:00"></datebox>												
 												</div>
 												<div align="left">
 													<label id="lblFechaFin" width="100%" sclass="labelFill" value="a: "></label>
-													<datebox value="@load(vm.canalDTO.canalVO.fechaFin) @converter('formatedDate', format='dd/MM/yyyy HH:mm')" maxlength="25" width="50%" id="fechaFin" readonly="true" buttonVisible="true" onCreate="self.value = new Date()" format="dd/MM/yyyy 23:59"></datebox>												
+													<datebox value="@load(vm.canalDTO.canalVO.fechaFin) @converter('formatedDate', format='dd/MM/yyyy HH:mm')" maxlength="25" width="50%" id="fechaFin" readonly="true" buttonVisible="true" format="dd/MM/yyyy 23:59"></datebox>												
 												</div>
 												 <div align="right"/>																													
 											</row>

@@ -52,13 +52,17 @@ import mx.com.bbva.mapeador.ui.commons.controller.IController;
 import mx.com.bbva.mapeador.ui.commons.viewmodel.reportes.ReportesController;
 import mx.com.bbva.mapeador.ui.commons.viewmodel.support.ControllerSupport;
 
+import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
+import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.event.Event;
+import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.Button;
@@ -67,6 +71,7 @@ import org.zkoss.zul.Datebox;
 import org.zkoss.zul.Grid;
 import org.zkoss.zul.Image;
 import org.zkoss.zul.Label;
+import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Textbox;
 
 // TODO: Auto-generated Javadoc
@@ -228,6 +233,9 @@ public class CanalesController extends ControllerSupport implements IController 
 		nombreCanal.clearErrorMessage();
 		descripcionCanal.clearErrorMessage();
 		statusObjeto.clearErrorMessage();
+		
+		fechaFin.setValue(null);
+		fechaInicio.setValue(null);
 		
 		nombreCanal.setValue(null);
 		descripcionCanal.setValue(null);
@@ -405,29 +413,35 @@ public class CanalesController extends ControllerSupport implements IController 
 	/**
 	 * Read with filters.
 	 */
+	@GlobalCommand
 	@Command
 	@NotifyChange({ "canalesVOs" })
 	public void readWithFilters() {
 		ReportesController controller = new ReportesController();
 		CanalDTO canalDTO = new CanalDTO();
 		CanalVO canalVO = new CanalVO();
-		DateFormat dateFormatIni = new SimpleDateFormat("dd-MM-yyyy 00:00");
-		DateFormat dateFormatFin = new SimpleDateFormat("dd-MM-yyyy 23:59");
-		if(fechaInicio.getValue().compareTo(fechaFin.getValue()) > 0 ){
-			fechaInicio.setErrorMessage("La fecha de inicio no puede ser mayor a la fecha de fin");
-		}else{
-			canalVO.setFechaInicio(dateFormatIni.format(fechaInicio.getValue()));
-			canalVO.setFechaFin(dateFormatFin.format(fechaFin.getValue()));
+		DateFormat dateFormatIni = new SimpleDateFormat("dd/MM/yyyy");
+		DateFormat dateFormatFin = new SimpleDateFormat("dd/MM/yyyy");
+		boolean error = false;
+		if(fechaInicio.getValue()!=null && fechaFin.getValue()!=null){
+			if(fechaInicio.getValue().compareTo(fechaFin.getValue()) > 0 ){
+				fechaInicio.setErrorMessage("La fecha de inicio no puede ser mayor a la fecha de fin");
+				error = true;
+			}else{
+				canalVO.setFechaInicio(dateFormatIni.format(fechaInicio.getValue()));
+				canalVO.setFechaFin(dateFormatFin.format(fechaFin.getValue()));
+			}
+		}
+		if(!error){			
 			canalVO.setNombreCanal(StringUtil.validaLike(nombreCanal.getValue()));
 			canalVO.setDescripcionCanal(StringUtil.validaLike(descripcionCanal.getValue()));
 			canalVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue().isEmpty()?"0":idEstatusObjeto.getValue()));
 			canalVO.toString();
 			canalDTO.setCanalVO(canalVO);
 			CanalBO canalBO = new CanalBO();
-			canalesVOs = canalBO.readCommand(canalDTO).getCanalVOs();
-			
+			canalesVOs = canalBO.readCommand(canalDTO).getCanalVOs();			
 			controller.registrarEvento(canalVO, canalVO, CommandConstants.CONSULTAR, nombrePantalla);
-		}
+		}		
 	}
 
 	/* (non-Javadoc)
@@ -436,9 +450,7 @@ public class CanalesController extends ControllerSupport implements IController 
 	@Override
 	@Command
 	@NotifyChange({ "canalesVOs", "btnGuardar", "flagClave" })
-	public void save() {
-		CanalBO canalBO = new CanalBO();
-		ReportesController controller = new ReportesController();
+	public void save() {		
 		boolean errorGuardar = false;
 		if (statusObjeto.getSelectedItem() == null
 				|| statusObjeto.getSelectedItem().getValue() == null
@@ -475,70 +487,88 @@ public class CanalesController extends ControllerSupport implements IController 
 //				canalesVOs = canalBO.readCommand(canalDTO).getCanalVOs();
 				
 			} else {
-				ContratacionBO contratacionBO = new ContratacionBO();
-				ContratacionVO contratacionVO = new ContratacionVO();
-				contratacionVO.setIdCanal(Integer.parseInt(idCanal.getValue()));
-				if(Integer.parseInt(idEstatusObjeto.getValue()) == CommandConstants.ESTATUS_OBJETO_ACTIVO_CANAL || 
-						contratacionBO.readCommandValidaContratacion(contratacionVO)) {
-					CanalDTO canalDTO = new CanalDTO();
-					CanalVO canalVO = new CanalVO();
-					canalVO.setNombreCanal(nombreCanal.getValue().toUpperCase().trim());
-					canalVO.setDescripcionCanal(descripcionCanal.getValue().toUpperCase().trim());
-					canalVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue()));
-					canalVO.setIdCanal(Integer.parseInt(idCanal.getValue()));
-					canalDTO.setCanalVO(canalVO);
-					canalBO.updateCommand(canalDTO);
-					canalDTO.toString(BbvaAbstractDataTransferObject.XML);
-					if (Integer.parseInt(statusObjeto.getSelectedItem().getValue().toString())==CommandConstants.ID_CANAL_BAJA) {
-						controller.registrarEvento(canalVO, this.canalesVO, CommandConstants.BAJA, nombrePantalla);					
-					} else if (Integer.parseInt(statusObjeto.getSelectedItem().getValue().toString())==CommandConstants.ID_CANAL_INACTIVO) { 
-						controller.registrarEvento(canalVO, this.canalesVO, CommandConstants.INACTIVACION, nombrePantalla);				
-					} else {
-						controller.registrarEvento(canalVO, this.canalesVO, CommandConstants.MODIFICACION, nombrePantalla);
+				Messagebox.show(
+				"¿Está seguro que desea continuar con la operación?",
+				"Pregunta", org.zkoss.zul.Messagebox.YES | org.zkoss.zul.Messagebox.NO,
+				org.zkoss.zul.Messagebox.QUESTION, new EventListener<Event>() {
+					@Override
+					public void onEvent(Event event) throws Exception {
+						if (event.getName().equals(org.zkoss.zul.Messagebox.ON_YES)) {
+							CanalBO canalBO = new CanalBO();
+							ReportesController controller = new ReportesController();
+							ContratacionBO contratacionBO = new ContratacionBO();
+							ContratacionVO contratacionVO = new ContratacionVO();
+							contratacionVO.setIdCanal(Integer.parseInt(idCanal.getValue()));
+							if(Integer.parseInt(idEstatusObjeto.getValue()) == CommandConstants.ESTATUS_OBJETO_ACTIVO_CANAL || 
+									contratacionBO.readCommandValidaContratacion(contratacionVO)) {
+								CanalDTO canalDTO = new CanalDTO();
+								CanalVO canalVO = new CanalVO();
+								canalVO.setNombreCanal(nombreCanal.getValue().toUpperCase().trim());
+								canalVO.setDescripcionCanal(descripcionCanal.getValue().toUpperCase().trim());
+								canalVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue()));
+								canalVO.setIdCanal(Integer.parseInt(idCanal.getValue()));
+								canalDTO.setCanalVO(canalVO);
+								canalBO.updateCommand(canalDTO);
+								canalDTO.toString(BbvaAbstractDataTransferObject.XML);
+								if (Integer.parseInt(statusObjeto.getSelectedItem().getValue().toString())==CommandConstants.ID_CANAL_BAJA) {
+									controller.registrarEvento(canalVO, canalesVO, CommandConstants.BAJA, nombrePantalla);					
+								} else if (Integer.parseInt(statusObjeto.getSelectedItem().getValue().toString())==CommandConstants.ID_CANAL_INACTIVO) { 
+									controller.registrarEvento(canalVO, canalesVO, CommandConstants.INACTIVACION, nombrePantalla);				
+								} else {
+									controller.registrarEvento(canalVO, canalesVO, CommandConstants.MODIFICACION, nombrePantalla);
+								}
+								clean();
+								
+			
+								
+								canalVO.setNombreCanal(StringUtil.validaLike(nombreCanal.getValue()));
+								canalVO.setDescripcionCanal(StringUtil.validaLike(descripcionCanal.getValue()));
+								canalVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue().isEmpty()?"0":idEstatusObjeto.getValue()));
+								canalVO.toString();
+								canalDTO.setCanalVO(canalVO);
+								canalesVOs = canalBO.readCommand(canalDTO).getCanalVOs();
+								
+								btnGuardar = true;
+								org.zkoss.zul.Messagebox.show("!La Actualización del Canal fue exitoso!",
+										"Información", org.zkoss.zul.Messagebox.OK,
+										org.zkoss.zul.Messagebox.INFORMATION);
+								 BindUtils
+									.postGlobalCommand(
+											null,
+											null,
+											"readWithFilters",
+											null);
+							  } else {
+									CanalVO canalVO = new CanalVO();
+									canalVO.setNombreCanal(nombreCanal.getValue().toUpperCase().trim());
+									canalVO.setDescripcionCanal(descripcionCanal.getValue().toUpperCase().trim());
+									canalVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue()));
+									canalVO.setIdCanal(Integer.parseInt(idCanal.getValue()));					  
+									if (Integer.parseInt(statusObjeto.getSelectedItem().getValue().toString())==CommandConstants.ID_CANAL_BAJA) {
+										controller.registrarEvento(canalVO, canalesVO, CommandConstants.BAJA_FALLIDA, nombrePantalla);					
+									} else if (Integer.parseInt(statusObjeto.getSelectedItem().getValue().toString())==CommandConstants.ID_CANAL_INACTIVO) { 
+										controller.registrarEvento(canalVO, canalesVO, CommandConstants.INACTIVACION_FALLIDA, nombrePantalla);				
+									} else {
+										controller.registrarEvento(canalVO, canalesVO, CommandConstants.MODIFICACION_FALLIDA, nombrePantalla);
+									}				  
+								  clean();
+								  canalDTO = new CanalDTO();
+								  canalVO = new CanalVO();
+								  canalVO.setNombreCanal(StringUtil.validaLike(nombreCanal.getValue()));
+								  canalVO.setDescripcionCanal(StringUtil.validaLike(descripcionCanal.getValue()));
+								  canalVO.setIdEstatusObjeto(0);
+								  canalVO.toString();
+								  canalDTO.setCanalVO(canalVO);
+								  canalesVOs = canalBO.readCommand(canalDTO).getCanalVOs();
+								  org.zkoss.zul.Messagebox.show("!No se puede dar de Baja, ya que esta siendo Usado por la Contratación!",
+											"Información", org.zkoss.zul.Messagebox.OK,
+											org.zkoss.zul.Messagebox.EXCLAMATION);								 
+						  	}
+						}
+						flagClave = false;
 					}
-					clean();
-					
-
-					
-					canalVO.setNombreCanal(StringUtil.validaLike(nombreCanal.getValue()));
-					canalVO.setDescripcionCanal(StringUtil.validaLike(descripcionCanal.getValue()));
-					canalVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue().isEmpty()?"0":idEstatusObjeto.getValue()));
-					canalVO.toString();
-					canalDTO.setCanalVO(canalVO);
-					canalesVOs = canalBO.readCommand(canalDTO).getCanalVOs();
-					
-					btnGuardar = true;
-					org.zkoss.zul.Messagebox.show("!La Actualización del Canal fue exitoso!",
-							"Información", org.zkoss.zul.Messagebox.OK,
-							org.zkoss.zul.Messagebox.INFORMATION);
-				  } else {
-						CanalVO canalVO = new CanalVO();
-						canalVO.setNombreCanal(nombreCanal.getValue().toUpperCase().trim());
-						canalVO.setDescripcionCanal(descripcionCanal.getValue().toUpperCase().trim());
-						canalVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue()));
-						canalVO.setIdCanal(Integer.parseInt(idCanal.getValue()));					  
-						if (Integer.parseInt(statusObjeto.getSelectedItem().getValue().toString())==CommandConstants.ID_CANAL_BAJA) {
-							controller.registrarEvento(canalVO, this.canalesVO, CommandConstants.BAJA_FALLIDA, nombrePantalla);					
-						} else if (Integer.parseInt(statusObjeto.getSelectedItem().getValue().toString())==CommandConstants.ID_CANAL_INACTIVO) { 
-							controller.registrarEvento(canalVO, this.canalesVO, CommandConstants.INACTIVACION_FALLIDA, nombrePantalla);				
-						} else {
-							controller.registrarEvento(canalVO, this.canalesVO, CommandConstants.MODIFICACION_FALLIDA, nombrePantalla);
-						}				  
-					  clean();
-					  canalDTO = new CanalDTO();
-					  canalVO = new CanalVO();
-					  canalVO.setNombreCanal(StringUtil.validaLike(nombreCanal.getValue()));
-					  canalVO.setDescripcionCanal(StringUtil.validaLike(descripcionCanal.getValue()));
-					  canalVO.setIdEstatusObjeto(0);
-					  canalVO.toString();
-					  canalDTO.setCanalVO(canalVO);
-					  canalesVOs = canalBO.readCommand(canalDTO).getCanalVOs();
-					  org.zkoss.zul.Messagebox.show("!No se puede dar de Baja, ya que esta siendo Usado por la Contratación!",
-								"Información", org.zkoss.zul.Messagebox.OK,
-								org.zkoss.zul.Messagebox.EXCLAMATION);
-				  }
+				});
 			}
-			flagClave = false;
 		}
 	}
 

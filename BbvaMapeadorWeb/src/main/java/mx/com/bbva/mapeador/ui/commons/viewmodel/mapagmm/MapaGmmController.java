@@ -51,13 +51,17 @@ import mx.com.bbva.mapeador.ui.commons.viewmodel.reportes.ReportesController;
 import mx.com.bbva.mapeador.ui.commons.viewmodel.support.ControllerSupport;
 
 import org.apache.log4j.Logger;
+import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
+import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.event.Event;
+import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.Button;
@@ -66,6 +70,7 @@ import org.zkoss.zul.Datebox;
 import org.zkoss.zul.Grid;
 import org.zkoss.zul.Image;
 import org.zkoss.zul.Label;
+import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Textbox;
 
 // TODO: Auto-generated Javadoc
@@ -257,6 +262,8 @@ public class MapaGmmController  extends ControllerSupport implements  IControlle
 		identificadorMapa.setDisabled(false);
 		btnGuardar = true;
 		
+		fechaAlta.setValue(null);
+		fechaModificacion.setValue(null);
 	}
 	
 	/* (non-Javadoc)
@@ -543,6 +550,7 @@ public class MapaGmmController  extends ControllerSupport implements  IControlle
 	/**
 	 * Read with filters.
 	 */
+	@GlobalCommand
 	@Command
 	@NotifyChange({ "mapaGmmVOs" })
 	public void readWithFilters() {
@@ -553,8 +561,7 @@ public class MapaGmmController  extends ControllerSupport implements  IControlle
 		mapaGmmVO.setNombreMapaGmm(identificadorMapa.getValue().isEmpty()?"%":"%"+identificadorMapa.getValue().toUpperCase()+"%");
 		mapaGmmVO.setDescripcionMapaGmm(descripcionMapa.getValue().isEmpty()?"%":"%"+descripcionMapa.getValue().toUpperCase()+"%");
 		//Fechas
-		DateFormat dateFormat= new SimpleDateFormat("yyyy-MM-dd");
-		logger.debug(" :::::::::::: "+dateFormat.format(fechaAlta.getValue()));
+
 //		mapaGmmVO.setFechaAlta(fechaAlta.getValue());
 //		mapaGmmVO.setFechaModificacion(fechaModificacion.getValue());
 		
@@ -592,7 +599,7 @@ public class MapaGmmController  extends ControllerSupport implements  IControlle
 	@Command
 	@NotifyChange({ "mapaGmmVOs", "btnGuardar" })
 	public void save() {
-		ReportesController controller = new ReportesController();
+		final ReportesController controller = new ReportesController();
 		//Validar Todos Los campos de pantalla
 		boolean errorGuardar = false; 
 		if (status.getSelectedItem() == null
@@ -612,57 +619,74 @@ public class MapaGmmController  extends ControllerSupport implements  IControlle
 			errorGuardar = true;
 		} 
 		if(!errorGuardar){
-			if(!idMapaGmm.getValue().isEmpty()){
-				logger.info("::::::Actualizar::::");
-				MapaGmmDTO mapaGmmDTO = new MapaGmmDTO();
-				MapaGmmVO mapaGmmVO = new MapaGmmVO();
-				mapaGmmVO.setIdMapaGmm(Integer.parseInt(idMapaGmm.getValue().isEmpty()?"0":idMapaGmm.getValue()));
-				mapaGmmVO.setIdEstatusObjeto(Integer.parseInt(status.getSelectedItem().getValue().toString().isEmpty()? ""+ CommandConstants.ID_MAPA_ACTIVO:status.getSelectedItem().getValue().toString()));
-				
-				mapaGmmVO.setNombreMapaGmm(identificadorMapa.getValue().toUpperCase().trim());
-				mapaGmmVO.setDescripcionMapaGmm(descripcionMapa.getValue().toUpperCase().trim());
+			Messagebox.show(
+					"¿Está seguro que desea continuar con la operación?",
+					"Pregunta", org.zkoss.zul.Messagebox.YES | org.zkoss.zul.Messagebox.NO,
+				org.zkoss.zul.Messagebox.QUESTION, new EventListener<Event>() {
+				@Override
+				public void onEvent(Event event) throws Exception {
+					if (event.getName().equals(org.zkoss.zul.Messagebox.ON_YES)) {					
+						if(!idMapaGmm.getValue().isEmpty()){
+							logger.info("::::::Actualizar::::");
+							MapaGmmDTO mapaGmmDTO = new MapaGmmDTO();
+							MapaGmmVO mapaGmmVOL = new MapaGmmVO();
+							mapaGmmVOL.setIdMapaGmm(Integer.parseInt(idMapaGmm.getValue().isEmpty()?"0":idMapaGmm.getValue()));
+							mapaGmmVOL.setIdEstatusObjeto(Integer.parseInt(status.getSelectedItem().getValue().toString().isEmpty()? ""+ CommandConstants.ID_MAPA_ACTIVO:status.getSelectedItem().getValue().toString()));
 							
-				//Seteo de VO a DTO 
-				mapaGmmDTO.setMapaGmmVO(mapaGmmVO);
-				mapaGmmDTO.toString(BbvaAbstractDataTransferObject.XML);	
-				
-				MapaGmmBO mapaGmmBO = new MapaGmmBO();
-				mapaGmmBO.updateCommand(mapaGmmDTO);
-				if (Integer.parseInt(status.getSelectedItem().getValue().toString())==CommandConstants.ID_MAPA_INACTIVO) { 
-					controller.registrarEvento(mapaGmmVO, this.mapaGmmVO, CommandConstants.INACTIVACION, nombrePantalla);				
-				} else {
-					controller.registrarEvento(mapaGmmVO, this.mapaGmmVO, CommandConstants.MODIFICACION,nombrePantalla);
+							mapaGmmVOL.setNombreMapaGmm(identificadorMapa.getValue().toUpperCase().trim());
+							mapaGmmVOL.setDescripcionMapaGmm(descripcionMapa.getValue().toUpperCase().trim());
+										
+							//Seteo de VO a DTO 
+							mapaGmmDTO.setMapaGmmVO(mapaGmmVOL);
+							mapaGmmDTO.toString(BbvaAbstractDataTransferObject.XML);	
+							
+							MapaGmmBO mapaGmmBO = new MapaGmmBO();
+							mapaGmmBO.updateCommand(mapaGmmDTO);
+							if (Integer.parseInt(status.getSelectedItem().getValue().toString())==CommandConstants.ID_MAPA_INACTIVO) { 
+								controller.registrarEvento(mapaGmmVOL, mapaGmmVO, CommandConstants.INACTIVACION, nombrePantalla);				
+							} else {
+								controller.registrarEvento(mapaGmmVOL, mapaGmmVO, CommandConstants.MODIFICACION,nombrePantalla);
+							}
+							
+							
+							clean();			
+							
+							//Textbox
+							mapaGmmVO = new MapaGmmVO();
+							
+							//Consulta Parametrizada
+			
+							mapaGmmDTO.setMapaGmmVO(mapaGmmVO);
+							mapaGmmDTO.toString(BbvaAbstractDataTransferObject.XML);	
+							
+							//LLamada a BO  MapaGmm para consulta por criterio
+							MapaGmmBO MapaGmmBO = new MapaGmmBO();
+							
+							//Asignacion resultado de consulta al mismo DTO de MapaGmm
+							mapaGmmDTO = MapaGmmBO.readCommand(mapaGmmDTO);
+							
+							btnGuardar = true;
+			
+							org.zkoss.zul.Messagebox.show("Registro actualizado con exito!!",
+									"Confirmación", org.zkoss.zul.Messagebox.OK,
+									org.zkoss.zul.Messagebox.INFORMATION);
+							
+							mapaGmmVOs = mapaGmmDTO.getMapaGmmVOs();
+							identificadorMapa.setDisabled(false);
+							
+						}else{ 
+							logger.info("::::::NO Crea::::"); 
+			
+						}						
+						BindUtils
+						.postGlobalCommand(
+								null,
+								null,
+								"readWithFilters",
+								null);
+					}
 				}
-				
-				
-				clean();			
-				
-				//Textbox
-				mapaGmmVO = new MapaGmmVO();
-				
-				//Consulta Parametrizada
-
-				mapaGmmDTO.setMapaGmmVO(mapaGmmVO);
-				mapaGmmDTO.toString(BbvaAbstractDataTransferObject.XML);	
-				
-				//LLamada a BO  MapaGmm para consulta por criterio
-				MapaGmmBO MapaGmmBO = new MapaGmmBO();
-				
-				//Asignacion resultado de consulta al mismo DTO de MapaGmm
-				mapaGmmDTO = MapaGmmBO.readCommand(mapaGmmDTO);
-				
-				btnGuardar = true;
-				org.zkoss.zul.Messagebox.show("Registro actualizado con exito!!",
-						"Confirmación", org.zkoss.zul.Messagebox.OK,
-						org.zkoss.zul.Messagebox.INFORMATION);
-				
-				mapaGmmVOs = mapaGmmDTO.getMapaGmmVOs();
-				identificadorMapa.setDisabled(false);
-				
-			}else{ 
-				logger.info("::::::NO Crea::::"); 
-
-			}
+			});
 		}
 	}
 

@@ -5,20 +5,23 @@
 <zk>
 	<window closable="true" position="center,center"
 		border="0" width="75%" height="60%"
-		apply="mx.com.bbva.mapeador.ui.commons.viewmodel.admonFlujos.AdmonFlujosController"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('mx.com.bbva.mapeador.ui.commons.viewmodel.admonFlujos.AdmonFlujosImageController')"
 		id="openImageWindow">
-		<include src="../../pages/styles.zul" />
-		<div apply="mx.com.bbva.mapeador.ui.commons.viewmodel.admonFlujos.AdmonFlujosController" sclass="BODY" height="95%" 
-		viewModel="@id('vm') @init('mx.com.bbva.mapeador.ui.commons.viewmodel.admonFlujos.AdmonFlujosController')">
-			<groupbox height="100%">
+	<include src="../../pages/styles.zul" />
+		<div>				
+			<groupbox height="100%" width="100%">
 				<caption sclass="pageTitle" label="Flujo"></caption>
 				<div align="center">		
-					<image src="@load(arg.descripcionUrlImagen)"></image>
+					<image width="90%"  height="90%" src="@load(arg.get('descripcionUrlImagen'))"></image>
 				</div>										
 			</groupbox>
 		</div>
 		<div align="center">
-			<button id="closeBtn" sclass="button" label="Cerrar"/>	
+			<button id="closeBtn" sclass="button" label="Cerrar" onClick="@command('showModal')"/>	
 		</div>	
 	</window>
+	<zscript>
+		System.out.println("arg.descripcionUrlImagen:"+arg.get("descripcionUrlImagen"));
+	</zscript>
 </zk>

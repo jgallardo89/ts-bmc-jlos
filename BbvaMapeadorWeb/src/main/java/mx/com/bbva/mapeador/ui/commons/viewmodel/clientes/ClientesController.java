@@ -53,13 +53,17 @@ import mx.com.bbva.mapeador.ui.commons.controller.IController;
 import mx.com.bbva.mapeador.ui.commons.viewmodel.reportes.ReportesController;
 import mx.com.bbva.mapeador.ui.commons.viewmodel.support.ControllerSupport;
 
+import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
+import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.event.Event;
+import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.Button;
@@ -68,6 +72,7 @@ import org.zkoss.zul.Datebox;
 import org.zkoss.zul.Grid;
 import org.zkoss.zul.Image;
 import org.zkoss.zul.Label;
+import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Textbox;
 
 /**
@@ -244,6 +249,9 @@ public class ClientesController extends ControllerSupport implements IController
 		nombreCliente.clearErrorMessage();
 		nombreCortoCliente.clearErrorMessage();
 		idCliente.clearErrorMessage();
+		
+		fechaAlta.setValue(null);
+		fechaModificacion.setValue(null);
 
 		idIdentificador.setValue(null);
 		nombreCliente.setValue(null);
@@ -257,9 +265,7 @@ public class ClientesController extends ControllerSupport implements IController
 	 */
 	private void defaultValues() {
 		statusObjeto.setValue(CommandConstants.NB_CLIENTE_ACTIVO);
-        idEstatusObjeto.setValue(String.valueOf(CommandConstants.ID_CLIENTE_ACTIVO));
-        fechaAlta.setValue(new Date());
-		fechaModificacion.setValue(new Date());
+        idEstatusObjeto.setValue(String.valueOf(CommandConstants.ID_CLIENTE_ACTIVO));       
 	}
 
 	/* (non-Javadoc)
@@ -411,6 +417,7 @@ public class ClientesController extends ControllerSupport implements IController
 	/**
 	 * Read with filters.
 	 */
+	@GlobalCommand
 	@Command
 	@NotifyChange({ "clientesVOs" })
 	public void readWithFilters() {
@@ -437,9 +444,9 @@ public class ClientesController extends ControllerSupport implements IController
 	@Command
 	@NotifyChange({ "clientesVOs", "btnGuardar", "flagEstatus"})
 	public void save() {
-		ReportesController controller = new ReportesController();
+		final ReportesController controller = new ReportesController();
 		boolean errorGuardar = false;
-		ClienteBO clienteBO = new ClienteBO();
+		final ClienteBO clienteBO = new ClienteBO();
 		if (idIdentificador.getValue().isEmpty()) {
 			idIdentificador
 					.setErrorMessage("Favor de introducir el Identificador del Cliente");
@@ -456,146 +463,162 @@ public class ClientesController extends ControllerSupport implements IController
 			errorGuardar = true;
 		}
 		if(!errorGuardar){
-			if(idCliente.getValue().isEmpty() || idCliente.getValue().equals("0")){
-				ClienteVO clienteVO = new ClienteVO();
-				clienteDTO = new ClienteDTO();
-				clienteVO.setIdIdentificador(idIdentificador.getValue().toUpperCase().trim());
-				clienteDTO = clienteBO.readCommand(clienteVO);
-				
-				if(clienteDTO.getClienteVOs().size()==0) {
-					clienteVO.setIdIdentificador(idIdentificador.getValue().toUpperCase().trim());
-					clienteVO.setNombreCliente(nombreCliente.getValue().toUpperCase().trim());
-					clienteVO.setNombreCortoCliente(nombreCortoCliente.getValue().toUpperCase().trim());
-					clienteVO.setIdEstatusObjeto(CommandConstants.ESTATUS_OBJETO_ACTIVO_CLIENTES);
-					clienteDTO.setClienteVO(clienteVO);
-					clienteBO.createCommand(clienteDTO);
-					clienteDTO.toString(BbvaAbstractDataTransferObject.XML);
-
-					ClienteVO clienteNuevo = new ClienteVO();
-					clienteNuevo.setIdIdentificador("");
-					clienteNuevo.setNombreCliente("");
-					clienteNuevo.setNombreCortoCliente("");
-					clienteNuevo.setIdEstatusObjeto(CommandConstants.ESTATUS_OBJETO_ACTIVO_CLIENTES);					
-					controller.registrarEvento(clienteVO, clienteNuevo, CommandConstants.ALTA, nombrePantalla);
-					clean();
-
-					
-					clienteVO.setIdIdentificador(StringUtil.validaLike(idIdentificador.getValue()));
-					clienteVO.setNombreCliente(StringUtil.validaLike(nombreCliente.getValue()));
-					clienteVO.setNombreCortoCliente(StringUtil.validaLike(nombreCortoCliente.getValue()));
-					clienteVO.setIdEstatusObjeto(0);
-
-					
-					clienteVO.toString();
-					clienteDTO.setClienteVO(clienteVO);
-					clientesVOs = clienteBO.readCommand(clienteDTO).getClienteVOs();
-					org.zkoss.zul.Messagebox.show("!El Registro del Cliente fue exitoso!",
-							"Información", org.zkoss.zul.Messagebox.OK,
-							org.zkoss.zul.Messagebox.INFORMATION);
-				} else {
-					clienteVO.setIdIdentificador(idIdentificador.getValue().toUpperCase().trim());
-					clienteVO.setNombreCliente(nombreCliente.getValue().toUpperCase().trim());
-					clienteVO.setNombreCortoCliente(nombreCortoCliente.getValue().toUpperCase().trim());
-					clienteVO.setIdEstatusObjeto(CommandConstants.ESTATUS_OBJETO_ACTIVO_CLIENTES);
-					ClienteVO clienteNuevo = new ClienteVO();
-					clienteNuevo.setIdIdentificador("");
-					clienteNuevo.setNombreCliente("");
-					clienteNuevo.setNombreCortoCliente("");
-					clienteNuevo.setIdEstatusObjeto(CommandConstants.ESTATUS_OBJETO_ACTIVO_CLIENTES);					
-					controller.registrarEvento(clienteVO, clienteNuevo, CommandConstants.ALTA_FALLIDA, nombrePantalla);
-					clean();
-					
-					org.zkoss.zul.Messagebox.show("!Ya existe un Cliente con el mismo Identificador!",
-							"Información", org.zkoss.zul.Messagebox.OK,
-							org.zkoss.zul.Messagebox.EXCLAMATION);
-				}
-			} else {
-				ContratacionBO contratacionBO = new ContratacionBO();
-				ContratacionVO contratacionVO = new ContratacionVO();
-				contratacionVO.setIdCliente(Integer.parseInt(idCliente.getValue()));
-				ClienteVO clienteVO = new ClienteVO();
-				clienteDTO = new ClienteDTO();
-				clienteVO.setIdIdentificador(idIdentificador.getValue().toUpperCase());
-				clienteVO.setIdCliente(Integer.parseInt(idCliente.getValue()));
-				clienteDTO = clienteBO.readCommand(clienteVO);
-				if(clienteDTO.getClienteVOs()!=null && clienteDTO.getClienteVOs().size()>0){
-					clienteVO.setIdIdentificador(idIdentificador.getValue().toUpperCase().trim());
-					clienteVO.setNombreCliente(nombreCliente.getValue().toUpperCase().trim());
-					clienteVO.setNombreCortoCliente(nombreCortoCliente.getValue().toUpperCase().trim());
-					clienteVO.setIdEstatusObjeto(CommandConstants.ESTATUS_OBJETO_ACTIVO_CLIENTES);	
-					ClienteVO clienteNuevo = new ClienteVO();
-					clienteNuevo.setIdIdentificador("");
-					clienteNuevo.setNombreCliente("");
-					clienteNuevo.setNombreCortoCliente("");
-					clienteNuevo.setIdEstatusObjeto(CommandConstants.ESTATUS_OBJETO_ACTIVO_CLIENTES);
-					controller.registrarEvento(clienteVO, clienteNuevo, CommandConstants.ALTA_FALLIDA, nombrePantalla);
-					org.zkoss.zul.Messagebox.show("!Ya existe un Cliente con el mismo Identificador!",
-							"Información", org.zkoss.zul.Messagebox.OK,
-							org.zkoss.zul.Messagebox.EXCLAMATION);
-				}else{
-					if(Integer.parseInt(idEstatusObjeto.getValue()) == CommandConstants.ESTATUS_OBJETO_ACTIVO_CLIENTES || 
-							contratacionBO.readCommandValidaContratacion(contratacionVO)){
-						ClienteDTO clienteDTO = new ClienteDTO();
-						clienteVO = new ClienteVO();
-						clienteVO.setIdCliente(Integer.parseInt(idCliente.getValue()));
-						clienteVO.setIdIdentificador(idIdentificador.getValue().toUpperCase().trim());
-						clienteVO.setNombreCliente(nombreCliente.getValue().toUpperCase().trim());
-						clienteVO.setNombreCortoCliente(nombreCortoCliente.getValue().toUpperCase().trim());
-						clienteVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue()));
-						clienteDTO.setClienteVO(clienteVO);
-						
-						clienteBO.updateCommand(clienteDTO);
-						clienteDTO.toString(BbvaAbstractDataTransferObject.XML);
-						if (Integer.parseInt(statusObjeto.getSelectedItem().getValue().toString())==CommandConstants.ID_CLIENTE_BAJA) {
-							controller.registrarEvento(clienteVO, this.clientesVO, CommandConstants.BAJA, nombrePantalla);					
-						} else if (Integer.parseInt(statusObjeto.getSelectedItem().getValue().toString())==CommandConstants.ID_CLIENTE_INACTIVO) { 
-							controller.registrarEvento(clienteVO, this.clientesVO, CommandConstants.INACTIVACION, nombrePantalla);				
+			Messagebox.show(
+				"¿Está seguro que desea continuar con la operación?",
+				"Pregunta", org.zkoss.zul.Messagebox.YES | org.zkoss.zul.Messagebox.NO,
+			org.zkoss.zul.Messagebox.QUESTION, new EventListener<Event>() {
+				@Override
+				public void onEvent(Event event) throws Exception {
+					if (event.getName().equals(org.zkoss.zul.Messagebox.ON_YES)) {
+						if(idCliente.getValue().isEmpty() || idCliente.getValue().equals("0")){
+							ClienteVO clienteVO = new ClienteVO();
+							clienteDTO = new ClienteDTO();
+							clienteVO.setIdIdentificador(idIdentificador.getValue().toUpperCase().trim());
+							clienteDTO = clienteBO.readCommand(clienteVO);
+							
+							if(clienteDTO.getClienteVOs().size()==0) {
+								clienteVO.setIdIdentificador(idIdentificador.getValue().toUpperCase().trim());
+								clienteVO.setNombreCliente(nombreCliente.getValue().toUpperCase().trim());
+								clienteVO.setNombreCortoCliente(nombreCortoCliente.getValue().toUpperCase().trim());
+								clienteVO.setIdEstatusObjeto(CommandConstants.ESTATUS_OBJETO_ACTIVO_CLIENTES);
+								clienteDTO.setClienteVO(clienteVO);
+								clienteBO.createCommand(clienteDTO);
+								clienteDTO.toString(BbvaAbstractDataTransferObject.XML);
+			
+								ClienteVO clienteNuevo = new ClienteVO();
+								clienteNuevo.setIdIdentificador("");
+								clienteNuevo.setNombreCliente("");
+								clienteNuevo.setNombreCortoCliente("");
+								clienteNuevo.setIdEstatusObjeto(CommandConstants.ESTATUS_OBJETO_ACTIVO_CLIENTES);					
+								controller.registrarEvento(clienteVO, clienteNuevo, CommandConstants.ALTA, nombrePantalla);
+								clean();
+			
+								
+								clienteVO.setIdIdentificador(StringUtil.validaLike(idIdentificador.getValue()));
+								clienteVO.setNombreCliente(StringUtil.validaLike(nombreCliente.getValue()));
+								clienteVO.setNombreCortoCliente(StringUtil.validaLike(nombreCortoCliente.getValue()));
+								clienteVO.setIdEstatusObjeto(0);
+			
+								
+								clienteVO.toString();
+								clienteDTO.setClienteVO(clienteVO);
+								clientesVOs = clienteBO.readCommand(clienteDTO).getClienteVOs();
+								org.zkoss.zul.Messagebox.show("!El Registro del Cliente fue exitoso!",
+										"Información", org.zkoss.zul.Messagebox.OK,
+										org.zkoss.zul.Messagebox.INFORMATION);
+							} else {
+								clienteVO.setIdIdentificador(idIdentificador.getValue().toUpperCase().trim());
+								clienteVO.setNombreCliente(nombreCliente.getValue().toUpperCase().trim());
+								clienteVO.setNombreCortoCliente(nombreCortoCliente.getValue().toUpperCase().trim());
+								clienteVO.setIdEstatusObjeto(CommandConstants.ESTATUS_OBJETO_ACTIVO_CLIENTES);
+								ClienteVO clienteNuevo = new ClienteVO();
+								clienteNuevo.setIdIdentificador("");
+								clienteNuevo.setNombreCliente("");
+								clienteNuevo.setNombreCortoCliente("");
+								clienteNuevo.setIdEstatusObjeto(CommandConstants.ESTATUS_OBJETO_ACTIVO_CLIENTES);					
+								controller.registrarEvento(clienteVO, clienteNuevo, CommandConstants.ALTA_FALLIDA, nombrePantalla);
+								clean();
+								
+								org.zkoss.zul.Messagebox.show("!Ya existe un Cliente con el mismo Identificador!",
+										"Información", org.zkoss.zul.Messagebox.OK,
+										org.zkoss.zul.Messagebox.EXCLAMATION);
+							}
 						} else {
-							controller.registrarEvento(clienteVO, this.clientesVO, CommandConstants.MODIFICACION, nombrePantalla);
+							ContratacionBO contratacionBO = new ContratacionBO();
+							ContratacionVO contratacionVO = new ContratacionVO();
+							contratacionVO.setIdCliente(Integer.parseInt(idCliente.getValue()));
+							ClienteVO clienteVO = new ClienteVO();
+							clienteDTO = new ClienteDTO();
+							clienteVO.setIdIdentificador(idIdentificador.getValue().toUpperCase());
+							clienteVO.setIdCliente(Integer.parseInt(idCliente.getValue()));
+							clienteDTO = clienteBO.readCommand(clienteVO);
+							if(clienteDTO.getClienteVOs()!=null && clienteDTO.getClienteVOs().size()>0){
+								clienteVO.setIdIdentificador(idIdentificador.getValue().toUpperCase().trim());
+								clienteVO.setNombreCliente(nombreCliente.getValue().toUpperCase().trim());
+								clienteVO.setNombreCortoCliente(nombreCortoCliente.getValue().toUpperCase().trim());
+								clienteVO.setIdEstatusObjeto(CommandConstants.ESTATUS_OBJETO_ACTIVO_CLIENTES);	
+								ClienteVO clienteNuevo = new ClienteVO();
+								clienteNuevo.setIdIdentificador("");
+								clienteNuevo.setNombreCliente("");
+								clienteNuevo.setNombreCortoCliente("");
+								clienteNuevo.setIdEstatusObjeto(CommandConstants.ESTATUS_OBJETO_ACTIVO_CLIENTES);
+								controller.registrarEvento(clienteVO, clienteNuevo, CommandConstants.ALTA_FALLIDA, nombrePantalla);
+								org.zkoss.zul.Messagebox.show("!Ya existe un Cliente con el mismo Identificador!",
+										"Información", org.zkoss.zul.Messagebox.OK,
+										org.zkoss.zul.Messagebox.EXCLAMATION);
+							}else{
+								if(Integer.parseInt(idEstatusObjeto.getValue()) == CommandConstants.ESTATUS_OBJETO_ACTIVO_CLIENTES || 
+										contratacionBO.readCommandValidaContratacion(contratacionVO)){
+									ClienteDTO clienteDTO = new ClienteDTO();
+									clienteVO = new ClienteVO();
+									clienteVO.setIdCliente(Integer.parseInt(idCliente.getValue()));
+									clienteVO.setIdIdentificador(idIdentificador.getValue().toUpperCase().trim());
+									clienteVO.setNombreCliente(nombreCliente.getValue().toUpperCase().trim());
+									clienteVO.setNombreCortoCliente(nombreCortoCliente.getValue().toUpperCase().trim());
+									clienteVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue()));
+									clienteDTO.setClienteVO(clienteVO);
+									
+									clienteBO.updateCommand(clienteDTO);
+									clienteDTO.toString(BbvaAbstractDataTransferObject.XML);
+									if (Integer.parseInt(statusObjeto.getSelectedItem().getValue().toString())==CommandConstants.ID_CLIENTE_BAJA) {
+										controller.registrarEvento(clienteVO, clientesVO, CommandConstants.BAJA, nombrePantalla);					
+									} else if (Integer.parseInt(statusObjeto.getSelectedItem().getValue().toString())==CommandConstants.ID_CLIENTE_INACTIVO) { 
+										controller.registrarEvento(clienteVO, clientesVO, CommandConstants.INACTIVACION, nombrePantalla);				
+									} else {
+										controller.registrarEvento(clienteVO, clientesVO, CommandConstants.MODIFICACION, nombrePantalla);
+									}
+			
+									clean();
+									clienteVO.setIdIdentificador(StringUtil.validaLike(idIdentificador.getValue()));
+									clienteVO.setNombreCliente(StringUtil.validaLike(nombreCliente.getValue()));
+									clienteVO.setNombreCortoCliente(StringUtil.validaLike(nombreCortoCliente.getValue()));
+									clienteVO.setIdEstatusObjeto(0);
+									clienteVO.toString();
+									clienteDTO.setClienteVO(clienteVO);
+									clientesVOs = clienteBO.readCommand(clienteDTO).getClienteVOs();
+									
+									org.zkoss.zul.Messagebox.show("!La Actualización del Cliente fue exitoso!",
+											"Información", org.zkoss.zul.Messagebox.OK,
+											org.zkoss.zul.Messagebox.INFORMATION);
+								} else {
+									clienteVO = new ClienteVO();
+									clienteVO.setIdCliente(Integer.parseInt(idCliente.getValue()));
+									clienteVO.setIdIdentificador(idIdentificador.getValue().toUpperCase().trim());
+									clienteVO.setNombreCliente(nombreCliente.getValue().toUpperCase().trim());
+									clienteVO.setNombreCortoCliente(nombreCortoCliente.getValue().toUpperCase().trim());
+									clienteVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue()));
+									if (Integer.parseInt(statusObjeto.getSelectedItem().getValue().toString())==CommandConstants.ID_CLIENTE_BAJA) {
+										controller.registrarEvento(clienteVO, clientesVO, CommandConstants.BAJA_FALLIDA, nombrePantalla);					
+									} else if (Integer.parseInt(statusObjeto.getSelectedItem().getValue().toString())==CommandConstants.ID_CLIENTE_INACTIVO) { 
+										controller.registrarEvento(clienteVO, clientesVO, CommandConstants.INACTIVACION_FALLIDA, nombrePantalla);				
+									} else {
+										controller.registrarEvento(clienteVO, clientesVO, CommandConstants.MODIFICACION_FALLIDA, nombrePantalla);
+									}
+									clean();
+				//					ClienteVO clienteVO = new ClienteVO();
+				//					clienteVO.setIdIdentificador(StringUtil.validaLike(idIdentificador.getValue()));
+				//					clienteVO.setNombreCliente(StringUtil.validaLike(nombreCliente.getValue()));
+				//					clienteVO.setNombreCortoCliente(StringUtil.validaLike(nombreCortoCliente.getValue()));
+				//					clienteVO.setIdEstatusObjeto(0);
+				//					clienteVO.toString();
+				//					clienteDTO.setClienteVO(clienteVO);
+				//					clientesVOs = clienteBO.readCommand(clienteDTO).getClienteVOs();
+									
+									org.zkoss.zul.Messagebox.show("!No se puede dar de Baja, ya que esta siendo Usado por la Contratación!",
+											"Información", org.zkoss.zul.Messagebox.OK,
+											org.zkoss.zul.Messagebox.EXCLAMATION);
+								}
+							}
 						}
-
-						clean();
-						clienteVO.setIdIdentificador(StringUtil.validaLike(idIdentificador.getValue()));
-						clienteVO.setNombreCliente(StringUtil.validaLike(nombreCliente.getValue()));
-						clienteVO.setNombreCortoCliente(StringUtil.validaLike(nombreCortoCliente.getValue()));
-						clienteVO.setIdEstatusObjeto(0);
-						clienteVO.toString();
-						clienteDTO.setClienteVO(clienteVO);
-						clientesVOs = clienteBO.readCommand(clienteDTO).getClienteVOs();
-						
-						org.zkoss.zul.Messagebox.show("!La Actualización del Cliente fue exitoso!",
-								"Información", org.zkoss.zul.Messagebox.OK,
-								org.zkoss.zul.Messagebox.INFORMATION);
-					} else {
-						clienteVO = new ClienteVO();
-						clienteVO.setIdCliente(Integer.parseInt(idCliente.getValue()));
-						clienteVO.setIdIdentificador(idIdentificador.getValue().toUpperCase().trim());
-						clienteVO.setNombreCliente(nombreCliente.getValue().toUpperCase().trim());
-						clienteVO.setNombreCortoCliente(nombreCortoCliente.getValue().toUpperCase().trim());
-						clienteVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue()));
-						if (Integer.parseInt(statusObjeto.getSelectedItem().getValue().toString())==CommandConstants.ID_CLIENTE_BAJA) {
-							controller.registrarEvento(clienteVO, this.clientesVO, CommandConstants.BAJA_FALLIDA, nombrePantalla);					
-						} else if (Integer.parseInt(statusObjeto.getSelectedItem().getValue().toString())==CommandConstants.ID_CLIENTE_INACTIVO) { 
-							controller.registrarEvento(clienteVO, this.clientesVO, CommandConstants.INACTIVACION_FALLIDA, nombrePantalla);				
-						} else {
-							controller.registrarEvento(clienteVO, this.clientesVO, CommandConstants.MODIFICACION_FALLIDA, nombrePantalla);
-						}
-						clean();
-	//					ClienteVO clienteVO = new ClienteVO();
-	//					clienteVO.setIdIdentificador(StringUtil.validaLike(idIdentificador.getValue()));
-	//					clienteVO.setNombreCliente(StringUtil.validaLike(nombreCliente.getValue()));
-	//					clienteVO.setNombreCortoCliente(StringUtil.validaLike(nombreCortoCliente.getValue()));
-	//					clienteVO.setIdEstatusObjeto(0);
-	//					clienteVO.toString();
-	//					clienteDTO.setClienteVO(clienteVO);
-	//					clientesVOs = clienteBO.readCommand(clienteDTO).getClienteVOs();
-						
-						org.zkoss.zul.Messagebox.show("!No se puede dar de Baja, ya que esta siendo Usado por la Contratación!",
-								"Información", org.zkoss.zul.Messagebox.OK,
-								org.zkoss.zul.Messagebox.EXCLAMATION);
+						BindUtils
+						.postGlobalCommand(
+								null,
+								null,
+								"readWithFilters",
+								null);
 					}
 				}
-			}
+			});
 		}
 		btnGuardar = true;
 		flagEstatus = true;
