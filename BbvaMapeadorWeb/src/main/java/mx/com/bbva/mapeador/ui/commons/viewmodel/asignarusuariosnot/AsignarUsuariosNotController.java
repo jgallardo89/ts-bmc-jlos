@@ -423,7 +423,7 @@ public class AsignarUsuariosNotController extends ControllerSupport implements  
 			mensajesSistema.setValue(null);
 			descripcionMensaje.setValue(null);
 			org.zkoss.zul.Messagebox.show("Registro actualizado con exito!!",
-					"Confirmación", org.zkoss.zul.Messagebox.OK,
+					"Información", org.zkoss.zul.Messagebox.OK,
 					org.zkoss.zul.Messagebox.INFORMATION);
 		}else{
 			org.zkoss.zul.Messagebox.show("Favor de seleccionar el mensaje a modificar!!",

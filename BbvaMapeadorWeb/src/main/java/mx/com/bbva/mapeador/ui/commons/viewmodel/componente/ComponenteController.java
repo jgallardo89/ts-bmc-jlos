@@ -599,7 +599,7 @@ public class ComponenteController extends ControllerSupport implements  IControl
 				componenteDTO = componenteBO.readCommand(componenteDTO);
 								
 				org.zkoss.zul.Messagebox.show("Registro actualizado con exito!!",
-						"Confirmación", org.zkoss.zul.Messagebox.OK,
+						"Información", org.zkoss.zul.Messagebox.OK,
 						org.zkoss.zul.Messagebox.INFORMATION);
 				
 				componenteVOs = componenteDTO.getComponenteVOs();
@@ -648,7 +648,7 @@ public class ComponenteController extends ControllerSupport implements  IControl
 				componenteVOs = componenteDTO.getComponenteVOs();
 				
 				org.zkoss.zul.Messagebox.show("Registro creado con exito!!",
-						"Confirmación", org.zkoss.zul.Messagebox.OK,
+						"Información", org.zkoss.zul.Messagebox.OK,
 						org.zkoss.zul.Messagebox.INFORMATION);				
 			}
 		}

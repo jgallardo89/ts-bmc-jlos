@@ -629,7 +629,7 @@ public class EstatusObjetoController extends ControllerSupport implements IContr
 				estatusObjetoDTO.setEstatusObjetoVO(estatusObjetoVO);
 				estatusObjetoVOs = estatusObjetoBO.readCommand(estatusObjetoDTO).getEstatusObjetoVOs();
 				org.zkoss.zul.Messagebox.show("Registro creado con exito!!",
-						"Confirmación", org.zkoss.zul.Messagebox.OK,
+						"Información", org.zkoss.zul.Messagebox.OK,
 						org.zkoss.zul.Messagebox.INFORMATION);
 			}else{
 				nombreTabla = pantallas.getSelectedItem().getLabel().toUpperCase();
@@ -662,7 +662,7 @@ public class EstatusObjetoController extends ControllerSupport implements IContr
 				estatusObjetoDTO.setEstatusObjetoVO(estatusObjetoVO);
 				estatusObjetoVOs = estatusObjetoBO.readCommand(estatusObjetoDTO).getEstatusObjetoVOs();				
 				org.zkoss.zul.Messagebox.show("Registro actualizado con exito!!",
-						"Confirmación", org.zkoss.zul.Messagebox.OK,
+						"Información", org.zkoss.zul.Messagebox.OK,
 						org.zkoss.zul.Messagebox.INFORMATION);
 			}
 		}

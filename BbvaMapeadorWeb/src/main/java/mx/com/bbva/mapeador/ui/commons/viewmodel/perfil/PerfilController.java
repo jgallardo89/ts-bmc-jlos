@@ -342,7 +342,7 @@ public class PerfilController extends ControllerSupport implements  IController{
 			clean();
 			perfilDTO = (PerfilDTO)this.read();
 			perfilVOs = perfilDTO.getPerfilVOs();
-			Messagebox.show("Registro creado con exito!!","Confirmación", Messagebox.OK,Messagebox.INFORMATION);
+			Messagebox.show("Registro creado con exito!!","Información", Messagebox.OK,Messagebox.INFORMATION);
 		}
 	}
 
@@ -697,7 +697,7 @@ public class PerfilController extends ControllerSupport implements  IController{
 							controller.registrarEvento(perfil, this.perfilVO, CommandConstants.INACTIVACION_FALLIDA, nombrePantalla);				
 						} 												
 						Messagebox.show("El perfil no puede ser cancelado o inactivado ya que existen usuarios activos o inactivos.",
-								"Confirmación", Messagebox.OK,
+								"Información", Messagebox.OK,
 								Messagebox.EXCLAMATION);
 						error = true;
 					}
@@ -721,7 +721,7 @@ public class PerfilController extends ControllerSupport implements  IController{
 						perfil.setIdPantalla(pantallas.getSelectedItem()==null?0:Integer.parseInt(pantallas.getSelectedItem().getValue().toString()));						
 						controller.registrarEvento(perfil, this.perfilVO, CommandConstants.MODIFICACION_FALLIDA, nombrePantalla);
 						Messagebox.show("Ya existe un perfil con el mismo identificador",
-								"Confirmación", Messagebox.OK,
+								"Información", Messagebox.OK,
 								Messagebox.EXCLAMATION);
 					}else{
 						PerfilDTO perfilDTO = new PerfilDTO();
@@ -774,7 +774,7 @@ public class PerfilController extends ControllerSupport implements  IController{
 						perfilVOs = perfilDTO.getPerfilVOs();
 										
 						Messagebox.show("Registro actualizado con exito!!",
-								"Confirmación", Messagebox.OK,
+								"Información", Messagebox.OK,
 								Messagebox.INFORMATION);
 					}
 				}
@@ -796,7 +796,7 @@ public class PerfilController extends ControllerSupport implements  IController{
 					perfil.setIdPantalla(pantallas.getSelectedItem()==null?0:Integer.parseInt(pantallas.getSelectedItem().getValue().toString()));						
 					controller.registrarEvento(perfil, this.perfilVO, CommandConstants.MODIFICACION_FALLIDA, nombrePantalla);					
 					Messagebox.show("Ya existe un perfil con el mismo identificador",
-							"Confirmación", Messagebox.OK,
+							"Información", Messagebox.OK,
 							Messagebox.EXCLAMATION);
 				}else{
 					PerfilDTO perfilDTO = new PerfilDTO();
@@ -816,7 +816,7 @@ public class PerfilController extends ControllerSupport implements  IController{
 					perfilVOs = perfilDTO.getPerfilVOs();
 					clean();
 					Messagebox.show("Registro creado con exito!!",
-							"Confirmación", Messagebox.OK,
+							"Información", Messagebox.OK,
 							Messagebox.INFORMATION);
 				}
 			}						

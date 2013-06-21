@@ -744,7 +744,7 @@ public class PantallaController extends ControllerSupport implements  IControlle
 				pantallaDTO = pantallaBO.readCommand(pantallaDTO);
 
 				org.zkoss.zul.Messagebox.show("Registro actualizado con exito!!",
-						"Confirmación", org.zkoss.zul.Messagebox.OK,
+						"Información", org.zkoss.zul.Messagebox.OK,
 						org.zkoss.zul.Messagebox.INFORMATION);
 				this.pantallaDTO = pantallaDTO;
 				pantallaVOs = pantallaDTO.getPantallaVOs();								
@@ -788,7 +788,7 @@ public class PantallaController extends ControllerSupport implements  IControlle
 				pantallaVOs = pantallaDTO.getPantallaVOs();
 				
 				org.zkoss.zul.Messagebox.show("Registro creado con exito!!",
-						"Confirmación", org.zkoss.zul.Messagebox.OK,
+						"Información", org.zkoss.zul.Messagebox.OK,
 						org.zkoss.zul.Messagebox.INFORMATION);
 			}
 		}

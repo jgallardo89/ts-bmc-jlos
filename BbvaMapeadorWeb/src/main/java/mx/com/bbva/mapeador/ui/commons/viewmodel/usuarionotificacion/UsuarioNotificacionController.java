@@ -605,7 +605,7 @@ public class UsuarioNotificacionController  extends ControllerSupport implements
 							
 							
 							org.zkoss.zul.Messagebox.show("Registro actualizado con exito!!",
-									"Confirmación", org.zkoss.zul.Messagebox.OK,
+									"Información", org.zkoss.zul.Messagebox.OK,
 									org.zkoss.zul.Messagebox.INFORMATION);
 							
 							usuarioNotificacionVOs = usuarioNotificacionDTO.getUsuarioNotificacionVOs();
@@ -626,7 +626,7 @@ public class UsuarioNotificacionController  extends ControllerSupport implements
 						
 						
 						org.zkoss.zul.Messagebox.show("Registro actualizado con exito!!",
-								"Confirmación", org.zkoss.zul.Messagebox.OK,
+								"Información", org.zkoss.zul.Messagebox.OK,
 								org.zkoss.zul.Messagebox.INFORMATION);
 						
 						usuarioNotificacionVOs = usuarioNotificacionDTO.getUsuarioNotificacionVOs();						
@@ -686,7 +686,7 @@ public class UsuarioNotificacionController  extends ControllerSupport implements
 					usuarioNotificacionDTO = usuarioNotificacionBO.readCommand(usuarioNotificacionDTO);
 					
 					org.zkoss.zul.Messagebox.show("Registro creo con exito!!",
-							"Confirmación", org.zkoss.zul.Messagebox.OK,
+							"Información", org.zkoss.zul.Messagebox.OK,
 							org.zkoss.zul.Messagebox.INFORMATION);
 					
 					usuarioNotificacionVOs = usuarioNotificacionDTO.getUsuarioNotificacionVOs();

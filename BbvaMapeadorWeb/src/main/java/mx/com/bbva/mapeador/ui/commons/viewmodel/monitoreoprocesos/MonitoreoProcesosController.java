@@ -634,7 +634,7 @@ public class MonitoreoProcesosController extends ControllerSupport implements  I
 									controller.registrarEvento(monitoreoProcesosVO, monitoreoProcesosVOAnt, CommandConstants.MODIFICACION,"Monitoreo de Procesos");
 									BindUtils.postGlobalCommand(null, null, "readWithFilters", null);
 									Messagebox.show("Registro actualizado con exito!!",
-											"Confirmación", org.zkoss.zul.Messagebox.OK,
+											"Información", org.zkoss.zul.Messagebox.OK,
 											org.zkoss.zul.Messagebox.INFORMATION);
 								}
 							}
@@ -666,7 +666,7 @@ public class MonitoreoProcesosController extends ControllerSupport implements  I
 //		armarListaGrid(monitoreoProcesosDTO.getMonitoreoProcesosVOs());
 //		controller.registrarEvento(monitoreoProcesosVO, this.monitoreoProcesosVO, CommandConstants.MODIFICACION,"Monitoreo de Procesos");
 //		org.zkoss.zul.Messagebox.show("Registro actualizado con exito!!",
-//				"Confirmación", org.zkoss.zul.Messagebox.OK,
+//				"Información", org.zkoss.zul.Messagebox.OK,
 //				org.zkoss.zul.Messagebox.INFORMATION);
 	}
 	/**
@@ -1454,7 +1454,7 @@ public class MonitoreoProcesosController extends ControllerSupport implements  I
 		armarListaGrid(monitoreoProcesosDTO.getMonitoreoProcesosVOs());
 		controller.registrarEvento(monitoreoProcesosVO, this.monitoreoProcesosVO, CommandConstants.MODIFICACION,"Monitoreo de Procesos");
 		org.zkoss.zul.Messagebox.show("Registro actualizado con exito!!",
-				"Confirmación", org.zkoss.zul.Messagebox.OK,
+				"Información", org.zkoss.zul.Messagebox.OK,
 				org.zkoss.zul.Messagebox.INFORMATION);
 		
 		
