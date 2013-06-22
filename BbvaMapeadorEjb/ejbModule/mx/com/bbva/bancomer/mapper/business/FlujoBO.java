@@ -94,7 +94,7 @@ public class FlujoBO implements BbvaIBusinessObject {
 					session.commit();
 				} catch (Exception ex) {
 					session.rollback();
-					ex.printStackTrace();
+					ex.printStackTrace();					
 				} finally {
 					session.close();
 				}
@@ -133,6 +133,8 @@ public class FlujoBO implements BbvaIBusinessObject {
 				} catch (Exception ex) {
 					session.rollback();
 					ex.printStackTrace();
+					bbvaAbstractDataTransferObject.setErrorCode("SQL-001");
+					bbvaAbstractDataTransferObject.setErrorDescription(ex.getMessage());
 				} finally {
 					session.close();
 				}
@@ -144,10 +146,14 @@ public class FlujoBO implements BbvaIBusinessObject {
 				return bbvaAbstractDataTransferObject;
 			} catch (Exception ex) {
 				ex.printStackTrace();
+				bbvaAbstractDataTransferObject.setErrorCode("SQL-001");
+				bbvaAbstractDataTransferObject.setErrorDescription(ex.getMessage());
 				return bbvaAbstractDataTransferObject;
 			}
-		} catch (Exception exception) {
-			exception.printStackTrace();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			bbvaAbstractDataTransferObject.setErrorCode("SQL-001");
+			bbvaAbstractDataTransferObject.setErrorDescription(ex.getMessage());
 			return bbvaAbstractDataTransferObject;
 		}
 	}
@@ -170,6 +176,8 @@ public class FlujoBO implements BbvaIBusinessObject {
 		} catch (Exception ex) {
 			session.rollback();
 			ex.printStackTrace();
+			bbvaAbstractDataTransferObject.setErrorCode("SQL-001");
+			bbvaAbstractDataTransferObject.setErrorDescription(ex.getMessage());
 		} finally {
 			session.close();
 		}
