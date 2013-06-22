@@ -11,6 +11,7 @@
 		<div sclass="BODY" height="100%" width="100%">		
 					<vlayout>
 						<groupbox height="330px" closable="false">
+						<caption sclass="pageTitle" label="Seguridad > Perfiles"></caption>
 							<panel width="100%" sclass="sectionPanelTitle" id="datosPerfil"
 								title="Seguridad" collapsible="false" style="margin-bottom:10px"
 								border="normal">	
