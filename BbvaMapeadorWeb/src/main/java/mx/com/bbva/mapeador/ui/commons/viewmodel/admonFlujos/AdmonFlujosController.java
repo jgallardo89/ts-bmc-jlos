@@ -386,12 +386,22 @@ public class AdmonFlujosController extends ControllerSupport implements IControl
 		estatusObjetoVO.setNombreTabla(CommandConstants.NOMBRE_TABLA_FLUJOS);		
 		EstatusObjetoBO estatusObjetoBO = new EstatusObjetoBO();
 		estatusObjetoDTO.setEstatusObjetoVO(estatusObjetoVO);
-		estatusObjetoDTO = estatusObjetoBO.readCommand(estatusObjetoDTO);		
+		estatusObjetoDTO = estatusObjetoBO.readCommand(estatusObjetoDTO);
+		if(estatusObjetoDTO.getErrorCode().equals("SQL-001")){
+	    	Messagebox.show("Hubo un error en base de datos, favor de reportalo con el adminsitrador del sistema:\n"+
+	    					"\nError:"+estatusObjetoDTO.getErrorCode()+
+	    					"\nDescripción:"+estatusObjetoDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+	    }
 	    flujoDTO.setEstatusObjetoVOs(estatusObjetoDTO.getEstatusObjetoVOs());
 	    FlujoVO flujoVO = new FlujoVO();
 	    flujoDTO.setFlujoVO(flujoVO);
 		FlujoBO FlujoBO = new FlujoBO();
-		FlujoBO.readCommand(flujoDTO);
+		flujoDTO = FlujoBO.readCommand(flujoDTO);
+		if(flujoDTO.getErrorCode().equals("SQL-001")){
+	    	Messagebox.show("Hubo un error en base de datos, favor de reportalo con el adminsitrador del sistema:\n"+
+	    					"\nError:"+flujoDTO.getErrorCode()+
+	    					"\nDescripción:"+flujoDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+	    }
 		return flujoDTO;
 	}
 
@@ -440,7 +450,13 @@ public class AdmonFlujosController extends ControllerSupport implements IControl
 		flujoVO.toString();
 		flujoDTO.setFlujoVO(flujoVO);
 		FlujoBO FlujoBO = new FlujoBO();
-		flujoVOs = FlujoBO.readCommand(flujoDTO).getFlujoVOs();
+		flujoDTO = FlujoBO.readCommand(flujoDTO);
+		if(flujoDTO.getErrorCode().equals("SQL-001")){
+	    	Messagebox.show("Hubo un error en base de datos, favor de reportalo con el adminsitrador del sistema:\n"+
+	    					"\nError:"+flujoDTO.getErrorCode()+
+	    					"\nDescripción:"+flujoDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+	    }
+		flujoVOs = flujoDTO.getFlujoVOs();
 		controller.registrarEvento(null, null, CommandConstants.CONSULTAR, nombrePantalla);
 	}
 
@@ -490,26 +506,38 @@ public class AdmonFlujosController extends ControllerSupport implements IControl
 							flujoVOL.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue()));
 							flujoVOL.setIdFlujo(Integer.parseInt(idFlujo.getValue()));
 							flujoDTO.setFlujoVO(flujoVOL);
-							flujoBO.updateCommand(flujoDTO);
-							flujoDTO.toString(BbvaAbstractDataTransferObject.XML);
-							
-							if (Integer.parseInt(statusObjeto.getSelectedItem().getValue().toString())==CommandConstants.ID_FLUJO_BAJA) {
-								controller.registrarEvento(flujoVOL, flujoVO, CommandConstants.BAJA, nombrePantalla);					
-							} else if (Integer.parseInt(statusObjeto.getSelectedItem().getValue().toString())==CommandConstants.ID_FLUJO_INACTIVO) { 
-								controller.registrarEvento(flujoVOL, flujoVO, CommandConstants.INACTIVACION, nombrePantalla);				
-							} else {
-								controller.registrarEvento(flujoVOL, flujoVO, CommandConstants.MODIFICACION, nombrePantalla);
-							}				
-							clean();
-							flujoVOL.setNombreFlujo(StringUtil.validaLike(nombreFlujo.getValue()));
-							flujoVOL.setDescripcionFlujo(StringUtil.validaLike(descripcionFlujo.getValue()));
-							flujoVOL.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue().isEmpty()?"0":statusObjeto.getSelectedItem().getValue().toString()));
-							flujoVOL.toString();
-							flujoDTO.setFlujoVO(flujoVOL);
-							flujoVOs = flujoBO.readCommand(flujoDTO).getFlujoVOs();
-							org.zkoss.zul.Messagebox.show("!La Actualización del Flujo fue exitoso!",
-									"Información", org.zkoss.zul.Messagebox.OK,
-									org.zkoss.zul.Messagebox.INFORMATION);
+							flujoDTO = flujoBO.updateCommand(flujoDTO);
+							if(flujoDTO.getErrorCode().equals("SQL-001")){
+						    	Messagebox.show("Hubo un error en base de datos, favor de reportalo con el adminsitrador del sistema:\n"+
+						    					"\nError:"+flujoDTO.getErrorCode()+
+						    					"\nDescripción:"+flujoDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+							}else{
+								flujoDTO.toString(BbvaAbstractDataTransferObject.XML);
+								
+								if (Integer.parseInt(statusObjeto.getSelectedItem().getValue().toString())==CommandConstants.ID_FLUJO_BAJA) {
+									controller.registrarEvento(flujoVOL, flujoVO, CommandConstants.BAJA, nombrePantalla);					
+								} else if (Integer.parseInt(statusObjeto.getSelectedItem().getValue().toString())==CommandConstants.ID_FLUJO_INACTIVO) { 
+									controller.registrarEvento(flujoVOL, flujoVO, CommandConstants.INACTIVACION, nombrePantalla);				
+								} else {
+									controller.registrarEvento(flujoVOL, flujoVO, CommandConstants.MODIFICACION, nombrePantalla);
+								}				
+								clean();
+								flujoVOL.setNombreFlujo(StringUtil.validaLike(nombreFlujo.getValue()));
+								flujoVOL.setDescripcionFlujo(StringUtil.validaLike(descripcionFlujo.getValue()));
+								flujoVOL.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue().isEmpty()?"0":statusObjeto.getSelectedItem().getValue().toString()));
+								flujoVOL.toString();
+								flujoDTO.setFlujoVO(flujoVOL);
+								flujoDTO = flujoBO.readCommand(flujoDTO);
+								if(flujoDTO.getErrorCode().equals("SQL-001")){
+							    	Messagebox.show("Hubo un error en base de datos, favor de reportalo con el adminsitrador del sistema:\n"+
+							    					"\nError:"+flujoDTO.getErrorCode()+
+							    					"\nDescripción:"+flujoDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+							    }
+								flujoVOs = flujoDTO.getFlujoVOs();							
+								org.zkoss.zul.Messagebox.show("!La Actualización del Flujo fue exitoso!",
+										"Información", org.zkoss.zul.Messagebox.OK,
+										org.zkoss.zul.Messagebox.INFORMATION);
+							}
 						} else {
 							FlujoVO flujoVOL = new FlujoVO();
 							flujoVOL.setNombreFlujo(nombreFlujo.getValue().toUpperCase().trim());
