@@ -598,6 +598,12 @@ public class CanalesController extends ControllerSupport implements IController 
 											"Información", org.zkoss.zul.Messagebox.OK,
 											org.zkoss.zul.Messagebox.EXCLAMATION);								 
 						  	}
+							BindUtils
+							.postGlobalCommand(
+									null,
+									null,
+									"readWithFilters",
+									null);
 						}
 						flagClave = false;
 					}

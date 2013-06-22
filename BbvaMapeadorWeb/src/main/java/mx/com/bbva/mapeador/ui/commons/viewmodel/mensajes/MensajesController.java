@@ -56,13 +56,17 @@ import mx.com.bbva.mapeador.ui.commons.controller.IController;
 import mx.com.bbva.mapeador.ui.commons.viewmodel.reportes.ReportesController;
 import mx.com.bbva.mapeador.ui.commons.viewmodel.support.ControllerSupport;
 
+import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
+import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.event.Event;
+import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.Button;
@@ -71,6 +75,7 @@ import org.zkoss.zul.Datebox;
 import org.zkoss.zul.Grid;
 import org.zkoss.zul.Image;
 import org.zkoss.zul.Label;
+import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Textbox;
 
 // TODO: Auto-generated Javadoc
@@ -253,8 +258,8 @@ public class MensajesController extends ControllerSupport implements IController
 		descripcionMensajeSalida.setValue(null);
 		statusObjeto.setValue(CommandConstants.NB_MENSAJE_ACTIVO);
         idStrEstatusObjeto = String.valueOf(CommandConstants.ID_MENSAJE_ACTIVO);
-        fechaAlta.setValue(new Date());
-		fechaModificacion.setValue(new Date());
+        fechaAlta.setValue(null);
+		fechaModificacion.setValue(null);
 		idMensajeSalida.setValue(null);
 		descripcionAsuntoSalida.setValue(null);
 	}
@@ -391,13 +396,23 @@ public class MensajesController extends ControllerSupport implements IController
 		EstatusObjetoBO estatusObjetoBO = new EstatusObjetoBO();
 		estatusObjetoDTO.setEstatusObjetoVO(estatusObjetoVO);
 		estatusObjetoDTO = estatusObjetoBO.readCommand(estatusObjetoDTO);
+		if(estatusObjetoDTO.getErrorCode().equals("SQL-001")){
+	    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el adminsitrador del sistema:\n"+
+	    					"\nError:"+estatusObjetoDTO.getErrorCode()+
+	    					"\nDescripción:"+estatusObjetoDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+	    }
 	    mensajeSalidaDTO.setEstatusObjetoVOs(estatusObjetoDTO.getEstatusObjetoVOs());
 	    
 	    MensajeSalidaVO mensajeSalidaVO = new MensajeSalidaVO();
 	    mensajeSalidaVO.setTipoNotificacion(CommandConstants.TIPO_NOTIFICACION_NEGOCIO);
 	    mensajeSalidaDTO.setMensajeSalidaVO(mensajeSalidaVO);
-		MensajeSalidaBO MensajeSalidaBO = new MensajeSalidaBO();
-		MensajeSalidaBO.readCommand(mensajeSalidaDTO);
+		MensajeSalidaBO mensajeSalidaBO = new MensajeSalidaBO();
+		mensajeSalidaDTO = mensajeSalidaBO.readCommand(mensajeSalidaDTO);
+		if(mensajeSalidaDTO.getErrorCode().equals("SQL-001")){
+	    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el adminsitrador del sistema:\n"+
+	    					"\nError:"+mensajeSalidaDTO.getErrorCode()+
+	    					"\nDescripción:"+mensajeSalidaDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+	    }
 		return mensajeSalidaDTO;
 	}
 
@@ -434,6 +449,7 @@ public class MensajesController extends ControllerSupport implements IController
 	/**
 	 * Read with filters.
 	 */
+	@GlobalCommand
 	@Command
 	@NotifyChange({ "mensajeSalidaVOs" })
 	public void readWithFilters() {
@@ -442,13 +458,19 @@ public class MensajesController extends ControllerSupport implements IController
 		MensajeSalidaVO mensajeSalidaVO = new MensajeSalidaVO();
 		mensajeSalidaVO.setNombreMensajeSalida(StringUtil.validaLike(nombreMensajeSalida.getValue()));
 		mensajeSalidaVO.setDescripcionMensajeSalida(StringUtil.validaLike(descripcionMensajeSalida.getValue()));
-		mensajeSalidaVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue().isEmpty()?"0":idEstatusObjeto.getValue()));
+		mensajeSalidaVO.setIdEstatusObjeto(Integer.parseInt(statusObjeto.getSelectedItem()==null?"0":statusObjeto.getSelectedItem().getValue().toString()));
 		mensajeSalidaVO.setDescripcionAsuntoSalida(descripcionAsuntoSalida.getValue().isEmpty()?"%":"%"+descripcionAsuntoSalida.getValue().toUpperCase()+"%");
 		mensajeSalidaVO.setTipoNotificacion(CommandConstants.TIPO_NOTIFICACION_NEGOCIO);
 		mensajeSalidaVO.toString();
 		mensajeSalidaDTO.setMensajeSalidaVO(mensajeSalidaVO);
 		MensajeSalidaBO mensajeSalidaBO = new MensajeSalidaBO();
-		mensajeSalidaVOs = mensajeSalidaBO.readCommand(mensajeSalidaDTO).getMensajeSalidaVOs();
+		mensajeSalidaDTO = mensajeSalidaBO.readCommand(mensajeSalidaDTO);
+		if(mensajeSalidaDTO.getErrorCode().equals("SQL-001")){
+	    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el adminsitrador del sistema:\n"+
+	    					"\nError:"+mensajeSalidaDTO.getErrorCode()+
+	    					"\nDescripción:"+mensajeSalidaDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+	    }
+		mensajeSalidaVOs = mensajeSalidaDTO.getMensajeSalidaVOs();
 		controller.registrarEvento(null, null, CommandConstants.CONSULTAR, "Catálogo de Mensajes de Notificación");
 		registraBitacora(mensajeSalidaVO, 2);
 	}
@@ -479,8 +501,8 @@ public class MensajesController extends ControllerSupport implements IController
 	@Command
 	@NotifyChange({ "mensajeSalidaVOs","flagMensaje"})
 	public void save() {
-		ReportesController controller = new ReportesController();
-		MensajeSalidaBO mensajeSalidaBO = new MensajeSalidaBO();
+		final ReportesController controller = new ReportesController();
+		final MensajeSalidaBO mensajeSalidaBO = new MensajeSalidaBO();
 		boolean errorGuardar = false;
 		if (nombreMensajeSalida.getValue().isEmpty()) {
 			nombreMensajeSalida
@@ -498,83 +520,150 @@ public class MensajesController extends ControllerSupport implements IController
 			errorGuardar = true;
 		}
 		if(!errorGuardar){
-			System.out.println("/////////////////////////// "+idMensajeSalida.getValue());
-			if(idMensajeSalida.getValue().isEmpty() || idMensajeSalida.getValue().equals("0")) {
-				mensajeSalidaVO = new MensajeSalidaVO();
-				mensajeSalidaVO.setNombreMensajeSalida(nombreMensajeSalida.getValue().toUpperCase());
-				if(mensajeSalidaBO.readCommandValidaMensaje(mensajeSalidaVO)) {
-					MensajeSalidaDTO mensajeSalidaDTO = new MensajeSalidaDTO();
-					MensajeSalidaVO mensajeSalidaVO = new MensajeSalidaVO();
-					mensajeSalidaVO.setNombreMensajeSalida(nombreMensajeSalida.getValue().toUpperCase().trim());
-					mensajeSalidaVO.setDescripcionMensajeSalida(descripcionMensajeSalida.getValue().toUpperCase().trim());
-					mensajeSalidaVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue()));
-					mensajeSalidaVO.setDescripcionAsuntoSalida(descripcionAsuntoSalida.getValue().toUpperCase().trim());
-					mensajeSalidaVO.setTipoNotificacion(CommandConstants.TIPO_NOTIFICACION_NEGOCIO);
-					//mensajeSalidaVO.setIdMensajeSalida(Integer.parseInt(idMensajeSalida.getValue()));
-					mensajeSalidaDTO.setMensajeSalidaVO(mensajeSalidaVO);
-					mensajeSalidaBO.createCommand(mensajeSalidaDTO);
-					mensajeSalidaDTO.toString(BbvaAbstractDataTransferObject.XML);
-					controller.registrarEvento(mensajeSalidaVO, this.mensajeSalidaVO, CommandConstants.ALTA, "Catálogo de Mensajes de Notificación");
-					clean();
-					mensajeSalidaVO = new MensajeSalidaVO();
-					mensajeSalidaVO.setTipoNotificacion(CommandConstants.TIPO_NOTIFICACION_NEGOCIO);
-					mensajeSalidaDTO.setMensajeSalidaVO(mensajeSalidaVO);
-					mensajeSalidaVOs = mensajeSalidaBO.readCommand(mensajeSalidaDTO).getMensajeSalidaVOs();
-					org.zkoss.zul.Messagebox.show("!El Registro del Mensaje fue exitoso!",
-							"Información", org.zkoss.zul.Messagebox.OK,
-							org.zkoss.zul.Messagebox.INFORMATION);
-				} else {
-					clean();
-					mensajeSalidaVO.setNombreMensajeSalida(StringUtil.validaLike(nombreMensajeSalida.getValue()));
-					mensajeSalidaVO.setDescripcionMensajeSalida(StringUtil.validaLike(descripcionMensajeSalida.getValue()));
-					mensajeSalidaVO.setIdEstatusObjeto(0);
-					mensajeSalidaVO.toString();
-					mensajeSalidaVO.setTipoNotificacion(CommandConstants.TIPO_NOTIFICACION_NEGOCIO);
-					mensajeSalidaDTO.setMensajeSalidaVO(mensajeSalidaVO);
-					mensajeSalidaVOs = mensajeSalidaBO.readCommand(mensajeSalidaDTO).getMensajeSalidaVOs();
-					org.zkoss.zul.Messagebox.show("!No se puede registrar más de un Mensaje con el mismo Nombre!",
-							"Información", org.zkoss.zul.Messagebox.OK,
-							org.zkoss.zul.Messagebox.EXCLAMATION);
+			Messagebox.show(
+				"¿Está seguro que desea continuar con la operación?",
+				"Pregunta", org.zkoss.zul.Messagebox.YES | org.zkoss.zul.Messagebox.NO,
+				org.zkoss.zul.Messagebox.QUESTION, new EventListener<Event>() {
+					@Override
+				public void onEvent(Event event) throws Exception {
+					if (event.getName().equals(org.zkoss.zul.Messagebox.ON_YES)) {
+						System.out.println("/////////////////////////// "+idMensajeSalida.getValue());
+						if(idMensajeSalida.getValue().isEmpty() || idMensajeSalida.getValue().equals("0")) {
+							mensajeSalidaVO = new MensajeSalidaVO();
+							mensajeSalidaVO.setNombreMensajeSalida(nombreMensajeSalida.getValue().toUpperCase());
+							if(mensajeSalidaBO.readCommandValidaMensaje(mensajeSalidaVO)) {
+								MensajeSalidaDTO mensajeSalidaDTO = new MensajeSalidaDTO();
+								MensajeSalidaVO mensajeSalidaVOL = new MensajeSalidaVO();
+								mensajeSalidaVOL.setNombreMensajeSalida(nombreMensajeSalida.getValue().toUpperCase().trim());
+								mensajeSalidaVOL.setDescripcionMensajeSalida(descripcionMensajeSalida.getValue().toUpperCase().trim());
+								mensajeSalidaVOL.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue()));
+								mensajeSalidaVOL.setDescripcionAsuntoSalida(descripcionAsuntoSalida.getValue().toUpperCase().trim());
+								mensajeSalidaVOL.setTipoNotificacion(CommandConstants.TIPO_NOTIFICACION_NEGOCIO);
+								//mensajeSalidaVO.setIdMensajeSalida(Integer.parseInt(idMensajeSalida.getValue()));
+								mensajeSalidaDTO.setMensajeSalidaVO(mensajeSalidaVOL);
+								mensajeSalidaDTO = mensajeSalidaBO.createCommand(mensajeSalidaDTO);
+								if(mensajeSalidaDTO.getErrorCode().equals("SQL-001")){
+							    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el adminsitrador del sistema:\n"+
+							    					"\nError:"+mensajeSalidaDTO.getErrorCode()+
+							    					"\nDescripción:"+mensajeSalidaDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+								}else{
+									mensajeSalidaDTO.toString(BbvaAbstractDataTransferObject.XML);
+									MensajeSalidaVO mensajeSalidaVONuevo = new MensajeSalidaVO();
+									mensajeSalidaVONuevo.setNombreMensajeSalida("");
+									mensajeSalidaVONuevo.setDescripcionMensajeSalida("");									
+									mensajeSalidaVONuevo.setDescripcionAsuntoSalida("");									
+									controller.registrarEvento(mensajeSalidaVOL, mensajeSalidaVONuevo, CommandConstants.ALTA, "Catálogo de Mensajes de Notificación");
+									clean();
+									mensajeSalidaVOL = new MensajeSalidaVO();
+									mensajeSalidaVOL.setTipoNotificacion(CommandConstants.TIPO_NOTIFICACION_NEGOCIO);
+									
+									mensajeSalidaDTO.setMensajeSalidaVO(mensajeSalidaVOL);
+									
+									mensajeSalidaDTO = mensajeSalidaBO.readCommand(mensajeSalidaDTO);
+									if(mensajeSalidaDTO.getErrorCode().equals("SQL-001")){
+								    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el adminsitrador del sistema:\n"+
+								    					"\nError:"+mensajeSalidaDTO.getErrorCode()+
+								    					"\nDescripción:"+mensajeSalidaDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+								    }
+									mensajeSalidaVOs = mensajeSalidaDTO.getMensajeSalidaVOs();								
+									org.zkoss.zul.Messagebox.show("!El Registro del Mensaje fue exitoso!",
+											"Información", org.zkoss.zul.Messagebox.OK,
+											org.zkoss.zul.Messagebox.INFORMATION);
+								}
+							} else {
+								clean();
+								mensajeSalidaVO.setNombreMensajeSalida(StringUtil.validaLike(nombreMensajeSalida.getValue()));
+								mensajeSalidaVO.setDescripcionMensajeSalida(StringUtil.validaLike(descripcionMensajeSalida.getValue()));
+								mensajeSalidaVO.setIdEstatusObjeto(0);
+								mensajeSalidaVO.toString();
+								mensajeSalidaVO.setTipoNotificacion(CommandConstants.TIPO_NOTIFICACION_NEGOCIO);
+								mensajeSalidaDTO.setMensajeSalidaVO(mensajeSalidaVO);
+								mensajeSalidaDTO = mensajeSalidaBO.readCommand(mensajeSalidaDTO);
+								if(mensajeSalidaDTO.getErrorCode().equals("SQL-001")){
+							    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el adminsitrador del sistema:\n"+
+							    					"\nError:"+mensajeSalidaDTO.getErrorCode()+
+							    					"\nDescripción:"+mensajeSalidaDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+							    }
+								mensajeSalidaVOs = mensajeSalidaDTO.getMensajeSalidaVOs();
+								
+								org.zkoss.zul.Messagebox.show("!No se puede registrar más de un Mensaje con el mismo Nombre!",
+										"Información", org.zkoss.zul.Messagebox.OK,
+										org.zkoss.zul.Messagebox.EXCLAMATION);
+							}
+						} else {
+							ContratacionMapeadorBO mapeadorBO = new ContratacionMapeadorBO();
+							ContratacionMapVO contratacionMapVO = new ContratacionMapVO();
+							contratacionMapVO.setIdMensajeSalida(Integer.parseInt(idMensajeSalida.getValue()));
+							if(Integer.parseInt(idEstatusObjeto.getValue()) == CommandConstants.ESTATUS_OBJETO_MENSAJE_SALIDA_ACTIVO || 
+									mapeadorBO.readCommandValidaMensajeContratMap(contratacionMapVO)) {
+								MensajeSalidaDTO mensajeSalidaDTO = new MensajeSalidaDTO();
+								MensajeSalidaVO mensajeSalidaVOL = new MensajeSalidaVO();
+								mensajeSalidaVOL.setNombreMensajeSalida(nombreMensajeSalida.getValue().toUpperCase().trim());
+								mensajeSalidaVOL.setDescripcionMensajeSalida(descripcionMensajeSalida.getValue().toUpperCase().trim());
+								mensajeSalidaVOL.setIdEstatusObjeto(Integer.parseInt(statusObjeto.getSelectedItem().getValue().toString()));
+								mensajeSalidaVOL.setIdMensajeSalida(Integer.parseInt(idMensajeSalida.getValue()));
+								mensajeSalidaVOL.setDescripcionAsuntoSalida(descripcionAsuntoSalida.getValue().toUpperCase().trim());
+								mensajeSalidaDTO.setMensajeSalidaVO(mensajeSalidaVOL);
+								mensajeSalidaDTO = mensajeSalidaBO.updateCommand(mensajeSalidaDTO);								
+								if(mensajeSalidaDTO.getErrorCode().equals("SQL-001")){
+							    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el adminsitrador del sistema:\n"+
+							    					"\nError:"+mensajeSalidaDTO.getErrorCode()+
+							    					"\nDescripción:"+mensajeSalidaDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+								}else{
+									String nombrePantalla = "Mensajes Negocio";
+									mensajeSalidaVOs = mensajeSalidaDTO.getMensajeSalidaVOs();
+									mensajeSalidaDTO.toString(BbvaAbstractDataTransferObject.XML);
+									if (Integer.parseInt(statusObjeto.getSelectedItem().getValue().toString())==CommandConstants.ID_MENSAJE_BAJA) {
+										controller.registrarEvento(mensajeSalidaVOL, mensajeSalidaVO, CommandConstants.BAJA, nombrePantalla);					
+									} else if (Integer.parseInt(statusObjeto.getSelectedItem().getValue().toString())==CommandConstants.ID_CANAL_INACTIVO) { 
+										controller.registrarEvento(mensajeSalidaVOL, mensajeSalidaVO, CommandConstants.INACTIVACION, nombrePantalla);				
+									} else {
+										controller.registrarEvento(mensajeSalidaVOL, mensajeSalidaVO, CommandConstants.MODIFICACION, nombrePantalla);
+									}									
+									clean();
+									mensajeSalidaVOL.setNombreMensajeSalida(StringUtil.validaLike(nombreMensajeSalida.getValue()));
+									mensajeSalidaVOL.setDescripcionMensajeSalida(StringUtil.validaLike(descripcionMensajeSalida.getValue()));
+									mensajeSalidaVOL.setIdEstatusObjeto(0);
+									mensajeSalidaVOL.setTipoNotificacion(CommandConstants.TIPO_NOTIFICACION_NEGOCIO);
+									mensajeSalidaVOL.toString();
+									mensajeSalidaDTO.setMensajeSalidaVO(mensajeSalidaVOL);
+									mensajeSalidaDTO = mensajeSalidaBO.readCommand(mensajeSalidaDTO);
+									if(mensajeSalidaDTO.getErrorCode().equals("SQL-001")){
+								    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el adminsitrador del sistema:\n"+
+								    					"\nError:"+mensajeSalidaDTO.getErrorCode()+
+								    					"\nDescripción:"+mensajeSalidaDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+								    }
+									mensajeSalidaVOs = mensajeSalidaDTO.getMensajeSalidaVOs();								
+									org.zkoss.zul.Messagebox.show("!La Actualización del Mensaje fue exitoso!",
+											"Información", org.zkoss.zul.Messagebox.OK,
+											org.zkoss.zul.Messagebox.INFORMATION);
+								}
+							} else {
+								mensajeSalidaVO = new MensajeSalidaVO();
+								clean();
+								mensajeSalidaVO.toString();
+								mensajeSalidaDTO.setMensajeSalidaVO(mensajeSalidaVO);
+								mensajeSalidaDTO = mensajeSalidaBO.readCommand(mensajeSalidaDTO);
+								if(mensajeSalidaDTO.getErrorCode().equals("SQL-001")){
+							    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el adminsitrador del sistema:\n"+
+							    					"\nError:"+mensajeSalidaDTO.getErrorCode()+
+							    					"\nDescripción:"+mensajeSalidaDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+							    }
+								mensajeSalidaVOs = mensajeSalidaDTO.getMensajeSalidaVOs();								
+								org.zkoss.zul.Messagebox.show("!No se puede dar de Baja o Inactivar, ya que esta siendo Usado por la Contratación Mapeador!",
+										"Información", org.zkoss.zul.Messagebox.OK,
+										org.zkoss.zul.Messagebox.EXCLAMATION);
+							}
+						}
+						BindUtils
+						.postGlobalCommand(
+								null,
+								null,
+								"readWithFilters",
+								null);
+					}
 				}
-			} else {
-				ContratacionMapeadorBO mapeadorBO = new ContratacionMapeadorBO();
-				ContratacionMapVO contratacionMapVO = new ContratacionMapVO();
-				contratacionMapVO.setIdMensajeSalida(Integer.parseInt(idMensajeSalida.getValue()));
-				if(Integer.parseInt(idEstatusObjeto.getValue()) == CommandConstants.ESTATUS_OBJETO_MENSAJE_SALIDA_ACTIVO || 
-						mapeadorBO.readCommandValidaMensajeContratMap(contratacionMapVO)) {
-					MensajeSalidaDTO mensajeSalidaDTO = new MensajeSalidaDTO();
-					MensajeSalidaVO mensajeSalidaVO = new MensajeSalidaVO();
-					mensajeSalidaVO.setNombreMensajeSalida(nombreMensajeSalida.getValue().toUpperCase().trim());
-					mensajeSalidaVO.setDescripcionMensajeSalida(descripcionMensajeSalida.getValue().toUpperCase().trim());
-					mensajeSalidaVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue()));
-					mensajeSalidaVO.setIdMensajeSalida(Integer.parseInt(idMensajeSalida.getValue()));
-					mensajeSalidaVO.setDescripcionAsuntoSalida(descripcionAsuntoSalida.getValue().toUpperCase().trim());
-					mensajeSalidaDTO.setMensajeSalidaVO(mensajeSalidaVO);
-					mensajeSalidaBO.updateCommand(mensajeSalidaDTO);
-					mensajeSalidaDTO.toString(BbvaAbstractDataTransferObject.XML);
-					controller.registrarEvento(mensajeSalidaVO, mensajeSalidaVO, CommandConstants.MODIFICACION, "Catálogo de Mensajes de Notificación");
-					clean();
-					mensajeSalidaVO.setNombreMensajeSalida(StringUtil.validaLike(nombreMensajeSalida.getValue()));
-					mensajeSalidaVO.setDescripcionMensajeSalida(StringUtil.validaLike(descripcionMensajeSalida.getValue()));
-					mensajeSalidaVO.setIdEstatusObjeto(0);
-					mensajeSalidaVO.setTipoNotificacion(CommandConstants.TIPO_NOTIFICACION_NEGOCIO);
-					mensajeSalidaVO.toString();
-					mensajeSalidaDTO.setMensajeSalidaVO(mensajeSalidaVO);
-					mensajeSalidaVOs = mensajeSalidaBO.readCommand(mensajeSalidaDTO).getMensajeSalidaVOs();
-					org.zkoss.zul.Messagebox.show("!La Actualización del Mensaje fue exitoso!",
-							"Información", org.zkoss.zul.Messagebox.OK,
-							org.zkoss.zul.Messagebox.INFORMATION);
-				} else {
-					mensajeSalidaVO = new MensajeSalidaVO();
-					clean();
-					mensajeSalidaVO.toString();
-					mensajeSalidaDTO.setMensajeSalidaVO(mensajeSalidaVO);
-					mensajeSalidaVOs = mensajeSalidaBO.readCommand(mensajeSalidaDTO).getMensajeSalidaVOs();
-					org.zkoss.zul.Messagebox.show("!No se puede dar de Baja o Inactivar, ya que esta siendo Usado por la Contratación Mapeador!",
-							"Información", org.zkoss.zul.Messagebox.OK,
-							org.zkoss.zul.Messagebox.EXCLAMATION);
-				}
-			}
+			});
 		}
 		flagMensaje = false;
 	}
