@@ -373,11 +373,21 @@ public class ClientesController extends ControllerSupport implements IController
 		estatusObjetoVO.setNombreTabla(CommandConstants.NOMBRE_TABLA_CLIENTES);				
 		estatusObjetoDTO.setEstatusObjetoVO(estatusObjetoVO);
 	    estatusObjetoDTO = estatusObjetoBO.readCommand(estatusObjetoDTO);
+	    if(estatusObjetoDTO.getErrorCode().equals("SQL-001")){
+	    	Messagebox.show("Hubo un error en base de datos, favor de reportalo con el adminsitrador del sistema:\n"+
+	    					"\nError:"+estatusObjetoDTO.getErrorCode()+
+	    					"\nDescripción:"+estatusObjetoDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+	    }
 	    clienteDTO.setEstatusObjetoVOs(estatusObjetoDTO.getEstatusObjetoVOs());
 	    
 	    clienteDTO.setClienteVO(clienteVO);
 		ClienteBO clienteBO = new ClienteBO();
-		clienteBO.readCommand(clienteDTO);
+		clienteDTO = clienteBO.readCommand(clienteDTO);
+		if(clienteDTO.getErrorCode().equals("SQL-001")){
+	    	Messagebox.show("Hubo un error en base de datos, favor de reportalo con el adminsitrador del sistema:\n"+
+	    					"\nError:"+clienteDTO.getErrorCode()+
+	    					"\nDescripción:"+clienteDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+	    }
 		return clienteDTO;
 	}
 
@@ -432,7 +442,13 @@ public class ClientesController extends ControllerSupport implements IController
 		clienteVO.toString();
 		clienteDTO.setClienteVO(clienteVO);
 		ClienteBO clienteBO = new ClienteBO();
-		clientesVOs = clienteBO.readCommand(clienteDTO).getClienteVOs();
+		clienteDTO = clienteBO.readCommand(clienteDTO);
+		if(clienteDTO.getErrorCode().equals("SQL-001")){
+	    	Messagebox.show("Hubo un error en base de datos, favor de reportalo con el adminsitrador del sistema:\n"+
+	    					"\nError:"+clienteDTO.getErrorCode()+
+	    					"\nDescripción:"+clienteDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+	    }
+		clientesVOs = clienteDTO.getClienteVOs();
 		
 		controller.registrarEvento(null, null, CommandConstants.CONSULTAR, nombrePantalla);
 	}
@@ -475,37 +491,54 @@ public class ClientesController extends ControllerSupport implements IController
 							clienteDTO = new ClienteDTO();
 							clienteVO.setIdIdentificador(idIdentificador.getValue().toUpperCase().trim());
 							clienteDTO = clienteBO.readCommand(clienteVO);
-							
+							if(clienteDTO.getErrorCode().equals("SQL-001")){
+						    	Messagebox.show("Hubo un error en base de datos, favor de reportalo con el adminsitrador del sistema:\n"+
+						    					"\nError:"+clienteDTO.getErrorCode()+
+						    					"\nDescripción:"+clienteDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+						    }
 							if(clienteDTO.getClienteVOs().size()==0) {
 								clienteVO.setIdIdentificador(idIdentificador.getValue().toUpperCase().trim());
 								clienteVO.setNombreCliente(nombreCliente.getValue().toUpperCase().trim());
 								clienteVO.setNombreCortoCliente(nombreCortoCliente.getValue().toUpperCase().trim());
 								clienteVO.setIdEstatusObjeto(CommandConstants.ESTATUS_OBJETO_ACTIVO_CLIENTES);
 								clienteDTO.setClienteVO(clienteVO);
-								clienteBO.createCommand(clienteDTO);
-								clienteDTO.toString(BbvaAbstractDataTransferObject.XML);
-			
-								ClienteVO clienteNuevo = new ClienteVO();
-								clienteNuevo.setIdIdentificador("");
-								clienteNuevo.setNombreCliente("");
-								clienteNuevo.setNombreCortoCliente("");
-								clienteNuevo.setIdEstatusObjeto(CommandConstants.ESTATUS_OBJETO_ACTIVO_CLIENTES);					
-								controller.registrarEvento(clienteVO, clienteNuevo, CommandConstants.ALTA, nombrePantalla);
-								clean();
-			
 								
-								clienteVO.setIdIdentificador(StringUtil.validaLike(idIdentificador.getValue()));
-								clienteVO.setNombreCliente(StringUtil.validaLike(nombreCliente.getValue()));
-								clienteVO.setNombreCortoCliente(StringUtil.validaLike(nombreCortoCliente.getValue()));
-								clienteVO.setIdEstatusObjeto(0);
-			
-								
-								clienteVO.toString();
-								clienteDTO.setClienteVO(clienteVO);
-								clientesVOs = clienteBO.readCommand(clienteDTO).getClienteVOs();
-								org.zkoss.zul.Messagebox.show("!El Registro del Cliente fue exitoso!",
-										"Información", org.zkoss.zul.Messagebox.OK,
-										org.zkoss.zul.Messagebox.INFORMATION);
+								clienteDTO = clienteBO.createCommand(clienteDTO);
+								if(clienteDTO.getErrorCode().equals("SQL-001")){
+							    	Messagebox.show("Hubo un error en base de datos, favor de reportalo con el adminsitrador del sistema:\n"+
+							    					"\nError:"+clienteDTO.getErrorCode()+
+							    					"\nDescripción:"+clienteDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+							    }else{
+									clienteDTO.toString(BbvaAbstractDataTransferObject.XML);
+				
+									ClienteVO clienteNuevo = new ClienteVO();
+									clienteNuevo.setIdIdentificador("");
+									clienteNuevo.setNombreCliente("");
+									clienteNuevo.setNombreCortoCliente("");
+									clienteNuevo.setIdEstatusObjeto(CommandConstants.ESTATUS_OBJETO_ACTIVO_CLIENTES);					
+									controller.registrarEvento(clienteVO, clienteNuevo, CommandConstants.ALTA, nombrePantalla);
+									clean();
+				
+									
+									clienteVO.setIdIdentificador(StringUtil.validaLike(idIdentificador.getValue()));
+									clienteVO.setNombreCliente(StringUtil.validaLike(nombreCliente.getValue()));
+									clienteVO.setNombreCortoCliente(StringUtil.validaLike(nombreCortoCliente.getValue()));
+									clienteVO.setIdEstatusObjeto(0);
+				
+									
+									clienteVO.toString();
+									clienteDTO.setClienteVO(clienteVO);
+									clienteDTO = clienteBO.readCommand(clienteDTO);
+									if(clienteDTO.getErrorCode().equals("SQL-001")){
+								    	Messagebox.show("Hubo un error en base de datos, favor de reportalo con el adminsitrador del sistema:\n"+
+								    					"\nError:"+clienteDTO.getErrorCode()+
+								    					"\nDescripción:"+clienteDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+								    }
+									clientesVOs = clienteDTO.getClienteVOs();
+									org.zkoss.zul.Messagebox.show("!El Registro del Cliente fue exitoso!",
+											"Información", org.zkoss.zul.Messagebox.OK,
+											org.zkoss.zul.Messagebox.INFORMATION);
+							    }
 							} else {
 								clienteVO.setIdIdentificador(idIdentificador.getValue().toUpperCase().trim());
 								clienteVO.setNombreCliente(nombreCliente.getValue().toUpperCase().trim());
@@ -532,6 +565,11 @@ public class ClientesController extends ControllerSupport implements IController
 							clienteVO.setIdIdentificador(idIdentificador.getValue().toUpperCase());
 							clienteVO.setIdCliente(Integer.parseInt(idCliente.getValue()));
 							clienteDTO = clienteBO.readCommand(clienteVO);
+							if(clienteDTO.getErrorCode().equals("SQL-001")){
+						    	Messagebox.show("Hubo un error en base de datos, favor de reportalo con el adminsitrador del sistema:\n"+
+						    					"\nError:"+clienteDTO.getErrorCode()+
+						    					"\nDescripción:"+clienteDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+						    }
 							if(clienteDTO.getClienteVOs()!=null && clienteDTO.getClienteVOs().size()>0){
 								clienteVO.setIdIdentificador(idIdentificador.getValue().toUpperCase().trim());
 								clienteVO.setNombreCliente(nombreCliente.getValue().toUpperCase().trim());
@@ -558,28 +596,40 @@ public class ClientesController extends ControllerSupport implements IController
 									clienteVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue()));
 									clienteDTO.setClienteVO(clienteVO);
 									
-									clienteBO.updateCommand(clienteDTO);
-									clienteDTO.toString(BbvaAbstractDataTransferObject.XML);
-									if (Integer.parseInt(statusObjeto.getSelectedItem().getValue().toString())==CommandConstants.ID_CLIENTE_BAJA) {
-										controller.registrarEvento(clienteVO, clientesVO, CommandConstants.BAJA, nombrePantalla);					
-									} else if (Integer.parseInt(statusObjeto.getSelectedItem().getValue().toString())==CommandConstants.ID_CLIENTE_INACTIVO) { 
-										controller.registrarEvento(clienteVO, clientesVO, CommandConstants.INACTIVACION, nombrePantalla);				
-									} else {
-										controller.registrarEvento(clienteVO, clientesVO, CommandConstants.MODIFICACION, nombrePantalla);
-									}
-			
-									clean();
-									clienteVO.setIdIdentificador(StringUtil.validaLike(idIdentificador.getValue()));
-									clienteVO.setNombreCliente(StringUtil.validaLike(nombreCliente.getValue()));
-									clienteVO.setNombreCortoCliente(StringUtil.validaLike(nombreCortoCliente.getValue()));
-									clienteVO.setIdEstatusObjeto(0);
-									clienteVO.toString();
-									clienteDTO.setClienteVO(clienteVO);
-									clientesVOs = clienteBO.readCommand(clienteDTO).getClienteVOs();
-									
-									org.zkoss.zul.Messagebox.show("!La Actualización del Cliente fue exitoso!",
-											"Información", org.zkoss.zul.Messagebox.OK,
-											org.zkoss.zul.Messagebox.INFORMATION);
+									clienteDTO = clienteBO.updateCommand(clienteDTO);
+									if(clienteDTO.getErrorCode().equals("SQL-001")){
+								    	Messagebox.show("Hubo un error en base de datos, favor de reportalo con el adminsitrador del sistema:\n"+
+								    					"\nError:"+clienteDTO.getErrorCode()+
+								    					"\nDescripción:"+clienteDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+								    }else{
+										clienteDTO.toString(BbvaAbstractDataTransferObject.XML);
+										if (Integer.parseInt(statusObjeto.getSelectedItem().getValue().toString())==CommandConstants.ID_CLIENTE_BAJA) {
+											controller.registrarEvento(clienteVO, clientesVO, CommandConstants.BAJA, nombrePantalla);					
+										} else if (Integer.parseInt(statusObjeto.getSelectedItem().getValue().toString())==CommandConstants.ID_CLIENTE_INACTIVO) { 
+											controller.registrarEvento(clienteVO, clientesVO, CommandConstants.INACTIVACION, nombrePantalla);				
+										} else {
+											controller.registrarEvento(clienteVO, clientesVO, CommandConstants.MODIFICACION, nombrePantalla);
+										}
+				
+										clean();
+										clienteVO.setIdIdentificador(StringUtil.validaLike(idIdentificador.getValue()));
+										clienteVO.setNombreCliente(StringUtil.validaLike(nombreCliente.getValue()));
+										clienteVO.setNombreCortoCliente(StringUtil.validaLike(nombreCortoCliente.getValue()));
+										clienteVO.setIdEstatusObjeto(0);
+										clienteVO.toString();
+										clienteDTO.setClienteVO(clienteVO);
+										clienteDTO = clienteBO.readCommand(clienteDTO);
+										if(clienteDTO.getErrorCode().equals("SQL-001")){
+									    	Messagebox.show("Hubo un error en base de datos, favor de reportalo con el adminsitrador del sistema:\n"+
+									    					"\nError:"+clienteDTO.getErrorCode()+
+									    					"\nDescripción:"+clienteDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+									    }
+										clientesVOs = clienteDTO.getClienteVOs();
+										
+										org.zkoss.zul.Messagebox.show("!La Actualización del Cliente fue exitoso!",
+												"Información", org.zkoss.zul.Messagebox.OK,
+												org.zkoss.zul.Messagebox.INFORMATION);
+								    }
 								} else {
 									clienteVO = new ClienteVO();
 									clienteVO.setIdCliente(Integer.parseInt(idCliente.getValue()));
