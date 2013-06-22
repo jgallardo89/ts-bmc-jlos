@@ -73,6 +73,8 @@ public class MapaGmmBO implements BbvaIBusinessObject {
 		} catch (Exception ex) {
 			session.rollback();
 			ex.printStackTrace();
+			bbvaAbstractDataTransferObject.setErrorCode("SQL-001");
+			bbvaAbstractDataTransferObject.setErrorDescription(ex.getMessage());
 		} finally {
 			session.close();
 		}
@@ -112,6 +114,8 @@ public class MapaGmmBO implements BbvaIBusinessObject {
 				} catch (Exception ex) {
 					session.rollback();
 					ex.printStackTrace();
+					mapaGmmDTO.setErrorCode("SQL-001");
+					mapaGmmDTO.setErrorDescription(ex.getMessage());
 				} finally {
 					session.close();
 				}
@@ -123,10 +127,14 @@ public class MapaGmmBO implements BbvaIBusinessObject {
 				return (T) mapaGmmDTO;
 			} catch (Exception ex) {
 				ex.printStackTrace();
+				mapaGmmDTO.setErrorCode("SQL-001");
+				mapaGmmDTO.setErrorDescription(ex.getMessage());
 				return (T) mapaGmmDTO;
 			}
-		} catch (Exception exception) {
-			exception.printStackTrace();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			mapaGmmDTO.setErrorCode("SQL-001");
+			mapaGmmDTO.setErrorDescription(ex.getMessage());
 			return (T) mapaGmmDTO;
 		}
 	}
@@ -154,6 +162,8 @@ public class MapaGmmBO implements BbvaIBusinessObject {
 				} catch (Exception ex) {
 					session.rollback();
 					ex.printStackTrace();
+					bbvaAbstractDataTransferObject.setErrorCode("SQL-001");
+					bbvaAbstractDataTransferObject.setErrorDescription(ex.getMessage());
 				} finally {
 					session.close();
 				}
@@ -165,10 +175,14 @@ public class MapaGmmBO implements BbvaIBusinessObject {
 				return bbvaAbstractDataTransferObject;
 			} catch (Exception ex) {
 				ex.printStackTrace();
+				bbvaAbstractDataTransferObject.setErrorCode("SQL-001");
+				bbvaAbstractDataTransferObject.setErrorDescription(ex.getMessage());
 				return bbvaAbstractDataTransferObject;
 			}
-		} catch (Exception exception) {
-			exception.printStackTrace();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			bbvaAbstractDataTransferObject.setErrorCode("SQL-001");
+			bbvaAbstractDataTransferObject.setErrorDescription(ex.getMessage());
 			return bbvaAbstractDataTransferObject;
 		}
 	}
@@ -192,6 +206,8 @@ public class MapaGmmBO implements BbvaIBusinessObject {
 		} catch (Exception ex) {
 			session.rollback();
 			ex.printStackTrace();
+			bbvaAbstractDataTransferObject.setErrorCode("SQL-001");
+			bbvaAbstractDataTransferObject.setErrorDescription(ex.getMessage());
 		} finally {
 			session.close();
 		}
