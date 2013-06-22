@@ -350,7 +350,7 @@ public class AdmonFlujosController extends ControllerSupport implements IControl
 		headersReport.add("Fecha modificación");
 		headersReport.add("Etapas del flujo");
 		headersReport.add("Status");
-		headersReport.add("Diagrama");
+//		headersReport.add("Diagrama");
 		if(type.equals("xls")) {
 			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_EXCEL,nombrePantalla);
 		} else {
