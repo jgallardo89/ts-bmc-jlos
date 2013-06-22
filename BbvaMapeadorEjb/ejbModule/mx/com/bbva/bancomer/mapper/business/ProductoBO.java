@@ -77,6 +77,8 @@ public class ProductoBO implements
 			} catch (Exception ex) {
 				session.rollback();
 				ex.printStackTrace();
+				bbvaAbstractDataTransferObject.setErrorCode("SQL-001");
+				bbvaAbstractDataTransferObject.setErrorDescription(ex.getMessage());
 			} finally {
 				session.close();
 			}
@@ -128,6 +130,8 @@ public class ProductoBO implements
 				} catch (Exception ex) {
 					session.rollback();
 					ex.printStackTrace();
+					bbvaAbstractDataTransferObject.setErrorCode("SQL-001");
+					bbvaAbstractDataTransferObject.setErrorDescription(ex.getMessage());
 				} finally {
 					session.close();
 				}
@@ -139,10 +143,14 @@ public class ProductoBO implements
 				return bbvaAbstractDataTransferObject;
 			} catch (Exception ex) {
 				ex.printStackTrace();
+				bbvaAbstractDataTransferObject.setErrorCode("SQL-001");
+				bbvaAbstractDataTransferObject.setErrorDescription(ex.getMessage());
 				return bbvaAbstractDataTransferObject;
 			}
-		} catch (Exception exception) {
-			exception.printStackTrace();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			bbvaAbstractDataTransferObject.setErrorCode("SQL-001");
+			bbvaAbstractDataTransferObject.setErrorDescription(ex.getMessage());
 			return bbvaAbstractDataTransferObject;
 		}
 	}
@@ -170,6 +178,8 @@ public class ProductoBO implements
 				} catch (Exception ex) {
 					session.rollback();
 					ex.printStackTrace();
+					productoDTO.setErrorCode("SQL-001");
+					productoDTO.setErrorDescription(ex.getMessage());
 				} finally {
 					session.close();
 				}
@@ -181,10 +191,14 @@ public class ProductoBO implements
 				return (T) productoDTO;
 			} catch (Exception ex) {
 				ex.printStackTrace();
+				productoDTO.setErrorCode("SQL-001");
+				productoDTO.setErrorDescription(ex.getMessage());
 				return (T) productoDTO;
 			}
-		} catch (Exception exception) {
-			exception.printStackTrace();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			productoDTO.setErrorCode("SQL-001");
+			productoDTO.setErrorDescription(ex.getMessage());
 			return (T) productoDTO;
 		}
 	}
@@ -216,6 +230,8 @@ public class ProductoBO implements
 			session.commit();
 		} catch (Exception ex) {
 			session.rollback();
+			bbvaAbstractDataTransferObject.setErrorCode("SQL-001");
+			bbvaAbstractDataTransferObject.setErrorDescription(ex.getMessage());
 			ex.printStackTrace();
 		} finally {
 			session.close();

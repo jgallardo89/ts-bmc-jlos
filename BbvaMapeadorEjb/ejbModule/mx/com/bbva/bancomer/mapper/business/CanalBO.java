@@ -77,6 +77,8 @@ public class CanalBO implements
 			} catch (Exception ex) {
 				session.rollback();
 				ex.printStackTrace();
+				bbvaAbstractDataTransferObject.setErrorCode("SQL-001");
+				bbvaAbstractDataTransferObject.setErrorDescription(ex.getMessage());
 			} finally {
 				session.close();
 			}
@@ -126,7 +128,9 @@ public class CanalBO implements
 					session.commit();
 				} catch (Exception ex) {
 					session.rollback();
-					ex.printStackTrace();
+					canalDTO.setErrorCode("SQL-001");
+					canalDTO.setErrorDescription(ex.getMessage());
+					ex.printStackTrace();					
 				} finally {
 					session.close();
 				}
@@ -138,6 +142,8 @@ public class CanalBO implements
 				return (T) canalDTO;
 			} catch (Exception ex) {
 				ex.printStackTrace();
+				canalDTO.setErrorCode("SQL-001");
+				canalDTO.setErrorDescription(ex.getMessage());
 				return (T) canalDTO;
 			}
 		} catch (Exception exception) {
@@ -171,6 +177,8 @@ public class CanalBO implements
 				} catch (Exception ex) {
 					session.rollback();
 					ex.printStackTrace();
+					bbvaAbstractDataTransferObject.setErrorCode("SQL-001");
+					bbvaAbstractDataTransferObject.setErrorDescription(ex.getMessage());					
 				} finally {
 					session.close();
 				}
@@ -182,6 +190,8 @@ public class CanalBO implements
 				return bbvaAbstractDataTransferObject;
 			} catch (Exception ex) {
 				ex.printStackTrace();
+				bbvaAbstractDataTransferObject.setErrorCode("SQL-001");
+				bbvaAbstractDataTransferObject.setErrorDescription(ex.getMessage());
 				return bbvaAbstractDataTransferObject;
 			}
 		} catch (Exception exception) {
@@ -218,6 +228,8 @@ public class CanalBO implements
 		} catch (Exception ex) {
 			session.rollback();
 			ex.printStackTrace();
+			bbvaAbstractDataTransferObject.setErrorCode("SQL-001");
+			bbvaAbstractDataTransferObject.setErrorDescription(ex.getMessage());			
 		} finally {
 			session.close();
 		}
