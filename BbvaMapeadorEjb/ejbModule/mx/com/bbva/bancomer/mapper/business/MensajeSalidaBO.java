@@ -77,6 +77,8 @@ public class MensajeSalidaBO implements
 			} catch (Exception ex) {
 				session.rollback();
 				ex.printStackTrace();
+				bbvaAbstractDataTransferObject.setErrorCode("SQL-001");
+				bbvaAbstractDataTransferObject.setErrorDescription(ex.getMessage());
 			} finally {
 				session.close();
 			}
@@ -125,6 +127,8 @@ public class MensajeSalidaBO implements
 				} catch (Exception ex) {
 					session.rollback();
 					ex.printStackTrace();
+					mensajeSalidaDTO.setErrorCode("SQL-001");
+					mensajeSalidaDTO.setErrorDescription(ex.getMessage());
 				} finally {
 					session.close();
 				}
@@ -136,10 +140,14 @@ public class MensajeSalidaBO implements
 				return (T) mensajeSalidaDTO;
 			} catch (Exception ex) {
 				ex.printStackTrace();
+				mensajeSalidaDTO.setErrorCode("SQL-001");
+				mensajeSalidaDTO.setErrorDescription(ex.getMessage());
 				return (T) mensajeSalidaDTO;
 			}
-		} catch (Exception exception) {
-			exception.printStackTrace();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			mensajeSalidaDTO.setErrorCode("SQL-001");
+			mensajeSalidaDTO.setErrorDescription(ex.getMessage());
 			return (T) mensajeSalidaDTO;
 		}
 	}
@@ -172,6 +180,8 @@ public class MensajeSalidaBO implements
 				} catch (Exception ex) {
 					session.rollback();
 					ex.printStackTrace();
+					bbvaAbstractDataTransferObject.setErrorCode("SQL-001");
+					bbvaAbstractDataTransferObject.setErrorDescription(ex.getMessage());
 				} finally {
 					session.close();
 				}
@@ -183,10 +193,14 @@ public class MensajeSalidaBO implements
 				return bbvaAbstractDataTransferObject;
 			} catch (Exception ex) {
 				ex.printStackTrace();
+				bbvaAbstractDataTransferObject.setErrorCode("SQL-001");
+				bbvaAbstractDataTransferObject.setErrorDescription(ex.getMessage());
 				return bbvaAbstractDataTransferObject;
 			}
-		} catch (Exception exception) {
-			exception.printStackTrace();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			bbvaAbstractDataTransferObject.setErrorCode("SQL-001");
+			bbvaAbstractDataTransferObject.setErrorDescription(ex.getMessage());
 			return bbvaAbstractDataTransferObject;
 		}
 	}
