@@ -396,14 +396,23 @@ public class ProductosController extends ControllerSupport implements IControlle
 		EstatusObjetoBO estatusObjetoBO = new EstatusObjetoBO();
 		estatusObjetoDTO.setEstatusObjetoVO(estatusObjetoVO);
 		estatusObjetoDTO = estatusObjetoBO.readCommand(estatusObjetoDTO);
+		if(estatusObjetoDTO.getErrorCode().equals("SQL-001")){
+	    	Messagebox.show("Hubo un error en base de datos, favor de reportalo con el adminsitrador del sistema:\n"+
+	    					"\nError:"+estatusObjetoDTO.getErrorCode()+
+	    					"\nDescripción:"+estatusObjetoDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+	    }
 		productoDTO.setEstatusObjetoVOs(estatusObjetoDTO.getEstatusObjetoVOs());
 	    
 	    FlujoBO flujoBO = new FlujoBO();
 	    flujoVOs = flujoBO.readCommand();
 	    productoDTO.setProductoVO(productoVO);
 		ProductoBO productoBO = new ProductoBO();
-		productoBO.readCommand(productoDTO);
-		
+		productoDTO = productoBO.readCommand(productoDTO);
+		if(productoDTO.getErrorCode().equals("SQL-001")){
+	    	Messagebox.show("Hubo un error en base de datos, favor de reportalo con el adminsitrador del sistema:\n"+
+	    					"\nError:"+productoDTO.getErrorCode()+
+	    					"\nDescripción:"+productoDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+	    }
 		flagEstatus = true;
 		
 		return productoDTO;
@@ -458,7 +467,13 @@ public class ProductosController extends ControllerSupport implements IControlle
 		productoVO.toString();
 	
 		ProductoBO productoBO = new ProductoBO();
-		productoVOs = productoBO.readCommand(productoDTO).getProductoVOs();
+		productoDTO = productoBO.readCommand(productoDTO);
+		if(productoDTO.getErrorCode().equals("SQL-001")){
+	    	Messagebox.show("Hubo un error en base de datos, favor de reportalo con el adminsitrador del sistema:\n"+
+	    					"\nError:"+productoDTO.getErrorCode()+
+	    					"\nDescripción:"+productoDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+	    }
+		productoVOs = productoDTO.getProductoVOs();
 		controller.registrarEvento(productoVO, productoVO, CommandConstants.CONSULTAR, nombrePantalla);
 		flagEstatus = false;
 	}
@@ -507,30 +522,38 @@ public class ProductosController extends ControllerSupport implements IControlle
 								productoVOL.setIdEstatusObjeto(CommandConstants.ESTATUS_PRODUCTO_ACTIVO);
 								productoVOL.setIdFlujo(Integer.parseInt(idFlujo.getValue()));
 								productoDTO.setProductoVO(productoVOL);
-								productoBO.createCommand(productoDTO);
-								productoDTO.toString(BbvaAbstractDataTransferObject.XML);
-								
-								ProductoVO productoNuevo = new ProductoVO();
-								productoNuevo.setNombreProducto("");
-								productoNuevo.setDescripcionProducto("");
-								productoNuevo.setIdEstatusObjeto(CommandConstants.ESTATUS_PRODUCTO_ACTIVO);
-								productoNuevo.setIdFlujo(0);
-								logger.debug(productoVO.getNombreProducto() + " " +  productoNuevo.getNombreProducto());
-								logger.debug(productoVO.getDescripcionProducto() + " " +  productoNuevo.getDescripcionProducto());	
-								logger.debug(productoVO.getIdEstatusObjeto() + " " +  productoNuevo.getIdEstatusObjeto());
-								logger.debug(productoVO.getIdFlujo() + " " +  productoNuevo.getIdFlujo());						
-								controller.registrarEvento(productoVOL, productoNuevo, CommandConstants.ALTA, nombrePantalla);
-								clean();
-								productoVO.setIdFlujo(Integer.parseInt(idFlujo.getValue().isEmpty()?"0":idFlujo.getValue()));
-								productoVO.setNombreProducto(StringUtil.validaLike(nombreProducto.getValue()));
-								productoVO.setDescripcionProducto(StringUtil.validaLike(descripcionProducto.getValue()));
-								productoVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue().isEmpty()?"0":idEstatusObjeto.getValue()));
-								productoVO.toString();
-								productoDTO.setProductoVO(productoVO);
-								productoVOs = productoBO.readCommand(productoDTO).getProductoVOs();
-								org.zkoss.zul.Messagebox.show("!El Registro del Producto fue exitoso!",
-										"Información", org.zkoss.zul.Messagebox.OK,
-										org.zkoss.zul.Messagebox.INFORMATION);
+								productoDTO = productoBO.createCommand(productoDTO);
+								if(productoDTO.getErrorCode().equals("SQL-001")){
+							    	Messagebox.show("Hubo un error en base de datos, favor de reportalo con el adminsitrador del sistema:\n"+
+							    					"\nError:"+productoDTO.getErrorCode()+
+							    					"\nDescripción:"+productoDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+							    }else{
+									productoDTO.toString(BbvaAbstractDataTransferObject.XML);
+									productoVO = new ProductoVO();
+									ProductoVO productoNuevo = new ProductoVO();
+									productoNuevo.setNombreProducto("");
+									productoNuevo.setDescripcionProducto("");
+									productoNuevo.setIdEstatusObjeto(CommandConstants.ESTATUS_PRODUCTO_ACTIVO);
+									productoNuevo.setIdFlujo(0);
+									controller.registrarEvento(productoVOL, productoNuevo, CommandConstants.ALTA, nombrePantalla);
+									clean();
+									productoVO.setIdFlujo(Integer.parseInt(idFlujo.getValue().isEmpty()?"0":idFlujo.getValue()));
+									productoVO.setNombreProducto(StringUtil.validaLike(nombreProducto.getValue()));
+									productoVO.setDescripcionProducto(StringUtil.validaLike(descripcionProducto.getValue()));
+									productoVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue().isEmpty()?"0":idEstatusObjeto.getValue()));
+									productoVO.toString();
+									productoDTO.setProductoVO(productoVO);
+									productoDTO = productoBO.readCommand(productoDTO);
+									if(productoDTO.getErrorCode().equals("SQL-001")){
+								    	Messagebox.show("Hubo un error en base de datos, favor de reportalo con el adminsitrador del sistema:\n"+
+								    					"\nError:"+productoDTO.getErrorCode()+
+								    					"\nDescripción:"+productoDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+								    }
+									productoVOs = productoDTO.getProductoVOs();
+									org.zkoss.zul.Messagebox.show("!El Registro del Producto fue exitoso!",
+											"Información", org.zkoss.zul.Messagebox.OK,
+											org.zkoss.zul.Messagebox.INFORMATION);
+							    }
 							} else {
 								ProductoVO productoVO = new ProductoVO();
 								productoVO.setNombreProducto(nombreProducto.getValue().toUpperCase().trim());
@@ -570,35 +593,47 @@ public class ProductosController extends ControllerSupport implements IControlle
 									productoVOL.setIdFlujo(Integer.parseInt(idFlujo.getValue()));
 									productoVOL.setIdProducto(Integer.parseInt(idProducto.getValue()));
 									productoDTO.setProductoVO(productoVOL);
-									productoBO.updateCommand(productoDTO);
-									productoDTO.toString(BbvaAbstractDataTransferObject.XML);
-									logger.debug("Estatus--"+estatusObjeto.getSelectedItem().getValue().toString());
-									logger.debug(productoVOL.getNombreProducto() + " " +  productoVO.getNombreProducto());
-									logger.debug(productoVOL.getDescripcionProducto() + " " +  productoVO.getDescripcionProducto());
-									logger.debug(productoVOL.getIdEstatusObjeto() + " " +  productoVO.getIdEstatusObjeto());
-									logger.debug(productoVOL.getIdFlujo() + " " +  productoVO.getIdFlujo());
-									if (Integer.parseInt(estatusObjeto.getSelectedItem().getValue().toString())==CommandConstants.ID_PRODUCTO_BAJA) {
-										controller.registrarEvento(productoVOL, productoVO, CommandConstants.BAJA, nombrePantalla);					
-									} else if (Integer.parseInt(estatusObjeto.getSelectedItem().getValue().toString())==CommandConstants.ID_PRODUCTO_INACTIVO) { 
-										controller.registrarEvento(productoVOL, productoVO, CommandConstants.INACTIVACION, nombrePantalla);				
-									} else {
-										logger.debug("local: "+productoVOL);
-										logger.debug("leido: "+productoVO);
-										controller.registrarEvento(productoVOL, productoVO, CommandConstants.MODIFICACION, nombrePantalla);
-									}						
-			
-									
-									clean();
-									productoVO.setIdFlujo(Integer.parseInt(idFlujo.getValue().isEmpty()?"0":idFlujo.getValue()));
-									productoVO.setNombreProducto(StringUtil.validaLike(nombreProducto.getValue()));
-									productoVO.setDescripcionProducto(StringUtil.validaLike(descripcionProducto.getValue()));
-									productoVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue().isEmpty()?"0":idEstatusObjeto.getValue()));
-									productoVO.toString();
-									productoDTO.setProductoVO(productoVO);
-									productoVOs = productoBO.readCommand(productoDTO).getProductoVOs();
-									org.zkoss.zul.Messagebox.show("!La Actualización del Producto fue exitoso!",
-											"Información", org.zkoss.zul.Messagebox.OK,
-											org.zkoss.zul.Messagebox.INFORMATION);
+									productoDTO = productoBO.updateCommand(productoDTO);
+									if(productoDTO.getErrorCode().equals("SQL-001")){
+								    	Messagebox.show("Hubo un error en base de datos, favor de reportalo con el adminsitrador del sistema:\n"+
+								    					"\nError:"+productoDTO.getErrorCode()+
+								    					"\nDescripción:"+productoDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+								    }else{
+										productoDTO.toString(BbvaAbstractDataTransferObject.XML);
+										logger.debug("Estatus--"+estatusObjeto.getSelectedItem().getValue().toString());
+										logger.debug(productoVOL.getNombreProducto() + " " +  productoVO.getNombreProducto());
+										logger.debug(productoVOL.getDescripcionProducto() + " " +  productoVO.getDescripcionProducto());
+										logger.debug(productoVOL.getIdEstatusObjeto() + " " +  productoVO.getIdEstatusObjeto());
+										logger.debug(productoVOL.getIdFlujo() + " " +  productoVO.getIdFlujo());
+										if (Integer.parseInt(estatusObjeto.getSelectedItem().getValue().toString())==CommandConstants.ID_PRODUCTO_BAJA) {
+											controller.registrarEvento(productoVOL, productoVO, CommandConstants.BAJA, nombrePantalla);					
+										} else if (Integer.parseInt(estatusObjeto.getSelectedItem().getValue().toString())==CommandConstants.ID_PRODUCTO_INACTIVO) { 
+											controller.registrarEvento(productoVOL, productoVO, CommandConstants.INACTIVACION, nombrePantalla);				
+										} else {
+											logger.debug("local: "+productoVOL);
+											logger.debug("leido: "+productoVO);
+											controller.registrarEvento(productoVOL, productoVO, CommandConstants.MODIFICACION, nombrePantalla);
+										}						
+				
+										
+										clean();
+										productoVO.setIdFlujo(Integer.parseInt(idFlujo.getValue().isEmpty()?"0":idFlujo.getValue()));
+										productoVO.setNombreProducto(StringUtil.validaLike(nombreProducto.getValue()));
+										productoVO.setDescripcionProducto(StringUtil.validaLike(descripcionProducto.getValue()));
+										productoVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue().isEmpty()?"0":idEstatusObjeto.getValue()));
+										productoVO.toString();
+										productoDTO.setProductoVO(productoVO);
+										productoDTO = productoBO.readCommand(productoDTO);
+										if(productoDTO.getErrorCode().equals("SQL-001")){
+									    	Messagebox.show("Hubo un error en base de datos, favor de reportalo con el adminsitrador del sistema:\n"+
+									    					"\nError:"+productoDTO.getErrorCode()+
+									    					"\nDescripción:"+productoDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+									    }
+										productoVOs = productoDTO.getProductoVOs();
+										org.zkoss.zul.Messagebox.show("!La Actualización del Producto fue exitoso!",
+												"Información", org.zkoss.zul.Messagebox.OK,
+												org.zkoss.zul.Messagebox.INFORMATION);
+								    }
 								}				
 								else {
 									ProductoVO productoVOL = new ProductoVO();
@@ -723,8 +758,13 @@ public class ProductosController extends ControllerSupport implements IControlle
 		productoVO.setNombreProducto(nombreProducto);
 		productoVO.setIdProducto(idProducto);
 //		System.out.println("********************* " + nombreProducto  );
-		ProductoBO productoBO = new ProductoBO();
+		ProductoBO productoBO = new ProductoBO();		
 		productoDTO = productoBO.readCommandCmb(productoVO);
+		if(productoDTO.getErrorCode().equals("SQL-001")){
+	    	Messagebox.show("Hubo un error en base de datos, favor de reportalo con el adminsitrador del sistema:\n"+
+	    					"\nError:"+productoDTO.getErrorCode()+
+	    					"\nDescripción:"+productoDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+	    }
 //		System.out.println("*************************** "+productoDTO.getProductoVOs().size()+" ***************************");
 		if (productoDTO.getProductoVOs().size() == 0)
 			return true;
