@@ -505,10 +505,20 @@ public class MapaGmmController  extends ControllerSupport implements  IControlle
 		EstatusObjetoBO estatusObjetoBO = new EstatusObjetoBO();
 		estatusObjetoDTO.setEstatusObjetoVO(estatusObjetoVO);
 		estatusObjetoDTO = estatusObjetoBO.readCommand(estatusObjetoDTO);
+		if(estatusObjetoDTO.getErrorCode().equals("SQL-001")){
+	    	Messagebox.show("Hubo un error en base de datos, favor de reportalo con el adminsitrador del sistema:\n"+
+	    					"\nError:"+estatusObjetoDTO.getErrorCode()+
+	    					"\nDescripción:"+estatusObjetoDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+	    }
 		MapaGmmVO mapaGmmVO = new MapaGmmVO();
 		MapaGmmDTO mapaGmmDTO = new MapaGmmDTO();
 		MapaGmmBO mapaGmmBO = new MapaGmmBO();
 		mapaGmmDTO = mapaGmmBO.readCommand(mapaGmmDTO);
+		if(mapaGmmDTO.getErrorCode().equals("SQL-001")){
+	    	Messagebox.show("Hubo un error en base de datos, favor de reportalo con el adminsitrador del sistema:\n"+
+	    					"\nError:"+mapaGmmDTO.getErrorCode()+
+	    					"\nDescripción:"+mapaGmmDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+	    }
 		logger.info("::::::::::::::SIZE::::::::::" + mapaGmmDTO.getMapaGmmVOs());
 		//Seteo Catalogo de Estatus
 		mapaGmmDTO.setEstatusObjetoVOs(estatusObjetoDTO.getEstatusObjetoVOs());
@@ -574,10 +584,15 @@ public class MapaGmmController  extends ControllerSupport implements  IControlle
 		mapaGmmDTO.toString(BbvaAbstractDataTransferObject.XML);	
 		
 		//LLamada a BO  MapaGmm para consulta por criterio
-		MapaGmmBO MapaGmmBO = new MapaGmmBO();
+		MapaGmmBO mapaGmmBO = new MapaGmmBO();
 		
 		//Asignacion resultado de consulta al mismo DTO de MapaGmm
-		mapaGmmDTO = MapaGmmBO.readCommand(mapaGmmDTO);
+		mapaGmmDTO = mapaGmmBO.readCommand(mapaGmmDTO);
+		if(mapaGmmDTO.getErrorCode().equals("SQL-001")){
+	    	Messagebox.show("Hubo un error en base de datos, favor de reportalo con el adminsitrador del sistema:\n"+
+	    					"\nError:"+mapaGmmDTO.getErrorCode()+
+	    					"\nDescripción:"+mapaGmmDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+	    }
 		
 		//Tamaño de la lista de acuerdo al criterio de busqueda y objeto MapaGmm
 		if(mapaGmmDTO.getMapaGmmVOs() != null) {
@@ -641,38 +656,48 @@ public class MapaGmmController  extends ControllerSupport implements  IControlle
 							mapaGmmDTO.toString(BbvaAbstractDataTransferObject.XML);	
 							
 							MapaGmmBO mapaGmmBO = new MapaGmmBO();
-							mapaGmmBO.updateCommand(mapaGmmDTO);
-							if (Integer.parseInt(status.getSelectedItem().getValue().toString())==CommandConstants.ID_MAPA_INACTIVO) { 
-								controller.registrarEvento(mapaGmmVOL, mapaGmmVO, CommandConstants.INACTIVACION, nombrePantalla);				
-							} else {
-								controller.registrarEvento(mapaGmmVOL, mapaGmmVO, CommandConstants.MODIFICACION,nombrePantalla);
-							}
-							
-							
-							clean();			
-							
-							//Textbox
-							mapaGmmVO = new MapaGmmVO();
-							
-							//Consulta Parametrizada
-			
-							mapaGmmDTO.setMapaGmmVO(mapaGmmVO);
-							mapaGmmDTO.toString(BbvaAbstractDataTransferObject.XML);	
-							
-							//LLamada a BO  MapaGmm para consulta por criterio
-							MapaGmmBO MapaGmmBO = new MapaGmmBO();
-							
-							//Asignacion resultado de consulta al mismo DTO de MapaGmm
-							mapaGmmDTO = MapaGmmBO.readCommand(mapaGmmDTO);
-							
-							btnGuardar = true;
-			
-							org.zkoss.zul.Messagebox.show("Registro actualizado con exito!!",
-									"Información", org.zkoss.zul.Messagebox.OK,
-									org.zkoss.zul.Messagebox.INFORMATION);
-							
-							mapaGmmVOs = mapaGmmDTO.getMapaGmmVOs();
-							identificadorMapa.setDisabled(false);
+							mapaGmmDTO = mapaGmmBO.updateCommand(mapaGmmDTO);							
+							if(mapaGmmDTO.getErrorCode().equals("SQL-001")){
+						    	Messagebox.show("Hubo un error en base de datos, favor de reportalo con el adminsitrador del sistema:\n"+
+						    					"\nError:"+mapaGmmDTO.getErrorCode()+
+						    					"\nDescripción:"+mapaGmmDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+						    }else{
+								if (Integer.parseInt(status.getSelectedItem().getValue().toString())==CommandConstants.ID_MAPA_INACTIVO) { 
+									controller.registrarEvento(mapaGmmVOL, mapaGmmVO, CommandConstants.INACTIVACION, nombrePantalla);				
+								} else {
+									controller.registrarEvento(mapaGmmVOL, mapaGmmVO, CommandConstants.MODIFICACION,nombrePantalla);
+								}
+								
+								
+								clean();			
+								
+								//Textbox
+								mapaGmmVO = new MapaGmmVO();
+								
+								//Consulta Parametrizada
+				
+								mapaGmmDTO.setMapaGmmVO(mapaGmmVO);
+								mapaGmmDTO.toString(BbvaAbstractDataTransferObject.XML);	
+								
+								//LLamada a BO  MapaGmm para consulta por criterio							
+								
+								//Asignacion resultado de consulta al mismo DTO de MapaGmm
+								mapaGmmDTO = mapaGmmBO.readCommand(mapaGmmDTO);
+								if(mapaGmmDTO.getErrorCode().equals("SQL-001")){
+							    	Messagebox.show("Hubo un error en base de datos, favor de reportalo con el adminsitrador del sistema:\n"+
+							    					"\nError:"+mapaGmmDTO.getErrorCode()+
+							    					"\nDescripción:"+mapaGmmDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+							    }
+								
+								btnGuardar = true;
+				
+								org.zkoss.zul.Messagebox.show("Registro actualizado con exito!!",
+										"Información", org.zkoss.zul.Messagebox.OK,
+										org.zkoss.zul.Messagebox.INFORMATION);
+								
+								mapaGmmVOs = mapaGmmDTO.getMapaGmmVOs();
+								identificadorMapa.setDisabled(false);
+						    }
 							
 						}else{ 
 							logger.info("::::::NO Crea::::"); 
