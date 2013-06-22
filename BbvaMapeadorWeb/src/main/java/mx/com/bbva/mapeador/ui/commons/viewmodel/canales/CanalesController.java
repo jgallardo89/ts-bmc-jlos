@@ -373,11 +373,21 @@ public class CanalesController extends ControllerSupport implements IController 
 	    estatusObjetoVO.setNombreTabla(CommandConstants.NOMBRE_TABLA_CANALES);
 	    estatusObjetoDTO.setEstatusObjetoVO(estatusObjetoVO);
 	    estatusObjetoDTO = estatusObjetoBO.readCommand(estatusObjetoDTO);
+	    if(estatusObjetoDTO.getErrorCode().equals("SQL-001")){
+	    	Messagebox.show("Hubo un error en base de datos, favor de reportalo con el adminsitrador del sistema:\n"+
+	    					"\nError:"+estatusObjetoDTO.getErrorCode()+
+	    					"\nDescripción:"+estatusObjetoDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+	    }
 	    canalDTO.setEstatusObjetoVOs(estatusObjetoDTO.getEstatusObjetoVOs());
 	    CanalVO canalVO = new CanalVO();
 	    canalDTO.setCanalVO(canalVO);
 		CanalBO canalBO = new CanalBO();
-		canalBO.readCommand(canalDTO);
+		canalDTO = canalBO.readCommand(canalDTO);
+		if(canalDTO.getErrorCode().equals("SQL-001")){
+	    	Messagebox.show("Hubo un error en base de datos, favor de reportalo con el adminsitrador del sistema:\n"+
+	    					"\nError:"+canalDTO.getErrorCode()+
+	    					"\nDescripción:"+canalDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+	    }
 		return canalDTO;
 	}
 	
@@ -439,7 +449,13 @@ public class CanalesController extends ControllerSupport implements IController 
 			canalVO.toString();
 			canalDTO.setCanalVO(canalVO);
 			CanalBO canalBO = new CanalBO();
-			canalesVOs = canalBO.readCommand(canalDTO).getCanalVOs();			
+			canalDTO = canalBO.readCommand(canalDTO);
+			if(canalDTO.getErrorCode().equals("SQL-001")){
+		    	Messagebox.show("Hubo un error en base de datos, favor de reportalo con el adminsitrador del sistema:\n"+
+		    					"\nError:"+canalDTO.getErrorCode()+
+		    					"\nDescripción:"+canalDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+		    }
+			canalesVOs = canalDTO.getCanalVOs();			
 			controller.registrarEvento(canalVO, canalVO, CommandConstants.CONSULTAR, nombrePantalla);
 		}		
 	}
@@ -507,37 +523,49 @@ public class CanalesController extends ControllerSupport implements IController 
 								canalVO.setDescripcionCanal(descripcionCanal.getValue().toUpperCase().trim());
 								canalVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue()));
 								canalVO.setIdCanal(Integer.parseInt(idCanal.getValue()));
-								canalDTO.setCanalVO(canalVO);
-								canalBO.updateCommand(canalDTO);
-								canalDTO.toString(BbvaAbstractDataTransferObject.XML);
-								if (Integer.parseInt(statusObjeto.getSelectedItem().getValue().toString())==CommandConstants.ID_CANAL_BAJA) {
-									controller.registrarEvento(canalVO, canalesVO, CommandConstants.BAJA, nombrePantalla);					
-								} else if (Integer.parseInt(statusObjeto.getSelectedItem().getValue().toString())==CommandConstants.ID_CANAL_INACTIVO) { 
-									controller.registrarEvento(canalVO, canalesVO, CommandConstants.INACTIVACION, nombrePantalla);				
-								} else {
-									controller.registrarEvento(canalVO, canalesVO, CommandConstants.MODIFICACION, nombrePantalla);
+								canalDTO.setCanalVO(canalVO);								
+								canalDTO = canalBO.updateCommand(canalDTO);
+								if(canalDTO.getErrorCode().equals("SQL-001")){
+							    	Messagebox.show("Hubo un error en base de datos, favor de reportalo con el adminsitrador del sistema:\n"+
+							    					"\nError:"+canalDTO.getErrorCode()+
+							    					"\nDescripción:"+canalDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+								}else{
+									canalDTO.toString(BbvaAbstractDataTransferObject.XML);
+									if (Integer.parseInt(statusObjeto.getSelectedItem().getValue().toString())==CommandConstants.ID_CANAL_BAJA) {
+										controller.registrarEvento(canalVO, canalesVO, CommandConstants.BAJA, nombrePantalla);					
+									} else if (Integer.parseInt(statusObjeto.getSelectedItem().getValue().toString())==CommandConstants.ID_CANAL_INACTIVO) { 
+										controller.registrarEvento(canalVO, canalesVO, CommandConstants.INACTIVACION, nombrePantalla);				
+									} else {
+										controller.registrarEvento(canalVO, canalesVO, CommandConstants.MODIFICACION, nombrePantalla);
+									}
+									clean();
+									
+				
+									
+									canalVO.setNombreCanal(StringUtil.validaLike(nombreCanal.getValue()));
+									canalVO.setDescripcionCanal(StringUtil.validaLike(descripcionCanal.getValue()));
+									canalVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue().isEmpty()?"0":idEstatusObjeto.getValue()));
+									canalVO.toString();
+									canalDTO.setCanalVO(canalVO);
+									canalDTO = canalBO.readCommand(canalDTO);
+									if(canalDTO.getErrorCode().equals("SQL-001")){
+								    	Messagebox.show("Hubo un error en base de datos, favor de reportalo con el adminsitrador del sistema:\n"+
+								    					"\nError:"+canalDTO.getErrorCode()+
+								    					"\nDescripción:"+canalDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+								    }
+									canalesVOs = canalDTO.getCanalVOs();
+									
+									btnGuardar = true;
+									org.zkoss.zul.Messagebox.show("!La Actualización del Canal fue exitoso!",
+											"Información", org.zkoss.zul.Messagebox.OK,
+											org.zkoss.zul.Messagebox.INFORMATION);
+									 BindUtils
+										.postGlobalCommand(
+												null,
+												null,
+												"readWithFilters",
+												null);
 								}
-								clean();
-								
-			
-								
-								canalVO.setNombreCanal(StringUtil.validaLike(nombreCanal.getValue()));
-								canalVO.setDescripcionCanal(StringUtil.validaLike(descripcionCanal.getValue()));
-								canalVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue().isEmpty()?"0":idEstatusObjeto.getValue()));
-								canalVO.toString();
-								canalDTO.setCanalVO(canalVO);
-								canalesVOs = canalBO.readCommand(canalDTO).getCanalVOs();
-								
-								btnGuardar = true;
-								org.zkoss.zul.Messagebox.show("!La Actualización del Canal fue exitoso!",
-										"Información", org.zkoss.zul.Messagebox.OK,
-										org.zkoss.zul.Messagebox.INFORMATION);
-								 BindUtils
-									.postGlobalCommand(
-											null,
-											null,
-											"readWithFilters",
-											null);
 							  } else {
 									CanalVO canalVO = new CanalVO();
 									canalVO.setNombreCanal(nombreCanal.getValue().toUpperCase().trim());
@@ -559,7 +587,13 @@ public class CanalesController extends ControllerSupport implements IController 
 								  canalVO.setIdEstatusObjeto(0);
 								  canalVO.toString();
 								  canalDTO.setCanalVO(canalVO);
-								  canalesVOs = canalBO.readCommand(canalDTO).getCanalVOs();
+								  canalDTO = canalBO.readCommand(canalDTO);
+								  if(canalDTO.getErrorCode().equals("SQL-001")){
+								    	Messagebox.show("Hubo un error en base de datos, favor de reportalo con el adminsitrador del sistema:\n"+
+								    					"\nError:"+canalDTO.getErrorCode()+
+								    					"\nDescripción:"+canalDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+								  }
+								  canalesVOs = canalDTO.getCanalVOs();
 								  org.zkoss.zul.Messagebox.show("!No se puede dar de Baja, ya que esta siendo Usado por la Contratación!",
 											"Información", org.zkoss.zul.Messagebox.OK,
 											org.zkoss.zul.Messagebox.EXCLAMATION);								 
