@@ -79,6 +79,8 @@ public class EstatusObjetoBO implements mx.com.bbva.bancomer.commons.business.Bb
 			} catch (Exception ex) {
 				session.rollback();
 				ex.printStackTrace();
+				bbvaAbstractDataTransferObject.setErrorCode("SQL-001");
+				bbvaAbstractDataTransferObject.setErrorDescription(ex.getMessage());
 			} finally {
 				session.close();
 			}
@@ -114,6 +116,8 @@ public class EstatusObjetoBO implements mx.com.bbva.bancomer.commons.business.Bb
 		} catch (Exception ex) {
 			session.rollback();
 			ex.printStackTrace();
+			bbvaAbstractDataTransferObject.setErrorCode("SQL-001");
+			bbvaAbstractDataTransferObject.setErrorDescription(ex.getMessage());
 		} finally {
 			session.close();
 		}
@@ -246,6 +250,8 @@ public class EstatusObjetoBO implements mx.com.bbva.bancomer.commons.business.Bb
 		} catch (Exception ex) {
 			session.rollback();
 			ex.printStackTrace();
+			bbvaAbstractDataTransferObject.setErrorCode("SQL-001");
+			bbvaAbstractDataTransferObject.setErrorDescription(ex.getMessage());
 		} finally {
 			session.close();
 		}

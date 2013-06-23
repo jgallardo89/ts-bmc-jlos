@@ -78,6 +78,8 @@ public class PantallaBO implements mx.com.bbva.bancomer.commons.business.BbvaIBu
 		} catch (Exception ex) {
 			session.rollback();
 			ex.printStackTrace();
+			bbvaAbstractDataTransferObject.setErrorCode("SQL-001");
+			bbvaAbstractDataTransferObject.setErrorDescription(ex.getMessage());
 		} finally {
 			session.close();
 		}
@@ -133,6 +135,8 @@ public class PantallaBO implements mx.com.bbva.bancomer.commons.business.BbvaIBu
 				} catch (Exception ex) {
 					session.rollback();
 					ex.printStackTrace();
+					bbvaAbstractDataTransferObject.setErrorCode("SQL-001");
+					bbvaAbstractDataTransferObject.setErrorDescription(ex.getMessage());
 				} finally {
 					session.close();
 				}
@@ -147,9 +151,11 @@ public class PantallaBO implements mx.com.bbva.bancomer.commons.business.BbvaIBu
 				return bbvaAbstractDataTransferObject;
 			} 					
 		} 
-		catch ( Exception exception ) 
+		catch ( Exception ex ) 
 		{
-			exception.printStackTrace();
+			ex.printStackTrace();
+			bbvaAbstractDataTransferObject.setErrorCode("SQL-001");
+			bbvaAbstractDataTransferObject.setErrorDescription(ex.getMessage());
 			return bbvaAbstractDataTransferObject;
 		}
 	}
@@ -184,6 +190,8 @@ public class PantallaBO implements mx.com.bbva.bancomer.commons.business.BbvaIBu
 		} catch (Exception ex) {
 			session.rollback();
 			ex.printStackTrace();
+			bbvaAbstractDataTransferObject.setErrorCode("SQL-001");
+			bbvaAbstractDataTransferObject.setErrorDescription(ex.getMessage());
 		} finally {
 			session.close();
 		}

@@ -77,6 +77,8 @@ public class TipoComponenteBO implements
 			} catch (Exception ex) {
 				session.rollback();
 				ex.printStackTrace();
+				bbvaAbstractDataTransferObject.setErrorCode("SQL-001");
+				bbvaAbstractDataTransferObject.setErrorDescription(ex.getMessage());
 			} finally {
 				session.close();
 			}
@@ -130,6 +132,8 @@ public class TipoComponenteBO implements
 				} catch (Exception ex) {
 					session.rollback();
 					ex.printStackTrace();
+					bbvaAbstractDataTransferObject.setErrorCode("SQL-001");
+					bbvaAbstractDataTransferObject.setErrorDescription(ex.getMessage());
 				} finally {
 					session.close();
 				}
@@ -141,10 +145,14 @@ public class TipoComponenteBO implements
 				return bbvaAbstractDataTransferObject;
 			} catch (Exception ex) {
 				ex.printStackTrace();
+				bbvaAbstractDataTransferObject.setErrorCode("SQL-001");
+				bbvaAbstractDataTransferObject.setErrorDescription(ex.getMessage());
 				return bbvaAbstractDataTransferObject;
 			}
-		} catch (Exception exception) {
-			exception.printStackTrace();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			bbvaAbstractDataTransferObject.setErrorCode("SQL-001");
+			bbvaAbstractDataTransferObject.setErrorDescription(ex.getMessage());
 			return bbvaAbstractDataTransferObject;
 		}
 	}	
@@ -177,6 +185,8 @@ public class TipoComponenteBO implements
 		} catch (Exception ex) {
 			session.rollback();
 			ex.printStackTrace();
+			bbvaAbstractDataTransferObject.setErrorCode("SQL-001");
+			bbvaAbstractDataTransferObject.setErrorDescription(ex.getMessage());
 		} finally {
 			session.close();
 		}
