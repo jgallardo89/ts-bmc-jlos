@@ -20,7 +20,7 @@
 									<div align="center">
 										<grid width="100%" style="border:0" oddRowSclass="row2">
 											<columns>
-												<column width="21%" />
+												<column width="12%" />
 												<column width="21%" />
 												<column width="21%" />
 												<column width="3.5%" />
@@ -169,6 +169,6 @@
 					</vlayout>				
 			
 		</div>
-		<textbox id="idPerfil" visible="false"></textbox>
+		<textbox id="idPerfil" value="0" visible="false"></textbox>
 	</window>
 </zk>

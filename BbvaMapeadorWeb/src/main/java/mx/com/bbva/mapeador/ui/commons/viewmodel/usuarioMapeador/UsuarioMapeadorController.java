@@ -50,13 +50,17 @@ import mx.com.bbva.mapeador.ui.commons.viewmodel.reportes.ReportesController;
 import mx.com.bbva.mapeador.ui.commons.viewmodel.support.ControllerSupport;
 
 import org.apache.log4j.Logger;
+import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
+import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.event.Event;
+import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.Button;
@@ -64,6 +68,7 @@ import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Grid;
 import org.zkoss.zul.Image;
 import org.zkoss.zul.Label;
+import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Textbox;
 
 // TODO: Auto-generated Javadoc
@@ -216,7 +221,7 @@ public class UsuarioMapeadorController extends ControllerSupport implements ICon
 		nombreUsuario.clearErrorMessage();
 		
 		perfilesDisponibles.setValue(null);
-		status.setValue(null);
+		status.setValue(CommandConstants.NB_USUARIO_ACTIVO);
 		idPerfil.setValue(null);
 		idEstatusObjeto.setValue(null);
 		identificadorUsuario.setValue(null);
@@ -416,6 +421,7 @@ public class UsuarioMapeadorController extends ControllerSupport implements ICon
 	/**
 	 * Read with filters.
 	 */
+	@GlobalCommand
 	@Command
 	@NotifyChange({ "usuarioVOs" })
 	public void readWithFilters() {
@@ -461,117 +467,145 @@ public class UsuarioMapeadorController extends ControllerSupport implements ICon
 			errorGuardar = true;
 		}
 		if(!errorGuardar){
-			if(idUsuario.getValue().isEmpty()){
-				UsuarioDTO usuarioDTO = new UsuarioDTO();
-				UsuarioVO usuarioVO = new UsuarioVO();
-				usuarioVO.setEstatusUsuario( Integer.parseInt(status.getSelectedItem().getValue().toString()));
-				usuarioVO.setIdCveUsuario( identificadorUsuario.getValue().toUpperCase().trim() );
-				usuarioVO.setIdPerfil(Integer.parseInt(perfilesDisponibles.getSelectedItem().getValue().toString()));			
-				usuarioVO.setNombreUsuario( nombreUsuario.getValue().toUpperCase().trim() );
-				usuarioDTO.setUsuarioVO(usuarioVO);
-				usuarioDTO.toString(BbvaAbstractDataTransferObject.XML);
-				UsuarioBO usuarioBO = new UsuarioBO();
-				usuarioDTO = usuarioBO.createCommand(usuarioDTO);
-				ReportesController controller = new ReportesController();
-
-
-				if(usuarioDTO.getErrorCode().equals("0001")){
-					UsuarioVO usuarioAnterior = new UsuarioVO();
-					usuarioAnterior.setEstatusUsuario(CommandConstants.ESTATUS_USUARIO_ACTIVO);
-					usuarioAnterior.setIdCveUsuario("");
-					usuarioAnterior.setIdPerfil(-1);			
-					usuarioAnterior.setNombreUsuario("");
+			Messagebox.show(
+					"¿Está seguro que desea continuar con la operación?",
+					"Pregunta", org.zkoss.zul.Messagebox.YES | org.zkoss.zul.Messagebox.NO,
+			org.zkoss.zul.Messagebox.QUESTION, new EventListener<Event>() {
+				@Override
+				public void onEvent(Event event) throws Exception {
+					if (event.getName().equals(org.zkoss.zul.Messagebox.ON_YES)) {
+						if(idUsuario.getValue().isEmpty()){
+							UsuarioDTO usuarioDTO = new UsuarioDTO();
+							UsuarioVO usuarioVO = new UsuarioVO();
+							usuarioVO.setEstatusUsuario( Integer.parseInt(status.getSelectedItem().getValue().toString()));
+							usuarioVO.setIdCveUsuario( identificadorUsuario.getValue().toUpperCase().trim() );
+							usuarioVO.setIdPerfil(Integer.parseInt(perfilesDisponibles.getSelectedItem().getValue().toString()));			
+							usuarioVO.setNombreUsuario( nombreUsuario.getValue().toUpperCase().trim() );
+							usuarioDTO.setUsuarioVO(usuarioVO);
+							usuarioDTO.toString(BbvaAbstractDataTransferObject.XML);
+							UsuarioBO usuarioBO = new UsuarioBO();
+							usuarioDTO = usuarioBO.createCommand(usuarioDTO);
+							if(usuarioDTO.getErrorCode().equals("SQL-001")){
+						    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
+						    					"\nError:"+usuarioDTO.getErrorCode()+
+						    					"","Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+							}else{
+								ReportesController controller = new ReportesController();
+				
+				
+								if(usuarioDTO.getErrorCode().equals("0001")){
+									UsuarioVO usuarioAnterior = new UsuarioVO();
+									usuarioAnterior.setEstatusUsuario(CommandConstants.ESTATUS_USUARIO_ACTIVO);
+									usuarioAnterior.setIdCveUsuario("");
+									usuarioAnterior.setIdPerfil(-1);			
+									usuarioAnterior.setNombreUsuario("");
+									
+									controller.registrarEvento(usuarioVO, usuarioAnterior, CommandConstants.ALTA_FALLIDA, nombrePantalla);					
+									org.zkoss.zul.Messagebox.show("!"+usuarioDTO.getErrorDescription()+"!",
+											"Error", org.zkoss.zul.Messagebox.OK,
+											org.zkoss.zul.Messagebox.ERROR);
+								}else{
+				
+									UsuarioVO usuarioAnterior = new UsuarioVO();
+									usuarioAnterior.setEstatusUsuario(CommandConstants.ESTATUS_USUARIO_ACTIVO);
+									usuarioAnterior.setIdCveUsuario("");
+									usuarioAnterior.setIdPerfil(-1);			
+									usuarioAnterior.setNombreUsuario("");
+									
+									controller.registrarEvento(usuarioVO, usuarioAnterior, CommandConstants.ALTA, nombrePantalla);
+									
+									clean();
+									usuarioBO = new UsuarioBO();
+									usuarioDTO = new UsuarioDTO();
+									usuarioVO = new UsuarioVO();		
+									usuarioVO.setNombreUsuario(nombreUsuario.getValue().isEmpty()?null:"%"+nombreUsuario.getValue().toUpperCase()+"%");
+									usuarioVO.setIdCveUsuario(identificadorUsuario.getValue().isEmpty()?null:"%"+identificadorUsuario.getValue().toUpperCase()+"%");
+									usuarioVO.setIdPerfil(Integer.parseInt(idPerfil.getValue().isEmpty()?"0":idPerfil.getValue()));
+									usuarioVO.setEstatusUsuario(Integer.parseInt(idEstatusObjeto.getValue().isEmpty()?"0":idEstatusObjeto.getValue()));
+									usuarioDTO.setUsuarioVO(usuarioVO);
+									usuarioDTO.toString(BbvaAbstractDataTransferObject.XML);		
+									usuarioDTO = usuarioBO.readCommand(usuarioDTO);
+									logger.debug("size:"+usuarioDTO.getUsuarioVOs().size());
+									usuarioVOs = usuarioDTO.getUsuarioVOs();
+									
+									
+									org.zkoss.zul.Messagebox.show("!El registro del usuario fue exitoso!",
+											"Información", org.zkoss.zul.Messagebox.OK,
+											org.zkoss.zul.Messagebox.INFORMATION);
+								}
+							}
+						}else{
+							UsuarioDTO usuarioDTO = new UsuarioDTO();
+							UsuarioVO usuarioVOL = new UsuarioVO();
+							usuarioVOL.setEstatusUsuario( Integer.parseInt(status.getSelectedItem().getValue().toString()));
+							usuarioVOL.setIdCveUsuario(identificadorUsuario.getValue().toUpperCase().trim() );
+							usuarioVOL.setIdPerfil(Integer.parseInt(perfilesDisponibles.getSelectedItem().getValue().toString()));			
+							usuarioVOL.setNombreUsuario( nombreUsuario.getValue().toUpperCase().trim() );
+							logger.debug("**USER**---"+idUsuario.getValue());
+							usuarioVOL.setIdUsuario(Integer.parseInt(idUsuario.getValue()));
+							usuarioDTO.setUsuarioVO(usuarioVOL);
+							usuarioDTO.toString(BbvaAbstractDataTransferObject.XML);
+							UsuarioBO usuarioBO = new UsuarioBO();
+							usuarioDTO = usuarioBO.updateCommand(usuarioDTO);
+							if(usuarioDTO.getErrorCode().equals("SQL-001")){
+						    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
+						    					"\nError:"+usuarioDTO.getErrorCode()+
+						    					"","Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+							}else{
+								ReportesController controller = new ReportesController();
+				
+								if(usuarioDTO.getErrorCode().equals("0001")){
+									if (Integer.parseInt(status.getSelectedItem().getValue().toString())==CommandConstants.ID_USUARIO_BAJA) {
+										controller.registrarEvento(usuarioVOL, usuarioVO, CommandConstants.BAJA_FALLIDA, nombrePantalla);					
+									} else if (Integer.parseInt(status.getSelectedItem().getValue().toString())==CommandConstants.ID_USUARIO_INACTIVO) { 
+										controller.registrarEvento(usuarioVOL, usuarioVO, CommandConstants.INACTIVACION_FALLIDA, nombrePantalla);				
+									} else {
+										controller.registrarEvento(usuarioVOL, usuarioVO, CommandConstants.MODIFICACION_FALLIDA, nombrePantalla);
+									}						
+									org.zkoss.zul.Messagebox.show("!"+usuarioDTO.getErrorDescription()+"!",
+											"Error", org.zkoss.zul.Messagebox.OK,
+											org.zkoss.zul.Messagebox.ERROR);
+								}else{
+				
+									if (Integer.parseInt(status.getSelectedItem().getValue().toString())==CommandConstants.ID_USUARIO_BAJA) {
+										controller.registrarEvento(usuarioVOL, usuarioVO, CommandConstants.BAJA, nombrePantalla);					
+									} else if (Integer.parseInt(status.getSelectedItem().getValue().toString())==CommandConstants.ID_USUARIO_INACTIVO) { 
+										controller.registrarEvento(usuarioVOL, usuarioVO, CommandConstants.INACTIVACION, nombrePantalla);				
+									} else {
+										controller.registrarEvento(usuarioVOL, usuarioVO, CommandConstants.MODIFICACION, nombrePantalla);
+									}					
+									clean();
+									usuarioBO = new UsuarioBO();
+									usuarioDTO = new UsuarioDTO();
+									usuarioVO = new UsuarioVO();		
+									usuarioVO.setNombreUsuario(nombreUsuario.getValue().isEmpty()?null:"%"+nombreUsuario.getValue().toUpperCase()+"%");
+									usuarioVO.setIdCveUsuario(identificadorUsuario.getValue().isEmpty()?null:"%"+identificadorUsuario.getValue().toUpperCase()+"%");
+									usuarioVO.setIdPerfil(Integer.parseInt(idPerfil.getValue().isEmpty()?"0":idPerfil.getValue()));
+									usuarioVO.setEstatusUsuario(Integer.parseInt(idEstatusObjeto.getValue().isEmpty()?"0":idEstatusObjeto.getValue()));
+									
+									usuarioDTO.setUsuarioVO(usuarioVO);
+									usuarioDTO.toString(BbvaAbstractDataTransferObject.XML);		
+									usuarioDTO = usuarioBO.readCommand(usuarioDTO);
+									logger.debug("size:"+usuarioDTO.getUsuarioVOs().size());
+									usuarioVOs = usuarioDTO.getUsuarioVOs();
+				
 					
-					controller.registrarEvento(usuarioVO, usuarioAnterior, CommandConstants.ALTA_FALLIDA, nombrePantalla);					
-					org.zkoss.zul.Messagebox.show("!"+usuarioDTO.getErrorDescription()+"!",
-							"Error", org.zkoss.zul.Messagebox.OK,
-							org.zkoss.zul.Messagebox.ERROR);
-				}else{
-
-					UsuarioVO usuarioAnterior = new UsuarioVO();
-					usuarioAnterior.setEstatusUsuario(CommandConstants.ESTATUS_USUARIO_ACTIVO);
-					usuarioAnterior.setIdCveUsuario("");
-					usuarioAnterior.setIdPerfil(-1);			
-					usuarioAnterior.setNombreUsuario("");
-					
-					controller.registrarEvento(usuarioVO, usuarioAnterior, CommandConstants.ALTA, nombrePantalla);
-					
-					clean();
-					usuarioBO = new UsuarioBO();
-					usuarioDTO = new UsuarioDTO();
-					usuarioVO = new UsuarioVO();		
-					usuarioVO.setNombreUsuario(nombreUsuario.getValue().isEmpty()?null:"%"+nombreUsuario.getValue().toUpperCase()+"%");
-					usuarioVO.setIdCveUsuario(identificadorUsuario.getValue().isEmpty()?null:"%"+identificadorUsuario.getValue().toUpperCase()+"%");
-					usuarioVO.setIdPerfil(Integer.parseInt(idPerfil.getValue().isEmpty()?"0":idPerfil.getValue()));
-					usuarioVO.setEstatusUsuario(Integer.parseInt(idEstatusObjeto.getValue().isEmpty()?"0":idEstatusObjeto.getValue()));
-					usuarioDTO.setUsuarioVO(usuarioVO);
-					usuarioDTO.toString(BbvaAbstractDataTransferObject.XML);		
-					usuarioDTO = usuarioBO.readCommand(usuarioDTO);
-					logger.debug("size:"+usuarioDTO.getUsuarioVOs().size());
-					usuarioVOs = usuarioDTO.getUsuarioVOs();
-					
-					
-					org.zkoss.zul.Messagebox.show("!El registro del usuario fue exitoso!",
-							"Información", org.zkoss.zul.Messagebox.OK,
-							org.zkoss.zul.Messagebox.INFORMATION);
+									
+									org.zkoss.zul.Messagebox.show("!La actualizacón del usuario fue exitosa!",
+											"Información", org.zkoss.zul.Messagebox.OK,
+											org.zkoss.zul.Messagebox.INFORMATION);
+								}
+							}
+						}
+						BindUtils
+						.postGlobalCommand(
+								null,
+								null,
+								"readWithFilters",
+								null);
+					}
 				}
-			}else{
-				UsuarioDTO usuarioDTO = new UsuarioDTO();
-				UsuarioVO usuarioVO = new UsuarioVO();
-				usuarioVO.setEstatusUsuario( Integer.parseInt(status.getSelectedItem().getValue().toString()));
-				usuarioVO.setIdCveUsuario(identificadorUsuario.getValue().toUpperCase().trim() );
-				usuarioVO.setIdPerfil(Integer.parseInt(perfilesDisponibles.getSelectedItem().getValue().toString()));			
-				usuarioVO.setNombreUsuario( nombreUsuario.getValue().toUpperCase().trim() );
-				logger.debug("**USER**---"+idUsuario.getValue());
-				usuarioVO.setIdUsuario(Integer.parseInt(idUsuario.getValue()));
-				usuarioDTO.setUsuarioVO(usuarioVO);
-				usuarioDTO.toString(BbvaAbstractDataTransferObject.XML);
-				UsuarioBO usuarioBO = new UsuarioBO();
-				usuarioBO.updateCommand(usuarioDTO);
-				ReportesController controller = new ReportesController();
-
-				if(usuarioDTO.getErrorCode().equals("0001")){
-					if (Integer.parseInt(status.getSelectedItem().getValue().toString())==CommandConstants.ID_USUARIO_BAJA) {
-						controller.registrarEvento(usuarioVO, this.usuarioVO, CommandConstants.BAJA_FALLIDA, nombrePantalla);					
-					} else if (Integer.parseInt(status.getSelectedItem().getValue().toString())==CommandConstants.ID_USUARIO_INACTIVO) { 
-						controller.registrarEvento(usuarioVO, this.usuarioVO, CommandConstants.INACTIVACION_FALLIDA, nombrePantalla);				
-					} else {
-						controller.registrarEvento(usuarioVO, this.usuarioVO, CommandConstants.MODIFICACION_FALLIDA, nombrePantalla);
-					}						
-					org.zkoss.zul.Messagebox.show("!"+usuarioDTO.getErrorDescription()+"!",
-							"Error", org.zkoss.zul.Messagebox.OK,
-							org.zkoss.zul.Messagebox.ERROR);
-				}else{
-
-					if (Integer.parseInt(status.getSelectedItem().getValue().toString())==CommandConstants.ID_USUARIO_BAJA) {
-						controller.registrarEvento(usuarioVO, this.usuarioVO, CommandConstants.BAJA, nombrePantalla);					
-					} else if (Integer.parseInt(status.getSelectedItem().getValue().toString())==CommandConstants.ID_USUARIO_INACTIVO) { 
-						controller.registrarEvento(usuarioVO, this.usuarioVO, CommandConstants.INACTIVACION, nombrePantalla);				
-					} else {
-						controller.registrarEvento(usuarioVO, this.usuarioVO, CommandConstants.MODIFICACION, nombrePantalla);
-					}					
-					clean();
-					usuarioBO = new UsuarioBO();
-					usuarioDTO = new UsuarioDTO();
-					usuarioVO = new UsuarioVO();		
-					usuarioVO.setNombreUsuario(nombreUsuario.getValue().isEmpty()?null:"%"+nombreUsuario.getValue().toUpperCase()+"%");
-					usuarioVO.setIdCveUsuario(identificadorUsuario.getValue().isEmpty()?null:"%"+identificadorUsuario.getValue().toUpperCase()+"%");
-					usuarioVO.setIdPerfil(Integer.parseInt(idPerfil.getValue().isEmpty()?"0":idPerfil.getValue()));
-					usuarioVO.setEstatusUsuario(Integer.parseInt(idEstatusObjeto.getValue().isEmpty()?"0":idEstatusObjeto.getValue()));
-					
-					usuarioDTO.setUsuarioVO(usuarioVO);
-					usuarioDTO.toString(BbvaAbstractDataTransferObject.XML);		
-					usuarioDTO = usuarioBO.readCommand(usuarioDTO);
-					logger.debug("size:"+usuarioDTO.getUsuarioVOs().size());
-					usuarioVOs = usuarioDTO.getUsuarioVOs();
-
-	
-					
-					org.zkoss.zul.Messagebox.show("!La actualizacón del usuario fue exitosa!",
-							"Información", org.zkoss.zul.Messagebox.OK,
-							org.zkoss.zul.Messagebox.INFORMATION);
-				}
-			}
+			});
 		}
 		
 	}

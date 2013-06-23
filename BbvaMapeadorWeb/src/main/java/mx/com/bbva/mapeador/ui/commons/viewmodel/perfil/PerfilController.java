@@ -59,14 +59,18 @@ import mx.com.bbva.mapeador.ui.commons.viewmodel.reportes.ReportesController;
 import mx.com.bbva.mapeador.ui.commons.viewmodel.support.ControllerSupport;
 
 import org.apache.log4j.Logger;
+import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
+import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
+import org.zkoss.zk.ui.event.Event;
+import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.Button;
@@ -270,6 +274,7 @@ public class PerfilController extends ControllerSupport implements  IController{
 	 * @see mx.com.bbva.mapeador.ui.commons.controller.IController#clean()
 	 */
 	@Override
+	@GlobalCommand
 	@Command
 	@NotifyChange({"componentePantallaDTO", "componentePantallaPerfilDTO", "componentePantallaPerfilAllDTO"})
 	public void clean() {
@@ -280,10 +285,10 @@ public class PerfilController extends ControllerSupport implements  IController{
 		
 		nombrePerfil.setValue(null);
 		descripcionPerfil.setValue(null);
-		status.setValue(null);
+		status.setValue(CommandConstants.NB_PERFIL_ACTIVO);
 		pantallas.setSelectedItem(null);
 		
-		idPerfil.setValue(null);
+		idPerfil.setValue("0");
 		
 		componentePantallaDTO = null;
 		componentePantallaPerfilDTO = null;
@@ -330,19 +335,25 @@ public class PerfilController extends ControllerSupport implements  IController{
 			perfilDTO.setPerfilVO(perfilVO);		
 			perfilDTO.toString(BbvaAbstractDataTransferObject.XML);
 			PerfilBO perfilBO = new PerfilBO();
-			perfilBO.createCommand(perfilDTO);
-			ReportesController controller = new ReportesController();	
-			
-			PerfilVO perfilNuevoVO = new PerfilVO();
-			perfilNuevoVO.setNombrebPerfil("");
-			perfilNuevoVO.setDescripcionPerfil("");
-			perfilNuevoVO.setEstatusPerfil(-1);
-			perfilNuevoVO.setIdPerfilACopiar(-1);
-			controller.registrarEventoPerfil(perfilDTO, this.perfilDTO, CommandConstants.ALTA, nombrePantalla);
-			clean();
-			perfilDTO = (PerfilDTO)this.read();
-			perfilVOs = perfilDTO.getPerfilVOs();
-			Messagebox.show("Registro creado con exito!!","Información", Messagebox.OK,Messagebox.INFORMATION);
+			perfilDTO = perfilBO.createCommand(perfilDTO);
+			if(perfilDTO.getErrorCode().equals("SQL-001")){
+		    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
+		    					"\nError:"+perfilDTO.getErrorCode()+
+		    					"","Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+			}else{
+				ReportesController controller = new ReportesController();	
+				
+				PerfilVO perfilNuevoVO = new PerfilVO();
+				perfilNuevoVO.setNombrebPerfil("");
+				perfilNuevoVO.setDescripcionPerfil("");
+				perfilNuevoVO.setEstatusPerfil(-1);
+				perfilNuevoVO.setIdPerfilACopiar(-1);
+				controller.registrarEventoPerfil(perfilDTO, this.perfilDTO, CommandConstants.ALTA, nombrePantalla);
+				clean();
+				perfilDTO = (PerfilDTO)this.read();
+				perfilVOs = perfilDTO.getPerfilVOs();
+				Messagebox.show("Registro creado con exito!!","Información", Messagebox.OK,Messagebox.INFORMATION);
+			}
 		}
 	}
 
@@ -505,6 +516,7 @@ public class PerfilController extends ControllerSupport implements  IController{
 		estatusObjetoDTO.toString(BbvaAbstractDataTransferObject.XML);
 		logger.debug("*pantallaVO*");
 		PantallaVO pantallaVO = new PantallaVO();
+		pantallaVO.setDesdePerfiles(CommandConstants.CONSULTA_PANTLLAS_CON_COMPOENTES);
 		PantallaBO pantallaBO = new PantallaBO();
 		PantallaDTO pantallaDTO = new PantallaDTO();
 		pantallaDTO.setPantallaVO(pantallaVO);
@@ -539,27 +551,34 @@ public class PerfilController extends ControllerSupport implements  IController{
 	@NotifyChange({"componentePantallaDTO", "componentePantallaPerfilDTO"})
 	public void readComponentesPantalla(){
 		ComponenteVO componenteVO = new ComponenteVO();
-		componenteVO.setIdPantalla(Integer.parseInt(pantallas.getSelectedItem().getValue().toString()))	;
-		logger.debug("ID-PANTALLA:"+pantallas.getSelectedItem().getValue());
-		if(!idPerfil.getValue().isEmpty())
-			componenteVO.setIdPerfil(Integer.parseInt(idPerfil.getValue().toString()));
-		else
-			componenteVO.setIdPerfil(0);
-		componentePantallaDTO = new ComponenteDTO();
-		componentePantallaDTO.setCommandId(CommandConstants.COMPONENTE_PANTALLA);
-		componentePantallaDTO.setComponenteVO(componenteVO);
-		ComponenteBO componenteBO = new ComponenteBO();		
-		componentePantallaDTO = componenteBO.readCommand(componentePantallaDTO);		
-		if(componenteVO.getIdPerfil()!=0){			
-			componentePantallaPerfilDTO = new ComponenteDTO();
-			componentePantallaPerfilDTO.setCommandId(CommandConstants.COMPONENTE_PANTALLA_PERFIL);
-			componentePantallaPerfilDTO.setComponenteVO(componenteVO);
-			componentePantallaPerfilDTO = componenteBO.readCommand(componentePantallaPerfilDTO);	
-			
-			componentePantallaPerfilAllDTO = new ComponenteDTO();
-			componentePantallaPerfilAllDTO.setCommandId(CommandConstants.COMPONENTE_PANTALLA_PERFIL_ALL);
-			componentePantallaPerfilAllDTO.setComponenteVO(componenteVO);
-			componentePantallaPerfilAllDTO = componenteBO.readCommand(componentePantallaPerfilAllDTO);
+		if(pantallas.getSelectedItem()!=null){
+			componenteVO.setIdPantalla(Integer.parseInt(pantallas.getSelectedItem().getValue().toString()))	;
+			logger.debug("ID-PANTALLA:"+pantallas.getSelectedItem().getValue());
+			if(!idPerfil.getValue().isEmpty())
+				componenteVO.setIdPerfil(Integer.parseInt(idPerfil.getValue().toString()));
+			else
+				componenteVO.setIdPerfil(0);
+			componentePantallaDTO = new ComponenteDTO();
+			componentePantallaDTO.setCommandId(CommandConstants.COMPONENTE_PANTALLA);
+			componentePantallaDTO.setComponenteVO(componenteVO);
+			ComponenteBO componenteBO = new ComponenteBO();		
+			componentePantallaDTO = componenteBO.readCommand(componentePantallaDTO);		
+			if(componenteVO.getIdPerfil()!=0){			
+				componentePantallaPerfilDTO = new ComponenteDTO();
+				componentePantallaPerfilDTO.setCommandId(CommandConstants.COMPONENTE_PANTALLA_PERFIL);
+				componentePantallaPerfilDTO.setComponenteVO(componenteVO);
+				componentePantallaPerfilDTO = componenteBO.readCommand(componentePantallaPerfilDTO);	
+				
+				componentePantallaPerfilAllDTO = new ComponenteDTO();
+				componentePantallaPerfilAllDTO.setCommandId(CommandConstants.COMPONENTE_PANTALLA_PERFIL_ALL);
+				componentePantallaPerfilAllDTO.setComponenteVO(componenteVO);
+				componentePantallaPerfilAllDTO = componenteBO.readCommand(componentePantallaPerfilAllDTO);
+			}
+		}else{
+			componentePantallaDTO = null;
+			componentePantallaPerfilDTO = null;
+			componentePantallaPerfilAllDTO = null;
+			perfilVO = null;
 		}
 	}
 	
@@ -598,6 +617,7 @@ public class PerfilController extends ControllerSupport implements  IController{
 	/**
 	 * Read with filters.
 	 */
+	@GlobalCommand
 	@Command
 	@NotifyChange({ "perfilVOs" })
 	public void readWithFilters() {
@@ -655,7 +675,7 @@ public class PerfilController extends ControllerSupport implements  IController{
 	@NotifyChange({"componentePantallaDTO", "componentePantallaPerfilDTO", "perfilDTO", "perfilVOs", "componentePantallaPerfilAllDTO"})
 	public void save() {
 		boolean error = false;
-		ReportesController controller = new ReportesController();
+		final ReportesController controller = new ReportesController();
 		if(nombrePerfil.getValue().isEmpty()){
 			nombrePerfil.setErrorMessage("Favor de Introducir el Nombre del Perfil.");
 			error = true;
@@ -673,153 +693,185 @@ public class PerfilController extends ControllerSupport implements  IController{
 			}			
 		}
 		if(!error){
-			if(!idPerfil.getValue().isEmpty()){	
-				if(Integer.parseInt(status.getSelectedItem().getValue().toString())==CommandConstants.ID_PERFIL_INACTIVO
-						||Integer.parseInt(status.getSelectedItem().getValue().toString())==CommandConstants.ID_PERFIL_BAJA){
-					UsuarioDTO usuarioDTO = new UsuarioDTO();
-					UsuarioVO usuarioVO = new UsuarioVO();
-					UsuarioBO usuarioBO = new UsuarioBO();
-					usuarioVO.setIdPerfil(Integer.parseInt(idPerfil.getValue()));
-					usuarioDTO.setUsuarioVO(usuarioVO);
-					usuarioDTO = usuarioBO.readCommand(usuarioDTO);
-					if(usuarioDTO.getUsuarioVOs().size()>0){
-						PerfilVO perfil = new PerfilVO();
-						perfil.setNombrebPerfil(nombrePerfil.getValue()==null?"":nombrePerfil.getValue().toUpperCase().trim());
-						perfil.setDescripcionPerfil(descripcionPerfil.getValue()==null?"":descripcionPerfil.getValue().toUpperCase().trim());
-						perfil.setEstatusPerfil(Integer.parseInt(status.getSelectedItem().getValue().toString()));
-						perfil.setDescipcionEstatus(status.getSelectedItem().getLabel());
-						perfil.setIdPerfil(Integer.parseInt(idPerfil.getValue()));
-						perfil.setIdPantalla(pantallas.getSelectedItem()==null?0:Integer.parseInt(pantallas.getSelectedItem().getValue().toString()));						
-
-						if (Integer.parseInt(status.getSelectedItem().getValue().toString())==CommandConstants.ID_PERFIL_BAJA) {
-							controller.registrarEvento(perfil, this.perfilVO, CommandConstants.BAJA_FALLIDA, nombrePantalla);					
-						} else if (Integer.parseInt(status.getSelectedItem().getValue().toString())==CommandConstants.ID_PERFIL_INACTIVO) { 
-							controller.registrarEvento(perfil, this.perfilVO, CommandConstants.INACTIVACION_FALLIDA, nombrePantalla);				
-						} 												
-						Messagebox.show("El perfil no puede ser cancelado o inactivado ya que existen usuarios activos o inactivos.",
-								"Información", Messagebox.OK,
-								Messagebox.EXCLAMATION);
-						error = true;
-					}
-				}
-				if(!error){
-					PerfilDTO perfilDTOValida = new PerfilDTO();
-					PerfilBO perfilBOvalida = new PerfilBO();
-					PerfilVO perfilVOValida = new PerfilVO();
-					perfilVOValida.setIdPerfil(Integer.parseInt(idPerfil.getValue()));
-					perfilVOValida.setNombrebPerfil(nombrePerfil.getValue().trim());
-					perfilDTOValida.setPerfilVO(perfilVOValida);
-					perfilDTOValida.setCommandId(CommandConstants.PERFIL_COMMAND_READ_ALL);
-					perfilDTOValida = perfilBOvalida.readCommand(perfilDTOValida);
-					if(perfilDTOValida.getPerfilVOs().size()>0){
-						PerfilVO perfil = new PerfilVO();
-						perfil.setNombrebPerfil(nombrePerfil.getValue()==null?"":nombrePerfil.getValue().toUpperCase().trim());
-						perfil.setDescripcionPerfil(descripcionPerfil.getValue()==null?"":descripcionPerfil.getValue().toUpperCase().trim());
-						perfil.setEstatusPerfil(Integer.parseInt(status.getSelectedItem().getValue().toString()));
-						perfil.setDescipcionEstatus(status.getSelectedItem().getLabel());
-						perfil.setIdPerfil(Integer.parseInt(idPerfil.getValue()));
-						perfil.setIdPantalla(pantallas.getSelectedItem()==null?0:Integer.parseInt(pantallas.getSelectedItem().getValue().toString()));						
-						controller.registrarEvento(perfil, this.perfilVO, CommandConstants.MODIFICACION_FALLIDA, nombrePantalla);
-						Messagebox.show("Ya existe un perfil con el mismo identificador",
-								"Información", Messagebox.OK,
-								Messagebox.EXCLAMATION);
-					}else{
-						PerfilDTO perfilDTO = new PerfilDTO();
-						PerfilVO perfilVO = new PerfilVO();
-						perfilVO.setNombrebPerfil(nombrePerfil.getValue()==null?"":nombrePerfil.getValue().toUpperCase().trim());
-						perfilVO.setDescripcionPerfil(descripcionPerfil.getValue()==null?"":descripcionPerfil.getValue().toUpperCase().trim());
-						perfilVO.setEstatusPerfil(Integer.parseInt(status.getSelectedItem().getValue().toString()));
-						perfilVO.setDescipcionEstatus(status.getSelectedItem().getLabel());
-						perfilVO.setIdPerfil(Integer.parseInt(idPerfil.getValue()));
-						perfilVO.setIdPantalla(pantallas.getSelectedItem()==null?0:Integer.parseInt(pantallas.getSelectedItem().getValue().toString()));
-						List<ControlPermisoVO> controlPermisoVOs = null;
-						controlPermisoVOs = new ArrayList<ControlPermisoVO>();
-						ControlPermisoVO controlPermisoVO;
-						if(componentePantallaPerfilDTO!=null){
-							List<ComponenteVO> componenteVOsLocal = componentePantallaPerfilDTO.getComponentePantallaPerfilVOs();				
-							for (ComponenteVO componenteVO : componenteVOsLocal) {
-								controlPermisoVO = new ControlPermisoVO();
-								controlPermisoVO.setIdComponente(componenteVO.idComponente);
-								controlPermisoVO.setIdPerfil(Integer.parseInt(idPerfil.getValue()));
-								controlPermisoVO.setNombreComponente(componenteVO.getNombreComponente());
-								controlPermisoVOs.add(controlPermisoVO);
-							}		
-							perfilVO.setControlPermisoVOs(controlPermisoVOs);
-						}
-						perfilDTO.setPerfilVO(perfilVO);		
-						perfilDTO.toString(BbvaAbstractDataTransferObject.XML);
-						PerfilBO perfilBO = new PerfilBO();
-						perfilBO.updateCommand(perfilDTO);
-						
-
-						List<ControlPermisoVO> controlPermiso2VOs = new ArrayList<ControlPermisoVO>(); 
-						PerfilVO perfilVO2 = new PerfilVO();
-						if(componentePantallaDTO!=null){
-							List<ComponenteVO> componenteVOsLocal = componentePantallaDTO.getComponentePantallaVOs();				
-							for (ComponenteVO componenteVO : componenteVOsLocal) {
-								controlPermisoVO = new ControlPermisoVO();
-								controlPermisoVO.setIdComponente(componenteVO.idComponente);
-								controlPermisoVO.setIdPerfil(Integer.parseInt(idPerfil.getValue()));
-								controlPermisoVO.setNombreComponente(componenteVO.getNombreComponente());
-								controlPermiso2VOs.add(controlPermisoVO);
-							}		
-							perfilVO2.setControlPermisoVOs(controlPermiso2VOs);
-						}
-						this.perfilDTO.setPerfilVO(this.perfilVO);
-						this.perfilDTO.getPerfilVO().setControlPermisoVOs(controlPermiso2VOs);				
-						controller.registrarEventoPerfil(perfilDTO, this.perfilDTO, CommandConstants.MODIFICACION, nombrePantalla);
-						
-						clean();
-						perfilDTO = (PerfilDTO)this.read();
-						perfilVOs = perfilDTO.getPerfilVOs();
+			Messagebox.show(
+					"¿Está seguro que desea continuar con la operación?",
+					"Pregunta", org.zkoss.zul.Messagebox.YES | org.zkoss.zul.Messagebox.NO,
+			org.zkoss.zul.Messagebox.QUESTION, new EventListener<Event>() {
+				@Override
+				public void onEvent(Event event) throws Exception {
+					if (event.getName().equals(org.zkoss.zul.Messagebox.ON_YES)) {
+						boolean errorL = false;
+						if(!idPerfil.getValue().equals("0")){	
+							if(Integer.parseInt(status.getSelectedItem().getValue().toString())==CommandConstants.ID_PERFIL_INACTIVO
+									||Integer.parseInt(status.getSelectedItem().getValue().toString())==CommandConstants.ID_PERFIL_BAJA){
+								UsuarioDTO usuarioDTO = new UsuarioDTO();
+								UsuarioVO usuarioVO = new UsuarioVO();
+								UsuarioBO usuarioBO = new UsuarioBO();
+								usuarioVO.setIdPerfil(Integer.parseInt(idPerfil.getValue()));
+								usuarioDTO.setUsuarioVO(usuarioVO);
+								usuarioDTO = usuarioBO.readCommand(usuarioDTO);
+								if(usuarioDTO.getUsuarioVOs().size()>0){
+									PerfilVO perfil = new PerfilVO();
+									perfil.setNombrebPerfil(nombrePerfil.getValue()==null?"":nombrePerfil.getValue().toUpperCase().trim());
+									perfil.setDescripcionPerfil(descripcionPerfil.getValue()==null?"":descripcionPerfil.getValue().toUpperCase().trim());
+									perfil.setEstatusPerfil(Integer.parseInt(status.getSelectedItem().getValue().toString()));
+									perfil.setDescipcionEstatus(status.getSelectedItem().getLabel());
+									perfil.setIdPerfil(Integer.parseInt(idPerfil.getValue()));
+									perfil.setIdPantalla(pantallas.getSelectedItem()==null?0:Integer.parseInt(pantallas.getSelectedItem().getValue().toString()));						
+			
+									if (Integer.parseInt(status.getSelectedItem().getValue().toString())==CommandConstants.ID_PERFIL_BAJA) {
+										controller.registrarEvento(perfil, perfilVO, CommandConstants.BAJA_FALLIDA, nombrePantalla);					
+									} else if (Integer.parseInt(status.getSelectedItem().getValue().toString())==CommandConstants.ID_PERFIL_INACTIVO) { 
+										controller.registrarEvento(perfil, perfilVO, CommandConstants.INACTIVACION_FALLIDA, nombrePantalla);				
+									} 												
+									Messagebox.show("El perfil no puede ser cancelado o inactivado ya que existen usuarios activos o inactivos.",
+											"Información", Messagebox.OK,
+											Messagebox.EXCLAMATION);
+									errorL = true;
+								}
+							}
+							if(!errorL){
+								PerfilDTO perfilDTOValida = new PerfilDTO();
+								PerfilBO perfilBOvalida = new PerfilBO();
+								PerfilVO perfilVOValida = new PerfilVO();
+								perfilVOValida.setIdPerfil(Integer.parseInt(idPerfil.getValue()));
+								perfilVOValida.setNombrebPerfil(nombrePerfil.getValue().trim());
+								perfilDTOValida.setPerfilVO(perfilVOValida);
+								perfilDTOValida.setCommandId(CommandConstants.PERFIL_COMMAND_READ_ALL);
+								perfilDTOValida = perfilBOvalida.readCommand(perfilDTOValida);
+								if(perfilDTOValida.getPerfilVOs().size()>0){
+									PerfilVO perfil = new PerfilVO();
+									perfil.setNombrebPerfil(nombrePerfil.getValue()==null?"":nombrePerfil.getValue().toUpperCase().trim());
+									perfil.setDescripcionPerfil(descripcionPerfil.getValue()==null?"":descripcionPerfil.getValue().toUpperCase().trim());
+									perfil.setEstatusPerfil(Integer.parseInt(status.getSelectedItem().getValue().toString()));
+									perfil.setDescipcionEstatus(status.getSelectedItem().getLabel());
+									perfil.setIdPerfil(Integer.parseInt(idPerfil.getValue()));
+									perfil.setIdPantalla(pantallas.getSelectedItem()==null?0:Integer.parseInt(pantallas.getSelectedItem().getValue().toString()));						
+									controller.registrarEvento(perfil, perfilVO, CommandConstants.MODIFICACION_FALLIDA, nombrePantalla);
+									Messagebox.show("Ya existe un perfil con el mismo identificador",
+											"Información", Messagebox.OK,
+											Messagebox.EXCLAMATION);
+								}else{
+									PerfilDTO perfilDTOL = new PerfilDTO();
+									PerfilVO perfilVO = new PerfilVO();
+									perfilVO.setNombrebPerfil(nombrePerfil.getValue()==null?"":nombrePerfil.getValue().toUpperCase().trim());
+									perfilVO.setDescripcionPerfil(descripcionPerfil.getValue()==null?"":descripcionPerfil.getValue().toUpperCase().trim());
+									perfilVO.setEstatusPerfil(Integer.parseInt(status.getSelectedItem().getValue().toString()));
+									perfilVO.setDescipcionEstatus(status.getSelectedItem().getLabel());
+									perfilVO.setIdPerfil(Integer.parseInt(idPerfil.getValue()));
+									perfilVO.setIdPantalla(pantallas.getSelectedItem()==null?0:Integer.parseInt(pantallas.getSelectedItem().getValue().toString()));
+									List<ControlPermisoVO> controlPermisoVOs = null;
+									controlPermisoVOs = new ArrayList<ControlPermisoVO>();
+									ControlPermisoVO controlPermisoVO;
+									if(componentePantallaPerfilDTO!=null){
+										List<ComponenteVO> componenteVOsLocal = componentePantallaPerfilDTO.getComponentePantallaPerfilVOs();				
+										for (ComponenteVO componenteVO : componenteVOsLocal) {
+											controlPermisoVO = new ControlPermisoVO();
+											controlPermisoVO.setIdComponente(componenteVO.idComponente);
+											controlPermisoVO.setIdPerfil(Integer.parseInt(idPerfil.getValue()));
+											controlPermisoVO.setNombreComponente(componenteVO.getNombreComponente());
+											controlPermisoVOs.add(controlPermisoVO);
+										}		
+										perfilVO.setControlPermisoVOs(controlPermisoVOs);
+									}
+									perfilDTOL.setPerfilVO(perfilVO);		
+									perfilDTOL.toString(BbvaAbstractDataTransferObject.XML);
+									PerfilBO perfilBO = new PerfilBO();
+									perfilDTOL = perfilBO.updateCommand(perfilDTOL);
+									if(perfilDTOL.getErrorCode().equals("SQL-001")){
+								    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
+								    					"\nError:"+perfilDTOL.getErrorCode()+
+								    					"","Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+									}else{			
+										List<ControlPermisoVO> controlPermiso2VOs = new ArrayList<ControlPermisoVO>(); 
+										PerfilVO perfilVO2 = new PerfilVO();
+										if(componentePantallaDTO!=null){
+											List<ComponenteVO> componenteVOsLocal = componentePantallaDTO.getComponentePantallaVOs();				
+											for (ComponenteVO componenteVO : componenteVOsLocal) {
+												controlPermisoVO = new ControlPermisoVO();
+												controlPermisoVO.setIdComponente(componenteVO.idComponente);
+												controlPermisoVO.setIdPerfil(Integer.parseInt(idPerfil.getValue()));
+												controlPermisoVO.setNombreComponente(componenteVO.getNombreComponente());
+												controlPermiso2VOs.add(controlPermisoVO);
+											}		
+											perfilVO2.setControlPermisoVOs(controlPermiso2VOs);
+										}
+										perfilDTO.setPerfilVO(perfilVO);
+										perfilDTO.getPerfilVO().setControlPermisoVOs(controlPermiso2VOs);				
+										controller.registrarEventoPerfil(perfilDTOL, perfilDTO, CommandConstants.MODIFICACION, nombrePantalla + ":"+ nombrePerfil.getValue());
 										
-						Messagebox.show("Registro actualizado con exito!!",
-								"Información", Messagebox.OK,
-								Messagebox.INFORMATION);
+										//clean();
+										perfilDTOL = (PerfilDTO)read();
+										perfilVOs = perfilDTOL.getPerfilVOs();
+														
+										Messagebox.show("Registro actualizado con exito!!",
+												"Información", Messagebox.OK,
+												Messagebox.INFORMATION);
+									}
+								}
+							}
+						}else{				
+							PerfilDTO perfilDTOValida = new PerfilDTO();
+							PerfilVO perfilVOValida = new PerfilVO();
+							PerfilBO perfilBOvalida = new PerfilBO();				
+							perfilVOValida.setNombrebPerfil(nombrePerfil.getValue().toUpperCase());
+							perfilDTOValida.setPerfilVO(perfilVOValida);
+							perfilDTOValida.setCommandId(CommandConstants.PERFIL_COMMAND_READ_ALL);
+							perfilDTOValida = perfilBOvalida.readCommand(perfilDTOValida);
+							if(perfilDTOValida.getPerfilVOs().size()>0){
+								PerfilVO perfil = new PerfilVO();
+								perfil.setNombrebPerfil(nombrePerfil.getValue()==null?"":nombrePerfil.getValue().toUpperCase().trim());
+								perfil.setDescripcionPerfil(descripcionPerfil.getValue()==null?"":descripcionPerfil.getValue().toUpperCase().trim());
+								perfil.setEstatusPerfil(Integer.parseInt(status.getSelectedItem().getValue().toString()));
+								perfil.setDescipcionEstatus(status.getSelectedItem().getLabel());
+								perfil.setIdPerfil(Integer.parseInt(idPerfil.getValue()));
+								perfil.setIdPantalla(pantallas.getSelectedItem()==null?0:Integer.parseInt(pantallas.getSelectedItem().getValue().toString()));						
+								controller.registrarEvento(perfil, perfilVO, CommandConstants.MODIFICACION_FALLIDA, nombrePantalla);					
+								Messagebox.show("Ya existe un perfil con el mismo identificador",
+										"Información", Messagebox.OK,
+										Messagebox.EXCLAMATION);
+							}else{
+								PerfilDTO perfilDTOL = new PerfilDTO();
+								PerfilVO perfilVO = new PerfilVO();
+								perfilVO.setNombrebPerfil(nombrePerfil.getValue()==null?"":nombrePerfil.getValue().toUpperCase().trim());
+								perfilVO.setDescripcionPerfil(descripcionPerfil.getValue()==null?"":descripcionPerfil.getValue().toUpperCase().trim());
+								perfilVO.setEstatusPerfil(CommandConstants.ID_PERFIL_ACTIVO);				
+								perfilVO.setDescipcionEstatus(status.getSelectedItem().getLabel());				
+								perfilDTOL.setPerfilVO(perfilVO);		
+								perfilDTOL.toString(BbvaAbstractDataTransferObject.XML);
+								PerfilBO perfilBO = new PerfilBO();
+								perfilDTOL = perfilBO.createCommand(perfilDTOL);
+								if(perfilDTOL.getErrorCode().equals("SQL-001")){
+							    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
+							    					"\nError:"+perfilDTOL.getErrorCode()+
+							    					"","Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+								}else{
+									controller.registrarEventoPerfil(perfilDTOL, perfilDTO, CommandConstants.ALTA, nombrePantalla);
+									
+									perfilDTOL = (PerfilDTO)read();
+									perfilVOs = perfilDTOL.getPerfilVOs();
+									//clean();
+									Messagebox.show("Registro creado con exito!!",
+											"Información", Messagebox.OK,
+											Messagebox.INFORMATION);
+								}
+							}
+						}	
+						BindUtils
+						.postGlobalCommand(
+								null,
+								null,
+								"readWithFilters",
+								null);
+//						BindUtils
+//						.postGlobalCommand(
+//								null,
+//								null,
+//								"clean",
+//								null);
 					}
 				}
-			}else{				
-				PerfilDTO perfilDTOValida = new PerfilDTO();
-				PerfilVO perfilVOValida = new PerfilVO();
-				PerfilBO perfilBOvalida = new PerfilBO();				
-				perfilVOValida.setNombrebPerfil(nombrePerfil.getValue().toUpperCase());
-				perfilDTOValida.setPerfilVO(perfilVOValida);
-				perfilDTOValida.setCommandId(CommandConstants.PERFIL_COMMAND_READ_ALL);
-				perfilDTOValida = perfilBOvalida.readCommand(perfilDTOValida);
-				if(perfilDTOValida.getPerfilVOs().size()>0){
-					PerfilVO perfil = new PerfilVO();
-					perfil.setNombrebPerfil(nombrePerfil.getValue()==null?"":nombrePerfil.getValue().toUpperCase().trim());
-					perfil.setDescripcionPerfil(descripcionPerfil.getValue()==null?"":descripcionPerfil.getValue().toUpperCase().trim());
-					perfil.setEstatusPerfil(Integer.parseInt(status.getSelectedItem().getValue().toString()));
-					perfil.setDescipcionEstatus(status.getSelectedItem().getLabel());
-					perfil.setIdPerfil(Integer.parseInt(idPerfil.getValue()));
-					perfil.setIdPantalla(pantallas.getSelectedItem()==null?0:Integer.parseInt(pantallas.getSelectedItem().getValue().toString()));						
-					controller.registrarEvento(perfil, this.perfilVO, CommandConstants.MODIFICACION_FALLIDA, nombrePantalla);					
-					Messagebox.show("Ya existe un perfil con el mismo identificador",
-							"Información", Messagebox.OK,
-							Messagebox.EXCLAMATION);
-				}else{
-					PerfilDTO perfilDTO = new PerfilDTO();
-					PerfilVO perfilVO = new PerfilVO();
-					perfilVO.setNombrebPerfil(nombrePerfil.getValue()==null?"":nombrePerfil.getValue().toUpperCase().trim());
-					perfilVO.setDescripcionPerfil(descripcionPerfil.getValue()==null?"":descripcionPerfil.getValue().toUpperCase().trim());
-					perfilVO.setEstatusPerfil(CommandConstants.ID_PERFIL_ACTIVO);				
-					perfilVO.setDescipcionEstatus(status.getSelectedItem().getLabel());				
-					perfilDTO.setPerfilVO(perfilVO);		
-					perfilDTO.toString(BbvaAbstractDataTransferObject.XML);
-					PerfilBO perfilBO = new PerfilBO();
-					perfilBO.createCommand(perfilDTO);
-					
-					controller.registrarEventoPerfil(perfilDTO, this.perfilDTO, CommandConstants.ALTA, nombrePantalla);
-					
-					perfilDTO = (PerfilDTO)this.read();
-					perfilVOs = perfilDTO.getPerfilVOs();
-					clean();
-					Messagebox.show("Registro creado con exito!!",
-							"Información", Messagebox.OK,
-							Messagebox.INFORMATION);
-				}
-			}						
+			});
 		}
 	}
 

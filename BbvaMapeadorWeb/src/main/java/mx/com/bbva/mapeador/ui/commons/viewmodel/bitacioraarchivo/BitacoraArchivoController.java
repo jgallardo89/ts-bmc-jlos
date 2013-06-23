@@ -414,17 +414,28 @@ public class BitacoraArchivoController extends ControllerSupport implements  ICo
 	@Command
 	@NotifyChange({ "bitacoraArchivoVOs" })
 	public void readWithFilters() {
-		if(fechaInicio.getValue().compareTo(fechaFin.getValue()) > 0 ){
-			fechaInicio.setErrorMessage("La fecha de inicio no puede ser mayor a la fecha de fin");
-		}else{
+		boolean error = false;
+		if(fechaInicio.getValue()!=null && fechaFin.getValue()!=null){
+			if(fechaInicio.getValue().compareTo(fechaFin.getValue()) > 0 ){
+				fechaInicio.setErrorMessage("La fecha de inicio no puede ser mayor a la fecha de fin");
+				error = true;
+			}
+		}else if(fechaInicio.getValue()!=null && fechaFin.getValue()==null){
+			fechaFin.setErrorMessage("Favor de introducir la fecha de fin");
+			error = true;
+		}else if(fechaInicio.getValue()==null && fechaFin.getValue()!=null){
+			fechaInicio.setErrorMessage("Favor de introducir la fecha de inicio");
+			error = true;
+		}
+		if(!error){
 			ReportesController controller = new ReportesController();
 			BitacoraArchivoDTO bitacoraArchivoDTO = new BitacoraArchivoDTO();
 			BitacoraArchivoVO bitacoraArchivoVO = new BitacoraArchivoVO();
 			
 			DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 			
-			bitacoraArchivoVO.setFechaInici(fechaInicio.getValue());
-			bitacoraArchivoVO.setFechaFin(fechaFin.getValue());
+			bitacoraArchivoVO.setFechaInici(fechaInicio.getValue()==null?null:fechaInicio.getValue());
+			bitacoraArchivoVO.setFechaFin(fechaFin.getValue()==null?null:fechaFin.getValue());			
 			bitacoraArchivoVO.setIdEstatus(Integer.parseInt(idEventoMapeador.getValue().isEmpty()?"0":idEventoMapeador.getValue()));
 			bitacoraArchivoVO.setNombreArchivo(nombreArchivo.getValue().isEmpty()?"%":"%"+nombreArchivo.getValue().toUpperCase()+"%");
 			bitacoraArchivoVO.toString();
