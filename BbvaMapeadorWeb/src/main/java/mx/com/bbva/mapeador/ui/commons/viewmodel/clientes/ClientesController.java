@@ -374,9 +374,9 @@ public class ClientesController extends ControllerSupport implements IController
 		estatusObjetoDTO.setEstatusObjetoVO(estatusObjetoVO);
 	    estatusObjetoDTO = estatusObjetoBO.readCommand(estatusObjetoDTO);
 	    if(estatusObjetoDTO.getErrorCode().equals("SQL-001")){
-	    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el adminsitrador del sistema:\n"+
+	    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
 	    					"\nError:"+estatusObjetoDTO.getErrorCode()+
-	    					"\nDescripción:"+estatusObjetoDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+	    					"","Error de Sistema",Messagebox.OK,Messagebox.ERROR);
 	    }
 	    clienteDTO.setEstatusObjetoVOs(estatusObjetoDTO.getEstatusObjetoVOs());
 	    
@@ -384,7 +384,7 @@ public class ClientesController extends ControllerSupport implements IController
 		ClienteBO clienteBO = new ClienteBO();
 		clienteDTO = clienteBO.readCommand(clienteDTO);
 		if(clienteDTO.getErrorCode().equals("SQL-001")){
-	    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el adminsitrador del sistema:\n"+
+	    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
 	    					"\nError:"+clienteDTO.getErrorCode()+
 	    					"\nDescripción:"+clienteDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
 	    }
@@ -444,7 +444,7 @@ public class ClientesController extends ControllerSupport implements IController
 		ClienteBO clienteBO = new ClienteBO();
 		clienteDTO = clienteBO.readCommand(clienteDTO);
 		if(clienteDTO.getErrorCode().equals("SQL-001")){
-	    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el adminsitrador del sistema:\n"+
+	    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
 	    					"\nError:"+clienteDTO.getErrorCode()+
 	    					"\nDescripción:"+clienteDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
 	    }
@@ -492,7 +492,7 @@ public class ClientesController extends ControllerSupport implements IController
 							clienteVO.setIdIdentificador(idIdentificador.getValue().toUpperCase().trim());
 							clienteDTO = clienteBO.readCommand(clienteVO);
 							if(clienteDTO.getErrorCode().equals("SQL-001")){
-						    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el adminsitrador del sistema:\n"+
+						    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
 						    					"\nError:"+clienteDTO.getErrorCode()+
 						    					"\nDescripción:"+clienteDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
 						    }
@@ -505,7 +505,7 @@ public class ClientesController extends ControllerSupport implements IController
 								
 								clienteDTO = clienteBO.createCommand(clienteDTO);
 								if(clienteDTO.getErrorCode().equals("SQL-001")){
-							    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el adminsitrador del sistema:\n"+
+							    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
 							    					"\nError:"+clienteDTO.getErrorCode()+
 							    					"\nDescripción:"+clienteDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
 							    }else{
@@ -530,7 +530,7 @@ public class ClientesController extends ControllerSupport implements IController
 									clienteDTO.setClienteVO(clienteVO);
 									clienteDTO = clienteBO.readCommand(clienteDTO);
 									if(clienteDTO.getErrorCode().equals("SQL-001")){
-								    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el adminsitrador del sistema:\n"+
+								    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
 								    					"\nError:"+clienteDTO.getErrorCode()+
 								    					"\nDescripción:"+clienteDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
 								    }
@@ -566,7 +566,7 @@ public class ClientesController extends ControllerSupport implements IController
 							clienteVO.setIdCliente(Integer.parseInt(idCliente.getValue()));
 							clienteDTO = clienteBO.readCommand(clienteVO);
 							if(clienteDTO.getErrorCode().equals("SQL-001")){
-						    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el adminsitrador del sistema:\n"+
+						    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
 						    					"\nError:"+clienteDTO.getErrorCode()+
 						    					"\nDescripción:"+clienteDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
 						    }
@@ -598,7 +598,7 @@ public class ClientesController extends ControllerSupport implements IController
 									
 									clienteDTO = clienteBO.updateCommand(clienteDTO);
 									if(clienteDTO.getErrorCode().equals("SQL-001")){
-								    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el adminsitrador del sistema:\n"+
+								    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
 								    					"\nError:"+clienteDTO.getErrorCode()+
 								    					"\nDescripción:"+clienteDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
 								    }else{
@@ -620,7 +620,7 @@ public class ClientesController extends ControllerSupport implements IController
 										clienteDTO.setClienteVO(clienteVO);
 										clienteDTO = clienteBO.readCommand(clienteDTO);
 										if(clienteDTO.getErrorCode().equals("SQL-001")){
-									    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el adminsitrador del sistema:\n"+
+									    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
 									    					"\nError:"+clienteDTO.getErrorCode()+
 									    					"\nDescripción:"+clienteDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
 									    }

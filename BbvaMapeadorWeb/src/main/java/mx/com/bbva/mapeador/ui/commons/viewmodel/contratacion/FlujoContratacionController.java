@@ -62,11 +62,14 @@ import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.IdSpace;
 import org.zkoss.zk.ui.Sessions;
+import org.zkoss.zk.ui.event.Event;
+import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Div;
 import org.zkoss.zul.Listbox;
+import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Radio;
 import org.zkoss.zul.Radiogroup;
 import org.zkoss.zul.Textbox;
@@ -683,51 +686,73 @@ public class FlujoContratacionController extends Div implements IController, IdS
 		}
 		
 		if(!errorGuardar) {
-			contratacionMapVO = new ContratacionMapVO();
-			ContratacionMapeadorBO contratacionMapeadorBO = new ContratacionMapeadorBO();
-			
-			contratacionMapVO.setIdMapaGmm(Integer.parseInt(idMapaGmm.getValue()));
-			contratacionMapVO.setIdFlujo(Integer.parseInt(idFlujo.getValue()));
-			contratacionMapVO.setIdEtapa(Integer.parseInt(idEtapa.getValue()));
-			contratacionMapVO.setIdContratacion(Integer.parseInt(idContratacion.getValue()));
-			if(notificacion.getSelectedItem().getId().equals("radioS")) {
-				contratacionMapVO.setEstatusNotificacion("T".charAt(0));
-				contratacionMapVO.setIdMensajeSalida(Integer.parseInt(idMensajeSalida.getValue()));
-				List<UsuarioNotificacionVO> listaUsuarios = contratacionUsuariosDTO.getUsuarioNotificacionContrataMapVOs();
-				
-				if(listaUsuarios!=null) {
-					for(int i = 0;i<listaUsuarios.size();i++) {
-						if (i>0) {
-							descripcionIdUsuarios +="-";
+			Messagebox.show(
+					"¿Está seguro que desea continuar con la operación?",
+					"Pregunta", org.zkoss.zul.Messagebox.YES | org.zkoss.zul.Messagebox.NO,
+			org.zkoss.zul.Messagebox.QUESTION, new EventListener<Event>() {
+				@Override
+				public void onEvent(Event event) throws Exception {
+					if (event.getName().equals(org.zkoss.zul.Messagebox.ON_YES)) {
+						contratacionMapVO = new ContratacionMapVO();
+						ContratacionMapeadorBO contratacionMapeadorBO = new ContratacionMapeadorBO();
+						
+						contratacionMapVO.setIdMapaGmm(Integer.parseInt(idMapaGmm.getValue()));
+						contratacionMapVO.setIdFlujo(Integer.parseInt(idFlujo.getValue()));
+						contratacionMapVO.setIdEtapa(Integer.parseInt(idEtapa.getValue()));
+						contratacionMapVO.setIdContratacion(Integer.parseInt(idContratacion.getValue()));
+						if(notificacion.getSelectedItem().getId().equals("radioS")) {
+							contratacionMapVO.setEstatusNotificacion("T".charAt(0));
+							contratacionMapVO.setIdMensajeSalida(Integer.parseInt(idMensajeSalida.getValue()));
+							List<UsuarioNotificacionVO> listaUsuarios = contratacionUsuariosDTO.getUsuarioNotificacionContrataMapVOs();
+							
+							if(listaUsuarios!=null) {
+								for(int i = 0;i<listaUsuarios.size();i++) {
+									if (i>0) {
+										descripcionIdUsuarios +="-";
+									}
+									descripcionIdUsuarios +=  listaUsuarios.get(i).getIdUsuarioNotificado();
+								}
+							}
+							
+							contratacionMapVO.setDescripcionIdUsuarios(descripcionIdUsuarios);
+							descripcionIdUsuarios = "";
+						} else {
+							contratacionMapVO.setEstatusNotificacion("F".charAt(0));
+							contratacionMapVO.setIdMensajeSalida(null);
+							contratacionMapVO.setDescripcionIdUsuarios(null);
 						}
-						descripcionIdUsuarios +=  listaUsuarios.get(i).getIdUsuarioNotificado();
+						if(Sessions.getCurrent().getAttribute("idContratacionReg") != null || idTransaccion.getValue().equals("0")) {
+							contratacionMapDTO.setContratacionMapVO(contratacionMapVO);
+							contratacionMapDTO = contratacionMapeadorBO.createCommand(contratacionMapDTO);
+							if(contratacionMapDTO.getErrorCode().equals("SQL-001")){
+						    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
+						    					"\nError:"+contratacionMapDTO.getErrorCode()+
+						    					"","Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+							}else{
+								registraBitacora(contratacionMapVO, CommandConstants.ALTA);
+								org.zkoss.zul.Messagebox.show("!La Contratación fue guardada exitosamente!",
+										"Información", org.zkoss.zul.Messagebox.OK,
+										org.zkoss.zul.Messagebox.INFORMATION);
+								guardarBtn = true;
+							}
+						} else {
+							contratacionMapVO.setIdContratacion(Integer.parseInt(idContratacion.getValue()));
+							contratacionMapDTO.setContratacionMapVO(contratacionMapVO);
+							contratacionMapDTO = contratacionMapeadorBO.updateCommand(contratacionMapDTO);
+							if(contratacionMapDTO.getErrorCode().equals("SQL-001")){
+						    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
+						    					"\nError:"+contratacionMapDTO.getErrorCode()+
+						    					"","Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+							}else{
+								registraBitacora(contratacionMapVO, CommandConstants.MODIFICACION);
+								org.zkoss.zul.Messagebox.show("!La Actualización de la Contratación fue exitosa!",
+										"Información", org.zkoss.zul.Messagebox.OK,
+										org.zkoss.zul.Messagebox.INFORMATION);
+							}
+						}
 					}
 				}
-				
-				contratacionMapVO.setDescripcionIdUsuarios(descripcionIdUsuarios);
-				descripcionIdUsuarios = "";
-			} else {
-				contratacionMapVO.setEstatusNotificacion("F".charAt(0));
-				contratacionMapVO.setIdMensajeSalida(null);
-				contratacionMapVO.setDescripcionIdUsuarios(null);
-			}
-			if(Sessions.getCurrent().getAttribute("idContratacionReg") != null || idTransaccion.getValue().equals("0")) {
-				contratacionMapDTO.setContratacionMapVO(contratacionMapVO);
-				contratacionMapeadorBO.createCommand(contratacionMapDTO);
-				registraBitacora(contratacionMapVO, CommandConstants.ALTA);
-				org.zkoss.zul.Messagebox.show("!La Contratación fue guardada exitosamente!",
-						"Información", org.zkoss.zul.Messagebox.OK,
-						org.zkoss.zul.Messagebox.INFORMATION);
-				guardarBtn = true;
-			} else {
-				contratacionMapVO.setIdContratacion(Integer.parseInt(idContratacion.getValue()));
-				contratacionMapDTO.setContratacionMapVO(contratacionMapVO);
-				contratacionMapeadorBO.updateCommand(contratacionMapDTO);
-				registraBitacora(contratacionMapVO, CommandConstants.MODIFICACION);
-				org.zkoss.zul.Messagebox.show("!La Actualización de la Contratación fue exitosa!",
-						"Información", org.zkoss.zul.Messagebox.OK,
-						org.zkoss.zul.Messagebox.INFORMATION);
-			}
+			});
 		}
 	}
 	

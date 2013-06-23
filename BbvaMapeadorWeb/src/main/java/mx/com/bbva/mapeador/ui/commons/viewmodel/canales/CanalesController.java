@@ -374,7 +374,7 @@ public class CanalesController extends ControllerSupport implements IController 
 	    estatusObjetoDTO.setEstatusObjetoVO(estatusObjetoVO);
 	    estatusObjetoDTO = estatusObjetoBO.readCommand(estatusObjetoDTO);
 	    if(estatusObjetoDTO.getErrorCode().equals("SQL-001")){
-	    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el adminsitrador del sistema:\n"+
+	    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
 	    					"\nError:"+estatusObjetoDTO.getErrorCode()+
 	    					"\nDescripción:"+estatusObjetoDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
 	    }
@@ -384,9 +384,9 @@ public class CanalesController extends ControllerSupport implements IController 
 		CanalBO canalBO = new CanalBO();
 		canalDTO = canalBO.readCommand(canalDTO);
 		if(canalDTO.getErrorCode().equals("SQL-001")){
-	    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el adminsitrador del sistema:\n"+
+	    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
 	    					"\nError:"+canalDTO.getErrorCode()+
-	    					"\nDescripción:"+canalDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+	    					"","Error de Sistema",Messagebox.OK,Messagebox.ERROR);
 	    }
 		return canalDTO;
 	}
@@ -451,9 +451,9 @@ public class CanalesController extends ControllerSupport implements IController 
 			CanalBO canalBO = new CanalBO();
 			canalDTO = canalBO.readCommand(canalDTO);
 			if(canalDTO.getErrorCode().equals("SQL-001")){
-		    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el adminsitrador del sistema:\n"+
+		    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
 		    					"\nError:"+canalDTO.getErrorCode()+
-		    					"\nDescripción:"+canalDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+		    					"","Error de Sistema",Messagebox.OK,Messagebox.ERROR);
 		    }
 			canalesVOs = canalDTO.getCanalVOs();			
 			controller.registrarEvento(canalVO, canalVO, CommandConstants.CONSULTAR, nombrePantalla);
@@ -526,9 +526,9 @@ public class CanalesController extends ControllerSupport implements IController 
 								canalDTO.setCanalVO(canalVO);								
 								canalDTO = canalBO.updateCommand(canalDTO);
 								if(canalDTO.getErrorCode().equals("SQL-001")){
-							    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el adminsitrador del sistema:\n"+
+							    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
 							    					"\nError:"+canalDTO.getErrorCode()+
-							    					"\nDescripción:"+canalDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+							    					"","Error de Sistema",Messagebox.OK,Messagebox.ERROR);
 								}else{
 									canalDTO.toString(BbvaAbstractDataTransferObject.XML);
 									if (Integer.parseInt(statusObjeto.getSelectedItem().getValue().toString())==CommandConstants.ID_CANAL_BAJA) {
@@ -549,9 +549,9 @@ public class CanalesController extends ControllerSupport implements IController 
 									canalDTO.setCanalVO(canalVO);
 									canalDTO = canalBO.readCommand(canalDTO);
 									if(canalDTO.getErrorCode().equals("SQL-001")){
-								    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el adminsitrador del sistema:\n"+
+								    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
 								    					"\nError:"+canalDTO.getErrorCode()+
-								    					"\nDescripción:"+canalDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+								    					"","Error de Sistema",Messagebox.OK,Messagebox.ERROR);
 								    }
 									canalesVOs = canalDTO.getCanalVOs();
 									
@@ -589,9 +589,9 @@ public class CanalesController extends ControllerSupport implements IController 
 								  canalDTO.setCanalVO(canalVO);
 								  canalDTO = canalBO.readCommand(canalDTO);
 								  if(canalDTO.getErrorCode().equals("SQL-001")){
-								    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el adminsitrador del sistema:\n"+
+								    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
 								    					"\nError:"+canalDTO.getErrorCode()+
-								    					"\nDescripción:"+canalDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+								    					"","Error de Sistema",Messagebox.OK,Messagebox.ERROR);
 								  }
 								  canalesVOs = canalDTO.getCanalVOs();
 								  org.zkoss.zul.Messagebox.show("!No se puede dar de Baja, ya que esta siendo Usado por la Contratación!",

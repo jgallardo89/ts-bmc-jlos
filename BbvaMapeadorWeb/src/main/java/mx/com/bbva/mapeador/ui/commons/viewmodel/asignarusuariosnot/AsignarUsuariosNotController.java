@@ -57,6 +57,8 @@ import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.event.Event;
+import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.Button;
@@ -65,6 +67,7 @@ import org.zkoss.zul.Grid;
 import org.zkoss.zul.Image;
 import org.zkoss.zul.Label;
 import org.zkoss.zul.Listbox;
+import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Textbox;
 
 // TODO: Auto-generated Javadoc
@@ -241,6 +244,11 @@ public class AsignarUsuariosNotController extends ControllerSupport implements  
 		mensajeSalidaDTO.setMensajeSalidaVO(mensajeSalidaVOS);
 		MensajeSalidaBO mensajeSalidaBO = new MensajeSalidaBO();
 		mensajeSalidaDTO = mensajeSalidaBO.readCommand(mensajeSalidaDTO);
+		if(mensajeSalidaDTO.getErrorCode().equals("SQL-001")){
+	    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
+	    					"\nError:"+mensajeSalidaDTO.getErrorCode()+
+	    					"\nDescripción:"+mensajeSalidaDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+	    }
 		List<MensajeSalidaVO> mensajeSalidaVOs = mensajeSalidaDTO.getMensajeSalidaVOs();
 		for(MensajeSalidaVO mensajeSalidaVO: mensajeSalidaVOs) {
 			beanGenerico = new BeanGenerico();
@@ -323,6 +331,11 @@ public class AsignarUsuariosNotController extends ControllerSupport implements  
 		EstatusObjetoBO estatusObjetoBO = new EstatusObjetoBO();
 		estatusObjetoDTO.setEstatusObjetoVO(estatusObjetoVO);
 		estatusObjetoDTO = estatusObjetoBO.readCommand(estatusObjetoDTO);
+		if(estatusObjetoDTO.getErrorCode().equals("SQL-001")){
+	    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
+	    					"\nError:"+estatusObjetoDTO.getErrorCode()+
+	    					"\nDescripción:"+estatusObjetoDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+	    }
 	    mensajeSalidaDTO.setEstatusObjetoVOs(estatusObjetoDTO.getEstatusObjetoVOs());
 	    
 	    MensajeSalidaVO mensajeSalidaVO = new MensajeSalidaVO();
@@ -330,6 +343,11 @@ public class AsignarUsuariosNotController extends ControllerSupport implements  
 	    mensajeSalidaDTO.setMensajeSalidaVO(mensajeSalidaVO);
 		MensajeSalidaBO MensajeSalidaBO = new MensajeSalidaBO();
 		MensajeSalidaBO.readCommand(mensajeSalidaDTO);
+		if(mensajeSalidaDTO.getErrorCode().equals("SQL-001")){
+	    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
+	    					"\nError:"+mensajeSalidaDTO.getErrorCode()+
+	    					"\nDescripción:"+mensajeSalidaDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+	    }
 		return mensajeSalidaDTO;
 	}
 	
@@ -359,11 +377,20 @@ public class AsignarUsuariosNotController extends ControllerSupport implements  
 			usuarioNotificacionNoAsignadoDTO.setCommandId(CommandConstants.CONSULTA_USUARIOS_NO_ASIGNADOS);
 			usuarioNotificacionNoAsignadoDTO.setUsuarioNotificacionVO(usuarioNotificacionVO);					
 			usuarioNotificacionNoAsignadoDTO = usuarioNotificacionBO.readCommand(usuarioNotificacionNoAsignadoDTO);
-			
+			if(usuarioNotificacionNoAsignadoDTO.getErrorCode().equals("SQL-001")){
+		    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
+		    					"\nError:"+usuarioNotificacionNoAsignadoDTO.getErrorCode()+
+		    					"\nDescripción:"+usuarioNotificacionNoAsignadoDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+		    }
 			usuarioNotificacionAsignadoDTO = new UsuarioNotificacionDTO();												
 			usuarioNotificacionAsignadoDTO.setCommandId(CommandConstants.CONSULTA_USUARIOS_ASIGNADOS);
 			usuarioNotificacionAsignadoDTO.setUsuarioNotificacionVO(usuarioNotificacionVO);					
-			usuarioNotificacionAsignadoDTO = usuarioNotificacionBO.readCommand(usuarioNotificacionAsignadoDTO);					
+			usuarioNotificacionAsignadoDTO = usuarioNotificacionBO.readCommand(usuarioNotificacionAsignadoDTO);	
+			if(usuarioNotificacionAsignadoDTO.getErrorCode().equals("SQL-001")){
+		    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
+		    					"\nError:"+usuarioNotificacionAsignadoDTO.getErrorCode()+
+		    					"","Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+		    }
 		}	
 	}
 	
@@ -413,18 +440,34 @@ public class AsignarUsuariosNotController extends ControllerSupport implements  
 	@NotifyChange({"usuarioNotificacionNoAsignadoDTO", "usuarioNotificacionAsignadoDTO"})
 	public void save() {		
 		if(mensajesSistema.getSelectedItem()!=null){
-			UsuarioNotificacionBO usuarioNotificacionBO = new UsuarioNotificacionBO();		
-			usuarioNotificacionAsignadoDTO.setIdMensajeNotificacion(Integer.parseInt(mensajesSistema.getSelectedItem().getValue().toString()));
-			usuarioNotificacionBO.createCommandUsuarioNotificacion(usuarioNotificacionAsignadoDTO);
-			ReportesController reportesController = new ReportesController();
-			reportesController.registrarEvento(null, null, CommandConstants.MODIFICACION, "ASIGNAR-USUARIO");		
-			usuarioNotificacionAsignadoDTO = null;
-			usuarioNotificacionNoAsignadoDTO = null;
-			mensajesSistema.setValue(null);
-			descripcionMensaje.setValue(null);
-			org.zkoss.zul.Messagebox.show("Registro actualizado con exito!!",
-					"Información", org.zkoss.zul.Messagebox.OK,
-					org.zkoss.zul.Messagebox.INFORMATION);
+			Messagebox.show(
+					"¿Está seguro que desea continuar con la operación?",
+					"Pregunta", org.zkoss.zul.Messagebox.YES | org.zkoss.zul.Messagebox.NO,
+			org.zkoss.zul.Messagebox.QUESTION, new EventListener<Event>() {
+				@Override
+				public void onEvent(Event event) throws Exception {
+					if (event.getName().equals(org.zkoss.zul.Messagebox.ON_YES)) {
+						UsuarioNotificacionBO usuarioNotificacionBO = new UsuarioNotificacionBO();		
+						usuarioNotificacionAsignadoDTO.setIdMensajeNotificacion(Integer.parseInt(mensajesSistema.getSelectedItem().getValue().toString()));
+						usuarioNotificacionAsignadoDTO = usuarioNotificacionBO.createCommandUsuarioNotificacion(usuarioNotificacionAsignadoDTO);
+						if(usuarioNotificacionAsignadoDTO.getErrorCode().equals("SQL-001")){
+					    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
+					    					"\nError:"+usuarioNotificacionAsignadoDTO.getErrorCode()+
+					    					"","Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+					    }else{
+							ReportesController reportesController = new ReportesController();
+							reportesController.registrarEvento(null, null, CommandConstants.MODIFICACION, "ASIGNAR-USUARIO");		
+							usuarioNotificacionAsignadoDTO = null;
+							usuarioNotificacionNoAsignadoDTO = null;
+							mensajesSistema.setValue(null);
+							descripcionMensaje.setValue(null);
+							org.zkoss.zul.Messagebox.show("Registro actualizado con exito!!",
+									"Información", org.zkoss.zul.Messagebox.OK,
+									org.zkoss.zul.Messagebox.INFORMATION);
+					    }
+					}
+				}
+			});
 		}else{
 			org.zkoss.zul.Messagebox.show("Favor de seleccionar el mensaje a modificar!!",
 					"Error", org.zkoss.zul.Messagebox.OK,

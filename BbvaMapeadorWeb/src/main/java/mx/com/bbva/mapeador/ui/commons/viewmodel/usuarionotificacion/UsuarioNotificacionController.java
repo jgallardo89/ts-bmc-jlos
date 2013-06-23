@@ -416,7 +416,7 @@ public class UsuarioNotificacionController  extends ControllerSupport implements
 		estatusObjetoDTO.setEstatusObjetoVO(estatusObjetoVO);
 		estatusObjetoDTO = estatusObjetoBO.readCommand(estatusObjetoDTO);
 		if(estatusObjetoDTO.getErrorCode().equals("SQL-001")){
-	    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el adminsitrador del sistema:\n"+
+	    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
 	    					"\nError:"+estatusObjetoDTO.getErrorCode()+
 	    					"\nDescripción:"+estatusObjetoDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
 	    }
@@ -424,9 +424,9 @@ public class UsuarioNotificacionController  extends ControllerSupport implements
 		usuarioNotificacionDTO.setUsuarioNotificacionVO(usuarioNotificacionVO);
 		usuarioNotificacionDTO = usuarioNotificacionBO.readCommand(usuarioNotificacionDTO);
 		if(usuarioNotificacionDTO.getErrorCode().equals("SQL-001")){
-	    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el adminsitrador del sistema:\n"+
+	    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
 	    					"\nError:"+usuarioNotificacionDTO.getErrorCode()+
-	    					"\nDescripción:"+usuarioNotificacionDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+	    					"","Error de Sistema",Messagebox.OK,Messagebox.ERROR);
 	    }
 		logger.info("::::::::::::::SIZE::::::::::" + usuarioNotificacionDTO.getUsuarioNotificacionVOs());
 		usuarioNotificacionDTO.setEstatusObjetoVOs(estatusObjetoDTO.getEstatusObjetoVOs());
@@ -473,7 +473,7 @@ public class UsuarioNotificacionController  extends ControllerSupport implements
 		usuarioNotificacionVO.setDescripcionEmail(email.getValue().isEmpty()?"%":"%"+email.getValue().toUpperCase()+"%");
 		
 		//Combos Validar el nombre de los parametros en HTML VS Controller
-		usuarioNotificacionVO.setIdEstatusObjeto((Integer.parseInt(idEstatusObjeto.getValue().isEmpty()?"0":idEstatusObjeto.getValue())));
+		usuarioNotificacionVO.setIdEstatusObjeto((Integer.parseInt(status.getSelectedItem()==null?"0":status.getSelectedItem().getValue().toString())));
 		usuarioNotificacionVO.setTipoNotificacion(CommandConstants.TIPO_NOTIFICACION_NEGOCIO);
 		usuarioNotificacionDTO.setUsuarioNotificacionVO(usuarioNotificacionVO);
 		usuarioNotificacionDTO.toString(BbvaAbstractDataTransferObject.XML);	
@@ -484,9 +484,9 @@ public class UsuarioNotificacionController  extends ControllerSupport implements
 		//Asignacion resultado de consulta al mismo DTO de UsuarioNotificacion		
 		usuarioNotificacionDTO = usuarioNotificacionBO.readCommand(usuarioNotificacionDTO);
 		if(usuarioNotificacionDTO.getErrorCode().equals("SQL-001")){
-	    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el adminsitrador del sistema:\n"+
+	    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
 	    					"\nError:"+usuarioNotificacionDTO.getErrorCode()+
-	    					"\nDescripción:"+usuarioNotificacionDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+	    					"","Error de Sistema",Messagebox.OK,Messagebox.ERROR);
 	    }
 		
 		ReportesController controller = new ReportesController();
@@ -518,15 +518,15 @@ public class UsuarioNotificacionController  extends ControllerSupport implements
 		estatusObjetoDTO = estatusObjetoBO.readCommand(estatusObjetoDTO);
 		usuarioNotificacionDTO = usuarioNotificacionBO.readCommand(usuarioNotificacionDTO);
 		if(estatusObjetoDTO.getErrorCode().equals("SQL-001")){
-	    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el adminsitrador del sistema:\n"+
+	    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
 	    					"\nError:"+estatusObjetoDTO.getErrorCode()+
 	    					"\nDescripción:"+estatusObjetoDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
 	    }
 		usuarioNotificacionDTO = usuarioNotificacionBO.readCommand(usuarioNotificacionDTO);
 		if(usuarioNotificacionDTO.getErrorCode().equals("SQL-001")){
-	    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el adminsitrador del sistema:\n"+
+	    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
 	    					"\nError:"+usuarioNotificacionDTO.getErrorCode()+
-	    					"\nDescripción:"+usuarioNotificacionDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+	    					"","Error de Sistema",Messagebox.OK,Messagebox.ERROR);
 	    }
 		logger.info("::::::::::::::SIZE::::::::::" + usuarioNotificacionDTO.getUsuarioNotificacionVOs());
 		usuarioNotificacionDTO.setEstatusObjetoVOs(estatusObjetoDTO.getEstatusObjetoVOs());
@@ -626,9 +626,9 @@ public class UsuarioNotificacionController  extends ControllerSupport implements
 									}else{
 										usuarioNotificacionDTO = usuarioNotificacionBO.updateCommand(usuarioNotificacionDTO);										
 										if(usuarioNotificacionDTO.getErrorCode().equals("SQL-001")){
-									    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el adminsitrador del sistema:\n"+
+									    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
 									    					"\nError:"+usuarioNotificacionDTO.getErrorCode()+
-									    					"\nDescripción:"+usuarioNotificacionDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+									    					"","Error de Sistema",Messagebox.OK,Messagebox.ERROR);
 									    }else{
 									    	if (Integer.parseInt(status.getSelectedItem().getValue().toString())==CommandConstants.ESTATUS_OBJETO_USUARIO_NOTIFICACION_BAJA) {
 												controller.registrarEvento(usuarioNotificacionVOL, usuarioNotificacionVO, CommandConstants.BAJA, nombrePantalla);					
@@ -647,9 +647,9 @@ public class UsuarioNotificacionController  extends ControllerSupport implements
 											//Asignacion resultado de consulta al mismo DTO de UsuarioNotificacion
 											usuarioNotificacionDTO = usuarioNotificacionBO.readCommand(usuarioNotificacionDTO);
 											if(usuarioNotificacionDTO.getErrorCode().equals("SQL-001")){
-										    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el adminsitrador del sistema:\n"+
+										    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
 										    					"\nError:"+usuarioNotificacionDTO.getErrorCode()+
-										    					"\nDescripción:"+usuarioNotificacionDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+										    					"","Error de Sistema",Messagebox.OK,Messagebox.ERROR);
 										    }
 											
 											org.zkoss.zul.Messagebox.show("Registro actualizado con exito!!",
@@ -662,9 +662,9 @@ public class UsuarioNotificacionController  extends ControllerSupport implements
 								}else{						
 									usuarioNotificacionDTO = usuarioNotificacionBO.updateCommand(usuarioNotificacionDTO);
 									if(usuarioNotificacionDTO.getErrorCode().equals("SQL-001")){
-								    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el adminsitrador del sistema:\n"+
+								    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
 								    					"\nError:"+usuarioNotificacionDTO.getErrorCode()+
-								    					"\nDescripción:"+usuarioNotificacionDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+								    					"","Error de Sistema",Messagebox.OK,Messagebox.ERROR);
 								    }else{
 										controller.registrarEvento(usuarioNotificacionVOL, usuarioNotificacionVO, CommandConstants.MODIFICACION, nombrePantalla);
 										clean();			
@@ -677,9 +677,9 @@ public class UsuarioNotificacionController  extends ControllerSupport implements
 										//Asignacion resultado de consulta al mismo DTO de UsuarioNotificacion
 										usuarioNotificacionDTO = usuarioNotificacionBO.readCommand(usuarioNotificacionDTO);
 										if(usuarioNotificacionDTO.getErrorCode().equals("SQL-001")){
-									    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el adminsitrador del sistema:\n"+
+									    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
 									    					"\nError:"+usuarioNotificacionDTO.getErrorCode()+
-									    					"\nDescripción:"+usuarioNotificacionDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+									    					"","Error de Sistema",Messagebox.OK,Messagebox.ERROR);
 									    }
 										
 										org.zkoss.zul.Messagebox.show("Registro actualizado con exito!!",
@@ -724,9 +724,9 @@ public class UsuarioNotificacionController  extends ControllerSupport implements
 				
 								usuarioNotificacionDTO = UsuarioNotificacionBO.createCommand(usuarioNotificacionDTO);
 								if(usuarioNotificacionDTO.getErrorCode().equals("SQL-001")){
-							    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el adminsitrador del sistema:\n"+
+							    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
 							    					"\nError:"+usuarioNotificacionDTO.getErrorCode()+
-							    					"\nDescripción:"+usuarioNotificacionDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+							    					"","Error de Sistema",Messagebox.OK,Messagebox.ERROR);
 							    }else{
 									UsuarioNotificacionVO notificacionNuevo = new UsuarioNotificacionVO();
 									notificacionNuevo.setTipoNotificacion("");
@@ -748,9 +748,9 @@ public class UsuarioNotificacionController  extends ControllerSupport implements
 									//Asignacion resultado de consulta al mismo DTO de UsuarioNotificacion
 									usuarioNotificacionDTO = usuarioNotificacionBO.readCommand(usuarioNotificacionDTO);
 									if(usuarioNotificacionDTO.getErrorCode().equals("SQL-001")){
-								    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el adminsitrador del sistema:\n"+
+								    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
 								    					"\nError:"+usuarioNotificacionDTO.getErrorCode()+
-								    					"\nDescripción:"+usuarioNotificacionDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+								    					"","Error de Sistema",Messagebox.OK,Messagebox.ERROR);
 								    }
 									org.zkoss.zul.Messagebox.show("Registro creado con exito!!",
 											"Información", org.zkoss.zul.Messagebox.OK,

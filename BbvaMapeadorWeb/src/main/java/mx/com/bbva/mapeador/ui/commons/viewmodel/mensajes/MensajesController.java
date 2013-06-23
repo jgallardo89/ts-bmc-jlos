@@ -397,7 +397,7 @@ public class MensajesController extends ControllerSupport implements IController
 		estatusObjetoDTO.setEstatusObjetoVO(estatusObjetoVO);
 		estatusObjetoDTO = estatusObjetoBO.readCommand(estatusObjetoDTO);
 		if(estatusObjetoDTO.getErrorCode().equals("SQL-001")){
-	    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el adminsitrador del sistema:\n"+
+	    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
 	    					"\nError:"+estatusObjetoDTO.getErrorCode()+
 	    					"\nDescripción:"+estatusObjetoDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
 	    }
@@ -409,9 +409,9 @@ public class MensajesController extends ControllerSupport implements IController
 		MensajeSalidaBO mensajeSalidaBO = new MensajeSalidaBO();
 		mensajeSalidaDTO = mensajeSalidaBO.readCommand(mensajeSalidaDTO);
 		if(mensajeSalidaDTO.getErrorCode().equals("SQL-001")){
-	    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el adminsitrador del sistema:\n"+
+	    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
 	    					"\nError:"+mensajeSalidaDTO.getErrorCode()+
-	    					"\nDescripción:"+mensajeSalidaDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+	    					"","Error de Sistema",Messagebox.OK,Messagebox.ERROR);
 	    }
 		return mensajeSalidaDTO;
 	}
@@ -466,9 +466,9 @@ public class MensajesController extends ControllerSupport implements IController
 		MensajeSalidaBO mensajeSalidaBO = new MensajeSalidaBO();
 		mensajeSalidaDTO = mensajeSalidaBO.readCommand(mensajeSalidaDTO);
 		if(mensajeSalidaDTO.getErrorCode().equals("SQL-001")){
-	    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el adminsitrador del sistema:\n"+
+	    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
 	    					"\nError:"+mensajeSalidaDTO.getErrorCode()+
-	    					"\nDescripción:"+mensajeSalidaDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+	    					"","Error de Sistema",Messagebox.OK,Messagebox.ERROR);
 	    }
 		mensajeSalidaVOs = mensajeSalidaDTO.getMensajeSalidaVOs();
 		controller.registrarEvento(null, null, CommandConstants.CONSULTAR, "Catálogo de Mensajes de Notificación");
@@ -543,9 +543,9 @@ public class MensajesController extends ControllerSupport implements IController
 								mensajeSalidaDTO.setMensajeSalidaVO(mensajeSalidaVOL);
 								mensajeSalidaDTO = mensajeSalidaBO.createCommand(mensajeSalidaDTO);
 								if(mensajeSalidaDTO.getErrorCode().equals("SQL-001")){
-							    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el adminsitrador del sistema:\n"+
+							    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
 							    					"\nError:"+mensajeSalidaDTO.getErrorCode()+
-							    					"\nDescripción:"+mensajeSalidaDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+							    					"","Error de Sistema",Messagebox.OK,Messagebox.ERROR);
 								}else{
 									mensajeSalidaDTO.toString(BbvaAbstractDataTransferObject.XML);
 									MensajeSalidaVO mensajeSalidaVONuevo = new MensajeSalidaVO();
@@ -561,9 +561,9 @@ public class MensajesController extends ControllerSupport implements IController
 									
 									mensajeSalidaDTO = mensajeSalidaBO.readCommand(mensajeSalidaDTO);
 									if(mensajeSalidaDTO.getErrorCode().equals("SQL-001")){
-								    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el adminsitrador del sistema:\n"+
+								    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
 								    					"\nError:"+mensajeSalidaDTO.getErrorCode()+
-								    					"\nDescripción:"+mensajeSalidaDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+								    					"","Error de Sistema",Messagebox.OK,Messagebox.ERROR);
 								    }
 									mensajeSalidaVOs = mensajeSalidaDTO.getMensajeSalidaVOs();								
 									org.zkoss.zul.Messagebox.show("!El Registro del Mensaje fue exitoso!",
@@ -580,9 +580,9 @@ public class MensajesController extends ControllerSupport implements IController
 								mensajeSalidaDTO.setMensajeSalidaVO(mensajeSalidaVO);
 								mensajeSalidaDTO = mensajeSalidaBO.readCommand(mensajeSalidaDTO);
 								if(mensajeSalidaDTO.getErrorCode().equals("SQL-001")){
-							    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el adminsitrador del sistema:\n"+
+							    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
 							    					"\nError:"+mensajeSalidaDTO.getErrorCode()+
-							    					"\nDescripción:"+mensajeSalidaDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+							    					"","Error de Sistema",Messagebox.OK,Messagebox.ERROR);
 							    }
 								mensajeSalidaVOs = mensajeSalidaDTO.getMensajeSalidaVOs();
 								
@@ -606,9 +606,9 @@ public class MensajesController extends ControllerSupport implements IController
 								mensajeSalidaDTO.setMensajeSalidaVO(mensajeSalidaVOL);
 								mensajeSalidaDTO = mensajeSalidaBO.updateCommand(mensajeSalidaDTO);								
 								if(mensajeSalidaDTO.getErrorCode().equals("SQL-001")){
-							    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el adminsitrador del sistema:\n"+
+							    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
 							    					"\nError:"+mensajeSalidaDTO.getErrorCode()+
-							    					"\nDescripción:"+mensajeSalidaDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+							    					"","Error de Sistema",Messagebox.OK,Messagebox.ERROR);
 								}else{
 									String nombrePantalla = "Mensajes Negocio";
 									mensajeSalidaVOs = mensajeSalidaDTO.getMensajeSalidaVOs();
@@ -629,9 +629,9 @@ public class MensajesController extends ControllerSupport implements IController
 									mensajeSalidaDTO.setMensajeSalidaVO(mensajeSalidaVOL);
 									mensajeSalidaDTO = mensajeSalidaBO.readCommand(mensajeSalidaDTO);
 									if(mensajeSalidaDTO.getErrorCode().equals("SQL-001")){
-								    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el adminsitrador del sistema:\n"+
+								    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
 								    					"\nError:"+mensajeSalidaDTO.getErrorCode()+
-								    					"\nDescripción:"+mensajeSalidaDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+								    					"","Error de Sistema",Messagebox.OK,Messagebox.ERROR);
 								    }
 									mensajeSalidaVOs = mensajeSalidaDTO.getMensajeSalidaVOs();								
 									org.zkoss.zul.Messagebox.show("!La Actualización del Mensaje fue exitoso!",
@@ -645,9 +645,9 @@ public class MensajesController extends ControllerSupport implements IController
 								mensajeSalidaDTO.setMensajeSalidaVO(mensajeSalidaVO);
 								mensajeSalidaDTO = mensajeSalidaBO.readCommand(mensajeSalidaDTO);
 								if(mensajeSalidaDTO.getErrorCode().equals("SQL-001")){
-							    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el adminsitrador del sistema:\n"+
+							    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
 							    					"\nError:"+mensajeSalidaDTO.getErrorCode()+
-							    					"\nDescripción:"+mensajeSalidaDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+							    					"","Error de Sistema",Messagebox.OK,Messagebox.ERROR);
 							    }
 								mensajeSalidaVOs = mensajeSalidaDTO.getMensajeSalidaVOs();								
 								org.zkoss.zul.Messagebox.show("!No se puede dar de Baja o Inactivar, ya que esta siendo Usado por la Contratación Mapeador!",

@@ -388,9 +388,9 @@ public class AdmonFlujosController extends ControllerSupport implements IControl
 		estatusObjetoDTO.setEstatusObjetoVO(estatusObjetoVO);
 		estatusObjetoDTO = estatusObjetoBO.readCommand(estatusObjetoDTO);
 		if(estatusObjetoDTO.getErrorCode().equals("SQL-001")){
-	    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el adminsitrador del sistema:\n"+
+	    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
 	    					"\nError:"+estatusObjetoDTO.getErrorCode()+
-	    					"\nDescripción:"+estatusObjetoDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+	    					"","Error de Sistema",Messagebox.OK,Messagebox.ERROR);
 	    }
 	    flujoDTO.setEstatusObjetoVOs(estatusObjetoDTO.getEstatusObjetoVOs());
 	    FlujoVO flujoVO = new FlujoVO();
@@ -398,7 +398,7 @@ public class AdmonFlujosController extends ControllerSupport implements IControl
 		FlujoBO FlujoBO = new FlujoBO();
 		flujoDTO = FlujoBO.readCommand(flujoDTO);
 		if(flujoDTO.getErrorCode().equals("SQL-001")){
-	    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el adminsitrador del sistema:\n"+
+	    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
 	    					"\nError:"+flujoDTO.getErrorCode()+
 	    					"\nDescripción:"+flujoDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
 	    }
@@ -452,7 +452,7 @@ public class AdmonFlujosController extends ControllerSupport implements IControl
 		FlujoBO FlujoBO = new FlujoBO();
 		flujoDTO = FlujoBO.readCommand(flujoDTO);
 		if(flujoDTO.getErrorCode().equals("SQL-001")){
-	    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el adminsitrador del sistema:\n"+
+	    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
 	    					"\nError:"+flujoDTO.getErrorCode()+
 	    					"\nDescripción:"+flujoDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
 	    }
@@ -508,7 +508,7 @@ public class AdmonFlujosController extends ControllerSupport implements IControl
 							flujoDTO.setFlujoVO(flujoVOL);
 							flujoDTO = flujoBO.updateCommand(flujoDTO);
 							if(flujoDTO.getErrorCode().equals("SQL-001")){
-						    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el adminsitrador del sistema:\n"+
+						    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
 						    					"\nError:"+flujoDTO.getErrorCode()+
 						    					"\nDescripción:"+flujoDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
 							}else{
@@ -529,7 +529,7 @@ public class AdmonFlujosController extends ControllerSupport implements IControl
 								flujoDTO.setFlujoVO(flujoVOL);
 								flujoDTO = flujoBO.readCommand(flujoDTO);
 								if(flujoDTO.getErrorCode().equals("SQL-001")){
-							    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el adminsitrador del sistema:\n"+
+							    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
 							    					"\nError:"+flujoDTO.getErrorCode()+
 							    					"\nDescripción:"+flujoDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
 							    }

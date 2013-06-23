@@ -397,9 +397,9 @@ public class ProductosController extends ControllerSupport implements IControlle
 		estatusObjetoDTO.setEstatusObjetoVO(estatusObjetoVO);
 		estatusObjetoDTO = estatusObjetoBO.readCommand(estatusObjetoDTO);
 		if(estatusObjetoDTO.getErrorCode().equals("SQL-001")){
-	    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el adminsitrador del sistema:\n"+
+	    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
 	    					"\nError:"+estatusObjetoDTO.getErrorCode()+
-	    					"\nDescripción:"+estatusObjetoDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+	    					"","Error de Sistema",Messagebox.OK,Messagebox.ERROR);
 	    }
 		productoDTO.setEstatusObjetoVOs(estatusObjetoDTO.getEstatusObjetoVOs());
 	    
@@ -409,7 +409,7 @@ public class ProductosController extends ControllerSupport implements IControlle
 		ProductoBO productoBO = new ProductoBO();
 		productoDTO = productoBO.readCommand(productoDTO);
 		if(productoDTO.getErrorCode().equals("SQL-001")){
-	    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el adminsitrador del sistema:\n"+
+	    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
 	    					"\nError:"+productoDTO.getErrorCode()+
 	    					"\nDescripción:"+productoDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
 	    }
@@ -469,7 +469,7 @@ public class ProductosController extends ControllerSupport implements IControlle
 		ProductoBO productoBO = new ProductoBO();
 		productoDTO = productoBO.readCommand(productoDTO);
 		if(productoDTO.getErrorCode().equals("SQL-001")){
-	    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el adminsitrador del sistema:\n"+
+	    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
 	    					"\nError:"+productoDTO.getErrorCode()+
 	    					"\nDescripción:"+productoDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
 	    }
@@ -524,7 +524,7 @@ public class ProductosController extends ControllerSupport implements IControlle
 								productoDTO.setProductoVO(productoVOL);
 								productoDTO = productoBO.createCommand(productoDTO);
 								if(productoDTO.getErrorCode().equals("SQL-001")){
-							    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el adminsitrador del sistema:\n"+
+							    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
 							    					"\nError:"+productoDTO.getErrorCode()+
 							    					"\nDescripción:"+productoDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
 							    }else{
@@ -545,7 +545,7 @@ public class ProductosController extends ControllerSupport implements IControlle
 									productoDTO.setProductoVO(productoVO);
 									productoDTO = productoBO.readCommand(productoDTO);
 									if(productoDTO.getErrorCode().equals("SQL-001")){
-								    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el adminsitrador del sistema:\n"+
+								    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
 								    					"\nError:"+productoDTO.getErrorCode()+
 								    					"\nDescripción:"+productoDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
 								    }
@@ -595,7 +595,7 @@ public class ProductosController extends ControllerSupport implements IControlle
 									productoDTO.setProductoVO(productoVOL);
 									productoDTO = productoBO.updateCommand(productoDTO);
 									if(productoDTO.getErrorCode().equals("SQL-001")){
-								    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el adminsitrador del sistema:\n"+
+								    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
 								    					"\nError:"+productoDTO.getErrorCode()+
 								    					"\nDescripción:"+productoDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
 								    }else{
@@ -625,7 +625,7 @@ public class ProductosController extends ControllerSupport implements IControlle
 										productoDTO.setProductoVO(productoVO);
 										productoDTO = productoBO.readCommand(productoDTO);
 										if(productoDTO.getErrorCode().equals("SQL-001")){
-									    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el adminsitrador del sistema:\n"+
+									    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
 									    					"\nError:"+productoDTO.getErrorCode()+
 									    					"\nDescripción:"+productoDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
 									    }
@@ -761,7 +761,7 @@ public class ProductosController extends ControllerSupport implements IControlle
 		ProductoBO productoBO = new ProductoBO();		
 		productoDTO = productoBO.readCommandCmb(productoVO);
 		if(productoDTO.getErrorCode().equals("SQL-001")){
-	    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el adminsitrador del sistema:\n"+
+	    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
 	    					"\nError:"+productoDTO.getErrorCode()+
 	    					"\nDescripción:"+productoDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
 	    }

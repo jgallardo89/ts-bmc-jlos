@@ -506,16 +506,16 @@ public class MapaGmmController  extends ControllerSupport implements  IControlle
 		estatusObjetoDTO.setEstatusObjetoVO(estatusObjetoVO);
 		estatusObjetoDTO = estatusObjetoBO.readCommand(estatusObjetoDTO);
 		if(estatusObjetoDTO.getErrorCode().equals("SQL-001")){
-	    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el adminsitrador del sistema:\n"+
+	    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
 	    					"\nError:"+estatusObjetoDTO.getErrorCode()+
-	    					"\nDescripción:"+estatusObjetoDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+	    					"","Error de Sistema",Messagebox.OK,Messagebox.ERROR);
 	    }
 		MapaGmmVO mapaGmmVO = new MapaGmmVO();
 		MapaGmmDTO mapaGmmDTO = new MapaGmmDTO();
 		MapaGmmBO mapaGmmBO = new MapaGmmBO();
 		mapaGmmDTO = mapaGmmBO.readCommand(mapaGmmDTO);
 		if(mapaGmmDTO.getErrorCode().equals("SQL-001")){
-	    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el adminsitrador del sistema:\n"+
+	    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
 	    					"\nError:"+mapaGmmDTO.getErrorCode()+
 	    					"\nDescripción:"+mapaGmmDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
 	    }
@@ -589,7 +589,7 @@ public class MapaGmmController  extends ControllerSupport implements  IControlle
 		//Asignacion resultado de consulta al mismo DTO de MapaGmm
 		mapaGmmDTO = mapaGmmBO.readCommand(mapaGmmDTO);
 		if(mapaGmmDTO.getErrorCode().equals("SQL-001")){
-	    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el adminsitrador del sistema:\n"+
+	    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
 	    					"\nError:"+mapaGmmDTO.getErrorCode()+
 	    					"\nDescripción:"+mapaGmmDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
 	    }
@@ -658,7 +658,7 @@ public class MapaGmmController  extends ControllerSupport implements  IControlle
 							MapaGmmBO mapaGmmBO = new MapaGmmBO();
 							mapaGmmDTO = mapaGmmBO.updateCommand(mapaGmmDTO);							
 							if(mapaGmmDTO.getErrorCode().equals("SQL-001")){
-						    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el adminsitrador del sistema:\n"+
+						    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
 						    					"\nError:"+mapaGmmDTO.getErrorCode()+
 						    					"\nDescripción:"+mapaGmmDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
 						    }else{
@@ -684,7 +684,7 @@ public class MapaGmmController  extends ControllerSupport implements  IControlle
 								//Asignacion resultado de consulta al mismo DTO de MapaGmm
 								mapaGmmDTO = mapaGmmBO.readCommand(mapaGmmDTO);
 								if(mapaGmmDTO.getErrorCode().equals("SQL-001")){
-							    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el adminsitrador del sistema:\n"+
+							    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
 							    					"\nError:"+mapaGmmDTO.getErrorCode()+
 							    					"\nDescripción:"+mapaGmmDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
 							    }

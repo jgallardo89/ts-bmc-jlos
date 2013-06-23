@@ -397,7 +397,7 @@ public class MensajesSistemaController extends ControllerSupport implements ICon
 		estatusObjetoDTO.setEstatusObjetoVO(estatusObjetoVO);
 		estatusObjetoDTO = estatusObjetoBO.readCommand(estatusObjetoDTO);
 		if(estatusObjetoDTO.getErrorCode().equals("SQL-001")){
-	    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el adminsitrador del sistema:\n"+
+	    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
 	    					"\nError:"+estatusObjetoDTO.getErrorCode()+
 	    					"\nDescripción:"+estatusObjetoDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
 	    }
@@ -409,9 +409,9 @@ public class MensajesSistemaController extends ControllerSupport implements ICon
 		MensajeSalidaBO mensajeSalidaBO = new MensajeSalidaBO();
 		mensajeSalidaDTO = mensajeSalidaBO.readCommand(mensajeSalidaDTO);
 		if(mensajeSalidaDTO.getErrorCode().equals("SQL-001")){
-	    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el adminsitrador del sistema:\n"+
+	    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
 	    					"\nError:"+mensajeSalidaDTO.getErrorCode()+
-	    					"\nDescripción:"+mensajeSalidaDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+	    					"","Error de Sistema",Messagebox.OK,Messagebox.ERROR);
 	    }
 		return mensajeSalidaDTO;
 	}
@@ -458,7 +458,7 @@ public class MensajesSistemaController extends ControllerSupport implements ICon
 		MensajeSalidaVO mensajeSalidaVO = new MensajeSalidaVO();
 		mensajeSalidaVO.setNombreMensajeSalida(StringUtil.validaLike(nombreMensajeSalida.getValue()));
 		mensajeSalidaVO.setDescripcionMensajeSalida(StringUtil.validaLike(descripcionMensajeSalida.getValue()));
-		mensajeSalidaVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue().isEmpty()?"0":idEstatusObjeto.getValue()));
+		mensajeSalidaVO.setIdEstatusObjeto(Integer.parseInt(statusObjeto.getSelectedItem()==null?"0":statusObjeto.getSelectedItem().getValue().toString()));
 		mensajeSalidaVO.setDescripcionAsuntoSalida(descripcionAsuntoSalida.getValue().isEmpty()?"%":"%"+descripcionAsuntoSalida.getValue().toUpperCase()+"%");
 		mensajeSalidaVO.setTipoNotificacion(CommandConstants.TIPO_NOTIFICACION_SISTEMA);
 		mensajeSalidaVO.toString();
@@ -466,9 +466,9 @@ public class MensajesSistemaController extends ControllerSupport implements ICon
 		MensajeSalidaBO mensajeSalidaBO = new MensajeSalidaBO();
 		mensajeSalidaDTO = mensajeSalidaBO.readCommand(mensajeSalidaDTO);
 		if(mensajeSalidaDTO.getErrorCode().equals("SQL-001")){
-	    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el adminsitrador del sistema:\n"+
+	    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
 	    					"\nError:"+mensajeSalidaDTO.getErrorCode()+
-	    					"\nDescripción:"+mensajeSalidaDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+	    					"","Error de Sistema",Messagebox.OK,Messagebox.ERROR);
 	    }
 		mensajeSalidaVOs = mensajeSalidaDTO.getMensajeSalidaVOs();
 		controller.registrarEvento(null, null, CommandConstants.CONSULTAR, "Catálogo de Mensajes de Notificación");
@@ -544,9 +544,9 @@ public class MensajesSistemaController extends ControllerSupport implements ICon
 								mensajeSalidaDTO.setMensajeSalidaVO(mensajeSalidaVOL);
 								mensajeSalidaDTO = mensajeSalidaBO.createCommand(mensajeSalidaDTO);
 								if(mensajeSalidaDTO.getErrorCode().equals("SQL-001")){
-							    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el adminsitrador del sistema:\n"+
+							    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
 							    					"\nError:"+mensajeSalidaDTO.getErrorCode()+
-							    					"\nDescripción:"+mensajeSalidaDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+							    					"","Error de Sistema",Messagebox.OK,Messagebox.ERROR);
 								}else{
 									mensajeSalidaDTO.toString(BbvaAbstractDataTransferObject.XML);
 									MensajeSalidaVO mensajeSalidaVONuevo = new MensajeSalidaVO();
@@ -560,9 +560,9 @@ public class MensajesSistemaController extends ControllerSupport implements ICon
 									mensajeSalidaDTO.setMensajeSalidaVO(mensajeSalidaVOL);
 									mensajeSalidaDTO = mensajeSalidaBO.readCommand(mensajeSalidaDTO);
 									if(mensajeSalidaDTO.getErrorCode().equals("SQL-001")){
-								    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el adminsitrador del sistema:\n"+
+								    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
 								    					"\nError:"+mensajeSalidaDTO.getErrorCode()+
-								    					"\nDescripción:"+mensajeSalidaDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+								    					"","Error de Sistema",Messagebox.OK,Messagebox.ERROR);
 								    }
 									mensajeSalidaVOs = mensajeSalidaDTO.getMensajeSalidaVOs();								
 									org.zkoss.zul.Messagebox.show("!El Registro del Mensaje fue exitoso!",
@@ -579,9 +579,9 @@ public class MensajesSistemaController extends ControllerSupport implements ICon
 								mensajeSalidaDTO.setMensajeSalidaVO(mensajeSalidaVO);
 								mensajeSalidaDTO = mensajeSalidaBO.readCommand(mensajeSalidaDTO);
 								if(mensajeSalidaDTO.getErrorCode().equals("SQL-001")){
-							    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el adminsitrador del sistema:\n"+
+							    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
 							    					"\nError:"+mensajeSalidaDTO.getErrorCode()+
-							    					"\nDescripción:"+mensajeSalidaDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+							    					"","Error de Sistema",Messagebox.OK,Messagebox.ERROR);
 							    }
 								mensajeSalidaVOs = mensajeSalidaDTO.getMensajeSalidaVOs();								
 								org.zkoss.zul.Messagebox.show("!No se puede registrar más de un Mensaje con el mismo Nombre!",
@@ -604,9 +604,9 @@ public class MensajesSistemaController extends ControllerSupport implements ICon
 								mensajeSalidaDTO.setMensajeSalidaVO(mensajeSalidaVOL);
 								mensajeSalidaDTO = mensajeSalidaBO.updateCommand(mensajeSalidaDTO);								
 								if(mensajeSalidaDTO.getErrorCode().equals("SQL-001")){
-							    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el adminsitrador del sistema:\n"+
+							    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
 							    					"\nError:"+mensajeSalidaDTO.getErrorCode()+
-							    					"\nDescripción:"+mensajeSalidaDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+							    					"","Error de Sistema",Messagebox.OK,Messagebox.ERROR);
 								}else{
 									mensajeSalidaVOs = mensajeSalidaDTO.getMensajeSalidaVOs();
 									mensajeSalidaDTO.toString(BbvaAbstractDataTransferObject.XML);
@@ -629,9 +629,9 @@ public class MensajesSistemaController extends ControllerSupport implements ICon
 									mensajeSalidaDTO.setMensajeSalidaVO(mensajeSalidaVO);
 									mensajeSalidaDTO = mensajeSalidaBO.readCommand(mensajeSalidaDTO);
 									if(mensajeSalidaDTO.getErrorCode().equals("SQL-001")){
-								    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el adminsitrador del sistema:\n"+
+								    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
 								    					"\nError:"+mensajeSalidaDTO.getErrorCode()+
-								    					"\nDescripción:"+mensajeSalidaDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+								    					"","Error de Sistema",Messagebox.OK,Messagebox.ERROR);
 								    }
 									mensajeSalidaVOs = mensajeSalidaDTO.getMensajeSalidaVOs();								
 									org.zkoss.zul.Messagebox.show("!La Actualización del Mensaje fue exitoso!",
@@ -645,9 +645,9 @@ public class MensajesSistemaController extends ControllerSupport implements ICon
 								mensajeSalidaDTO.setMensajeSalidaVO(mensajeSalidaVO);
 								mensajeSalidaDTO = mensajeSalidaBO.readCommand(mensajeSalidaDTO);
 								if(mensajeSalidaDTO.getErrorCode().equals("SQL-001")){
-							    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el adminsitrador del sistema:\n"+
+							    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
 							    					"\nError:"+mensajeSalidaDTO.getErrorCode()+
-							    					"\nDescripción:"+mensajeSalidaDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+							    					"","Error de Sistema",Messagebox.OK,Messagebox.ERROR);
 							    }
 								mensajeSalidaVOs = mensajeSalidaDTO.getMensajeSalidaVOs();								
 								org.zkoss.zul.Messagebox.show("!No se puede dar de Baja o Inactivar, ya que esta siendo Usado por la Contratación Mapeador!",

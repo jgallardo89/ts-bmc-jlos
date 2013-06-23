@@ -9,7 +9,7 @@
 		id="editarContratacionWindows">
 		<include src="../../pages/styles.zul" />
 		<div sclass="BODY" height="100%" width="100%">
-		<groupbox height="27%" width="100%" apply="mx.com.bbva.mapeador.ui.commons.viewmodel.contratacion.ContratacionController" closable="false">
+		<groupbox height="30%" width="100%" apply="mx.com.bbva.mapeador.ui.commons.viewmodel.contratacion.ContratacionController" closable="false">
 			<panel width="100%" height="100%" sclass="sectionPanelTitle" id="datosContratacion"
 					title="Contratación" collapsible="false" style="margin-bottom:10px"
 					border="normal">
@@ -58,7 +58,7 @@
 									<div align="right">
 										<label id="lblProducto" width="100%" sclass="labelFill" value="Producto:"></label>												
 									</div>
-									<combobox sclass="textboxUpperCase" disabled="@load(vm.comboProducto)" onChange="selectedValueProducto()"
+									<combobox sclass="textboxUpperCase" disabled="@load(vm.flagNvaContra)" onChange="selectedValueProducto()"
 										id="producto" width="70%" model="@load(vm.contratacionDTO.productoVOs)" autodrop="true">		
 										<template name="model">										
 											<comboitem value="@load(each.idProducto)" label="@load(each.descripcionProducto)" height="100%"/>
@@ -81,22 +81,13 @@
 									<div align="right">							
 									</div>		
 									<div align="center"/>																							
-								</row>
-								<row sclass="row2">
-									<div align="right" width="70%">
-									</div>
-									<div align="center" width="70%">
-										<button sclass="button" disabled="@load(vm.botonGuardarModal)" image="/img/disk.png" label="Guardar" id="guardaBtn" onClick="@command('save') @global-command('readContratacion')"></button>
-									</div>
-									<div align="center">
-										<button id="closeBtn" image="/img/button_cancel.png" sclass="button" label="Salir"/>	
-									</div>	
-									<div align="right" width="70%">
-									</div>
-									<div align="center"/>
-								</row>
-							</rows>								
+								</row>																								
+							</rows>													
 						</grid>
+						<div align="center">
+							<button sclass="button" disabled="@load(vm.botonGuardarModal)" image="/img/disk.png" label="Guardar" id="guardaBtn" onClick="@command('save') @global-command('readContratacion')"></button>
+							<button id="closeBtn" image="/img/button_cancel.png" sclass="button" label="Salir"/>	
+						</div>	
 					</div>
 				</panelchildren>										
 			</panel>
