@@ -443,7 +443,7 @@ public abstract interface CommandConstants {
 	/** The Constant TODOS. */
 	public static final String TODOS = "TODOS";
 	
-	
+	public static int CONSULTA_PANTLLAS_CON_COMPOENTES = 1; 
 	
 }
 
