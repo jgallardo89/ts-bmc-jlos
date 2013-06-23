@@ -70,6 +70,22 @@ public class PantallaVO extends BbvaAbstractValueObject {
 	/** The numero orden pantalla. */
 	private long numeroOrdenPantalla;
 	
+	private int desdePerfiles;
+	
+	/**
+	 * @return the desdePerfiles
+	 */
+	public final int getDesdePerfiles() {
+		return desdePerfiles;
+	}
+
+	/**
+	 * @param desdePerfiles the desdePerfiles to set
+	 */
+	public final void setDesdePerfiles(int desdePerfiles) {
+		this.desdePerfiles = desdePerfiles;
+	}
+
 	/**
 	 * Gets the descripcion url icon.
 	 *
