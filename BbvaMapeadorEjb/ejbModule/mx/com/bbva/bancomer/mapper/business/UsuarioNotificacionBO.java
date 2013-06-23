@@ -79,6 +79,8 @@ public class UsuarioNotificacionBO implements
 			} catch (Exception ex) {
 				session.rollback();
 				ex.printStackTrace();
+				bbvaAbstractDataTransferObject.setErrorCode("SQL-001");
+				bbvaAbstractDataTransferObject.setErrorDescription(ex.getMessage());
 			} finally {
 				session.close();
 			}
@@ -116,6 +118,8 @@ public class UsuarioNotificacionBO implements
 			} catch (Exception ex) {
 				session.rollback();
 				ex.printStackTrace();
+				bbvaAbstractDataTransferObject.setErrorCode("SQL-001");
+				bbvaAbstractDataTransferObject.setErrorDescription(ex.getMessage());
 			} finally {
 				session.close();
 			}
@@ -171,6 +175,8 @@ public class UsuarioNotificacionBO implements
 				} catch (Exception ex) {
 					session.rollback();
 					ex.printStackTrace();
+					contratacionDTO.setErrorCode("SQL-001");
+					contratacionDTO.setErrorDescription(ex.getMessage());
 				} finally {
 					session.close();
 				}
@@ -182,10 +188,14 @@ public class UsuarioNotificacionBO implements
 				return (T) contratacionDTO;
 			} catch (Exception ex) {
 				ex.printStackTrace();
+				contratacionDTO.setErrorCode("SQL-001");
+				contratacionDTO.setErrorDescription(ex.getMessage());
 				return (T) contratacionDTO;
 			}
-		} catch (Exception exception) {
-			exception.printStackTrace();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			contratacionDTO.setErrorCode("SQL-001");
+			contratacionDTO.setErrorDescription(ex.getMessage());
 			return (T) contratacionDTO;
 		}
 	}
@@ -223,6 +233,8 @@ public class UsuarioNotificacionBO implements
 				} catch (Exception ex) {
 					session.rollback();
 					ex.printStackTrace();
+					bbvaAbstractDataTransferObject.setErrorCode("SQL-001");
+					bbvaAbstractDataTransferObject.setErrorDescription(ex.getMessage());
 				} finally {
 					session.close();
 				}
@@ -233,12 +245,16 @@ public class UsuarioNotificacionBO implements
 				return bbvaAbstractDataTransferObject;
 			} catch (Exception ex) {
 				ex.printStackTrace();
+				bbvaAbstractDataTransferObject.setErrorCode("SQL-001");
+				bbvaAbstractDataTransferObject.setErrorDescription(ex.getMessage());
 				return bbvaAbstractDataTransferObject;
 			} 					
 		} 
-		catch ( Exception exception ) 
+		catch ( Exception ex ) 
 		{
-			exception.printStackTrace();
+			ex.printStackTrace();
+			bbvaAbstractDataTransferObject.setErrorCode("SQL-001");
+			bbvaAbstractDataTransferObject.setErrorDescription(ex.getMessage());
 			return bbvaAbstractDataTransferObject;
 		}
 	}
@@ -272,6 +288,8 @@ public class UsuarioNotificacionBO implements
 				} catch (Exception ex) {
 					session.rollback();
 					ex.printStackTrace();
+					bbvaAbstractDataTransferObject.setErrorCode("SQL-001");
+					bbvaAbstractDataTransferObject.setErrorDescription(ex.getMessage());
 				} finally {
 					session.close();
 				}
@@ -282,12 +300,16 @@ public class UsuarioNotificacionBO implements
 				return bbvaAbstractDataTransferObject;
 			} catch (Exception ex) {
 				ex.printStackTrace();
+				bbvaAbstractDataTransferObject.setErrorCode("SQL-001");
+				bbvaAbstractDataTransferObject.setErrorDescription(ex.getMessage());
 				return bbvaAbstractDataTransferObject;
 			} 					
 		} 
-		catch ( Exception exception ) 
+		catch ( Exception ex ) 
 		{
-			exception.printStackTrace();
+			ex.printStackTrace();
+			bbvaAbstractDataTransferObject.setErrorCode("SQL-001");
+			bbvaAbstractDataTransferObject.setErrorDescription(ex.getMessage());
 			return bbvaAbstractDataTransferObject;
 		}
 	}
@@ -321,6 +343,8 @@ public class UsuarioNotificacionBO implements
 				} catch (Exception ex) {
 					session.rollback();
 					ex.printStackTrace();
+					bbvaAbstractDataTransferObject.setErrorCode("SQL-001");
+					bbvaAbstractDataTransferObject.setErrorDescription(ex.getMessage());
 				} finally {
 					session.close();
 				}
@@ -331,12 +355,16 @@ public class UsuarioNotificacionBO implements
 				return bbvaAbstractDataTransferObject;
 			} catch (Exception ex) {
 				ex.printStackTrace();
+				bbvaAbstractDataTransferObject.setErrorCode("SQL-001");
+				bbvaAbstractDataTransferObject.setErrorDescription(ex.getMessage());
 				return bbvaAbstractDataTransferObject;
 			} 					
 		} 
-		catch ( Exception exception ) 
+		catch ( Exception ex ) 
 		{
-			exception.printStackTrace();
+			ex.printStackTrace();
+			bbvaAbstractDataTransferObject.setErrorCode("SQL-001");
+			bbvaAbstractDataTransferObject.setErrorDescription(ex.getMessage());
 			return bbvaAbstractDataTransferObject;
 		}
 	}
@@ -370,6 +398,8 @@ public class UsuarioNotificacionBO implements
 		} catch (Exception ex) {
 			session.rollback();
 			ex.printStackTrace();
+			bbvaAbstractDataTransferObject.setErrorCode("SQL-001");
+			bbvaAbstractDataTransferObject.setErrorDescription(ex.getMessage());
 		} finally {
 			session.close();
 		}
