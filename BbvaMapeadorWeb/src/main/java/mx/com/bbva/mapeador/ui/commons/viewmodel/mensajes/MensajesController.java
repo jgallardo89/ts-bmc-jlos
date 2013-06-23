@@ -472,7 +472,7 @@ public class MensajesController extends ControllerSupport implements IController
 	    }
 		mensajeSalidaVOs = mensajeSalidaDTO.getMensajeSalidaVOs();
 		controller.registrarEvento(null, null, CommandConstants.CONSULTAR, "Catálogo de Mensajes de Notificación");
-		registraBitacora(mensajeSalidaVO, 2);
+		//registraBitacora(mensajeSalidaVO, 2);
 	}
 	
 	/**
