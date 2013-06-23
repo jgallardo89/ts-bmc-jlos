@@ -273,7 +273,7 @@ public class PalabraComodinController extends ControllerSupport implements ICont
 		PalabraComodinVO palabraComodinVO = new PalabraComodinVO();
 		PalabraComodinBO palabraComodinBO = new PalabraComodinBO();
 		
-		palabraComodinVO.setNombrePalabraComodin(StringUtil.validaLike(nombrePalabraComodin.getValue()));
+		palabraComodinVO.setNombrePalabraComodin(nombrePalabraComodin.getValue().isEmpty()?"%":"%"+nombrePalabraComodin.getValue()+"%");
 		palabraComodinVO.setDescripcionPalabraComodin(StringUtil.validaLike(descripcionPalabraComodin.getValue()));
 		palabraComodinVO.toString();
 		palabraComodinDTO.setPalabraComodinVO(palabraComodinVO);
