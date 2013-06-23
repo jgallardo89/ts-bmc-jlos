@@ -158,12 +158,14 @@ public String getServletInfo() {
 					exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
 					exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, baos );
 					exporter.setParameter(JRXlsAbstractExporterParameter.SHEET_NAMES,new String[] {nameReport});
+					exporter.setParameter(JRXlsAbstractExporterParameter.CHARACTER_ENCODING, "UTF-8");
 					exporter.exportReport();
 				} else {
 					response.setContentType("application/csv");
 					baos = new ByteArrayOutputStream();
 					exporter = new JRCsvExporter();
 					exporter.setParameter(JRCsvExporterParameter.FIELD_DELIMITER, "\t");
+					exporter.setParameter(JRCsvExporterParameter.CHARACTER_ENCODING, "UTF-8");
 					exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
 					exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, baos );
 					exporter.exportReport();
