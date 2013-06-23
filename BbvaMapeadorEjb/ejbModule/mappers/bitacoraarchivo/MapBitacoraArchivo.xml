@@ -4,7 +4,7 @@
     
 	<select id="obtenerBitacoraArchivos" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.BitacoraArchivoVO"
 		resultType="mx.com.bbva.bancomer.bussinnes.model.vo.BitacoraArchivoVO">
-			Select to_char(Tgm537.Tm_Estado_Archivo,'dd/MM/yyyy HH:SS') fechaArchivo,
+			Select Tgm537.Tm_Estado_Archivo fechaArchivo,
 			  Tgm538.Tx_Estado_Archivo estadoArchivo, 
 			  Tgm536.Nb_Reg_Arch_Entra nombreArchivo
 			From Tgm537_Edo_Archivo Tgm537,
