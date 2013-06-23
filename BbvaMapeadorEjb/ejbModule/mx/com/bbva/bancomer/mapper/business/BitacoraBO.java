@@ -67,7 +67,7 @@ public class BitacoraBO implements BbvaIBusinessObject {
 	public <T extends BbvaAbstractDataTransferObject> T createCommand(
 			T bbvaAbstractDataTransferObject) {
 		logger.debug( "Entrada createCommand          -- OK" );
-		logger.debug( "Datos de Entrada createCommand -- " + bbvaAbstractDataTransferObject.toString() );
+		logger.debug( "Datos de Entrada createCommand -- review" + bbvaAbstractDataTransferObject.toString() );
 		BitacoraVO canalVO = ((BitacoraDTO)bbvaAbstractDataTransferObject).getBitacoraVO();
 		String xml = objectToStringXML(((BitacoraDTO)bbvaAbstractDataTransferObject).getCampoDTOs());
 		canalVO.setDescripcionBitacora(xml);
