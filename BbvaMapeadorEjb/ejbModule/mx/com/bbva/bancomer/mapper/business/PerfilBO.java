@@ -88,6 +88,8 @@ public class PerfilBO implements mx.com.bbva.bancomer.commons.business.BbvaIBusi
 		} catch (Exception ex) {
 			session.rollback();
 			ex.printStackTrace();
+			bbvaAbstractDataTransferObject.setErrorCode("SQL-001");
+			bbvaAbstractDataTransferObject.setErrorDescription(ex.getMessage());
 		} finally {
 			session.close();
 		}
@@ -140,6 +142,8 @@ public class PerfilBO implements mx.com.bbva.bancomer.commons.business.BbvaIBusi
 			} catch (Exception ex) {
 				session.rollback();
 				ex.printStackTrace();
+				bbvaAbstractDataTransferObject.setErrorCode("SQL-001");
+				bbvaAbstractDataTransferObject.setErrorDescription(ex.getMessage());
 			} finally {
 				session.close();
 			}						
@@ -148,6 +152,8 @@ public class PerfilBO implements mx.com.bbva.bancomer.commons.business.BbvaIBusi
 			return bbvaAbstractDataTransferObject;
 		} catch (Exception ex) {
 			ex.printStackTrace();
+			bbvaAbstractDataTransferObject.setErrorCode("SQL-001");
+			bbvaAbstractDataTransferObject.setErrorDescription(ex.getMessage());
 			return bbvaAbstractDataTransferObject;
 		} 					
 	}
@@ -190,6 +196,8 @@ public class PerfilBO implements mx.com.bbva.bancomer.commons.business.BbvaIBusi
 		} catch (Exception ex) {
 			session.rollback();
 			ex.printStackTrace();
+			bbvaAbstractDataTransferObject.setErrorCode("SQL-001");
+			bbvaAbstractDataTransferObject.setErrorDescription(ex.getMessage());
 		} finally {
 			session.close();
 		}

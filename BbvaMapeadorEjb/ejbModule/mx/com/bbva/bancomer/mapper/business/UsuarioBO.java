@@ -78,6 +78,8 @@ public class UsuarioBO implements mx.com.bbva.bancomer.commons.business.BbvaIBus
 			} catch (Exception ex) {
 				session.rollback();
 				ex.printStackTrace();
+				bbvaAbstractDataTransferObject.setErrorCode("SQL-001");
+				bbvaAbstractDataTransferObject.setErrorDescription(ex.getMessage());
 			} finally {
 				session.close();
 			}
@@ -115,8 +117,7 @@ public class UsuarioBO implements mx.com.bbva.bancomer.commons.business.BbvaIBus
 					.getMapper(MapUsuario.class);
 			try {
 				result = mapUsuario.obtenerUsuariosBitacora();
-			} catch (Exception ex) {
-				
+			} catch (Exception ex) {				
 				ex.printStackTrace();
 			} finally {
 				session.close();
@@ -157,6 +158,8 @@ public class UsuarioBO implements mx.com.bbva.bancomer.commons.business.BbvaIBus
 			} catch (Exception ex) {
 				session.rollback();
 				ex.printStackTrace();
+				bbvaAbstractDataTransferObject.setErrorCode("SQL-001");
+				bbvaAbstractDataTransferObject.setErrorDescription(ex.getMessage());
 			} finally {
 				session.close();
 			}
@@ -167,6 +170,8 @@ public class UsuarioBO implements mx.com.bbva.bancomer.commons.business.BbvaIBus
 			return bbvaAbstractDataTransferObject;
 		} catch (Exception ex) {
 			ex.printStackTrace();
+			bbvaAbstractDataTransferObject.setErrorCode("SQL-001");
+			bbvaAbstractDataTransferObject.setErrorDescription(ex.getMessage());
 			return bbvaAbstractDataTransferObject;
 		} 					
 	}
@@ -196,7 +201,8 @@ public class UsuarioBO implements mx.com.bbva.bancomer.commons.business.BbvaIBus
 			try {				
 				result = mapUsuario.obtenerUsuarios(usuarioVO).get(0);		
 			} catch (Exception ex) {
-				result = null;				
+				result = null;		
+				
 			} finally {
 				session.close();
 			}
@@ -236,6 +242,8 @@ public class UsuarioBO implements mx.com.bbva.bancomer.commons.business.BbvaIBus
 			} catch (Exception ex) {
 				session.rollback();
 				ex.printStackTrace();
+				bbvaAbstractDataTransferObject.setErrorCode("SQL-001");
+				bbvaAbstractDataTransferObject.setErrorDescription(ex.getMessage());
 			} finally {
 				session.close();
 			}

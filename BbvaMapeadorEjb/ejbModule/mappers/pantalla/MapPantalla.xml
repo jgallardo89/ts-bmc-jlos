@@ -36,6 +36,9 @@
 			<if test="estatusPantalla != null and estatusPantalla != 0">
 				AND  P.ST_PANTALLA = #{estatusPantalla}
 			</if>	
+			<if test="desdePerfiles != 0">
+				AND (select count(*) from tgm502_componente com where com.cd_pantalla = p.cd_pantalla) > 0
+			</if>
 				ORDER BY P.CD_PANTALLA
 	</select>
 	<insert id="crearPantalla" keyProperty="idPantalla" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.PantallaVO">

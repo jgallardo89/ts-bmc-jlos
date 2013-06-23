@@ -117,8 +117,8 @@ public class BitacoraBO implements BbvaIBusinessObject {
 		dto.setErrorDescription(null);
 		dto.setCampo(campoArray);
 		try {
-			xml = new ByteArrayOutputStream();
-			JOXBeanOutputStream joxOut = new JOXBeanOutputStream(xml);
+			xml = new ByteArrayOutputStream();		
+			JOXBeanOutputStream joxOut = new JOXBeanOutputStream(xml,"UTF-8");			
 			joxOut.writeObject("xml", dto);
 			System.out.println(xml.toString());
 			xml.close();

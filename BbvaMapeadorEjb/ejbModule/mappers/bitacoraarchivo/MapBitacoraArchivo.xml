@@ -19,7 +19,7 @@
 				AND to_date(Tgm537.Tm_Estado_Archivo,'dd-MM-rrrr') BETWEEN to_date(#{fechaInici},'dd-MM-rrrr') AND to_date(#{fechaFin},'dd-MM-rrrr')				
 			</if>
 			<if test="nombreArchivo != null ">
-				AND Tgm536.Nb_Reg_Arch_Entra LIKE #{nombreArchivo}
+				AND upper(Tgm536.Nb_Reg_Arch_Entra) LIKE #{nombreArchivo}
 			</if>						  
 		order by Tgm536.Nb_Reg_Arch_Entra, Tgm537.Tm_Estado_Archivo
 			    
