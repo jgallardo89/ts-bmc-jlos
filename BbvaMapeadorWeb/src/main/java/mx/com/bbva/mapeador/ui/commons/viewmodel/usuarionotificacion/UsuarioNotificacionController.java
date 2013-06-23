@@ -617,11 +617,7 @@ public class UsuarioNotificacionController  extends ControllerSupport implements
 									usuarioNotificacionDTOValidaExiste = usuarioNotificacionBO.readCommandValidateExistePermiso(usuarioNotificacionDTOValidaExiste);
 									
 															
-									if (Integer.parseInt(status.getSelectedItem().getValue().toString())==CommandConstants.ESTATUS_OBJETO_USUARIO_NOTIFICACION_BAJA) {
-										controller.registrarEvento(usuarioNotificacionVOL, usuarioNotificacionVO, CommandConstants.BAJA_FALLIDA, nombrePantalla);					
-									} else if (Integer.parseInt(status.getSelectedItem().getValue().toString())==CommandConstants.ESTATUS_OBJETO_USUARIO_NOTIFICACION_INACTIVO) { 
-										controller.registrarEvento(usuarioNotificacionVOL, usuarioNotificacionVO, CommandConstants.INACTIVACION_FALLIDA, nombrePantalla);				
-									}
+									
 									
 									if(usuarioNotificacionDTOValidaExiste.getUsuarioNotificacionVOs().get(0).getExiste()==1){							
 										org.zkoss.zul.Messagebox.show("El usuario no se puede desactivar o dar de baja debido a que esta asociado a notificaciones!!",
@@ -634,7 +630,13 @@ public class UsuarioNotificacionController  extends ControllerSupport implements
 									    					"\nError:"+usuarioNotificacionDTO.getErrorCode()+
 									    					"\nDescripción:"+usuarioNotificacionDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
 									    }else{
-											controller.registrarEvento(usuarioNotificacionVOL, usuarioNotificacionVO, CommandConstants.MODIFICACION, nombrePantalla);
+									    	if (Integer.parseInt(status.getSelectedItem().getValue().toString())==CommandConstants.ESTATUS_OBJETO_USUARIO_NOTIFICACION_BAJA) {
+												controller.registrarEvento(usuarioNotificacionVOL, usuarioNotificacionVO, CommandConstants.BAJA, nombrePantalla);					
+											}else if (Integer.parseInt(status.getSelectedItem().getValue().toString())==CommandConstants.ESTATUS_OBJETO_USUARIO_NOTIFICACION_INACTIVO) { 
+												controller.registrarEvento(usuarioNotificacionVOL, usuarioNotificacionVO, CommandConstants.INACTIVACION, nombrePantalla);				
+											}else{
+												controller.registrarEvento(usuarioNotificacionVOL, usuarioNotificacionVO, CommandConstants.MODIFICACION, nombrePantalla);
+											}
 											clean();			
 											
 											usuarioNotificacionVO = new UsuarioNotificacionVO();
