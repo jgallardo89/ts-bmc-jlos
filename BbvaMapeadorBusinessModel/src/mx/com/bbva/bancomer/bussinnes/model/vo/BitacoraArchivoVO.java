@@ -48,7 +48,7 @@ public class BitacoraArchivoVO extends BbvaAbstractValueObject {
 	private String estadoArchivo;
 	
 	/** The fecha archivo. */
-	private String fechaArchivo;
+	private Date fechaArchivo;
 	
 	/** The fecha fin. */
 	private Date fechaFin;
@@ -76,7 +76,7 @@ public class BitacoraArchivoVO extends BbvaAbstractValueObject {
 	 *
 	 * @return the fechaArchivo
 	 */
-	public final String getFechaArchivo() {
+	public final Date getFechaArchivo() {
 		return fechaArchivo;
 	}
 	
@@ -138,7 +138,7 @@ public class BitacoraArchivoVO extends BbvaAbstractValueObject {
 	 *
 	 * @param fechaArchivo the fechaArchivo to set
 	 */
-	public final void setFechaArchivo(String fechaArchivo) {
+	public final void setFechaArchivo(Date fechaArchivo) {
 		this.fechaArchivo = fechaArchivo;
 	}
 	
