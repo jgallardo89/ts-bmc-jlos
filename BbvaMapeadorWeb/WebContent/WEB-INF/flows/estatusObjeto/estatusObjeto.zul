@@ -109,9 +109,9 @@
 					</groupbox>
 				</vlayout>								
 			</groupbox>	
-			<textbox id="idPantalla" value="@load(vm.estatusObjetoDTO.idPantalla)" visible="false"></textbox>
-			<textbox id="idEstatusClave" value="@load(vm.strIdEstatusClave)" visible="false"></textbox>
-			<textbox id="idEstatusObjeto" value="@load(vm.strIdEstatusObjeto)" visible="false"></textbox>
+			<textbox id="idPantalla" value="0" visible="false"></textbox>
+			<textbox id="idEstatusClave"  value="0" visible="false"></textbox>
+			<textbox id="idEstatusObjeto" value="0" visible="false"></textbox>
 		</div>
 		<zscript>
 			public void selectedValuePantallas(){

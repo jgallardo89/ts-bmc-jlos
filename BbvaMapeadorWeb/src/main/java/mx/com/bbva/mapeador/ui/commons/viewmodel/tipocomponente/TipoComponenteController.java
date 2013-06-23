@@ -43,13 +43,17 @@ import mx.com.bbva.mapeador.ui.commons.controller.IController;
 import mx.com.bbva.mapeador.ui.commons.viewmodel.reportes.ReportesController;
 import mx.com.bbva.mapeador.ui.commons.viewmodel.support.ControllerSupport;
 
+import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
+import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.event.Event;
+import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.Button;
@@ -234,10 +238,14 @@ public class TipoComponenteController extends ControllerSupport implements
 	 * @see mx.com.bbva.mapeador.ui.commons.controller.IController#read()
 	 */
 	@Override
+	@GlobalCommand
+	@Command
+	@NotifyChange({"tipoComponenteDTO","tipoComponenteVOs"})
 	public Object read() {		
 		tipoComponenteDTO = new TipoComponenteDTO();
 		TipoComponenteBO tipoComponenteBO = new TipoComponenteBO();
 		tipoComponenteDTO = tipoComponenteBO.readCommand(tipoComponenteDTO);
+		tipoComponenteVOs = tipoComponenteDTO.getTipoComponenteVOs() ;
 		return tipoComponenteDTO;
 	}
 
@@ -272,56 +280,82 @@ public class TipoComponenteController extends ControllerSupport implements
 		if(tipoComponente.getValue().isEmpty()){
 			tipoComponente.setErrorMessage("Favor de introducir el nombre del tipo de componente.");
 		}else{
+			Messagebox.show(
+			"¿Está seguro que desea continuar con la operación?",
+			"Pregunta", org.zkoss.zul.Messagebox.YES | org.zkoss.zul.Messagebox.NO,
+			org.zkoss.zul.Messagebox.QUESTION, new EventListener<Event>() {
+				@Override
+				public void onEvent(Event event) throws Exception {
+					if (event.getName().equals(org.zkoss.zul.Messagebox.ON_YES)) {			
+						tipoComponenteDTO = new TipoComponenteDTO();
+						TipoComponenteVO tipoComponenteVOL = new TipoComponenteVO();
+						ReportesController reportesController = new ReportesController();
+						tipoComponenteVOL.setIdTipoComponente(idTipoComponente.getValue());
+						tipoComponenteVOL.setNombreTipoComponente(tipoComponente.getValue().toUpperCase().trim());			
+						tipoComponenteDTO.setTipoComponenteVO(tipoComponenteVOL);			
+						TipoComponenteBO tipoComponenteBO = new TipoComponenteBO();
 						
-			tipoComponenteDTO = new TipoComponenteDTO();
-			TipoComponenteVO tipoComponenteVO = new TipoComponenteVO();
-			ReportesController reportesController = new ReportesController();
-			tipoComponenteVO.setIdTipoComponente(idTipoComponente.getValue());
-			tipoComponenteVO.setNombreTipoComponente(tipoComponente.getValue().toUpperCase().trim());			
-			tipoComponenteDTO.setTipoComponenteVO(tipoComponenteVO);			
-			TipoComponenteBO tipoComponenteBO = new TipoComponenteBO();
-			
-			TipoComponenteDTO tipoComponenteDTOValidaExiste = new TipoComponenteDTO();
-			TipoComponenteVO tipoComponenteVOValidaExiste = new TipoComponenteVO();
-			tipoComponenteVOValidaExiste.setNombreTipoComponente(tipoComponente.getValue().toUpperCase().trim());
-			tipoComponenteDTOValidaExiste.setCommandId(CommandConstants.CONSULTA_EXISTE_TIPO_COMPONENTE);
-			tipoComponenteDTOValidaExiste.setTipoComponenteVO(tipoComponenteVOValidaExiste);
-			tipoComponenteDTOValidaExiste = tipoComponenteBO.readCommand(tipoComponenteDTOValidaExiste);
-			tipoComponenteVOValidaExiste = tipoComponenteDTOValidaExiste.getTipoComponenteVOs().get(0);
-			int existe = tipoComponenteVOValidaExiste.getExiste();
-			if(existe==0){
-				if(idTipoComponente.getValue()!=0){
-					tipoComponenteBO.updateCommand(tipoComponenteDTO);
-					
-					reportesController.registrarEvento(tipoComponenteVO, this.tipoComponenteVO, CommandConstants.MODIFICACION, nombrePantalla);
-					Messagebox.show("El registro se actualizó con exito",
-							"Información", Messagebox.OK,
-							Messagebox.INFORMATION);
-				}else{
-					tipoComponenteBO.createCommand(tipoComponenteDTO);
-					TipoComponenteVO tipoComponenteNuevo = new TipoComponenteVO();
-					tipoComponenteNuevo.setIdTipoComponente(-1);
-					tipoComponenteNuevo.setNombreTipoComponente("");						
-					reportesController.registrarEvento(tipoComponenteVO, tipoComponenteNuevo, CommandConstants.ALTA, nombrePantalla);
-					Messagebox.show("El registro se creó con exito",
-							"Información", Messagebox.OK,
-							Messagebox.INFORMATION);
-				}						
-				clean();
-				tipoComponenteVOs = ((TipoComponenteDTO)this.read()).getTipoComponenteVOs();
-			}else{
-				if(idTipoComponente.getValue()!=0){
-					reportesController.registrarEvento(tipoComponenteVO, this.tipoComponenteVO, CommandConstants.MODIFICACION_FALLIDA, nombrePantalla);
-				} else {
-					TipoComponenteVO tipoComponenteNuevo = new TipoComponenteVO();
-					tipoComponenteNuevo.setIdTipoComponente(-1);
-					tipoComponenteNuevo.setNombreTipoComponente("");
-					reportesController.registrarEvento(tipoComponenteVO, tipoComponenteNuevo, CommandConstants.ALTA_FALLIDA, nombrePantalla);
+						TipoComponenteDTO tipoComponenteDTOValidaExiste = new TipoComponenteDTO();
+						TipoComponenteVO tipoComponenteVOValidaExiste = new TipoComponenteVO();
+						tipoComponenteVOValidaExiste.setNombreTipoComponente(tipoComponente.getValue().toUpperCase().trim());
+						tipoComponenteDTOValidaExiste.setCommandId(CommandConstants.CONSULTA_EXISTE_TIPO_COMPONENTE);
+						tipoComponenteDTOValidaExiste.setTipoComponenteVO(tipoComponenteVOValidaExiste);
+						tipoComponenteDTOValidaExiste = tipoComponenteBO.readCommand(tipoComponenteDTOValidaExiste);
+						tipoComponenteVOValidaExiste = tipoComponenteDTOValidaExiste.getTipoComponenteVOs().get(0);
+						int existe = tipoComponenteVOValidaExiste.getExiste();
+						if(existe==0){
+							if(idTipoComponente.getValue()!=0){
+								tipoComponenteDTO = tipoComponenteBO.updateCommand(tipoComponenteDTO);
+								if(tipoComponenteDTO.getErrorCode().equals("SQL-001")){
+							    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
+							    					"\nError:"+tipoComponenteDTO.getErrorCode()+
+							    					"","Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+								}else{
+									reportesController.registrarEvento(tipoComponenteVOL, tipoComponenteVO, CommandConstants.MODIFICACION, nombrePantalla);
+									Messagebox.show("El registro se actualizó con exito",
+											"Información", Messagebox.OK,
+											Messagebox.INFORMATION);
+								}
+							}else{
+								tipoComponenteDTO = tipoComponenteBO.createCommand(tipoComponenteDTO);
+								if(tipoComponenteDTO.getErrorCode().equals("SQL-001")){
+							    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
+							    					"\nError:"+tipoComponenteDTO.getErrorCode()+
+							    					"","Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+								}else{
+									TipoComponenteVO tipoComponenteNuevo = new TipoComponenteVO();
+									tipoComponenteNuevo.setIdTipoComponente(-1);
+									tipoComponenteNuevo.setNombreTipoComponente("");						
+									reportesController.registrarEvento(tipoComponenteVOL, tipoComponenteNuevo, CommandConstants.ALTA, nombrePantalla);
+									Messagebox.show("El registro se creó con exito",
+											"Información", Messagebox.OK,
+											Messagebox.INFORMATION);
+								}
+							}						
+							clean();
+							tipoComponenteVOs = ((TipoComponenteDTO)read()).getTipoComponenteVOs();
+						}else{
+							if(idTipoComponente.getValue()!=0){
+								reportesController.registrarEvento(tipoComponenteVOL, tipoComponenteVO, CommandConstants.MODIFICACION_FALLIDA, nombrePantalla);
+							} else {
+								TipoComponenteVO tipoComponenteNuevo = new TipoComponenteVO();
+								tipoComponenteNuevo.setIdTipoComponente(-1);
+								tipoComponenteNuevo.setNombreTipoComponente("");
+								reportesController.registrarEvento(tipoComponenteVO, tipoComponenteNuevo, CommandConstants.ALTA_FALLIDA, nombrePantalla);
+							}
+							Messagebox.show("El tipo de componente ya existe",
+									"Error", Messagebox.OK,
+									Messagebox.ERROR);
+						}
+						BindUtils
+						.postGlobalCommand(
+								null,
+								null,
+								"read",
+								null);
+					}
 				}
-				Messagebox.show("El tipo de componente ya existe",
-						"Error", Messagebox.OK,
-						Messagebox.ERROR);
-			}
+			});
 		}
 	}
 	

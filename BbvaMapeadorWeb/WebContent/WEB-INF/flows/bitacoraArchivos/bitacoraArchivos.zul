@@ -83,7 +83,7 @@
 									</columns>
 									<template name="model">
 										<row>
-											<label hflex="1" value="@load(each.fechaArchivo)"></label>
+											<label hflex="1" value="@load(each.fechaArchivo) @converter('formatedDate', format='dd/MM/yyyy HH:mm')"></label>
 											<label hflex="1" value="@load(each.nombreArchivo)"></label>
 											<label hflex="1" value="@load(each.estadoArchivo)"></label>																					
 										</row>

@@ -48,19 +48,24 @@ import mx.com.bbva.mapeador.ui.commons.viewmodel.reportes.ReportesController;
 import mx.com.bbva.mapeador.ui.commons.viewmodel.support.ControllerSupport;
 
 import org.apache.log4j.Logger;
+import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
+import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.event.Event;
+import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.Button;
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Image;
 import org.zkoss.zul.Label;
+import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Textbox;
 
 // TODO: Auto-generated Javadoc
@@ -269,7 +274,7 @@ public class PantallaController extends ControllerSupport implements  IControlle
 		//Mensajes Setear a Null
 		pantallaPadre.setValue(null);
 		nombrePantalla.setValue(null);
-		status.setValue(null);
+		status.setValue(CommandConstants.NB_PANTALLA_ACTIVO);
 		url.setValue(null);
 		icono.setValue(null);
 		orden.setValue(null);
@@ -625,6 +630,7 @@ public class PantallaController extends ControllerSupport implements  IControlle
 	/**
 	 * Read with filters.
 	 */
+	@GlobalCommand
 	@Command
 	@NotifyChange({ "pantallaVOs" })
 	public void readWithFilters() {
@@ -671,7 +677,7 @@ public class PantallaController extends ControllerSupport implements  IControlle
 	@Command
 	@NotifyChange({ "pantallaVOs"})
 	public void save() {
-		ReportesController controller = new ReportesController();
+		final ReportesController controller = new ReportesController();
 		//Validar Todos Los campos de pantalla
 		boolean errorGuardar = false; 
 		if (pantallaPadre.getSelectedItem() == null
@@ -707,90 +713,117 @@ public class PantallaController extends ControllerSupport implements  IControlle
 			errorGuardar = true;
 		}
 		if(!errorGuardar){
-			if(!idPantalla.getValue().isEmpty()){
-				logger.info("::::::Actualizar::::");
-				PantallaDTO pantallaDTO = new PantallaDTO();
-				PantallaVO pantallaVO = new PantallaVO();
-				pantallaVO.setIdPantalla(Integer.parseInt(idPantalla.getValue().toString()));
-				pantallaVO.setIdPantallaPadre(Integer.parseInt(idPantallaPadre.getValue()));
-				pantallaVO.setEstatusPantalla(Integer.parseInt(status.getSelectedItem().getValue().toString()));
-				pantallaVO.setNumeroOrdenPantalla(Integer.parseInt(orden.getValue()));								
-				pantallaVO.setNombrePantalla(nombrePantalla.getValue().toUpperCase().trim());
-				pantallaVO.setDescripcionUrlPantalla(url.getValue().trim());
-				pantallaVO.setDescripcionUrlIcon(icono.getValue().trim());
+			Messagebox.show(
+			"¿Está seguro que desea continuar con la operación?",
+			"Pregunta", org.zkoss.zul.Messagebox.YES | org.zkoss.zul.Messagebox.NO,
+			org.zkoss.zul.Messagebox.QUESTION, new EventListener<Event>() {
+				@Override
+				public void onEvent(Event event) throws Exception {
+					if (event.getName().equals(org.zkoss.zul.Messagebox.ON_YES)) {
+						if(!idPantalla.getValue().isEmpty()){
+							logger.info("::::::Actualizar::::");
+							PantallaDTO pantallaDTOL = new PantallaDTO();
+							PantallaVO pantallaVOL = new PantallaVO();
+							pantallaVOL.setIdPantalla(Integer.parseInt(idPantalla.getValue().toString()));
+							pantallaVOL.setIdPantallaPadre(Integer.parseInt(idPantallaPadre.getValue()));
+							pantallaVOL.setEstatusPantalla(Integer.parseInt(status.getSelectedItem().getValue().toString()));
+							pantallaVOL.setNumeroOrdenPantalla(Integer.parseInt(orden.getValue()));								
+							pantallaVOL.setNombrePantalla(nombrePantalla.getValue().toUpperCase().trim());
+							pantallaVOL.setDescripcionUrlPantalla(url.getValue().trim());
+							pantallaVOL.setDescripcionUrlIcon(icono.getValue().trim());
+							
+							//Seteo de VO a DTO 
+							pantallaDTOL.setPantallaVO(pantallaVOL);
+							pantallaDTOL.toString(BbvaAbstractDataTransferObject.XML);	
+							
+							PantallaBO pantallaBO = new PantallaBO();
+							pantallaDTOL = pantallaBO.updateCommand(pantallaDTOL);
+							if(pantallaDTOL.getErrorCode().equals("SQL-001")){
+						    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
+						    					"\nError:"+pantallaDTOL.getErrorCode()+
+						    					"","Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+						    }else{
+								if (Integer.parseInt(status.getSelectedItem().getValue().toString())==CommandConstants.ID_PANTALLA_BAJA) {
+									controller.registrarEvento(pantallaVOL, pantallaVO, CommandConstants.BAJA_FALLIDA, tituloPantalla);					
+								} else if (Integer.parseInt(status.getSelectedItem().getValue().toString())==CommandConstants.ID_PANTALLA_INACTIVO) { 
+									controller.registrarEvento(pantallaVOL, pantallaVO, CommandConstants.INACTIVACION_FALLIDA, tituloPantalla);
+								} else {				
+									controller.registrarEvento(pantallaVOL, pantallaVO, CommandConstants.MODIFICACION, tituloPantalla);
+								}
+								clean();			
+								pantallaVOL = new PantallaVO();							
+								//Consulta Parametrizada
+				//				pantallaDTO.setCommandId(CommandConstants.ESTATUS_OBJETO_COMBO_PANTALLAS);
+								//Seteo de VO a DTO 
+								pantallaDTOL.setPantallaVO(pantallaVOL);
+								pantallaDTOL.toString(BbvaAbstractDataTransferObject.XML);
+								
+								//Asignacion resultado de consulta al mismo DTO de pantalla
+								pantallaDTOL = pantallaBO.readCommand(pantallaDTOL);
 				
-				//Seteo de VO a DTO 
-				pantallaDTO.setPantallaVO(pantallaVO);
-				pantallaDTO.toString(BbvaAbstractDataTransferObject.XML);	
-				
-				PantallaBO pantallaBO = new PantallaBO();
-				pantallaBO.updateCommand(pantallaDTO);
-				if (Integer.parseInt(status.getSelectedItem().getValue().toString())==CommandConstants.ID_PANTALLA_BAJA) {
-					controller.registrarEvento(pantallaVO, this.pantallaVO, CommandConstants.BAJA_FALLIDA, tituloPantalla);					
-				} else if (Integer.parseInt(status.getSelectedItem().getValue().toString())==CommandConstants.ID_PANTALLA_INACTIVO) { 
-					controller.registrarEvento(pantallaVO, this.pantallaVO, CommandConstants.INACTIVACION_FALLIDA, tituloPantalla);
-				} else {				
-					controller.registrarEvento(pantallaVO, this.pantallaVO, CommandConstants.MODIFICACION, tituloPantalla);
+								org.zkoss.zul.Messagebox.show("Registro actualizado con exito!!",
+										"Información", org.zkoss.zul.Messagebox.OK,
+										org.zkoss.zul.Messagebox.INFORMATION);
+								pantallaDTO = pantallaDTOL;
+								pantallaVOs = pantallaDTO.getPantallaVOs();
+						    }
+							
+						}else{ 
+							logger.info("::::::Crear::::");
+							PantallaDTO pantallaDTOL = new PantallaDTO();
+							PantallaVO pantallaVOL = new PantallaVO();
+							pantallaVOL.setIdPantallaPadre(Integer.parseInt(pantallaPadre.getSelectedItem().getValue().toString()));
+							pantallaVOL.setEstatusPantalla(Integer.parseInt(status.getSelectedItem().getValue().toString()));
+							pantallaVOL.setNumeroOrdenPantalla(Integer.parseInt(orden.getValue()));
+							
+							pantallaVOL.setNombrePantalla(nombrePantalla.getValue().toUpperCase());
+							pantallaVOL.setDescripcionUrlPantalla(url.getValue().toLowerCase());
+							pantallaVOL.setDescripcionUrlIcon(icono.getValue());
+							
+							//Seteo de VO a DTO 
+							pantallaDTOL.setPantallaVO(pantallaVOL);
+							pantallaDTOL.toString(BbvaAbstractDataTransferObject.XML);	
+							
+							PantallaBO pantallaBO = new PantallaBO();
+							pantallaDTOL = pantallaBO.createCommand(pantallaDTOL);
+							if(pantallaDTOL.getErrorCode().equals("SQL-001")){
+						    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
+						    					"\nError:"+pantallaDTOL.getErrorCode()+
+						    					"","Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+						    }else{
+								PantallaVO pantallaNuevo = new PantallaVO();
+								pantallaNuevo.setIdPantallaPadre(-1);
+								pantallaNuevo.setEstatusPantalla(-1);
+								pantallaNuevo.setNumeroOrdenPantalla(-1);
+								
+								pantallaNuevo.setNombrePantalla("");
+								pantallaNuevo.setDescripcionUrlPantalla("");
+								pantallaNuevo.setDescripcionUrlIcon("");				
+								controller.registrarEvento(pantallaVOL, pantallaNuevo, CommandConstants.ALTA,tituloPantalla);
+								clean();	
+								pantallaVOL = new PantallaVO();
+								pantallaDTOL.setPantallaVO(pantallaVOL);
+								pantallaDTOL.toString(BbvaAbstractDataTransferObject.XML);
+								
+								//Asignacion resultado de consulta al mismo DTO de pantalla
+								pantallaDTOL = pantallaBO.readCommand(pantallaDTOL);
+								pantallaDTO = pantallaDTOL;
+								pantallaVOs = pantallaDTO.getPantallaVOs();
+								
+								org.zkoss.zul.Messagebox.show("Registro creado con exito!!",
+										"Información", org.zkoss.zul.Messagebox.OK,
+										org.zkoss.zul.Messagebox.INFORMATION);
+						    }
+						}
+						BindUtils
+						.postGlobalCommand(
+								null,
+								null,
+								"readWithFilters",
+								null);
+					}
 				}
-				clean();			
-				pantallaVO = new PantallaVO();							
-				//Consulta Parametrizada
-//				pantallaDTO.setCommandId(CommandConstants.ESTATUS_OBJETO_COMBO_PANTALLAS);
-				//Seteo de VO a DTO 
-				pantallaDTO.setPantallaVO(pantallaVO);
-				pantallaDTO.toString(BbvaAbstractDataTransferObject.XML);
-				
-				//Asignacion resultado de consulta al mismo DTO de pantalla
-				pantallaDTO = pantallaBO.readCommand(pantallaDTO);
-
-				org.zkoss.zul.Messagebox.show("Registro actualizado con exito!!",
-						"Información", org.zkoss.zul.Messagebox.OK,
-						org.zkoss.zul.Messagebox.INFORMATION);
-				this.pantallaDTO = pantallaDTO;
-				pantallaVOs = pantallaDTO.getPantallaVOs();								
-				
-			}else{ 
-				logger.info("::::::Crear::::");
-				PantallaDTO pantallaDTO = new PantallaDTO();
-				PantallaVO pantallaVO = new PantallaVO();
-				pantallaVO.setIdPantallaPadre(Integer.parseInt(pantallaPadre.getSelectedItem().getValue().toString()));
-				pantallaVO.setEstatusPantalla(Integer.parseInt(status.getSelectedItem().getValue().toString()));
-				pantallaVO.setNumeroOrdenPantalla(Integer.parseInt(orden.getValue()));
-				
-				pantallaVO.setNombrePantalla(nombrePantalla.getValue().toUpperCase());
-				pantallaVO.setDescripcionUrlPantalla(url.getValue().toLowerCase());
-				pantallaVO.setDescripcionUrlIcon(icono.getValue());
-				
-				//Seteo de VO a DTO 
-				pantallaDTO.setPantallaVO(pantallaVO);
-				pantallaDTO.toString(BbvaAbstractDataTransferObject.XML);	
-				
-				PantallaBO pantallaBO = new PantallaBO();
-				pantallaBO.createCommand(pantallaDTO);
-				
-				PantallaVO pantallaNuevo = new PantallaVO();
-				pantallaNuevo.setIdPantallaPadre(-1);
-				pantallaNuevo.setEstatusPantalla(-1);
-				pantallaNuevo.setNumeroOrdenPantalla(-1);
-				
-				pantallaNuevo.setNombrePantalla("");
-				pantallaNuevo.setDescripcionUrlPantalla("");
-				pantallaNuevo.setDescripcionUrlIcon("");				
-				controller.registrarEvento(pantallaVO, pantallaNuevo, CommandConstants.ALTA,tituloPantalla);
-				clean();	
-				pantallaVO = new PantallaVO();
-				pantallaDTO.setPantallaVO(pantallaVO);
-				pantallaDTO.toString(BbvaAbstractDataTransferObject.XML);
-				
-				//Asignacion resultado de consulta al mismo DTO de pantalla
-				pantallaDTO = pantallaBO.readCommand(pantallaDTO);
-				this.pantallaDTO = pantallaDTO;
-				pantallaVOs = pantallaDTO.getPantallaVOs();
-				
-				org.zkoss.zul.Messagebox.show("Registro creado con exito!!",
-						"Información", org.zkoss.zul.Messagebox.OK,
-						org.zkoss.zul.Messagebox.INFORMATION);
-			}
+			});
 		}
 		
 	}

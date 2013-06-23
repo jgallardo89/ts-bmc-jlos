@@ -84,7 +84,23 @@ public class ComponenteController extends ControllerSupport implements  IControl
 	
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -3505275489025917085L;
+
+	private ComponenteVO componenteVO;
 	
+	/**
+	 * @return the componenteVO
+	 */
+	public final ComponenteVO getComponenteVO() {
+		return componenteVO;
+	}
+
+	/**
+	 * @param componenteVO the componenteVO to set
+	 */
+	public final void setComponenteVO(ComponenteVO componenteVO) {
+		this.componenteVO = componenteVO;
+	}
+
 	/** The nombre Pantalla */
 	private static final String nombrePantalla="Componentes";	
 	
@@ -250,13 +266,14 @@ public class ComponenteController extends ControllerSupport implements  IControl
 							if (event.getName().equals(Messagebox.ON_YES)) {
 								ReportesController controller = new ReportesController();
 								ComponenteDTO componenteDTO = new ComponenteDTO();
-								ComponenteVO componenteVO = new ComponenteVO();
-								componenteVO.setIdComponente(Integer.parseInt(idComponente.getValue().isEmpty()?"0":idComponente.getValue()));
-								componenteDTO.setComponenteVO(componenteVO);
+								ComponenteVO componenteVOL = new ComponenteVO();
+								componenteVOL.setIdComponente(Integer.parseInt(idComponente.getValue().isEmpty()?"0":idComponente.getValue()));
+								componenteDTO.setComponenteVO(componenteVOL);
 								ComponenteBO componenteBO = new ComponenteBO();
 								componenteDTO.toString(BbvaAbstractDataTransferObject.XML);
 								componenteBO.deleteCommand(componenteDTO);
-								controller.registrarEvento(null, null, CommandConstants.ELIMINACION,nombrePantalla);
+								componenteVO.setIdComponente(-1);
+								controller.registrarEvento(componenteVOL, componenteVO, CommandConstants.ELIMINACION,nombrePantalla);
 								clean();
 								BindUtils
 										.postGlobalCommand(
@@ -467,6 +484,7 @@ public class ComponenteController extends ControllerSupport implements  IControl
 	@Command
 	public void readSelected(@BindingParam("idComponente") final ComponenteVO componenteVO){
 		//Seteo de datos de Acuerdo al id de los compoenetes del HTML VS VO
+		this.componenteVO =  componenteVO;
 		componenteVO.toString();
 		pantalla.setValue(componenteVO.getNombrePantalla());
 		nombreComponente.setValue(componenteVO.getNombreComponente());
@@ -479,6 +497,7 @@ public class ComponenteController extends ControllerSupport implements  IControl
 	/**
 	 * Read with filters.
 	 */
+	@GlobalCommand
 	@Command
 	@NotifyChange({ "componenteVOs" })
 	public void readWithFilters() {
@@ -564,93 +583,119 @@ public class ComponenteController extends ControllerSupport implements  IControl
 			errorGuardar = true;
 		} 
 		if(!errorGuardar){
-			if(!idComponente.getValue().isEmpty()){
-				logger.info("::::::Actualizar::::");
-				ComponenteDTO componenteDTO = new ComponenteDTO();
-				ComponenteVO componenteVO = new ComponenteVO();
-				componenteVO.setIdComponente(Integer.parseInt(idComponente.getValue().isEmpty()?"0":idComponente.getValue()));
-				componenteVO.setIdPantalla(Integer.parseInt(pantalla.getSelectedItem().getValue().toString()));
-				componenteVO.setIdDefault(defaultComponent.isChecked()?"T":"F");
-				componenteVO.setNombreComponente(nombreComponente.getValue());
-				componenteVO.setIdTipoComponente(Integer.parseInt(tipoComponente.getSelectedItem().getValue().toString()));
+			Messagebox.show(
+			"¿Está seguro que desea continuar con la operación?",
+			"Pregunta", org.zkoss.zul.Messagebox.YES | org.zkoss.zul.Messagebox.NO,
+			org.zkoss.zul.Messagebox.QUESTION, new EventListener<Event>() {
+				@Override
+				public void onEvent(Event event) throws Exception {
+					if (event.getName().equals(org.zkoss.zul.Messagebox.ON_YES)) {
+						if(!idComponente.getValue().isEmpty()){
+							logger.info("::::::Actualizar::::");
+							ComponenteDTO componenteDTO = new ComponenteDTO();
+							ComponenteVO componenteVOL = new ComponenteVO();
+							componenteVOL.setIdComponente(Integer.parseInt(idComponente.getValue().isEmpty()?"0":idComponente.getValue()));
+							componenteVOL.setIdPantalla(Integer.parseInt(pantalla.getSelectedItem().getValue().toString()));
+							componenteVOL.setIdDefault(defaultComponent.isChecked()?"T":"F");
+							componenteVOL.setNombreComponente(nombreComponente.getValue());
+							componenteVOL.setIdTipoComponente(Integer.parseInt(tipoComponente.getSelectedItem().getValue().toString()));
+										
+							//Seteo de VO a DTO 
+							componenteDTO.setComponenteVO(componenteVOL);
+							componenteDTO.toString(BbvaAbstractDataTransferObject.XML);	
 							
-				//Seteo de VO a DTO 
-				componenteDTO.setComponenteVO(componenteVO);
-				componenteDTO.toString(BbvaAbstractDataTransferObject.XML);	
+							ComponenteBO componenteBO = new ComponenteBO();
+							componenteDTO = componenteBO.updateCommand(componenteDTO);
+							if(componenteDTO.getErrorCode().equals("SQL-001")){
+						    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
+						    					"\nError:"+componenteDTO.getErrorCode()+
+						    					"","Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+						    }else{
+								ReportesController controller = new ReportesController();
+								controller.registrarEvento(componenteVOL, componenteVO, CommandConstants.MODIFICACION,nombrePantalla);
 				
-				ComponenteBO componenteBO = new ComponenteBO();
-				componenteBO.updateCommand(componenteDTO);
-
-				ReportesController controller = new ReportesController();
-				controller.registrarEvento(componenteVO, this.componenteDTO.getComponenteVO(), CommandConstants.MODIFICACION,nombrePantalla);
-
-				clean();			
-				
-				//Textbox
-				componenteVO.setNombreComponente(null);
-				componenteVO.setIdTipoComponente(0); 			
-				componenteVO.setIdPantalla(0);
-				//Consulta Parametrizada
-	
-				componenteDTO.setComponenteVO(componenteVO);
-				componenteDTO.toString(BbvaAbstractDataTransferObject.XML);	
-				
-				//Asignacion resultado de consulta al mismo DTO de Componente
-				componenteDTO = componenteBO.readCommand(componenteDTO);
+								clean();			
 								
-				org.zkoss.zul.Messagebox.show("Registro actualizado con exito!!",
-						"Información", org.zkoss.zul.Messagebox.OK,
-						org.zkoss.zul.Messagebox.INFORMATION);
+								//Textbox
+								componenteVOL.setNombreComponente(null);
+								componenteVOL.setIdTipoComponente(0); 			
+								componenteVOL.setIdPantalla(0);
+								//Consulta Parametrizada
+					
+								componenteDTO.setComponenteVO(componenteVOL);
+								componenteDTO.toString(BbvaAbstractDataTransferObject.XML);	
+								
+								//Asignacion resultado de consulta al mismo DTO de Componente
+								componenteDTO = componenteBO.readCommand(componenteDTO);
+												
+								org.zkoss.zul.Messagebox.show("Registro actualizado con exito!!",
+										"Información", org.zkoss.zul.Messagebox.OK,
+										org.zkoss.zul.Messagebox.INFORMATION);
+								
+								componenteVOs = componenteDTO.getComponenteVOs();
+						    }
+						}else{ 
+							logger.info("::::::Crear::::");
+							ComponenteDTO componenteDTO = new ComponenteDTO();
+							ComponenteVO componenteVO = new ComponenteVO();
+							componenteVO.setIdComponente(Integer.parseInt(idComponente.getValue().isEmpty()?"0":idComponente.getValue()));
+							componenteVO.setIdPantalla(Integer.parseInt(pantalla.getSelectedItem().getValue().toString()));
+							componenteVO.setNombreComponente(nombreComponente.getValue());
+							componenteVO.setIdTipoComponente(Integer.parseInt(tipoComponente.getSelectedItem().getValue().toString()));
+							componenteVO.setIdDefault(defaultComponent.isChecked()?"T":"F");	
+							//Seteo de VO a DTO 
+							componenteDTO.setComponenteVO(componenteVO);
+							componenteDTO.toString(BbvaAbstractDataTransferObject.XML);	
+							
+							ComponenteBO componenteBO = new ComponenteBO();
+							componenteDTO = componenteBO.createCommand(componenteDTO);
+							if(componenteDTO.getErrorCode().equals("SQL-001")){
+						    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
+						    					"\nError:"+componenteDTO.getErrorCode()+
+						    					"","Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+						    }else{
+								ReportesController controller = new ReportesController();
+								
+								ComponenteVO componenteNuevo = new ComponenteVO();
+								componenteNuevo.setIdComponente(-1);
+								componenteNuevo.setIdPantalla(-1);
+								componenteNuevo.setNombreComponente("");
+								componenteNuevo.setIdTipoComponente(-1);
+								componenteNuevo.setIdDefault("");	
+								
+								controller.registrarEvento(componenteVO, componenteNuevo, CommandConstants.ALTA,nombrePantalla);
+								clean();	
+								//Textbox
+								componenteVO.setNombreComponente(null);
+								componenteVO.setIdTipoComponente(0); 
+								componenteVO.setIdPantalla(0);
+								//Combos Validar el nombre de los parametros en HTML VS Controller
 				
-				componenteVOs = componenteDTO.getComponenteVOs();
-			}else{ 
-				logger.info("::::::Crear::::");
-				ComponenteDTO componenteDTO = new ComponenteDTO();
-				ComponenteVO componenteVO = new ComponenteVO();
-				componenteVO.setIdComponente(Integer.parseInt(idComponente.getValue().isEmpty()?"0":idComponente.getValue()));
-				componenteVO.setIdPantalla(Integer.parseInt(pantalla.getSelectedItem().getValue().toString()));
-				componenteVO.setNombreComponente(nombreComponente.getValue());
-				componenteVO.setIdTipoComponente(Integer.parseInt(tipoComponente.getSelectedItem().getValue().toString()));
-				componenteVO.setIdDefault(defaultComponent.isChecked()?"T":"F");	
-				//Seteo de VO a DTO 
-				componenteDTO.setComponenteVO(componenteVO);
-				componenteDTO.toString(BbvaAbstractDataTransferObject.XML);	
+								
+								//Consulta Parametrizada
+					
+								componenteDTO.setComponenteVO(componenteVO);
+								componenteDTO.toString(BbvaAbstractDataTransferObject.XML);	
 				
-				ComponenteBO componenteBO = new ComponenteBO();
-				componenteBO.createCommand(componenteDTO);
-				
-				ReportesController controller = new ReportesController();
-				
-				ComponenteVO componenteNuevo = new ComponenteVO();
-				componenteNuevo.setIdComponente(-1);
-				componenteNuevo.setIdPantalla(-1);
-				componenteNuevo.setNombreComponente("");
-				componenteNuevo.setIdTipoComponente(-1);
-				componenteNuevo.setIdDefault("");	
-				
-				controller.registrarEvento(componenteVO, componenteNuevo, CommandConstants.ALTA,nombrePantalla);
-				clean();	
-				//Textbox
-				componenteVO.setNombreComponente(null);
-				componenteVO.setIdTipoComponente(0); 
-				componenteVO.setIdPantalla(0);
-				//Combos Validar el nombre de los parametros en HTML VS Controller
-
-				
-				//Consulta Parametrizada
-	
-				componenteDTO.setComponenteVO(componenteVO);
-				componenteDTO.toString(BbvaAbstractDataTransferObject.XML);	
-
-				//Asignacion resultado de consulta al mismo DTO de Componente
-				componenteDTO = componenteBO.readCommand(componenteDTO);
-				
-				componenteVOs = componenteDTO.getComponenteVOs();
-				
-				org.zkoss.zul.Messagebox.show("Registro creado con exito!!",
-						"Información", org.zkoss.zul.Messagebox.OK,
-						org.zkoss.zul.Messagebox.INFORMATION);				
-			}
+								//Asignacion resultado de consulta al mismo DTO de Componente
+								componenteDTO = componenteBO.readCommand(componenteDTO);
+								
+								componenteVOs = componenteDTO.getComponenteVOs();
+								
+								org.zkoss.zul.Messagebox.show("Registro creado con exito!!",
+										"Información", org.zkoss.zul.Messagebox.OK,
+										org.zkoss.zul.Messagebox.INFORMATION);		
+						    }
+						}
+						BindUtils
+						.postGlobalCommand(
+								null,
+								null,
+								"readWithFilters",
+								null);
+					}
+				}
+			});
 		}
 	}
 	
