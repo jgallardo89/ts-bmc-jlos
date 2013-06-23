@@ -50,6 +50,7 @@ import mx.com.bbva.mapeador.ui.commons.viewmodel.reportes.ReportesController;
 import mx.com.bbva.mapeador.ui.commons.viewmodel.support.ControllerSupport;
 
 import org.apache.log4j.Logger;
+import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
@@ -58,6 +59,8 @@ import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.event.Event;
+import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.Button;
@@ -65,6 +68,7 @@ import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Grid;
 import org.zkoss.zul.Image;
 import org.zkoss.zul.Label;
+import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Textbox;
 
 // TODO: Auto-generated Javadoc
@@ -174,8 +178,7 @@ public class UsuarioNotificacionController  extends ControllerSupport implements
     public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
         Selectors.wireComponents(view, this, false);        
         executePermissionSet = this.applyPermision();
-		status.setValue(CommandConstants.NB_USUARIO_NOTIFICACION_ACTIVO);
-		idEstatusObjeto.setValue(String.valueOf(CommandConstants.ESTATUS_USUARIO_NOTIFICACION_ACTIVO));             
+		status.setValue(CommandConstants.NB_USUARIO_NOTIFICACION_ACTIVO);		            
     }
 	
 	/* (non-Javadoc)
@@ -213,7 +216,7 @@ public class UsuarioNotificacionController  extends ControllerSupport implements
 		email.clearErrorMessage();
 		
 		//Mensajes Setear a Null
-		status.setValue(null);
+		status.setValue(CommandConstants.NB_USUARIO_NOTIFICACION_ACTIVO);
 		nombreUsuario.setValue(null);
 		email.setValue(null); 
 		 
@@ -412,9 +415,19 @@ public class UsuarioNotificacionController  extends ControllerSupport implements
 		estatusObjetoVO.setNombreTabla(CommandConstants.NOMBRE_TABLA_USUARIOS_NEGOCIO);				
 		estatusObjetoDTO.setEstatusObjetoVO(estatusObjetoVO);
 		estatusObjetoDTO = estatusObjetoBO.readCommand(estatusObjetoDTO);
+		if(estatusObjetoDTO.getErrorCode().equals("SQL-001")){
+	    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el adminsitrador del sistema:\n"+
+	    					"\nError:"+estatusObjetoDTO.getErrorCode()+
+	    					"\nDescripción:"+estatusObjetoDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+	    }
 		usuarioNotificacionVO.setTipoNotificacion(CommandConstants.TIPO_NOTIFICACION_NEGOCIO);
 		usuarioNotificacionDTO.setUsuarioNotificacionVO(usuarioNotificacionVO);
 		usuarioNotificacionDTO = usuarioNotificacionBO.readCommand(usuarioNotificacionDTO);
+		if(usuarioNotificacionDTO.getErrorCode().equals("SQL-001")){
+	    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el adminsitrador del sistema:\n"+
+	    					"\nError:"+usuarioNotificacionDTO.getErrorCode()+
+	    					"\nDescripción:"+usuarioNotificacionDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+	    }
 		logger.info("::::::::::::::SIZE::::::::::" + usuarioNotificacionDTO.getUsuarioNotificacionVOs());
 		usuarioNotificacionDTO.setEstatusObjetoVOs(estatusObjetoDTO.getEstatusObjetoVOs());
 		return usuarioNotificacionDTO;
@@ -449,6 +462,7 @@ public class UsuarioNotificacionController  extends ControllerSupport implements
 	/**
 	 * Read with filters.
 	 */
+	@GlobalCommand
 	@Command
 	@NotifyChange({ "usuarioNotificacionVOs" })
 	public void readWithFilters() {
@@ -467,8 +481,13 @@ public class UsuarioNotificacionController  extends ControllerSupport implements
 		//LLamada a BO  UsuarioNotificacion para consulta por criterio
 		UsuarioNotificacionBO usuarioNotificacionBO = new UsuarioNotificacionBO();
 		
-		//Asignacion resultado de consulta al mismo DTO de UsuarioNotificacion
+		//Asignacion resultado de consulta al mismo DTO de UsuarioNotificacion		
 		usuarioNotificacionDTO = usuarioNotificacionBO.readCommand(usuarioNotificacionDTO);
+		if(usuarioNotificacionDTO.getErrorCode().equals("SQL-001")){
+	    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el adminsitrador del sistema:\n"+
+	    					"\nError:"+usuarioNotificacionDTO.getErrorCode()+
+	    					"\nDescripción:"+usuarioNotificacionDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+	    }
 		
 		ReportesController controller = new ReportesController();
 		controller.registrarEvento(usuarioNotificacionVO, this.usuarioNotificacionVO, CommandConstants.CONSULTAR, nombrePantalla);
@@ -498,6 +517,17 @@ public class UsuarioNotificacionController  extends ControllerSupport implements
 		estatusObjetoDTO.setCommandId(2); 
 		estatusObjetoDTO = estatusObjetoBO.readCommand(estatusObjetoDTO);
 		usuarioNotificacionDTO = usuarioNotificacionBO.readCommand(usuarioNotificacionDTO);
+		if(estatusObjetoDTO.getErrorCode().equals("SQL-001")){
+	    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el adminsitrador del sistema:\n"+
+	    					"\nError:"+estatusObjetoDTO.getErrorCode()+
+	    					"\nDescripción:"+estatusObjetoDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+	    }
+		usuarioNotificacionDTO = usuarioNotificacionBO.readCommand(usuarioNotificacionDTO);
+		if(usuarioNotificacionDTO.getErrorCode().equals("SQL-001")){
+	    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el adminsitrador del sistema:\n"+
+	    					"\nError:"+usuarioNotificacionDTO.getErrorCode()+
+	    					"\nDescripción:"+usuarioNotificacionDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+	    }
 		logger.info("::::::::::::::SIZE::::::::::" + usuarioNotificacionDTO.getUsuarioNotificacionVOs());
 		usuarioNotificacionDTO.setEstatusObjetoVOs(estatusObjetoDTO.getEstatusObjetoVOs());
 	}
@@ -509,7 +539,7 @@ public class UsuarioNotificacionController  extends ControllerSupport implements
 	@Command
 	@NotifyChange({ "usuarioNotificacionVOs" })
 	public void save() {
-		ReportesController controller = new ReportesController();
+		final ReportesController controller = new ReportesController();
 		//Validar Todos Los campos de pantalla
 		boolean errorGuardar = false; 
 		if (status.getSelectedItem() == null
@@ -533,165 +563,210 @@ public class UsuarioNotificacionController  extends ControllerSupport implements
 			errorGuardar = true;
 		}
 		if(!errorGuardar){
-			if(!idUsuarioNotificado.getValue().isEmpty()){
-				
-				UsuarioNotificacionBO usuarioNotificacionBOValida = new UsuarioNotificacionBO();
-				UsuarioNotificacionDTO usuarioNotificacionDTOValida = new UsuarioNotificacionDTO();		
-				UsuarioNotificacionVO notificacionVOValida = new UsuarioNotificacionVO();
-				notificacionVOValida.setNombreUsuarioNotificado(nombreUsuario.getValue().toUpperCase().trim());
-				notificacionVOValida.setTipoNotificacion(CommandConstants.TIPO_NOTIFICACION_NEGOCIO);
-				notificacionVOValida.setDescripcionEmail(email.getValue());
-				notificacionVOValida.setIdUsuarioNotificado(Integer.parseInt(idUsuarioNotificado.getValue()));
-				usuarioNotificacionDTOValida.setUsuarioNotificacionVO(notificacionVOValida);
-				usuarioNotificacionDTOValida = usuarioNotificacionBOValida.readCommandValidateExist(usuarioNotificacionDTOValida);				
-				if(usuarioNotificacionDTOValida.getUsuarioNotificacionVOs().get(0).getExiste()>0){
-					UsuarioNotificacionVO notificacionNuevo = new UsuarioNotificacionVO();
-					notificacionNuevo.setNombreUsuarioNotificado("");
-					notificacionNuevo.setTipoNotificacion("");
-					notificacionNuevo.setDescripcionEmail("");
-					notificacionNuevo.setIdUsuarioNotificado(-1);					
-					controller.registrarEvento(notificacionVOValida, notificacionNuevo, CommandConstants.ALTA_FALLIDA, nombrePantalla);	
-					
-					org.zkoss.zul.Messagebox.show("!Ya existe un usuario de negocio con el mismo email!",
-							"Información", org.zkoss.zul.Messagebox.OK,
-							org.zkoss.zul.Messagebox.EXCLAMATION);
-				}else{
-					logger.info("::::::Actualizar::::");
-					UsuarioNotificacionDTO usuarioNotificacionDTO = new UsuarioNotificacionDTO();
-					UsuarioNotificacionVO usuarioNotificacionVO = new UsuarioNotificacionVO();
-					usuarioNotificacionVO.setIdUsuarioNotificado(Integer.parseInt(idUsuarioNotificado.getValue()));
-					usuarioNotificacionVO.setIdEstatusObjeto(Integer.parseInt(status.getSelectedItem().getValue().toString()));
-					usuarioNotificacionVO.setTipoNotificacion(CommandConstants.TIPO_NOTIFICACION_NEGOCIO);
-					usuarioNotificacionVO.setNombreUsuarioNotificado(nombreUsuario.getValue().toUpperCase().trim());
-					usuarioNotificacionVO.setDescripcionEmail(email.getValue().trim());
+			Messagebox.show(
+					"¿Está seguro que desea continuar con la operación?",
+					"Pregunta", org.zkoss.zul.Messagebox.YES | org.zkoss.zul.Messagebox.NO,
+			org.zkoss.zul.Messagebox.QUESTION, new EventListener<Event>() {
+				@Override
+				public void onEvent(Event event) throws Exception {
+					if (event.getName().equals(org.zkoss.zul.Messagebox.ON_YES)) {
+						if(!idUsuarioNotificado.getValue().isEmpty()){
+							
+							UsuarioNotificacionBO usuarioNotificacionBOValida = new UsuarioNotificacionBO();
+							UsuarioNotificacionDTO usuarioNotificacionDTOValida = new UsuarioNotificacionDTO();		
+							UsuarioNotificacionVO notificacionVOValida = new UsuarioNotificacionVO();
+							notificacionVOValida.setNombreUsuarioNotificado(nombreUsuario.getValue().toUpperCase().trim());
+							notificacionVOValida.setTipoNotificacion(CommandConstants.TIPO_NOTIFICACION_NEGOCIO);
+							notificacionVOValida.setDescripcionEmail(email.getValue());
+							notificacionVOValida.setIdUsuarioNotificado(Integer.parseInt(idUsuarioNotificado.getValue()));
+							usuarioNotificacionDTOValida.setUsuarioNotificacionVO(notificacionVOValida);
+							usuarioNotificacionDTOValida = usuarioNotificacionBOValida.readCommandValidateExist(usuarioNotificacionDTOValida);				
+							if(usuarioNotificacionDTOValida.getUsuarioNotificacionVOs().get(0).getExiste()>0){
+								UsuarioNotificacionVO notificacionNuevo = new UsuarioNotificacionVO();
+								notificacionNuevo.setNombreUsuarioNotificado("");
+								notificacionNuevo.setTipoNotificacion("");
+								notificacionNuevo.setDescripcionEmail("");
+								notificacionNuevo.setIdUsuarioNotificado(-1);					
+								controller.registrarEvento(notificacionVOValida, notificacionNuevo, CommandConstants.ALTA_FALLIDA, nombrePantalla);	
 								
-					//Seteo de VO a DTO 
-					usuarioNotificacionDTO.setUsuarioNotificacionVO(usuarioNotificacionVO);
-					usuarioNotificacionDTO.toString(BbvaAbstractDataTransferObject.XML);	
-					UsuarioNotificacionBO usuarioNotificacionBO = new UsuarioNotificacionBO();
-					if(Integer.parseInt(status.getSelectedItem().getValue().toString())==CommandConstants.ESTATUS_OBJETO_USUARIO_NOTIFICACION_BAJA ||
-							Integer.parseInt(status.getSelectedItem().getValue().toString())==CommandConstants.ESTATUS_OBJETO_USUARIO_NOTIFICACION_INACTIVO){						
-						UsuarioNotificacionDTO usuarioNotificacionDTOValidaExiste = new UsuarioNotificacionDTO();
-						UsuarioNotificacionVO usuarioNotificacionVOValidaExiste  = new UsuarioNotificacionVO();
-						usuarioNotificacionVOValidaExiste.setIdUsuarioNotificado(Integer.parseInt(idUsuarioNotificado.getValue()));
-						usuarioNotificacionVOValidaExiste.setTipoNotificacion(CommandConstants.TIPO_NOTIFICACION_NEGOCIO);
-						usuarioNotificacionDTOValidaExiste.setUsuarioNotificacionVO(usuarioNotificacionVOValidaExiste);
-						
-						usuarioNotificacionDTOValidaExiste = usuarioNotificacionBO.readCommandValidateExistePermiso(usuarioNotificacionDTOValidaExiste);
-						
-												
-						if (Integer.parseInt(status.getSelectedItem().getValue().toString())==CommandConstants.ESTATUS_OBJETO_USUARIO_NOTIFICACION_BAJA) {
-							controller.registrarEvento(usuarioNotificacionVO, this.usuarioNotificacionVO, CommandConstants.BAJA_FALLIDA, nombrePantalla);					
-						} else if (Integer.parseInt(status.getSelectedItem().getValue().toString())==CommandConstants.ESTATUS_OBJETO_USUARIO_NOTIFICACION_INACTIVO) { 
-							controller.registrarEvento(usuarioNotificacionVO, this.usuarioNotificacionVO, CommandConstants.INACTIVACION_FALLIDA, nombrePantalla);				
+								org.zkoss.zul.Messagebox.show("!Ya existe un usuario de negocio con el mismo email!",
+										"Información", org.zkoss.zul.Messagebox.OK,
+										org.zkoss.zul.Messagebox.EXCLAMATION);
+							}else{
+								logger.info("::::::Actualizar::::");
+								UsuarioNotificacionDTO usuarioNotificacionDTO = new UsuarioNotificacionDTO();
+								UsuarioNotificacionVO usuarioNotificacionVOL = new UsuarioNotificacionVO();
+								usuarioNotificacionVOL.setIdUsuarioNotificado(Integer.parseInt(idUsuarioNotificado.getValue()));
+								usuarioNotificacionVOL.setIdEstatusObjeto(Integer.parseInt(status.getSelectedItem().getValue().toString()));
+								usuarioNotificacionVOL.setTipoNotificacion(CommandConstants.TIPO_NOTIFICACION_NEGOCIO);
+								usuarioNotificacionVOL.setNombreUsuarioNotificado(nombreUsuario.getValue().toUpperCase().trim());
+								usuarioNotificacionVOL.setDescripcionEmail(email.getValue().trim());
+											
+								//Seteo de VO a DTO 
+								usuarioNotificacionDTO.setUsuarioNotificacionVO(usuarioNotificacionVOL);
+								usuarioNotificacionDTO.toString(BbvaAbstractDataTransferObject.XML);	
+								UsuarioNotificacionBO usuarioNotificacionBO = new UsuarioNotificacionBO();
+								if(Integer.parseInt(status.getSelectedItem().getValue().toString())==CommandConstants.ESTATUS_OBJETO_USUARIO_NOTIFICACION_BAJA ||
+										Integer.parseInt(status.getSelectedItem().getValue().toString())==CommandConstants.ESTATUS_OBJETO_USUARIO_NOTIFICACION_INACTIVO){						
+									UsuarioNotificacionDTO usuarioNotificacionDTOValidaExiste = new UsuarioNotificacionDTO();
+									UsuarioNotificacionVO usuarioNotificacionVOValidaExiste  = new UsuarioNotificacionVO();
+									usuarioNotificacionVOValidaExiste.setIdUsuarioNotificado(Integer.parseInt(idUsuarioNotificado.getValue()));
+									usuarioNotificacionVOValidaExiste.setTipoNotificacion(CommandConstants.TIPO_NOTIFICACION_NEGOCIO);
+									usuarioNotificacionDTOValidaExiste.setUsuarioNotificacionVO(usuarioNotificacionVOValidaExiste);
+									
+									usuarioNotificacionDTOValidaExiste = usuarioNotificacionBO.readCommandValidateExistePermiso(usuarioNotificacionDTOValidaExiste);
+									
+															
+									if (Integer.parseInt(status.getSelectedItem().getValue().toString())==CommandConstants.ESTATUS_OBJETO_USUARIO_NOTIFICACION_BAJA) {
+										controller.registrarEvento(usuarioNotificacionVOL, usuarioNotificacionVO, CommandConstants.BAJA_FALLIDA, nombrePantalla);					
+									} else if (Integer.parseInt(status.getSelectedItem().getValue().toString())==CommandConstants.ESTATUS_OBJETO_USUARIO_NOTIFICACION_INACTIVO) { 
+										controller.registrarEvento(usuarioNotificacionVOL, usuarioNotificacionVO, CommandConstants.INACTIVACION_FALLIDA, nombrePantalla);				
+									}
+									
+									if(usuarioNotificacionDTOValidaExiste.getUsuarioNotificacionVOs().get(0).getExiste()==1){							
+										org.zkoss.zul.Messagebox.show("El usuario no se puede desactivar o dar de baja debido a que esta asociado a notificaciones!!",
+												"Error", org.zkoss.zul.Messagebox.OK,
+												org.zkoss.zul.Messagebox.ERROR);
+									}else{
+										usuarioNotificacionDTO = usuarioNotificacionBO.updateCommand(usuarioNotificacionDTO);										
+										if(usuarioNotificacionDTO.getErrorCode().equals("SQL-001")){
+									    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el adminsitrador del sistema:\n"+
+									    					"\nError:"+usuarioNotificacionDTO.getErrorCode()+
+									    					"\nDescripción:"+usuarioNotificacionDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+									    }else{
+											controller.registrarEvento(usuarioNotificacionVOL, usuarioNotificacionVO, CommandConstants.MODIFICACION, nombrePantalla);
+											clean();			
+											
+											usuarioNotificacionVO = new UsuarioNotificacionVO();
+											usuarioNotificacionVO.setTipoNotificacion(CommandConstants.TIPO_NOTIFICACION_NEGOCIO);
+											usuarioNotificacionDTO.setUsuarioNotificacionVO(usuarioNotificacionVO);
+											usuarioNotificacionDTO.toString(BbvaAbstractDataTransferObject.XML);																		
+											
+											//Asignacion resultado de consulta al mismo DTO de UsuarioNotificacion
+											usuarioNotificacionDTO = usuarioNotificacionBO.readCommand(usuarioNotificacionDTO);
+											if(usuarioNotificacionDTO.getErrorCode().equals("SQL-001")){
+										    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el adminsitrador del sistema:\n"+
+										    					"\nError:"+usuarioNotificacionDTO.getErrorCode()+
+										    					"\nDescripción:"+usuarioNotificacionDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+										    }
+											
+											org.zkoss.zul.Messagebox.show("Registro actualizado con exito!!",
+													"Información", org.zkoss.zul.Messagebox.OK,
+													org.zkoss.zul.Messagebox.INFORMATION);
+											
+											usuarioNotificacionVOs = usuarioNotificacionDTO.getUsuarioNotificacionVOs();
+									    }
+									}
+								}else{						
+									usuarioNotificacionDTO = usuarioNotificacionBO.updateCommand(usuarioNotificacionDTO);
+									if(usuarioNotificacionDTO.getErrorCode().equals("SQL-001")){
+								    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el adminsitrador del sistema:\n"+
+								    					"\nError:"+usuarioNotificacionDTO.getErrorCode()+
+								    					"\nDescripción:"+usuarioNotificacionDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+								    }else{
+										controller.registrarEvento(usuarioNotificacionVOL, usuarioNotificacionVO, CommandConstants.MODIFICACION, nombrePantalla);
+										clean();			
+										
+										usuarioNotificacionVO = new UsuarioNotificacionVO();
+										usuarioNotificacionVO.setTipoNotificacion(CommandConstants.TIPO_NOTIFICACION_NEGOCIO);
+										usuarioNotificacionDTO.setUsuarioNotificacionVO(usuarioNotificacionVO);
+										usuarioNotificacionDTO.toString(BbvaAbstractDataTransferObject.XML);																		
+										
+										//Asignacion resultado de consulta al mismo DTO de UsuarioNotificacion
+										usuarioNotificacionDTO = usuarioNotificacionBO.readCommand(usuarioNotificacionDTO);
+										if(usuarioNotificacionDTO.getErrorCode().equals("SQL-001")){
+									    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el adminsitrador del sistema:\n"+
+									    					"\nError:"+usuarioNotificacionDTO.getErrorCode()+
+									    					"\nDescripción:"+usuarioNotificacionDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+									    }
+										
+										org.zkoss.zul.Messagebox.show("Registro actualizado con exito!!",
+												"Información", org.zkoss.zul.Messagebox.OK,
+												org.zkoss.zul.Messagebox.INFORMATION);
+										
+										usuarioNotificacionVOs = usuarioNotificacionDTO.getUsuarioNotificacionVOs();
+								    }
+								}
+							}
+						}else{ 
+							UsuarioNotificacionVO notificacionVOValida = new UsuarioNotificacionVO();
+							UsuarioNotificacionBO usuarioNotificacionBOValida = new UsuarioNotificacionBO();
+							UsuarioNotificacionDTO usuarioNotificacionDTOValida = new UsuarioNotificacionDTO();
+							notificacionVOValida.setTipoNotificacion(CommandConstants.TIPO_NOTIFICACION_NEGOCIO);
+							notificacionVOValida.setDescripcionEmail(email.getValue());
+							notificacionVOValida.setIdUsuarioNotificado(0);
+							notificacionVOValida.setNombreUsuarioNotificado(nombreUsuario.getValue().toUpperCase().trim());
+							usuarioNotificacionDTOValida.setUsuarioNotificacionVO(notificacionVOValida);
+							usuarioNotificacionDTOValida = usuarioNotificacionBOValida.readCommandValidateExist(usuarioNotificacionDTOValida);
+							//controller.registrarEvento(usuarioNotificacionVO, usuarioNotificacionVO, CommandConstants.MODIFICACION_FALLIDA, nombrePantalla);
+							if(usuarioNotificacionDTOValida.getUsuarioNotificacionVOs().get(0).getExiste()>0){
+								org.zkoss.zul.Messagebox.show("!Ya existe un usuario de negocio con el mismo email!",
+										"Información", org.zkoss.zul.Messagebox.OK,
+										org.zkoss.zul.Messagebox.EXCLAMATION);
+								controller.registrarEvento(usuarioNotificacionVO, usuarioNotificacionVO, CommandConstants.MODIFICACION_FALLIDA, nombrePantalla);
+							}else{
+								logger.info("::::::Crear::::");
+								UsuarioNotificacionDTO usuarioNotificacionDTO = new UsuarioNotificacionDTO();
+								UsuarioNotificacionVO usuarioNotificacionVO = new UsuarioNotificacionVO();
+								usuarioNotificacionVO.setIdUsuarioNotificado(Integer.parseInt(idUsuarioNotificado.getValue().isEmpty()?"0":idUsuarioNotificado.getValue()));
+								usuarioNotificacionVO.setIdEstatusObjeto(Integer.parseInt(status.getSelectedItem().getValue().toString()));
+								usuarioNotificacionVO.setTipoNotificacion(CommandConstants.TIPO_NOTIFICACION_NEGOCIO);
+								usuarioNotificacionVO.setNombreUsuarioNotificado(nombreUsuario.getValue().toUpperCase().trim());
+								usuarioNotificacionVO.setDescripcionEmail(email.getValue().trim());
+											
+								//Seteo de VO a DTO 
+								usuarioNotificacionDTO.setUsuarioNotificacionVO(usuarioNotificacionVO);
+								usuarioNotificacionDTO.toString(BbvaAbstractDataTransferObject.XML);	
+								
+								UsuarioNotificacionBO UsuarioNotificacionBO = new UsuarioNotificacionBO();
+				
+								usuarioNotificacionDTO = UsuarioNotificacionBO.createCommand(usuarioNotificacionDTO);
+								if(usuarioNotificacionDTO.getErrorCode().equals("SQL-001")){
+							    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el adminsitrador del sistema:\n"+
+							    					"\nError:"+usuarioNotificacionDTO.getErrorCode()+
+							    					"\nDescripción:"+usuarioNotificacionDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+							    }else{
+									UsuarioNotificacionVO notificacionNuevo = new UsuarioNotificacionVO();
+									notificacionNuevo.setTipoNotificacion("");
+									notificacionNuevo.setDescripcionEmail("");
+									notificacionNuevo.setIdUsuarioNotificado(-1);
+									notificacionNuevo.setNombreUsuarioNotificado("");
+									controller.registrarEvento(usuarioNotificacionVO, notificacionNuevo, CommandConstants.ALTA, nombrePantalla);
+									clean();	
+					
+									usuarioNotificacionVO = new UsuarioNotificacionVO();
+									usuarioNotificacionVO.setTipoNotificacion(CommandConstants.TIPO_NOTIFICACION_NEGOCIO);
+					
+									usuarioNotificacionDTO.setUsuarioNotificacionVO(usuarioNotificacionVO);
+									usuarioNotificacionDTO.toString(BbvaAbstractDataTransferObject.XML);	
+									
+									//LLamada a BO  UsuarioNotificacion para consulta por criterio
+									UsuarioNotificacionBO usuarioNotificacionBO = new UsuarioNotificacionBO();
+									
+									//Asignacion resultado de consulta al mismo DTO de UsuarioNotificacion
+									usuarioNotificacionDTO = usuarioNotificacionBO.readCommand(usuarioNotificacionDTO);
+									if(usuarioNotificacionDTO.getErrorCode().equals("SQL-001")){
+								    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el adminsitrador del sistema:\n"+
+								    					"\nError:"+usuarioNotificacionDTO.getErrorCode()+
+								    					"\nDescripción:"+usuarioNotificacionDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+								    }
+									org.zkoss.zul.Messagebox.show("Registro creado con exito!!",
+											"Información", org.zkoss.zul.Messagebox.OK,
+											org.zkoss.zul.Messagebox.INFORMATION);
+									
+									usuarioNotificacionVOs = usuarioNotificacionDTO.getUsuarioNotificacionVOs();
+							    }
+							}
 						}
-						
-						if(usuarioNotificacionDTOValidaExiste.getUsuarioNotificacionVOs().get(0).getExiste()==1){							
-							org.zkoss.zul.Messagebox.show("El usuario no se puede desactivar o dar de baja debido a que esta asociado a notificaciones!!",
-									"Error", org.zkoss.zul.Messagebox.OK,
-									org.zkoss.zul.Messagebox.ERROR);
-						}else{
-							usuarioNotificacionBO.updateCommand(usuarioNotificacionDTO);
-							controller.registrarEvento(usuarioNotificacionVO, this.usuarioNotificacionVO, CommandConstants.MODIFICACION, nombrePantalla);
-							clean();			
-							
-							usuarioNotificacionVO = new UsuarioNotificacionVO();
-							usuarioNotificacionVO.setTipoNotificacion(CommandConstants.TIPO_NOTIFICACION_NEGOCIO);
-							usuarioNotificacionDTO.setUsuarioNotificacionVO(usuarioNotificacionVO);
-							usuarioNotificacionDTO.toString(BbvaAbstractDataTransferObject.XML);																		
-							
-							//Asignacion resultado de consulta al mismo DTO de UsuarioNotificacion
-							usuarioNotificacionDTO = usuarioNotificacionBO.readCommand(usuarioNotificacionDTO);
-							
-							
-							org.zkoss.zul.Messagebox.show("Registro actualizado con exito!!",
-									"Información", org.zkoss.zul.Messagebox.OK,
-									org.zkoss.zul.Messagebox.INFORMATION);
-							
-							usuarioNotificacionVOs = usuarioNotificacionDTO.getUsuarioNotificacionVOs();
-						}
-					}else{						
-						usuarioNotificacionBO.updateCommand(usuarioNotificacionDTO);
-
-						controller.registrarEvento(usuarioNotificacionVO, this.usuarioNotificacionVO, CommandConstants.MODIFICACION, nombrePantalla);
-						clean();			
-						
-						usuarioNotificacionVO = new UsuarioNotificacionVO();
-						usuarioNotificacionVO.setTipoNotificacion(CommandConstants.TIPO_NOTIFICACION_NEGOCIO);
-						usuarioNotificacionDTO.setUsuarioNotificacionVO(usuarioNotificacionVO);
-						usuarioNotificacionDTO.toString(BbvaAbstractDataTransferObject.XML);																		
-						
-						//Asignacion resultado de consulta al mismo DTO de UsuarioNotificacion
-						usuarioNotificacionDTO = usuarioNotificacionBO.readCommand(usuarioNotificacionDTO);
-						
-						
-						org.zkoss.zul.Messagebox.show("Registro actualizado con exito!!",
-								"Información", org.zkoss.zul.Messagebox.OK,
-								org.zkoss.zul.Messagebox.INFORMATION);
-						
-						usuarioNotificacionVOs = usuarioNotificacionDTO.getUsuarioNotificacionVOs();						
+						BindUtils
+						.postGlobalCommand(
+								null,
+								null,
+								"readWithFilters",
+								null);
 					}
 				}
-			}else{ 
-				UsuarioNotificacionVO notificacionVOValida = new UsuarioNotificacionVO();
-				UsuarioNotificacionBO usuarioNotificacionBOValida = new UsuarioNotificacionBO();
-				UsuarioNotificacionDTO usuarioNotificacionDTOValida = new UsuarioNotificacionDTO();
-				notificacionVOValida.setTipoNotificacion(CommandConstants.TIPO_NOTIFICACION_NEGOCIO);
-				notificacionVOValida.setDescripcionEmail(email.getValue());
-				notificacionVOValida.setIdUsuarioNotificado(0);
-				notificacionVOValida.setNombreUsuarioNotificado(nombreUsuario.getValue().toUpperCase().trim());
-				usuarioNotificacionDTOValida.setUsuarioNotificacionVO(notificacionVOValida);
-				usuarioNotificacionDTOValida = usuarioNotificacionBOValida.readCommandValidateExist(usuarioNotificacionDTOValida);
-				controller.registrarEvento(usuarioNotificacionVO, this.usuarioNotificacionVO, CommandConstants.MODIFICACION_FALLIDA, nombrePantalla);
-				if(usuarioNotificacionDTOValida.getUsuarioNotificacionVOs().get(0).getExiste()>0){
-					org.zkoss.zul.Messagebox.show("!Ya existe un usuario de negocio con el mismo email!",
-							"Información", org.zkoss.zul.Messagebox.OK,
-							org.zkoss.zul.Messagebox.EXCLAMATION);
-				}else{
-					logger.info("::::::Crear::::");
-					UsuarioNotificacionDTO usuarioNotificacionDTO = new UsuarioNotificacionDTO();
-					UsuarioNotificacionVO usuarioNotificacionVO = new UsuarioNotificacionVO();
-					usuarioNotificacionVO.setIdUsuarioNotificado(Integer.parseInt(idUsuarioNotificado.getValue().isEmpty()?"0":idUsuarioNotificado.getValue()));
-					usuarioNotificacionVO.setIdEstatusObjeto(Integer.parseInt(status.getSelectedItem().getValue().toString()));
-					usuarioNotificacionVO.setTipoNotificacion(CommandConstants.TIPO_NOTIFICACION_NEGOCIO);
-					usuarioNotificacionVO.setNombreUsuarioNotificado(nombreUsuario.getValue().toUpperCase().trim());
-					usuarioNotificacionVO.setDescripcionEmail(email.getValue().trim());
-								
-					//Seteo de VO a DTO 
-					usuarioNotificacionDTO.setUsuarioNotificacionVO(usuarioNotificacionVO);
-					usuarioNotificacionDTO.toString(BbvaAbstractDataTransferObject.XML);	
-					
-					UsuarioNotificacionBO UsuarioNotificacionBO = new UsuarioNotificacionBO();
-	
-					UsuarioNotificacionBO.createCommand(usuarioNotificacionDTO);
-
-					UsuarioNotificacionVO notificacionNuevo = new UsuarioNotificacionVO();
-					notificacionNuevo.setTipoNotificacion("");
-					notificacionNuevo.setDescripcionEmail("");
-					notificacionNuevo.setIdUsuarioNotificado(-1);
-					notificacionNuevo.setNombreUsuarioNotificado("");
-					controller.registrarEvento(usuarioNotificacionVO, notificacionNuevo, CommandConstants.ALTA, nombrePantalla);
-					clean();	
-	
-					usuarioNotificacionVO = new UsuarioNotificacionVO();
-					usuarioNotificacionVO.setTipoNotificacion(CommandConstants.TIPO_NOTIFICACION_NEGOCIO);
-	
-					usuarioNotificacionDTO.setUsuarioNotificacionVO(usuarioNotificacionVO);
-					usuarioNotificacionDTO.toString(BbvaAbstractDataTransferObject.XML);	
-					
-					//LLamada a BO  UsuarioNotificacion para consulta por criterio
-					UsuarioNotificacionBO usuarioNotificacionBO = new UsuarioNotificacionBO();
-					
-					//Asignacion resultado de consulta al mismo DTO de UsuarioNotificacion
-					usuarioNotificacionDTO = usuarioNotificacionBO.readCommand(usuarioNotificacionDTO);
-					
-					org.zkoss.zul.Messagebox.show("Registro creo con exito!!",
-							"Información", org.zkoss.zul.Messagebox.OK,
-							org.zkoss.zul.Messagebox.INFORMATION);
-					
-					usuarioNotificacionVOs = usuarioNotificacionDTO.getUsuarioNotificacionVOs();
-				}
-			}
+			});
 		}
 	}
 
