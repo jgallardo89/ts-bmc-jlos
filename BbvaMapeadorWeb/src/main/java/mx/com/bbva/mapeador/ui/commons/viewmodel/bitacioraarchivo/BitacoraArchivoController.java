@@ -221,7 +221,7 @@ public class BitacoraArchivoController extends ControllerSupport implements  ICo
 			DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
 			for(BitacoraArchivoVO bitacoraArchivoVO: bitacoraArchivoVOs) {
 				beanGenerico = new BeanGenerico();
-				beanGenerico.setValor1(bitacoraArchivoVO.getFechaArchivo());
+				beanGenerico.setValor1(dateFormat.format(bitacoraArchivoVO.getFechaArchivo()));
 				beanGenerico.setValor2(bitacoraArchivoVO.getNombreArchivo());
 				beanGenerico.setValor3(bitacoraArchivoVO.getEstadoArchivo()); 
 				beanGenericos.add(beanGenerico);
