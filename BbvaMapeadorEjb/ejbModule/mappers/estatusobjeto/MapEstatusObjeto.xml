@@ -142,8 +142,7 @@
 		where Cd_St_Objeto = #{idEstatusObjeto}
 	</update>
 	<delete id="eliminarEstatusObjeto" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.EstatusObjetoVO">
-		update Tgm534_St_Objeto
-		Set Cd_St_Clave = 3		
+		delete from Tgm534_St_Objeto			
 		where Cd_St_Objeto = #{idEstatusObjeto}
 	</delete>
 </mapper>
