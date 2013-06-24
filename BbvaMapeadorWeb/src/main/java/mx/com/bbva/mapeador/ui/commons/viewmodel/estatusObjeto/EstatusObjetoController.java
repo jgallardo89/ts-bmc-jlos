@@ -261,12 +261,12 @@ public class EstatusObjetoController extends ControllerSupport implements IContr
 					org.zkoss.zul.Messagebox.QUESTION, new EventListener<Event>() {
 						@Override
 						public void onEvent(Event event) throws Exception {
+							EstatusObjetoDTO estatusObjetoDTO = new EstatusObjetoDTO();
+							EstatusObjetoVO estatusObjetoVOL = new EstatusObjetoVO();
 							if (event.getName().equals(org.zkoss.zul.Messagebox.ON_YES)) {
-								ReportesController controller = new ReportesController();
-								EstatusObjetoDTO estatusObjetoDTO = new EstatusObjetoDTO();
-								EstatusObjetoVO estatusObjetoVO = new EstatusObjetoVO();
-								estatusObjetoVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue()));
-								estatusObjetoDTO.setEstatusObjetoVO(estatusObjetoVO);
+								ReportesController controller = new ReportesController();								
+								estatusObjetoVOL.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue()));
+								estatusObjetoDTO.setEstatusObjetoVO(estatusObjetoVOL);
 								EstatusObjetoBO estatusObjetoBO = new EstatusObjetoBO();
 								estatusObjetoDTO.toString(BbvaAbstractDataTransferObject.XML);
 								estatusObjetoDTO = estatusObjetoBO.deleteCommand(estatusObjetoDTO);
@@ -279,10 +279,13 @@ public class EstatusObjetoController extends ControllerSupport implements IContr
 											.postGlobalCommand(
 													null,
 													null,
-													"resetGridEstatusObjetos",
+													"readWithFilters",
 													null);
-								}else{
-									controller.registrarEvento(null, null, CommandConstants.ELIMINACION,nombrePantalla);
+								}else{									
+									estatusObjetoVOL.setNombreEstatusObjeto("");
+									estatusObjetoVOL.setDescripcionEstatusObjeto("");
+									estatusObjetoVOL.setIdEstatusObjeto(-1);									
+									controller.registrarEvento(estatusObjetoVOL, estatusObjetoVO, CommandConstants.ELIMINACION,nombrePantalla);
 									org.zkoss.zul.Messagebox.show("!El registro fue eliminado!",
 											"Información", org.zkoss.zul.Messagebox.OK,
 											org.zkoss.zul.Messagebox.INFORMATION);
@@ -291,7 +294,7 @@ public class EstatusObjetoController extends ControllerSupport implements IContr
 											.postGlobalCommand(
 													null,
 													null,
-													"resetGridEstatusObjetos",
+													"readWithFilters",
 													null);
 								}
 							}
@@ -529,7 +532,7 @@ public class EstatusObjetoController extends ControllerSupport implements IContr
 		estatusObjetoVO.setDescripcionEstatusObjeto(descripcionEstatusObjeto.getValue().isEmpty()?"%":"%"+descripcionEstatusObjeto.getValue().toUpperCase()+"%");
 		estatusObjetoVO.setNombreTabla(pantallas.getValue().isEmpty()?null:pantallas.getValue().toUpperCase());
 		estatusObjetoVO.setNombreEstatusObjeto(nombreEstatusObjeto.getValue().isEmpty()?"%":"%"+nombreEstatusObjeto.getValue().toUpperCase()+"%");
-		estatusObjetoVO.setIdEstatusClave(Integer.parseInt(idEstatusClave.getValue().isEmpty()?"0":idEstatusClave.getValue()));
+		estatusObjetoVO.setIdEstatusClave(Integer.parseInt(statusClave.getSelectedItem()==null?"0":statusClave.getSelectedItem().getValue().toString()));
 		estatusObjetoDTO.setCommandId(CommandConstants.ESTATUS_OBJETO);
 		EstatusObjetoBO estatusObjetoBO = new EstatusObjetoBO();
 		estatusObjetoDTO.setEstatusObjetoVO(estatusObjetoVO);
@@ -659,31 +662,50 @@ public class EstatusObjetoController extends ControllerSupport implements IContr
 							estatusObjetoDTO.setEstatusObjetoVO(estatusObjetoVOL);
 							estatusObjetoDTO.toString(BbvaAbstractDataTransferObject.XML);
 							EstatusObjetoBO estatusObjetoBO = new EstatusObjetoBO();
-							estatusObjetoDTO = estatusObjetoBO.updateCommand(estatusObjetoDTO);
+							estatusObjetoDTO = estatusObjetoBO.updateCommand(estatusObjetoDTO);							
 							if(estatusObjetoDTO.getErrorCode().equals("SQL-001")){
 						    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
 						    					"\nError:"+estatusObjetoDTO.getErrorCode()+
 						    					"","Error de Sistema",Messagebox.OK,Messagebox.ERROR);
 							}else{
-								controller.registrarEvento(estatusObjetoVOL, estatusObjetoVO, CommandConstants.MODIFICACION, nombrePantalla);
-				
-								clean();			
-								logger.debug("*estatusObjetoVO*");
-								estatusObjetoDTO.setCommandId(CommandConstants.ESTATUS_OBJETO);
-								estatusObjetoVO = new EstatusObjetoVO();				
-								estatusObjetoVO.setDescripcionEstatusObjeto(strDescripcionEstatusObjeto==null?"%":"%"+strDescripcionEstatusObjeto.toUpperCase()+"%");
-								estatusObjetoVO.setNombreTabla(strPantallas==null?null:"%"+strPantallas.toUpperCase()+"%");
-								estatusObjetoVO.setNombreEstatusObjeto(strNombreEstatusObjeto==null?"%":"%"+strNombreEstatusObjeto.toUpperCase()+"%");
-								estatusObjetoVO.setIdEstatusObjeto(Integer.parseInt(strIdEstatusClave==null?"0":strIdEstatusClave));		
-								estatusObjetoBO = new EstatusObjetoBO();
-								estatusObjetoDTO.setEstatusObjetoVO(estatusObjetoVO);
-								estatusObjetoDTO.toString(BbvaAbstractDataTransferObject.XML);		
-								estatusObjetoDTO.setEstatusObjetoVOs(estatusObjetoBO.readCommand(estatusObjetoDTO).getEstatusObjetoVOs());
-								estatusObjetoDTO.setEstatusObjetoVO(estatusObjetoVO);
-								estatusObjetoVOs = estatusObjetoBO.readCommand(estatusObjetoDTO).getEstatusObjetoVOs();				
-								org.zkoss.zul.Messagebox.show("Registro actualizado con exito!!",
-										"Información", org.zkoss.zul.Messagebox.OK,
-										org.zkoss.zul.Messagebox.INFORMATION);
+								if(estatusObjetoDTO.getErrorCode().equals("0002")){
+									org.zkoss.zul.Messagebox.show(estatusObjetoDTO.getErrorDescription(),
+											"Error", org.zkoss.zul.Messagebox.OK,
+											org.zkoss.zul.Messagebox.ERROR);
+									if (Integer.parseInt(statusClave.getSelectedItem().getValue().toString())==CommandConstants.ID_CLAVE_BAJA) {
+										controller.registrarEvento(estatusObjetoVOL, estatusObjetoVO, CommandConstants.BAJA_FALLIDA, nombrePantalla);					
+									} else if (Integer.parseInt(statusClave.getSelectedItem().getValue().toString())==CommandConstants.ID_CLAVE_INACTIVO) { 
+										controller.registrarEvento(estatusObjetoVOL, estatusObjetoVO, CommandConstants.INACTIVACION_FALLIDA, nombrePantalla);				
+									} else {
+										controller.registrarEvento(estatusObjetoVOL, estatusObjetoVO, CommandConstants.MODIFICACION_FALLIDA, nombrePantalla);
+									}
+								}else{
+									if (Integer.parseInt(statusClave.getSelectedItem().getValue().toString())==CommandConstants.ID_CLAVE_BAJA) {
+										controller.registrarEvento(estatusObjetoVOL, estatusObjetoVO, CommandConstants.BAJA, nombrePantalla);					
+									} else if (Integer.parseInt(statusClave.getSelectedItem().getValue().toString())==CommandConstants.ID_CLAVE_INACTIVO) { 
+										controller.registrarEvento(estatusObjetoVOL, estatusObjetoVO, CommandConstants.INACTIVACION, nombrePantalla);				
+									} else {
+										controller.registrarEvento(estatusObjetoVOL, estatusObjetoVO, CommandConstants.MODIFICACION, nombrePantalla);
+									}									
+					
+									clean();			
+									logger.debug("*estatusObjetoVO*");
+									estatusObjetoDTO.setCommandId(CommandConstants.ESTATUS_OBJETO);
+									estatusObjetoVO = new EstatusObjetoVO();				
+									estatusObjetoVO.setDescripcionEstatusObjeto(strDescripcionEstatusObjeto==null?"%":"%"+strDescripcionEstatusObjeto.toUpperCase()+"%");
+									estatusObjetoVO.setNombreTabla(strPantallas==null?null:"%"+strPantallas.toUpperCase()+"%");
+									estatusObjetoVO.setNombreEstatusObjeto(strNombreEstatusObjeto==null?"%":"%"+strNombreEstatusObjeto.toUpperCase()+"%");
+									estatusObjetoVO.setIdEstatusObjeto(Integer.parseInt(strIdEstatusClave==null?"0":strIdEstatusClave));		
+									estatusObjetoBO = new EstatusObjetoBO();
+									estatusObjetoDTO.setEstatusObjetoVO(estatusObjetoVO);
+									estatusObjetoDTO.toString(BbvaAbstractDataTransferObject.XML);		
+									estatusObjetoDTO.setEstatusObjetoVOs(estatusObjetoBO.readCommand(estatusObjetoDTO).getEstatusObjetoVOs());
+									estatusObjetoDTO.setEstatusObjetoVO(estatusObjetoVO);
+									estatusObjetoVOs = estatusObjetoBO.readCommand(estatusObjetoDTO).getEstatusObjetoVOs();				
+									org.zkoss.zul.Messagebox.show("Registro actualizado con exito!!",
+											"Información", org.zkoss.zul.Messagebox.OK,
+											org.zkoss.zul.Messagebox.INFORMATION);
+								}
 							}
 						}
 						BindUtils
