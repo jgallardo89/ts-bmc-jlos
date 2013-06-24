@@ -773,13 +773,13 @@ public class PerfilController extends ControllerSupport implements  IController{
 											Messagebox.EXCLAMATION);
 								}else{
 									PerfilDTO perfilDTOL = new PerfilDTO();
-									PerfilVO perfilVO = new PerfilVO();
-									perfilVO.setNombrebPerfil(nombrePerfil.getValue()==null?"":nombrePerfil.getValue().toUpperCase().trim());
-									perfilVO.setDescripcionPerfil(descripcionPerfil.getValue()==null?"":descripcionPerfil.getValue().toUpperCase().trim());
-									perfilVO.setEstatusPerfil(Integer.parseInt(status.getSelectedItem().getValue().toString()));
-									perfilVO.setDescipcionEstatus(status.getSelectedItem().getLabel());
-									perfilVO.setIdPerfil(Integer.parseInt(idPerfil.getValue()));
-									perfilVO.setIdPantalla(pantallas.getSelectedItem()==null?0:Integer.parseInt(pantallas.getSelectedItem().getValue().toString()));
+									PerfilVO perfilVOL = new PerfilVO();
+									perfilVOL.setNombrebPerfil(nombrePerfil.getValue()==null?"":nombrePerfil.getValue().toUpperCase().trim());
+									perfilVOL.setDescripcionPerfil(descripcionPerfil.getValue()==null?"":descripcionPerfil.getValue().toUpperCase().trim());
+									perfilVOL.setEstatusPerfil(Integer.parseInt(status.getSelectedItem().getValue().toString()));
+									perfilVOL.setDescipcionEstatus(status.getSelectedItem().getLabel());
+									perfilVOL.setIdPerfil(Integer.parseInt(idPerfil.getValue()));
+									perfilVOL.setIdPantalla(pantallas.getSelectedItem()==null?0:Integer.parseInt(pantallas.getSelectedItem().getValue().toString()));
 									List<ControlPermisoVO> controlPermisoVOs = null;
 									controlPermisoVOs = new ArrayList<ControlPermisoVO>();
 									ControlPermisoVO controlPermisoVO;
@@ -792,9 +792,9 @@ public class PerfilController extends ControllerSupport implements  IController{
 											controlPermisoVO.setNombreComponente(componenteVO.getNombreComponente());
 											controlPermisoVOs.add(controlPermisoVO);
 										}		
-										perfilVO.setControlPermisoVOs(controlPermisoVOs);
+										perfilVOL.setControlPermisoVOs(controlPermisoVOs);
 									}
-									perfilDTOL.setPerfilVO(perfilVO);		
+									perfilDTOL.setPerfilVO(perfilVOL);		
 									perfilDTOL.toString(BbvaAbstractDataTransferObject.XML);
 									PerfilBO perfilBO = new PerfilBO();
 									perfilDTOL = perfilBO.updateCommand(perfilDTOL);
