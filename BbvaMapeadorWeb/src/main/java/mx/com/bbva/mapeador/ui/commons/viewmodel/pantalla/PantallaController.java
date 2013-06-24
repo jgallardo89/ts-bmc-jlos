@@ -744,9 +744,9 @@ public class PantallaController extends ControllerSupport implements  IControlle
 						    					"","Error de Sistema",Messagebox.OK,Messagebox.ERROR);
 						    }else{
 								if (Integer.parseInt(status.getSelectedItem().getValue().toString())==CommandConstants.ID_PANTALLA_BAJA) {
-									controller.registrarEvento(pantallaVOL, pantallaVO, CommandConstants.BAJA_FALLIDA, tituloPantalla);					
+									controller.registrarEvento(pantallaVOL, pantallaVO, CommandConstants.BAJA, tituloPantalla);					
 								} else if (Integer.parseInt(status.getSelectedItem().getValue().toString())==CommandConstants.ID_PANTALLA_INACTIVO) { 
-									controller.registrarEvento(pantallaVOL, pantallaVO, CommandConstants.INACTIVACION_FALLIDA, tituloPantalla);
+									controller.registrarEvento(pantallaVOL, pantallaVO, CommandConstants.INACTIVACION, tituloPantalla);
 								} else {				
 									controller.registrarEvento(pantallaVOL, pantallaVO, CommandConstants.MODIFICACION, tituloPantalla);
 								}
