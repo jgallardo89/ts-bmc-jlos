@@ -475,6 +475,8 @@ public class ContratacionController extends ControllerSupport implements IContro
 		idEstatusObjeto.setValue(null);
 		idProducto.setValue(null);
 		idCliente.setValue(null);
+		fechaAlta.setValue(null);
+		fechaModificacion.setValue(null);
 		botonGuardar = true;
 		botonEditar = true;
 		enabledComponents();
@@ -620,6 +622,8 @@ public class ContratacionController extends ControllerSupport implements IContro
 		idEstatusObjeto.setValue(String.valueOf(contratacionVO.getIdEstatusObjeto()));
 		idProducto.setValue(String.valueOf(contratacionVO.getIdProducto()));
 		idCliente.setValue(String.valueOf(contratacionVO.getIdCliente()));
+		
+
 	}
 
 	/**
@@ -849,7 +853,8 @@ public class ContratacionController extends ControllerSupport implements IContro
 	@NotifyChange({ "botonEditar","botonGuardar" })
 	public void readSelected(@BindingParam("idContratacion") final ContratacionVO contratacionVO){
 		insertaContratacionVO(contratacionVO);
-		
+		fechaAlta.setValue(contratacionVO.getFechaAlta());
+		fechaModificacion.setValue(contratacionVO.getFechaModificacion());
 		Sessions.getCurrent().setAttribute("contratacionVO", contratacionVO);
 		this.contratacionVO = contratacionVO;
 		setBotonEditar(false);
@@ -870,8 +875,7 @@ public class ContratacionController extends ControllerSupport implements IContro
 	/**
 	 * Read with filters.
 	 */
-	@Command
-	@GlobalCommand
+	@Command	
 	@NotifyChange({ "contratacionVOs" })
 	public void readWithFilters() {
 		ContratacionDTO contratacionDTO = new ContratacionDTO();
@@ -886,9 +890,22 @@ public class ContratacionController extends ControllerSupport implements IContro
 		ContratacionBO contratacionBO = new ContratacionBO();
 		contratacionVOs = contratacionBO.readCommand(contratacionDTO).getContratacionVOs();
 		botonEditar = true;
-		registraBitacora(contratacionVO, CommandConstants.CONSULTAR);		
+		ReportesController controller = new ReportesController();
+		controller.registrarEvento(null, null, CommandConstants.CONSULTAR, "CONTRATACIÓN");
+		//registraBitacora(contratacionVO, CommandConstants.CONSULTAR);		
 	}
-
+	
+	@GlobalCommand
+	@NotifyChange({ "contratacionVOs" })
+	public void readWithOutFilters() {
+		ContratacionDTO contratacionDTO = new ContratacionDTO();
+		ContratacionVO contratacionVO = new ContratacionVO();				
+		contratacionVO.toString();
+		contratacionDTO.setContratacionVO(contratacionVO);
+		ContratacionBO contratacionBO = new ContratacionBO();
+		contratacionVOs = contratacionBO.readCommand(contratacionDTO).getContratacionVOs();
+		botonEditar = true;		
+	}
 	/**
 	 * Registra bitacora.
 	 *
@@ -1067,7 +1084,7 @@ public class ContratacionController extends ControllerSupport implements IContro
 						.postGlobalCommand(
 								null,
 								null,
-								"readWithFilters",
+								"readWithOutFilters",
 								null);
 					}
 				}

@@ -51,6 +51,7 @@ import mx.com.bbva.bancomer.mappers.mapagmm.dto.MapaGmmDTO;
 import mx.com.bbva.bancomer.mensajesalida.dto.MensajeSalidaDTO;
 import mx.com.bbva.bancomer.usuarionotificacion.dto.UsuarioNotificacionDTO;
 import mx.com.bbva.mapeador.ui.commons.controller.IController;
+import mx.com.bbva.mapeador.ui.commons.viewmodel.reportes.ReportesController;
 import mx.com.bbva.mapeador.ui.commons.viewmodel.support.ControllerSupport;
 
 import org.zkoss.bind.annotation.AfterCompose;
@@ -666,6 +667,7 @@ public class FlujoContratacionController extends Div implements IController, IdS
 	@NotifyChange({"guardarBtn"})
 	public void save() {
 		boolean errorGuardar = false;
+		final ReportesController controller = new ReportesController();
 		if (mapaGMM.getSelectedItem() == null
 				|| mapaGMM.getSelectedItem().getValue() == null
 				|| mapaGMM.getSelectedItem().getValue().toString().isEmpty()) {
@@ -729,7 +731,16 @@ public class FlujoContratacionController extends Div implements IController, IdS
 						    					"\nError:"+contratacionMapDTO.getErrorCode()+
 						    					"","Error de Sistema",Messagebox.OK,Messagebox.ERROR);
 							}else{
-								registraBitacora(contratacionMapVO, CommandConstants.ALTA);
+								//registraBitacora(contratacionMapVO, CommandConstants.ALTA);
+								ContratacionMapVO contratacionMapVONuevo = new ContratacionMapVO();
+								contratacionMapVONuevo.setIdMapaGmm(-1);
+								contratacionMapVONuevo.setIdFlujo(-1);
+								contratacionMapVONuevo.setIdEtapa(-1);
+								contratacionMapVONuevo.setIdContratacion(-1);
+								contratacionMapVONuevo.setEstatusNotificacion(" ".charAt(0));
+								contratacionMapVONuevo.setIdMensajeSalida(-1);
+								contratacionMapVONuevo.setDescripcionIdUsuarios("");								
+								controller.registrarEvento(contratacionMapVO, contratacionMapVONuevo, CommandConstants.ALTA,"CONTRATACIÓN");
 								org.zkoss.zul.Messagebox.show("!La Contratación fue guardada exitosamente!",
 										"Información", org.zkoss.zul.Messagebox.OK,
 										org.zkoss.zul.Messagebox.INFORMATION);
@@ -745,6 +756,7 @@ public class FlujoContratacionController extends Div implements IController, IdS
 						    					"","Error de Sistema",Messagebox.OK,Messagebox.ERROR);
 							}else{
 								registraBitacora(contratacionMapVO, CommandConstants.MODIFICACION);
+								//controller.registrarEvento(contratacionMapVO, contratacionMapVONuevo, CommandConstants.ALTA,"CONTRATACIÓN");
 								org.zkoss.zul.Messagebox.show("!La Actualización de la Contratación fue exitosa!",
 										"Información", org.zkoss.zul.Messagebox.OK,
 										org.zkoss.zul.Messagebox.INFORMATION);
