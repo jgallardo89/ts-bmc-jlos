@@ -125,6 +125,9 @@ public abstract interface CommandConstants {
 	/** The Constant ESTATUS_CLAVE. */
 	public static final int ESTATUS_CLAVE = 3;
 	
+	public static final int ID_CLAVE_BAJA = 3;
+	public static final int ID_CLAVE_INACTIVO = 2;
+	
 	/** The Constant ESTATUS_OBJETO. */
 	public static final int ESTATUS_OBJETO = 2;
 	
