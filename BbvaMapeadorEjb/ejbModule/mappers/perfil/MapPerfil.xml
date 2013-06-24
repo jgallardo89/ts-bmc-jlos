@@ -65,7 +65,7 @@
 		Where Cd_Componente = #{idComponente} 
 			  and Cd_Perfil = #{idPerfil}
 	</delete>
-	<insert id="insertarPerfil" keyProperty="idPantalla" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.PerfilVO">
+	<insert id="insertarPerfil" keyProperty="idPerfil" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.PerfilVO">
 		<selectKey keyProperty="idPerfil" resultType="int" order="BEFORE"> 
 			<![CDATA[ select SQ_504_PERFIL.nextval as idPerfil from dual ]]> 
 		</selectKey>
