@@ -107,8 +107,7 @@ public class EstatusObjetoBO implements mx.com.bbva.bancomer.commons.business.Bb
 			logger.debug("revisando si nulo:"+estatusObjetoVOexist);
 			if(estatusObjetoVOexist==null){				
 				mapEstatusObjeto.eliminarEstatusObjeto(estatusObjetoVO);
-			}
-			else{ 
+			}else{ 
 				bbvaAbstractDataTransferObject.setErrorCode("0002");
 				bbvaAbstractDataTransferObject.setErrorDescription("El registro contiene referencias por lo que no pudo ser eliminado");
 			}
@@ -245,7 +244,15 @@ public class EstatusObjetoBO implements mx.com.bbva.bancomer.commons.business.Bb
 				.openSession();
 		MapEstatusObjeto mapEstatusObjeto = session.getMapper(MapEstatusObjeto.class);
 		try {
-			mapEstatusObjeto.actualizaEstatusObjeto(estatusObjetoVO);
+			logger.debug("revisando id:"+estatusObjetoVO.getIdEstatusObjeto());
+			EstatusObjetoVO estatusObjetoVOexist = mapEstatusObjeto.existEstatusObjeto(estatusObjetoVO);
+			logger.debug("revisando si nulo:"+estatusObjetoVOexist);
+			if(estatusObjetoVOexist==null){	
+				mapEstatusObjeto.actualizaEstatusObjeto(estatusObjetoVO);
+			}else{ 
+				bbvaAbstractDataTransferObject.setErrorCode("0002");
+				bbvaAbstractDataTransferObject.setErrorDescription("El registro contiene referencias por lo que no pudo ser dado de baja o inactivado");
+			}
 			session.commit();
 		} catch (Exception ex) {
 			session.rollback();
