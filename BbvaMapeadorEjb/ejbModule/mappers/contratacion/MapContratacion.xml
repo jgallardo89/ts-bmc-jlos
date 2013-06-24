@@ -92,7 +92,8 @@
 	</insert>
 	<update id="actualizarContratacion" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.ContratacionVO">
 	    UPDATE TGM519_CNTRATACION
-		Set CD_ST_OBJETO = #{idEstatusObjeto}
+		Set CD_ST_OBJETO = #{idEstatusObjeto},
+		tm_modificacion = sysdate
 		where CD_CONTRATACION = #{idContratacion}
 	</update>
 	<select id="obtenerCmbCanales" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.CanalVO"
