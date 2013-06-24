@@ -287,7 +287,7 @@ public class PerfilController extends ControllerSupport implements  IController{
 		descripcionPerfil.setValue(null);
 		status.setValue(CommandConstants.NB_PERFIL_ACTIVO);
 		pantallas.setSelectedItem(null);
-		
+		pantallas.setDisabled(true);
 		idPerfil.setValue("0");
 		
 		componentePantallaDTO = null;
@@ -547,8 +547,9 @@ public class PerfilController extends ControllerSupport implements  IController{
 	/**
 	 * Read componentes pantalla.
 	 */
+	@GlobalCommand
 	@Command
-	@NotifyChange({"componentePantallaDTO", "componentePantallaPerfilDTO"})
+	@NotifyChange({"componentePantallaDTO", "componentePantallaPerfilDTO", "componentePantallaPerfilAllDTO"})
 	public void readComponentesPantalla(){
 		ComponenteVO componenteVO = new ComponenteVO();
 		if(pantallas.getSelectedItem()!=null){
@@ -573,6 +574,13 @@ public class PerfilController extends ControllerSupport implements  IController{
 				componentePantallaPerfilAllDTO.setCommandId(CommandConstants.COMPONENTE_PANTALLA_PERFIL_ALL);
 				componentePantallaPerfilAllDTO.setComponenteVO(componenteVO);
 				componentePantallaPerfilAllDTO = componenteBO.readCommand(componentePantallaPerfilAllDTO);
+								
+				componenteVO.setIdPerfil(Integer.parseInt(idPerfil.getValue().toString()));
+				componentePantallaPerfilAllDTO = new ComponenteDTO();
+				componentePantallaPerfilAllDTO.setCommandId(CommandConstants.COMPONENTE_PANTALLA_PERFIL_ALL);
+				componentePantallaPerfilAllDTO.setComponenteVO(componenteVO);
+				componentePantallaPerfilAllDTO = componenteBO.readCommand(componentePantallaPerfilAllDTO);
+				componentePantallaPerfilAllDTO.toString(BbvaAbstractDataTransferObject.XML);
 			}
 		}else{
 			componentePantallaDTO = null;
@@ -614,6 +622,18 @@ public class PerfilController extends ControllerSupport implements  IController{
 		componentePantallaPerfilAllDTO.toString(BbvaAbstractDataTransferObject.XML);
 	}
 	
+	@GlobalCommand
+	@Command
+	@NotifyChange({ "perfilVOs" })
+	public void readWithOutFilters() {
+		PerfilVO perfilVO = new PerfilVO();
+		perfilVO.setEstatusPerfil(CommandConstants.ID_PERFIL_ACTIVO);
+		PerfilBO perfilBO = new PerfilBO();							
+		perfilDTO.setPerfilVO(perfilVO);
+		perfilDTO.setCommandId(CommandConstants.PERFIL_COMMAND_READ_ALL);
+		perfilDTO = perfilBO.readCommand(perfilDTO);		 			
+		perfilVOs = perfilDTO.getPerfilVOs();
+	}
 	/**
 	 * Read with filters.
 	 */
@@ -847,13 +867,15 @@ public class PerfilController extends ControllerSupport implements  IController{
 							    					"","Error de Sistema",Messagebox.OK,Messagebox.ERROR);
 								}else{
 									controller.registrarEventoPerfil(perfilDTOL, perfilDTO, CommandConstants.ALTA, nombrePantalla);
-									
+									logger.debug("ID Perfil Creado:"+perfilDTOL.getPerfilVO().getIdPerfil());
+									idPerfil.setValue(Integer.toString(perfilDTOL.getPerfilVO().getIdPerfil()));
 									perfilDTOL = (PerfilDTO)read();
 									perfilVOs = perfilDTOL.getPerfilVOs();
 									//clean();
 									Messagebox.show("Registro creado con exito!!",
 											"Información", Messagebox.OK,
 											Messagebox.INFORMATION);
+									pantallas.setDisabled(false);
 								}
 							}
 						}	
@@ -861,8 +883,14 @@ public class PerfilController extends ControllerSupport implements  IController{
 						.postGlobalCommand(
 								null,
 								null,
-								"readWithFilters",
+								"readWithOutFilters",
 								null);
+						BindUtils
+						.postGlobalCommand(
+								null,
+								null,
+								"readComponentesPantalla",
+								null);						
 //						BindUtils
 //						.postGlobalCommand(
 //								null,
