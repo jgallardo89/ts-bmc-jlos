@@ -1,0 +1,517 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteGenerico" language="groovy" pageWidth="1850" pageHeight="1000" columnWidth="1810" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isIgnorePagination="true" uuid="a47e7261-5add-43d4-8f89-7f95c04b3399">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="1054"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="0.5" lineColor="#094FA4"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#73B0E6">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#CFDBE6">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" forecolor="#094FA4" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#094FA4"/>
+		</box>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue()%2==0)]]></conditionExpression>
+			<style backcolor="#89D1F3" isBold="true">
+				<box>
+					<pen lineWidth="0.5" lineColor="#89D1F3"/>
+				</box>
+			</style>
+		</conditionalStyle>
+	</style>
+	<style name="table 1">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 5">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 5_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 5_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 5_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 6">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 6_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 6_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 6_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 7">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 7_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 7_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 7_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 8">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 8_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 8_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 8_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 9">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 9_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 9_CH" mode="Opaque" backcolor="#094FA4">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="DatasetCatalogo" uuid="0724c886-b22a-43a9-9569-b3093856e77e">
+		<parameter name="parameter1" class="java.lang.String"/>
+		<parameter name="parameter2" class="java.lang.String"/>
+		<parameter name="parameter3" class="java.lang.String"/>
+		<parameter name="parameter4" class="java.lang.String"/>
+		<parameter name="dataSource" class="java.util.Collection"/>
+		<parameter name="parameter5" class="java.lang.String"/>
+		<parameter name="parameter6" class="java.lang.String"/>
+		<parameter name="parameter7" class="java.lang.String"/>
+		<field name="valor1" class="java.lang.String"/>
+		<field name="valor2" class="java.lang.String"/>
+		<field name="valor3" class="java.lang.String"/>
+		<field name="valor4" class="java.lang.String"/>
+		<field name="valor5" class="java.lang.String"/>
+		<field name="valor6" class="java.lang.String"/>
+		<field name="valor7" class="java.lang.String"/>
+	</subDataset>
+	<parameter name="ReportTitle" class="java.lang.String"/>
+	<parameter name="parameter1" class="java.lang.String"/>
+	<parameter name="parameter2" class="java.lang.String"/>
+	<parameter name="parameter3" class="java.lang.String"/>
+	<parameter name="parameter4" class="java.lang.String"/>
+	<parameter name="parameter5" class="java.lang.String"/>
+	<parameter name="parameter6" class="java.lang.String"/>
+	<parameter name="dataSource" class="java.lang.Object"/>
+	<parameter name="parameter7" class="java.lang.String"/>
+	<parameter name="imagen" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="125">
+			<elementGroup>
+				<elementGroup/>
+			</elementGroup>
+			<elementGroup>
+				<componentElement>
+					<reportElement uuid="667b1223-f960-4fa6-aa2d-349643642528" key="table 9" style="table" stretchType="RelativeToTallestObject" mode="Transparent" x="0" y="0" width="1810" height="125" isPrintWhenDetailOverflows="true" forecolor="#FFFFFF" backcolor="#094FA4"/>
+					<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+						<datasetRun subDataset="DatasetCatalogo" uuid="6cf0c815-2045-40e0-9860-9a1f687f4ff6">
+							<parametersMapExpression><![CDATA[]]></parametersMapExpression>
+							<datasetParameter name="parameter1">
+								<datasetParameterExpression><![CDATA[$P{parameter1}]]></datasetParameterExpression>
+							</datasetParameter>
+							<datasetParameter name="parameter2">
+								<datasetParameterExpression><![CDATA[$P{parameter2}]]></datasetParameterExpression>
+							</datasetParameter>
+							<datasetParameter name="parameter3">
+								<datasetParameterExpression><![CDATA[$P{parameter3}]]></datasetParameterExpression>
+							</datasetParameter>
+							<datasetParameter name="parameter4">
+								<datasetParameterExpression><![CDATA[$P{parameter4}]]></datasetParameterExpression>
+							</datasetParameter>
+							<datasetParameter name="parameter5">
+								<datasetParameterExpression><![CDATA[$P{parameter5}]]></datasetParameterExpression>
+							</datasetParameter>
+							<datasetParameter name="parameter6">
+								<datasetParameterExpression><![CDATA[$P{parameter6}]]></datasetParameterExpression>
+							</datasetParameter>
+							<dataSourceExpression><![CDATA[$P{dataSource}]]></dataSourceExpression>
+						</datasetRun>
+						<jr:column width="322" uuid="e0472c9c-579a-4b15-a130-1e6fa0fdece9">
+							<jr:columnHeader style="table 9_CH" height="30" rowSpan="1">
+								<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+									<pen lineStyle="Solid" lineColor="#094FA4"/>
+									<topPen lineStyle="Solid" lineColor="#094FA4"/>
+									<leftPen lineStyle="Solid" lineColor="#094FA4"/>
+									<bottomPen lineStyle="Solid" lineColor="#094FA4"/>
+									<rightPen lineStyle="Solid" lineColor="#094FA4"/>
+								</box>
+								<textField>
+									<reportElement uuid="aa92c624-e89e-4e7e-b7d8-34452cef3361" x="0" y="0" width="322" height="30" forecolor="#FFFFFF"/>
+									<textElement verticalAlignment="Middle">
+										<font size="12" isBold="true"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$P{parameter1}]]></textFieldExpression>
+								</textField>
+							</jr:columnHeader>
+							<jr:detailCell style="table_TD" height="29" rowSpan="1">
+								<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+									<pen lineColor="#094FA4"/>
+									<topPen lineColor="#094FA4"/>
+									<leftPen lineColor="#094FA4"/>
+									<bottomPen lineColor="#094FA4"/>
+									<rightPen lineColor="#094FA4"/>
+								</box>
+								<elementGroup>
+									<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+										<reportElement uuid="58d5e849-5ff7-40b1-a081-e120e18ed99c" style="table_TD" positionType="Float" stretchType="RelativeToTallestObject" x="0" y="0" width="322" height="29" isPrintWhenDetailOverflows="true" forecolor="#094FA4"/>
+										<box>
+											<pen lineWidth="0.0" lineColor="#094FA4"/>
+											<topPen lineWidth="0.0" lineColor="#094FA4"/>
+											<leftPen lineWidth="0.0" lineColor="#094FA4"/>
+											<bottomPen lineWidth="0.0" lineColor="#094FA4"/>
+											<rightPen lineWidth="0.0" lineColor="#094FA4"/>
+										</box>
+										<textElement/>
+										<textFieldExpression><![CDATA[$F{valor1}]]></textFieldExpression>
+									</textField>
+								</elementGroup>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="303" uuid="b640310b-8ebd-432f-b637-c9df919aff07">
+							<jr:columnHeader style="table 9_CH" height="30" rowSpan="1">
+								<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+									<pen lineStyle="Solid" lineColor="#094FA4"/>
+									<topPen lineStyle="Solid" lineColor="#094FA4"/>
+									<leftPen lineStyle="Solid" lineColor="#094FA4"/>
+									<bottomPen lineStyle="Solid" lineColor="#094FA4"/>
+									<rightPen lineStyle="Solid" lineColor="#094FA4"/>
+								</box>
+								<textField>
+									<reportElement uuid="e379430d-aa8f-489d-92bf-8b8ddf9c0c37" x="0" y="0" width="303" height="30" forecolor="#FFFFFF"/>
+									<textElement verticalAlignment="Middle">
+										<font size="12" isBold="true"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$P{parameter2}]]></textFieldExpression>
+								</textField>
+							</jr:columnHeader>
+							<jr:detailCell style="table_TD" height="29" rowSpan="1">
+								<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+									<pen lineColor="#094FA4"/>
+									<topPen lineColor="#094FA4"/>
+									<leftPen lineColor="#094FA4"/>
+									<bottomPen lineColor="#094FA4"/>
+									<rightPen lineColor="#094FA4"/>
+								</box>
+								<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+									<reportElement uuid="cf696c77-fd41-4aa5-98b9-dec9bf3349a9" style="table_TD" positionType="Float" stretchType="RelativeToTallestObject" x="0" y="0" width="303" height="29" isPrintWhenDetailOverflows="true" forecolor="#094FA4"/>
+									<box>
+										<pen lineWidth="0.0" lineColor="#094FA4"/>
+										<topPen lineWidth="0.0" lineColor="#094FA4"/>
+										<leftPen lineWidth="0.0" lineColor="#094FA4"/>
+										<bottomPen lineWidth="0.0" lineColor="#094FA4"/>
+										<rightPen lineWidth="0.0" lineColor="#094FA4"/>
+									</box>
+									<textElement/>
+									<textFieldExpression><![CDATA[$F{valor2}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="303" uuid="3ed91bc4-74d9-43b5-8ca8-e3b377edcbbf">
+							<jr:columnHeader style="table 9_CH" height="30" rowSpan="1">
+								<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+									<pen lineStyle="Solid" lineColor="#094FA4"/>
+									<topPen lineStyle="Solid" lineColor="#094FA4"/>
+									<leftPen lineStyle="Solid" lineColor="#094FA4"/>
+									<bottomPen lineStyle="Solid" lineColor="#094FA4"/>
+									<rightPen lineStyle="Solid" lineColor="#094FA4"/>
+								</box>
+								<textField>
+									<reportElement uuid="99e7914b-bb22-4f3f-97ac-dc1fef32569f" x="0" y="0" width="303" height="30" forecolor="#FFFFFF"/>
+									<textElement verticalAlignment="Middle">
+										<font size="12" isBold="true"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$P{parameter3}]]></textFieldExpression>
+								</textField>
+							</jr:columnHeader>
+							<jr:detailCell style="table_TD" height="29" rowSpan="1">
+								<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+									<pen lineColor="#094FA4"/>
+									<topPen lineColor="#094FA4"/>
+									<leftPen lineColor="#094FA4"/>
+									<bottomPen lineColor="#094FA4"/>
+									<rightPen lineColor="#094FA4"/>
+								</box>
+								<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+									<reportElement uuid="47dca3aa-a831-485e-b67b-fdb4d76d2c7e" style="table_TD" positionType="Float" stretchType="RelativeToTallestObject" x="0" y="0" width="303" height="29" isPrintWhenDetailOverflows="true" forecolor="#094FA4"/>
+									<box>
+										<pen lineWidth="0.0" lineColor="#094FA4"/>
+										<topPen lineWidth="0.0" lineColor="#094FA4"/>
+										<leftPen lineWidth="0.0" lineColor="#094FA4"/>
+										<bottomPen lineWidth="0.0" lineColor="#094FA4"/>
+										<rightPen lineWidth="0.0" lineColor="#094FA4"/>
+									</box>
+									<textElement/>
+									<textFieldExpression><![CDATA[$F{valor3}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="326" uuid="da781ca4-2be4-4bfd-975c-6032783b75ce">
+							<jr:columnHeader style="table 9_CH" height="30" rowSpan="1">
+								<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+									<pen lineStyle="Solid" lineColor="#094FA4"/>
+									<topPen lineStyle="Solid" lineColor="#094FA4"/>
+									<leftPen lineStyle="Solid" lineColor="#094FA4"/>
+									<bottomPen lineStyle="Solid" lineColor="#094FA4"/>
+									<rightPen lineStyle="Solid" lineColor="#094FA4"/>
+								</box>
+								<textField>
+									<reportElement uuid="1b77ca9f-2e1b-4a0c-9967-649ebc079196" x="0" y="0" width="326" height="30" forecolor="#FFFFFF"/>
+									<textElement verticalAlignment="Middle">
+										<font size="12" isBold="true"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$P{parameter4}]]></textFieldExpression>
+								</textField>
+							</jr:columnHeader>
+							<jr:detailCell style="table_TD" height="29" rowSpan="1">
+								<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+									<pen lineColor="#094FA4"/>
+									<topPen lineColor="#094FA4"/>
+									<leftPen lineColor="#094FA4"/>
+									<bottomPen lineColor="#094FA4"/>
+									<rightPen lineColor="#094FA4"/>
+								</box>
+								<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+									<reportElement uuid="4abd4a9d-fba7-4e7a-abd8-92a72cdb3aa8" style="table_TD" positionType="Float" stretchType="RelativeToTallestObject" x="0" y="0" width="326" height="29" isPrintWhenDetailOverflows="true" forecolor="#094FA4"/>
+									<box>
+										<pen lineWidth="0.0" lineColor="#094FA4"/>
+										<topPen lineWidth="0.0" lineColor="#094FA4"/>
+										<leftPen lineWidth="0.0" lineColor="#094FA4"/>
+										<bottomPen lineWidth="0.0" lineColor="#094FA4"/>
+										<rightPen lineWidth="0.0" lineColor="#094FA4"/>
+									</box>
+									<textElement/>
+									<textFieldExpression><![CDATA[$F{valor4}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="296" uuid="a973be05-352b-4927-9085-8a2ec66dbee8">
+							<jr:columnHeader style="table 9_CH" height="30" rowSpan="1">
+								<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+									<pen lineStyle="Solid" lineColor="#094FA4"/>
+									<topPen lineStyle="Solid" lineColor="#094FA4"/>
+									<leftPen lineStyle="Solid" lineColor="#094FA4"/>
+									<bottomPen lineStyle="Solid" lineColor="#094FA4"/>
+									<rightPen lineStyle="Solid" lineColor="#094FA4"/>
+								</box>
+								<textField>
+									<reportElement uuid="41456c9b-3601-4133-bc53-89a9d4e4ed95" x="0" y="0" width="296" height="30" forecolor="#FFFFFF"/>
+									<textElement verticalAlignment="Middle">
+										<font size="12" isBold="true"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$P{parameter5}]]></textFieldExpression>
+								</textField>
+							</jr:columnHeader>
+							<jr:detailCell style="table_TD" height="29" rowSpan="1">
+								<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+									<pen lineColor="#094FA4"/>
+									<topPen lineColor="#094FA4"/>
+									<leftPen lineColor="#094FA4"/>
+									<bottomPen lineColor="#094FA4"/>
+									<rightPen lineColor="#094FA4"/>
+								</box>
+								<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+									<reportElement uuid="e5afe252-3c75-44d6-8173-df082eb359da" style="table_TD" positionType="Float" stretchType="RelativeToTallestObject" x="0" y="0" width="296" height="29" isPrintWhenDetailOverflows="true" forecolor="#094FA4"/>
+									<box>
+										<pen lineWidth="0.0" lineColor="#094FA4"/>
+										<topPen lineWidth="0.0" lineColor="#094FA4"/>
+										<leftPen lineWidth="0.0" lineColor="#094FA4"/>
+										<bottomPen lineWidth="0.0" lineColor="#094FA4"/>
+										<rightPen lineWidth="0.0" lineColor="#094FA4"/>
+									</box>
+									<textElement/>
+									<textFieldExpression><![CDATA[$F{valor5}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="260" uuid="f07e9438-9697-43ca-a8f5-1ef71452280b">
+							<jr:columnHeader style="table 9_CH" height="30" rowSpan="1">
+								<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+									<pen lineStyle="Solid" lineColor="#094FA4"/>
+									<topPen lineStyle="Solid" lineColor="#094FA4"/>
+									<leftPen lineStyle="Solid" lineColor="#094FA4"/>
+									<bottomPen lineStyle="Solid" lineColor="#094FA4"/>
+									<rightPen lineStyle="Solid" lineColor="#094FA4"/>
+								</box>
+								<textField>
+									<reportElement uuid="f29fd252-cc00-47ec-a19c-c6228034ffbb" x="0" y="0" width="260" height="30" forecolor="#FFFFFF"/>
+									<textElement verticalAlignment="Middle">
+										<font size="12" isBold="true"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$P{parameter6}]]></textFieldExpression>
+								</textField>
+							</jr:columnHeader>
+							<jr:detailCell style="table_TD" height="29" rowSpan="1">
+								<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+									<pen lineColor="#094FA4"/>
+									<topPen lineColor="#094FA4"/>
+									<leftPen lineColor="#094FA4"/>
+									<bottomPen lineColor="#094FA4"/>
+									<rightPen lineColor="#094FA4"/>
+								</box>
+								<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+									<reportElement uuid="e418bb47-7c24-4286-9037-3e8a27b1886e" style="table_TD" positionType="Float" stretchType="RelativeToTallestObject" mode="Opaque" x="0" y="0" width="260" height="29" isPrintWhenDetailOverflows="true" forecolor="#094FA4"/>
+									<box>
+										<pen lineWidth="0.0"/>
+										<topPen lineWidth="0.0"/>
+										<leftPen lineWidth="0.0"/>
+										<bottomPen lineWidth="0.0"/>
+										<rightPen lineWidth="0.0"/>
+									</box>
+									<textElement/>
+									<textFieldExpression><![CDATA[$F{valor6}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+					</jr:table>
+				</componentElement>
+			</elementGroup>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
