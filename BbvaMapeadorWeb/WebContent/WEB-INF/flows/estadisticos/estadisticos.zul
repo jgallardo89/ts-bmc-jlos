@@ -158,9 +158,20 @@
 								label="Lista de Resultados">
 							</caption>
 							<panelchildren>
-							    
-							    <div id="divTabla" sclass="BODY" height="100%"/>
-							    							
+								<div width="100%">
+									<hbox spacing="1px" width="100%">
+									 	<image style="cursor:pointer" id="backAllBtn" src="/img/leftleftarrow_g.png" onClick="@command('backAll')" disbled="@command(vm.flagBack)"/>
+								        <image style="cursor:pointer" id="backBtn" src="/img/leftarrow_g.png" onClick="@command('backOne')" disbled="@command(vm.flagBack)"/>
+								        <div align="center">
+								        	<textbox sclass="textboxUpperCase" maxlength="5" id="pagina"  width="25%" value="@load(vm.numeroPagina)" disabled="true"/>
+								        	<label value="/"/>
+							        		<label value="@load(vm.totalPaginas)"/>
+								        </div>
+								        <image style="cursor:pointer" id="nextBtn" src="/img/rightarrow_g.png" onClick="@command('nextOne')" disbled="@command(vm.flagNext)"/>
+								        <image style="cursor:pointer" id="nextAllBtn" src="/img/rightrightarrow_g.png" onClick="@command('nextAll')" disbled="@command(vm.flagNext)"/>
+									</hbox>
+								</div>
+							    <div id="divTabla" sclass="BODY" height="100%"/>		
 							</panelchildren>
 						</panel>
 					</groupbox>
@@ -176,6 +187,14 @@
 			</textbox>
 			<textbox id="idProducto"
 				value="@load(vm.estadisticoDTO.estadisticoVO.idProducto)"
+				visible="false">
+			</textbox>
+			<textbox id="inicio"
+				value="@load(vm.registroInicio)"
+				visible="false">
+			</textbox>
+			<textbox id="fin"
+				value="@load(vm.registroFin)"
 				visible="false">
 			</textbox>
 		</div>
