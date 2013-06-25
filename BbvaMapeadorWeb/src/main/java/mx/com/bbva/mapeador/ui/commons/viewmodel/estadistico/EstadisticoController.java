@@ -51,6 +51,9 @@ import mx.com.bbva.bancomer.estadistico.dto.CanalMockDTO;
 import mx.com.bbva.bancomer.estadistico.dto.EstadisticaDTO;
 import mx.com.bbva.bancomer.estadistico.dto.EstadisticoDTO;
 import mx.com.bbva.bancomer.estadistico.dto.EstadisticoMockDTO;
+import mx.com.bbva.bancomer.estadistico.dto.PrimerNivelDTO;
+import mx.com.bbva.bancomer.estadistico.dto.SegundoNivelDTO;
+import mx.com.bbva.bancomer.estadistico.dto.TercerNivelDTO;
 import mx.com.bbva.bancomer.mapper.business.CanalBO;
 import mx.com.bbva.bancomer.mapper.business.ClienteBO;
 import mx.com.bbva.bancomer.mapper.business.EstadisticoBO;
@@ -84,6 +87,8 @@ import org.zkoss.zul.Label;
 import org.zkoss.zul.ListModel;
 import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Textbox;
+
+import com.sun.mail.handlers.image_gif;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -250,6 +255,34 @@ public class EstadisticoController extends ControllerSupport implements  IContro
 	/** The div Tabla. */
 	@Wire
 	private Div divTabla;
+	
+	
+	private List<PrimerNivelDTO> primerNivelDTOs;
+	private int totalPaginas;
+	private int numeroPagina;
+	private int registroInicio;
+	private int registroFin;
+	private String modulo1;
+	private String modulo2;
+	
+	@Wire
+	private Textbox inicio;
+	@Wire
+	private Textbox fin;
+	
+	@Wire
+	private Image backAllBtn;
+	@Wire
+	private Image backBtn;
+	@Wire
+	private Textbox pagina;
+	@Wire
+	private Image nextBtn;
+	@Wire
+	private Image nextAllBtn;
+	
+	private boolean flagBack;
+	private boolean flagNext;
 		
 	/**
 	 * After compose.
@@ -258,11 +291,11 @@ public class EstadisticoController extends ControllerSupport implements  IContro
 	 */
 	@AfterCompose
     public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
-        Selectors.wireComponents(view, this, false);        
+        Selectors.wireComponents(view, this, false);
         executePermissionSet = this.applyPermision();        
         estadisticoVOs = new ArrayList<EstadisticoVO>();
         estadisticoDTO = (EstadisticoDTO) read();
-        estadisticoVOs = estadisticoDTO.getEstadisticoVOs();        
+        estadisticoVOs = estadisticoDTO.getEstadisticoVOs();
     }
 	
 	/* 
@@ -313,8 +346,14 @@ public class EstadisticoController extends ControllerSupport implements  IContro
 	 * Creates the list grid order: CANAL-CLIENTE-PRODUCTO
 	 * @param estadisticaDTO
 	 */
-	private void createCanalClienteProducto(EstadisticaDTO estadisticaDTO) {
+	public void createCanalClienteProducto(EstadisticaDTO estadisticaDTO) {
+		primerNivelDTOs = new ArrayList<PrimerNivelDTO>();
 		HashMap<Integer, String> mapCanal = new HashMap<Integer, String>();
+		PrimerNivelDTO primerNivelDTO = new PrimerNivelDTO();
+		SegundoNivelDTO segundoNivelDTO = new SegundoNivelDTO();
+		TercerNivelDTO tercerNivelDTO = new TercerNivelDTO();
+		List<SegundoNivelDTO> segundoNivelDTOs = new ArrayList<SegundoNivelDTO>();
+		List<TercerNivelDTO> tercerNivelDTOs = new ArrayList<TercerNivelDTO>();
 		
 		for(EstadisticoVO estadisticoVO:estadisticaDTO.getEstadisticoVOs()) {
 			mapCanal.put((int) estadisticoVO.idCanal, estadisticoVO.nombreCanal);
@@ -322,15 +361,15 @@ public class EstadisticoController extends ControllerSupport implements  IContro
 		
 		Collection<String> canalC = mapCanal.values();
    	 	Iterator<String> iteratorC = canalC.iterator();
-   	 	armaEstiloTabla();
-		
+
 	   	 while(iteratorC.hasNext()){
+	   		segundoNivelDTOs = new ArrayList<SegundoNivelDTO>();
+	   		primerNivelDTO = new PrimerNivelDTO();
 	   		HashMap<String, String> mapCliente = new HashMap<String, String>();
 	   		String canal = iteratorC.next();
-	   		//armaEncabezadoTabla(1);
 	   		
-	   		cabecera("CANAL",1);
-	   		armaRegistroNivel2(canal);
+	   		primerNivelDTO.setNombre(canal);
+	   		
 			for(EstadisticoVO estadisticoVO:estadisticaDTO.getEstadisticoVOs()) {
 				if(estadisticoVO.getNombreCanal().equals(canal)) {
 					mapCliente.put(""+estadisticoVO.getIdCliente(),estadisticoVO.getIdCanal()+":"+estadisticoVO.getIdIdentificador());
@@ -340,30 +379,123 @@ public class EstadisticoController extends ControllerSupport implements  IContro
 	   	 	Iterator<String> iteratorCli = client.iterator();
 	   	
 		   	 while(iteratorCli.hasNext()){
-		   		cabecera("CLIENTE",2);
-		   		String identificador = iteratorCli.next();
+		   		tercerNivelDTOs = new ArrayList<TercerNivelDTO>();
+		   		segundoNivelDTO = new SegundoNivelDTO();
 		   		
+		   		String identificador = iteratorCli.next();		   		
 		   		String[] str_array = identificador.split(":");
 				String ident = str_array[1];
-				armaHijos(ident);
-				armaEncabezadoNivel3();
+				segundoNivelDTO.setNombre(ident);
+				segundoNivelDTOs.add(segundoNivelDTO);
 		   		for(EstadisticoVO estadisticoVO:estadisticaDTO.getEstadisticoVOs()) {
 					if((estadisticoVO.getIdCanal()+":"+estadisticoVO.getIdIdentificador()).equals(identificador)) {
-						armaHijos2(estadisticoVO);
+						tercerNivelDTO = new TercerNivelDTO();
+						tercerNivelDTO.setFechaStatusProceso(estadisticoVO.getFechaStatusProceso());
+						tercerNivelDTO.setNombre(estadisticoVO.getNombreProducto());
+						tercerNivelDTO.setNombreRegArchEntra(estadisticoVO.getNombreRegArchEntra());
+						tercerNivelDTO.setNumeroOperaciones(estadisticoVO.getNumeroOperacione());
+						tercerNivelDTOs.add(tercerNivelDTO);
 					}
 				}
+		   		segundoNivelDTO.setTercerNivelDTOs(tercerNivelDTOs);
 		   	 }
+		   	primerNivelDTO.setSegundoNivelDTOs(segundoNivelDTOs);
+		   	this.primerNivelDTOs.add(primerNivelDTO);
 	   	 }
+	   	this.totalPaginas = (int)Math.ceil((double)this.primerNivelDTOs.size()/CommandConstants.PAGINADO_ESTADISTICOS);
+	   	this.registroInicio = 0;
+	   	this.numeroPagina = 1;
+		this.registroFin = this.registroInicio + CommandConstants.PAGINADO_ESTADISTICOS;
+		if(this.primerNivelDTOs.size()==0) {
+			logger.debug("************************ LISTA SIN REGISTROS ************************");
+		} else {
+			this.modulo1 = "CANAL";
+			this.modulo2 = "CLIENTE";
+			paginarEstadisticos();
+		}
 	} 
+
+	@Command
+	@NotifyChange({"primerNivelDTOs","numeroPagina"})
+	public void nextOne() {
+		if(this.registroFin<this.primerNivelDTOs.size()) {
+			this.registroInicio = this.registroFin;
+			this.registroFin = this.registroInicio + CommandConstants.PAGINADO_ESTADISTICOS;
+			paginarEstadisticos();
+			this.numeroPagina += 1;
+		}
+		logger.debug("************************ inicio= "+ this.registroInicio + " - fin= " + this.registroFin);
+	}
 	
+	@Command
+	@NotifyChange({"primerNivelDTOs","numeroPagina"})
+	public void backOne() {
+		if(this.registroInicio>0) {
+			this.registroInicio = this.registroFin - (CommandConstants.PAGINADO_ESTADISTICOS*2);
+			this.registroFin = this.registroInicio + CommandConstants.PAGINADO_ESTADISTICOS;
+			paginarEstadisticos();
+			this.numeroPagina -= 1;
+		}
+		logger.debug("************************ inicio= "+ this.registroInicio + " - fin= " + this.registroFin);
+	}
+	
+	@Command
+	@NotifyChange({"primerNivelDTOs","numeroPagina"})
+	public void nextAll() {
+		if(this.registroFin<=this.primerNivelDTOs.size()) {
+			this.registroInicio = CommandConstants.PAGINADO_ESTADISTICOS * (totalPaginas-1);
+			this.registroFin = this.primerNivelDTOs.size();
+			this.numeroPagina = this.totalPaginas; 
+			paginarEstadisticos();
+		}
+		logger.debug("************************ inicio= "+ this.registroInicio + " - fin= " + this.registroFin);
+	}
+	
+	@Command
+	@NotifyChange({"primerNivelDTOs","numeroPagina"})
+	public void backAll() {
+		if(this.registroInicio>0) {
+			this.registroInicio = 0;
+			this.registroFin = this.registroInicio + CommandConstants.PAGINADO_ESTADISTICOS;
+			this.numeroPagina = 1;
+			paginarEstadisticos();
+		}
+		logger.debug("************************ inicio= "+ this.registroInicio + " - fin= " + this.registroFin);
+	}
+	
+	public void paginarEstadisticos() {
+		 armaEstiloTabla();
+		 for(int i = registroInicio; i<registroInicio+CommandConstants.PAGINADO_ESTADISTICOS;i++) {
+			 if(i < this.primerNivelDTOs.size()) {
+				PrimerNivelDTO dto0 = primerNivelDTOs.get(i);
+		   		cabecera(this.modulo1,1);
+		   		armaRegistroNivel2(dto0.getNombre());
+		   		for(SegundoNivelDTO dto:dto0.getSegundoNivelDTOs()) {
+			   		cabecera(this.modulo2,2);
+			   		armaHijos(dto.getNombre());
+					armaEncabezadoNivel3();
+			   		 for(TercerNivelDTO dto2:dto.getTercerNivelDTOs()) {
+			   			armaHijosTercerNivel(dto2);
+			   		 }
+		   		}
+			 }
+		 }
+	}
 	
 	/**
 	 * Creates the list grid order: CLIENTE-CANAL-PRODUCTO 
 	 * @param estadisticaDTO
 	 */
+	@Command
+	@NotifyChange({"totalPaginas"})
 	private void createClienteCanalProducto(EstadisticaDTO estadisticaDTO) {
+		primerNivelDTOs = new ArrayList<PrimerNivelDTO>();
 		HashMap<Integer, String> mapCliente = new HashMap<Integer, String>();
-		
+		PrimerNivelDTO primerNivelDTO = new PrimerNivelDTO();
+		SegundoNivelDTO segundoNivelDTO = new SegundoNivelDTO();
+		TercerNivelDTO tercerNivelDTO = new TercerNivelDTO();
+		List<SegundoNivelDTO> segundoNivelDTOs = new ArrayList<SegundoNivelDTO>();
+		List<TercerNivelDTO> tercerNivelDTOs = new ArrayList<TercerNivelDTO>();
 		
 		for(EstadisticoVO estadisticoVO:estadisticaDTO.getEstadisticoVOs()) {
 			mapCliente.put((int) estadisticoVO.idCliente, estadisticoVO.idIdentificador);
@@ -371,15 +503,13 @@ public class EstadisticoController extends ControllerSupport implements  IContro
 		
 		Collection<String> clienteC = mapCliente.values();
    	 	Iterator<String> iteratorC = clienteC.iterator();
-   	 	armaEstiloTabla();
-		
 	   	 while(iteratorC.hasNext()){
+	   	 segundoNivelDTOs = new ArrayList<SegundoNivelDTO>();
+	   		primerNivelDTO = new PrimerNivelDTO();
 	   		HashMap<Integer, String> mapCanal = new HashMap<Integer, String>();
 	   		String cliente = iteratorC.next();
-	   		//armaEncabezadoTabla(1);
-	   		
-	   		cabecera("CLIENTE",1);
-	   		armaRegistroNivel2(cliente);
+			primerNivelDTO.setNombre(cliente);
+
 			for(EstadisticoVO estadisticoVO:estadisticaDTO.getEstadisticoVOs()) {
 				if(estadisticoVO.getIdIdentificador().equals(cliente)) {
 					mapCanal.put((int)estadisticoVO.getIdCanal(),estadisticoVO.getIdCliente()+":"+estadisticoVO.getNombreCanal());
@@ -389,20 +519,43 @@ public class EstadisticoController extends ControllerSupport implements  IContro
 	   	 	Iterator<String> iteratorCan = can.iterator();
 	   	
 		   	 while(iteratorCan.hasNext()){
-		   		cabecera("CANAL",2);
+		   	 tercerNivelDTOs = new ArrayList<TercerNivelDTO>();
+		   		segundoNivelDTO = new SegundoNivelDTO();
 		   		String identificador = iteratorCan.next();
 		   		
 		   		String[] str_array = identificador.split(":");
 				String ident = str_array[1];
 				armaHijos(ident);
 				armaEncabezadoNivel3();
+				segundoNivelDTO.setNombre(ident);
+				segundoNivelDTOs.add(segundoNivelDTO);
 		   		for(EstadisticoVO estadisticoVO:estadisticaDTO.getEstadisticoVOs()) {
 					if((estadisticoVO.getIdCliente()+":"+estadisticoVO.getNombreCanal()).equals(identificador)) {
-						armaHijos2(estadisticoVO);
+					tercerNivelDTO = new TercerNivelDTO();
+						tercerNivelDTO.setFechaStatusProceso(estadisticoVO.getFechaStatusProceso());
+						tercerNivelDTO.setNombre(estadisticoVO.getNombreProducto());
+						tercerNivelDTO.setNombreRegArchEntra(estadisticoVO.getNombreRegArchEntra());
+						tercerNivelDTO.setNumeroOperaciones(estadisticoVO.getNumeroOperacione());
+						tercerNivelDTOs.add(tercerNivelDTO);
 					}
 				}
+				segundoNivelDTO.setTercerNivelDTOs(tercerNivelDTOs);
 		   	 }
+			primerNivelDTO.setSegundoNivelDTOs(segundoNivelDTOs);
+		   	this.primerNivelDTOs.add(primerNivelDTO);
 	   	 }
+	   	this.totalPaginas = (int)Math.ceil((double)this.primerNivelDTOs.size()/CommandConstants.PAGINADO_ESTADISTICOS);
+	   	logger.debug("totalPaginas _-------- " + this.primerNivelDTOs.size() + " ************ "+ CommandConstants.PAGINADO_ESTADISTICOS);
+	   	this.registroInicio = 0;
+	   	this.numeroPagina = 1;
+		this.registroFin = this.registroInicio + CommandConstants.PAGINADO_ESTADISTICOS;
+		if(this.primerNivelDTOs.size()==0) {
+			logger.debug("************************ LISTA SIN REGISTROS ************************");
+		} else {
+			this.modulo1 = "CLIENTE";
+			this.modulo2 = "CANAL";
+			paginarEstadisticos();
+		}
 	}
 	
 	/**
@@ -410,23 +563,27 @@ public class EstadisticoController extends ControllerSupport implements  IContro
 	 * @param estadisticaDTO
 	 */
 	private void createProductoCanalCliente(EstadisticaDTO estadisticaDTO) {		
+		primerNivelDTOs = new ArrayList<PrimerNivelDTO>();
 		HashMap<Integer, String> mapProducto = new HashMap<Integer, String>();
-		
+		PrimerNivelDTO primerNivelDTO = new PrimerNivelDTO();
+		SegundoNivelDTO segundoNivelDTO = new SegundoNivelDTO();
+		TercerNivelDTO tercerNivelDTO = new TercerNivelDTO();
+		List<SegundoNivelDTO> segundoNivelDTOs = new ArrayList<SegundoNivelDTO>();
+		List<TercerNivelDTO> tercerNivelDTOs = new ArrayList<TercerNivelDTO>();
 		
 		for(EstadisticoVO estadisticoVO:estadisticaDTO.getEstadisticoVOs()) {
 			mapProducto.put((int) estadisticoVO.getIdProducto(), estadisticoVO.getNombreProducto());
 		}
 		
 		Collection<String> proC = mapProducto.values();
-   	 	Iterator<String> iteratorP = proC.iterator();
-   	 	armaEstiloTabla();
-		
+   	 	Iterator<String> iteratorP = proC.iterator();		
 	   	 while(iteratorP.hasNext()){
+	   	 	segundoNivelDTOs = new ArrayList<SegundoNivelDTO>();
+	   		primerNivelDTO = new PrimerNivelDTO();
 	   		HashMap<Integer, String> mapCanal = new HashMap<Integer, String>();
 	   		String producto = iteratorP.next();
-	   		
-	   		cabecera("PRODUCTO",1);
-	   		armaRegistroNivel2(producto);
+			primerNivelDTO.setNombre(producto);
+	  
 			for(EstadisticoVO estadisticoVO:estadisticaDTO.getEstadisticoVOs()) {
 				if(estadisticoVO.getNombreProducto().equals(producto)) {
 					mapCanal.put((int)estadisticoVO.getIdCanal(),estadisticoVO.getIdProducto()+":"+estadisticoVO.getNombreCanal());
@@ -436,21 +593,41 @@ public class EstadisticoController extends ControllerSupport implements  IContro
 	   	 	Iterator<String> iteratorCan = can.iterator();
 	   	
 		   	 while(iteratorCan.hasNext()){
-		   		cabecera("CANAL",2);
+		   		tercerNivelDTOs = new ArrayList<TercerNivelDTO>();
+		   		segundoNivelDTO = new SegundoNivelDTO();
 		   		String identificador = iteratorCan.next();
 		   		
 		   		String[] str_array = identificador.split(":");
 				String ident = str_array[1];
 				armaRegistroNivel2(ident);
-				cabecera("CLIENTE",2);
-		   		armaEncabezadoNivelCliente();
+				segundoNivelDTO.setNombre(ident);
+				segundoNivelDTOs.add(segundoNivelDTO);
 		   		for(EstadisticoVO estadisticoVO:estadisticaDTO.getEstadisticoVOs()) {
 					if((estadisticoVO.getIdProducto()+":"+estadisticoVO.getNombreCanal()).equals(identificador)) {
-						armaHijosCliente(estadisticoVO);
+						tercerNivelDTO = new TercerNivelDTO();
+						tercerNivelDTO.setFechaStatusProceso(estadisticoVO.getFechaStatusProceso());
+						tercerNivelDTO.setNombre(estadisticoVO.getIdIdentificador());
+						tercerNivelDTO.setNombreRegArchEntra(estadisticoVO.getNombreRegArchEntra());
+						tercerNivelDTO.setNumeroOperaciones(estadisticoVO.getNumeroOperacione());
+						tercerNivelDTOs.add(tercerNivelDTO);
 					}
 				}
+				segundoNivelDTO.setTercerNivelDTOs(tercerNivelDTOs);
 		   	 }
+			primerNivelDTO.setSegundoNivelDTOs(segundoNivelDTOs);
+		   	this.primerNivelDTOs.add(primerNivelDTO);
 	   	 }
+	   	this.totalPaginas = (int)Math.ceil((double)this.primerNivelDTOs.size()/CommandConstants.PAGINADO_ESTADISTICOS);
+	   	this.registroInicio = 0;
+	   	this.numeroPagina = 1;
+		this.registroFin = this.registroInicio + CommandConstants.PAGINADO_ESTADISTICOS;
+		if(this.primerNivelDTOs.size()==0) {
+			logger.debug("************************ LISTA SIN REGISTROS ************************");
+		} else {
+			this.modulo1 = "PRODUCTO";
+			this.modulo2 = "CANAL";
+			paginarEstadisticos();
+		}
 	}
 	
 	
@@ -475,7 +652,7 @@ public class EstadisticoController extends ControllerSupport implements  IContro
 	 * Read with filters.
 	 */
 	@Command
-	@NotifyChange({"canalMockDTOs"})
+	@NotifyChange({"primerNivelDTOs","numeroPagina","totalPaginas"})
 	public void readWithFilters() {
 		if(fechaInicio.getValue()!=null && fechaInicio.getValue() != null && fechaInicio.getValue().compareTo(fechaFin.getValue()) > 0 ){
 			fechaInicio.setErrorMessage("La fecha de inicio no puede ser mayor a la fecha de fin");
@@ -601,6 +778,29 @@ public class EstadisticoController extends ControllerSupport implements  IContro
 		td3.appendChild(new Label(pro.getNombreRegArchEntra()));
 		Td td4 = new Td();
 		td4.appendChild(new Label(String.valueOf(pro.getNumeroOperacione())));
+		tr.appendChild(td1);
+		tr.appendChild(td2);
+		tr.appendChild(td3);
+		tr.appendChild(td4);
+		tbody.appendChild(tr);
+		
+	}
+	
+	/**
+	 * @param pro
+	 */
+	public void armaHijosTercerNivel(TercerNivelDTO pro){
+		Tr tr = new Tr();	
+		tr.setSclass("sClassArchivos");
+		Td td1 = new Td();
+		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+		td1.appendChild(new Label(dateFormat.format(pro.getFechaStatusProceso())));
+		Td td2 = new Td();
+		td2.appendChild(new Label(pro.getNombre()));
+		Td td3 = new Td();
+		td3.appendChild(new Label(pro.getNombreRegArchEntra()));
+		Td td4 = new Td();
+		td4.appendChild(new Label(String.valueOf(pro.getNumeroOperaciones())));
 		tr.appendChild(td1);
 		tr.appendChild(td2);
 		tr.appendChild(td3);
@@ -1269,6 +1469,104 @@ public class EstadisticoController extends ControllerSupport implements  IContro
 	 */
 	public void setStrProducto(String strProducto) {
 		this.strProducto = strProducto;
+	}
+
+	/**
+	 * @return the primerNivelDTOs
+	 */
+	public List<PrimerNivelDTO> getPrimerNivelDTOs() {
+		return primerNivelDTOs;
+	}
+
+	/**
+	 * @param primerNivelDTOs the primerNivelDTOs to set
+	 */
+	public void setPrimerNivelDTOs(List<PrimerNivelDTO> primerNivelDTOs) {
+		this.primerNivelDTOs = primerNivelDTOs;
+	}
+
+	/**
+	 * @return the totalPaginas
+	 */
+	public int getTotalPaginas() {
+		return totalPaginas;
+	}
+
+	/**
+	 * @param totalPaginas the totalPaginas to set
+	 */
+	public void setTotalPaginas(int totalPaginas) {
+		this.totalPaginas = totalPaginas;
+	}
+
+	/**
+	 * @return the numeroPagina
+	 */
+	public int getNumeroPagina() {
+		return numeroPagina;
+	}
+
+	/**
+	 * @param numeroPagina the numeroPagina to set
+	 */
+	public void setNumeroPagina(int numeroPagina) {
+		this.numeroPagina = numeroPagina;
+	}
+
+	/**
+	 * @return the registroInicio
+	 */
+	public int getRegistroInicio() {
+		return registroInicio;
+	}
+
+	/**
+	 * @param registroInicio the registroInicio to set
+	 */
+	public void setRegistroInicio(int registroInicio) {
+		this.registroInicio = registroInicio;
+	}
+
+	/**
+	 * @return the registroFin
+	 */
+	public int getRegistroFin() {
+		return registroFin;
+	}
+
+	/**
+	 * @param registroFin the registroFin to set
+	 */
+	public void setRegistroFin(int registroFin) {
+		this.registroFin = registroFin;
+	}
+
+	/**
+	 * @return the flagBack
+	 */
+	public boolean isFlagBack() {
+		return flagBack;
+	}
+
+	/**
+	 * @param flagBack the flagBack to set
+	 */
+	public void setFlagBack(boolean flagBack) {
+		this.flagBack = flagBack;
+	}
+
+	/**
+	 * @return the flagNext
+	 */
+	public boolean isFlagNext() {
+		return flagNext;
+	}
+
+	/**
+	 * @param flagNext the flagNext to set
+	 */
+	public void setFlagNext(boolean flagNext) {
+		this.flagNext = flagNext;
 	}	
 	
 }
