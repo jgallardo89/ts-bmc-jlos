@@ -98,7 +98,7 @@
 									</columns>
 									<template name="model">
 										<row>
-											<label hflex="1" value="@load(each.fechaBitacora)  @converter('formatedDate', format='dd/MM/yyyy HH:mm')"></label>
+											<label hflex="1" value="@load(each.fechaBitacora)  @converter('formatedDate', format='dd/MM/yyyy HH:mm:ss')"></label>
 											<label hflex="1" value="@load(each.nombreUsuario)"></label>
 											<label hflex="1" value="@load(each.descripcionBitacoraWeb)"></label>
 											<image src="/img/detalle.jpg" onClick="@command('readEventDetail',idBitacora=each)"></image>																					
