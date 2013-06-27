@@ -1045,8 +1045,15 @@ public class ContratacionController extends ControllerSupport implements IContro
 							    					"\nError:"+contratacionDTO.getErrorCode()+
 							    					"","Error de Sistema",Messagebox.OK,Messagebox.ERROR);
 								}else{
-									if(Integer.parseInt(idEstatusObjeto.getValue())==CommandConstants.ID_CONTRATACION_BAJA)
+									if(Integer.parseInt(idEstatusObjeto.getValue())==CommandConstants.ID_CONTRATACION_BAJA){
 										controller.registrarEvento(contratacionVOL, contratacionVO, CommandConstants.BAJA, "CONTRATACIÓN");
+										BindUtils
+										.postGlobalCommand(
+												null,
+												null,
+												"showModal",
+												null);
+									}
 									else if(Integer.parseInt(idEstatusObjeto.getValue())==CommandConstants.ID_CONTRATACION_ACTIVO)
 										controller.registrarEvento(contratacionVOL, contratacionVO, CommandConstants.MODIFICACION, "CONTRATACIÓN");
 									else
@@ -1204,9 +1211,13 @@ public class ContratacionController extends ControllerSupport implements IContro
 	@NotifyChange({"botonGuardar"})
 	@Listen("onClick = #closeBtn")
     public void showModal(Event e) {
-		botonGuardar = true;
-		botonGuardarModal = true;		
-		editarContratacionWindows.detach();
-		BindUtils.postGlobalCommand(null, null, "clean", null);
+		try{
+			botonGuardar = true;
+			botonGuardarModal = true;		
+			editarContratacionWindows.detach();
+			BindUtils.postGlobalCommand(null, null, "clean", null);
+		}catch(Exception ex){
+			BindUtils.postGlobalCommand(null, null, "clean", null);
+		}
     }	
 }

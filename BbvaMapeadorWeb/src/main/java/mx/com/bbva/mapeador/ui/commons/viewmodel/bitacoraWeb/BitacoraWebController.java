@@ -36,6 +36,7 @@ import java.io.UnsupportedEncodingException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -70,6 +71,7 @@ import org.zkoss.zul.Datebox;
 import org.zkoss.zul.Grid;
 import org.zkoss.zul.Image;
 import org.zkoss.zul.Label;
+import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
 
@@ -171,9 +173,9 @@ public class BitacoraWebController extends ControllerSupport implements IControl
 	 * Instantiates a new bitacora web controller.
 	 */
 	public BitacoraWebController() {
-		this.read();
-		this.bitacoraVOs = bitacoraDTO.getBitacoraVOs();
-		this.campoDTOs = new ArrayList<CampoDTO>();
+//		this.read();
+//		this.bitacoraVOs = bitacoraDTO.getBitacoraVOs();
+//		this.campoDTOs = new ArrayList<CampoDTO>();
 	}
 	
 	/**
@@ -183,7 +185,11 @@ public class BitacoraWebController extends ControllerSupport implements IControl
 	 */
 	@AfterCompose
     public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
-        Selectors.wireComponents(view, this, false);        
+        Selectors.wireComponents(view, this, false); 
+        
+        fechaInicio.setValue(new Date());
+        fechaFin.setValue(new Date());
+        
         executePermissionSet = this.applyPermision();
     }
 	
@@ -431,6 +437,11 @@ public class BitacoraWebController extends ControllerSupport implements IControl
 			bitacoraDTO.setBitacoraVO(bitacoraVO);
 			BitacoraBO bitacoraBO = new BitacoraBO();
 			bitacoraVOs = bitacoraBO.readCommand(bitacoraDTO).getBitacoraVOs();
+			if(bitacoraVOs.size()>500){
+				Messagebox.show("En base a los parametros introducidos le informamos que la consulta obtuvo mas de 500 registros.\n" +
+						"Solo se le mostraran los primeros 500.","Información", Messagebox.OK, Messagebox.INFORMATION);
+				bitacoraVOs.remove(500);
+			}
 		}
 	}
 
