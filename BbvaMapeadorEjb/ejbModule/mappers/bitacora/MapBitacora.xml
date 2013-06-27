@@ -3,6 +3,7 @@
 <mapper namespace="mappers.bitacora.MapBitacora">
 	<select id="obtenerBitacora" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.BitacoraVO"
 		resultType="mx.com.bbva.bancomer.bussinnes.model.vo.BitacoraVO">
+		<![CDATA[		
 				SELECT
 					BITACORA.CD_BITACORA idBitacora,
 					BITACORA.CD_USUARIO idUsuario,
@@ -20,6 +21,8 @@
 				WHERE
 					BITACORA.CD_USUARIO = USUARIO.CD_USUARIO
 					AND BITACORA.CD_EVENTO_MAPEADOR = EVENTO.CD_EVENTO_MAPEADOR
+					AND rownum <= 501
+		]]>
 				<if test="idEventoMapeador != null and idEventoMapeador != 0">
 					AND BITACORA.CD_EVENTO_MAPEADOR = #{idEventoMapeador}
 				</if>
@@ -59,6 +62,6 @@
 			#{descripcionBitacora},
 			CURRENT_DATE,
 			#{idEventoMapeador},
-			CURRENT_DATE)
+			to_date(CURRENT_DATE,'dd/MM/yyyy'))
 	</insert>
 </mapper>

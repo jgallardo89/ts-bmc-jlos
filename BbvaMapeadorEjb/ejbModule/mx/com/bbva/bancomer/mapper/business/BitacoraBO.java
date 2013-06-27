@@ -41,6 +41,7 @@ import mx.com.bbva.bancomer.bitacora.dto.BitacoraDTO;
 import mx.com.bbva.bancomer.bitacora.dto.CampoDTO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.BitacoraVO;
 import mx.com.bbva.bancomer.commons.business.BbvaIBusinessObject;
+import mx.com.bbva.bancomer.commons.command.CommandConstants;
 import mx.com.bbva.bancomer.commons.model.dto.BbvaAbstractDataTransferObject;
 import mx.com.bbva.mapeador.oralce.session.MapeadorSessionFactory;
 
@@ -75,8 +76,10 @@ public class BitacoraBO implements BbvaIBusinessObject {
 				.openSession();
 		MapBitacora mapBitacora = session.getMapper(MapBitacora.class);
 		try {
-			mapBitacora.crearBitacora(canalVO);
-			session.commit();
+			if(canalVO.getIdEventoMapeador()!=CommandConstants.CONSULTAR){
+				mapBitacora.crearBitacora(canalVO);
+				session.commit();
+			}
 		} catch (Exception ex) {
 			session.rollback();
 			ex.printStackTrace();
