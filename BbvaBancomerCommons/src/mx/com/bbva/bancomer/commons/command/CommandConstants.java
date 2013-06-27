@@ -450,7 +450,8 @@ public abstract interface CommandConstants {
 	
 	/** The Constant TODOS. */
 	public static final int PAGINADO_ESTADISTICOS = 1;
-	
+
+	public static final int ERROR_SISTEMA = 15;
 }
 
 
