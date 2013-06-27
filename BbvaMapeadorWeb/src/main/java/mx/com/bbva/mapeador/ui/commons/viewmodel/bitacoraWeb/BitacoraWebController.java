@@ -248,7 +248,7 @@ public class BitacoraWebController extends ControllerSupport implements IControl
 		BeanGenerico beanGenerico = null;
 		for(BitacoraVO bitacoraVO: bitacoraVOs) {
 			beanGenerico = new BeanGenerico();
-			beanGenerico.setValor1(dateFormat.format(bitacoraVO.getFechaBitacora()));
+			beanGenerico.setValor1(dateFormat.format(bitacoraVO.getHoraBitacora()));
 			beanGenerico.setValor2(bitacoraVO.getNombreUsuario());
 			beanGenerico.setValor3(bitacoraVO.getDescripcionBitacoraWeb());
 			beanGenericos.add(beanGenerico);
