@@ -529,6 +529,7 @@ public class CanalesController extends ControllerSupport implements IController 
 							    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
 							    					"\nError:"+canalDTO.getErrorCode()+
 							    					"","Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+							    	controller.registrarEvento(canalVO, canalesVO, CommandConstants.ERROR_SISTEMA, nombrePantalla);
 								}else{
 									canalDTO.toString(BbvaAbstractDataTransferObject.XML);
 									if (Integer.parseInt(statusObjeto.getSelectedItem().getValue().toString())==CommandConstants.ID_CANAL_BAJA) {

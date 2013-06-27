@@ -186,10 +186,10 @@ public class BitacoraWebController extends ControllerSupport implements IControl
 	@AfterCompose
     public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
         Selectors.wireComponents(view, this, false); 
-        
-        fechaInicio.setValue(new Date());
-        fechaFin.setValue(new Date());
-        
+        try{
+	        fechaInicio.setValue(new Date());
+	        fechaFin.setValue(new Date());
+        }catch(Exception ex){}
         executePermissionSet = this.applyPermision();
     }
 	

@@ -310,6 +310,7 @@ public class TipoComponenteController extends ControllerSupport implements
 							    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
 							    					"\nError:"+tipoComponenteDTO.getErrorCode()+
 							    					"","Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+							    	reportesController.registrarEvento(tipoComponenteVOL, tipoComponenteVO, CommandConstants.ERROR_SISTEMA, nombrePantalla);
 								}else{
 									reportesController.registrarEvento(tipoComponenteVOL, tipoComponenteVO, CommandConstants.MODIFICACION, nombrePantalla);
 									Messagebox.show("El registro se actualizó con exito",
@@ -318,14 +319,15 @@ public class TipoComponenteController extends ControllerSupport implements
 								}
 							}else{
 								tipoComponenteDTO = tipoComponenteBO.createCommand(tipoComponenteDTO);
+								TipoComponenteVO tipoComponenteNuevo = new TipoComponenteVO();
+								tipoComponenteNuevo.setIdTipoComponente(-1);
+								tipoComponenteNuevo.setNombreTipoComponente("");
 								if(tipoComponenteDTO.getErrorCode().equals("SQL-001")){
 							    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
 							    					"\nError:"+tipoComponenteDTO.getErrorCode()+
 							    					"","Error de Sistema",Messagebox.OK,Messagebox.ERROR);
-								}else{
-									TipoComponenteVO tipoComponenteNuevo = new TipoComponenteVO();
-									tipoComponenteNuevo.setIdTipoComponente(-1);
-									tipoComponenteNuevo.setNombreTipoComponente("");						
+							    	reportesController.registrarEvento(tipoComponenteVOL, tipoComponenteNuevo, CommandConstants.ERROR_SISTEMA, nombrePantalla);
+								}else{														
 									reportesController.registrarEvento(tipoComponenteVOL, tipoComponenteNuevo, CommandConstants.ALTA, nombrePantalla);
 									Messagebox.show("El registro se creó con exito",
 											"Información", Messagebox.OK,

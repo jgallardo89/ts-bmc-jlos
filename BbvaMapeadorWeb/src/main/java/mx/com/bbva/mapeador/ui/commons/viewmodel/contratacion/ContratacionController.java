@@ -990,19 +990,22 @@ public class ContratacionController extends ControllerSupport implements IContro
 							contratacionVOL.setIdProducto(Integer.parseInt(idProducto.getValue()));
 							contratacionDTO.setContratacionVO(contratacionVOL);
 							contratacionDTO = contratacionBO.createCommand(contratacionDTO);
+							
+							idContratacion.setValue(String.valueOf(contratacionDTO.getContratacionVO().getIdContratacion()));										
+							ContratacionVO contratacionVONuevo = new ContratacionVO();
+							contratacionVONuevo.setIdEstatusObjeto(-1);
+							contratacionVONuevo.setIdCanal(-1);
+							contratacionVONuevo.setIdCanalSalida(-1);
+							contratacionVONuevo.setIdCliente(-1);
+							contratacionVONuevo.setIdProducto(-1);
+							
 							if(contratacionDTO.getErrorCode().equals("SQL-001")){
 						    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
 						    					"\nError:"+contratacionDTO.getErrorCode()+
 						    					"","Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+						    	controller.registrarEvento(contratacionVOL, contratacionVONuevo, CommandConstants.ERROR_SISTEMA, "CONTRATACIÓN");
 							}else{
-								if(conVOs.size() == 0) {										
-									idContratacion.setValue(String.valueOf(contratacionDTO.getContratacionVO().getIdContratacion()));										
-									ContratacionVO contratacionVONuevo = new ContratacionVO();
-									contratacionVONuevo.setIdEstatusObjeto(-1);
-									contratacionVONuevo.setIdCanal(-1);
-									contratacionVONuevo.setIdCanalSalida(-1);
-									contratacionVONuevo.setIdCliente(-1);
-									contratacionVONuevo.setIdProducto(-1);
+								if(conVOs.size() == 0) {																		
 									controller.registrarEvento(contratacionVOL, contratacionVONuevo, CommandConstants.ALTA, "CONTRATACIÓN");
 									
 									contratacionDTO = new ContratacionDTO();
@@ -1021,7 +1024,7 @@ public class ContratacionController extends ControllerSupport implements IContro
 									org.zkoss.zul.Messagebox.show("!Fallo el registro, contratación existente!",
 											"Información", org.zkoss.zul.Messagebox.OK,
 											org.zkoss.zul.Messagebox.EXCLAMATION);
-									ContratacionVO contratacionVONuevo = new ContratacionVO();
+									contratacionVONuevo = new ContratacionVO();
 									contratacionVONuevo.setIdEstatusObjeto(-1);
 									contratacionVONuevo.setIdCanal(-1);
 									contratacionVONuevo.setIdCanalSalida(-1);
@@ -1044,6 +1047,7 @@ public class ContratacionController extends ControllerSupport implements IContro
 							    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
 							    					"\nError:"+contratacionDTO.getErrorCode()+
 							    					"","Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+							    	controller.registrarEvento(contratacionVOL, contratacionVO, CommandConstants.ERROR_SISTEMA, "CONTRATACIÓN");
 								}else{
 									if(Integer.parseInt(idEstatusObjeto.getValue())==CommandConstants.ID_CONTRATACION_BAJA){
 										controller.registrarEvento(contratacionVOL, contratacionVO, CommandConstants.BAJA, "CONTRATACIÓN");

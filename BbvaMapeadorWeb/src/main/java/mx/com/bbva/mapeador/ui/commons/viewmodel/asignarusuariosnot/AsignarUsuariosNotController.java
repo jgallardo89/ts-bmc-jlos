@@ -446,16 +446,17 @@ public class AsignarUsuariosNotController extends ControllerSupport implements  
 			org.zkoss.zul.Messagebox.QUESTION, new EventListener<Event>() {
 				@Override
 				public void onEvent(Event event) throws Exception {
+					ReportesController reportesController = new ReportesController();
 					if (event.getName().equals(org.zkoss.zul.Messagebox.ON_YES)) {
 						UsuarioNotificacionBO usuarioNotificacionBO = new UsuarioNotificacionBO();		
 						usuarioNotificacionAsignadoDTO.setIdMensajeNotificacion(Integer.parseInt(mensajesSistema.getSelectedItem().getValue().toString()));
-						usuarioNotificacionAsignadoDTO = usuarioNotificacionBO.createCommandUsuarioNotificacion(usuarioNotificacionAsignadoDTO);
+						usuarioNotificacionAsignadoDTO = usuarioNotificacionBO.createCommandUsuarioNotificacion(usuarioNotificacionAsignadoDTO);						
 						if(usuarioNotificacionAsignadoDTO.getErrorCode().equals("SQL-001")){
 					    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
 					    					"\nError:"+usuarioNotificacionAsignadoDTO.getErrorCode()+
 					    					"","Error de Sistema",Messagebox.OK,Messagebox.ERROR);
-					    }else{
-							ReportesController reportesController = new ReportesController();
+					    	reportesController.registrarEvento(null, null, CommandConstants.ERROR_SISTEMA, "ASIGNAR-USUARIO");
+					    }else{							
 							reportesController.registrarEvento(null, null, CommandConstants.MODIFICACION, "ASIGNAR-USUARIO");		
 							usuarioNotificacionAsignadoDTO = null;
 							usuarioNotificacionNoAsignadoDTO = null;

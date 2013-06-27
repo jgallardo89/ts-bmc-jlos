@@ -629,6 +629,7 @@ public class UsuarioNotificacionController  extends ControllerSupport implements
 									    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
 									    					"\nError:"+usuarioNotificacionDTO.getErrorCode()+
 									    					"","Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+									    	controller.registrarEvento(usuarioNotificacionVOL, usuarioNotificacionVO, CommandConstants.ERROR_SISTEMA, nombrePantalla);
 									    }else{
 									    	if (Integer.parseInt(status.getSelectedItem().getValue().toString())==CommandConstants.ESTATUS_OBJETO_USUARIO_NOTIFICACION_BAJA) {
 												controller.registrarEvento(usuarioNotificacionVOL, usuarioNotificacionVO, CommandConstants.BAJA, nombrePantalla);					
@@ -723,16 +724,17 @@ public class UsuarioNotificacionController  extends ControllerSupport implements
 								UsuarioNotificacionBO UsuarioNotificacionBO = new UsuarioNotificacionBO();
 				
 								usuarioNotificacionDTO = UsuarioNotificacionBO.createCommand(usuarioNotificacionDTO);
+								UsuarioNotificacionVO notificacionNuevo = new UsuarioNotificacionVO();
+								notificacionNuevo.setTipoNotificacion("");
+								notificacionNuevo.setDescripcionEmail("");
+								notificacionNuevo.setIdUsuarioNotificado(-1);
+								notificacionNuevo.setNombreUsuarioNotificado("");
 								if(usuarioNotificacionDTO.getErrorCode().equals("SQL-001")){
 							    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
 							    					"\nError:"+usuarioNotificacionDTO.getErrorCode()+
 							    					"","Error de Sistema",Messagebox.OK,Messagebox.ERROR);
-							    }else{
-									UsuarioNotificacionVO notificacionNuevo = new UsuarioNotificacionVO();
-									notificacionNuevo.setTipoNotificacion("");
-									notificacionNuevo.setDescripcionEmail("");
-									notificacionNuevo.setIdUsuarioNotificado(-1);
-									notificacionNuevo.setNombreUsuarioNotificado("");
+							    	controller.registrarEvento(usuarioNotificacionVO, notificacionNuevo, CommandConstants.ERROR_SISTEMA, nombrePantalla);
+							    }else{									
 									controller.registrarEvento(usuarioNotificacionVO, notificacionNuevo, CommandConstants.ALTA, nombrePantalla);
 									clean();	
 					

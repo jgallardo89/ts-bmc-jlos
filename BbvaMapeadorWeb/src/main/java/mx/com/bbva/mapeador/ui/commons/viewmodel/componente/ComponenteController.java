@@ -610,6 +610,8 @@ public class ComponenteController extends ControllerSupport implements  IControl
 						    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
 						    					"\nError:"+componenteDTO.getErrorCode()+
 						    					"","Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+						    	ReportesController controller = new ReportesController();
+								controller.registrarEvento(componenteVOL, componenteVO, CommandConstants.ERROR_SISTEMA,nombrePantalla);
 						    }else{
 								ReportesController controller = new ReportesController();
 								controller.registrarEvento(componenteVOL, componenteVO, CommandConstants.MODIFICACION,nombrePantalla);
@@ -649,20 +651,24 @@ public class ComponenteController extends ControllerSupport implements  IControl
 							
 							ComponenteBO componenteBO = new ComponenteBO();
 							componenteDTO = componenteBO.createCommand(componenteDTO);
+							
+							ReportesController controller = new ReportesController();
+							
+							ComponenteVO componenteNuevo = new ComponenteVO();
+							componenteNuevo.setIdComponente(-1);
+							componenteNuevo.setIdPantalla(-1);
+							componenteNuevo.setNombreComponente("");
+							componenteNuevo.setIdTipoComponente(-1);
+							componenteNuevo.setIdDefault("");
+							
+							
+							
 							if(componenteDTO.getErrorCode().equals("SQL-001")){
 						    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
 						    					"\nError:"+componenteDTO.getErrorCode()+
 						    					"","Error de Sistema",Messagebox.OK,Messagebox.ERROR);
-						    }else{
-								ReportesController controller = new ReportesController();
-								
-								ComponenteVO componenteNuevo = new ComponenteVO();
-								componenteNuevo.setIdComponente(-1);
-								componenteNuevo.setIdPantalla(-1);
-								componenteNuevo.setNombreComponente("");
-								componenteNuevo.setIdTipoComponente(-1);
-								componenteNuevo.setIdDefault("");	
-								
+						    	controller.registrarEvento(componenteVO, componenteNuevo, CommandConstants.ERROR_SISTEMA,nombrePantalla);
+							}else{															
 								controller.registrarEvento(componenteVO, componenteNuevo, CommandConstants.ALTA,nombrePantalla);
 								clean();	
 								//Textbox

@@ -742,6 +742,7 @@ public class PantallaController extends ControllerSupport implements  IControlle
 						    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
 						    					"\nError:"+pantallaDTOL.getErrorCode()+
 						    					"","Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+						    	controller.registrarEvento(pantallaVOL, pantallaVO, CommandConstants.ERROR_SISTEMA, tituloPantalla);
 						    }else{
 								if (Integer.parseInt(status.getSelectedItem().getValue().toString())==CommandConstants.ID_PANTALLA_BAJA) {
 									controller.registrarEvento(pantallaVOL, pantallaVO, CommandConstants.BAJA, tituloPantalla);					
@@ -786,19 +787,23 @@ public class PantallaController extends ControllerSupport implements  IControlle
 							
 							PantallaBO pantallaBO = new PantallaBO();
 							pantallaDTOL = pantallaBO.createCommand(pantallaDTOL);
+							
+							PantallaVO pantallaNuevo = new PantallaVO();
+							pantallaNuevo.setIdPantallaPadre(-1);
+							pantallaNuevo.setEstatusPantalla(-1);
+							pantallaNuevo.setNumeroOrdenPantalla(-1);
+							
+							pantallaNuevo.setNombrePantalla("");
+							pantallaNuevo.setDescripcionUrlPantalla("");
+							pantallaNuevo.setDescripcionUrlIcon("");
+							
 							if(pantallaDTOL.getErrorCode().equals("SQL-001")){
 						    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
 						    					"\nError:"+pantallaDTOL.getErrorCode()+
 						    					"","Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+						    	controller.registrarEvento(pantallaVOL, pantallaNuevo, CommandConstants.ERROR_SISTEMA,tituloPantalla);
 						    }else{
-								PantallaVO pantallaNuevo = new PantallaVO();
-								pantallaNuevo.setIdPantallaPadre(-1);
-								pantallaNuevo.setEstatusPantalla(-1);
-								pantallaNuevo.setNumeroOrdenPantalla(-1);
-								
-								pantallaNuevo.setNombrePantalla("");
-								pantallaNuevo.setDescripcionUrlPantalla("");
-								pantallaNuevo.setDescripcionUrlIcon("");				
+												
 								controller.registrarEvento(pantallaVOL, pantallaNuevo, CommandConstants.ALTA,tituloPantalla);
 								clean();	
 								pantallaVOL = new PantallaVO();

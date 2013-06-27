@@ -620,17 +620,21 @@ public class EstatusObjetoController extends ControllerSupport implements IContr
 							estatusObjetoDTO.toString(BbvaAbstractDataTransferObject.XML);
 							EstatusObjetoBO estatusObjetoBO = new EstatusObjetoBO();
 							estatusObjetoDTO = estatusObjetoBO.createCommand(estatusObjetoDTO);
+							
+							EstatusObjetoVO estatusObjetoNuevo = new EstatusObjetoVO();
+							estatusObjetoNuevo.setDescripcionEstatusObjeto("");
+							estatusObjetoNuevo.setIdEstatusClave(-1);
+							estatusObjetoNuevo.setIdEstatusObjeto(-1);
+							estatusObjetoNuevo.setNombreEstatusObjeto("");
+							estatusObjetoNuevo.setNombreTabla("");
+							
 							if(estatusObjetoDTO.getErrorCode().equals("SQL-001")){
 						    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
 						    					"\nError:"+estatusObjetoDTO.getErrorCode()+
 						    					"","Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+						    	controller.registrarEvento(estatusObjetoVO, estatusObjetoNuevo, CommandConstants.ERROR_SISTEMA, nombrePantalla);
 							}else{
-								EstatusObjetoVO estatusObjetoNuevo = new EstatusObjetoVO();
-								estatusObjetoNuevo.setDescripcionEstatusObjeto("");
-								estatusObjetoNuevo.setIdEstatusClave(-1);
-								estatusObjetoNuevo.setIdEstatusObjeto(-1);
-								estatusObjetoNuevo.setNombreEstatusObjeto("");
-								estatusObjetoNuevo.setNombreTabla("");
+								
 								controller.registrarEvento(estatusObjetoVO, estatusObjetoNuevo, CommandConstants.ALTA, nombrePantalla);
 								clean();			
 								logger.debug("*estatusObjetoVO*");
@@ -667,6 +671,7 @@ public class EstatusObjetoController extends ControllerSupport implements IContr
 						    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
 						    					"\nError:"+estatusObjetoDTO.getErrorCode()+
 						    					"","Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+						    	controller.registrarEvento(estatusObjetoVOL, estatusObjetoVO, CommandConstants.ERROR_SISTEMA, nombrePantalla);
 							}else{
 								if(estatusObjetoDTO.getErrorCode().equals("0002")){
 									org.zkoss.zul.Messagebox.show(estatusObjetoDTO.getErrorDescription(),

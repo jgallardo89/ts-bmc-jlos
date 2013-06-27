@@ -336,18 +336,21 @@ public class PerfilController extends ControllerSupport implements  IController{
 			perfilDTO.toString(BbvaAbstractDataTransferObject.XML);
 			PerfilBO perfilBO = new PerfilBO();
 			perfilDTO = perfilBO.createCommand(perfilDTO);
+			
+			ReportesController controller = new ReportesController();
+			
+			PerfilVO perfilNuevoVO = new PerfilVO();
+			perfilNuevoVO.setNombrebPerfil("");
+			perfilNuevoVO.setDescripcionPerfil("");
+			perfilNuevoVO.setEstatusPerfil(-1);
+			perfilNuevoVO.setIdPerfilACopiar(-1);
+			
 			if(perfilDTO.getErrorCode().equals("SQL-001")){
 		    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
 		    					"\nError:"+perfilDTO.getErrorCode()+
 		    					"","Error de Sistema",Messagebox.OK,Messagebox.ERROR);
-			}else{
-				ReportesController controller = new ReportesController();	
-				
-				PerfilVO perfilNuevoVO = new PerfilVO();
-				perfilNuevoVO.setNombrebPerfil("");
-				perfilNuevoVO.setDescripcionPerfil("");
-				perfilNuevoVO.setEstatusPerfil(-1);
-				perfilNuevoVO.setIdPerfilACopiar(-1);
+		    	controller.registrarEventoPerfil(perfilDTO, this.perfilDTO, CommandConstants.ERROR_SISTEMA, nombrePantalla);
+			}else{											
 				controller.registrarEventoPerfil(perfilDTO, this.perfilDTO, CommandConstants.ALTA, nombrePantalla);
 				clean();
 				perfilDTO = (PerfilDTO)this.read();

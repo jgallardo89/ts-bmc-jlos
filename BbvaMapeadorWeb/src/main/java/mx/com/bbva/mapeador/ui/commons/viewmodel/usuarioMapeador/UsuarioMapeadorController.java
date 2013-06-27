@@ -485,28 +485,26 @@ public class UsuarioMapeadorController extends ControllerSupport implements ICon
 							usuarioDTO.toString(BbvaAbstractDataTransferObject.XML);
 							UsuarioBO usuarioBO = new UsuarioBO();
 							usuarioDTO = usuarioBO.createCommand(usuarioDTO);
+							ReportesController controller = new ReportesController();
+							UsuarioVO usuarioAnterior = new UsuarioVO();
+							usuarioAnterior.setEstatusUsuario(CommandConstants.ESTATUS_USUARIO_ACTIVO);
+							usuarioAnterior.setIdCveUsuario("");
+							usuarioAnterior.setIdPerfil(-1);			
+							usuarioAnterior.setNombreUsuario("");
 							if(usuarioDTO.getErrorCode().equals("SQL-001")){
 						    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
 						    					"\nError:"+usuarioDTO.getErrorCode()+
 						    					"","Error de Sistema",Messagebox.OK,Messagebox.ERROR);
-							}else{
-								ReportesController controller = new ReportesController();
-				
-				
-								if(usuarioDTO.getErrorCode().equals("0001")){
-									UsuarioVO usuarioAnterior = new UsuarioVO();
-									usuarioAnterior.setEstatusUsuario(CommandConstants.ESTATUS_USUARIO_ACTIVO);
-									usuarioAnterior.setIdCveUsuario("");
-									usuarioAnterior.setIdPerfil(-1);			
-									usuarioAnterior.setNombreUsuario("");
-									
+						    	controller.registrarEvento(usuarioVO, usuarioAnterior, CommandConstants.ERROR_SISTEMA, nombrePantalla);
+							}else{																
+								if(usuarioDTO.getErrorCode().equals("0001")){																	
 									controller.registrarEvento(usuarioVO, usuarioAnterior, CommandConstants.ALTA_FALLIDA, nombrePantalla);					
 									org.zkoss.zul.Messagebox.show("!"+usuarioDTO.getErrorDescription()+"!",
 											"Error", org.zkoss.zul.Messagebox.OK,
 											org.zkoss.zul.Messagebox.ERROR);
 								}else{
 				
-									UsuarioVO usuarioAnterior = new UsuarioVO();
+									usuarioAnterior = new UsuarioVO();
 									usuarioAnterior.setEstatusUsuario(CommandConstants.ESTATUS_USUARIO_ACTIVO);
 									usuarioAnterior.setIdCveUsuario("");
 									usuarioAnterior.setIdPerfil(-1);			
@@ -547,13 +545,13 @@ public class UsuarioMapeadorController extends ControllerSupport implements ICon
 							usuarioDTO.toString(BbvaAbstractDataTransferObject.XML);
 							UsuarioBO usuarioBO = new UsuarioBO();
 							usuarioDTO = usuarioBO.updateCommand(usuarioDTO);
+							ReportesController controller = new ReportesController();
 							if(usuarioDTO.getErrorCode().equals("SQL-001")){
 						    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
 						    					"\nError:"+usuarioDTO.getErrorCode()+
 						    					"","Error de Sistema",Messagebox.OK,Messagebox.ERROR);
-							}else{
-								ReportesController controller = new ReportesController();
-				
+						    	controller.registrarEvento(usuarioVOL, usuarioVO, CommandConstants.ERROR_SISTEMA, nombrePantalla);
+							}else{												
 								if(usuarioDTO.getErrorCode().equals("0001")){
 									if (Integer.parseInt(status.getSelectedItem().getValue().toString())==CommandConstants.ID_USUARIO_BAJA) {
 										controller.registrarEvento(usuarioVOL, usuarioVO, CommandConstants.BAJA_FALLIDA, nombrePantalla);					

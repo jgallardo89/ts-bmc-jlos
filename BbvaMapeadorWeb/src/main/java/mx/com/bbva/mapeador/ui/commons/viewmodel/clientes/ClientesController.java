@@ -504,22 +504,22 @@ public class ClientesController extends ControllerSupport implements IController
 								clienteDTO.setClienteVO(clienteVO);
 								
 								clienteDTO = clienteBO.createCommand(clienteDTO);
+								
+								ClienteVO clienteNuevo = new ClienteVO();
+								clienteNuevo.setIdIdentificador("");
+								clienteNuevo.setNombreCliente("");
+								clienteNuevo.setNombreCortoCliente("");
+								clienteNuevo.setIdEstatusObjeto(CommandConstants.ESTATUS_OBJETO_ACTIVO_CLIENTES);
+								
 								if(clienteDTO.getErrorCode().equals("SQL-001")){
 							    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
 							    					"\nError:"+clienteDTO.getErrorCode()+
 							    					"\nDescripción:"+clienteDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
-							    }else{
+							    	controller.registrarEvento(clienteVO, clienteNuevo, CommandConstants.ERROR_SISTEMA, nombrePantalla);
+							    }else{							    	
 									clienteDTO.toString(BbvaAbstractDataTransferObject.XML);
-				
-									ClienteVO clienteNuevo = new ClienteVO();
-									clienteNuevo.setIdIdentificador("");
-									clienteNuevo.setNombreCliente("");
-									clienteNuevo.setNombreCortoCliente("");
-									clienteNuevo.setIdEstatusObjeto(CommandConstants.ESTATUS_OBJETO_ACTIVO_CLIENTES);					
 									controller.registrarEvento(clienteVO, clienteNuevo, CommandConstants.ALTA, nombrePantalla);
-									clean();
-				
-									
+									clean();													
 									clienteVO.setIdIdentificador(StringUtil.validaLike(idIdentificador.getValue()));
 									clienteVO.setNombreCliente(StringUtil.validaLike(nombreCliente.getValue()));
 									clienteVO.setNombreCortoCliente(StringUtil.validaLike(nombreCortoCliente.getValue()));
@@ -601,6 +601,7 @@ public class ClientesController extends ControllerSupport implements IController
 								    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
 								    					"\nError:"+clienteDTO.getErrorCode()+
 								    					"\nDescripción:"+clienteDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+								    	controller.registrarEvento(clienteVO, clientesVO, CommandConstants.ERROR_SISTEMA, nombrePantalla);
 								    }else{
 										clienteDTO.toString(BbvaAbstractDataTransferObject.XML);
 										if (Integer.parseInt(statusObjeto.getSelectedItem().getValue().toString())==CommandConstants.ID_CLIENTE_BAJA) {

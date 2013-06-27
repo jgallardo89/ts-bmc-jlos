@@ -542,16 +542,17 @@ public class MensajesController extends ControllerSupport implements IController
 								//mensajeSalidaVO.setIdMensajeSalida(Integer.parseInt(idMensajeSalida.getValue()));
 								mensajeSalidaDTO.setMensajeSalidaVO(mensajeSalidaVOL);
 								mensajeSalidaDTO = mensajeSalidaBO.createCommand(mensajeSalidaDTO);
+								mensajeSalidaDTO.toString(BbvaAbstractDataTransferObject.XML);
+								MensajeSalidaVO mensajeSalidaVONuevo = new MensajeSalidaVO();
+								mensajeSalidaVONuevo.setNombreMensajeSalida("");
+								mensajeSalidaVONuevo.setDescripcionMensajeSalida("");									
+								mensajeSalidaVONuevo.setDescripcionAsuntoSalida("");
 								if(mensajeSalidaDTO.getErrorCode().equals("SQL-001")){
 							    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
 							    					"\nError:"+mensajeSalidaDTO.getErrorCode()+
 							    					"","Error de Sistema",Messagebox.OK,Messagebox.ERROR);
-								}else{
-									mensajeSalidaDTO.toString(BbvaAbstractDataTransferObject.XML);
-									MensajeSalidaVO mensajeSalidaVONuevo = new MensajeSalidaVO();
-									mensajeSalidaVONuevo.setNombreMensajeSalida("");
-									mensajeSalidaVONuevo.setDescripcionMensajeSalida("");									
-									mensajeSalidaVONuevo.setDescripcionAsuntoSalida("");									
+							    	controller.registrarEvento(mensajeSalidaVOL, mensajeSalidaVONuevo, CommandConstants.ERROR_SISTEMA, "Catálogo de Mensajes de Notificación");
+								}else{																		
 									controller.registrarEvento(mensajeSalidaVOL, mensajeSalidaVONuevo, CommandConstants.ALTA, "Catálogo de Mensajes de Notificación");
 									clean();
 									mensajeSalidaVOL = new MensajeSalidaVO();
@@ -604,13 +605,14 @@ public class MensajesController extends ControllerSupport implements IController
 								mensajeSalidaVOL.setIdMensajeSalida(Integer.parseInt(idMensajeSalida.getValue()));
 								mensajeSalidaVOL.setDescripcionAsuntoSalida(descripcionAsuntoSalida.getValue().toUpperCase().trim());
 								mensajeSalidaDTO.setMensajeSalidaVO(mensajeSalidaVOL);
-								mensajeSalidaDTO = mensajeSalidaBO.updateCommand(mensajeSalidaDTO);								
+								mensajeSalidaDTO = mensajeSalidaBO.updateCommand(mensajeSalidaDTO);
+								String nombrePantalla = "Mensajes Negocio";
 								if(mensajeSalidaDTO.getErrorCode().equals("SQL-001")){
 							    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
 							    					"\nError:"+mensajeSalidaDTO.getErrorCode()+
 							    					"","Error de Sistema",Messagebox.OK,Messagebox.ERROR);
-								}else{
-									String nombrePantalla = "Mensajes Negocio";
+							    	controller.registrarEvento(mensajeSalidaVOL, mensajeSalidaVO, CommandConstants.ERROR_SISTEMA, nombrePantalla);
+								}else{									
 									mensajeSalidaVOs = mensajeSalidaDTO.getMensajeSalidaVOs();
 									mensajeSalidaDTO.toString(BbvaAbstractDataTransferObject.XML);
 									if (Integer.parseInt(statusObjeto.getSelectedItem().getValue().toString())==CommandConstants.ID_MENSAJE_BAJA) {

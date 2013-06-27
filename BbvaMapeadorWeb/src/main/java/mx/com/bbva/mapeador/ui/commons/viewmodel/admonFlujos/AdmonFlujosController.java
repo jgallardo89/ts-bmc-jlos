@@ -511,6 +511,7 @@ public class AdmonFlujosController extends ControllerSupport implements IControl
 						    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
 						    					"\nError:"+flujoDTO.getErrorCode()+
 						    					"\nDescripción:"+flujoDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+						    	controller.registrarEvento(flujoVOL, flujoVO, CommandConstants.ERROR_SISTEMA, nombrePantalla);
 							}else{
 								flujoDTO.toString(BbvaAbstractDataTransferObject.XML);
 								

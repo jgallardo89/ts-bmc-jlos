@@ -661,6 +661,7 @@ public class MapaGmmController  extends ControllerSupport implements  IControlle
 						    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
 						    					"\nError:"+mapaGmmDTO.getErrorCode()+
 						    					"\nDescripción:"+mapaGmmDTO.getErrorDescription(),"Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+						    	controller.registrarEvento(mapaGmmVOL, mapaGmmVO, CommandConstants.ERROR_SISTEMA, nombrePantalla);
 						    }else{
 								if (Integer.parseInt(status.getSelectedItem().getValue().toString())==CommandConstants.ID_MAPA_INACTIVO) { 
 									controller.registrarEvento(mapaGmmVOL, mapaGmmVO, CommandConstants.INACTIVACION, nombrePantalla);				

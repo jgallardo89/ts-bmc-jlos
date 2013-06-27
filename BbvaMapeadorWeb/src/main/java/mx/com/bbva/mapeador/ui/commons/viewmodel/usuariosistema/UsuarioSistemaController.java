@@ -600,6 +600,7 @@ public class UsuarioSistemaController  extends ControllerSupport implements ICon
 									usuarioNotificacionVOValidaExiste.setTipoNotificacion(CommandConstants.TIPO_NOTIFICACION_SISTEMA);
 									usuarioNotificacionDTOValidaExiste.setUsuarioNotificacionVO(usuarioNotificacionVOValidaExiste);
 									usuarioNotificacionDTOValidaExiste = usuarioNotificacionBO.readCommandValidateExistePermiso(usuarioNotificacionDTOValidaExiste);
+									ReportesController controller = new ReportesController();
 									if(usuarioNotificacionDTOValidaExiste.getUsuarioNotificacionVOs().get(0).getExiste()==1){							
 										org.zkoss.zul.Messagebox.show("El usuario no se puede desactivar o dar de baja debido a que esta asociado a notificaciones!!",
 												"Error", org.zkoss.zul.Messagebox.OK,
@@ -610,8 +611,9 @@ public class UsuarioSistemaController  extends ControllerSupport implements ICon
 									    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
 									    					"\nError:"+usuarioNotificacionDTO.getErrorCode()+
 									    					"","Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+									    	controller.registrarEvento(usuarioNotificacionVOL, usuarioNotificacionVO, CommandConstants.ERROR_SISTEMA, "Usuario Sistema");
 									    }else{
-											ReportesController controller = new ReportesController();
+											
 											if (Integer.parseInt(status.getSelectedItem().getValue().toString())==CommandConstants.ESTATUS_OBJETO_USUARIO_NOTIFICACION_BAJA) {
 												controller.registrarEvento(usuarioNotificacionVOL, usuarioNotificacionVO, CommandConstants.BAJA, "Usuario Sistema");					
 											} else if (Integer.parseInt(status.getSelectedItem().getValue().toString())==CommandConstants.ESTATUS_OBJETO_USUARIO_NOTIFICACION_INACTIVO) { 
