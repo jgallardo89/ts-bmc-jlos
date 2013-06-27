@@ -114,13 +114,13 @@
 							</panelchildren>										
 						</panel>
 					</groupbox>
-					<groupbox>
-						<panel sclass="sectionPanelTitle" width="100%" id="panelContratacion"
+					<groupbox height="523px">
+						<panel sclass="sectionPanelTitle" height="515px" width="100%" id="panelContratacion"
 							title="Contratación" collapsible="false"
-							style="margin-bottom:10px">
+							style="margin-bottom:5px">
 							<caption sclass="sectionPanelTitle" label="Listado de Contrataciones"></caption>
 							<panelchildren>
-								<grid width="99.7%" id="contratacionGrid" mold="paging"
+								<grid id="contratacionGrid" mold="paging"
 									model="@load(vm.contratacionVOs)" pagingPosition="both" pageSize="12"
 									vflex="true" height="100%">									
 									<columns sizable="true" menupopup="auto">
