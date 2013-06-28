@@ -78,6 +78,7 @@ import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
+import org.zkoss.zk.ui.event.Events;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.Wire;
@@ -258,6 +259,17 @@ public class ContratacionController extends ControllerSupport implements IContro
 	/** The tabs. */
 	@Wire
 	private Tabbox tabs;
+	
+	/** The tabs. */
+	@Wire
+	private Textbox idMapaGmm;
+	
+	/** The tabs. */
+	@Wire
+	private Tab newTab;
+	
+	
+	private List<ContratacionMapVO> listaContratacionMapVOs;
 
 	/**
 	 * Instantiates a new contratacion controller.
@@ -388,7 +400,7 @@ public class ContratacionController extends ControllerSupport implements IContro
 		contratacionDTO.setContratacionVO(contratacionVO);
 		contratacionDTO = contratacionMapeadorBO.readCommandEtapas(contratacionDTO);
 		Sessions.getCurrent().setAttribute("idContratacionReg", idContratacion);
-		Tab newTab = null;
+		//Tab newTab = null;
 		Iframe iframe = null;
 		Tabpanel newTabpanel = null;
 		int contador = 1;
@@ -398,11 +410,13 @@ public class ContratacionController extends ControllerSupport implements IContro
 			if (contador == 1) {
 				newTab.setSelected(true);
 			}
-	        newTab.setId(contratacionVO.getNombreEtapa() + contador++);
+	        newTab.setId(String.valueOf(contador++));
 	        newTabpanel = new Tabpanel();
 	        newTabpanel.setWidth("100%");
 	        newTabpanel.setHeight("100%");
 	        newTabpanel.setId(contratacionVO.getNombreEtapa());
+	        
+	        
 	        iframe = new Iframe("flows/contratacion/pageTab.zul?idEtapa="+contratacionVO.getIdEtapa()+"&idFlujo="+
 	        										contratacionVO.getIdFlujo()+"&idContratacion="+idContratacion.getValue()+
 	        										"&estatusNotificacion='T'&idTransaccion=0");
@@ -412,6 +426,8 @@ public class ContratacionController extends ControllerSupport implements IContro
 	        tabs.getTabs().insertBefore(newTab, tabNohome);
 	        newTabpanel.setParent(tabs.getTabpanels());
 		}
+		
+		Sessions.getCurrent().setAttribute("contador", contador);
 		
 	}
 	
@@ -475,7 +491,9 @@ public class ContratacionController extends ControllerSupport implements IContro
 		idEstatusObjeto.setValue(null);
 		idProducto.setValue(null);
 		idCliente.setValue(null);
+		if(fechaAlta!=null)
 		fechaAlta.setValue(null);
+		if(fechaModificacion!=null)
 		fechaModificacion.setValue(null);
 		botonGuardar = true;
 		botonEditar = true;
@@ -694,7 +712,7 @@ public class ContratacionController extends ControllerSupport implements IContro
 		contratacionMapDTO.setContratacionMapVO(contratacionMapVO);
 		contratacionMapDTO = contratacionMapeadorBO.readCommand(contratacionMapDTO);
 		Sessions.getCurrent().removeAttribute("idContratacionReg");
-		Tab newTab = null;
+		
 		Iframe iframe = null;
 		Tabpanel newTabpanel = null;
 		int contador = 1;
@@ -712,19 +730,69 @@ public class ContratacionController extends ControllerSupport implements IContro
 		}
 		Collection<ContratacionMapVO> s = hashMapEtapa.values();
    	 	Iterator<ContratacionMapVO> it2 = s.iterator();
-
+   	 	listaContratacionMapVOs = new ArrayList<ContratacionMapVO>();
 	   	 while(it2.hasNext()){
-	   		ContratacionMapVO mapVO = it2.next();			
+	   		ContratacionMapVO mapVO = it2.next();
+	   		listaContratacionMapVOs.add(mapVO);
 				newTab = new Tab(mapVO.getNombreEtapa());
 				newTab.setClosable(false);	
-				if (contador == 1) {
-					newTab.setSelected(true);
-				}
-		        newTab.setId(mapVO.getNombreEtapa() + contador++);
+//				if (contador == 1) {
+//					newTab.setSelected(true);
+//					tabs.setSelectedTab(newTab);
+//					
+//				}
+		        newTab.setId(String.valueOf(contador++));
 		        newTabpanel = new Tabpanel();
 		        newTabpanel.setWidth("100%");
 		        newTabpanel.setHeight("100%");
 		        newTabpanel.setId(mapVO.getNombreEtapa());
+		        
+		        newTab.addEventListener(Events.ON_SELECT, new EventListener<Event>() {
+					@Override
+					public void onEvent(Event event) throws Exception {
+						Boolean usuario = (Boolean)Sessions.getCurrent().getAttribute("user");
+						Boolean flagNotificacion = (Boolean)Sessions.getCurrent().getAttribute("flagDisabled");
+						String mensaje = String.valueOf(Sessions.getCurrent().getAttribute("idMensajeSalida")==null?"":Sessions.getCurrent().getAttribute("idMensajeSalida"));
+						String mapa = String.valueOf(Sessions.getCurrent().getAttribute("idMapaGmm")==null?"":Sessions.getCurrent().getAttribute("idMapaGmm"));
+						
+						ContratacionMapVO contratacionMap = null;
+						if(usuario!=null||!mensaje.equals("")||!mapa.equals("")) {
+							Messagebox.show("Se han realizado cambios, no puede continuar sin guardar los cambios de la Pestaña: " + newTab.getLabel(),"Advertencia de Sistema",Messagebox.OK,Messagebox.ERROR);
+							tabs.setSelectedTab(newTab);
+						} else {
+							boolean val = false;
+							if(Sessions.getCurrent().getAttribute("ultimoValor")!=null) {
+								contratacionMap = listaContratacionMapVOs.get(Integer.parseInt(Sessions.getCurrent().getAttribute("ultimoValor").toString()));								
+								if(contratacionMap.getEstatusNotificacion().equals('T')) {
+									 val = true;
+									 Sessions.getCurrent().setAttribute("flag", val);
+								} else {
+									 val = false;
+									 Sessions.getCurrent().setAttribute("flag", val);
+								}
+								if(flagNotificacion != null && flagNotificacion != val) {
+									Messagebox.show("Se han realizado cambios, no puede continuar sin guardar los cambios de la Pestaña: " + newTab.getLabel(),"Advertencia de Sistema",Messagebox.OK,Messagebox.ERROR);
+								} else {
+									Sessions.getCurrent().removeAttribute("flagDisabled");
+								}
+							} else {
+								Sessions.getCurrent().setAttribute("ultimoValor", (Integer.parseInt(event.getTarget().getId())-1));
+								contratacionMap = listaContratacionMapVOs.get(Integer.parseInt(event.getTarget().getId())-1);
+								
+								if(contratacionMap.getEstatusNotificacion().equals('T')) {
+									 val = true;
+									 Sessions.getCurrent().setAttribute("flag", val);
+								} else {
+									 val = false;
+									 Sessions.getCurrent().setAttribute("flag", val);
+								}
+								newTab = (Tab)event.getTarget();
+							}
+							
+							
+						}
+					}
+				});
 		        if(mapVO.getNombreMapaGmm()!=null) {
 		        	mensaje = mapVO.getDescripcionMensajeSalida().replace("%", "|");
 			        iframe = new Iframe("flows/contratacion/pageTab.zul?nombreMapaGmm="+mapVO.getNombreMapaGmm()+"&idMapaGmm="+mapVO.getIdMapaGmm()+
@@ -869,7 +937,6 @@ public class ContratacionController extends ControllerSupport implements IContro
 	@Command
 	@NotifyChange({ "contratacionTabWindows" })
 	public void readSelectedTab(@BindingParam("nombreEtapa") final String nombreEtapa){
-		System.out.println("******************* " + nombreEtapa + " *******************" + idContratacion.getValue());
 	}
 	
 	/**
@@ -1216,12 +1283,64 @@ public class ContratacionController extends ControllerSupport implements IContro
 	@Listen("onClick = #closeBtn")
     public void showModal(Event e) {
 		try{
-			botonGuardar = true;
-			botonGuardarModal = true;		
-			editarContratacionWindows.detach();
-			BindUtils.postGlobalCommand(null, null, "clean", null);
+			Boolean usuario = (Boolean)Sessions.getCurrent().getAttribute("user")==null?false:(Boolean)Sessions.getCurrent().getAttribute("user");
+			String mensaje = String.valueOf(Sessions.getCurrent().getAttribute("idMensajeSalida")==null?"":Sessions.getCurrent().getAttribute("idMensajeSalida"));
+			String mapa = String.valueOf(Sessions.getCurrent().getAttribute("idMapaGmm")==null?"":Sessions.getCurrent().getAttribute("idMapaGmm"));
+			
+			Boolean flag = (Boolean)Sessions.getCurrent().getAttribute("flag");
+			Boolean flagDisabled = (Boolean)Sessions.getCurrent().getAttribute("flagDisabled");
+			
+			boolean flagMensaje = false;
+			if(Sessions.getCurrent().getAttribute("flag")==null||Sessions.getCurrent().getAttribute("flagDisabled")==null) {
+				flagMensaje = false;
+			}else if(flag!=flagDisabled) {
+				flagMensaje = true;
+			}
+			
+			if(usuario!=false||!mensaje.equals("")||!mapa.equals("")||flagMensaje) {
+				Messagebox.show("Se han realizado cambios, no puede Salir sin guardar los cambios de la Pestaña: " + tabs.getSelectedTab().getLabel(),"Advertencia de Sistema",Messagebox.OK,Messagebox.ERROR);
+			} else {
+				String count = String.valueOf(Sessions.getCurrent().getAttribute("contadorFinal")==null?Sessions.getCurrent().getAttribute("contador"):Sessions.getCurrent().getAttribute("contadorFinal"));
+				if(!count.equals("null")&&Integer.valueOf(count)>1) {
+					Messagebox.show(
+							"¿Aún se registran todas las Etapas, está seguro que desea Salir?",
+							"Pregunta", org.zkoss.zul.Messagebox.YES | org.zkoss.zul.Messagebox.NO,
+					org.zkoss.zul.Messagebox.QUESTION, new EventListener<Event>() {
+						@Override
+						public void onEvent(Event event) throws Exception {
+							if (event.getName().equals(org.zkoss.zul.Messagebox.ON_YES)) {
+								botonGuardar = true;
+								botonGuardarModal = true;		
+								editarContratacionWindows.detach();
+								Sessions.getCurrent().removeAttribute("user");
+								Sessions.getCurrent().removeAttribute("idMensajeSalida");
+								Sessions.getCurrent().removeAttribute("idMapaGmm");
+								Sessions.getCurrent().removeAttribute("contadorFinal");
+								Sessions.getCurrent().removeAttribute("contador");
+								Sessions.getCurrent().removeAttribute("flag");
+								Sessions.getCurrent().removeAttribute("flagDisabled");
+								BindUtils.postGlobalCommand(null, null, "clean", null); 
+							}
+						}
+					});
+				} else {
+					botonGuardar = true;
+					botonGuardarModal = true;		
+					editarContratacionWindows.detach();
+					Sessions.getCurrent().removeAttribute("user");
+					Sessions.getCurrent().removeAttribute("idMensajeSalida");
+					Sessions.getCurrent().removeAttribute("idMapaGmm");
+					Sessions.getCurrent().removeAttribute("contadorFinal");
+					Sessions.getCurrent().removeAttribute("contador");
+					Sessions.getCurrent().removeAttribute("flag");
+					Sessions.getCurrent().removeAttribute("flagDisabled");
+					Sessions.getCurrent().removeAttribute("ultimoValor");
+					BindUtils.postGlobalCommand(null, null, "clean", null); 
+				}
+			}
 		}catch(Exception ex){
 			BindUtils.postGlobalCommand(null, null, "clean", null);
+			Sessions.getCurrent().removeAttribute("contadorFinal");
 		}
     }	
 }

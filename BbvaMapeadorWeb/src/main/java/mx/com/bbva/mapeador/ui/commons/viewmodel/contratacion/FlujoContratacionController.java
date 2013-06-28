@@ -209,7 +209,12 @@ public class FlujoContratacionController extends Div implements IController, IdS
     @Wire
     private Listbox usuariosNotificacionActivo;
 	
-	
+    private int initSize;
+    
+    private int size;
+    
+    private int contador;
+    
 	/**
 	 * Instantiates a new flujo contratacion controller.
 	 */
@@ -226,6 +231,7 @@ public class FlujoContratacionController extends Div implements IController, IdS
 	@AfterCompose
 	@NotifyChange({"nombreMensajeSalida", "descripcionMensajeSalida", "strDescripcionMensajeSalida", "strNombreMensajeSalida","botonLimpiar"})
     public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
+		
 		contratacionMapDTO = new ContratacionMapDTO();
         Selectors.wireComponents(view, this, false);
         contratacionUsuariosDTO = new ContratacionDTO();
@@ -246,13 +252,15 @@ public class FlujoContratacionController extends Div implements IController, IdS
 	        idStrMensajeSalida = Executions.getCurrent().getParameter("idMensajeSalida");
 	        idStrTransaccion = Executions.getCurrent().getParameter("idTransaccion");
 	        titulo = Executions.getCurrent().getParameter("titulo");        
-	        
+	        	        
 	        if(Executions.getCurrent().getParameter("estatusNotificacion").equals("F")) {
 	        	notificacion.setSelectedItem(radioN);
 	        	flagDisabled = true;
+	        	Sessions.getCurrent().setAttribute("flagDisabledSalir",false);
 	        } else {
 	        	notificacion.setSelectedItem(radioS);
 	        	flagDisabled = false;
+	        	Sessions.getCurrent().setAttribute("flagDisabledSalir",true);
 	        }
 	
 	        if(Executions.getCurrent().getParameter("descripcionIdUsuarios") != null) {
@@ -267,8 +275,10 @@ public class FlujoContratacionController extends Div implements IController, IdS
 	        UsuarioNotificacionBO usuarioNotificacionBO  = new UsuarioNotificacionBO();
 	        if(idUsuarios != null) {
 	        	contratacionUsuariosDTO.setUsuarioNotificacionContrataMapVOs(((ContratacionDTO) usuarioNotificacionBO.readCommand(idUsuarios)).getUsuarioNotificacionVOs());
+	        	initSize = ((ContratacionDTO)usuarioNotificacionBO.readCommand(idUsuarios)).getUsuarioNotificacionVOs().size();
 	        } else {
 	        	contratacionUsuariosDTO.setUsuarioNotificacionContrataMapVOs(new ArrayList<UsuarioNotificacionVO>());
+	        	initSize = 0;
 	        }
 		    contratacionDTO.setUsuarioNotificacionVOs(usuarioNotificacionBO.readCommand(usuarios).getUsuarioNotificacionVOs());
 		} else {
@@ -287,6 +297,7 @@ public class FlujoContratacionController extends Div implements IController, IdS
 	        usuarios.setUsuarioNotificacionVO(usuarioNotificacionVO);
 	        UsuarioNotificacionBO usuarioNotificacionBO  = new UsuarioNotificacionBO();
 	        contratacionUsuariosDTO.setUsuarioNotificacionContrataMapVOs(new ArrayList<UsuarioNotificacionVO>());
+	        initSize = 0;
 		    contratacionDTO.setUsuarioNotificacionVOs(usuarioNotificacionBO.readCommand(usuarios).getUsuarioNotificacionVOs());
 		}
         
@@ -305,14 +316,24 @@ public class FlujoContratacionController extends Div implements IController, IdS
 	 * Choose all.
 	 */
 	@Command
-	@NotifyChange({"contratacionDTO", "contratacionUsuariosDTO"})
+	@NotifyChange({"contratacionDTO", "contratacionUsuariosDTO","size"})
 	public void chooseAll(){
 		if(!flagDisabled) {
 			List<UsuarioNotificacionVO> usuarioNotificacionVOs = contratacionDTO.getUsuarioNotificacionVOs();
 			for (UsuarioNotificacionVO notificacionVO : usuarioNotificacionVOs) {
 				contratacionUsuariosDTO.getUsuarioNotificacionContrataMapVOs().add(notificacionVO);
 			}
+			size = contratacionUsuariosDTO.getUsuarioNotificacionContrataMapVOs().size();
+			validaTamanio();
 			contratacionDTO.getUsuarioNotificacionVOs().clear();
+		}
+	}
+	
+	private void validaTamanio() {
+		if(initSize != size) {
+			Sessions.getCurrent().setAttribute("user", true);
+		} else {
+			Sessions.getCurrent().setAttribute("user", false);
 		}
 	}
 	
@@ -320,12 +341,14 @@ public class FlujoContratacionController extends Div implements IController, IdS
 	 * Choose one.
 	 */
 	@Command
-	@NotifyChange({"contratacionDTO", "contratacionUsuariosDTO"})
+	@NotifyChange({"contratacionDTO", "contratacionUsuariosDTO", "size"})
 	public void chooseOne(){		
 		if(!flagDisabled) {
 			if(usuariosNotificacion.getSelectedItem()!=null){
 				contratacionUsuariosDTO.getUsuarioNotificacionContrataMapVOs().add(contratacionDTO.getUsuarioNotificacionVOs().get(usuariosNotificacion.getSelectedIndex()));
 				contratacionDTO.getUsuarioNotificacionVOs().remove(usuariosNotificacion.getSelectedIndex());
+				size = contratacionUsuariosDTO.getUsuarioNotificacionContrataMapVOs().size();
+				validaTamanio();
 			}
 		}
 	}
@@ -369,6 +392,7 @@ public class FlujoContratacionController extends Div implements IController, IdS
 	@NotifyChange({ "nombreMensajeSalida", "descripcionMensajeSalida", "flagDisabled",
 		"usuariosNotificacion", "usuariosNotificacionActivo", "guardaBtn", "limpiarBtn"})
     public void disabledNotificacion() {
+		Sessions.getCurrent().setAttribute("flagDisabled",false);
 		flagDisabled = true;
 	}
 	
@@ -379,6 +403,7 @@ public class FlujoContratacionController extends Div implements IController, IdS
 	@NotifyChange({ "nombreMensajeSalida", "descripcionMensajeSalida", "flagDisabled",
 		"usuariosNotificacion", "usuariosNotificacionActivo", "guardaBtn", "limpiarBtn"})
     public void enabledNotificacion() {
+		Sessions.getCurrent().setAttribute("flagDisabled",true);
 		flagDisabled = false;
 	}
 	
@@ -624,7 +649,6 @@ public class FlujoContratacionController extends Div implements IController, IdS
 	@NotifyChange({ "descripcionMensajeSalida" })
     public void readMensajeSalida() {
 		if(contratacionDTO.getMensajeSalidaVOs().size()!=0 && nombreMensajeSalida != null ) {
-			System.out.println("***************" + nombreMensajeSalida.getSelectedIndex());
 			MensajeSalidaVO mensajeSalidaVO =  contratacionDTO.getMensajeSalidaVOs().get(nombreMensajeSalida.getSelectedIndex());
 			descripcionMensajeSalida.setValue(mensajeSalidaVO.getDescripcionMensajeSalida());
 		}
@@ -634,7 +658,7 @@ public class FlujoContratacionController extends Div implements IController, IdS
 	 * Removes the all.
 	 */
 	@Command
-	@NotifyChange({"contratacionDTO", "contratacionUsuariosDTO"})
+	@NotifyChange({"contratacionDTO", "contratacionUsuariosDTO", "size"})
 	public void removeAll(){
 		if(!flagDisabled) {
 			List<UsuarioNotificacionVO> notificacionVOs = contratacionUsuariosDTO.getUsuarioNotificacionContrataMapVOs();
@@ -642,6 +666,8 @@ public class FlujoContratacionController extends Div implements IController, IdS
 				contratacionDTO.getUsuarioNotificacionVOs().add(notificacionVO);
 			}
 			contratacionUsuariosDTO.getUsuarioNotificacionContrataMapVOs().clear();
+			size = 0;
+			validaTamanio();
 		}
 	}
 	
@@ -649,12 +675,14 @@ public class FlujoContratacionController extends Div implements IController, IdS
 	 * Removes the one.
 	 */
 	@Command
-	@NotifyChange({"contratacionDTO", "contratacionUsuariosDTO"})
+	@NotifyChange({"contratacionDTO", "contratacionUsuariosDTO", "size"})
 	public void removeOne(){
 		if(!flagDisabled) {
 			if(usuariosNotificacionActivo.getSelectedIndex() != -1){
 				contratacionDTO.getUsuarioNotificacionVOs().add(contratacionUsuariosDTO.getUsuarioNotificacionContrataMapVOs().get(usuariosNotificacionActivo.getSelectedIndex()));
 				contratacionUsuariosDTO.getUsuarioNotificacionContrataMapVOs().remove(usuariosNotificacionActivo.getSelectedIndex());
+				size = contratacionUsuariosDTO.getUsuarioNotificacionContrataMapVOs().size();
+				validaTamanio();
 			}
 		}
 	}
@@ -664,7 +692,7 @@ public class FlujoContratacionController extends Div implements IController, IdS
 	 */
 	@Override
 	@Command
-	@NotifyChange({"guardarBtn"})
+	@NotifyChange({"guardarBtn","idTransaccion"})
 	public void save() {
 		boolean errorGuardar = false;
 		final ReportesController controller = new ReportesController();
@@ -703,6 +731,7 @@ public class FlujoContratacionController extends Div implements IController, IdS
 						contratacionMapVO.setIdEtapa(Integer.parseInt(idEtapa.getValue()));
 						contratacionMapVO.setIdContratacion(Integer.parseInt(idContratacion.getValue()));
 						if(notificacion.getSelectedItem().getId().equals("radioS")) {
+							
 							contratacionMapVO.setEstatusNotificacion("T".charAt(0));
 							contratacionMapVO.setIdMensajeSalida(Integer.parseInt(idMensajeSalida.getValue()));
 							List<UsuarioNotificacionVO> listaUsuarios = contratacionUsuariosDTO.getUsuarioNotificacionContrataMapVOs();
@@ -726,6 +755,15 @@ public class FlujoContratacionController extends Div implements IController, IdS
 						if(Sessions.getCurrent().getAttribute("idContratacionReg") != null || idTransaccion.getValue().equals("0")) {
 							contratacionMapDTO.setContratacionMapVO(contratacionMapVO);
 							contratacionMapDTO = contratacionMapeadorBO.createCommand(contratacionMapDTO);
+							idTransaccion.setValue("1");
+							Sessions.getCurrent().removeAttribute("user");
+							Sessions.getCurrent().removeAttribute("idMensajeSalida");
+							Sessions.getCurrent().removeAttribute("idMapaGmm");
+							
+							contador = Integer.parseInt(String.valueOf(Sessions.getCurrent().getAttribute("contadorFinal")==null?Sessions.getCurrent().getAttribute("contador"):Sessions.getCurrent().getAttribute("contadorFinal")));
+							
+							Sessions.getCurrent().setAttribute("contadorFinal", contador-1);
+							
 							if(contratacionMapDTO.getErrorCode().equals("SQL-001")){
 						    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
 						    					"\nError:"+contratacionMapDTO.getErrorCode()+
@@ -750,6 +788,14 @@ public class FlujoContratacionController extends Div implements IController, IdS
 							contratacionMapVO.setIdContratacion(Integer.parseInt(idContratacion.getValue()));
 							contratacionMapDTO.setContratacionMapVO(contratacionMapVO);
 							contratacionMapDTO = contratacionMapeadorBO.updateCommand(contratacionMapDTO);
+							Sessions.getCurrent().removeAttribute("user");
+							Sessions.getCurrent().removeAttribute("idMensajeSalida");
+							Sessions.getCurrent().removeAttribute("idMapaGmm");
+							Sessions.getCurrent().removeAttribute("contadorFinal");
+							Sessions.getCurrent().removeAttribute("contador");
+							Sessions.getCurrent().removeAttribute("flag");
+							Sessions.getCurrent().removeAttribute("flagDisabled");
+							Sessions.getCurrent().removeAttribute("ultimoValor");
 							if(contratacionMapDTO.getErrorCode().equals("SQL-001")){
 						    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
 						    					"\nError:"+contratacionMapDTO.getErrorCode()+
@@ -959,5 +1005,34 @@ public class FlujoContratacionController extends Div implements IController, IdS
 	public void setTitulo(String titulo) {
 		this.titulo = titulo;
 	}
+
+	/**
+	 * @return the size
+	 */
+	public int getSize() {
+		return size;
+	}
+
+	/**
+	 * @param size the size to set
+	 */
+	public void setSize(int size) {
+		this.size = size;
+	}
+
+	/**
+	 * @return the initSize
+	 */
+	public int getInitSize() {
+		return initSize;
+	}
+
+	/**
+	 * @param initSize the initSize to set
+	 */
+	public void setInitSize(int initSize) {
+		this.initSize = initSize;
+	}
+	
 }
 
