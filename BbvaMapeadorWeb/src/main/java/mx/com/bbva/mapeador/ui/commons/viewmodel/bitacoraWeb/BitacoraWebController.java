@@ -397,10 +397,12 @@ public class BitacoraWebController extends ControllerSupport implements IControl
 			e.printStackTrace();
 		}
 		mapDatos.put("campoDTOs", this.campoDTOs);
-		Window window = (Window) Executions.createComponents(
-				"/WEB-INF/flows/bitacoraWeb/detalleBitacora.zul",
-				this.getSelf(), mapDatos);
-		window.doModal();
+		try{
+			Window window = (Window) Executions.createComponents(
+					"/WEB-INF/flows/bitacoraWeb/detalleBitacora.zul",
+					this.getSelf(), mapDatos);
+			window.doModal();
+		}catch(Exception ex){}
 	}
 
 	/**

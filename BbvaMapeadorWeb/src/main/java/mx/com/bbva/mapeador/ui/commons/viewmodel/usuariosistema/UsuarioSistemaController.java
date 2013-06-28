@@ -469,7 +469,7 @@ public class UsuarioSistemaController  extends ControllerSupport implements ICon
 		usuarioNotificacionVO.setDescripcionEmail(email.getValue().isEmpty()?"%":"%"+email.getValue()+"%");
 		
 		//Combos Validar el nombre de los parametros en HTML VS Controller
-		usuarioNotificacionVO.setIdEstatusObjeto((Integer.parseInt(status.getValue()==null?"0":status.getSelectedItem().getValue().toString())));
+		usuarioNotificacionVO.setIdEstatusObjeto((Integer.parseInt(status.getSelectedItem()==null?"0":status.getSelectedItem().getValue().toString())));
 		usuarioNotificacionVO.setTipoNotificacion(CommandConstants.TIPO_NOTIFICACION_SISTEMA);
 		usuarioNotificacionDTO.setUsuarioNotificacionVO(usuarioNotificacionVO);
 		usuarioNotificacionDTO.toString(BbvaAbstractDataTransferObject.XML);	

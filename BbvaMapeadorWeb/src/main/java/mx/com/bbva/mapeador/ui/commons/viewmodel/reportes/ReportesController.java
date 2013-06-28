@@ -164,27 +164,27 @@ public class ReportesController extends ControllerSupport {
 	 * @param idEvento the id evento
 	 * @param nombreBitacora the nombre bitacora
 	 */
-	public void registrarEventoPerfil(PerfilDTO nuevo,PerfilDTO anterior, int idEvento, String nombreBitacora){
+	public void registrarEventoPerfil(PerfilDTO nuevo,PerfilDTO anterior, int idEvento, String nombreBitacora,String pantalla){
 		List<CampoDTO> campoDTOs = new ArrayList<CampoDTO>(); 
 		BitacoraDTO dto = new BitacoraDTO(); 
 		CampoDTO campo = new CampoDTO();
 		PerfilVO perfilVONuevo =   nuevo.getPerfilVO();
 		PerfilVO perfilVOAnterior =   anterior.getPerfilVO();
-		if(perfilVOAnterior.getNombrebPerfil()!=perfilVONuevo.getNombrebPerfil()){
+		if(!perfilVOAnterior.getNombrebPerfil().trim().equals(perfilVONuevo.getNombrebPerfil().trim())){
 			campo = new CampoDTO();
 			campo.setNombre_campo("nombrePerfil");
 			campo.setValor_anterior(perfilVOAnterior.getNombrebPerfil());
 			campo.setValor_nuevo(perfilVONuevo.getNombrebPerfil());
 			campoDTOs.add(campo);
 		}
-		if(perfilVOAnterior.getDescripcionPerfil()!=perfilVONuevo.getDescripcionPerfil()){
+		if(!perfilVOAnterior.getDescripcionPerfil().trim().equals(perfilVONuevo.getDescripcionPerfil().trim())){
 			campo = new CampoDTO();
 			campo.setNombre_campo("descripcionPerfil");
 			campo.setValor_anterior(perfilVOAnterior.getDescripcionPerfil());
 			campo.setValor_nuevo(perfilVONuevo.getDescripcionPerfil());
 			campoDTOs.add(campo);
 		}
-		if(perfilVOAnterior.getDescipcionEstatus()!=perfilVONuevo.getDescipcionEstatus()){
+		if(!perfilVOAnterior.getDescipcionEstatus().trim().equals(perfilVONuevo.getDescipcionEstatus().trim())){
 			campo = new CampoDTO();
 			campo.setNombre_campo("estatusPerfil");
 			campo.setValor_anterior(perfilVOAnterior.getDescipcionEstatus());
@@ -198,7 +198,7 @@ public class ReportesController extends ControllerSupport {
 				campo = new CampoDTO();
 				campo.setNombre_campo("Permiso");
 				campo.setValor_anterior("");
-				campo.setValor_nuevo("Se crea--"+controlPermisoVO.getNombreComponente());
+				campo.setValor_nuevo("Se crea:"+"\nNombre Pantalla:"+pantalla+"\nNombre Componente:"+controlPermisoVO.getNombreComponente());
 				campoDTOs.add(campo);
 			}
 		}
@@ -207,7 +207,7 @@ public class ReportesController extends ControllerSupport {
 			for (ControlPermisoVO controlPermisoVO : controlPermisoVOsAnterior) {
 				campo = new CampoDTO();
 				campo.setNombre_campo("Permiso");
-				campo.setValor_anterior("Se elimina--"+controlPermisoVO.getNombreComponente());
+				campo.setValor_anterior("Se elimina:"+"\nNombre Pantalla:"+pantalla+"\nNombre Componente:"+controlPermisoVO.getNombreComponente());
 				campo.setValor_nuevo("");
 				campoDTOs.add(campo);
 			}
