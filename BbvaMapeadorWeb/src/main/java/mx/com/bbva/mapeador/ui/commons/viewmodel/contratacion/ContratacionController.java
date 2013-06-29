@@ -1303,7 +1303,7 @@ public class ContratacionController extends ControllerSupport implements IContro
 				String count = String.valueOf(Sessions.getCurrent().getAttribute("contadorFinal")==null?Sessions.getCurrent().getAttribute("contador"):Sessions.getCurrent().getAttribute("contadorFinal"));
 				if(!count.equals("null")&&Integer.valueOf(count)>1) {
 					Messagebox.show(
-							"¿Aún se registran todas las Etapas, está seguro que desea Salir?",
+							"¿Aún no se registran todas las Etapas, está seguro que desea Salir?",
 							"Pregunta", org.zkoss.zul.Messagebox.YES | org.zkoss.zul.Messagebox.NO,
 					org.zkoss.zul.Messagebox.QUESTION, new EventListener<Event>() {
 						@Override
