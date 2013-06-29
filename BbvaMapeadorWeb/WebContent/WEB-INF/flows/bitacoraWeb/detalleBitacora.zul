@@ -14,7 +14,7 @@
 				model="@load(arg.campoDTOs)" pagingPosition="both" pageSize="5"
 				vflex="true" height="100%">									
 				<columns sizable="true" menupopup="auto">
-					<column hflex="1" label="Campo" width="10%"
+					<column hflex="1" label="Campo/Proceso" width="10%"
 						sort="auto(vm.bitacoraDTO.campoDTO.nombre_campo)"></column>
 					<column hflex="1" label="Valor Anterior" width="10%"
 						sort="auto(vm.bitacoraDTO.campoDTO.valor_anterior)"></column>
