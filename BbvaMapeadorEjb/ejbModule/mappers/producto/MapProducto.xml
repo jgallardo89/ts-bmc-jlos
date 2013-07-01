@@ -34,6 +34,12 @@
 		<if test="idEstatusObjeto != null and idEstatusObjeto != 0">
 			AND OBJETO.CD_ST_OBJETO = #{idEstatusObjeto}
 		</if>
+		<if test="fechaAlta != null">
+			AND to_char(PRODUCTO.TM_ALTA,'dd-MM-yyyy') = to_char(#{fechaAlta},'dd-MM-yyyy')
+		</if>
+		<if test="fechaModificacion != null">
+			AND to_char(PRODUCTO.TM_MODIFICACION,'dd-MM-yyyy') = to_char(#{fechaModificacion},'dd-MM-yyyy')
+		</if>
 		ORDER BY PRODUCTO.CD_PRODUCTO
 	</select>
 	<insert id="crearProducto" keyProperty="idProducto" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.ProductoVO">

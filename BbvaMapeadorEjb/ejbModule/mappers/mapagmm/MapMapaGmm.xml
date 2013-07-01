@@ -22,12 +22,12 @@
 			<if test="descripcionMapaGmm != null">
 				AND M.TX_MAPA_GMM LIKE #{descripcionMapaGmm}
 			</if>
-			<if test="fechaAlta != null ">
-				AND M.TM_ALTA like  TO_DATE(TO_CHAR( #{fechaAlta}, 'YYYY-MM-DD'), 'YYYY-MM-DD')
-			</if>						  
-			<if test="fechaModificacion != null ">
-				AND  M.TM_MODIFICACION like TO_DATE(TO_CHAR( #{fechaModificacion}, 'YYYY-MM-DD'), 'YYYY-MM-DD')
-			</if>			
+			<if test="fechaAlta != null">
+				AND to_char(M.TM_ALTA,'dd-MM-yyyy') = to_char(#{fechaAlta},'dd-MM-yyyy')
+			</if>
+			<if test="fechaModificacion != null">
+				AND to_char(M.TM_MODIFICACION,'dd-MM-yyyy') = to_char(#{fechaModificacion},'dd-MM-yyyy')
+			</if>		
 			<if test="idEstatusObjeto != null and idEstatusObjeto != 0">
 				AND M.CD_ST_OBJETO = #{idEstatusObjeto}
 			</if>	

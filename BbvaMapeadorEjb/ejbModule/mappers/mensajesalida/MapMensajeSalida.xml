@@ -32,7 +32,13 @@
 				</if>
 				<if test="descripcionAsuntoSalida != null">
 					AND MENSAJE.TX_ASUNTO LIKE #{descripcionAsuntoSalida}
-				</if>				
+				</if>		
+				<if test="fechaAlta != null">
+					AND to_char(MENSAJE.TM_ALTA,'dd-MM-yyyy') = to_char(#{fechaAlta},'dd-MM-yyyy')
+				</if>
+				<if test="fechaModificacion != null">
+					AND to_char(MENSAJE.TM_MODIFICACION,'dd-MM-yyyy') = to_char(#{fechaModificacion},'dd-MM-yyyy')
+				</if>		
 				ORDER BY CD_MENSAJE_SALIDA
 	</select>
 	<insert id="crearMensajeSalida" keyProperty="idMensajeSalida" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.MensajeSalidaVO">

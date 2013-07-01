@@ -35,6 +35,12 @@
 				<if test="idEstatusObjeto != null and idEstatusObjeto != 0">
 					AND OBJETO.CD_ST_OBJETO = #{idEstatusObjeto}
 				</if>
+				<if test="fechaAlta != null">
+					AND to_char(FLUJO.TM_ALTA,'dd-MM-yyyy') = to_char(#{fechaAlta},'dd-MM-yyyy')
+				</if>
+				<if test="fechaModificacion != null">
+					AND to_char(FLUJO.TM_MODIFICACION,'dd-MM-yyyy') = to_char(#{fechaModificacion},'dd-MM-yyyy')
+				</if>
 				ORDER BY FLUJO.CD_FLUJO
 	</select>
 	<update id="actualizarFlujo" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.FlujoVO">
