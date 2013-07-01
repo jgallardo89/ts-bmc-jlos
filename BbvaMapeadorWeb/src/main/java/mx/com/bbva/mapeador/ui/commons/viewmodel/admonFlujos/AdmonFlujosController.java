@@ -447,6 +447,8 @@ public class AdmonFlujosController extends ControllerSupport implements IControl
 		flujoVO.setNombreFlujo(StringUtil.validaLike(nombreFlujo.getValue()));
 		flujoVO.setDescripcionFlujo(StringUtil.validaLike(descripcionFlujo.getValue()));
 		flujoVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue().isEmpty()?"0":idEstatusObjeto.getValue()));
+		flujoVO.setFechaAlta(fechaAlta.getValue());
+		flujoVO.setFechaModificacion(fechaModificacion.getValue());
 		flujoVO.toString();
 		flujoDTO.setFlujoVO(flujoVO);
 		FlujoBO FlujoBO = new FlujoBO();

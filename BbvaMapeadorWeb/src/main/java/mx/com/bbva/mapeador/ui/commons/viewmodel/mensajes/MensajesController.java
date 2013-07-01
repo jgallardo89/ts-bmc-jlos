@@ -461,6 +461,8 @@ public class MensajesController extends ControllerSupport implements IController
 		mensajeSalidaVO.setIdEstatusObjeto(Integer.parseInt(statusObjeto.getSelectedItem()==null?"0":statusObjeto.getSelectedItem().getValue().toString()));
 		mensajeSalidaVO.setDescripcionAsuntoSalida(descripcionAsuntoSalida.getValue().isEmpty()?"%":"%"+descripcionAsuntoSalida.getValue().toUpperCase()+"%");
 		mensajeSalidaVO.setTipoNotificacion(CommandConstants.TIPO_NOTIFICACION_NEGOCIO);
+		mensajeSalidaVO.setFechaAlta(fechaAlta.getValue());
+		mensajeSalidaVO.setFechaModificacion(fechaModificacion.getValue());
 		mensajeSalidaVO.toString();
 		mensajeSalidaDTO.setMensajeSalidaVO(mensajeSalidaVO);
 		MensajeSalidaBO mensajeSalidaBO = new MensajeSalidaBO();

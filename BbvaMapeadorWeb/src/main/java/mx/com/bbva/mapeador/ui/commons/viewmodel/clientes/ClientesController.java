@@ -438,6 +438,9 @@ public class ClientesController extends ControllerSupport implements IController
 		clienteVO.setNombreCliente(StringUtil.validaLike(nombreCliente.getValue()));
 		clienteVO.setNombreCortoCliente(StringUtil.validaLike(nombreCortoCliente.getValue()));
 		clienteVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue().isEmpty()?"0":idEstatusObjeto.getValue()));
+				
+		clienteVO.setFechaAlta(fechaAlta.getValue());
+		clienteVO.setFechaModificacion(fechaModificacion.getValue());
 		
 		clienteVO.toString();
 		clienteDTO.setClienteVO(clienteVO);

@@ -455,6 +455,8 @@ public class ProductosController extends ControllerSupport implements IControlle
 		productoVO.setNombreProducto(StringUtil.validaLike(nombreProducto.getValue()));
 		productoVO.setDescripcionProducto(StringUtil.validaLike(descripcionProducto.getValue()));
 		productoVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue().isEmpty()?"0":idEstatusObjeto.getValue()));
+		productoVO.setFechaAlta(fechaAlta.getValue());
+		productoVO.setFechaModificacion(fechaModificacion.getValue());
 		productoDTO.setProductoVO(productoVO);
 		productoVO.toString();
 	
