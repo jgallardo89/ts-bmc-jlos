@@ -43,11 +43,11 @@
 												<div align="right">
 													<label id="lblFechaAlta" width="100%" sclass="labelFill" value="Fecha alta: "></label>												
 												</div>
-												<datebox height="20px" value="@load(vm.flujoDTO.flujoVO.fechaAlta)" maxlength="50" width="100%" id="fechaAlta" readonly="true" buttonVisible="false" format="dd/MM/yyyy HH:mm"></datebox>
+												<datebox height="20px" value="@load(vm.flujoDTO.flujoVO.fechaAlta)" maxlength="50" width="100%" id="fechaAlta" readonly="true" buttonVisible="true" format="dd/MM/yyyy HH:mm"></datebox>
 												<div align="right">
 													<label id="lblFechaModificacion" width="100%" sclass="labelFill" value="Fecha modificación: "></label>												
 												</div>
-												<datebox height="20px" value="@load(vm.flujoDTO.flujoVO.fechaModificacion)" maxlength="50" width="100%" id="fechaModificacion" readonly="true" buttonVisible="false" format="dd/MM/yyyy HH:mm"></datebox>																										
+												<datebox height="20px" value="@load(vm.flujoDTO.flujoVO.fechaModificacion)" maxlength="50" width="100%" id="fechaModificacion" readonly="true" buttonVisible="true" format="dd/MM/yyyy HH:mm"></datebox>																										
 											</row>
 											<row sclass="row2">
 												<div align="right">
