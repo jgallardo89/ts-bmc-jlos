@@ -32,7 +32,9 @@
 	        LEFT OUTER JOIN TGM520_CONTRAT_MAP CM ON 
 	        P.CD_CONTRATACION = cm.cd_contratacion AND  
 	        P.CD_FLUJO = CM.CD_FLUJO AND 
-	        P.CD_ETAPA = CM.CD_ETAPA
+	        P.CD_ETAPA = CM.CD_ETAPA AND
+	        P.NU_LOTE = CM.NU_LOTE AND
+	        P.FH_ST_PROCESO = CM.FH_ST_PROCESO 
 	        LEFT OUTER JOIN TGM518_FLUJOETAPA FE ON 
 	        CM.CD_FLUJO = FE.CD_FLUJO AND
 	        CM.CD_ETAPA = CM.CD_ETAPA
@@ -105,7 +107,9 @@
 	        LEFT OUTER JOIN TGM520_CONTRAT_MAP CM ON 
 	        P.CD_CONTRATACION = CM.CD_CONTRATACION AND  
 	        P.CD_FLUJO = CM.CD_FLUJO AND 
-	        P.CD_ETAPA = CM.CD_ETAPA
+	        P.CD_ETAPA = CM.CD_ETAPA AND
+	        P.NU_LOTE = CM.NU_LOTE AND
+	        P.FH_ST_PROCESO = CM.FH_ST_PROCESO	        
 	        LEFT OUTER JOIN TGM518_FLUJOETAPA FE ON 
 	        CM.CD_FLUJO = FE.CD_FLUJO AND
 	        CM.CD_ETAPA = CM.CD_ETAPA
@@ -155,7 +159,9 @@
 			CD_CONTRATACION = #{idContratacion} and 
 			CD_FLUJO =  #{idFlujo} and 
 			CD_ETAPA = #{idEtapa} and
-			CD_REG_ARCH_ENTRA = #{idRegArchEntra}
+			CD_REG_ARCH_ENTRA = #{idRegArchEntra} and
+	        NU_LOTE = {nuLote} and
+	        FH_ST_PROCESO = {fhStProceso}
 	</update>
 	<select id="obtieneCanalesProcesos" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.MonitoreoProcesosVO"
 		resultType="mx.com.bbva.bancomer.bussinnes.model.vo.MonitoreoProcesosVO">
