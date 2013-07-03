@@ -160,8 +160,8 @@
 			CD_FLUJO =  #{idFlujo} and 
 			CD_ETAPA = #{idEtapa} and
 			CD_REG_ARCH_ENTRA = #{idRegArchEntra} and
-	        NU_LOTE = {nuLote} and
-	        FH_ST_PROCESO = {fhStProceso}
+	        NU_LOTE = {numeroLote} and
+	        FH_ST_PROCESO = {fechaStatusProceso}
 	</update>
 	<select id="obtieneCanalesProcesos" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.MonitoreoProcesosVO"
 		resultType="mx.com.bbva.bancomer.bussinnes.model.vo.MonitoreoProcesosVO">
