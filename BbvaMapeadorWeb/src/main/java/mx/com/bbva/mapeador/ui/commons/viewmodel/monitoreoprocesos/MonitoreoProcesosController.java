@@ -597,10 +597,13 @@ public class MonitoreoProcesosController extends ControllerSupport implements  I
 				urlImage = CommandConstants.IMG_ERROR_ROJO_PNG;
 				image.setAttribute("idProceso", monitoreoProcesosVO);				
 				String data;
+				final DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 				data = monitoreoProcesosVO1.getIdContratacion()+"-"+
 					monitoreoProcesosVO1.getIdFlujo()+"-"+
 					monitoreoProcesosVO1.getIdEtapa()+"-"+
-					monitoreoProcesosVO1.getIdRegArchEntra();
+					monitoreoProcesosVO1.getIdRegArchEntra()+"-"+
+					format.format(monitoreoProcesosVO1.getFechaStatusProceso())+"-"+
+					monitoreoProcesosVO1.getNumeroLote();
 				image.setAutag(data);
 				image.addEventListener("onClick", new EventListener<Event>() {
 					@Override
@@ -621,6 +624,8 @@ public class MonitoreoProcesosController extends ControllerSupport implements  I
 						monitoreoProcesosVO.setIdFlujo(Long.parseLong(valuesToUpdate[1]));
 						monitoreoProcesosVO.setIdEtapa(Long.parseLong(valuesToUpdate[2]));
 						monitoreoProcesosVO.setIdRegArchEntra(Long.parseLong(valuesToUpdate[3]));
+						monitoreoProcesosVO.setFechaStatusProceso(format.parse(valuesToUpdate[4]));
+						monitoreoProcesosVO.setNumeroLote(Long.parseLong(valuesToUpdate[5]));
 						monitoreoProcesosDTOUpdate.setMonitoreoProcesosVO(monitoreoProcesosVO);
 						Messagebox.show("¿Está seguro que desea actualizar el estatus?",
 								"Pregunta", org.zkoss.zul.Messagebox.YES | org.zkoss.zul.Messagebox.NO,
