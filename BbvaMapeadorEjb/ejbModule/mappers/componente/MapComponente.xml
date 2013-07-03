@@ -44,35 +44,44 @@
 	</insert>
 	<select id="obtenerComponentesPantalla" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.ComponenteVO"
 		resultType="mx.com.bbva.bancomer.bussinnes.model.vo.ComponenteVO">					
-		Select Componente.Cd_Pantalla idPantalla,
-		Componente.Cd_Componente idComponente,
-		Componente.Nb_Componente nombreComponente,		
-		Componente.Cd_Default idDefault
-		From Tgm502_Componente Componente    
-		Where Componente.Cd_Default = 'F'    
-		And Componente.Cd_Pantalla = #{idPantalla}
-		minus      
-		Select Componente.Cd_Pantalla idPantalla,
-		Componente.Cd_Componente idComponente,
-		Componente.Nb_Componente nombreComponente,		
-		Componente.Cd_Default idDefault
-		From Tgm502_Componente Componente,
-    	tgm505_ctrlpermiso control
-		Where Componente.Cd_Default = 'F'    
-		And Componente.Cd_Pantalla = #{idPantalla}		
-		And Control.Cd_Perfil = #{idPerfil}		
-    	And Control.Cd_Componente = componente.cd_componente    
+		select componente.cd_pantalla idPantalla,
+		  pantalla.NB_PANTALLA nombrePantalla,
+		  Componente.Cd_Componente idComponente,
+		  Componente.Nb_Componente nombreComponente,
+		  componente.cd_default iddefault
+		FROM tgm502_componente componente,
+		  tgm501_pantalla pantalla
+		WHERE Componente.Cd_Default = 'F'
+		AND componente.cd_pantalla  = #{idPantalla}
+		AND pantalla.cd_pantalla    = #{idPantalla}
+		minus
+		select componente.cd_pantalla idPantalla,
+		  pantalla.NB_PANTALLA nombrePantalla,
+		  Componente.Cd_Componente idComponente,
+		  Componente.Nb_Componente nombreComponente,
+		  Componente.Cd_Default idDefault
+		FROM tgm502_componente componente,
+		  tgm505_ctrlpermiso control,
+		  tgm501_pantalla pantalla
+		WHERE Componente.Cd_Default = 'F'
+		AND Componente.Cd_Pantalla  = #{idPantalla}
+		AND control.cd_perfil       = #{idPerfil}
+		AND pantalla.cd_pantalla    = #{idPantalla}
+		AND Control.Cd_Componente   = componente.cd_componente    
 	</select>
 	<select id="obtenerComponentesPantallaPerfil" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.ComponenteVO"
 		resultType="mx.com.bbva.bancomer.bussinnes.model.vo.ComponenteVO">	
-		Select Componente.Cd_Pantalla idPantalla,
-		Componente.Cd_Componente idComponente,
-		Componente.Nb_Componente nombreComponente,		
-		Componente.Cd_Default idDefault
-		From Tgm502_Componente Componente,
-    	tgm505_ctrlpermiso control
-		Where Componente.Cd_Default = 'F'    		
-    	And Control.Cd_Componente = componente.cd_componente
+		SELECT Componente.Cd_Pantalla idPantalla,
+		  Componente.Cd_Componente idComponente,
+		  Componente.Nb_Componente nombreComponente,
+		  Pantalla.nb_Pantalla nombrePantalla,
+		  Componente.Cd_Default idDefault
+		FROM tgm502_componente componente,
+		  tgm505_ctrlpermiso control,
+		  tgm501_pantalla Pantalla
+		WHERE componente.cd_default = 'F'
+		AND pantalla.cd_pantalla    = Componente.Cd_Pantalla
+		AND Control.Cd_Componente   = componente.cd_componente
     	And Componente.Cd_Pantalla = #{idPantalla}    	
     	And Control.Cd_Perfil = #{idPerfil}
 	</select>
