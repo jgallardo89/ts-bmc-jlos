@@ -600,8 +600,7 @@ public class MonitoreoProcesosController extends ControllerSupport implements  I
 				final DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 				data = monitoreoProcesosVO1.getIdContratacion()+"-"+
 					monitoreoProcesosVO1.getIdFlujo()+"-"+
-					monitoreoProcesosVO1.getIdEtapa()+"-"+
-					monitoreoProcesosVO1.getIdRegArchEntra()+"-"+
+					monitoreoProcesosVO1.getIdEtapa()+"-"+					
 					format.format(monitoreoProcesosVO1.getFechaStatusProceso())+"-"+
 					monitoreoProcesosVO1.getNumeroLote();
 				image.setAutag(data);
@@ -622,10 +621,9 @@ public class MonitoreoProcesosController extends ControllerSupport implements  I
 						
 						monitoreoProcesosVO.setIdContratacion(Long.parseLong(valuesToUpdate[0]));
 						monitoreoProcesosVO.setIdFlujo(Long.parseLong(valuesToUpdate[1]));
-						monitoreoProcesosVO.setIdEtapa(Long.parseLong(valuesToUpdate[2]));
-						monitoreoProcesosVO.setIdRegArchEntra(Long.parseLong(valuesToUpdate[3]));
-						monitoreoProcesosVO.setFechaStatusProceso(format.parse(valuesToUpdate[4]));
-						monitoreoProcesosVO.setNumeroLote(Long.parseLong(valuesToUpdate[5]));
+						monitoreoProcesosVO.setIdEtapa(Long.parseLong(valuesToUpdate[2]));						
+						monitoreoProcesosVO.setFechaStatusProceso(format.parse(valuesToUpdate[3]));
+						monitoreoProcesosVO.setNumeroLote(Long.parseLong(valuesToUpdate[4]));
 						monitoreoProcesosDTOUpdate.setMonitoreoProcesosVO(monitoreoProcesosVO);
 						Messagebox.show("¿Está seguro que desea actualizar el estatus?",
 								"Pregunta", org.zkoss.zul.Messagebox.YES | org.zkoss.zul.Messagebox.NO,
