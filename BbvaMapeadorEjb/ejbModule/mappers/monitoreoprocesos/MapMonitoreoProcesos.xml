@@ -158,10 +158,9 @@
 		WHERE 
 			CD_CONTRATACION = #{idContratacion} and 
 			CD_FLUJO =  #{idFlujo} and 
-			CD_ETAPA = #{idEtapa} and
-			CD_REG_ARCH_ENTRA = #{idRegArchEntra} and
-	        NU_LOTE = {numeroLote} and
-	        FH_ST_PROCESO = {fechaStatusProceso}
+			CD_ETAPA = #{idEtapa} and			
+	        NU_LOTE = #{numeroLote} and
+	        to_char(FH_ST_PROCESO,'dd/MM/yyyy') = to_char(#{fechaStatusProceso},'dd/MM/yyyy')
 	</update>
 	<select id="obtieneCanalesProcesos" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.MonitoreoProcesosVO"
 		resultType="mx.com.bbva.bancomer.bussinnes.model.vo.MonitoreoProcesosVO">
