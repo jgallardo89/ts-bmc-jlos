@@ -268,7 +268,7 @@ public class ContratacionController extends ControllerSupport implements IContro
 	@Wire
 	private Tab newTab;
 	
-	
+	boolean continuar = true;
 	private List<ContratacionMapVO> listaContratacionMapVOs;
 
 	/**
@@ -310,7 +310,7 @@ public class ContratacionController extends ControllerSupport implements IContro
 			estatusObjeto.setValue(contratacionVO.getNombreEstatusObjeto());
 			contratacionDTO.setContratacionVO(contratacionVO);
 			producto.setDisabled(true);
-			//cargaTabsDinamicosReg(Integer.parseInt((String) Sessions.getCurrent().getAttribute("idProducto")));
+			cargaTabsDinamicosReg(Integer.parseInt((String) Sessions.getCurrent().getAttribute("idProducto")));
 			//Sessions.getCurrent().removeAttribute("contratacionVO");
 			comboProducto = true;
 		}
@@ -396,6 +396,10 @@ public class ContratacionController extends ControllerSupport implements IContro
 	 */
 	private void cargaTabsDinamicosReg(int idProduct) {
 		ContratacionBO contratacionMapeadorBO = new ContratacionBO();
+		
+		List<ContratacionMapVO> contratacionMapVOs = new ArrayList<ContratacionMapVO>();
+		ContratacionMapVO contratacionMapVO = null;
+		
 		contratacionVO.setIdProducto(idProduct);
 		contratacionDTO.setContratacionVO(contratacionVO);
 		contratacionDTO = contratacionMapeadorBO.readCommandEtapas(contratacionDTO);
@@ -405,12 +409,16 @@ public class ContratacionController extends ControllerSupport implements IContro
 		Tabpanel newTabpanel = null;
 		int contador = 1;
 		for(ContratacionVO contratacionVO:contratacionDTO.getContratacionVOs()) {
+			
+			contratacionMapVO = new ContratacionMapVO();
+						
 			newTab = new Tab(contratacionVO.getNombreEtapa());
-			newTab.setClosable(false);	
+			newTab.setClosable(false);
+			newTab.setId(String.valueOf(contador));
 			if (contador == 1) {
 				newTab.setSelected(true);
 			}
-	        newTab.setId(String.valueOf(contador++));
+	        
 	        newTabpanel = new Tabpanel();
 	        newTabpanel.setWidth("100%");
 	        newTabpanel.setHeight("100%");
@@ -419,14 +427,20 @@ public class ContratacionController extends ControllerSupport implements IContro
 	        
 	        iframe = new Iframe("flows/contratacion/pageTab.zul?idEtapa="+contratacionVO.getIdEtapa()+"&idFlujo="+
 	        										contratacionVO.getIdFlujo()+"&idContratacion="+idContratacion.getValue()+
-	        										"&estatusNotificacion='T'&idTransaccion=0");
+	        										"&estatusNotificacion='T'&idTransaccion=0&idTab="+contador++);
 	        iframe.setWidth("100%");
 	        iframe.setHeight("100%");
 	        newTabpanel.appendChild(iframe);
 	        tabs.getTabs().insertBefore(newTab, tabNohome);
 	        newTabpanel.setParent(tabs.getTabpanels());
+	        contratacionMapVO.setNombreEtapa(contratacionVO.getNombreEtapa());
+	        contratacionMapVO.setIdFlujo(contratacionVO.getIdFlujo());
+	        contratacionMapVO.setIdEtapa(contratacionVO.getIdEtapa());
+	        contratacionMapVO.setEstatusNotificacion('T');
+	        contratacionMapVOs.add(contratacionMapVO);
 		}
 		
+		Sessions.getCurrent().setAttribute("contratacionMapVOs", contratacionMapVOs);
 		Sessions.getCurrent().setAttribute("contador", contador);
 		
 	}
@@ -713,6 +727,8 @@ public class ContratacionController extends ControllerSupport implements IContro
 		contratacionMapDTO = contratacionMapeadorBO.readCommand(contratacionMapDTO);
 		Sessions.getCurrent().removeAttribute("idContratacionReg");
 		
+		List<ContratacionMapVO> contratacionMapVOs = new ArrayList<ContratacionMapVO>();
+		
 		Iframe iframe = null;
 		Tabpanel newTabpanel = null;
 		int contador = 1;
@@ -735,64 +751,16 @@ public class ContratacionController extends ControllerSupport implements IContro
 	   		ContratacionMapVO mapVO = it2.next();
 	   		listaContratacionMapVOs.add(mapVO);
 				newTab = new Tab(mapVO.getNombreEtapa());
-				newTab.setClosable(false);	
-//				if (contador == 1) {
-//					newTab.setSelected(true);
-//					tabs.setSelectedTab(newTab);
-//					
-//				}
-		        newTab.setId(String.valueOf(contador++));
+				newTab.setClosable(false);					
+				if (contador == 1) {
+					newTab.setSelected(true);
+				}
+		        newTab.setId(String.valueOf(contador));
 		        newTabpanel = new Tabpanel();
 		        newTabpanel.setWidth("100%");
 		        newTabpanel.setHeight("100%");
 		        newTabpanel.setId(mapVO.getNombreEtapa());
-		        
-		        newTab.addEventListener(Events.ON_SELECT, new EventListener<Event>() {
-					@Override
-					public void onEvent(Event event) throws Exception {
-						Boolean usuario = (Boolean)Sessions.getCurrent().getAttribute("user");
-						Boolean flagNotificacion = (Boolean)Sessions.getCurrent().getAttribute("flagDisabled");
-						String mensaje = String.valueOf(Sessions.getCurrent().getAttribute("idMensajeSalida")==null?"":Sessions.getCurrent().getAttribute("idMensajeSalida"));
-						String mapa = String.valueOf(Sessions.getCurrent().getAttribute("idMapaGmm")==null?"":Sessions.getCurrent().getAttribute("idMapaGmm"));
-						
-						ContratacionMapVO contratacionMap = null;
-						if(usuario!=null||!mensaje.equals("")||!mapa.equals("")) {
-							Messagebox.show("Se han realizado cambios, no puede continuar sin guardar los cambios de la Pestaña: " + newTab.getLabel(),"Advertencia de Sistema",Messagebox.OK,Messagebox.ERROR);
-							tabs.setSelectedTab(newTab);
-						} else {
-							boolean val = false;
-							if(Sessions.getCurrent().getAttribute("ultimoValor")!=null) {
-								contratacionMap = listaContratacionMapVOs.get(Integer.parseInt(Sessions.getCurrent().getAttribute("ultimoValor").toString()));								
-								if(contratacionMap.getEstatusNotificacion().equals('T')) {
-									 val = true;
-									 Sessions.getCurrent().setAttribute("flag", val);
-								} else {
-									 val = false;
-									 Sessions.getCurrent().setAttribute("flag", val);
-								}
-								if(flagNotificacion != null && flagNotificacion != val) {
-									Messagebox.show("Se han realizado cambios, no puede continuar sin guardar los cambios de la Pestaña: " + newTab.getLabel(),"Advertencia de Sistema",Messagebox.OK,Messagebox.ERROR);
-								} else {
-									Sessions.getCurrent().removeAttribute("flagDisabled");
-								}
-							} else {
-								Sessions.getCurrent().setAttribute("ultimoValor", (Integer.parseInt(event.getTarget().getId())-1));
-								contratacionMap = listaContratacionMapVOs.get(Integer.parseInt(event.getTarget().getId())-1);
-								
-								if(contratacionMap.getEstatusNotificacion().equals('T')) {
-									 val = true;
-									 Sessions.getCurrent().setAttribute("flag", val);
-								} else {
-									 val = false;
-									 Sessions.getCurrent().setAttribute("flag", val);
-								}
-								newTab = (Tab)event.getTarget();
-							}
-							
-							
-						}
-					}
-				});
+		      
 		        if(mapVO.getNombreMapaGmm()!=null) {
 		        	mensaje = mapVO.getDescripcionMensajeSalida().replace("%", "|");
 			        iframe = new Iframe("flows/contratacion/pageTab.zul?nombreMapaGmm="+mapVO.getNombreMapaGmm()+"&idMapaGmm="+mapVO.getIdMapaGmm()+
@@ -800,17 +768,19 @@ public class ContratacionController extends ControllerSupport implements IContro
 						        		"&descripcionMapaGmm="+mapVO.getDescripcionMapaGmm()+"&estatusNotificacion="+mapVO.getEstatusNotificacion()+
 						        		"&nombreMensajeSalida="+mapVO.getNombreMensajeSalida()+"&descripcionMensajeSalida="+mensaje+
 						        		"&descripcionIdUsuarios="+mapVO.getDescripcionIdUsuarios()+"&idContratacion="+mapVO.getIdContratacion()+"&titulo="+
-						        		mapVO.getNombreEtapa()+"&idTransaccion=1");			        
+						        		mapVO.getNombreEtapa()+"&idTransaccion=1&idTab="+contador++);			        
 		        } else {
 		        	iframe = new Iframe("flows/contratacion/pageTab.zul?idEtapa="+mapVO.getIdEtapa()+"&idFlujo="+
-		        			mapVO.getIdFlujo()+"&idContratacion="+idContratacion+"&estatusNotificacion='T'&idTransaccion=0");
+		        			mapVO.getIdFlujo()+"&idContratacion="+idContratacion+"&estatusNotificacion='T'&idTransaccion=0&idTab="+contador++);
 		        }
+		        contratacionMapVOs.add(mapVO);
 		        iframe.setWidth("100%");
 		        iframe.setHeight("100%");
 		        newTabpanel.appendChild(iframe);
 		        tabs.getTabs().insertBefore(newTab, tabNohome);
 		        newTabpanel.setParent(tabs.getTabpanels());
 		}
+	   	Sessions.getCurrent().setAttribute("contratacionMapVOs", contratacionMapVOs);
 	}
 	
 	/**
@@ -1001,6 +971,290 @@ public class ContratacionController extends ControllerSupport implements IContro
 	public void save() {
 		final ReportesController controller = new ReportesController();
 		boolean errorGuardar = false;
+		continuar = true;
+		if(idContratacion.getValue().isEmpty() || idContratacion.getValue().equals("0")) {
+			if (canal.getSelectedItem() == null
+					|| canal.getSelectedItem().getValue() == null
+					|| canal.getSelectedItem().getValue().toString().isEmpty()) {
+				canal.setErrorMessage("Favor de seleccionar el Canal Entrada");
+				errorGuardar = true;
+			}
+			if (canalSalida.getSelectedItem() == null
+					|| canalSalida.getSelectedItem().getValue() == null
+					|| canalSalida.getSelectedItem().getValue().toString().isEmpty()) {
+				canalSalida.setErrorMessage("Favor de seleccionar el Canal Salida");
+				errorGuardar = true;
+			}
+			if (producto.getSelectedItem() == null
+					|| producto.getSelectedItem().getValue() == null
+					|| producto.getSelectedItem().getValue().toString().isEmpty()) {
+				producto.setErrorMessage("Favor de seleccionar el Producto");
+				errorGuardar = true;
+			}
+			if (cliente.getSelectedItem() == null
+					|| cliente.getSelectedItem().getValue() == null
+					|| cliente.getSelectedItem().getValue().toString().isEmpty()) {
+				cliente.setErrorMessage("Favor de seleccionar el Cliente");
+				errorGuardar = true;
+			}
+		}
+		contratacionDTO = new ContratacionDTO();
+		contratacionVO = new ContratacionVO();
+		contratacionVO.toString();
+		contratacionVO.setIdCanal(Integer.parseInt(idCanal.getValue().isEmpty()?"0":idCanal.getValue()));
+		contratacionVO.setIdCanalSalida(Integer.parseInt(idCanalSalida.getValue().isEmpty()?"0":idCanalSalida.getValue()));
+		contratacionVO.setIdCliente(Integer.parseInt(idCliente.getValue().isEmpty()?"0":idCliente.getValue()));
+		contratacionVO.setIdProducto(Integer.parseInt(idProducto.getValue().isEmpty()?"0":idProducto.getValue()));
+		contratacionDTO.setContratacionVO(contratacionVO);
+		
+		final ContratacionBO contratacionBO = new ContratacionBO();
+		final List<ContratacionVO> conVOs = contratacionBO.readCommand(contratacionDTO).getContratacionVOs();
+		if(!errorGuardar) {
+			ArrayList<ContratacionMapVO> contratacionMapVOs = (ArrayList<ContratacionMapVO>) Sessions.getCurrent().getAttribute("contratacionMapVOs");
+			continuar = validaNotificacion(contratacionMapVOs);
+			if(continuar) {
+				Messagebox.show(
+						"¿Está seguro que desea continuar con la operación?",
+						"Pregunta", org.zkoss.zul.Messagebox.YES | org.zkoss.zul.Messagebox.NO,
+				org.zkoss.zul.Messagebox.QUESTION, new EventListener<Event>() {
+					@Override
+					public void onEvent(Event event) throws Exception {
+						if (event.getName().equals(org.zkoss.zul.Messagebox.ON_YES)) {
+							if(idContratacion.getValue().isEmpty() || idContratacion.getValue().equals("0")){
+								ArrayList<ContratacionMapVO> contratacionMapVOs = (ArrayList<ContratacionMapVO>) Sessions.getCurrent().getAttribute("contratacionMapVOs");
+								ContratacionMapeadorBO contratacionMapeadorBO = new ContratacionMapeadorBO();
+								ContratacionMapDTO contratacionMapDTO = new ContratacionMapDTO();
+								
+								ContratacionDTO contratacionDTO = new ContratacionDTO();
+								ContratacionVO contratacionVOL = new ContratacionVO();
+								contratacionVOL.setIdEstatusObjeto(CommandConstants.ESTATUS_OBJETO_CONTRATACION_ACTIVO);
+								contratacionVOL.setIdCanal(Integer.parseInt(idCanal.getValue()));
+								contratacionVOL.setIdCanalSalida(Integer.parseInt(idCanalSalida.getValue()));
+								contratacionVOL.setIdCliente(Integer.parseInt(idCliente.getValue()));
+								contratacionVOL.setIdProducto(Integer.parseInt(idProducto.getValue()));
+								contratacionDTO.setContratacionVO(contratacionVOL);
+								contratacionDTO = contratacionBO.createCommand(contratacionDTO);
+								
+								idContratacion.setValue(String.valueOf(contratacionDTO.getContratacionVO().getIdContratacion()));										
+								ContratacionVO contratacionVONuevo = new ContratacionVO();
+								contratacionVONuevo.setIdEstatusObjeto(-1);
+								contratacionVONuevo.setIdCanal(-1);
+								contratacionVONuevo.setIdCanalSalida(-1);
+								contratacionVONuevo.setIdCliente(-1);
+								contratacionVONuevo.setIdProducto(-1);
+								
+								if(contratacionDTO.getErrorCode().equals("SQL-001")){
+							    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
+							    					"\nError:"+contratacionDTO.getErrorCode()+
+							    					"","Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+							    	controller.registrarEvento(contratacionVOL, contratacionVONuevo, CommandConstants.ERROR_SISTEMA, "CONTRATACIÓN");
+								}else{
+									if(conVOs.size() == 0) {
+										etapa:
+										for(ContratacionMapVO contratacionMapVO:contratacionMapVOs) {
+											if(contratacionMapVO.getEstatusNotificacion().equals('F')) {
+												contratacionMapVO.setIdMensajeSalida(null);
+												contratacionMapVO.setDescripcionIdUsuarios(null);
+											}
+											contratacionMapVO.setIdContratacion(contratacionDTO.getContratacionVO().getIdContratacion());
+											contratacionMapDTO.setContratacionMapVO(contratacionMapVO);
+											contratacionMapeadorBO.createCommand(contratacionMapDTO);
+											if(contratacionMapDTO.getErrorCode().equals("SQL-001")){
+										    	Messagebox.show("Actualización Etapas, Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
+										    					"\nError:"+contratacionMapDTO.getErrorCode()+
+										    					"","Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+										    	continuar = false;
+										    	break etapa;
+											}
+										}
+										if(continuar) {
+											controller.registrarEvento(contratacionVOL, contratacionVONuevo, CommandConstants.ALTA, "CONTRATACIÓN");
+											contratacionDTO = new ContratacionDTO();
+											contratacionVO = new ContratacionVO();
+											contratacionVO.toString();
+											contratacionDTO.setContratacionVO(contratacionVO);								
+											contratacionVOs = contratacionBO.readCommand(contratacionDTO).getContratacionVOs();
+											//registraBitacora(contratacionVO, CommandConstants.ALTA);
+											disabledComponents();
+											botonGuardarModal = true;
+											org.zkoss.zul.Messagebox.show("!El Registro de la Contratación fue exitoso!",
+													"Información", org.zkoss.zul.Messagebox.OK,
+													org.zkoss.zul.Messagebox.INFORMATION);
+											BindUtils
+											.postGlobalCommand(
+													null,
+													null,
+													"showModal",
+													null);
+											//cargaTabsDinamicosReg(Integer.parseInt((String) Sessions.getCurrent().getAttribute("idProducto")));
+										}
+									} else {
+										org.zkoss.zul.Messagebox.show("!Fallo el registro, contratación existente!",
+												"Información", org.zkoss.zul.Messagebox.OK,
+												org.zkoss.zul.Messagebox.EXCLAMATION);
+										contratacionVONuevo = new ContratacionVO();
+										contratacionVONuevo.setIdEstatusObjeto(-1);
+										contratacionVONuevo.setIdCanal(-1);
+										contratacionVONuevo.setIdCanalSalida(-1);
+										contratacionVONuevo.setIdCliente(-1);
+										contratacionVONuevo.setIdProducto(-1);
+										controller.registrarEvento(contratacionVOL, contratacionVONuevo, CommandConstants.ALTA_FALLIDA, "CONTRATACIÓN");
+										clean();
+										BindUtils
+										.postGlobalCommand(
+												null,
+												null,
+												"showModal",
+												null);
+									}
+								}
+							} else {
+								ContratacionVO contratacionVOL = new ContratacionVO();
+								contratacionVOL.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue()));
+								contratacionVOL.setIdContratacion(Integer.parseInt(idContratacion.getValue()));
+								if(Integer.parseInt(idEstatusObjeto.getValue()) == CommandConstants.ESTATUS_OBJETO_CONTRATACION_ACTIVO || 
+									contratacionBO.validarProcesoContratacion(contratacionVO)) {
+									ArrayList<ContratacionMapVO> contratacionMapVOs = (ArrayList<ContratacionMapVO>) Sessions.getCurrent().getAttribute("contratacionMapVOs");
+									ContratacionMapeadorBO contratacionMapeadorBO = new ContratacionMapeadorBO();
+									ContratacionMapDTO contratacionMapDTO = new ContratacionMapDTO();
+										
+									//INICIA LA ACTUALIZACIÓN DEL ESTATUS DE LA CONTRATACIÓN
+									ContratacionDTO contratacionDTO = new ContratacionDTO();
+									contratacionDTO.setContratacionVO(contratacionVOL);
+									contratacionDTO = contratacionBO.updateCommand(contratacionDTO);
+									if(contratacionDTO.getErrorCode().equals("SQL-001")) {
+								    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
+								    					"\nError:"+contratacionDTO.getErrorCode()+
+								    					"","Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+								    	controller.registrarEvento(contratacionVOL, contratacionVO, CommandConstants.ERROR_SISTEMA, "CONTRATACIÓN");
+									}else{
+										if(Integer.parseInt(idEstatusObjeto.getValue())==CommandConstants.ID_CONTRATACION_BAJA){
+											controller.registrarEvento(contratacionVOL, contratacionVO, CommandConstants.BAJA, "CONTRATACIÓN");
+											BindUtils
+											.postGlobalCommand(
+													null,
+													null,
+													"showModal",
+													null);
+										}		
+										else if(Integer.parseInt(idEstatusObjeto.getValue())==CommandConstants.ID_CONTRATACION_ACTIVO)
+											controller.registrarEvento(contratacionVOL, contratacionVO, CommandConstants.MODIFICACION, "CONTRATACIÓN");
+										else
+											controller.registrarEvento(contratacionVOL, contratacionVO, CommandConstants.INACTIVACION, "CONTRATACIÓN");
+										
+										//INICIA LA ACTUALIZACIÓN DE LAS ETAPAS DE LA CONTRATACIÓN
+										etapa:
+										for(ContratacionMapVO contratacionMapVO:contratacionMapVOs) {
+											if(contratacionMapVO.getEstatusNotificacion().equals('F')) {
+												contratacionMapVO.setIdMensajeSalida(null);
+												contratacionMapVO.setDescripcionIdUsuarios(null);
+											}
+											contratacionMapDTO.setContratacionMapVO(contratacionMapVO);
+											contratacionMapeadorBO.updateCommand(contratacionMapDTO);
+											if(contratacionMapDTO.getErrorCode().equals("SQL-001")){
+										    	Messagebox.show("Actualización Etapas, Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
+										    					"\nError:"+contratacionMapDTO.getErrorCode()+
+										    					"","Error de Sistema",Messagebox.OK,Messagebox.ERROR);
+										    	continuar = false;
+										    	break etapa;
+											}
+										}
+										if(continuar) {
+											contratacionDTO = new ContratacionDTO();
+											contratacionVO = new ContratacionVO();
+											contratacionVO.toString();
+											contratacionDTO.setContratacionVO(contratacionVO);								
+											contratacionVOs = contratacionBO.readCommand(contratacionDTO).getContratacionVOs();
+											botonGuardarModal = true;
+											
+											//registraBitacora(contratacionVO, CommandConstants.MODIFICACION);
+											org.zkoss.zul.Messagebox.show("!La Actualización de la Contratación fue exitoso!",
+													"Información", org.zkoss.zul.Messagebox.OK,
+													org.zkoss.zul.Messagebox.INFORMATION);
+											BindUtils
+											.postGlobalCommand(
+													null,
+													null,
+													"showModal",
+													null);
+										}
+									}
+								} else {
+									org.zkoss.zul.Messagebox.show("!La contratación no se puede dar de Baja o Inactivar!",
+											"Información", org.zkoss.zul.Messagebox.OK,
+											org.zkoss.zul.Messagebox.EXCLAMATION);
+									ContratacionVO contratacionVONuevo = new ContratacionVO();
+									contratacionVONuevo.setIdEstatusObjeto(-1);
+									contratacionVONuevo.setIdCanal(-1);
+									contratacionVONuevo.setIdCanalSalida(-1);
+									contratacionVONuevo.setIdCliente(-1);
+									contratacionVONuevo.setIdProducto(-1);
+									if(Integer.parseInt(idEstatusObjeto.getValue())==CommandConstants.ID_CONTRATACION_BAJA)
+										controller.registrarEvento(contratacionVOL, contratacionVONuevo, CommandConstants.BAJA_FALLIDA, "CONTRATACIÓN");
+									else
+										controller.registrarEvento(contratacionVOL, contratacionVONuevo, CommandConstants.INACTIVACION_FALLIDA, "CONTRATACIÓN");
+									clean();
+								}
+							}
+							BindUtils
+							.postGlobalCommand(
+									null,
+									null,
+									"readWithOutFilters",
+									null);
+						}
+					}
+				});
+			}
+		}
+	}
+	
+	private boolean validaNotificacion(ArrayList<ContratacionMapVO> contratacionMapVOs) {
+		boolean continuar = true;
+		contratacion:
+		if(contratacionMapVOs!=null) {
+			for(ContratacionMapVO contratacionMapVO:contratacionMapVOs) {
+				if(contratacionMapVO.getIdMapaGmm()==0) {
+					continuar = false;
+					org.zkoss.zul.Messagebox.show("Falta seleccionar el Mapa en la Etapa: "+contratacionMapVO.getNombreEtapa(),
+								"Información", org.zkoss.zul.Messagebox.OK,
+								org.zkoss.zul.Messagebox.EXCLAMATION);
+					break contratacion;
+				}
+				if(!contratacionMapVO.getEstatusNotificacion().equals('F')) {
+					 if(contratacionMapVO.getIdMensajeSalida()==null) {
+						 continuar = false;
+						 org.zkoss.zul.Messagebox.show("Falta seleccionar el Mensaje en la Etapa: "+contratacionMapVO.getNombreEtapa(),
+									"Información", org.zkoss.zul.Messagebox.OK,
+									org.zkoss.zul.Messagebox.EXCLAMATION);
+						 break contratacion;
+					 }
+					 if(contratacionMapVO.getDescripcionIdUsuarios()==null) {
+						 continuar = false;
+						 org.zkoss.zul.Messagebox.show("Falta seleccionar al menos un Usuario en la Etapa: "+contratacionMapVO.getNombreEtapa(),
+									"Información", org.zkoss.zul.Messagebox.OK,
+									org.zkoss.zul.Messagebox.EXCLAMATION);
+						 break contratacion;
+					 }
+				}
+			}
+		} else {
+			 continuar = false;
+			 org.zkoss.zul.Messagebox.show("Ocurrió un error en la sesión",
+						"Información", org.zkoss.zul.Messagebox.OK,
+						org.zkoss.zul.Messagebox.EXCLAMATION);
+		}
+		return continuar;
+	}
+	
+	/* (non-Javadoc)
+	 * @see mx.com.bbva.mapeador.ui.commons.controller.IController#save()
+	 */
+	@Command
+	@NotifyChange({ "contratacionVOs","idContratacion","botonGuardarModal" })
+	public void save1() {
+		final ReportesController controller = new ReportesController();
+		boolean errorGuardar = false;
 		if(idContratacion.getValue().isEmpty() || idContratacion.getValue().equals("0")) {
 			if (canal.getSelectedItem() == null
 					|| canal.getSelectedItem().getValue() == null
@@ -1086,7 +1340,7 @@ public class ContratacionController extends ControllerSupport implements IContro
 									org.zkoss.zul.Messagebox.show("!El Registro de la Contratación fue exitoso!",
 											"Información", org.zkoss.zul.Messagebox.OK,
 											org.zkoss.zul.Messagebox.INFORMATION);
-									cargaTabsDinamicosReg(Integer.parseInt((String) Sessions.getCurrent().getAttribute("idProducto")));
+									//cargaTabsDinamicosReg(Integer.parseInt((String) Sessions.getCurrent().getAttribute("idProducto")));
 								} else {
 									org.zkoss.zul.Messagebox.show("!Fallo el registro, contratación existente!",
 											"Información", org.zkoss.zul.Messagebox.OK,
@@ -1283,64 +1537,12 @@ public class ContratacionController extends ControllerSupport implements IContro
 	@Listen("onClick = #closeBtn")
     public void showModal(Event e) {
 		try{
-			Boolean usuario = (Boolean)Sessions.getCurrent().getAttribute("user")==null?false:(Boolean)Sessions.getCurrent().getAttribute("user");
-			String mensaje = String.valueOf(Sessions.getCurrent().getAttribute("idMensajeSalida")==null?"":Sessions.getCurrent().getAttribute("idMensajeSalida"));
-			String mapa = String.valueOf(Sessions.getCurrent().getAttribute("idMapaGmm")==null?"":Sessions.getCurrent().getAttribute("idMapaGmm"));
-			
-			Boolean flag = (Boolean)Sessions.getCurrent().getAttribute("flag");
-			Boolean flagDisabled = (Boolean)Sessions.getCurrent().getAttribute("flagDisabled");
-			
-			boolean flagMensaje = false;
-			if(Sessions.getCurrent().getAttribute("flag")==null||Sessions.getCurrent().getAttribute("flagDisabled")==null) {
-				flagMensaje = false;
-			}else if(flag!=flagDisabled) {
-				flagMensaje = true;
-			}
-			
-			if(usuario!=false||!mensaje.equals("")||!mapa.equals("")||flagMensaje) {
-				Messagebox.show("Se han realizado cambios, no puede Salir sin guardar los cambios de la Pestaña: " + tabs.getSelectedTab().getLabel(),"Advertencia de Sistema",Messagebox.OK,Messagebox.ERROR);
-			} else {
-				String count = String.valueOf(Sessions.getCurrent().getAttribute("contadorFinal")==null?Sessions.getCurrent().getAttribute("contador"):Sessions.getCurrent().getAttribute("contadorFinal"));
-				if(!count.equals("null")&&Integer.valueOf(count)>1) {
-					Messagebox.show(
-							"¿Aún no se registran todas las Etapas, está seguro que desea Salir?",
-							"Pregunta", org.zkoss.zul.Messagebox.YES | org.zkoss.zul.Messagebox.NO,
-					org.zkoss.zul.Messagebox.QUESTION, new EventListener<Event>() {
-						@Override
-						public void onEvent(Event event) throws Exception {
-							if (event.getName().equals(org.zkoss.zul.Messagebox.ON_YES)) {
-								botonGuardar = true;
-								botonGuardarModal = true;		
-								editarContratacionWindows.detach();
-								Sessions.getCurrent().removeAttribute("user");
-								Sessions.getCurrent().removeAttribute("idMensajeSalida");
-								Sessions.getCurrent().removeAttribute("idMapaGmm");
-								Sessions.getCurrent().removeAttribute("contadorFinal");
-								Sessions.getCurrent().removeAttribute("contador");
-								Sessions.getCurrent().removeAttribute("flag");
-								Sessions.getCurrent().removeAttribute("flagDisabled");
-								BindUtils.postGlobalCommand(null, null, "clean", null); 
-							}
-						}
-					});
-				} else {
-					botonGuardar = true;
-					botonGuardarModal = true;		
-					editarContratacionWindows.detach();
-					Sessions.getCurrent().removeAttribute("user");
-					Sessions.getCurrent().removeAttribute("idMensajeSalida");
-					Sessions.getCurrent().removeAttribute("idMapaGmm");
-					Sessions.getCurrent().removeAttribute("contadorFinal");
-					Sessions.getCurrent().removeAttribute("contador");
-					Sessions.getCurrent().removeAttribute("flag");
-					Sessions.getCurrent().removeAttribute("flagDisabled");
-					Sessions.getCurrent().removeAttribute("ultimoValor");
-					BindUtils.postGlobalCommand(null, null, "clean", null); 
-				}
-			}
+			botonGuardar = true;
+			botonGuardarModal = true;		
+			editarContratacionWindows.detach();
+			BindUtils.postGlobalCommand(null, null, "clean", null);
 		}catch(Exception ex){
 			BindUtils.postGlobalCommand(null, null, "clean", null);
-			Sessions.getCurrent().removeAttribute("contadorFinal");
 		}
     }	
 }
