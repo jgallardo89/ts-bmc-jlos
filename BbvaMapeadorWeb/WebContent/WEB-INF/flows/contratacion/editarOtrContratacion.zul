@@ -103,10 +103,10 @@
 			<caption sclass="pageTitle" label="Contratación"></caption>		
 				<tabbox id="tabs" height="100%" width="100%">
 				    <tabs id="tabNohome">
-				        <tab id="nohome" label="Bienvenido" closable="false" visible="false"/>        
+				        <tab id="nohome" label="Bienvenido" closable="false" visible="false" />        
 				    </tabs>
-				    <tabpanels>
-				        <tabpanel>
+				    <tabpanels >
+				        <tabpanel >
 				        </tabpanel>        
 				    </tabpanels>
 				</tabbox>			

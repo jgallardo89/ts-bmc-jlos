@@ -137,13 +137,6 @@
 									</cell>
 								</row>
 								<row align="center" width="70%">
-									<div align="center"/>
-									<div align="center">
-										<button sclass="button" image="/img/disk.png" disabled="@load(vm.guardarBtn)" label="Guardar" id="guardaBtn" onClick="@command('save') @global-command('closeModal')"></button>
-									</div>
-									<div align="right" width="70%" visible="false">
-										<button visible="@load(vm.botonLimpiar)" sclass="button" image="/img/clear.png"  label="Limpiar" id="limpiarBtn" onClick="@command('clean')" ></button>
-									</div>
 									<div align="center">
 										<textbox id="idContratacion" value="@load(vm.idStrContratacion)" visible="false"></textbox>
 										<textbox id="idFlujo" value="@load(vm.idStrFlujo)" visible="false"/>
@@ -151,6 +144,9 @@
 										<textbox id="idMapaGmm" value="@load(vm.idStrMapaGmm)" visible="false"/>
 										<textbox id="idEtapa" value="@load(vm.idStrEtapa)" visible="false"/>
 										<textbox id="idTransaccion" value="@load(vm.idStrTransaccion)" visible="false"/>
+										<textbox id="idTab" value="@load(vm.idStrTab)" visible="false"/>
+										<textbox id="tamanio" value="@load(vm.size)" visible="false"/>
+										<textbox id="tamanioInit" value="@load(vm.initSize)" visible="false"/>
 									</div>
 									<div align="center"/>
 								</row>
@@ -166,6 +162,7 @@
 		public void selectedValueMapaGmm(){
 				try{
 					idMapaGmm.setValue(mapaGMM.getSelectedItem().getValue().toString());
+					selectedChangeValue();
 				}catch(Exception ex){
 					idMapaGmm.setValue(null);
 				}
@@ -173,8 +170,28 @@
 			public void selectedMensajeSalida(){
 				try{
 					idMensajeSalida.setValue(nombreMensajeSalida.getSelectedItem().getValue().toString());
+					selectedChangeValue();
 				}catch(Exception ex){
 					idMensajeSalida.setValue(null);
+					ex.printStackTrace();
+				}
+			}
+			public void selectedChangeValue() {
+				try{
+					ArrayList contratacionMapVOs = (ArrayList)Sessions.getCurrent().getAttribute("contratacionMapVOs");
+					mx.com.bbva.bancomer.bussinnes.model.vo.ContratacionMapVO contratacionMapVO = 
+					(mx.com.bbva.bancomer.bussinnes.model.vo.ContratacionMapVO) contratacionMapVOs.get(Integer.parseInt(idTab.getValue())-1);
+					
+					if(idMapaGmm.getValue() != null || !idMapaGmm.getValue().equals(""))
+						contratacionMapVO.setIdMapaGmm(Integer.parseInt(idMapaGmm.getValue()));
+					if(idMensajeSalida.getValue() != null || !idMensajeSalida.getValue().equals(""))
+						contratacionMapVO.setIdMensajeSalida(Integer.valueOf(idMensajeSalida.getValue()));
+					
+					contratacionMapVOs.set(Integer.parseInt(idTab.getValue())-1,contratacionMapVO);
+					Sessions.getCurrent().setAttribute("contratacionMapVOs",contratacionMapVOs);
+				}catch(Exception ex){
+					idMensajeSalida.setValue(null);
+					ex.printStackTrace();
 				}
 			}
 		</zscript>
