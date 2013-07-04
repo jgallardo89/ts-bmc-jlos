@@ -88,6 +88,8 @@ public class ContratacionMapVO extends BbvaAbstractValueObject {
 	/** The num mensaje. */
 	private int numMensaje;
 	
+	private boolean valNotificacion;
+	
 	/**
 	 * Gets the descripcion id usuarios.
 	 *
@@ -374,5 +376,19 @@ public class ContratacionMapVO extends BbvaAbstractValueObject {
 	 */
 	public void setNumMensaje(int numMensaje) {
 		this.numMensaje = numMensaje;
+	}
+
+	/**
+	 * @return the valNotificacion
+	 */
+	public boolean isValNotificacion() {
+		return valNotificacion;
+	}
+
+	/**
+	 * @param valNotificacion the valNotificacion to set
+	 */
+	public void setValNotificacion(boolean valNotificacion) {
+		this.valNotificacion = valNotificacion;
 	}
 }
