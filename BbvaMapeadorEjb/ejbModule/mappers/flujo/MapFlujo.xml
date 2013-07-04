@@ -14,7 +14,7 @@
 				  OBJETO.NB_ST_OBJETO nombreEstatusObjeto,
 				  (SELECT 
 						LISTAGG(E.NB_ETAPA || ' ') 
-						WITHIN GROUP (ORDER BY E.NB_ETAPA)
+						WITHIN GROUP (ORDER BY FE.NU_ORDEN_ETAPA)
 					FROM 
 						TGM518_FLUJOETAPA FE,     
 						TGM517_ETAPA E 
