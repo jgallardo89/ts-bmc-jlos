@@ -81,14 +81,16 @@
 		  tgm501_pantalla Pantalla
 		WHERE componente.cd_default = 'F'
 		AND pantalla.cd_pantalla    = Componente.Cd_Pantalla
-		AND Control.Cd_Componente   = componente.cd_componente
-    	And Componente.Cd_Pantalla = #{idPantalla}    	
+		AND Control.Cd_Componente   = componente.cd_componente    	    	
     	And Control.Cd_Perfil = #{idPerfil}
+    	Order By Pantalla.Nb_Pantalla, 
+    	Componente.Nb_Componente
 	</select>
 	<select id="obtenerComponentesPantallaPerfilAll" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.ComponenteVO"
 		resultType="mx.com.bbva.bancomer.bussinnes.model.vo.ComponenteVO">	
 		SELECT Componente.Cd_Pantalla idPantalla,
 		  Componente.Cd_Componente Idcomponente,
+		  Pantalla.nb_Pantalla,
 		  Concat(Pantalla.nb_Pantalla,Concat('--', Componente.Nb_Componente)) nombreComponente,
 		  Componente.Cd_Default Iddefault,
 		  Pantalla.Nb_Pantalla pantalla

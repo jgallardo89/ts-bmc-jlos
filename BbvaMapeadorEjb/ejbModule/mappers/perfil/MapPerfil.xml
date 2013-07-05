@@ -62,8 +62,7 @@
 	</update>
 	<delete id="eliminarPermisos" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.ControlPermisoVO">
 		Delete Tgm505_Ctrlpermiso
-		Where Cd_Componente = #{idComponente} 
-			  and Cd_Perfil = #{idPerfil}
+		Where Cd_Perfil = #{idPerfil}
 	</delete>
 	<insert id="insertarPerfil" keyProperty="idPerfil" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.PerfilVO">
 		<selectKey keyProperty="idPerfil" resultType="int" order="BEFORE"> 

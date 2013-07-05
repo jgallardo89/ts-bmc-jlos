@@ -174,22 +174,12 @@ public class PerfilBO implements mx.com.bbva.bancomer.commons.business.BbvaIBusi
 		try {
 			mapPerfil.actualizarPerfil(perfilVO);
 			logger.debug("controlPermisoVOs:"+controlPermisoVOs);
-			if(controlPermisoVOs!= null){				
-				
-				ComponenteVO componenteVO = new ComponenteVO();
-				List<ComponenteVO> componenteVOs = null;
-				componenteVO.setIdPantalla(perfilVO.getIdPantalla());				
-				MapComponente mapComponente = session.getMapper(MapComponente.class);
-				componenteVOs = mapComponente.obtenerComponentesParaEliminar(componenteVO);
-				ControlPermisoVO controlPermisoVO;
-				for (ComponenteVO componenteVOToDelete : componenteVOs) {
-					controlPermisoVO = new ControlPermisoVO();
-					controlPermisoVO.setIdComponente(componenteVOToDelete.getIdComponente());
-					controlPermisoVO.setIdPerfil(perfilVO.getIdPerfil());
-					mapPerfil.eliminarPermisos(controlPermisoVO);				
-				}
-				for (ControlPermisoVO controlPermisoVO2 : controlPermisoVOs) {
-					mapPerfil.insertarPermiso(controlPermisoVO2);
+			if(controlPermisoVOs!= null){											
+				ControlPermisoVO controlPermisoVODelete = new ControlPermisoVO();					
+				controlPermisoVODelete.setIdPerfil(perfilVO.getIdPerfil());
+				mapPerfil.eliminarPermisos(controlPermisoVODelete);								
+				for (ControlPermisoVO controlPermisoVO : controlPermisoVOs) {
+					mapPerfil.insertarPermiso(controlPermisoVO);
 				}
 			}
 			session.commit();
