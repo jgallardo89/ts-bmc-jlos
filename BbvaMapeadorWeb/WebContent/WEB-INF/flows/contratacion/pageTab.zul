@@ -189,6 +189,7 @@
 					
 					contratacionMapVOs.set(Integer.parseInt(idTab.getValue())-1,contratacionMapVO);
 					Sessions.getCurrent().setAttribute("contratacionMapVOs",contratacionMapVOs);
+					Sessions.getCurrent().setAttribute("flgCambio",true);
 				}catch(Exception ex){
 					idMensajeSalida.setValue(null);
 					ex.printStackTrace();

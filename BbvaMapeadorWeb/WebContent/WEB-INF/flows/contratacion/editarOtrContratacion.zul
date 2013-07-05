@@ -58,7 +58,7 @@
 									<div align="right">
 										<label id="lblProducto" width="100%" sclass="labelFill" value="Producto:"></label>												
 									</div>
-									<combobox sclass="textboxUpperCase" disabled="@load(vm.flagNvaContra)" onChange="selectedValueProducto()"
+									<combobox sclass="textboxUpperCase" disabled="@load(vm.comboProducto)" onChange="selectedValueProducto()"
 										id="producto" width="70%" model="@load(vm.contratacionDTO.productoVOs)" autodrop="true">		
 										<template name="model">										
 											<comboitem value="@load(each.idProducto)" label="@load(each.descripcionProducto)" height="100%"/>
@@ -116,6 +116,7 @@
 			public void selectedValueStatusObjeto(){
 				try{
 					idEstatusObjeto.setValue(estatusObjeto.getSelectedItem().getValue().toString());
+					Sessions.getCurrent().setAttribute("flgCambio",true);
 				}catch(Exception ex){
 					idEstatusObjeto.setValue(null);
 				}
