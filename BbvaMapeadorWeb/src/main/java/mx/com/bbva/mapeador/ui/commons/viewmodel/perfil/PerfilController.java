@@ -655,7 +655,7 @@ public class PerfilController extends ControllerSupport implements  IController{
 		PerfilVO perfilVO = new PerfilVO();
 		perfilVO.setEstatusPerfil(status.getSelectedItem()==null?0:Integer.parseInt(status.getSelectedItem().getValue().toString()));				
 		perfilVO.setDescripcionPerfil(descripcionPerfil.getValue().isEmpty()?"%":"%"+descripcionPerfil.getValue().toUpperCase()+"%");
-		perfilVO.setNombrebPerfil(nombrePerfil.getValue().isEmpty()?"%":"%"+nombrePerfil.getValue().toString()+"%");
+		perfilVO.setNombrebPerfil(nombrePerfil.getValue().isEmpty()?"%":"%"+nombrePerfil.getValue().toString().toUpperCase()+"%");
 		perfilVO.setIdPantalla(pantallas.getSelectedItem()==null?0:Integer.parseInt(pantallas.getSelectedItem().getValue().toString()));
 		PerfilBO perfilBO = new PerfilBO();							
 		perfilDTO.setPerfilVO(perfilVO);
@@ -979,18 +979,18 @@ public class PerfilController extends ControllerSupport implements  IController{
 								}
 							}
 						}	
-//						BindUtils
-//						.postGlobalCommand(
-//								null,
-//								null,
-//								"readWithOutFilters",
-//								null);
-//						BindUtils
-//						.postGlobalCommand(
-//								null,
-//								null,
-//								"readComponentesPantalla",
-//								null);						
+						BindUtils
+						.postGlobalCommand(
+								null,
+								null,
+								"readWithFilters",
+								null);
+						BindUtils
+						.postGlobalCommand(
+								null,
+								null,
+								"readComponentesPantalla",
+								null);						
 						BindUtils
 						.postGlobalCommand(
 								null,
