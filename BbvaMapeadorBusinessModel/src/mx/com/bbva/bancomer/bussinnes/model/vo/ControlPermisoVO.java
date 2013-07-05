@@ -68,6 +68,29 @@ public class ControlPermisoVO extends BbvaAbstractValueObject {
 	/** The permiso. */
 	private String permiso;
 	
+	private String nombrePantalla;
+	
+	/**
+	 * @return the nombrePantalla
+	 */
+	public final String getNombrePantalla() {
+		return nombrePantalla;
+	}
+
+	/**
+	 * @param nombrePantalla the nombrePantalla to set
+	 */
+	public final void setNombrePantalla(String nombrePantalla) {
+		this.nombrePantalla = nombrePantalla;
+	}
+
+	/**
+	 * @return the permiso
+	 */
+	public final String getPermiso() {
+		return permiso;
+	}
+
 	/**
 	 * Gets the id componente.
 	 *

@@ -65,6 +65,38 @@ public	class 	PerfilVO
 
 	/** The control permiso v os. */
 	private java.util.List<ControlPermisoVO> controlPermisoVOs;
+	private java.util.List<ControlPermisoVO> controlPermisoVOsAdded;
+	private java.util.List<ControlPermisoVO> controlPermisoVOsDeleted;
+	/**
+	 * @return the controlPermisoVOsAdded
+	 */
+	public final java.util.List<ControlPermisoVO> getControlPermisoVOsAdded() {
+		return controlPermisoVOsAdded;
+	}
+
+	/**
+	 * @param controlPermisoVOsAdded the controlPermisoVOsAdded to set
+	 */
+	public final void setControlPermisoVOsAdded(
+			java.util.List<ControlPermisoVO> controlPermisoVOsAdded) {
+		this.controlPermisoVOsAdded = controlPermisoVOsAdded;
+	}
+
+	/**
+	 * @return the controlPermisoVOsDeleted
+	 */
+	public final java.util.List<ControlPermisoVO> getControlPermisoVOsDeleted() {
+		return controlPermisoVOsDeleted;
+	}
+
+	/**
+	 * @param controlPermisoVOsDeleted the controlPermisoVOsDeleted to set
+	 */
+	public final void setControlPermisoVOsDeleted(
+			java.util.List<ControlPermisoVO> controlPermisoVOsDeleted) {
+		this.controlPermisoVOsDeleted = controlPermisoVOsDeleted;
+	}
+	
 	
 	/** The descipcion estatus. */
 	private java.lang.String	descipcionEstatus;
