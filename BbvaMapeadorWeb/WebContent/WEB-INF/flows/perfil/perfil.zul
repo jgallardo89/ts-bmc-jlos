@@ -70,7 +70,7 @@
 														<label id="lblPantalla" width="100%" sclass="labelFill" value="Pantalla:"></label>												
 													</div>
 													<div style="vertical-align:top;">
-														<combobox disabled="true" sclass="textboxUpperCase" onChange="@command('readComponentesPantalla')"
+														<combobox disabled="false" sclass="textboxUpperCase" onChange="@command('readComponentesPantalla')"
 															id="pantallas" width="70%" model="@load(vm.perfilDTO.pantallaVOs)" autodrop="true">		
 															<template name="model">										
 																<comboitem value="@load(each.idPantalla)" label="@load(each.nombrePantalla)" height="100%"/>
@@ -91,21 +91,31 @@
 													</div>
 													<div width="15%">
 														<vbox spacing="2px" width="100%">
-													        <image style="cursor:pointer" id="chooseAllBtn" src="/img/rightrightarrow_g.png" onClick="@command('chooseAll')" />
-													        <image style="cursor:pointer" id="chooseBtn" src="/img/rightarrow_g.png" onClick="@command('chooseOne')" />
-													        <image style="cursor:pointer" id="removeBtn" src="/img/leftarrow_g.png" onClick="@command('removeOne')"/>
-													        <image style="cursor:pointer" id="removeAllBtn" src="/img/leftleftarrow_g.png" onClick="@command('removeAll')"/>
+													        <image style="cursor:pointer" id="chooseAllBtn" tooltiptext="Agredar Seleccionado" src="/img/rightrightarrow_g.png" onClick="@command('chooseAll')" />
+													        <image style="cursor:pointer" id="chooseBtn" tooltiptext="Agregar Todos" src="/img/rightarrow_g.png" onClick="@command('chooseOne')" />
+													        <image style="cursor:pointer" id="removeBtn" tooltiptext="Remover Seleccionado" src="/img/delete_24.png" onClick="@command('removeOne')"/>
+													        <image style="cursor:pointer" id="removeAllBtn" tooltiptext="Remover Todos" src="/img/document_delete_24.png" onClick="@command('removeAll')"/>
 	   													</vbox>		
 	   												</div>
 	   												<div>
 	   													<listbox id="componentesPerfil" height="150px" model="@load(vm.componentePantallaPerfilDTO.componentePantallaPerfilVOs)">														
 															<listhead>
+																<listheader>																																
+																	<label value="Pantalla:"/>
+																</listheader>
 																<listheader>																
-																	<label value="Componentes Pantalla - Perfil:"></label>																
+																	<label value="Componente:"/>
 																</listheader>																										
 															</listhead>
-															<template name="model">
-													            <listitem value="@load(each.idComponente)" label="@load(each.nombreComponente)"/>												            													            													                												              												            
+															<template name="model">																
+													            <listitem value="@load(each.idComponente)">
+													            	<listcell>
+													            		<label value="@load(each.nombrePantalla)"/>
+													            	</listcell>
+													            	<listcell>
+													            		<label value="@load(each.nombreComponente)"/>
+													            	</listcell>
+													            </listitem>												            													            													                												              												            
 													        </template>		
 														</listbox>																									
 													</div>	

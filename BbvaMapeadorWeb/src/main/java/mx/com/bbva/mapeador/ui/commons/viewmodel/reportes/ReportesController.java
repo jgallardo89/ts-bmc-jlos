@@ -164,7 +164,7 @@ public class ReportesController extends ControllerSupport {
 	 * @param idEvento the id evento
 	 * @param nombreBitacora the nombre bitacora
 	 */
-	public void registrarEventoPerfil(PerfilDTO nuevo,PerfilDTO anterior, int idEvento, String nombreBitacora,String pantalla){
+	public void registrarEventoPerfil(PerfilDTO nuevo,PerfilDTO anterior, int idEvento, String nombreBitacora){
 		List<CampoDTO> campoDTOs = new ArrayList<CampoDTO>(); 
 		BitacoraDTO dto = new BitacoraDTO(); 
 		CampoDTO campo = new CampoDTO();
@@ -191,28 +191,22 @@ public class ReportesController extends ControllerSupport {
 			campo.setValor_nuevo(perfilVONuevo.getDescipcionEstatus());		
 			campoDTOs.add(campo);
 		}
-		List<ControlPermisoVO> controlPermisoVOsNuevo = perfilVONuevo.getControlPermisoVOs(); 
-		
-		if(controlPermisoVOsNuevo!=null){
-			for (ControlPermisoVO controlPermisoVO : controlPermisoVOsNuevo) {
-				campo = new CampoDTO();
-				campo.setNombre_campo("Permiso");
-				campo.setValor_anterior("");
-				campo.setValor_nuevo("Se crea:"+"\nNombre Pantalla:"+pantalla+"\nNombre Componente:"+controlPermisoVO.getNombreComponente());
-				campoDTOs.add(campo);
-			}
-		}
-		List<ControlPermisoVO> controlPermisoVOsAnterior = perfilVOAnterior.getControlPermisoVOs();
-		if(controlPermisoVOsAnterior!=null){
-			for (ControlPermisoVO controlPermisoVO : controlPermisoVOsAnterior) {
-				campo = new CampoDTO();
-				campo.setNombre_campo("Permiso");
-				campo.setValor_anterior("Se elimina:"+"\nNombre Pantalla:"+pantalla+"\nNombre Componente:"+controlPermisoVO.getNombreComponente());
-				campo.setValor_nuevo("");
-				campoDTOs.add(campo);
-			}
-		}
-				
+		List<ControlPermisoVO> controlPermisoVOsAdded = perfilVONuevo.getControlPermisoVOsAdded(); 			
+		for (ControlPermisoVO controlPermisoVO : controlPermisoVOsAdded) {
+			campo = new CampoDTO();
+			campo.setNombre_campo("Permiso");
+			campo.setValor_anterior("");
+			campo.setValor_nuevo("Se crea:"+"\nNombre Pantalla:"+controlPermisoVO.getNombrePantalla()+"\nNombre Componente:"+controlPermisoVO.getNombreComponente());
+			campoDTOs.add(campo);
+		}		
+		List<ControlPermisoVO> controlPermisoVOsDeleted = perfilVONuevo.getControlPermisoVOsDeleted();		
+		for (ControlPermisoVO controlPermisoVO : controlPermisoVOsDeleted) {
+			campo = new CampoDTO();
+			campo.setNombre_campo("Permiso");
+			campo.setValor_anterior("Se elimina:"+"\nNombre Pantalla:"+controlPermisoVO.getNombrePantalla()+"\nNombre Componente:"+controlPermisoVO.getNombreComponente());
+			campo.setValor_nuevo("");
+			campoDTOs.add(campo);
+		}					
 		dto.setCampoDTOs(campoDTOs);
 		super.registraEvento(dto, nombreBitacora, idEvento);
 	}
