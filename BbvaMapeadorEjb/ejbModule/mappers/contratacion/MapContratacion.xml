@@ -46,6 +46,12 @@
 				<if test="idEstatusObjeto != null and idEstatusObjeto != 0">
 					AND CONTRATACION.CD_ST_OBJETO = #{idEstatusObjeto}
 				</if>
+				<if test="fechaAlta != null">
+					AND to_char(CONTRATACION.TM_ALTA,'dd-MM-yyyy') = to_char(#{fechaAlta},'dd-MM-yyyy')
+				</if>
+				<if test="fechaModificacion != null">
+					AND to_char(CONTRATACION.TM_MODIFICACION,'dd-MM-yyyy') = to_char(#{fechaModificacion},'dd-MM-yyyy')
+				</if>
 				ORDER BY CONTRATACION.CD_CONTRATACION
 	</select>
 	<select id="obtenerContratacionEtapas" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.ContratacionVO"
