@@ -396,6 +396,7 @@ public class MonitoreoProcesosController extends ControllerSupport implements  I
 			monitoreoProcesosVOProductos.setIdCliente(monitoreoProcesosVO.getIdCliente());
 			monitoreoProcesosVOProductos.setIdProducto(monitoreoProcesosVO.getIdProducto());
 			monitoreoProcesosVOProductos.setNumeroLote(monitoreoProcesosVO.getNumeroLote());
+			monitoreoProcesosVOProductos.setFechaStatusProceso(monitoreoProcesosVO.getFechaStatusProceso());
 			monitoreoProcesosDTOProductos.setMonitoreoProcesosVO(monitoreoProcesosVOProductos);
 			monitoreoProcesosDTOProductos.getMonitoreoProcesosVO().setEstados(monitoreoProcesosDTO.getMonitoreoProcesosVO().getEstados());
 			monitoreoProcesosVOsProductos = ((MonitoreoProcesosDTO)monitoreoProcesosBO.readCommand(monitoreoProcesosDTOProductos)).getMonitoreoProcesosVOs();
