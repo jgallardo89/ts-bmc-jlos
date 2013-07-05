@@ -301,7 +301,6 @@ public class FlujoContratacionController extends Div implements IController, IdS
 			idStrTab = Executions.getCurrent().getParameter("idTab");
 			notificacion.setSelectedItem(radioS);
         	flagDisabled = false;
-        	
         	ArrayList<ContratacionMapVO> contratacionMapVOs = (ArrayList<ContratacionMapVO>) Sessions.getCurrent().getAttribute("contratacionMapVOs");
      		ContratacionMapVO contratacionMapVO = (ContratacionMapVO) contratacionMapVOs.get(Integer.parseInt(idStrTab)-1);
      		contratacionMapVO.setEstatusNotificacion(Executions.getCurrent().getParameter("estatusNotificacion").charAt(0));
@@ -376,6 +375,7 @@ public class FlujoContratacionController extends Div implements IController, IdS
 		contratacionMapVO.setValNotificacion(true);
 		contratacionMapVOs.set(Integer.parseInt(idStrTab)-1, contratacionMapVO);
 		Sessions.getCurrent().setAttribute("contratacionMapVOs", contratacionMapVOs);
+		Sessions.getCurrent().setAttribute("flgCambio",true);
 		flagDisabled = true;
 	}
 	
@@ -392,6 +392,7 @@ public class FlujoContratacionController extends Div implements IController, IdS
 		contratacionMapVO.setValNotificacion(false);
 		contratacionMapVOs.set(Integer.parseInt(idStrTab)-1, contratacionMapVO);
 		Sessions.getCurrent().setAttribute("contratacionMapVOs", contratacionMapVOs);
+		Sessions.getCurrent().setAttribute("flgCambio",true);
 		flagDisabled = false;
 	}
 	
@@ -656,7 +657,7 @@ public class FlujoContratacionController extends Div implements IController, IdS
 			size = contratacionUsuariosDTO.getUsuarioNotificacionContrataMapVOs().size();
 			validaTamanio();
 			contratacionDTO.getUsuarioNotificacionVOs().clear();
-			
+			Sessions.getCurrent().setAttribute("flgCambio",true);
 			agregarUsuarios();
 		}
 	}
@@ -705,6 +706,7 @@ public class FlujoContratacionController extends Div implements IController, IdS
 				contratacionUsuariosDTO.getUsuarioNotificacionContrataMapVOs().add(contratacionDTO.getUsuarioNotificacionVOs().get(usuariosNotificacion.getSelectedIndex()));
 				contratacionDTO.getUsuarioNotificacionVOs().remove(usuariosNotificacion.getSelectedIndex());
 				size = contratacionUsuariosDTO.getUsuarioNotificacionContrataMapVOs().size();
+				Sessions.getCurrent().setAttribute("flgCambio",true);
 				validaTamanio();
 				agregarUsuarios();
 			}
@@ -723,6 +725,7 @@ public class FlujoContratacionController extends Div implements IController, IdS
 				contratacionDTO.getUsuarioNotificacionVOs().add(notificacionVO);
 			}
 			contratacionUsuariosDTO.getUsuarioNotificacionContrataMapVOs().clear();
+			Sessions.getCurrent().setAttribute("flgCambio",true);
 			size = 0;
 			validaTamanio();
 			agregarUsuarios();
@@ -740,6 +743,7 @@ public class FlujoContratacionController extends Div implements IController, IdS
 				contratacionDTO.getUsuarioNotificacionVOs().add(contratacionUsuariosDTO.getUsuarioNotificacionContrataMapVOs().get(usuariosNotificacionActivo.getSelectedIndex()));
 				contratacionUsuariosDTO.getUsuarioNotificacionContrataMapVOs().remove(usuariosNotificacionActivo.getSelectedIndex());
 				size = contratacionUsuariosDTO.getUsuarioNotificacionContrataMapVOs().size();
+				Sessions.getCurrent().setAttribute("flgCambio",true);
 				validaTamanio();
 				agregarUsuarios();
 			}

@@ -300,6 +300,7 @@ public class ContratacionController extends ControllerSupport implements IContro
 			estatusObjeto.setDisabled(false);
 			//Sessions.getCurrent().removeAttribute("contratacionVO");
 			flagNvaContra = true;
+			comboProducto = true;
 			cargarCombos();
 		} else if(tabs != null) {
 			canal.setValue(contratacionVO.getNombreCanal());
@@ -922,6 +923,8 @@ public class ContratacionController extends ControllerSupport implements IContro
 		contratacionVO.setIdCliente(Integer.parseInt(idCliente.getValue().isEmpty()?"0":idCliente.getValue()));
 		contratacionVO.setIdProducto(Integer.parseInt(idProducto.getValue().isEmpty()?"0":idProducto.getValue()));
 		contratacionVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue().isEmpty()?"0":idEstatusObjeto.getValue()));
+		contratacionVO.setFechaAlta(fechaAlta.getValue());
+		contratacionVO.setFechaModificacion(fechaModificacion.getValue());
 		contratacionVO.toString();
 		contratacionDTO.setContratacionVO(contratacionVO);
 		ContratacionBO contratacionBO = new ContratacionBO();
@@ -971,6 +974,7 @@ public class ContratacionController extends ControllerSupport implements IContro
 	public void save() {
 		final ReportesController controller = new ReportesController();
 		boolean errorGuardar = false;
+		Sessions.getCurrent().removeAttribute("flgCambio");
 		continuar = true;
 		if(idContratacion.getValue().isEmpty() || idContratacion.getValue().equals("0")) {
 			if (canal.getSelectedItem() == null
@@ -1537,10 +1541,31 @@ public class ContratacionController extends ControllerSupport implements IContro
 	@Listen("onClick = #closeBtn")
     public void showModal(Event e) {
 		try{
-			botonGuardar = true;
-			botonGuardarModal = true;		
-			editarContratacionWindows.detach();
-			BindUtils.postGlobalCommand(null, null, "clean", null);
+			if(Sessions.getCurrent().getAttribute("flgCambio")!=null) {
+				Messagebox.show(
+						"¿Está seguro que desea Salir sin guardar los cambios?",
+						"Pregunta", org.zkoss.zul.Messagebox.YES | org.zkoss.zul.Messagebox.NO,
+				org.zkoss.zul.Messagebox.QUESTION, new EventListener<Event>() {
+					@Override
+					public void onEvent(Event event) throws Exception {
+						if (event.getName().equals(org.zkoss.zul.Messagebox.ON_YES)) {
+							botonGuardar = true;
+							botonGuardarModal = true;		
+							editarContratacionWindows.detach();
+							BindUtils.postGlobalCommand(null, null, "clean", null);
+							Sessions.getCurrent().removeAttribute("flgCambio");
+							Sessions.getCurrent().removeAttribute("contratacionMapVOs");
+						}
+					}
+				});
+			} else {
+				botonGuardar = true;
+				botonGuardarModal = true;		
+				editarContratacionWindows.detach();
+				BindUtils.postGlobalCommand(null, null, "clean", null);
+				Sessions.getCurrent().removeAttribute("flgCambio");
+				Sessions.getCurrent().removeAttribute("contratacionMapVOs");
+			}
 		}catch(Exception ex){
 			BindUtils.postGlobalCommand(null, null, "clean", null);
 		}
