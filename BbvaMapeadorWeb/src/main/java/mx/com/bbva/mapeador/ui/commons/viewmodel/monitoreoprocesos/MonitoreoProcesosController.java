@@ -622,7 +622,9 @@ public class MonitoreoProcesosController extends ControllerSupport implements  I
 									ReportesController  controller = new ReportesController();
 									logger.debug("target:"+	event.getTarget());
 									MonitoreoProcesosVO monitoreoProcesosVO;															
+									MonitoreoProcesosVO monitoreoProcesosVONuevo;
 									monitoreoProcesosVO = new MonitoreoProcesosVO();						
+									monitoreoProcesosVONuevo = new MonitoreoProcesosVO();
 									monitoreoProcesosVO.setIdContratacion(Long.parseLong(valuesToUpdate[0]));
 									monitoreoProcesosVO.setIdFlujo(Long.parseLong(valuesToUpdate[1]));
 									monitoreoProcesosVO.setIdEtapa(Long.parseLong(valuesToUpdate[2]));						
@@ -637,8 +639,10 @@ public class MonitoreoProcesosController extends ControllerSupport implements  I
 									MonitoreoProcesosVO monitoreoProcesosVOAnt = monitoreoProcesosVO;
 									monitoreoProcesosVOAnt.setDescripcionContratacion("");
 									monitoreoProcesosVOAnt.setIdEstatusMapeador(35);
+									monitoreoProcesosVONuevo.setIdEstatusMapeador(36);
+									monitoreoProcesosVONuevo.setDescripcionContratacion( "El usuario "+ getSessionUser().getCveUsuario() + " ha terminado esta etapa");
 									monitoreoProcesosVOAnt.setIdEstatusMapeador(CommandConstants.PROCESO_ERROR_ROJO);
-									controller.registrarEvento(monitoreoProcesosVO, monitoreoProcesosVOAnt, CommandConstants.MODIFICACION,"Monitoreo de Procesos");
+									controller.registrarEvento(monitoreoProcesosVONuevo, monitoreoProcesosVOAnt, CommandConstants.MODIFICACION,"Monitoreo de Procesos");
 									BindUtils.postGlobalCommand(null, null, "readWithFilters", null);
 									Messagebox.show("Registro actualizado con exito!!",
 											"Información", org.zkoss.zul.Messagebox.OK,
