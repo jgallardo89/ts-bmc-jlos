@@ -608,32 +608,35 @@ public class MonitoreoProcesosController extends ControllerSupport implements  I
 				image.addEventListener("onClick", new EventListener<Event>() {
 					@Override
 					public void onEvent(Event event) throws Exception {						
-						final MonitoreoProcesosBO monitoreoProcesosBO = new MonitoreoProcesosBO();
-						monitoreoProcesosDTOUpdate = new MonitoreoProcesosDTO();
-						final ReportesController  controller = new ReportesController();
-						logger.debug("target:"+	event.getTarget());
-						final MonitoreoProcesosVO monitoreoProcesosVO;						
-						logger.debug("monitoreoProcesosVO..to..update:"+event.getTarget().getAutag());
-						
-						String[] valuesToUpdate = event.getTarget().getAutag().split("-");
-						logger.debug(valuesToUpdate.length);
-						
-						monitoreoProcesosVO = new MonitoreoProcesosVO();
-						
-						monitoreoProcesosVO.setIdContratacion(Long.parseLong(valuesToUpdate[0]));
-						monitoreoProcesosVO.setIdFlujo(Long.parseLong(valuesToUpdate[1]));
-						monitoreoProcesosVO.setIdEtapa(Long.parseLong(valuesToUpdate[2]));						
-						monitoreoProcesosVO.setFechaStatusProceso(format.parse(valuesToUpdate[3]));
-						monitoreoProcesosVO.setNumeroLote(Long.parseLong(valuesToUpdate[4]));
-						monitoreoProcesosDTOUpdate.setMonitoreoProcesosVO(monitoreoProcesosVO);
+						logger.debug("monitoreoProcesosVO..to..update:"+event.getTarget().getAutag());									
+						final String[] valuesToUpdate = event.getTarget().getAutag().split("-");
+						logger.debug(valuesToUpdate.length);						
 						Messagebox.show("¿Está seguro que desea actualizar el estatus?",
 								"Pregunta", org.zkoss.zul.Messagebox.YES | org.zkoss.zul.Messagebox.NO,
 								org.zkoss.zul.Messagebox.QUESTION, new EventListener<Event>() {
 							@Override
 							public void onEvent(Event event) throws Exception {
 								if (event.getName().equals(Messagebox.ON_YES)) {
-									monitoreoProcesosDTOUpdate = monitoreoProcesosBO.updateCommand(monitoreoProcesosDTOUpdate);
+									MonitoreoProcesosBO monitoreoProcesosBO = new MonitoreoProcesosBO();
+									monitoreoProcesosDTOUpdate = new MonitoreoProcesosDTO();
+									ReportesController  controller = new ReportesController();
+									logger.debug("target:"+	event.getTarget());
+									MonitoreoProcesosVO monitoreoProcesosVO;															
+									monitoreoProcesosVO = new MonitoreoProcesosVO();						
+									monitoreoProcesosVO.setIdContratacion(Long.parseLong(valuesToUpdate[0]));
+									monitoreoProcesosVO.setIdFlujo(Long.parseLong(valuesToUpdate[1]));
+									monitoreoProcesosVO.setIdEtapa(Long.parseLong(valuesToUpdate[2]));						
+									monitoreoProcesosVO.setFechaStatusProceso(format.parse(valuesToUpdate[3]));
+									monitoreoProcesosVO.setNumeroLote(Long.parseLong(valuesToUpdate[4]));
+									monitoreoProcesosVO.setIdEstatusMapeador(36);
+									monitoreoProcesosVO.setDescripcionContratacion( "El usuario "+ getSessionUser().getCveUsuario() + " ha terminado esta etapa");
+									
+									monitoreoProcesosDTOUpdate.setMonitoreoProcesosVO(monitoreoProcesosVO);
+									monitoreoProcesosDTOUpdate = monitoreoProcesosBO.updateCommand(monitoreoProcesosDTOUpdate);									
+									
 									MonitoreoProcesosVO monitoreoProcesosVOAnt = monitoreoProcesosVO;
+									monitoreoProcesosVOAnt.setDescripcionContratacion("");
+									monitoreoProcesosVOAnt.setIdEstatusMapeador(35);
 									monitoreoProcesosVOAnt.setIdEstatusMapeador(CommandConstants.PROCESO_ERROR_ROJO);
 									controller.registrarEvento(monitoreoProcesosVO, monitoreoProcesosVOAnt, CommandConstants.MODIFICACION,"Monitoreo de Procesos");
 									BindUtils.postGlobalCommand(null, null, "readWithFilters", null);
@@ -651,7 +654,9 @@ public class MonitoreoProcesosController extends ControllerSupport implements  I
 				urlImage = CommandConstants.IMG_AMARILLO_ESPERA_PNG;
 			else if(monitoreoProcesosVO1.getIdEstatusMapeador()==CommandConstants.PROCESO_FINALIZA_USUARIO_AZUL)
 				urlImage = CommandConstants.IMG_AZUL_FINALIZAUSUARIO_PNG;
-			image.setSrc(urlImage);			
+			image.setSrc(urlImage);
+			logger.debug("monitoreoProcesosVO1.getDescripcionContratacion():"+monitoreoProcesosVO1.getDescripcionContratacion());
+			image.setTooltiptext(monitoreoProcesosVO1.getDescripcionContratacion()==null?"":monitoreoProcesosVO1.getDescripcionContratacion());
 			td6.appendChild(image);		
 			tr.appendChild(td1);
 			tr.appendChild(td2);

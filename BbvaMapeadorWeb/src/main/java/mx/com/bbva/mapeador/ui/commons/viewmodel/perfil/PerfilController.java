@@ -334,33 +334,42 @@ public class PerfilController extends ControllerSupport implements  IController{
 			error = true;
 		}
 		if(!error){
-			PerfilDTO perfilDTO = new PerfilDTO();
-			PerfilVO perfilVO = new PerfilVO();
-			perfilVO.setNombrebPerfil("COPIA DE "+nombrePerfil.getValue().toUpperCase().trim());
-			perfilVO.setDescripcionPerfil("COPIA DE "+descripcionPerfil.getValue().toUpperCase().trim());
-			perfilVO.setEstatusPerfil(CommandConstants.ID_PERFIL_ACTIVO);
-			perfilVO.setIdPerfilACopiar(Integer.parseInt(idPerfil.getValue()));
+			PerfilDTO perfilDTOL = new PerfilDTO();
+			PerfilVO perfilVOL = new PerfilVO();
+			perfilVOL.setNombrebPerfil("COPIA DE "+nombrePerfil.getValue().toUpperCase().trim());
+			perfilVOL.setDescripcionPerfil("COPIA DE "+descripcionPerfil.getValue().toUpperCase().trim());
+			perfilVOL.setEstatusPerfil(CommandConstants.ID_PERFIL_ACTIVO);
+			perfilVOL.setDescipcionEstatus("ACTIVO");
+			perfilVOL.setIdPerfilACopiar(Integer.parseInt(idPerfil.getValue()));
 			
-			perfilDTO.setPerfilVO(perfilVO);		
-			perfilDTO.toString(BbvaAbstractDataTransferObject.XML);
+			perfilDTOL.setPerfilVO(perfilVOL);		
+			perfilDTOL.toString(BbvaAbstractDataTransferObject.XML);
 			PerfilBO perfilBO = new PerfilBO();
-			perfilDTO = perfilBO.createCommand(perfilDTO);
+			perfilDTOL = perfilBO.createCommand(perfilDTOL);
 			
 			ReportesController controller = new ReportesController();
 			
 			PerfilVO perfilNuevoVO = new PerfilVO();
 			perfilNuevoVO.setNombrebPerfil("");
+			perfilNuevoVO.setDescipcionEstatus("");
 			perfilNuevoVO.setDescripcionPerfil("");
 			perfilNuevoVO.setEstatusPerfil(-1);
 			perfilNuevoVO.setIdPerfilACopiar(-1);
 			
-			if(perfilDTO.getErrorCode().equals("SQL-001")){
+			this.perfilDTO.setPerfilVO(perfilNuevoVO);
+			
+			if(perfilDTOL.getErrorCode().equals("SQL-001")){
 		    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
 		    					"\nError:"+perfilDTO.getErrorCode()+
 		    					"","Error de Sistema",Messagebox.OK,Messagebox.ERROR);
-		    	controller.registrarEventoPerfil(perfilDTO, this.perfilDTO, CommandConstants.ERROR_SISTEMA, nombrePantalla);
+		    	controller.registrarEventoPerfil(perfilDTOL, this.perfilDTO, CommandConstants.ERROR_SISTEMA, nombrePantalla);
 			}else{											
-				controller.registrarEventoPerfil(perfilDTO, this.perfilDTO, CommandConstants.ALTA, nombrePantalla);
+				logger.debug("Registrando evento en bitacora.....");
+				logger.debug("perfilDTOL.....");
+				logger.debug(perfilDTOL.getPerfilVO().toString());
+				logger.debug("perfilDTO.....");
+				logger.debug(perfilDTO.getPerfilVO().toString());
+				controller.registrarEventoPerfil(perfilDTOL, this.perfilDTO, CommandConstants.ALTA, nombrePantalla);
 				clean();
 				perfilDTO = (PerfilDTO)this.read();
 				perfilVOs = perfilDTO.getPerfilVOs();				

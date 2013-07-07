@@ -170,44 +170,58 @@ public class ReportesController extends ControllerSupport {
 		CampoDTO campo = new CampoDTO();
 		PerfilVO perfilVONuevo =   nuevo.getPerfilVO();
 		PerfilVO perfilVOAnterior =   anterior.getPerfilVO();
-		if(!perfilVOAnterior.getNombrebPerfil().trim().equals(perfilVONuevo.getNombrebPerfil().trim())){
-			campo = new CampoDTO();
-			campo.setNombre_campo("nombrePerfil");
-			campo.setValor_anterior(perfilVOAnterior.getNombrebPerfil());
-			campo.setValor_nuevo(perfilVONuevo.getNombrebPerfil());
-			campoDTOs.add(campo);
+		try{
+			if(perfilVOAnterior!=null){
+				if(!perfilVOAnterior.getNombrebPerfil().trim().equals(perfilVONuevo.getNombrebPerfil().trim())){
+					campo = new CampoDTO();
+					campo.setNombre_campo("nombrePerfil");
+					campo.setValor_anterior(perfilVOAnterior.getNombrebPerfil());
+					campo.setValor_nuevo(perfilVONuevo.getNombrebPerfil());
+					campoDTOs.add(campo);
+				}
+			}
+			if(perfilVOAnterior!=null){
+				if(!perfilVOAnterior.getDescripcionPerfil().trim().equals(perfilVONuevo.getDescripcionPerfil().trim())){
+					campo = new CampoDTO();
+					campo.setNombre_campo("descripcionPerfil");
+					campo.setValor_anterior(perfilVOAnterior.getDescripcionPerfil());
+					campo.setValor_nuevo(perfilVONuevo.getDescripcionPerfil());
+					campoDTOs.add(campo);
+				}
+			}
+			if(perfilVOAnterior!=null){
+				if(!perfilVOAnterior.getDescipcionEstatus().trim().equals(perfilVONuevo.getDescipcionEstatus().trim())){
+					campo = new CampoDTO();
+					campo.setNombre_campo("estatusPerfil");
+					campo.setValor_anterior(perfilVOAnterior.getDescipcionEstatus());
+					campo.setValor_nuevo(perfilVONuevo.getDescipcionEstatus());		
+					campoDTOs.add(campo);
+				}
+			}
+			List<ControlPermisoVO> controlPermisoVOsAdded = perfilVONuevo.getControlPermisoVOsAdded();
+			if(controlPermisoVOsAdded!=null){
+				for (ControlPermisoVO controlPermisoVO : controlPermisoVOsAdded) {
+					campo = new CampoDTO();
+					campo.setNombre_campo("Permiso");
+					campo.setValor_anterior("");
+					campo.setValor_nuevo("Se crea:"+"\nNombre Pantalla:"+controlPermisoVO.getNombrePantalla()+"\nNombre Componente:"+controlPermisoVO.getNombreComponente());
+					campoDTOs.add(campo);
+				}		
+			}
+			List<ControlPermisoVO> controlPermisoVOsDeleted = perfilVONuevo.getControlPermisoVOsDeleted();
+			if(controlPermisoVOsDeleted!=null){
+				for (ControlPermisoVO controlPermisoVO : controlPermisoVOsDeleted) {
+					campo = new CampoDTO();
+					campo.setNombre_campo("Permiso");
+					campo.setValor_anterior("Se elimina:"+"\nNombre Pantalla:"+controlPermisoVO.getNombrePantalla()+"\nNombre Componente:"+controlPermisoVO.getNombreComponente());
+					campo.setValor_nuevo("");
+					campoDTOs.add(campo);
+				}					
+			}
+			dto.setCampoDTOs(campoDTOs);
+			super.registraEvento(dto, nombreBitacora, idEvento);
+		}catch(Exception ex){
+			ex.printStackTrace();
 		}
-		if(!perfilVOAnterior.getDescripcionPerfil().trim().equals(perfilVONuevo.getDescripcionPerfil().trim())){
-			campo = new CampoDTO();
-			campo.setNombre_campo("descripcionPerfil");
-			campo.setValor_anterior(perfilVOAnterior.getDescripcionPerfil());
-			campo.setValor_nuevo(perfilVONuevo.getDescripcionPerfil());
-			campoDTOs.add(campo);
-		}
-		if(!perfilVOAnterior.getDescipcionEstatus().trim().equals(perfilVONuevo.getDescipcionEstatus().trim())){
-			campo = new CampoDTO();
-			campo.setNombre_campo("estatusPerfil");
-			campo.setValor_anterior(perfilVOAnterior.getDescipcionEstatus());
-			campo.setValor_nuevo(perfilVONuevo.getDescipcionEstatus());		
-			campoDTOs.add(campo);
-		}
-		List<ControlPermisoVO> controlPermisoVOsAdded = perfilVONuevo.getControlPermisoVOsAdded(); 			
-		for (ControlPermisoVO controlPermisoVO : controlPermisoVOsAdded) {
-			campo = new CampoDTO();
-			campo.setNombre_campo("Permiso");
-			campo.setValor_anterior("");
-			campo.setValor_nuevo("Se crea:"+"\nNombre Pantalla:"+controlPermisoVO.getNombrePantalla()+"\nNombre Componente:"+controlPermisoVO.getNombreComponente());
-			campoDTOs.add(campo);
-		}		
-		List<ControlPermisoVO> controlPermisoVOsDeleted = perfilVONuevo.getControlPermisoVOsDeleted();		
-		for (ControlPermisoVO controlPermisoVO : controlPermisoVOsDeleted) {
-			campo = new CampoDTO();
-			campo.setNombre_campo("Permiso");
-			campo.setValor_anterior("Se elimina:"+"\nNombre Pantalla:"+controlPermisoVO.getNombrePantalla()+"\nNombre Componente:"+controlPermisoVO.getNombreComponente());
-			campo.setValor_nuevo("");
-			campoDTOs.add(campo);
-		}					
-		dto.setCampoDTOs(campoDTOs);
-		super.registraEvento(dto, nombreBitacora, idEvento);
 	}
 }
