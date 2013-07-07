@@ -152,7 +152,8 @@
 	<update id="actualizarEstatusProceso" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.MonitoreoProcesosVO">
 		UPDATE TGM522_ST_PROCESO 
 		SET 
-			CD_ST_MAPEADOR = 36
+			CD_ST_MAPEADOR = 36,
+			TX_CONTRATACION = #{descripcionContratacion}
 		WHERE 
 			CD_CONTRATACION = #{idContratacion} and 
 			CD_FLUJO =  #{idFlujo} and 
@@ -229,7 +230,8 @@
 		  nvl(ra.nb_reg_arch_entra,'') nombreRegArchEntra,
 		  to_char(stp.tm_st_proceso_ini,'HH:mm:ss') fechaInicio,
 		  to_char(stp.tm_st_proceso_fin,'HH:mm:ss') fechaFin,
-		  stp.cd_st_mapeador idEstatusMapeador		  
+		  stp.cd_st_mapeador idEstatusMapeador,
+		  stp.tx_contratacion descripcionContratacion
 		FROM tgm522_st_proceso stp,
 		  tgm519_cntratacion cn,
 		  tgm536_reg_arch_en ra,
