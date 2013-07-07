@@ -116,6 +116,21 @@ public class MonitoreoProcesosVO extends BbvaAbstractValueObject {
 	/** The nombre cliente. */
 	private String nombreCliente;
 	
+	private String descripcionContratacion;
+	/**
+	 * @return the descripcionContratacion
+	 */
+	public final String getDescripcionContratacion() {
+		return descripcionContratacion;
+	}
+
+	/**
+	 * @param descripcionContratacion the descripcionContratacion to set
+	 */
+	public final void setDescripcionContratacion(String descripcionContratacion) {
+		this.descripcionContratacion = descripcionContratacion;
+	}
+
 	/**
 	 * @return the nombreCliente
 	 */
