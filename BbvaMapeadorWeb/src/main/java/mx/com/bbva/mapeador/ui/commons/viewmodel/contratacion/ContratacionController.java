@@ -782,6 +782,7 @@ public class ContratacionController extends ControllerSupport implements IContro
 		        newTabpanel.setParent(tabs.getTabpanels());
 		}
 	   	Sessions.getCurrent().setAttribute("contratacionMapVOs", contratacionMapVOs);
+		Sessions.getCurrent().setAttribute("contratacionMapAnteriorVOs", listaContratacionMapVOs);
 	}
 	
 	/**
@@ -1064,11 +1065,14 @@ public class ContratacionController extends ControllerSupport implements IContro
 											contratacionMapDTO.setContratacionMapVO(contratacionMapVO);
 											contratacionMapeadorBO.createCommand(contratacionMapDTO);
 											if(contratacionMapDTO.getErrorCode().equals("SQL-001")){
+												controller.registrarEvento(new ContratacionMapVO(), contratacionMapVO, CommandConstants.ERROR_SISTEMA, "ETAPA CONTRATACIÓN");
 										    	Messagebox.show("Actualización Etapas, Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
 										    					"\nError:"+contratacionMapDTO.getErrorCode()+
 										    					"","Error de Sistema",Messagebox.OK,Messagebox.ERROR);
 										    	continuar = false;
 										    	break etapa;
+											} else {
+												controller.registrarEvento(new ContratacionMapVO(), contratacionMapVO, CommandConstants.ALTA, "ETAPA CONTRATACIÓN");
 											}
 										}
 										if(continuar) {
@@ -1121,6 +1125,7 @@ public class ContratacionController extends ControllerSupport implements IContro
 									ArrayList<ContratacionMapVO> contratacionMapVOs = (ArrayList<ContratacionMapVO>) Sessions.getCurrent().getAttribute("contratacionMapVOs");
 									ContratacionMapeadorBO contratacionMapeadorBO = new ContratacionMapeadorBO();
 									ContratacionMapDTO contratacionMapDTO = new ContratacionMapDTO();
+									ArrayList<ContratacionMapVO> listaVoAnterior =   (ArrayList<ContratacionMapVO>) Sessions.getCurrent().getAttribute("contratacionMapAnteriorVOs");
 										
 									//INICIA LA ACTUALIZACIÓN DEL ESTATUS DE LA CONTRATACIÓN
 									ContratacionDTO contratacionDTO = new ContratacionDTO();
@@ -1147,6 +1152,7 @@ public class ContratacionController extends ControllerSupport implements IContro
 											controller.registrarEvento(contratacionVOL, contratacionVO, CommandConstants.INACTIVACION, "CONTRATACIÓN");
 										
 										//INICIA LA ACTUALIZACIÓN DE LAS ETAPAS DE LA CONTRATACIÓN
+										int  contador = 0;
 										etapa:
 										for(ContratacionMapVO contratacionMapVO:contratacionMapVOs) {
 											if(contratacionMapVO.getEstatusNotificacion().equals('F')) {
@@ -1156,11 +1162,15 @@ public class ContratacionController extends ControllerSupport implements IContro
 											contratacionMapDTO.setContratacionMapVO(contratacionMapVO);
 											contratacionMapeadorBO.updateCommand(contratacionMapDTO);
 											if(contratacionMapDTO.getErrorCode().equals("SQL-001")){
+												controller.registrarEvento(contratacionMapVO, listaVoAnterior.get(contador++), CommandConstants.ERROR_SISTEMA, "ETAPA CONTRATACIÓN");
 										    	Messagebox.show("Actualización Etapas, Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
 										    					"\nError:"+contratacionMapDTO.getErrorCode()+
 										    					"","Error de Sistema",Messagebox.OK,Messagebox.ERROR);
 										    	continuar = false;
 										    	break etapa;
+											} else {
+												controller.registrarEvento(contratacionMapVO, listaVoAnterior.get(contador++), CommandConstants.MODIFICACION, "ETAPA CONTRATACIÓN");
+												
 											}
 										}
 										if(continuar) {
