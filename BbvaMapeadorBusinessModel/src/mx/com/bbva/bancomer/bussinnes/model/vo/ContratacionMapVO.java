@@ -381,7 +381,7 @@ public class ContratacionMapVO extends BbvaAbstractValueObject {
 	/**
 	 * @return the valNotificacion
 	 */
-	public boolean isValNotificacion() {
+	public boolean getValNotificacion() {
 		return valNotificacion;
 	}
 
