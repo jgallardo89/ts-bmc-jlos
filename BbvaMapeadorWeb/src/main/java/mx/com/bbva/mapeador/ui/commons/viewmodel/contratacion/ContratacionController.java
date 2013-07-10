@@ -52,6 +52,7 @@ import mx.com.bbva.bancomer.cliente.dto.ClienteDTO;
 import mx.com.bbva.bancomer.commons.command.CommandConstants;
 import mx.com.bbva.bancomer.commons.command.MapeadorConstants;
 import mx.com.bbva.bancomer.contratacion.dto.ContratacionDTO;
+import mx.com.bbva.bancomer.contratacion.dto.ValorEtapaDTO;
 import mx.com.bbva.bancomer.contratacionmap.dto.ContratacionMapDTO;
 import mx.com.bbva.bancomer.estatusobjeto.dto.EstatusObjetoDTO;
 import mx.com.bbva.bancomer.mapper.business.CanalBO;
@@ -269,7 +270,7 @@ public class ContratacionController extends ControllerSupport implements IContro
 	private Tab newTab;
 	
 	boolean continuar = true;
-	private List<ContratacionMapVO> listaContratacionMapVOs;
+	private List<ValorEtapaDTO> valAnteriorContratacion;
 
 	/**
 	 * Instantiates a new contratacion controller.
@@ -727,6 +728,7 @@ public class ContratacionController extends ControllerSupport implements IContro
 		contratacionMapDTO.setContratacionMapVO(contratacionMapVO);
 		contratacionMapDTO = contratacionMapeadorBO.readCommand(contratacionMapDTO);
 		Sessions.getCurrent().removeAttribute("idContratacionReg");
+		valAnteriorContratacion = new ArrayList<ValorEtapaDTO>();
 		
 		List<ContratacionMapVO> contratacionMapVOs = new ArrayList<ContratacionMapVO>();
 		
@@ -747,10 +749,8 @@ public class ContratacionController extends ControllerSupport implements IContro
 		}
 		Collection<ContratacionMapVO> s = hashMapEtapa.values();
    	 	Iterator<ContratacionMapVO> it2 = s.iterator();
-   	 	listaContratacionMapVOs = new ArrayList<ContratacionMapVO>();
 	   	 while(it2.hasNext()){
 	   		ContratacionMapVO mapVO = it2.next();
-	   		listaContratacionMapVOs.add(mapVO);
 				newTab = new Tab(mapVO.getNombreEtapa());
 				newTab.setClosable(false);					
 				if (contador == 1) {
@@ -780,9 +780,17 @@ public class ContratacionController extends ControllerSupport implements IContro
 		        newTabpanel.appendChild(iframe);
 		        tabs.getTabs().insertBefore(newTab, tabNohome);
 		        newTabpanel.setParent(tabs.getTabpanels());
+		        
+		        ValorEtapaDTO valorEtapaDTO = new ValorEtapaDTO();
+		        
+		        valorEtapaDTO.setNombreIdUsuarios(mapVO.getDescripcionIdUsuarios());
+		        valorEtapaDTO.setNombreMapaGmm(mapVO.getNombreMapaGmm());
+		        valorEtapaDTO.setNombreMensajeSalida(mapVO.getNombreMensajeSalida());
+		        valorEtapaDTO.setEstatusNotificacion(mapVO.getEstatusNotificacion());
+		        
+		        this.valAnteriorContratacion.add(valorEtapaDTO);
 		}
-	   	Sessions.getCurrent().setAttribute("contratacionMapVOs", contratacionMapVOs);
-		Sessions.getCurrent().setAttribute("contratacionMapAnteriorVOs", listaContratacionMapVOs);
+	   	Sessions.getCurrent().setAttribute("contratacionMapVOs", contratacionMapVOs);	   	
 	}
 	
 	/**
@@ -973,6 +981,7 @@ public class ContratacionController extends ControllerSupport implements IContro
 	@Command
 	@NotifyChange({ "contratacionVOs","idContratacion","botonGuardarModal" })
 	public void save() {
+		final List<ValorEtapaDTO> valorEtapaDTOs = this.valAnteriorContratacion;
 		final ReportesController controller = new ReportesController();
 		boolean errorGuardar = false;
 		Sessions.getCurrent().removeAttribute("flgCambio");
@@ -1064,8 +1073,8 @@ public class ContratacionController extends ControllerSupport implements IContro
 											contratacionMapVO.setIdContratacion(contratacionDTO.getContratacionVO().getIdContratacion());
 											contratacionMapDTO.setContratacionMapVO(contratacionMapVO);
 											contratacionMapeadorBO.createCommand(contratacionMapDTO);
-											if(contratacionMapDTO.getErrorCode().equals("SQL-001")){
 												controller.registrarEvento(new ContratacionMapVO(), contratacionMapVO, CommandConstants.ERROR_SISTEMA, "ETAPA CONTRATACIÓN");
+												if(contratacionMapDTO.getErrorCode().equals("SQL-001")){
 										    	Messagebox.show("Actualización Etapas, Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
 										    					"\nError:"+contratacionMapDTO.getErrorCode()+
 										    					"","Error de Sistema",Messagebox.OK,Messagebox.ERROR);
@@ -1125,8 +1134,7 @@ public class ContratacionController extends ControllerSupport implements IContro
 									ArrayList<ContratacionMapVO> contratacionMapVOs = (ArrayList<ContratacionMapVO>) Sessions.getCurrent().getAttribute("contratacionMapVOs");
 									ContratacionMapeadorBO contratacionMapeadorBO = new ContratacionMapeadorBO();
 									ContratacionMapDTO contratacionMapDTO = new ContratacionMapDTO();
-									ArrayList<ContratacionMapVO> listaVoAnterior =   (ArrayList<ContratacionMapVO>) Sessions.getCurrent().getAttribute("contratacionMapAnteriorVOs");
-										
+	
 									//INICIA LA ACTUALIZACIÓN DEL ESTATUS DE LA CONTRATACIÓN
 									ContratacionDTO contratacionDTO = new ContratacionDTO();
 									contratacionDTO.setContratacionVO(contratacionVOL);
@@ -1146,13 +1154,12 @@ public class ContratacionController extends ControllerSupport implements IContro
 													"showModal",
 													null);
 										}		
-										else if(Integer.parseInt(idEstatusObjeto.getValue())==CommandConstants.ID_CONTRATACION_ACTIVO)
+										/*else if(Integer.parseInt(idEstatusObjeto.getValue())==CommandConstants.ID_CONTRATACION_ACTIVO)
 											controller.registrarEvento(contratacionVOL, contratacionVO, CommandConstants.MODIFICACION, "CONTRATACIÓN");
 										else
-											controller.registrarEvento(contratacionVOL, contratacionVO, CommandConstants.INACTIVACION, "CONTRATACIÓN");
+											controller.registrarEvento(contratacionVOL, contratacionVO, CommandConstants.INACTIVACION, "CONTRATACIÓN");*/
 										
 										//INICIA LA ACTUALIZACIÓN DE LAS ETAPAS DE LA CONTRATACIÓN
-										int  contador = 0;
 										etapa:
 										for(ContratacionMapVO contratacionMapVO:contratacionMapVOs) {
 											if(contratacionMapVO.getEstatusNotificacion().equals('F')) {
@@ -1162,17 +1169,17 @@ public class ContratacionController extends ControllerSupport implements IContro
 											contratacionMapDTO.setContratacionMapVO(contratacionMapVO);
 											contratacionMapeadorBO.updateCommand(contratacionMapDTO);
 											if(contratacionMapDTO.getErrorCode().equals("SQL-001")){
-												controller.registrarEvento(contratacionMapVO, listaVoAnterior.get(contador++), CommandConstants.ERROR_SISTEMA, "ETAPA CONTRATACIÓN");
+												controller.registrarEventoContratacion(contratacionMapVOs, valorEtapaDTOs, "CONTRATACIÓN" ,CommandConstants.ERROR_SISTEMA);
 										    	Messagebox.show("Actualización Etapas, Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
 										    					"\nError:"+contratacionMapDTO.getErrorCode()+
 										    					"","Error de Sistema",Messagebox.OK,Messagebox.ERROR);
 										    	continuar = false;
 										    	break etapa;
 											} else {
-												controller.registrarEvento(contratacionMapVO, listaVoAnterior.get(contador++), CommandConstants.MODIFICACION, "ETAPA CONTRATACIÓN");
-												
+												contratacionMapVO.setEstatus(estatusObjeto.getValue());
 											}
 										}
+										controller.registrarEventoContratacion(contratacionMapVOs, valorEtapaDTOs, "CONTRATACIÓN",CommandConstants.MODIFICACION);
 										if(continuar) {
 											contratacionDTO = new ContratacionDTO();
 											contratacionVO = new ContratacionVO();
@@ -1261,183 +1268,6 @@ public class ContratacionController extends ControllerSupport implements IContro
 		return continuar;
 	}
 	
-	/* (non-Javadoc)
-	 * @see mx.com.bbva.mapeador.ui.commons.controller.IController#save()
-	 */
-	@Command
-	@NotifyChange({ "contratacionVOs","idContratacion","botonGuardarModal" })
-	public void save1() {
-		final ReportesController controller = new ReportesController();
-		boolean errorGuardar = false;
-		if(idContratacion.getValue().isEmpty() || idContratacion.getValue().equals("0")) {
-			if (canal.getSelectedItem() == null
-					|| canal.getSelectedItem().getValue() == null
-					|| canal.getSelectedItem().getValue().toString().isEmpty()) {
-				canal.setErrorMessage("Favor de seleccionar el Canal Entrada");
-				errorGuardar = true;
-			}
-			if (canalSalida.getSelectedItem() == null
-					|| canalSalida.getSelectedItem().getValue() == null
-					|| canalSalida.getSelectedItem().getValue().toString().isEmpty()) {
-				canalSalida.setErrorMessage("Favor de seleccionar el Canal Salida");
-				errorGuardar = true;
-			}
-			if (producto.getSelectedItem() == null
-					|| producto.getSelectedItem().getValue() == null
-					|| producto.getSelectedItem().getValue().toString().isEmpty()) {
-				producto.setErrorMessage("Favor de seleccionar el Producto");
-				errorGuardar = true;
-			}
-			if (cliente.getSelectedItem() == null
-					|| cliente.getSelectedItem().getValue() == null
-					|| cliente.getSelectedItem().getValue().toString().isEmpty()) {
-				cliente.setErrorMessage("Favor de seleccionar el Cliente");
-				errorGuardar = true;
-			}
-		}
-		
-		contratacionDTO = new ContratacionDTO();
-		contratacionVO = new ContratacionVO();
-		contratacionVO.toString();
-		contratacionVO.setIdCanal(Integer.parseInt(idCanal.getValue().isEmpty()?"0":idCanal.getValue()));
-		contratacionVO.setIdCanalSalida(Integer.parseInt(idCanalSalida.getValue().isEmpty()?"0":idCanalSalida.getValue()));
-		contratacionVO.setIdCliente(Integer.parseInt(idCliente.getValue().isEmpty()?"0":idCliente.getValue()));
-		contratacionVO.setIdProducto(Integer.parseInt(idProducto.getValue().isEmpty()?"0":idProducto.getValue()));
-		contratacionDTO.setContratacionVO(contratacionVO);
-		
-		final ContratacionBO contratacionBO = new ContratacionBO();
-		final List<ContratacionVO> conVOs = contratacionBO.readCommand(contratacionDTO).getContratacionVOs();		
-		if(!errorGuardar) {
-			Messagebox.show(
-					"¿Está seguro que desea continuar con la operación?",
-					"Pregunta", org.zkoss.zul.Messagebox.YES | org.zkoss.zul.Messagebox.NO,
-			org.zkoss.zul.Messagebox.QUESTION, new EventListener<Event>() {
-				@Override
-				public void onEvent(Event event) throws Exception {
-					if (event.getName().equals(org.zkoss.zul.Messagebox.ON_YES)) {
-						if(idContratacion.getValue().isEmpty() || idContratacion.getValue().equals("0")){
-							ContratacionDTO contratacionDTO = new ContratacionDTO();
-							ContratacionVO contratacionVOL = new ContratacionVO();
-							contratacionVOL.setIdEstatusObjeto(CommandConstants.ESTATUS_OBJETO_CONTRATACION_ACTIVO);
-							contratacionVOL.setIdCanal(Integer.parseInt(idCanal.getValue()));
-							contratacionVOL.setIdCanalSalida(Integer.parseInt(idCanalSalida.getValue()));
-							contratacionVOL.setIdCliente(Integer.parseInt(idCliente.getValue()));
-							contratacionVOL.setIdProducto(Integer.parseInt(idProducto.getValue()));
-							contratacionDTO.setContratacionVO(contratacionVOL);
-							contratacionDTO = contratacionBO.createCommand(contratacionDTO);
-							
-							idContratacion.setValue(String.valueOf(contratacionDTO.getContratacionVO().getIdContratacion()));										
-							ContratacionVO contratacionVONuevo = new ContratacionVO();
-							contratacionVONuevo.setIdEstatusObjeto(-1);
-							contratacionVONuevo.setIdCanal(-1);
-							contratacionVONuevo.setIdCanalSalida(-1);
-							contratacionVONuevo.setIdCliente(-1);
-							contratacionVONuevo.setIdProducto(-1);
-							
-							if(contratacionDTO.getErrorCode().equals("SQL-001")){
-						    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
-						    					"\nError:"+contratacionDTO.getErrorCode()+
-						    					"","Error de Sistema",Messagebox.OK,Messagebox.ERROR);
-						    	controller.registrarEvento(contratacionVOL, contratacionVONuevo, CommandConstants.ERROR_SISTEMA, "CONTRATACIÓN");
-							}else{
-								if(conVOs.size() == 0) {																		
-									controller.registrarEvento(contratacionVOL, contratacionVONuevo, CommandConstants.ALTA, "CONTRATACIÓN");
-									
-									contratacionDTO = new ContratacionDTO();
-									contratacionVO = new ContratacionVO();
-									contratacionVO.toString();
-									contratacionDTO.setContratacionVO(contratacionVO);								
-									contratacionVOs = contratacionBO.readCommand(contratacionDTO).getContratacionVOs();
-									//registraBitacora(contratacionVO, CommandConstants.ALTA);
-									disabledComponents();
-									botonGuardarModal = true;
-									org.zkoss.zul.Messagebox.show("!El Registro de la Contratación fue exitoso!",
-											"Información", org.zkoss.zul.Messagebox.OK,
-											org.zkoss.zul.Messagebox.INFORMATION);
-									//cargaTabsDinamicosReg(Integer.parseInt((String) Sessions.getCurrent().getAttribute("idProducto")));
-								} else {
-									org.zkoss.zul.Messagebox.show("!Fallo el registro, contratación existente!",
-											"Información", org.zkoss.zul.Messagebox.OK,
-											org.zkoss.zul.Messagebox.EXCLAMATION);
-									contratacionVONuevo = new ContratacionVO();
-									contratacionVONuevo.setIdEstatusObjeto(-1);
-									contratacionVONuevo.setIdCanal(-1);
-									contratacionVONuevo.setIdCanalSalida(-1);
-									contratacionVONuevo.setIdCliente(-1);
-									contratacionVONuevo.setIdProducto(-1);
-									controller.registrarEvento(contratacionVOL, contratacionVONuevo, CommandConstants.ALTA_FALLIDA, "CONTRATACIÓN");
-									clean();
-								}
-							}
-						} else {
-							ContratacionVO contratacionVOL = new ContratacionVO();
-							contratacionVOL.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue()));
-							contratacionVOL.setIdContratacion(Integer.parseInt(idContratacion.getValue()));
-							if(Integer.parseInt(idEstatusObjeto.getValue()) == CommandConstants.ESTATUS_OBJETO_CONTRATACION_ACTIVO || 
-									contratacionBO.validarProcesoContratacion(contratacionVO)) {
-								ContratacionDTO contratacionDTO = new ContratacionDTO();
-								contratacionDTO.setContratacionVO(contratacionVOL);
-								contratacionDTO = contratacionBO.updateCommand(contratacionDTO);
-								if(contratacionDTO.getErrorCode().equals("SQL-001")){
-							    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
-							    					"\nError:"+contratacionDTO.getErrorCode()+
-							    					"","Error de Sistema",Messagebox.OK,Messagebox.ERROR);
-							    	controller.registrarEvento(contratacionVOL, contratacionVO, CommandConstants.ERROR_SISTEMA, "CONTRATACIÓN");
-								}else{
-									if(Integer.parseInt(idEstatusObjeto.getValue())==CommandConstants.ID_CONTRATACION_BAJA){
-										controller.registrarEvento(contratacionVOL, contratacionVO, CommandConstants.BAJA, "CONTRATACIÓN");
-										BindUtils
-										.postGlobalCommand(
-												null,
-												null,
-												"showModal",
-												null);
-									}
-									else if(Integer.parseInt(idEstatusObjeto.getValue())==CommandConstants.ID_CONTRATACION_ACTIVO)
-										controller.registrarEvento(contratacionVOL, contratacionVO, CommandConstants.MODIFICACION, "CONTRATACIÓN");
-									else
-										controller.registrarEvento(contratacionVOL, contratacionVO, CommandConstants.INACTIVACION, "CONTRATACIÓN");
-									
-									contratacionDTO = new ContratacionDTO();
-									contratacionVO = new ContratacionVO();
-									contratacionVO.toString();
-									contratacionDTO.setContratacionVO(contratacionVO);								
-									contratacionVOs = contratacionBO.readCommand(contratacionDTO).getContratacionVOs();
-									botonGuardarModal = true;
-									//registraBitacora(contratacionVO, CommandConstants.MODIFICACION);
-									org.zkoss.zul.Messagebox.show("!La Actualización del Estado de la Contratación fue exitoso!",
-											"Información", org.zkoss.zul.Messagebox.OK,
-											org.zkoss.zul.Messagebox.INFORMATION);
-								}
-							} else {
-								org.zkoss.zul.Messagebox.show("!La contratación no se puede dar de Baja o Inactivar!",
-										"Información", org.zkoss.zul.Messagebox.OK,
-										org.zkoss.zul.Messagebox.EXCLAMATION);
-								ContratacionVO contratacionVONuevo = new ContratacionVO();
-								contratacionVONuevo.setIdEstatusObjeto(-1);
-								contratacionVONuevo.setIdCanal(-1);
-								contratacionVONuevo.setIdCanalSalida(-1);
-								contratacionVONuevo.setIdCliente(-1);
-								contratacionVONuevo.setIdProducto(-1);
-								if(Integer.parseInt(idEstatusObjeto.getValue())==CommandConstants.ID_CONTRATACION_BAJA)
-									controller.registrarEvento(contratacionVOL, contratacionVONuevo, CommandConstants.BAJA_FALLIDA, "CONTRATACIÓN");
-								else
-									controller.registrarEvento(contratacionVOL, contratacionVONuevo, CommandConstants.INACTIVACION_FALLIDA, "CONTRATACIÓN");
-								clean();
-							}
-						}
-						BindUtils
-						.postGlobalCommand(
-								null,
-								null,
-								"readWithOutFilters",
-								null);
-					}
-				}
-			});
-		}
-	}
-
 	/**
 	 * Selecciona producto.
 	 */
