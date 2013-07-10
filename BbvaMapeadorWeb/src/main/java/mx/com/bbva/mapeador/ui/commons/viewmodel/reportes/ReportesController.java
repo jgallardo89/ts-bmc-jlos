@@ -37,9 +37,13 @@ import java.util.List;
 
 import mx.com.bbva.bancomer.bitacora.dto.BitacoraDTO;
 import mx.com.bbva.bancomer.bitacora.dto.CampoDTO;
+import mx.com.bbva.bancomer.bussinnes.model.vo.ContratacionMapVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.ControlPermisoVO;
 import mx.com.bbva.bancomer.bussinnes.model.vo.PerfilVO;
+import mx.com.bbva.bancomer.bussinnes.model.vo.UsuarioNotificacionVO;
 import mx.com.bbva.bancomer.canal.dto.BeanGenerico;
+import mx.com.bbva.bancomer.contratacion.dto.ContratacionDTO;
+import mx.com.bbva.bancomer.contratacion.dto.ValorEtapaDTO;
 import mx.com.bbva.bancomer.perfil.dto.PerfilDTO;
 import mx.com.bbva.mapeador.ui.commons.viewmodel.support.ControllerSupport;
 
@@ -154,6 +158,71 @@ public class ReportesController extends ControllerSupport {
 		}
 		dto.setCampoDTOs(campoDTOs);
 		super.registraEvento(dto, nombreBitacora, idEvento);
+	}
+	
+	/**
+	 * Registrar evento.
+	 *
+	 * @param nuevo the nuevo
+	 * @param anterior the anterior
+	 * @param idEvento the id evento
+	 * @param nombreBitacora the nombre bitacora
+	 */
+	public void registrarEventoContratacion(ArrayList<ContratacionMapVO> contratacionMapVOs, 
+			List<ValorEtapaDTO> valorEtapaDTOs, String nombreBitacora, int idEvento){
+		BitacoraDTO dto = new BitacoraDTO(); 
+		List<CampoDTO> campoDTOs = new ArrayList<CampoDTO>(); 
+		CampoDTO campo = new CampoDTO();
+		int contador = 0;
+		for (ContratacionMapVO contratacionMapVO : contratacionMapVOs) {
+			ValorEtapaDTO valorEtapaDTO = valorEtapaDTOs.get(contador++);
+			campo = new CampoDTO();
+			campo.setNombre_campo("MAPA - " + contratacionMapVO.getNombreEtapa());
+			campo.setValor_anterior(contratacionMapVO.getNombreMapaGmm());
+			campo.setValor_nuevo(valorEtapaDTO.getNombreMapaGmm());
+			
+			if(campo.getValor_anterior() != null && campo.getValor_nuevo()!= null 
+	        		&& !campo.getValor_anterior().equals(campo.getValor_nuevo())) {
+	        	campoDTOs.add(campo); 
+	        }
+			
+			campo = new CampoDTO();
+			campo.setNombre_campo("MENSAJE - " + contratacionMapVO.getNombreEtapa());
+			campo.setValor_anterior(contratacionMapVO.getNombreMensajeSalida());
+			campo.setValor_nuevo(valorEtapaDTO.getNombreMensajeSalida());
+			
+			if(campo.getValor_anterior() != null && campo.getValor_nuevo()!= null 
+	        		&& !campo.getValor_anterior().equals(campo.getValor_nuevo())) {
+	        	campoDTOs.add(campo); 
+	        }
+			
+			//ContratacionDTO contratacionUsuariosDTO = (ContratacionDTO) Sessions.getCurrent().getAttribute("contratacionUsuariosDTO");
+			
+			//for(UsuarioNotificacionVO usuario:contratacionUsuariosDTO.getUsuarioNotificacionContrataMapVOs()) {
+			campo = new CampoDTO();
+			campo.setNombre_campo("USUARIOS - " + contratacionMapVO.getNombreEtapa());
+			campo.setValor_anterior(contratacionMapVO.getDescripcionIdUsuarios());
+			campo.setValor_nuevo(valorEtapaDTO.getNombreIdUsuarios());
+			
+			if(campo.getValor_anterior() != null && campo.getValor_nuevo()!= null 
+	        		&& !campo.getValor_anterior().equals(campo.getValor_nuevo())) {
+	        	campoDTOs.add(campo); 
+	        }
+			//}
+			
+			campo = new CampoDTO();
+			campo.setNombre_campo("NOTIFICACION - " + contratacionMapVO.getNombreEtapa());
+			campo.setValor_anterior(contratacionMapVO.getEstatusNotificacion().toString());
+			campo.setValor_nuevo(valorEtapaDTO.getEstatusNotificacion().toString());
+			
+			if(campo.getValor_anterior() != null && campo.getValor_nuevo()!= null 
+	        		&& !campo.getValor_anterior().equals(campo.getValor_nuevo())) {
+	        	campoDTOs.add(campo); 
+	        }
+			
+			dto.setCampoDTOs(campoDTOs);
+			super.registraEvento(dto, nombreBitacora, idEvento);
+		}
 	}
 	
 	/**
