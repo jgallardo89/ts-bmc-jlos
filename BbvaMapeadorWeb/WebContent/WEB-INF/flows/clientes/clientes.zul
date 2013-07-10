@@ -43,7 +43,7 @@
 												<div align="right">
 													<label id="lblFechaAlta" width="100%" sclass="labelFill" value="Fecha alta: "></label>												
 												</div>
-												<datebox value="@load(vm.clienteDTO.clienteVO.fechaAlta)" maxlength="50" width="100%" id="fechaAlta" readonly="true" buttonVisible="true" format="dd/MM/yyyy HH:mm"></datebox>
+												<datebox value="@load(vm.clienteDTO.clienteVO.fechaAlta)" maxlength="50" width="100%" id="fechaAlta" readonly="true" buttonVisible="true" format="dd/MM/yyyy"></datebox>
 												<div align="right">
 													<label id="lblDescripcionCliente" width="100%" sclass="labelFill" value="Descripción cliente: "></label>												
 												</div>
@@ -54,7 +54,7 @@
 												<div align="right">
 													<label id="lblFechaModificacion" width="100%" sclass="labelFill" value="Fecha modificación: "></label>												
 												</div>
-												<datebox value="@load(vm.clienteDTO.clienteVO.fechaModificacion)" maxlength="50" width="100%" id="fechaModificacion" readonly="true" buttonVisible="true" format="dd/MM/yyyy HH:mm"></datebox>
+												<datebox value="@load(vm.clienteDTO.clienteVO.fechaModificacion)" maxlength="50" width="100%" id="fechaModificacion" readonly="true" buttonVisible="true" format="dd/MM/yyyy"></datebox>
 												<div align="right">
 													<label id="lblEstatus" width="100%" sclass="labelFill" value="Status:"></label>												
 												</div>
