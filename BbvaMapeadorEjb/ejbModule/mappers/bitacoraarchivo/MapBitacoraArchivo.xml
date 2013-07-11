@@ -4,6 +4,7 @@
     
 	<select id="obtenerBitacoraArchivos" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.BitacoraArchivoVO"
 		resultType="mx.com.bbva.bancomer.bussinnes.model.vo.BitacoraArchivoVO">
+		<![CDATA[
 			Select Tgm537.Tm_Estado_Archivo fechaArchivo,
 			  Tgm538.Tx_Estado_Archivo estadoArchivo, 
 			  Tgm536.Nb_Reg_Arch_Entra nombreArchivo
@@ -11,7 +12,9 @@
 			  Tgm538_Estado_Arch Tgm538,
 			  Tgm536_Reg_Arch_En tgm536
 			Where Tgm538.Cd_Estado_Archivo = Tgm537.Cd_Estado_Archivo
-			And Tgm536.Cd_Reg_Arch_Entra = Tgm537.Cd_Reg_Arch_Entra			
+			And Tgm536.Cd_Reg_Arch_Entra = Tgm537.Cd_Reg_Arch_Entra	
+			AND rownum <= 501
+		]]>		
 			<if test="idEstatus != null and idEstatus != 0">
 				AND Tgm538.Cd_Estado_Archivo = #{idEstatus}
 			</if>
