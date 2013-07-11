@@ -28,7 +28,7 @@
 									</cell>
 									<cell align="left">
 										<combobox sclass="textboxUpperCase" onChange="@command('readMapaGmm')" onSelect="selectedValueMapaGmm()"
-											id="mapaGMM" width="70%" model="@load(vm.contratacionDTO.mapaGmmVOs)" autodrop="true">		
+											id="mapaGMM" width="100%" model="@load(vm.contratacionDTO.mapaGmmVOs)" autodrop="true">		
 											<template name="model">							
 												<comboitem value="@load(each.idMapaGmm)" label="@load(each.nombreMapaGmm)" height="100%" />
 											</template>																								
@@ -36,7 +36,7 @@
 									</cell>
 									<cell colspan="2" align="left">
 										<textbox sclass="textboxUpperCase" maxlength="200"
-													id="descripcionMapaGmm"  width="95%" disabled="true"></textbox>
+													id="descripcionMapaGmm"  width="95%" disabled="true" rows="2" ></textbox>
 									</cell>																													
 								</row>	
 							</rows>								
