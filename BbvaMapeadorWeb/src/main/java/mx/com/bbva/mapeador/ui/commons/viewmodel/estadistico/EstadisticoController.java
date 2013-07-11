@@ -473,7 +473,11 @@ public class EstadisticoController extends ControllerSupport implements  IContro
 		   		for(SegundoNivelDTO dto:dto0.getSegundoNivelDTOs()) {
 			   		cabecera(this.modulo2,2);
 			   		armaHijos(dto.getNombre());
-					armaEncabezadoNivel3();
+			   		if (this.modulo1.equals("PRODUCTO")) {
+			   			armaEncabezadoNivelCliente();
+			   		} else {
+			   			armaEncabezadoNivel3();
+			   		}
 			   		 for(TercerNivelDTO dto2:dto.getTercerNivelDTOs()) {
 			   			armaHijosTercerNivel(dto2);
 			   		 }
