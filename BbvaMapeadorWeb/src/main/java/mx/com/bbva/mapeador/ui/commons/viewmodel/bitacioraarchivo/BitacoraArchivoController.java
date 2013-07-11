@@ -32,6 +32,7 @@ package mx.com.bbva.mapeador.ui.commons.viewmodel.bitacioraarchivo;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -62,6 +63,7 @@ import org.zkoss.zul.Datebox;
 import org.zkoss.zul.Grid;
 import org.zkoss.zul.Image;
 import org.zkoss.zul.Label;
+import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Textbox;
 
 // TODO: Auto-generated Javadoc
@@ -81,7 +83,7 @@ public class BitacoraArchivoController extends ControllerSupport implements  ICo
 	private Grid bitacoraArchivoGrid;
 	
 	/** The bitacora archivo v os. */
-	private List<BitacoraArchivoVO> bitacoraArchivoVOs = bitacoraArchivoDTO.getBitacoraArchivoVOs();
+	private List<BitacoraArchivoVO> bitacoraArchivoVOs = null;// bitacoraArchivoDTO.getBitacoraArchivoVOs();
 	
 	/** The consultar btn. */
 	@Wire
@@ -161,6 +163,10 @@ public class BitacoraArchivoController extends ControllerSupport implements  ICo
 	@AfterCompose
     public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
         Selectors.wireComponents(view, this, false);
+        try{
+	        fechaInicio.setValue(new Date());
+	        fechaFin.setValue(new Date());
+        }catch(Exception ex){}
         executePermissionSet = this.applyPermision();
     }
 	
@@ -442,6 +448,11 @@ public class BitacoraArchivoController extends ControllerSupport implements  ICo
 			bitacoraArchivoDTO.setBitacoraArchivoVO(bitacoraArchivoVO);
 			BitacoraArchivoBO bitacoraArchivoBO = new BitacoraArchivoBO();
 			bitacoraArchivoVOs = bitacoraArchivoBO.readCommand(bitacoraArchivoDTO).getBitacoraArchivoVOs();
+			if(bitacoraArchivoVOs.size()>500){
+				Messagebox.show("En base a los parametros introducidos le informamos que la consulta obtuvo mas de 500 registros.\n" +
+						"Solo se le mostraran los primeros 500.","Información", Messagebox.OK, Messagebox.INFORMATION);
+				bitacoraArchivoVOs.remove(500);
+			}			
 			controller.registrarEvento(bitacoraArchivoVO, bitacoraArchivoVO, CommandConstants.CONSULTAR, "Bitácora de Archivos");
 		}
 	}
