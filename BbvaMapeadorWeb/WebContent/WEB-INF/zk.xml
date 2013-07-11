@@ -10,5 +10,8 @@
 	<library-property>
     	<name>org.zkoss.theme.preferred</name>
     	<value>sapphire</value>
-	</library-property>	
+	</library-property>		
+	<session-config>
+		<max-requests-per-session>10</max-requests-per-session>
+	</session-config>
 </zk>
