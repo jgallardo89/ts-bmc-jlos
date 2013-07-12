@@ -188,8 +188,8 @@ public class ReportesController extends ControllerSupport {
 			ValorEtapaDTO valorEtapaDTO = valorEtapaDTOs.get(contador++);
 			campo = new CampoDTO();
 			campo.setNombre_campo("MAPA - " + contratacionMapVO.getNombreEtapa());
-			campo.setValor_anterior(contratacionMapVO.getNombreMapaGmm());
-			campo.setValor_nuevo(valorEtapaDTO.getNombreMapaGmm());
+			campo.setValor_anterior(valorEtapaDTO.getNombreMapaGmm());
+			campo.setValor_nuevo(contratacionMapVO.getNombreMapaGmm());
 			
 			if(campo.getValor_anterior() != null && campo.getValor_nuevo()!= null 
 	        		&& !campo.getValor_anterior().equals(campo.getValor_nuevo())) {
