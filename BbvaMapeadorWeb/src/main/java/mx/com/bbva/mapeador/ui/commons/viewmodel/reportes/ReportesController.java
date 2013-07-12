@@ -44,6 +44,7 @@ import mx.com.bbva.bancomer.bussinnes.model.vo.UsuarioNotificacionVO;
 import mx.com.bbva.bancomer.canal.dto.BeanGenerico;
 import mx.com.bbva.bancomer.contratacion.dto.ContratacionDTO;
 import mx.com.bbva.bancomer.contratacion.dto.ValorEtapaDTO;
+import mx.com.bbva.bancomer.mapper.business.UsuarioNotificacionBO;
 import mx.com.bbva.bancomer.perfil.dto.PerfilDTO;
 import mx.com.bbva.mapeador.ui.commons.viewmodel.support.ControllerSupport;
 
@@ -186,34 +187,75 @@ public class ReportesController extends ControllerSupport {
 	        	campoDTOs.add(campo); 
 	        }
 			
-			campo = new CampoDTO();
-			campo.setNombre_campo("MENSAJE - " + contratacionMapVO.getNombreEtapa());
-			campo.setValor_anterior(contratacionMapVO.getNombreMensajeSalida());
-			campo.setValor_nuevo(valorEtapaDTO.getNombreMensajeSalida());
+			int[] idUsuarios = null;
+			List<UsuarioNotificacionVO> usuariosNuevos = new ArrayList<UsuarioNotificacionVO>();
+			UsuarioNotificacionBO usuarioNotificacionBO  = new UsuarioNotificacionBO();
+			if(contratacionMapVO.getDescripcionIdUsuarios() != null) {
+				idUsuarios = generarUsuarios(contratacionMapVO.getDescripcionIdUsuarios());
+				usuariosNuevos =((ContratacionDTO)usuarioNotificacionBO.readCommand(idUsuarios)).getUsuarioNotificacionVOs();
+			}
 			
-			if(campo.getValor_anterior() != null && campo.getValor_nuevo()!= null 
-	        		&& !campo.getValor_anterior().equals(campo.getValor_nuevo())) {
-	        	campoDTOs.add(campo); 
-	        }
-			
-			//ContratacionDTO contratacionUsuariosDTO = (ContratacionDTO) Sessions.getCurrent().getAttribute("contratacionUsuariosDTO");
-			
-			//for(UsuarioNotificacionVO usuario:contratacionUsuariosDTO.getUsuarioNotificacionContrataMapVOs()) {
+			idUsuarios = null;
+			List<UsuarioNotificacionVO> usuariosViejos = new ArrayList<UsuarioNotificacionVO>();
+			String idDesUsuariosViejos = (String) Sessions.getCurrent().getAttribute("idDescripcionIdUsuarios"+contratacionMapVO.getIdEtapa());
+			if(idDesUsuariosViejos != null) {
+				idUsuarios = generarUsuarios(idDesUsuariosViejos);
+				usuariosViejos =((ContratacionDTO)usuarioNotificacionBO.readCommand(idUsuarios)).getUsuarioNotificacionVOs();
+			}
 			campo = new CampoDTO();
 			campo.setNombre_campo("USUARIOS - " + contratacionMapVO.getNombreEtapa());
-			campo.setValor_anterior(contratacionMapVO.getDescripcionIdUsuarios());
-			campo.setValor_nuevo(valorEtapaDTO.getNombreIdUsuarios());
+			
+			int cont = 1;
+			String usuariosAnt = "";
+			String usuarios = "";
+			for(UsuarioNotificacionVO usuario:usuariosViejos) {
+				if(cont != 1) {
+					usuariosAnt+=" - ";
+				}
+				usuariosAnt += usuario.getNombreUsuarioNotificado();
+				cont++;
+			}
+			cont = 1;
+			for(UsuarioNotificacionVO usuario:usuariosNuevos) {
+				if(cont != 1) {
+					usuarios+=" - ";
+				}
+				usuarios += usuario.getNombreUsuarioNotificado();
+				cont++;
+			}
+			cont++;
+			campo.setValor_anterior(usuariosAnt);
+			campo.setValor_nuevo(usuarios);
 			
 			if(campo.getValor_anterior() != null && campo.getValor_nuevo()!= null 
 	        		&& !campo.getValor_anterior().equals(campo.getValor_nuevo())) {
 	        	campoDTOs.add(campo); 
 	        }
-			//}
 			
 			campo = new CampoDTO();
 			campo.setNombre_campo("NOTIFICACION - " + contratacionMapVO.getNombreEtapa());
-			campo.setValor_anterior(contratacionMapVO.getEstatusNotificacion().toString());
-			campo.setValor_nuevo(valorEtapaDTO.getEstatusNotificacion().toString());
+			campo.setValor_anterior(valorEtapaDTO.getEstatusNotificacion().toString());
+			campo.setValor_nuevo(contratacionMapVO.getEstatusNotificacion().toString());
+			
+			if(campo.getValor_anterior() != null && campo.getValor_nuevo()!= null 
+	        		&& !campo.getValor_anterior().equals(campo.getValor_nuevo())) {
+	        	campoDTOs.add(campo); 
+	        }
+			
+			
+			campo = new CampoDTO();
+			campo.setNombre_campo("MENSAJE - " + contratacionMapVO.getNombreEtapa());
+			campo.setValor_anterior(contratacionMapVO.getNombreMensajeSalida());
+			if(contratacionMapVO.getIdMensajeSalida()==null) {
+				campo.setValor_nuevo("");
+			}
+			else if(valorEtapaDTO.getNombreMensajeSalida().equals(" ")) {
+				campo.setValor_anterior("");
+				campo.setValor_nuevo(contratacionMapVO.getNombreMensajeSalida());
+			}
+			else {
+				campo.setValor_nuevo(valorEtapaDTO.getNombreMensajeSalida());
+			}
 			
 			if(campo.getValor_anterior() != null && campo.getValor_nuevo()!= null 
 	        		&& !campo.getValor_anterior().equals(campo.getValor_nuevo())) {
@@ -221,8 +263,28 @@ public class ReportesController extends ControllerSupport {
 	        }
 			
 			dto.setCampoDTOs(campoDTOs);
-			super.registraEvento(dto, nombreBitacora, idEvento);
 		}
+		super.registraEvento(dto, nombreBitacora, idEvento);
+	}
+	
+	
+	/**
+	 * Generar usuarios.
+	 *
+	 * @param descripcionIdUsuarios the descripcion id usuarios
+	 * @return the int[]
+	 */
+	private int[] generarUsuarios(String descripcionIdUsuarios) {
+		String[] items = descripcionIdUsuarios.replaceAll("\\[", "").replaceAll("\\]", "").split("-");
+
+		int[] results = new int[items.length];
+
+		for (int i = 0; i < items.length; i++) {
+		    try {
+		        results[i] = Integer.parseInt(items[i]);
+		    } catch (NumberFormatException nfe) {};
+		}
+		return results;
 	}
 	
 	/**
