@@ -291,10 +291,12 @@ public class FlujoContratacionController extends Div implements IController, IdS
 	        	contratacionUsuariosDTO.setUsuarioNotificacionContrataMapVOs(new ArrayList<UsuarioNotificacionVO>());
 	        	initSize = 0;
 	        }
+	        
+	        Sessions.getCurrent().setAttribute("idDescripcionIdUsuarios"+idStrEtapa, Executions.getCurrent().getParameter("descripcionIdUsuarios"));
+	        
 		    contratacionDTO.setUsuarioNotificacionVOs(usuarioNotificacionBO.readCommand(usuarios).getUsuarioNotificacionVOs());
 		} else {
 			botonLimpiar = false;
-			idStrEtapa = Executions.getCurrent().getParameter("idEtapa");
 			idStrFlujo = Executions.getCurrent().getParameter("idFlujo");
 			idStrContratacion = Executions.getCurrent().getParameter("idContratacion");
 			idStrTransaccion = Executions.getCurrent().getParameter("idTransaccion");
@@ -643,25 +645,6 @@ public class FlujoContratacionController extends Div implements IController, IdS
 		}
     }
 	
-	/**
-	 * Choose all.
-	 */
-	@Command
-	@NotifyChange({"contratacionDTO", "contratacionUsuariosDTO","size"})
-	public void chooseAll(){
-		if(!flagDisabled) {
-			List<UsuarioNotificacionVO> usuarioNotificacionVOs = contratacionDTO.getUsuarioNotificacionVOs();
-			for (UsuarioNotificacionVO notificacionVO : usuarioNotificacionVOs) {
-				contratacionUsuariosDTO.getUsuarioNotificacionContrataMapVOs().add(notificacionVO);
-			}
-			size = contratacionUsuariosDTO.getUsuarioNotificacionContrataMapVOs().size();
-			validaTamanio();
-			contratacionDTO.getUsuarioNotificacionVOs().clear();
-			Sessions.getCurrent().setAttribute("flgCambio",true);
-			agregarUsuarios();
-		}
-	}
-	
 	private void agregarUsuarios() {
 		ArrayList<ContratacionMapVO> contratacionMapVOs = (ArrayList<ContratacionMapVO>) Sessions.getCurrent().getAttribute("contratacionMapVOs");
 		ContratacionMapVO contratacionMapVO = (ContratacionMapVO) contratacionMapVOs.get(Integer.parseInt(idStrTab)-1);
@@ -692,6 +675,25 @@ public class FlujoContratacionController extends Div implements IController, IdS
 			Sessions.getCurrent().setAttribute("user", true);
 		} else {
 			Sessions.getCurrent().setAttribute("user", false);
+		}
+	}
+	
+	/**
+	 * Choose all.
+	 */
+	@Command
+	@NotifyChange({"contratacionDTO", "contratacionUsuariosDTO","size"})
+	public void chooseAll(){
+		if(!flagDisabled) {
+			List<UsuarioNotificacionVO> usuarioNotificacionVOs = contratacionDTO.getUsuarioNotificacionVOs();
+			for (UsuarioNotificacionVO notificacionVO : usuarioNotificacionVOs) {
+				contratacionUsuariosDTO.getUsuarioNotificacionContrataMapVOs().add(notificacionVO);
+			}
+			size = contratacionUsuariosDTO.getUsuarioNotificacionContrataMapVOs().size();
+			validaTamanio();
+			contratacionDTO.getUsuarioNotificacionVOs().clear();
+			Sessions.getCurrent().setAttribute("flgCambio",true);
+			agregarUsuarios();
 		}
 	}
 	
