@@ -170,11 +170,20 @@ public class ReportesController extends ControllerSupport {
 	 * @param nombreBitacora the nombre bitacora
 	 */
 	public void registrarEventoContratacion(ArrayList<ContratacionMapVO> contratacionMapVOs, 
-			List<ValorEtapaDTO> valorEtapaDTOs, String nombreBitacora, int idEvento){
+			List<ValorEtapaDTO> valorEtapaDTOs, String nombreBitacora, int idEvento, String estatus){
 		BitacoraDTO dto = new BitacoraDTO(); 
 		List<CampoDTO> campoDTOs = new ArrayList<CampoDTO>(); 
 		CampoDTO campo = new CampoDTO();
 		int contador = 0;
+		
+		if(valorEtapaDTOs.get(0).getEstatus() != null && !valorEtapaDTOs.get(0).getEstatus().equalsIgnoreCase(estatus)) {
+			campo = new CampoDTO();
+			campo.setNombre_campo("ESTATUS - CONTRATACIÓN");
+			campo.setValor_anterior(valorEtapaDTOs.get(0).getEstatus());
+			campo.setValor_nuevo(estatus);
+			campoDTOs.add(campo); 
+		}
+		
 		for (ContratacionMapVO contratacionMapVO : contratacionMapVOs) {
 			ValorEtapaDTO valorEtapaDTO = valorEtapaDTOs.get(contador++);
 			campo = new CampoDTO();
@@ -242,14 +251,13 @@ public class ReportesController extends ControllerSupport {
 	        	campoDTOs.add(campo); 
 	        }
 			
-			
 			campo = new CampoDTO();
 			campo.setNombre_campo("MENSAJE - " + contratacionMapVO.getNombreEtapa());
 			campo.setValor_anterior(contratacionMapVO.getNombreMensajeSalida());
 			if(contratacionMapVO.getIdMensajeSalida()==null) {
 				campo.setValor_nuevo("");
 			}
-			else if(valorEtapaDTO.getNombreMensajeSalida().equals(" ")) {
+			else if(valorEtapaDTO.getNombreMensajeSalida().trim().equals("")) {
 				campo.setValor_anterior("");
 				campo.setValor_nuevo(contratacionMapVO.getNombreMensajeSalida());
 			}
@@ -258,10 +266,9 @@ public class ReportesController extends ControllerSupport {
 			}
 			
 			if(campo.getValor_anterior() != null && campo.getValor_nuevo()!= null 
-	        		&& !campo.getValor_anterior().equals(campo.getValor_nuevo())) {
+	        		&& !campo.getValor_anterior().trim().equals(campo.getValor_nuevo().trim())) {
 	        	campoDTOs.add(campo); 
 	        }
-			
 			dto.setCampoDTOs(campoDTOs);
 		}
 		super.registraEvento(dto, nombreBitacora, idEvento);

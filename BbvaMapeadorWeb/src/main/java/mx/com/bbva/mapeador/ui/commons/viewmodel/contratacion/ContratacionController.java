@@ -787,6 +787,7 @@ public class ContratacionController extends ControllerSupport implements IContro
 		        valorEtapaDTO.setNombreMapaGmm(mapVO.getNombreMapaGmm());
 		        valorEtapaDTO.setNombreMensajeSalida(mapVO.getNombreMensajeSalida());
 		        valorEtapaDTO.setEstatusNotificacion(mapVO.getEstatusNotificacion());
+		        valorEtapaDTO.setEstatus(estatusObjeto.getValue());
 		        
 		        this.valAnteriorContratacion.add(valorEtapaDTO);
 		}
@@ -1151,7 +1152,7 @@ public class ContratacionController extends ControllerSupport implements IContro
 													"showModal",
 													null);
 										}		
-										else if(Integer.parseInt(idEstatusObjeto.getValue())==CommandConstants.ID_CONTRATACION_ACTIVO)  {
+										else if(Integer.parseInt(idEstatusObjeto.getValue())!=CommandConstants.ID_CONTRATACION_BAJA)  {
 											//INICIA LA ACTUALIZACIÓN DE LAS ETAPAS DE LA CONTRATACIÓN
 											etapa:
 											for(ContratacionMapVO contratacionMapVO:contratacionMapVOs) {
@@ -1162,7 +1163,7 @@ public class ContratacionController extends ControllerSupport implements IContro
 												contratacionMapDTO.setContratacionMapVO(contratacionMapVO);
 												contratacionMapeadorBO.updateCommand(contratacionMapDTO);
 												if(contratacionMapDTO.getErrorCode().equals("SQL-001")){
-													controller.registrarEventoContratacion(contratacionMapVOs, valorEtapaDTOs, "CONTRATACIÓN" ,CommandConstants.ERROR_SISTEMA);
+													controller.registrarEventoContratacion(contratacionMapVOs, valorEtapaDTOs, "CONTRATACIÓN" ,CommandConstants.ERROR_SISTEMA, "ERROR");
 											    	Messagebox.show("Actualización Etapas, Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
 											    					"\nError:"+contratacionMapDTO.getErrorCode()+
 											    					"","Error de Sistema",Messagebox.OK,Messagebox.ERROR);
@@ -1173,7 +1174,12 @@ public class ContratacionController extends ControllerSupport implements IContro
 												}
 											}
 											if(continuar) {
-												controller.registrarEventoContratacion(contratacionMapVOs, valorEtapaDTOs, "CONTRATACIÓN",CommandConstants.MODIFICACION);
+												if(Integer.parseInt(idEstatusObjeto.getValue())==CommandConstants.ID_CONTRATACION_ACTIVO) {
+													controller.registrarEventoContratacion(contratacionMapVOs, valorEtapaDTOs, "CONTRATACIÓN",CommandConstants.MODIFICACION, "ACTIVO");
+												}
+												else {
+													controller.registrarEventoContratacion(contratacionMapVOs, valorEtapaDTOs, "CONTRATACIÓN",CommandConstants.INACTIVACION, "INACTIVO");
+												}
 												contratacionDTO = new ContratacionDTO();
 												contratacionVO = new ContratacionVO();
 												contratacionVO.toString();
@@ -1192,16 +1198,9 @@ public class ContratacionController extends ControllerSupport implements IContro
 											}
 										}
 										else {
-											controller.registrarEvento(contratacionVOL, contratacionVO, CommandConstants.INACTIVACION, "CONTRATACIÓN");
-											org.zkoss.zul.Messagebox.show("!La Actualización de la Contratación fue exitoso!",
+											org.zkoss.zul.Messagebox.show("!No se selecciono un Estatus!",
 													"Información", org.zkoss.zul.Messagebox.OK,
 													org.zkoss.zul.Messagebox.INFORMATION);
-											BindUtils
-											.postGlobalCommand(
-													null,
-													null,
-													"showModal",
-													null);
 										}
 									}
 								} else {
