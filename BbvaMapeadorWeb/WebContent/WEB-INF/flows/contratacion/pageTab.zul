@@ -177,15 +177,20 @@
 				}
 			}
 			public void selectedChangeValue() {
-				try{
+				try{					
 					ArrayList contratacionMapVOs = (ArrayList)Sessions.getCurrent().getAttribute("contratacionMapVOs");
 					mx.com.bbva.bancomer.bussinnes.model.vo.ContratacionMapVO contratacionMapVO = 
 					(mx.com.bbva.bancomer.bussinnes.model.vo.ContratacionMapVO) contratacionMapVOs.get(Integer.parseInt(idTab.getValue())-1);
 					
-					if(idMapaGmm.getValue() != null || !idMapaGmm.getValue().equals(""))
+					if(idMapaGmm.getValue() != null || !idMapaGmm.getValue().equals("")) {
 						contratacionMapVO.setIdMapaGmm(Integer.parseInt(idMapaGmm.getValue()));
-					if(idMensajeSalida.getValue() != null || !idMensajeSalida.getValue().equals(""))
+						contratacionMapVO.setNombreMapaGmm(mapaGMM.getValue());
+					}
+						
+					if(idMensajeSalida.getValue() != null || !idMensajeSalida.getValue().equals("")) {
 						contratacionMapVO.setIdMensajeSalida(Integer.valueOf(idMensajeSalida.getValue()));
+						contratacionMapVO.setNombreMensajeSalida(nombreMensajeSalida.getValue());
+					}
 					
 					contratacionMapVOs.set(Integer.parseInt(idTab.getValue())-1,contratacionMapVO);
 					Sessions.getCurrent().setAttribute("contratacionMapVOs",contratacionMapVOs);
