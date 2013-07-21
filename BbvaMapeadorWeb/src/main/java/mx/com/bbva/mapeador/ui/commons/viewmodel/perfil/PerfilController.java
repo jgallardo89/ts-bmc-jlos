@@ -576,8 +576,9 @@ public class PerfilController extends ControllerSupport implements  IController{
 		Hashtable<Long, ComponenteVO> htAllAdded = new Hashtable<Long, ComponenteVO>();
 		if(componentePantallaPerfilDTO!=null && componentePantallaPerfilDTO.getComponentePantallaPerfilVOs()!=null){			
 			for (ComponenteVO componenteVO : componentePantallaPerfilDTO.getComponentePantallaPerfilVOs()) {
-				htAllAdded.put(componenteVO.getIdComponente(), componenteVO);
+				htAllAdded.put(componenteVO.getIdComponente(), componenteVO);				
 			}
+			logger.debug("htAllAdded+"+htAllAdded.size());
 		}
 		ComponenteVO componenteVO = new ComponenteVO();		
 		if(pantallas.getSelectedItem()!=null){
@@ -702,6 +703,7 @@ public class PerfilController extends ControllerSupport implements  IController{
 			if(componentesPerfil.getSelectedItem()!=null){
 //				componentePantallaDTO.getComponentePantallaVOs().add(componentePantallaPerfilDTO.getComponentePantallaPerfilVOs().get(componentesPerfil.getSelectedIndex()));
 				componentePantallaPerfilDTO.getComponentePantallaPerfilVOs().remove(componentesPerfil.getSelectedIndex());
+				logger.debug("componentePantallaPerfilDTO:"+componentePantallaPerfilDTO.getComponentePantallaPerfilVOs().size());
 			}
 		}
 	}
