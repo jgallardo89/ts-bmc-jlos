@@ -75,7 +75,7 @@ public class PerfilBO implements mx.com.bbva.bancomer.commons.business.BbvaIBusi
 				MapComponente mapComponente = session.getMapper(MapComponente.class);				
 				ComponenteVO componenteVO = new ComponenteVO();
 				componenteVO.setIdPerfil(perfilVO.getIdPerfilACopiar());
-				List<ComponenteVO> componenteVOs = mapComponente.obtenerComponentesPantallaPerfilAll(componenteVO);
+				List<ComponenteVO> componenteVOs = mapComponente.obtenerComponentesPantallaPerfilToDupply(componenteVO);
 				ControlPermisoVO controlPermisoVO;
 				for (ComponenteVO componenteVO2 : componenteVOs) {
 					controlPermisoVO = new ControlPermisoVO();

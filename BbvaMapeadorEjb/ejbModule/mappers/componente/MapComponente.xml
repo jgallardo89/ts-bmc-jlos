@@ -104,6 +104,23 @@
     	Order By Pantalla.Nb_Pantalla, 
     	Componente.Nb_Componente
 	</select>
+	<select id="obtenerComponentesPantallaPerfilToDupply" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.ComponenteVO"
+		resultType="mx.com.bbva.bancomer.bussinnes.model.vo.ComponenteVO">	
+		SELECT Componente.Cd_Pantalla idPantalla,
+		  Componente.Cd_Componente Idcomponente,
+		  Pantalla.nb_Pantalla,
+		  Concat(Pantalla.nb_Pantalla,Concat('--', Componente.Nb_Componente)) nombreComponente,
+		  Componente.Cd_Default Iddefault,
+		  Pantalla.Nb_Pantalla pantalla
+		FROM Tgm502_Componente Componente,
+		  Tgm505_Ctrlpermiso Control,
+		  Tgm501_Pantalla pantalla
+		WHERE Control.Cd_Componente   = Componente.Cd_Componente
+		AND Pantalla.Cd_Pantalla    = Componente.Cd_Pantalla    	    
+    	And Control.Cd_Perfil = #{idPerfil}
+    	Order By Pantalla.Nb_Pantalla, 
+    	Componente.Nb_Componente
+	</select>
 	<select id="obtenerComponentesParaEliminar" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.ComponenteVO"
 		resultType="mx.com.bbva.bancomer.bussinnes.model.vo.ComponenteVO">
 		Select CD_COMPONENTE idComponente

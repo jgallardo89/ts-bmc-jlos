@@ -99,6 +99,7 @@ public abstract interface MapComponente {
 	 * @return the list
 	 */
 	public abstract List<ComponenteVO> obtenerComponentesPantallaPerfilAll(ComponenteVO componenteVO);
+	public abstract List<ComponenteVO> obtenerComponentesPantallaPerfilToDupply(ComponenteVO componenteVO);
 	
 	/**
 	 * Obtener componentes para eliminar.
