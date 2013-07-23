@@ -31,7 +31,7 @@
 												<div align="right">
 													<label id="lblPantallaPadre" width="100%" sclass="labelFill" value="Pantalla Padre:"></label>
 												</div>
-												<combobox id="pantallaPadre" model="@load(vm.pantallaDTO.pantallaPadreVOs)" value="@load(vm.strPantallaPadre)"  width="100%" height="100%" onChange="selectedValuePantallasPadre()">		
+												<combobox readonly="true" id="pantallaPadre" model="@load(vm.pantallaDTO.pantallaPadreVOs)" value="@load(vm.strPantallaPadre)"  width="100%" height="100%" onChange="selectedValuePantallasPadre()">		
 													<template name="model">										
 														<comboitem value="@load(each.idPantalla)" label="@load(each.nombrePantalla)" height="100%"/>
 													</template>																								
@@ -63,7 +63,7 @@
 												<div align="right">
 													<label id="lblStatus" width="100%" sclass="labelFill" value="Status:"></label>												
 												</div>
-												<combobox sclass="textboxUpperCase" onChange="selectedValueStatusClave()"
+												<combobox readonly="true" sclass="textboxUpperCase" onChange="selectedValueStatusClave()"
 													id="status" width="70%" model="@load(vm.pantallaDTO.estatusObjetoVOs)" autodrop="true">		
 													<template name="model">										
 														<comboitem value="@load(each.idEstatusObjeto)" label="@load(each.nombreEstatusObjeto)" height="100%"/>

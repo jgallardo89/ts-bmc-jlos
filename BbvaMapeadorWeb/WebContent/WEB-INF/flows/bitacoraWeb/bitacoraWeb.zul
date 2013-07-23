@@ -41,7 +41,7 @@
 												<div align="right">
 													<label id="lbIdentificadorMensaje" width="100%" sclass="labelFill" value="Identificador de Mensaje:  "></label>
 												</div>
-												<combobox sclass="textboxUpperCase" readonly="true" onChange="selectedValueEventoMapeador()"
+												<combobox sclass="textboxUpperCase" readonly="false" onChange="selectedValueEventoMapeador()"
 													id="tipoEvento" width="70%" model="@load(vm.eventoMapeadorDTO.eventoMapeadorVOs)" autodrop="true">		
 													<template name="model">										
 														<comboitem value="@load(each.idEventoMapeador)" label="@load(each.nombreEventoMapeador)" height="100%"/>
@@ -50,7 +50,7 @@
 												<div align="right">
 													<label id="lblUsuario" width="100%" sclass="labelFill" value="Usuario:  "></label>
 												</div>
-												<combobox sclass="textboxUpperCase" readonly="true" onChange="selectedValueUsuario()"
+												<combobox sclass="textboxUpperCase" readonly="false" onChange="selectedValueUsuario()"
 													id="usuario" width="70%" model="@load(vm.usuarioVOs)" autodrop="true">		
 													<template name="model">										
 														<comboitem value="@load(each.idUsuario)" label="@load(each.nombreUsuario)" height="100%"/>

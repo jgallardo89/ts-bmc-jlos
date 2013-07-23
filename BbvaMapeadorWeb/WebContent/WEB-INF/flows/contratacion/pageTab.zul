@@ -27,7 +27,7 @@
 										<label width="100%" sclass="labelFill" value="Mapa: "></label>
 									</cell>
 									<cell align="left">
-										<combobox sclass="textboxUpperCase" onChange="@command('readMapaGmm')" onSelect="selectedValueMapaGmm()"
+										<combobox readonly="true" sclass="textboxUpperCase" onChange="@command('readMapaGmm')" onSelect="selectedValueMapaGmm()"
 											id="mapaGMM" width="100%" model="@load(vm.contratacionDTO.mapaGmmVOs)" autodrop="true">		
 											<template name="model">							
 												<comboitem value="@load(each.idMapaGmm)" label="@load(each.nombreMapaGmm)" height="100%" />
@@ -78,7 +78,7 @@
 								<row>
 									<cell align="left" colspan="3">
 										<label width="100%" sclass="labelFill" value="Mensaje: "></label>
-										<combobox disabled="@load(vm.flagDisabled)" sclass="textboxUpperCase"  onChange="@command('readMensajeSalida')" onSelect="selectedMensajeSalida()"
+										<combobox readonly="true" disabled="@load(vm.flagDisabled)" sclass="textboxUpperCase"  onChange="@command('readMensajeSalida')" onSelect="selectedMensajeSalida()"
 											id="nombreMensajeSalida" value="@load(vm.strNombreMensajeSalida)" width="70%" model="@load(vm.contratacionDTO.mensajeSalidaVOs)" autodrop="true">		
 											<template name="model">										
 												<comboitem value="@load(each.idMensajeSalida)" label="@load(each.nombreMensajeSalida)" height="100%"/>

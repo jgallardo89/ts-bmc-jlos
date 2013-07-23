@@ -37,7 +37,7 @@
 													</label>
 												</div>
 												<cell align="center">
-													<combobox sclass="textboxUpperCase" id="tipoFiltro" width="100%" onChange="selectedValueCriterio()" 
+													<combobox readonly="true" sclass="textboxUpperCase" id="tipoFiltro" width="100%" onChange="selectedValueCriterio()" 
 													autodrop="true">
 													    <comboitem label="CANAL-CLIENTE-PRODUCTO" value="1"/>
 													    <comboitem label="CLIENTE-CANAL-PRODUCTO" value="2"/>
@@ -63,7 +63,7 @@
 													</label>
 												</div>
 												<cell align="center">
-													<combobox
+													<combobox readonly="true"
 														sclass="textboxUpperCase" onChange="selectedValueCanal()"
 														id="canal" width="100%"
 														model="@load(vm.estadisticoDTO.canalVOs)"
@@ -82,7 +82,7 @@
 														value="Identificador Cliente: ">
 													</label>
 												</div>
-												<combobox
+												<combobox readonly="true"
 													sclass="textboxUpperCase" onChange="selectedValueCliente()"
 													id="cliente" width="100%"
 													model="@load(vm.estadisticoDTO.clienteVOs)"
@@ -106,7 +106,7 @@
 													</label>
 												</div>
 												<cell colspan="3">
-													<combobox
+													<combobox readonly="true"
 														sclass="textboxUpperCase"
 														onChange="selectedValueProducto()" id="producto"
 														width="70%" model="@load(vm.estadisticoDTO.productoVOs)"

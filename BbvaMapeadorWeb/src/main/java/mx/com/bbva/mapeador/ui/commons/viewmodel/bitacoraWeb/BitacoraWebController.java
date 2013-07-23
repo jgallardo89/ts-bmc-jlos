@@ -173,7 +173,7 @@ public class BitacoraWebController extends ControllerSupport implements IControl
 	 * Instantiates a new bitacora web controller.
 	 */
 	public BitacoraWebController() {
-//		this.read();
+		this.read();
 //		this.bitacoraVOs = bitacoraDTO.getBitacoraVOs();
 //		this.campoDTOs = new ArrayList<CampoDTO>();
 	}
@@ -349,7 +349,7 @@ public class BitacoraWebController extends ControllerSupport implements IControl
 		usuarioVOs = usuarioBO.readCommand();
 		
 		BitacoraBO bitacoraBO = new BitacoraBO();
-		bitacoraBO.readCommand(bitacoraDTO);
+		//bitacoraBO.readCommand(bitacoraDTO);
 
 		return bitacoraDTO;
 	}

@@ -32,7 +32,7 @@
 												<div align="right">
 													<label id="lblHDRStatus" width="100%" sclass="labelFill" value="HDR Status:  "></label>
 												</div>
-												<combobox readonly="false" onChange="selectedValueStatusPapa()"
+												<combobox readonly="true" onChange="selectedValueStatusPapa()"
 													id="statusPapa" width="70%" model="@load(vm.monitoreoArchivosDTO.estadoArchivoVOs)" autodrop="true">		
 													<template name="model">										
 														<comboitem value="@load(each.idEstadoArchivo)" label="@load(c:cat3(each.nombreEstadoArchivo, ' - ',each.descripcionEstadoArchivo))" height="100%"/>
@@ -41,7 +41,7 @@
 												<div align="right">
 													<label id="lblDataEstatus" width="100%" sclass="labelFill" value="DATA Status:  "></label>
 												</div>
-												<combobox readonly="false" onChange="selectedValueStatusHijo()"
+												<combobox readonly="true" onChange="selectedValueStatusHijo()"
 													id="statusHijo" width="70%" model="@load(vm.monitoreoArchivosDTO.estadoArchivoVOs)" autodrop="true">		
 													<template name="model">										
 														<comboitem value="@load(each.idEstadoArchivo)" label="@load(c:cat3(each.nombreEstadoArchivo, ' - ',each.descripcionEstadoArchivo))" height="100%"/>

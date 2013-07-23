@@ -47,7 +47,7 @@
 													<div align="right">
 														<label id="lblEstatus" width="100%" sclass="labelFill" value="Status:"></label>												
 													</div>
-													<combobox sclass="textboxUpperCase"
+													<combobox readonly="true" sclass="textboxUpperCase"
 														id="status" width="70%" model="@load(vm.perfilDTO.estatusObjetoVOs)" autodrop="true">		
 														<template name="model">										
 															<comboitem value="@load(each.idEstatusObjeto)" label="@load(each.nombreEstatusObjeto)" height="100%"/>
@@ -57,7 +57,7 @@
 														<label id="lblPantalla" width="100%" sclass="labelFill" value="Pantalla:"></label>
 													</div>						
 													<cell colspan="3" width="100%">						
-														<combobox disabled="false" sclass="textboxUpperCase" onChange="@command('readComponentesPantalla')"
+														<combobox readonly="true" disabled="false" sclass="textboxUpperCase" onChange="@command('readComponentesPantalla')"
 															id="pantallas" width="100%" model="@load(vm.perfilDTO.pantallaVOs)" autodrop="true">		
 															<template name="model">										
 																<comboitem value="@load(each.idPantalla)" label="@load(c:cat3(each.nombrePantallaPadre , ' - ',each.nombrePantalla))" height="100%"/>
