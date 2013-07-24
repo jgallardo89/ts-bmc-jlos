@@ -1048,16 +1048,17 @@ public class ContratacionController extends ControllerSupport implements IContro
 								contratacionVOL.setIdCliente(Integer.parseInt(idCliente.getValue()));
 								contratacionVOL.setIdProducto(Integer.parseInt(idProducto.getValue()));
 								contratacionDTO.setContratacionVO(contratacionVOL);
-								contratacionDTO = contratacionBO.createCommand(contratacionDTO);
 								
+								if(conVOs.size() == 0) {
+									contratacionDTO = contratacionBO.createCommand(contratacionDTO);
+								}
 								idContratacion.setValue(String.valueOf(contratacionDTO.getContratacionVO().getIdContratacion()));										
 								ContratacionVO contratacionVONuevo = new ContratacionVO();
 								contratacionVONuevo.setIdEstatusObjeto(-1);
 								contratacionVONuevo.setIdCanal(-1);
 								contratacionVONuevo.setIdCanalSalida(-1);
 								contratacionVONuevo.setIdCliente(-1);
-								contratacionVONuevo.setIdProducto(-1);
-								
+								contratacionVONuevo.setIdProducto(-1);								
 								if(contratacionDTO.getErrorCode().equals("SQL-001")){
 							    	Messagebox.show("Hubo un error en base de datos, favor de reportarlo con el administrador del sistema:\n"+
 							    					"\nError:"+contratacionDTO.getErrorCode()+
