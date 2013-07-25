@@ -29,6 +29,8 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package mx.com.bbva.bancomer.bussinnes.model.vo;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import mx.com.bbva.bancomer.commons.model.vo.BbvaAbstractValueObject;
@@ -43,10 +45,10 @@ public class EstadisticoVO  extends BbvaAbstractValueObject {
 	private static final long serialVersionUID = -3633362440139077011L;
 	
 	/** The fecha fin. */
-	private String fechaFin;
+	private Date fechaFin;
 	
 	/** The fecha inicio. */
-	private String fechaInicio;
+	private Date fechaInicio;
 	
 	/** The fecha status proceso. */
 	public Date fechaStatusProceso;
@@ -105,8 +107,8 @@ public class EstadisticoVO  extends BbvaAbstractValueObject {
 	public EstadisticoVO(long idCanal, String nombreCanal, long idCliente,
 			String idIdentificador, long idProducto, String nombreProducto,
 			long idRegArchEntra, String nombreRegArchEntra,
-			long numeroOperacione, Date fechaStatusProceso, String fechaInicio,
-			String fechaFin) {
+			long numeroOperacione, Date fechaStatusProceso, Date fechaInicio,
+			Date fechaFin) {
 		super();
 		this.idCanal = idCanal;
 		this.nombreCanal = nombreCanal;
@@ -128,7 +130,11 @@ public class EstadisticoVO  extends BbvaAbstractValueObject {
 	 * @return the fechaFin
 	 */
 	public String getFechaFin() {
-		return fechaFin;
+		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");				
+		if(fechaFin!=null)
+			return dateFormat.format(fechaFin);
+		else
+			return null;
 	}
 	
 	/**
@@ -137,7 +143,11 @@ public class EstadisticoVO  extends BbvaAbstractValueObject {
 	 * @return the fechaInicio
 	 */
 	public String getFechaInicio() {
-		return fechaInicio;
+		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");				
+		if(fechaInicio!=null)
+			return dateFormat.format(fechaInicio);
+		else
+			return null;
 	}
 	
 	/**
@@ -235,7 +245,7 @@ public class EstadisticoVO  extends BbvaAbstractValueObject {
 	 *
 	 * @param fechaFin the fechaFin to set
 	 */
-	public void setFechaFin(String fechaFin) {
+	public void setFechaFin(Date fechaFin) {
 		this.fechaFin = fechaFin;
 	}
 	
@@ -244,7 +254,7 @@ public class EstadisticoVO  extends BbvaAbstractValueObject {
 	 *
 	 * @param fechaInicio the fechaInicio to set
 	 */
-	public void setFechaInicio(String fechaInicio) {
+	public void setFechaInicio(Date fechaInicio) {
 		this.fechaInicio = fechaInicio;
 	}
 	
