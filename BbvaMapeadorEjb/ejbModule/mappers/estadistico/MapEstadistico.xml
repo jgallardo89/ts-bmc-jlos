@@ -43,8 +43,8 @@
 			AND PRO.CD_PRODUCTO = #{idProducto}
 		</if>	
 		<if test="fechaInicio != null and fechaFin != null">    
-			AND E.FH_ESTADISTICA BETWEEN #{fechaInicio} AND #{fechaFin}
-		</if>
+			AND to_date(E.FH_ESTADISTICA,'dd-MM-rrrr') BETWEEN to_date(#{fechaInicio},'dd-MM-rrrr') AND to_date(#{fechaFin},'dd-MM-rrrr')
+		</if>		
 		GROUP BY CN.CD_CANAL,CAN.NB_CANAL,
 			CN.CD_CLIENTE,CLI.CD_IDENTIFICADOR,E.FH_ESTADISTICA,
 			CN.CD_PRODUCTO,PRO.NB_PRODUCTO ,RA.NB_REG_ARCH_ENTRA, RA.NB_REG_ARCH_ENTRA
