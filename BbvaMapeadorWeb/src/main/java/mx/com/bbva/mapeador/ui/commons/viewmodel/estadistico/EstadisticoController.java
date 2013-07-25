@@ -337,7 +337,7 @@ public class EstadisticoController extends ControllerSupport implements  IContro
 		estadisticoDTO.setEstadisticoVOs(estadisticaDTO.getEstadisticoVOs());
 		//controller.registrarEvento(estadisticoVO, estadisticoVO, CommandConstants.CONSULTAR, "Estadístico");
 		//armarListaGrid(estadisticoDTO.getEstadisticoVOs());
-		createCanalClienteProducto(estadisticaDTO);
+		//createCanalClienteProducto(estadisticaDTO);
 		return estadisticoDTO;
 	}
 
@@ -407,6 +407,7 @@ public class EstadisticoController extends ControllerSupport implements  IContro
 	   	this.numeroPagina = 1;
 		this.registroFin = this.registroInicio + CommandConstants.PAGINADO_ESTADISTICOS;
 		if(this.primerNivelDTOs.size()==0) {
+			armaEstiloTabla();
 			logger.debug("************************ LISTA SIN REGISTROS ************************");
 		} else {
 			this.modulo1 = "CANAL";
@@ -465,6 +466,7 @@ public class EstadisticoController extends ControllerSupport implements  IContro
 	
 	public void paginarEstadisticos() {
 		 armaEstiloTabla();
+		 logger.debug("this.primerNivelDTOs.size():"+this.primerNivelDTOs.size());
 		 for(int i = registroInicio; i<registroInicio+CommandConstants.PAGINADO_ESTADISTICOS;i++) {
 			 if(i < this.primerNivelDTOs.size()) {
 				PrimerNivelDTO dto0 = primerNivelDTOs.get(i);
@@ -554,6 +556,7 @@ public class EstadisticoController extends ControllerSupport implements  IContro
 	   	this.numeroPagina = 1;
 		this.registroFin = this.registroInicio + CommandConstants.PAGINADO_ESTADISTICOS;
 		if(this.primerNivelDTOs.size()==0) {
+			armaEstiloTabla();
 			logger.debug("************************ LISTA SIN REGISTROS ************************");
 		} else {
 			this.modulo1 = "CLIENTE";
@@ -626,6 +629,7 @@ public class EstadisticoController extends ControllerSupport implements  IContro
 	   	this.numeroPagina = 1;
 		this.registroFin = this.registroInicio + CommandConstants.PAGINADO_ESTADISTICOS;
 		if(this.primerNivelDTOs.size()==0) {
+			armaEstiloTabla();
 			logger.debug("************************ LISTA SIN REGISTROS ************************");
 		} else {
 			this.modulo1 = "PRODUCTO";
@@ -661,7 +665,8 @@ public class EstadisticoController extends ControllerSupport implements  IContro
 		if(fechaInicio.getValue()!=null && fechaInicio.getValue() != null && fechaInicio.getValue().compareTo(fechaFin.getValue()) > 0 ){
 			fechaInicio.setErrorMessage("La fecha de inicio no puede ser mayor a la fecha de fin");
 		}else{
-			ReportesController controller = new ReportesController();
+			tbody = new Tbody();
+			//ReportesController controller = new ReportesController();
 			
 			EstadisticaDTO estadisticaDTO = new EstadisticaDTO();
 			EstadisticoVO estadisticoVO = new EstadisticoVO(); 
@@ -674,9 +679,9 @@ public class EstadisticoController extends ControllerSupport implements  IContro
 			//Fechas
 			DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 			if(fechaInicio.getValue()!=null)
-			estadisticoVO.setFechaInicio(dateFormat.format(fechaInicio.getValue()));
+			estadisticoVO.setFechaInicio(fechaInicio.getValue());
 			if(fechaFin.getValue()!=null)
-			estadisticoVO.setFechaFin(dateFormat.format(fechaFin.getValue()));
+			estadisticoVO.setFechaFin(fechaFin.getValue());
 	
 			estadisticaDTO.setEstadisticoVO(estadisticoVO);
 			estadisticaDTO.toString(BbvaAbstractDataTransferObject.XML);	
@@ -703,7 +708,7 @@ public class EstadisticoController extends ControllerSupport implements  IContro
 			}
 
 			estadisticoDTO.setEstadisticoVOs(estadisticaDTO.getEstadisticoVOs());
-			controller.registrarEvento(null, null, CommandConstants.CONSULTAR, "Estadístico");
+			//controller.registrarEvento(null, null, CommandConstants.CONSULTAR, "Estadístico");
 		}
 	}
 	

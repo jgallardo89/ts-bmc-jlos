@@ -65,11 +65,11 @@
 										</rows>								
 									</grid>
 									<div align="center">
-										<image id="reporteExcelBtn" src="/img/xls.png" onClick="@command('onShowReport',type='xls')" />
-										<image id="reporteCsvBtn" src="/img/csv.png" onClick="@command('onShowReport',type='bbva.txt')" />
-										<button sclass="button" image="/img/clear.png"  label="Limpiar" id="limpiarBtn" onClick="@command('clean')" ></button>
-										<button sclass="button" disabled="@load(vm.btnGuardar)" image="/img/disk.png" label="Guardar" id="guardarBtn" onClick="@command('save')"></button>
-										<button sclass="button" image="/img/search.png" label="Consultar" id="consultarBtn" onClick="@command('readWithFilters')"></button>
+										<image id="reporteExcelBtn" src="/img/xls.png" onClick="@command('onShowReport',type='xls')" sclass="buttonStyle"/>
+										<image id="reporteCsvBtn" src="/img/csv.png" onClick="@command('onShowReport',type='bbva.txt')" sclass="buttonStyle"/>
+										<button sclass="button" image="/img/clear.png"  label="Limpiar" id="limpiarBtn" onClick="@command('clean')" />
+										<button sclass="button" disabled="@load(vm.btnGuardar)" image="/img/disk.png" label="Guardar" id="guardarBtn" onClick="@command('save')"/>
+										<button sclass="button" image="/img/search.png" label="Consultar" id="consultarBtn" onClick="@command('readWithFilters')"/>
 									</div>
 								</div>
 							</panelchildren>										
@@ -81,28 +81,29 @@
 							style="margin-bottom:10px">
 							<caption sclass="sectionPanelTitle" label="Listado de Canales"></caption>
 							<panelchildren>
+								<paging id="pg" autohide="false" pageSize="12" detailed="true"/>
 								<grid width="99.7%" id="canalesGrid" mold="paging"
-									model="@load(vm.canalesVOs)" pagingPosition="both" pageSize="12"
+									model="@load(vm.canalesVOs)" pagingPosition="both" paginal="${pg}"
 									vflex="true">									
 									<columns sizable="true" menupopup="auto">
 										<column hflex="0" align="center" image="/img/pencil-small.png" 
-											width="5%"></column>
+											width="5%"/>
 										<column hflex="1" label="Clave" style="text-wrap: normal;"
-											width="10%" sort="auto(nombreCanal)"></column>
+											width="10%" sort="auto(nombreCanal)"/>
 										<column hflex="1" label="Descripción canal" width="20%"
-											sort="auto(descripcionCanal)"></column>
+											sort="auto(descripcionCanal)"/>
 										<column hflex="1" label="Fecha y Hora de alta" width="10%"
-											sort="auto(fechaAlta)"></column>
+											sort="auto(fechaAlta)"/>
 										<column hflex="1" label="Status" width="10%"
-											sort="auto(nombreEstatusObjeto)"></column>								
+											sort="auto(nombreEstatusObjeto)"/>								
 									</columns>
 									<template name="model">
 										<row>
-											<image src="/img/pencil-small.png" onClick="@command('readSelected',idCanal=each)"></image>											
-											<label hflex="1" value="@load(each.nombreCanal)"></label>
-											<label hflex="1" value="@load(each.descripcionCanal)"></label>
-											<label hflex="1" value="@load(each.fechaAlta) @converter('formatedDate', format='dd/MM/yyyy  HH:mm')"></label>
-											<label hflex="1" value="@load(each.nombreEstatusObjeto)"></label>																							
+											<image src="/img/pencil-small.png" onClick="@command('readSelected',idCanal=each)" sclass="buttonStyle"/>											
+											<label hflex="1" value="@load(each.nombreCanal)"/>
+											<label hflex="1" value="@load(each.descripcionCanal)"/>
+											<label hflex="1" value="@load(each.fechaAlta) @converter('formatedDate', format='dd/MM/yyyy  HH:mm')"/>
+											<label hflex="1" value="@load(each.nombreEstatusObjeto)"/>																							
 										</row>
 									</template>									
 								</grid>

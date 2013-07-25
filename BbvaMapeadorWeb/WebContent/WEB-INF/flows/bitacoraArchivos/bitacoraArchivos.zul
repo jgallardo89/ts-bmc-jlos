@@ -56,9 +56,9 @@
 										</rows>								
 									</grid>
 									<div align="center">										
-										<image id="reporteExcelBtn" src="/img/xls.png" onClick="@command('onShowReport',type='xls')" />
-										<image id="reporteCsvBtn" src="/img/csv.png" onClick="@command('onShowReport',type='bbva.txt')" />											
-										<button sclass="button" image="/img/search.png" label="Consultar" id="consultarBtn" onClick="@command('readWithFilters')"></button>										
+										<image id="reporteExcelBtn" src="/img/xls.png" onClick="@command('onShowReport',type='xls')" sclass="buttonStyle"/>
+										<image id="reporteCsvBtn" src="/img/csv.png" onClick="@command('onShowReport',type='bbva.txt')" sclass="buttonStyle"/>											
+										<button sclass="button" image="/img/search.png" label="Consultar" id="consultarBtn" onClick="@command('readWithFilters')"/>										
 									</div>
 								</div>
 							</panelchildren>										
@@ -70,22 +70,23 @@
 							style="margin-bottom:10px">
 							<caption sclass="sectionPanelTitle" label="Lista de Archivos"></caption>
 							<panelchildren>
+								<paging id="pg" autohide="false" pageSize="12" detailed="true"/>
 								<grid width="99.7%" id="bitacoraArchivoGrid" mold="paging"
-									model="@load(vm.bitacoraArchivoVOs)" pagingPosition="both" pageSize="12"
+									model="@load(vm.bitacoraArchivoVOs)" pagingPosition="both" paginal="${pg}"
 									vflex="true">									
 									<columns sizable="true" menupopup="auto">
 										<column hflex="1" label="Fecha y Hora" width="10%"
-											sort="auto(fechaArchivo)"></column>
+											sort="auto(fechaArchivo)"/>
 										<column hflex="1" label="Archivo" width="10%"
-											sort="auto(nombreArchivo)"></column>
+											sort="auto(nombreArchivo)"/>
 										<column hflex="1" label="Estado de archivo" width="10%"
-											sort="auto(estadoArchivo)"></column>		
+											sort="auto(estadoArchivo)"/>		
 									</columns>
 									<template name="model">
 										<row>
-											<label hflex="1" value="@load(each.fechaArchivo) @converter('formatedDate', format='dd/MM/yyyy HH:mm:ss')"></label>
-											<label hflex="1" value="@load(each.nombreArchivo)"></label>
-											<label hflex="1" value="@load(each.estadoArchivo)"></label>																					
+											<label hflex="1" value="@load(each.fechaArchivo) @converter('formatedDate', format='dd/MM/yyyy HH:mm:ss')"/>
+											<label hflex="1" value="@load(each.nombreArchivo)"/>
+											<label hflex="1" value="@load(each.estadoArchivo)"/>																					
 										</row>
 									</template>									
 								</grid>

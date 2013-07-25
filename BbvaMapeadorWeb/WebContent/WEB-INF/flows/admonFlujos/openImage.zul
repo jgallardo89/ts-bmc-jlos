@@ -8,12 +8,12 @@
 		apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('mx.com.bbva.mapeador.ui.commons.viewmodel.admonFlujos.AdmonFlujosImageController')"
 		id="openImageWindow">
-	<include src="../../pages/styles.zul" />
-		<div>				
+		<include src="../../pages/styles.zul" />
+		<div width="100%" height="95%">				
 			<groupbox height="100%" width="100%">
 				<caption sclass="pageTitle" label="Flujo"></caption>
-				<div align="center">		
-					<image width="90%"  height="90%" src="@load(arg.get('descripcionUrlImagen'))"></image>
+				<div align="center" sclass="divTabla">		
+					<image src="@load(arg.get('descripcionUrlImagen'))"></image>
 				</div>										
 			</groupbox>
 		</div>

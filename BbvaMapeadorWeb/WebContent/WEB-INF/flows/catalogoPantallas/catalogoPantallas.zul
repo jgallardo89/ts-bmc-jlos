@@ -73,11 +73,11 @@
 										</rows>																	
 									</grid>
 									<div align="center">
-										<image id="reporteExcelBtn" src="/img/xls.png" onClick="@command('onShowReport',type='xls')" />
-										<image id="reporteCsvBtn" src="/img/csv.png" onClick="@command('onShowReport',type='bbva.txt')" />
-										<button sclass="button" image="/img/clear.png" label="Limpiar" id="limpiarBtn" onClick="@command('clean')" ></button>
-										<button sclass="button" image="/img/disk.png" label="Guardar" id="guardarBtn" onClick="@command('save')"></button>
-										<button sclass="button" image="/img/search.png" label="Consultar" id="consultarBtn" onClick="@command('readWithFilters')"></button>
+										<image id="reporteExcelBtn" src="/img/xls.png" onClick="@command('onShowReport',type='xls')" sclass="buttonStyle"/>
+										<image id="reporteCsvBtn" src="/img/csv.png" onClick="@command('onShowReport',type='bbva.txt')" sclass="buttonStyle"/>
+										<button sclass="button" image="/img/clear.png" label="Limpiar" id="limpiarBtn" onClick="@command('clean')" />
+										<button sclass="button" image="/img/disk.png" label="Guardar" id="guardarBtn" onClick="@command('save')"/>
+										<button sclass="button" image="/img/search.png" label="Consultar" id="consultarBtn" onClick="@command('readWithFilters')"/>
 									</div>
 								</div>
 							</panelchildren>										
@@ -89,34 +89,35 @@
 							style="margin-bottom:10px">
 							<caption sclass="sectionPanelTitle" label="Listado de Pantallas"></caption>
 							<panelchildren>
+								<paging id="pg" autohide="false" pageSize="12" detailed="true"/>
 								<grid width="99.7%" id="pantallasGrid" mold="paging"
-									model="@load(vm.pantallaVOs)" pagingPosition="both" pageSize="12"
+									model="@load(vm.pantallaVOs)" pagingPosition="both" paginal="${pg}"
 									height="360px">									
 									<columns sizable="true" menupopup="auto">
 										<column hflex="0" align="center" image="/img/pencil-small.png" 
-											width="5%"></column>
+											width="5%"/>
 										<column hflex="1" label="Pantalla Padre" style="text-wrap: normal;"
-											width="10%" sort="auto(nombrePantallaPadre)"></column>
+											width="10%" sort="auto(nombrePantallaPadre)"/>
 										<column hflex="1" label="Pantalla" width="20%"
-											sort="auto(nombrePantalla)"></column>
+											sort="auto(nombrePantalla)"/>
 										<column hflex="1" label="URL Pantalla" width="10%"
-											sort="auto(descripcionUrlPantalla)"></column>
+											sort="auto(descripcionUrlPantalla)"/>
 										<column hflex="1" label="URL Icono" width="10%"
-											sort="auto(descripcionUrlIcon)"></column>	
+											sort="auto(descripcionUrlIcon)"/>	
 										<column hflex="1" label="Orden" width="10%"
-											sort="auto(numeroOrdenPantalla)"></column>
+											sort="auto(numeroOrdenPantalla)"/>
 										<column hflex="1" label="Status" width="10%"
-											sort="auto(nombreEstatusObjeto)"></column>									
+											sort="auto(nombreEstatusObjeto)"/>									
 									</columns>
 									<template name="model">
 										<row>
-											<image src="/img/pencil-small.png" onClick="@command('readSelected',idPantalla=each)"></image>											
-											<label hflex="1" value="@load(each.nombrePantallaPadre)"></label>
-											<label hflex="1" value="@load(each.nombrePantalla)"></label>
-											<label hflex="1" value="@load(each.descripcionUrlPantalla)"></label>
-											<label hflex="1" value="@load(each.descripcionUrlIcon)"></label>
-											<label hflex="1" value="@load(each.numeroOrdenPantalla)"></label>
-											<label hflex="1" value="@load(each.nombreEstatusObjeto)"></label>																					
+											<image src="/img/pencil-small.png" onClick="@command('readSelected',idPantalla=each)" sclass="buttonStyle"/>											
+											<label hflex="1" value="@load(each.nombrePantallaPadre)"/>
+											<label hflex="1" value="@load(each.nombrePantalla)"/>
+											<label hflex="1" value="@load(each.descripcionUrlPantalla)"/>
+											<label hflex="1" value="@load(each.descripcionUrlIcon)"/>
+											<label hflex="1" value="@load(each.numeroOrdenPantalla)"/>
+											<label hflex="1" value="@load(each.nombreEstatusObjeto)"/>																					
 										</row>
 									</template>									
 								</grid>

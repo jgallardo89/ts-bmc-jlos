@@ -62,8 +62,8 @@
 										</rows>								
 									</grid>
 									<div align="center">
-										<image id="reporteExcelBtn" src="/img/xls.png" onClick="@command('onShowReport',type='xls')" />
-										<image id="reporteCsvBtn" src="/img/csv.png" onClick="@command('onShowReport',type='bbva.txt')" />
+										<image id="reporteExcelBtn" src="/img/xls.png" onClick="@command('onShowReport',type='xls')" sclass="buttonStyle"/>
+										<image id="reporteCsvBtn" src="/img/csv.png" onClick="@command('onShowReport',type='bbva.txt')" sclass="buttonStyle"/>
 										<button sclass="button" image="/img/clear.png" label="Limpiar" id="limpiarBtn" onClick="@command('clean')" ></button>
 										<button sclass="button" image="/img/disk.png" label="Guardar" id="guardarBtn" onClick="@command('save')"></button>
 										<button sclass="button" image="/img/search.png" label="Consultar" id="consultarBtn" onClick="@command('readWithFilters')"></button>
@@ -79,8 +79,9 @@
 							style="margin-bottom:10px">
 							<caption sclass="sectionPanelTitle" label="Listado de Estatus Objeto"></caption>
 							<panelchildren>
+								<paging id="pg" autohide="false" pageSize="12" detailed="true"/>
 								<grid width="99.7%" id="estatusObjetosGrid" mold="paging"
-									model="@load(vm.estatusObjetoVOs)" pagingPosition="both" pageSize="12"
+									model="@load(vm.estatusObjetoVOs)" pagingPosition="both" paginal="${pg}"
 									vflex="true">									
 									<columns sizable="true" menupopup="auto">
 										<column hflex="0" align="center" image="/img/pencil-small.png" 
@@ -96,7 +97,7 @@
 									</columns>
 									<template name="model">
 										<row>
-											<image src="/img/pencil-small.png" onClick="@command('readSelected',idEstatusObjeto=each)"></image>											
+											<image src="/img/pencil-small.png" onClick="@command('readSelected',idEstatusObjeto=each)" sclass="buttonStyle"></image>											
 											<label hflex="1" value="@load(each.nombreTabla)"></label>
 											<label hflex="1" value="@load(each.nombreEstatusObjeto)"></label>
 											<label hflex="1" value="@load(each.descripcionEstatusObjeto)"></label>

@@ -78,9 +78,9 @@
 										</rows>								
 									</grid>
 									<div align="center">
-										<image id="reporteExcelBtn" src="/img/xls.png" onClick="@command('onShowReport',type='xls')" />
-										<image id="reporteCsvBtn" src="/img/csv.png" onClick="@command('onShowReport',type='bbva.txt')" />										
-										<button sclass="button" image="/img/disk.png" label="Guardar"  id="guardarBtn" onClick="@command('save')"></button>										
+										<image id="reporteExcelBtn" src="/img/xls.png" onClick="@command('onShowReport',type='xls')" sclass="buttonStyle" />
+										<image id="reporteCsvBtn" src="/img/csv.png" onClick="@command('onShowReport',type='bbva.txt')"  sclass="buttonStyle"/>										
+										<button sclass="button" image="/img/disk.png" label="Guardar"  id="guardarBtn" onClick="@command('save')"/>										
 									</div>
 								</div>								
 							</panelchildren>										

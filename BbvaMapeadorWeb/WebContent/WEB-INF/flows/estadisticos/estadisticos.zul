@@ -4,7 +4,7 @@
 <?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
 <?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c"?>
 <zk>
-	<window border="0" width="100%" height="180%"
+	<window border="0" width="100%" height="100%"
 		apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('mx.com.bbva.mapeador.ui.commons.viewmodel.estadistico.EstadisticoController')"
 		id="estadisticoWindows">
@@ -37,7 +37,7 @@
 													</label>
 												</div>
 												<cell align="center">
-													<combobox readonly="true" sclass="textboxUpperCase" id="tipoFiltro" width="100%" onChange="selectedValueCriterio()" 
+													<combobox readonly="true" value="CANAL-CLIENTE-PRODUCTO" sclass="textboxUpperCase" id="tipoFiltro" width="100%" onChange="selectedValueCriterio()" 
 													autodrop="true">
 													    <comboitem label="CANAL-CLIENTE-PRODUCTO" value="1"/>
 													    <comboitem label="CLIENTE-CANAL-PRODUCTO" value="2"/>
@@ -142,8 +142,8 @@
 										</rows>
 									</grid>
 									<div align="center">
-										<image id="reporteExcelBtn" src="/img/xls.png" onClick="@command('onShowReport',type='xls')" />
-										<image id="reporteCsvBtn" src="/img/csv.png" onClick="@command('onShowReport',type='bbva.txt')" />
+										<image id="reporteExcelBtn" src="/img/xls.png" onClick="@command('onShowReport',type='xls')" sclass="buttonStyle"/>
+										<image id="reporteCsvBtn" src="/img/csv.png" onClick="@command('onShowReport',type='bbva.txt')" sclass="buttonStyle"/>
 										<button sclass="button" image="/img/clear.png"  label="Limpiar" id="limpiarBtn" onClick="@command('clean')" ></button>
 										<button sclass="button" image="/img/search.png" label="Consultar" id="consultarBtn" onClick="@command('readWithFilters')"></button>
 									</div>
@@ -151,15 +151,15 @@
 							</panelchildren>
 						</panel>
 					</groupbox>
-					<groupbox height="1000px">
-						<panel height="100%" sclass="sectionPanelTitle"
+					<groupbox height="370px">
+						<panel height="350px" sclass="sectionPanelTitle"
 							width="100%" id="panelEstadistico" title="Resultados"
 							collapsible="false" style="margin-bottom:10px">
 							<caption sclass="sectionPanelTitle"
 								label="Lista de Resultados">
 							</caption>
 							<panelchildren>
-								<div width="100%">
+								<div width="100%" sclass="divTabla">
 									<hbox spacing="1px" width="100%">
 									 	<image style="cursor:pointer" id="backAllBtn" src="/img/leftleftarrow_g.png" onClick="@command('backAll')" disbled="@command(vm.flagBack)"/>
 								        <image style="cursor:pointer" id="backBtn" src="/img/leftarrow_g.png" onClick="@command('backOne')" disbled="@command(vm.flagBack)"/>

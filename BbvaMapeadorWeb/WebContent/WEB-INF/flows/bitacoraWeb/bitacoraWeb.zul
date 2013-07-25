@@ -61,11 +61,11 @@
 												<div align="right">
 												</div>										
 												<div align="right" width="70%">
-													<image id="reporteExcelBtn" src="/img/xls.png" onClick="@command('onShowReport',type='xls')" />
-													<image id="reporteCsvBtn" src="/img/csv.png" onClick="@command('onShowReport',type='bbva.txt')" />
+													<image id="reporteExcelBtn" src="/img/xls.png" onClick="@command('onShowReport',type='xls')" sclass="buttonStyle"/>
+													<image id="reporteCsvBtn" src="/img/csv.png" onClick="@command('onShowReport',type='bbva.txt')" sclass="buttonStyle"/>
 												</div>	
 												<div align="right" width="82%">
-													<button sclass="button" image="/img/search.png" label="Consultar" id="consultarBtn" onClick="@command('readWithFilters')"></button>
+													<button sclass="button" image="/img/search.png" label="Consultar" id="consultarBtn" onClick="@command('readWithFilters')"/>
 												</div>
 												<div align="right">
 												</div>
@@ -84,24 +84,25 @@
 							style="margin-bottom:10px">
 							<caption sclass="sectionPanelTitle" label="Listado de Bitácora Web"></caption>
 							<panelchildren>
+								<paging id="pg" autohide="false" pageSize="12" detailed="true"/>
 								<grid width="99.7%"  id="bitacoraGrid" mold="paging"
-									model="@load(vm.bitacoraVOs)" pagingPosition="top" pageSize="12"
+									model="@load(vm.bitacoraVOs)" pagingPosition="top" paginal="${pg}"
 									vflex="true">									
 									<columns sizable="true" menupopup="auto">
 										<column hflex="1" label="Fecha y Hora" width="10%"
-											sort="auto(horaBitacora)"></column>
+											sort="auto(horaBitacora)"/>
 										<column hflex="1" label="Usuario" width="10%"
-											sort="auto(nombreUsuario)"></column>
+											sort="auto(nombreUsuario)"/>
 										<column hflex="1" label="Tipo Evento" width="10%"
-											sort="auto(nombreEventoMapeador)"></column>
-										<column hflex="0" align="center" label="Detalle" width="5%"></column>						
+											sort="auto(nombreEventoMapeador)"/>
+										<column hflex="0" align="center" label="Detalle" width="5%"/>						
 									</columns>
 									<template name="model">
 										<row>
-											<label hflex="1" value="@load(each.horaBitacora)  @converter('formatedDate', format='dd/MM/yyyy HH:mm:ss')"></label>
-											<label hflex="1" value="@load(each.nombreUsuario)"></label>
-											<label hflex="1" value="@load(each.descripcionBitacoraWeb)"></label>
-											<image src="/img/detalle.jpg" onClick="@command('readEventDetail',idBitacora=each)"></image>																					
+											<label hflex="1" value="@load(each.horaBitacora)  @converter('formatedDate', format='dd/MM/yyyy HH:mm:ss')"/>
+											<label hflex="1" value="@load(each.nombreUsuario)"/>
+											<label hflex="1" value="@load(each.descripcionBitacoraWeb)"/>
+											<image src="/img/detalle.jpg" onClick="@command('readEventDetail',idBitacora=each)" sclass="buttonStyle"/>																					
 										</row>
 									</template>									
 								</grid>

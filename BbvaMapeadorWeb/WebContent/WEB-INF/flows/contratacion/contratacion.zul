@@ -97,12 +97,12 @@
 										</rows>																														
 									</grid>
 									<div align="center">
-										<image id="imgXLSReport" src="/img/xls.png" onClick="@command('onShowReport',type='xls')" />
-										<image id="imgCSVReport" src="/img/csv.png" onClick="@command('onShowReport',type='bbva.txt')" />
-										<button sclass="button" image="/img/clear.png"  label="Limpiar" id="limpiarBtn" onClick="@command('clean')" ></button>
-										<button sclass="button" image="/img/search.png" label="Consultar" id="consultarBtn" onClick="@command('readWithFilters')"></button>
-										<button sclass="button" image="/img/disk.png" label="Editar" id="editarBtn" disabled="@load(vm.botonEditar)" onClick="@command('editaContratacion')"></button>
-										<button sclass="button" image="/img/disk.png" disabled="@load(vm.botonGuardar)" label="Nueva" id="nuevaBtn" onClick="@command('nuevaContratacion',contratacion='nueva')"></button>
+										<image id="imgXLSReport" src="/img/xls.png" onClick="@command('onShowReport',type='xls')" sclass="buttonStyle"/>
+										<image id="imgCSVReport" src="/img/csv.png" onClick="@command('onShowReport',type='bbva.txt')" sclass="buttonStyle"/>
+										<button sclass="button" image="/img/clear.png"  label="Limpiar" id="limpiarBtn" onClick="@command('clean')" />
+										<button sclass="button" image="/img/search.png" label="Consultar" id="consultarBtn" onClick="@command('readWithFilters')"/>
+										<button sclass="button" image="/img/disk.png" label="Editar" id="editarBtn" disabled="@load(vm.botonEditar)" onClick="@command('editaContratacion')"/>
+										<button sclass="button" image="/img/disk.png" disabled="@load(vm.botonGuardar)" label="Nueva" id="nuevaBtn" onClick="@command('nuevaContratacion',contratacion='nueva')"/>
 									</div>
 									<textbox id="idEstatusObjeto" value="@load(vm.contratacionDTO.contratacionVO.idEstatusObjeto)" visible="false"/>
 									<textbox id="idCanal" value="@load(vm.contratacionDTO.contratacionVO.idCanal)" visible="false"/>
@@ -120,37 +120,38 @@
 							style="margin-bottom:5px">
 							<caption sclass="sectionPanelTitle" label="Listado de Contrataciones"></caption>
 							<panelchildren>
+								<paging id="pg" autohide="false" pageSize="12" detailed="true"/>
 								<grid id="contratacionGrid" mold="paging"
-									model="@load(vm.contratacionVOs)" pagingPosition="both" pageSize="12"
+									model="@load(vm.contratacionVOs)" pagingPosition="both" paginal="${pg}"
 									vflex="true" height="100%">									
 									<columns sizable="true" menupopup="auto">
 										<column hflex="0" align="center" image="/img/pencil-small.png" 
-											width="5%"></column>
+											width="5%"/>
 										<column hflex="1" label="Canal Entrada" style="text-wrap: normal;"
-											width="10%" sort="auto(nombreCanal)"></column>
+											width="10%" sort="auto(nombreCanal)"/>
 										<column hflex="1" label="Cliente" width="20%"
-											sort="auto(nombreCliente)"></column>
+											sort="auto(nombreCliente)"/>
 										<column hflex="1" label="Producto" width="10%"
-											sort="auto(nombreProducto)"></column>
+											sort="auto(nombreProducto)"/>
 										<column hflex="1" label="Canal Salida" width="10%"
-											sort="auto(nombreCanalSalida)"></column>
+											sort="auto(nombreCanalSalida)"/>
 										<column hflex="1" label="Fecha alta" width="10%"
-											sort="auto(fechaAlta)"></column>
+											sort="auto(fechaAlta)"/>
 										<column hflex="1" label="Fecha modificaciôn" width="10%"
-											sort="auto(fechaModificacion)"></column>
+											sort="auto(fechaModificacion)"/>
 										<column hflex="1" label="Status" width="10%"
-											sort="auto(nombreEstatusObjeto)"></column>								
+											sort="auto(nombreEstatusObjeto)"/>								
 									</columns>
 									<template name="model">
 										<row>
-											<image src="/img/pencil-small.png" onClick="@command('readSelected',idContratacion=each)"></image>											
-											<label hflex="1" value="@load(each.nombreCanal)"></label>
-											<label hflex="1" value="@load(each.nombreCliente)"></label>
-											<label hflex="1" value="@load(each.nombreProducto)"></label>	
-											<label hflex="1" value="@load(each.nombreCanalSalida)"></label>
-											<label hflex="1" value="@load(each.fechaAlta) @converter('formatedDate', format='dd/MM/yyyy  HH:mm')"></label>
-											<label hflex="1" value="@load(each.fechaModificacion) @converter('formatedDate', format='dd/MM/yyyy  HH:mm')"></label>
-											<label hflex="1" value="@load(each.nombreEstatusObjeto)"></label>																					
+											<image src="/img/pencil-small.png" onClick="@command('readSelected',idContratacion=each)" sclass="buttonStyle"/>											
+											<label hflex="1" value="@load(each.nombreCanal)"/>
+											<label hflex="1" value="@load(each.nombreCliente)"/>
+											<label hflex="1" value="@load(each.nombreProducto)"/>	
+											<label hflex="1" value="@load(each.nombreCanalSalida)"/>
+											<label hflex="1" value="@load(each.fechaAlta) @converter('formatedDate', format='dd/MM/yyyy  HH:mm')"/>
+											<label hflex="1" value="@load(each.fechaModificacion) @converter('formatedDate', format='dd/MM/yyyy  HH:mm')"/>
+											<label hflex="1" value="@load(each.nombreEstatusObjeto)"/>																					
 										</row>
 									</template>									
 								</grid>

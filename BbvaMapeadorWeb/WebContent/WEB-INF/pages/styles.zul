@@ -57,6 +57,7 @@
 		    FONT-FAMILY: Arial;
 		    width: 100px; 
 		    text-transform: capitalize;
+		    cursor: pointer;
 		}
 		.button1{
 		    FONT-SIZE: 8pt;
@@ -478,6 +479,9 @@
 		    font-weight: normal;
 		    padding-left: 10px;
 		    padding-right: 10px;
+		}
+		.buttonStyle{
+			cursor:pointer;
 		}
 	</style>
 </zk>

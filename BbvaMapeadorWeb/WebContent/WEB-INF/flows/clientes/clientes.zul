@@ -68,11 +68,11 @@
 										</rows>								
 									</grid>
 									<div align="center">
-										<image id="reporteExcelBtn" src="/img/xls.png" onClick="@command('onShowReport',type='xls')" />
-										<image id="reporteCsvBtn" src="/img/csv.png" onClick="@command('onShowReport',type='bbva.txt')" />
-										<button sclass="button" image="/img/clear.png" label="Limpiar" id="limpiarBtn" onClick="@command('clean')" ></button>
-										<button sclass="button" image="/img/disk.png" label="Guardar" id="guardarBtn" onClick="@command('save')"></button>
-										<button sclass="button" image="/img/search.png" label="Consultar" id="consultarBtn" onClick="@command('readWithFilters')"></button>
+										<image id="reporteExcelBtn" src="/img/xls.png" onClick="@command('onShowReport',type='xls')" sclass="buttonStyle"/>
+										<image id="reporteCsvBtn" src="/img/csv.png" onClick="@command('onShowReport',type='bbva.txt')" sclass="buttonStyle"/>
+										<button sclass="button" image="/img/clear.png" label="Limpiar" id="limpiarBtn" onClick="@command('clean')" />
+										<button sclass="button" image="/img/disk.png" label="Guardar" id="guardarBtn" onClick="@command('save')"/>
+										<button sclass="button" image="/img/search.png" label="Consultar" id="consultarBtn" onClick="@command('readWithFilters')"/>
 									</div>
 								</div>
 							</panelchildren>										
@@ -84,34 +84,35 @@
 							style="margin-bottom:10px">
 							<caption sclass="sectionPanelTitle" label="Listado de Clientes"></caption>
 							<panelchildren>
+								<paging id="pg" autohide="false" pageSize="12" detailed="true"/>
 								<grid width="99.7%" id="clientesGrid" mold="paging"
-									model="@load(vm.clientesVOs)" pagingPosition="both" pageSize="12"
+									model="@load(vm.clientesVOs)" pagingPosition="both" paginal="${pg}"
 									vflex="true">									
 									<columns sizable="true" menupopup="auto">
 										<column hflex="0" align="center" image="/img/pencil-small.png" 
-											width="5%"></column>
+											width="5%"/>
 										<column hflex="1" label="Identificador" style="text-wrap: normal;"
-											width="10%" sort="auto(idIdentificador)"></column>
+											width="10%" sort="auto(idIdentificador)"/>
 										<column hflex="1" label="Nombre cliente" width="20%"
-											sort="auto(nombreCortoCliente)"></column>
+											sort="auto(nombreCortoCliente)"/>
 										<column hflex="1" label="Descripción cliente" width="10%"
-											sort="auto(nombreCliente)"></column>
+											sort="auto(nombreCliente)"/>
 										<column hflex="1" label="Fecha y Hora de alta" width="10%"
-											sort="auto(fechaAlta)"></column>
+											sort="auto(fechaAlta)"/>
 										<column hflex="1" label="Fecha y Hora de modificación" width="10%"
-											sort="auto(fechaModificacion)"></column>	
+											sort="auto(fechaModificacion)"/>	
 										<column hflex="1" label="Status" width="10%"
-											sort="auto(nombreEstatusObjeto)"></column>								
+											sort="auto(nombreEstatusObjeto)"/>								
 									</columns>
 									<template name="model">
 										<row>
-											<image src="/img/pencil-small.png" onClick="@command('readSelected',idCliente=each)"></image>											
-											<label hflex="1" value="@load(each.idIdentificador)"></label>
-											<label hflex="1" value="@load(each.nombreCortoCliente)"></label>
-											<label hflex="1" value="@load(each.nombreCliente)"></label>
-											<label hflex="1" value="@load(each.fechaAlta)  @converter('formatedDate', format='dd/MM/yyyy  HH:mm')"></label>
-											<label hflex="1" value="@load(each.fechaModificacion)  @converter('formatedDate', format='dd/MM/yyyy  HH:mm')"></label>
-											<label hflex="1" value="@load(each.nombreEstatusObjeto)"></label>																							
+											<image src="/img/pencil-small.png" onClick="@command('readSelected',idCliente=each)" sclass="buttonStyle"/>											
+											<label hflex="1" value="@load(each.idIdentificador)"/>
+											<label hflex="1" value="@load(each.nombreCortoCliente)"/>
+											<label hflex="1" value="@load(each.nombreCliente)"/>
+											<label hflex="1" value="@load(each.fechaAlta)  @converter('formatedDate', format='dd/MM/yyyy  HH:mm')"/>
+											<label hflex="1" value="@load(each.fechaModificacion)  @converter('formatedDate', format='dd/MM/yyyy  HH:mm')"/>
+											<label hflex="1" value="@load(each.nombreEstatusObjeto)"/>																							
 										</row>
 									</template>									
 								</grid>

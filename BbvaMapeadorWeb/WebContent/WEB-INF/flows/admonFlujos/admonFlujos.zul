@@ -3,7 +3,7 @@
 <?meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7"?>
 <?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
 <zk>
-	<window border="0" width="100%" height="110%"
+	<window border="0" width="100%" height="100%"
 		apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('mx.com.bbva.mapeador.ui.commons.viewmodel.admonFlujos.AdmonFlujosController')"
 		id="admonFlujosWindows">
@@ -63,52 +63,53 @@
 										</rows>								
 									</grid>
 									<div align="center">
-										<image id="reporteExcelBtn" src="/img/xls.png" onClick="@command('onShowReport',type='xls')" />
-										<image id="reporteCsvBtn" src="/img/csv.png" onClick="@command('onShowReport',type='bbva.txt')" />
-										<button sclass="button" image="/img/clear.png" label="Limpiar" id="limpiarBtn" onClick="@command('clean')" ></button>
-										<button sclass="button" image="/img/disk.png" label="Guardar" disabled="@load(vm.flagBtnGuardar)" id="guardarBtn" onClick="@command('save')"></button>
-										<button sclass="button" image="/img/search.png" label="Consultar" id="consultarBtn" onClick="@command('readWithFilters')"></button>
+										<image id="reporteExcelBtn" src="/img/xls.png" onClick="@command('onShowReport',type='xls')" sclass="buttonStyle" />
+										<image id="reporteCsvBtn" src="/img/csv.png" onClick="@command('onShowReport',type='bbva.txt')"  sclass="buttonStyle"/>
+										<button sclass="button" image="/img/clear.png" label="Limpiar" id="limpiarBtn" onClick="@command('clean')"/>
+										<button sclass="button" image="/img/disk.png" label="Guardar" disabled="@load(vm.flagBtnGuardar)" id="guardarBtn" onClick="@command('save')"/>
+										<button sclass="button" image="/img/search.png" label="Consultar" id="consultarBtn" onClick="@command('readWithFilters')"/>
 									</div>
 								</div>								
 							</panelchildren>										
 						</panel>
 					</groupbox>
 					<groupbox>
-						<panel height="500px" sclass="sectionPanelTitle" width="100%" id="panelFlujoMapeador"
+						<panel height="395px" sclass="sectionPanelTitle" width="100%" id="panelFlujoMapeador"
 							title="Resultados Flujos Mapeador" collapsible="false"
 							style="margin-bottom:10px">
 							<caption sclass="sectionPanelTitle" label="Listado de Flujos"></caption>
 							<panelchildren>
-								<grid width="99.7%" id="flujosGrid" mold="paging"
-									model="@load(vm.flujoVOs)" pagingPosition="both" pageSize="12"
-									vflex="true" height="100%">									
+								<paging id="pg" autohide="false" pageSize="12" detailed="true"></paging>
+								<grid width="99.7%" id="flujosGrid" mold="paging" paginal="${pg}"
+									model="@load(vm.flujoVOs)" pagingPosition="both"
+									vflex="true" height="100%">																		
 									<columns sizable="true" menupopup="auto">
 										<column hflex="0" align="center" image="/img/pencil-small.png" 
-											width="5%"></column>
+											width="5%"/>
 										<column hflex="1" label="Identificador de Flujo" style="text-wrap: normal;"
-											width="10%" sort="auto(nombreFlujo)"></column>
+											width="10%" sort="auto(nombreFlujo)"/>
 										<column hflex="1" label="Descripción flujo" width="20%"
-											sort="auto(descripcionFlujo)"></column>
+											sort="auto(descripcionFlujo)"/>
 										<column hflex="1" label="Fecha alta" width="10%"
-											sort="auto(fechaAlta)"></column>
+											sort="auto(fechaAlta)"/>
 										<column hflex="1" label="Fecha modificación" width="10%"
-											sort="auto(fechaModificacion)"></column>
+											sort="auto(fechaModificacion)"/>
 										<column hflex="1" label="Etapas del flujo" width="10%"
-											sort="auto(descripcionEtapa)"></column>	
+											sort="auto(descripcionEtapa)"/>	
 										<column hflex="1" label="Status" width="10%"
-											sort="auto(nombreEstatusObjeto)"></column>
-										<column hflex="1" label="Diagrama" width="10%"></column>								
+											sort="auto(nombreEstatusObjeto)"/>
+										<column hflex="1" label="Diagrama" width="10%"/>								
 									</columns>
 									<template name="model">
 										<row>
-											<image src="/img/pencil-small.png" onClick="@command('readSelected',idFlujo=each)"></image>											
-											<label hflex="1" value="@load(each.nombreFlujo)"></label>
-											<label hflex="1" value="@load(each.descripcionFlujo)"></label>
-											<label hflex="1" value="@load(each.fechaAlta)  @converter('formatedDate', format='dd/MM/yyyy  HH:mm')"></label>
-											<label hflex="1" value="@load(each.fechaModificacion)  @converter('formatedDate', format='dd/MM/yyyy  HH:mm')"></label>
-											<label hflex="1" value="@load(each.descripcionEtapa)"></label>
-											<label hflex="1" value="@load(each.nombreEstatusObjeto)"></label>
-											<image src="/img/flujo.gif" onClick="@command('openImage',descripcionUrlImagen=each)"></image>
+											<image src="/img/pencil-small.png" onClick="@command('readSelected',idFlujo=each)" sclass="buttonStyle"/>											
+											<label hflex="1" value="@load(each.nombreFlujo)"/>
+											<label hflex="1" value="@load(each.descripcionFlujo)"/>
+											<label hflex="1" value="@load(each.fechaAlta)  @converter('formatedDate', format='dd/MM/yyyy  HH:mm')"/>
+											<label hflex="1" value="@load(each.fechaModificacion)  @converter('formatedDate', format='dd/MM/yyyy  HH:mm')"/>
+											<label hflex="1" value="@load(each.descripcionEtapa)"/>
+											<label hflex="1" value="@load(each.nombreEstatusObjeto)"/>
+											<image src="/img/flujo.gif" onClick="@command('openImage',descripcionUrlImagen=each)" sclass="buttonStyle"/>
 										</row>
 									</template>									
 								</grid>

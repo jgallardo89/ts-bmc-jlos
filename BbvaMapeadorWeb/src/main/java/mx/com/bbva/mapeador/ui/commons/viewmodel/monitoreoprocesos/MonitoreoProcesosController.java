@@ -605,6 +605,7 @@ public class MonitoreoProcesosController extends ControllerSupport implements  I
 					format.format(monitoreoProcesosVO1.getFechaStatusProceso())+"-"+
 					monitoreoProcesosVO1.getNumeroLote();
 				image.setAutag(data);
+				image.setSclass("buttonStyle");
 				image.addEventListener("onClick", new EventListener<Event>() {
 					@Override
 					public void onEvent(Event event) throws Exception {						
