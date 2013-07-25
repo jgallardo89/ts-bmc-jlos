@@ -419,49 +419,57 @@ public class EstadisticoController extends ControllerSupport implements  IContro
 	@Command
 	@NotifyChange({"primerNivelDTOs","numeroPagina"})
 	public void nextOne() {
-		if(this.registroFin<this.primerNivelDTOs.size()) {
-			this.registroInicio = this.registroFin;
-			this.registroFin = this.registroInicio + CommandConstants.PAGINADO_ESTADISTICOS;
-			paginarEstadisticos();
-			this.numeroPagina += 1;
-		}
-		logger.debug("************************ inicio= "+ this.registroInicio + " - fin= " + this.registroFin);
+		try{
+			if(this.registroFin<this.primerNivelDTOs.size()) {
+				this.registroInicio = this.registroFin;
+				this.registroFin = this.registroInicio + CommandConstants.PAGINADO_ESTADISTICOS;
+				paginarEstadisticos();
+				this.numeroPagina += 1;
+			}
+			logger.debug("************************ inicio= "+ this.registroInicio + " - fin= " + this.registroFin);
+		}catch(Exception ex){}
 	}
 	
 	@Command
 	@NotifyChange({"primerNivelDTOs","numeroPagina"})
 	public void backOne() {
-		if(this.registroInicio>0) {
-			this.registroInicio = this.registroFin - (CommandConstants.PAGINADO_ESTADISTICOS*2);
-			this.registroFin = this.registroInicio + CommandConstants.PAGINADO_ESTADISTICOS;
-			paginarEstadisticos();
-			this.numeroPagina -= 1;
-		}
-		logger.debug("************************ inicio= "+ this.registroInicio + " - fin= " + this.registroFin);
+		try{
+			if(this.registroInicio>0) {
+				this.registroInicio = this.registroFin - (CommandConstants.PAGINADO_ESTADISTICOS*2);
+				this.registroFin = this.registroInicio + CommandConstants.PAGINADO_ESTADISTICOS;
+				paginarEstadisticos();
+				this.numeroPagina -= 1;
+			}
+			logger.debug("************************ inicio= "+ this.registroInicio + " - fin= " + this.registroFin);
+		}catch(Exception ex){}
 	}
 	
 	@Command
 	@NotifyChange({"primerNivelDTOs","numeroPagina"})
 	public void nextAll() {
-		if(this.registroFin<=this.primerNivelDTOs.size()) {
-			this.registroInicio = CommandConstants.PAGINADO_ESTADISTICOS * (totalPaginas-1);
-			this.registroFin = this.primerNivelDTOs.size();
-			this.numeroPagina = this.totalPaginas; 
-			paginarEstadisticos();
-		}
-		logger.debug("************************ inicio= "+ this.registroInicio + " - fin= " + this.registroFin);
+		try{
+			if(this.registroFin<=this.primerNivelDTOs.size()) {
+				this.registroInicio = CommandConstants.PAGINADO_ESTADISTICOS * (totalPaginas-1);
+				this.registroFin = this.primerNivelDTOs.size();
+				this.numeroPagina = this.totalPaginas; 
+				paginarEstadisticos();
+			}
+			logger.debug("************************ inicio= "+ this.registroInicio + " - fin= " + this.registroFin);
+		}catch(Exception ex){}
 	}
 	
 	@Command
 	@NotifyChange({"primerNivelDTOs","numeroPagina"})
 	public void backAll() {
-		if(this.registroInicio>0) {
-			this.registroInicio = 0;
-			this.registroFin = this.registroInicio + CommandConstants.PAGINADO_ESTADISTICOS;
-			this.numeroPagina = 1;
-			paginarEstadisticos();
-		}
-		logger.debug("************************ inicio= "+ this.registroInicio + " - fin= " + this.registroFin);
+		try{
+			if(this.registroInicio>0) {
+				this.registroInicio = 0;
+				this.registroFin = this.registroInicio + CommandConstants.PAGINADO_ESTADISTICOS;
+				this.numeroPagina = 1;
+				paginarEstadisticos();
+			}
+			logger.debug("************************ inicio= "+ this.registroInicio + " - fin= " + this.registroFin);
+		}catch(Exception ex){}
 	}
 	
 	public void paginarEstadisticos() {
