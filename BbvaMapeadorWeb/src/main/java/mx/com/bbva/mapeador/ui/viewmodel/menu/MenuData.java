@@ -43,18 +43,29 @@ public class MenuData {
     
     /** The url. */
 	private final String url;
+	
+	private final long idPantalla;
  
     /**
+	 * @return the idPantalla
+	 */
+	public final long getIdPantalla() {
+		return idPantalla;
+	}
+
+
+	/**
 	 * Instantiates a new menu data.
 	 *
 	 * @param description the description
 	 * @param url the url
 	 * @param icon the icon
 	 */
-	public MenuData(String description, String url, String icon) {
+	public MenuData(String description, String url, String icon, long idPantalla) {
         this.url = url;
         this.description = description;
         this.icon = icon;
+        this.idPantalla = idPantalla;
     }
 
 

@@ -55,14 +55,7 @@
 						            <treecol hflex="1"/>						            
 						        </treecols>						        
 							    <template name="model">
-							        <treeitem>	
-							        	<treerow>						        							            	
-							             	<treecell image="@load(each.data.icon)">							             		
-							             		<a label="@load(each.data.description)"  autag="@load(each.data.url)" onClick="@command('createTab',url=each.data)">							             			
-							             		</a>							             			 							             									             									             
-							             	</treecell>				                   								            	
-							        	 </treerow>
-							    	</treeitem>
+							        <treeitem image="@load(each.data.icon)" label="@load(each.data.description)" autag="@load(each.data.url)" onClick="@command('createTab',url=each.data, comp=self)"/>							        	
 							    </template>						    	
 						    </tree>
 						</div>

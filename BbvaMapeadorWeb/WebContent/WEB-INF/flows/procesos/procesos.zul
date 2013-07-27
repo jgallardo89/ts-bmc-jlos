@@ -98,11 +98,11 @@
 												<div align="right">
 													<label id="lblFechaLote" width="100%" sclass="labelFill" value="Fecha Lote: "></label>												
 												</div>
-												<datebox value="@load(vm.monitoreoProcesosDTO.monitoreoProcesosVO.fechaInicio)"  maxlength="50"  width="100%" id="fechaInicio" readonly="true" buttonVisible="true" onCreate="self.value = new Date()" format="dd/MM/yyyy"></datebox>
+												<datebox value="@load(vm.monitoreoProcesosDTO.monitoreoProcesosVO.fechaInicio)"  maxlength="50"  width="100%" id="fechaInicio" readonly="true" buttonVisible="true" onCreate="self.value = new Date()" format="dd/MM/yyyy HH:mm:ss"></datebox>
 												<div align="right">
 													<label id="lblA" width="100%" sclass="labelFill" value="a: "></label>												
 												</div>
-												<datebox value="@load(vm.monitoreoProcesosDTO.monitoreoProcesosVO.fechaFin)"  maxlength="50"  width="100%" id="fechaFin" readonly="true" buttonVisible="true" onCreate="self.value = new Date()" format="dd/MM/yyyy"></datebox>
+												<datebox value="@load(vm.monitoreoProcesosDTO.monitoreoProcesosVO.fechaFin)"  maxlength="50"  width="100%" id="fechaFin" readonly="true" buttonVisible="true" onCreate="self.value = new Date()" format="dd/MM/yyyy HH:mm:ss"></datebox>
 											</row>
 											<row sclass="row2">
 												<div align="right">

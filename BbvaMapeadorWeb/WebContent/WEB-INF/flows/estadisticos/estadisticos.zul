@@ -130,11 +130,11 @@
 													<label id="lblFechaAlta" width="100%" sclass="labelFill" value="Fecha inicio:  "></label>
 												</div>
 												<cell align="center" colspan="1">
-													<datebox value="@load(vm.estadisticoDTO.estadisticoVO.fechaInicio) @converter('formatedDate', format='dd/MM/yyyy')" maxlength="50" width="70%" id="fechaInicio" readonly="true" buttonVisible="true" format="dd/MM/yyyy 00:00"></datebox>
+													<datebox value="@load(vm.estadisticoDTO.estadisticoVO.fechaInicio) @converter('formatedDate', format='dd/MM/yyyy')" maxlength="50" width="70%" id="fechaInicio" readonly="true" buttonVisible="true" format="dd/MM/yyyy HH:mm:ss"></datebox>
 												</cell>
 												<cell align="center" colspan="1">
 													<label id="lblA" width="100%" sclass="labelFill" value="a: "></label>
-													<datebox value="@load(vm.estadisticoDTO.estadisticoVO.fechaFin) @converter('formatedDate', format='dd/MM/yyyy')" maxlength="50" width="70%" id="fechaFin" readonly="true" buttonVisible="true" format="dd/MM/yyyy 23:59"></datebox>
+													<datebox value="@load(vm.estadisticoDTO.estadisticoVO.fechaFin) @converter('formatedDate', format='dd/MM/yyyy')" maxlength="50" width="70%" id="fechaFin" readonly="true" buttonVisible="true" format="dd/MM/yyyy HH:mm:ss"></datebox>
 												</cell>
 												<div align="right"/>
 												<div align="right"/>
@@ -172,7 +172,7 @@
 								        <image style="cursor:pointer" id="nextAllBtn" src="/img/rightrightarrow_g.png" onClick="@command('nextAll')" disbled="@command(vm.flagNext)"/>
 									</hbox>
 								</div>
-							    <div id="divTabla" sclass="BODY" height="100%"/>		
+							    <div id="divTabla" sclass="divTabla" height="100%"/>		
 							</panelchildren>
 						</panel>
 					</groupbox>

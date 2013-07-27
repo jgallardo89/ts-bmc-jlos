@@ -52,6 +52,8 @@ import org.zkoss.zul.Tabbox;
 import org.zkoss.zul.Tabpanel;
 import org.zkoss.zul.TreeModel;
 import org.zkoss.zul.TreeNode;
+import org.zkoss.zul.Treecell;
+import org.zkoss.zul.Treeitem;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -108,14 +110,17 @@ public class MenuController extends SelectorComposer<Component>{
     public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
         Selectors.wireComponents(view, this, false);        
     }
-	
+	@Command
+	public void openLeaf(){
+		logger.debug("abriendo hoja");
+	}
 	/**
 	 * Creates the tab.
 	 *
 	 * @param menuData the menu data
 	 */
 	@Command
-	public void createTab(@BindingParam("url") MenuData menuData){
+	public void createTab(@BindingParam("url") MenuData menuData, @BindingParam("comp") Treeitem treeitem){
 		if(menuData.getUrl()!=null){
 			Tab newTab = new Tab(menuData.getDescription());
 			newTab.setClosable(true);		
@@ -129,6 +134,13 @@ public class MenuController extends SelectorComposer<Component>{
 	        newTabpanel.appendChild(iframe);
 	        bodyTab.getTabs().insertBefore(newTab, tabNohome);
 	        newTabpanel.setParent(bodyTab.getTabpanels());
+		}else{
+			if(treeitem.isOpen()){
+				treeitem.setOpen(false);
+			}else{
+				treeitem.setOpen(true);
+			}
+				
 		}
 	}
 	

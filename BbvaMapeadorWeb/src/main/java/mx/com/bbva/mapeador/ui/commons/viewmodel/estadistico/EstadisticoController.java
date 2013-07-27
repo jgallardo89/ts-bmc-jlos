@@ -670,9 +670,26 @@ public class EstadisticoController extends ControllerSupport implements  IContro
 	@Command
 	@NotifyChange({"primerNivelDTOs","numeroPagina","totalPaginas"})
 	public void readWithFilters() {
-		if(fechaInicio.getValue()!=null && fechaInicio.getValue() != null && fechaInicio.getValue().compareTo(fechaFin.getValue()) > 0 ){
-			fechaInicio.setErrorMessage("La fecha de inicio no puede ser mayor a la fecha de fin");
-		}else{
+		boolean error = false;
+		if(fechaInicio.getValue()!=null ){
+			if(fechaFin.getValue() == null){
+				fechaFin.setErrorMessage("Favor de capturar la fecha de fin");
+				error = true;
+			}else if(fechaInicio.getValue().compareTo(fechaFin.getValue()) > 0 ){
+				fechaInicio.setErrorMessage("La fecha de inicio no puede ser mayor a la fecha de fin");
+				error = true;
+			}
+		}
+		if(fechaFin.getValue()!=null ){
+			if(fechaInicio.getValue() == null){
+				fechaInicio.setErrorMessage("Favor de capturar la fecha de inicio");
+				error = true;
+			}else if(fechaInicio.getValue().compareTo(fechaFin.getValue()) > 0 ){
+				fechaInicio.setErrorMessage("La fecha de inicio no puede ser mayor a la fecha de fin");
+				error = true;
+			}
+		}
+		if(!error){
 			tbody = new Tbody();
 			//ReportesController controller = new ReportesController();
 			
@@ -684,8 +701,7 @@ public class EstadisticoController extends ControllerSupport implements  IContro
 			estadisticoVO.setIdCliente((Integer.parseInt(idCliente.getValue().isEmpty()?"0":idCliente.getValue())));
 			estadisticoVO.setIdProducto((Integer.parseInt(idProducto.getValue().isEmpty()?"0":idProducto.getValue())));
 			
-			//Fechas
-			DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+			//Fechas			
 			if(fechaInicio.getValue()!=null)
 			estadisticoVO.setFechaInicio(fechaInicio.getValue());
 			if(fechaFin.getValue()!=null)

@@ -427,10 +427,7 @@ public class BitacoraWebController extends ControllerSupport implements IControl
 		if(!error){
 			BitacoraDTO bitacoraDTO = new BitacoraDTO();
 			BitacoraVO bitacoraVO = new BitacoraVO();
-			
-			DateFormat dateFormatInicio = new SimpleDateFormat("dd-MM-yyyy 00:00");
-			DateFormat dateFormatFin = new SimpleDateFormat("dd-MM-yyyy 23:59");
-			
+								
 			bitacoraVO.setFechaInicio(fechaInicio.getValue()==null?null:fechaInicio.getValue());
 			bitacoraVO.setFechaFin(fechaFin.getValue()==null?null:fechaFin.getValue());
 			bitacoraVO.setIdEventoMapeador(Integer.parseInt(idEventoMapeador.getValue().isEmpty()?"0":idEventoMapeador.getValue()));
