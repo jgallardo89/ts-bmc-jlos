@@ -86,7 +86,7 @@ public class BitacoraArchivoVO extends BbvaAbstractValueObject {
 	 * @return the fechaFin
 	 */
 	public String getFechaFin() {
-		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");				
+		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");				
 		if(fechaFin!=null)
 			return dateFormat.format(fechaFin);
 		else
@@ -99,7 +99,7 @@ public class BitacoraArchivoVO extends BbvaAbstractValueObject {
 	 * @return the fechaInici
 	 */
 	public String getFechaInici() {
-		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");				
+		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");				
 		if(fechaInici!=null)
 			return dateFormat.format(fechaInici);
 		else

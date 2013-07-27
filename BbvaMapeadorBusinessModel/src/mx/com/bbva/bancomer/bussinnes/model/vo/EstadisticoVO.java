@@ -130,7 +130,7 @@ public class EstadisticoVO  extends BbvaAbstractValueObject {
 	 * @return the fechaFin
 	 */
 	public String getFechaFin() {
-		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");				
+		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");				
 		if(fechaFin!=null)
 			return dateFormat.format(fechaFin);
 		else
@@ -143,7 +143,7 @@ public class EstadisticoVO  extends BbvaAbstractValueObject {
 	 * @return the fechaInicio
 	 */
 	public String getFechaInicio() {
-		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");				
+		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");				
 		if(fechaInicio!=null)
 			return dateFormat.format(fechaInicio);
 		else
