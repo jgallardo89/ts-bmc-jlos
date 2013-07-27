@@ -30,7 +30,7 @@
 					AND BITACORA.CD_USUARIO = #{idUsuario}
 				</if>
 				<if test="fechaInicio != null and fechaFin != null">    
-					AND to_date(BITACORA.TM_BITACORA,'dd-MM-rrrr') BETWEEN to_date(#{fechaInicio},'dd-MM-rrrr') AND to_date(#{fechaFin},'dd-MM-rrrr')					
+					AND to_date(BITACORA.TM_BITACORA,'dd-MM-rrrr HH24:MI:SS') BETWEEN to_date(#{fechaInicio},'dd-MM-rrrr HH24:MI:SS') AND to_date(#{fechaFin},'dd-MM-rrrr HH24:MI:SS')					
 				</if>
 				ORDER BY CD_BITACORA
 	</select>
