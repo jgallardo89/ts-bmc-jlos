@@ -197,7 +197,7 @@
 			AND stp.NU_LOTE = #{numeroLote}
 		</if>		
 		<if test="fechaInicio != null and fechaFin != null">    
-			AND to_date(stp.FH_ST_PROCESO,'dd-MM-rrrr HH24:MI:SS') BETWEEN to_date(#{fechaInicio},'dd-MM-rrrr HH24:MI:SS') AND to_date(#{fechaFin},'dd-MM-rrrr HH24:MI:SS')
+			AND stp.FH_ST_PROCESO BETWEEN to_date(#{fechaInicio},'dd-MM-rrrr HH24:MI:SS') AND to_date(#{fechaFin},'dd-MM-rrrr HH24:MI:SS')
 		</if>
 		<if test="tipoReporte == 1">
 			ORDER BY cn.cd_canal,
