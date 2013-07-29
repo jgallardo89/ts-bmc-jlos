@@ -822,7 +822,11 @@ public class MonitoreoProcesosController extends ControllerSupport implements  I
 			beanGenerico.setValor2(monitoreoProcesosVO.getIdIdentificador()); 
 			beanGenerico.setValor3(monitoreoProcesosVO.getNombreProducto());
 			beanGenerico.setValor4(monitoreoProcesosVO.getNombreEstatusMapeador());
-			beanGenerico.setValor5(dateFormatFecha.format(monitoreoProcesosVO.getFechaLote()));
+			try{
+				beanGenerico.setValor5(dateFormatFecha.format(monitoreoProcesosVO.getFechaLote()));
+			}catch(Exception ex){
+				beanGenerico.setValor5("");
+			}
 			beanGenerico.setValor6(String.valueOf(monitoreoProcesosVO.getNumeroLote()));
 			beanGenerico.setValor7(monitoreoProcesosVO.getNombreEtapa());
 			beanGenerico.setValor8(monitoreoProcesosVO.getNombreRegArchEntra());

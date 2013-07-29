@@ -157,22 +157,20 @@
 							collapsible="false" style="margin-bottom:10px">
 							<caption sclass="sectionPanelTitle"
 								label="Lista de Resultados">
-							</caption>
-							<panelchildren>
-								<div width="100%" sclass="divTabla">
-									<hbox spacing="1px" width="100%">
-									 	<image style="cursor:pointer" id="backAllBtn" src="/img/leftleftarrow_g.png" onClick="@command('backAll')" disbled="@command(vm.flagBack)"/>
-								        <image style="cursor:pointer" id="backBtn" src="/img/leftarrow_g.png" onClick="@command('backOne')" disbled="@command(vm.flagBack)"/>
-								        <div align="center">
-								        	<textbox sclass="textboxUpperCase" maxlength="5" id="pagina"  width="25%" value="@load(vm.numeroPagina)" disabled="true"/>
-								        	<label value="/"/>
-							        		<label value="@load(vm.totalPaginas)"/>
-								        </div>
-								        <image style="cursor:pointer" id="nextBtn" src="/img/rightarrow_g.png" onClick="@command('nextOne')" disbled="@command(vm.flagNext)"/>
-								        <image style="cursor:pointer" id="nextAllBtn" src="/img/rightrightarrow_g.png" onClick="@command('nextAll')" disbled="@command(vm.flagNext)"/>
-									</hbox>
-								</div>
-							    <div id="divTabla" sclass="divTabla" height="100%"/>		
+								<hbox spacing="1px" width="100%">
+								 	<image style="cursor:pointer" id="backAllBtn" src="/img/leftleftarrow_g.png" onClick="@command('backAll')" disbled="@command(vm.flagBack)"/>
+							        <image style="cursor:pointer" id="backBtn" src="/img/leftarrow_g.png" onClick="@command('backOne')" disbled="@command(vm.flagBack)"/>
+							        <div align="center">
+							        	<textbox sclass="textboxUpperCase" maxlength="5" id="pagina"  width="25%" value="@load(vm.numeroPagina)" disabled="true"/>
+							        	<label value="/"/>
+						        		<label value="@load(vm.totalPaginas)"/>
+							        </div>
+							        <image style="cursor:pointer" id="nextBtn" src="/img/rightarrow_g.png" onClick="@command('nextOne')" disbled="@command(vm.flagNext)"/>
+							        <image style="cursor:pointer" id="nextAllBtn" src="/img/rightrightarrow_g.png" onClick="@command('nextAll')" disbled="@command(vm.flagNext)"/>								        
+								</hbox>
+							</caption>							
+							<panelchildren sclass="divTabla">																													
+									<div id="divTabla" sclass="divTabla"/>																				
 							</panelchildren>
 						</panel>
 					</groupbox>

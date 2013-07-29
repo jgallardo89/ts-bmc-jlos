@@ -592,7 +592,7 @@ public class ContratacionController extends ControllerSupport implements IContro
 			beanGenerico.setValor4(contratacionVO.getNombreCanalSalida());
 			beanGenerico.setValor5(dateFormat.format(contratacionVO.getFechaAlta()));
 			if(contratacionVO.getFechaModificacion() != null)
-			beanGenerico.setValor6(dateFormat.format(contratacionVO.getFechaModificacion()));
+				beanGenerico.setValor6(dateFormat.format(contratacionVO.getFechaModificacion()));
 			beanGenerico.setValor7(contratacionVO.getNombreEstatusObjeto());
 			beanGenericos.add(beanGenerico);
 		}

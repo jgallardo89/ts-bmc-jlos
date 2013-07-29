@@ -280,7 +280,11 @@ public class AdmonFlujosController extends ControllerSupport implements IControl
 			beanGenerico.setValor1(flujoVO.getNombreFlujo());
 			beanGenerico.setValor2(flujoVO.getDescripcionFlujo());
 			beanGenerico.setValor3(dateFormat.format(flujoVO.getFechaAlta()));
-			beanGenerico.setValor4(dateFormat.format(flujoVO.getFechaModificacion()));
+			try{
+				beanGenerico.setValor4(dateFormat.format(flujoVO.getFechaModificacion()));
+			}catch(Exception ex){
+				beanGenerico.setValor4("");
+			}
 			beanGenerico.setValor5(flujoVO.getDescripcionEtapa());
 			beanGenerico.setValor6(flujoVO.getNombreEstatusObjeto());
 			beanGenerico.setValor7(flujoVO.getDescripcionUrlImagen());

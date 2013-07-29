@@ -296,8 +296,11 @@ public class MapaGmmController extends ControllerSupport implements IController 
 			beanGenerico.setValor1(mapaGmmVO.getNombreMapaGmm());
 			beanGenerico.setValor2(mapaGmmVO.getDescripcionMapaGmm());
 			beanGenerico.setValor3(dateFormat.format(mapaGmmVO.getFechaAlta()));
-			beanGenerico.setValor4(dateFormat.format(mapaGmmVO
-					.getFechaModificacion()));
+			try{
+				beanGenerico.setValor4(dateFormat.format(mapaGmmVO.getFechaModificacion()));
+			}catch(Exception ex){
+				beanGenerico.setValor4("");				
+			}
 			beanGenerico.setValor5(mapaGmmVO.getNombreEstatusObjeto());
 
 			beanGenericos.add(beanGenerico);
