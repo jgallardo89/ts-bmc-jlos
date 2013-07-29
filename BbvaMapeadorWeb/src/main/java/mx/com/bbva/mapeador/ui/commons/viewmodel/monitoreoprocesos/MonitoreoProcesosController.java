@@ -397,6 +397,9 @@ public class MonitoreoProcesosController extends ControllerSupport implements  I
 			monitoreoProcesosVOProductos.setIdProducto(monitoreoProcesosVO.getIdProducto());
 			monitoreoProcesosVOProductos.setNumeroLote(monitoreoProcesosVO.getNumeroLote());
 			monitoreoProcesosVOProductos.setFechaStatusProceso(monitoreoProcesosVO.getFechaStatusProceso());
+			DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+			monitoreoProcesosVOProductos.setFechaInicio(dateFormat.format(fechaInicio.getValue()));
+			monitoreoProcesosVOProductos.setFechaFin(dateFormat.format(fechaFin.getValue()));
 			monitoreoProcesosDTOProductos.setMonitoreoProcesosVO(monitoreoProcesosVOProductos);
 			monitoreoProcesosDTOProductos.getMonitoreoProcesosVO().setEstados(monitoreoProcesosDTO.getMonitoreoProcesosVO().getEstados());
 			monitoreoProcesosVOsProductos = ((MonitoreoProcesosDTO)monitoreoProcesosBO.readCommand(monitoreoProcesosDTOProductos)).getMonitoreoProcesosVOs();
@@ -1382,7 +1385,7 @@ public class MonitoreoProcesosController extends ControllerSupport implements  I
 			monitoreoProcesosVO.setIdEstatusMapeador((Integer.parseInt(idEstatus.getValue().isEmpty()?"0":idEstatus.getValue())));
 			
 			//Fechas
-			DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+			DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 			monitoreoProcesosVO.setFechaInicio(dateFormat.format(fechaInicio.getValue()));
 			monitoreoProcesosVO.setFechaFin(dateFormat.format(fechaFin.getValue()));
 			ArrayList<Integer> estados = new ArrayList<Integer>();
