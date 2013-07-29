@@ -1235,7 +1235,7 @@ public class MonitoreoProcesosController extends ControllerSupport implements  I
 		} else {
 			controller.registrarEvento(null, null, CommandConstants.EXPORTAR_TEXTO,"Monitoreo de Procesos");
 		}
-		controller.createReport(generaLista(), headersReport, titleReport, "MONITOREO_PROCESOS");
+		controller.createReport(generaLista(), headersReport, type, "MONITOREO_PROCESOS");
 	}
 	
 	/* (non-Javadoc)
