@@ -196,8 +196,18 @@
 		<if test="numeroLote != null and numeroLote != 0">
 			AND stp.NU_LOTE = #{numeroLote}
 		</if>		
-		<if test="fechaInicio != null and fechaFin != null">    
+		<!-->if test="fechaInicio != null and fechaFin != null">    
 			AND stp.FH_ST_PROCESO BETWEEN to_date(#{fechaInicio},'dd-MM-rrrr HH24:MI:SS') AND to_date(#{fechaFin},'dd-MM-rrrr HH24:MI:SS')
+		</if -->
+		<if test="fechaInicio != null"> 
+			<![CDATA[
+				and stp.tm_st_proceso_ini >= to_date(#{fechaInicio},'dd-MM-rrrr HH24:MI:SS')
+			]]>
+		</if>
+		<if test="fechaFin != null"> 
+			<![CDATA[
+				and stp.tm_st_proceso_fin <= to_date(#{fechaFin},'dd-MM-rrrr HH24:MI:SS')
+			]]>
 		</if>
 		<if test="tipoReporte == 1">
 			ORDER BY cn.cd_canal,
@@ -228,8 +238,8 @@
 		  eta.nb_etapa nombreEtapa,
 		  stp.cd_Reg_Arch_Entra idRegArchEntra,
 		  nvl(ra.nb_reg_arch_entra,'') nombreRegArchEntra,
-		  to_char(stp.tm_st_proceso_ini,'HH:mm:ss') fechaInicio,
-		  to_char(stp.tm_st_proceso_fin,'HH:mm:ss') fechaFin,
+		  to_char(stp.tm_st_proceso_ini,'HH24:MI:SS') fechaInicio,
+		  to_char(stp.tm_st_proceso_fin,'HH24:MI:SS') fechaFin,
 		  stp.cd_st_mapeador idEstatusMapeador,
 		  stp.tx_contratacion descripcionContratacion
 		FROM tgm522_st_proceso stp,
@@ -254,6 +264,16 @@
 	        		#{item}
 	   		</foreach>
 	   	</if>
+	   	<if test="fechaInicio != null"> 
+			<![CDATA[
+				and stp.tm_st_proceso_ini >= to_date(#{fechaInicio},'dd-MM-rrrr HH24:MI:SS')
+			]]>
+		</if>
+		<if test="fechaFin != null"> 
+			<![CDATA[
+				and stp.tm_st_proceso_fin <= to_date(#{fechaFin},'dd-MM-rrrr HH24:MI:SS')
+			]]>
+		</if>
 		ORDER BY cn.cd_canal,
 		  cn.cd_cliente,
 		  cn.cd_producto,
