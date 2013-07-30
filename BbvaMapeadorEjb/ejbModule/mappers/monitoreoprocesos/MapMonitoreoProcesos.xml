@@ -3,131 +3,70 @@
 <mapper namespace="mappers.monitoreoprocesos.MapMonitoreoProcesos">
 	<select id="obtenerMonitoreoProcesosVO" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.MonitoreoProcesosVO"
 		resultType="mx.com.bbva.bancomer.bussinnes.model.vo.MonitoreoProcesosVO">
-		SELECT 
-			P.CD_CONTRATACION idContratacion,
-	        CAN.CD_CANAL idCanal,
-	        CAN.NB_CANAL nombreCanal,
-	        CLIENTE.CD_CLIENTE idCliente,
-	        CLIENTE.CD_IDENTIFICADOR idIdentificador,
-	        PRODUCTO.CD_PRODUCTO idProducto,
-	        PRODUCTO.NB_PRODUCTO nombreProducto,
-	        P.NU_LOTE numeroLote,
-	        ARCHIVO.FH_REG_ARCH_ENTRA fechaLote,
-	        ARCHIVO.CD_REG_ARCH_ENTRA idRegArchEntra,
-	        ARCHIVO.NB_REG_ARCH_ENTRA nombreRegArchEntra,
-	        P.TM_ST_PROCESO_INI horaProcesoIni,
-	        P.TM_ST_PROCESO_FIN horaProcesoFin,
-			P.FH_ST_PROCESO fechaStatusProceso,
-			FLUJO.CD_FLUJO idFlujo,
-			FLUJO.NB_FLUJO nombreFlujo,
-			ETAPA.CD_ETAPA idEtapa,
-			ETAPA.NB_ETAPA nombreEtapa,
-			P.CD_ST_MAPEADOR idEstatusMapeador,
-			ESTATUS.NB_ST_OBJETO nombreEstatusMapeador
-		FROM  TGM522_ST_PROCESO P 
-	        LEFT OUTER JOIN TGM536_REG_ARCH_EN ARCHIVO ON 
-	        P.CD_REG_ARCH_ENTRA = ARCHIVO.CD_REG_ARCH_ENTRA 
-          LEFT OUTER JOIN TGM534_ST_OBJETO ESTATUS ON 
-	        P.CD_ST_MAPEADOR = ESTATUS.CD_ST_OBJETO 
-	        LEFT OUTER JOIN TGM520_CONTRAT_MAP CM ON 
-	        P.CD_CONTRATACION = cm.cd_contratacion AND  
-	        P.CD_FLUJO = CM.CD_FLUJO AND 
-	        P.CD_ETAPA = CM.CD_ETAPA
-	        LEFT OUTER JOIN TGM518_FLUJOETAPA FE ON 
-	        P.CD_FLUJO = FE.CD_FLUJO AND
-	        P.CD_ETAPA = FE.CD_ETAPA
-	        LEFT OUTER JOIN  TGM513_FLUJO FLUJO ON
-	        P.CD_FLUJO = FLUJO.CD_FLUJO
-	        LEFT OUTER JOIN  TGM517_ETAPA ETAPA ON
-	        P.CD_ETAPA = ETAPA.CD_ETAPA
-	        LEFT OUTER JOIN TGM519_CNTRATACION C ON 
-	        P.CD_CONTRATACION = C.CD_CONTRATACION
-	        LEFT OUTER JOIN TGM511_CANAL CAN ON
-	        C.CD_CANAL = CAN.CD_CANAL
-	        LEFT OUTER JOIN TGM515_PRODUCTO PRODUCTO ON
-	        C.CD_PRODUCTO = PRODUCTO.CD_PRODUCTO
-	        LEFT OUTER JOIN TGM512_CLIENTE CLIENTE ON
-	        C.CD_CLIENTE = CLIENTE.CD_CLIENTE
-		WHERE 
-	        P.CD_CONTRATACION IS NOT NULL  
+		SELECT stp.cd_contratacion idcontratacion,
+		  canal.cd_canal idcanal,
+		  CANal.NB_CANAL nombreCanal,
+		  CLIENTE.CD_CLIENTE idCliente,
+		  CLIENTE.CD_IDENTIFICADOR idIdentificador,
+		  PRODUCTO.CD_PRODUCTO idProducto,
+		  PRODUCTO.NB_PRODUCTO nombreProducto,
+		  stp.NU_LOTE numeroLote,
+		  ra.FH_REG_ARCH_ENTRA fechaLote,
+		  ra.CD_REG_ARCH_ENTRA idRegArchEntra,
+		  ra.NB_REG_ARCH_ENTRA nombreRegArchEntra,
+		  stp.TM_ST_PROCESO_INI horaProcesoIni,
+		  stp.TM_ST_PROCESO_FIN horaProcesoFin,
+		  stp.FH_ST_PROCESO fechaStatusProceso,
+		  ETA.CD_ETAPA idEtapa,
+		  ETA.NB_ETAPA nombreEtapa,
+		  stp.CD_ST_MAPEADOR idEstatusMapeador,
+		  estatus.nb_st_objeto nombreEstatusMapeador
+		FROM tgm522_st_proceso stp,
+		  tgm519_cntratacion cn,
+		  tgm536_reg_arch_en ra,
+		  tgm517_etapa eta,
+		  tgm511_canal canal,
+		  tgm512_cliente cliente,
+		  tgm515_producto producto,
+		  tgm534_st_objeto estatus
+		WHERE stp.cd_contratacion = cn.cd_contratacion
+		AND stp.cd_reg_arch_entra = ra.cd_reg_arch_entra (+)
+		AND stp.cd_etapa          = eta.cd_etapa
+		AND canal.cd_canal        = cn.cd_canal
+		AND cliente.cd_cliente    = cn.cd_cliente
+		AND producto.cd_producto  = cn.cd_producto
+		and estatus.cd_st_objeto = stp.cd_st_mapeador
 		<if test="idCanal != null and idCanal != 0">
-			AND CAN.CD_CANAL = #{idCanal}
+			AND cn.CD_CANAL = #{idCanal}
 		</if>		
 		<if test="idCliente != null and idCliente != 0">
-			AND CLIENTE.CD_CLIENTE = #{idCliente}
+			AND cn.CD_CLIENTE = #{idCliente}
 		</if>	
 		<if test="idProducto != null and idProducto != 0">
-			AND PRODUCTO.CD_PRODUCTO = #{idProducto}
+			AND cn.CD_PRODUCTO = #{idProducto}
 		</if>	
 		<if test="numeroLote != null and numeroLote != 0">
-			AND P.NU_LOTE = #{numeroLote}
-		</if>
-		<if test="estados != null">
-			AND P.CD_ST_MAPEADOR IN
-			<foreach item="item" index="index" collection="estados"
-	             open="(" separator="," close=")">
-	        		#{item}
-	   		</foreach> 
-		</if>
+			AND stp.NU_LOTE = #{numeroLote}
+		</if>		
 		<if test="fechaInicio != null and fechaFin != null">    
-			AND P.FH_ST_PROCESO BETWEEN #{fechaInicio} AND #{fechaFin}
+			AND to_date(stp.FH_ST_PROCESO,'dd-MM-rrrr') BETWEEN to_date(#{fechaInicio},'dd-MM-rrrr') AND to_date(#{fechaFin},'dd-MM-rrrr')
+		</if>		
+		<if test="tipoReporte == 1">
+			ORDER BY cn.cd_canal,
+			  cn.cd_cliente,
+			  cn.cd_producto	
 		</if>
-		ORDER BY CAN.CD_CANAL
-	</select>
-	<select id="obtenerRegistrosProceso" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.MonitoreoProcesosVO"
-		resultType="mx.com.bbva.bancomer.bussinnes.model.vo.MonitoreoProcesosVO">
-		SELECT 
-			P.CD_CONTRATACION idContratacion,
-	        CAN.CD_CANAL idCanal,
-	        CAN.NB_CANAL nombreCanal,
-	        CLIENTE.CD_CLIENTE idCliente,
-	        CLIENTE.CD_IDENTIFICADOR idIdentificador,
-	        PRODUCTO.CD_PRODUCTO idProducto,
-	        PRODUCTO.NB_PRODUCTO nombreProducto,
-	        P.NU_LOTE numeroLote,
-	        ARCHIVO.FH_REG_ARCH_ENTRA fechaLote,
-	        ARCHIVO.CD_REG_ARCH_ENTRA idRegArchEntra,
-	        ARCHIVO.NB_REG_ARCH_ENTRA nombreRegArchEntra,
-	        P.TM_ST_PROCESO_INI horaProcesoIni,
-	        P.TM_ST_PROCESO_FIN horaProcesoFin,
-			P.FH_ST_PROCESO fechaStatusProceso,
-			FLUJO.CD_FLUJO idFlujo,
-			FLUJO.NB_FLUJO nombreFlujo,
-			ETAPA.CD_ETAPA idEtapa,
-			ETAPA.NB_ETAPA nombreEtapa,
-			P.CD_ST_MAPEADOR idEstatusMapeador,
-			ESTATUS.NB_ST_OBJETO nombreEstatusMapeador
-		FROM  TGM522_ST_PROCESO P 
-	        LEFT OUTER JOIN TGM536_REG_ARCH_EN ARCHIVO ON 
-	        P.CD_REG_ARCH_ENTRA = ARCHIVO.CD_REG_ARCH_ENTRA 
-          LEFT OUTER JOIN TGM534_ST_OBJETO ESTATUS ON 
-	        P.CD_ST_MAPEADOR = ESTATUS.CD_ST_OBJETO 
-	        LEFT OUTER JOIN TGM520_CONTRAT_MAP CM ON 
-	        P.CD_CONTRATACION = cm.cd_contratacion AND  
-	        P.CD_FLUJO = CM.CD_FLUJO AND 
-	        P.CD_ETAPA = CM.CD_ETAPA
-	        LEFT OUTER JOIN TGM518_FLUJOETAPA FE ON 
-	        P.CD_FLUJO = FE.CD_FLUJO AND
-	        P.CD_ETAPA = FE.CD_ETAPA
-	        LEFT OUTER JOIN  TGM513_FLUJO FLUJO ON
-	        P.CD_FLUJO = FLUJO.CD_FLUJO
-	        LEFT OUTER JOIN  TGM517_ETAPA ETAPA ON
-	        P.CD_ETAPA = ETAPA.CD_ETAPA
-	        LEFT OUTER JOIN TGM519_CNTRATACION C ON 
-	        P.CD_CONTRATACION = C.CD_CONTRATACION
-	        LEFT OUTER JOIN TGM511_CANAL CAN ON
-	        C.CD_CANAL = CAN.CD_CANAL
-	        LEFT OUTER JOIN TGM515_PRODUCTO PRODUCTO ON
-	        C.CD_PRODUCTO = PRODUCTO.CD_PRODUCTO
-	        LEFT OUTER JOIN TGM512_CLIENTE CLIENTE ON
-	        C.CD_CLIENTE = CLIENTE.CD_CLIENTE
-		WHERE 
-	        P.CD_CONTRATACION = #{idContratacion} AND
-	        P.CD_FLUJO =  #{idFlujo} AND 
-	        P.CD_ETAPA = #{idEtapa}  AND	        
-	        P.NU_LOTE = #{numeroLote} AND
-	        to_char(P.FH_ST_PROCESO,'dd/MM/yyyy') = to_char(#{fechaStatusProceso},'dd/MM/yyyy')
-	</select>
+		<if test="tipoReporte == 2">
+			ORDER BY cn.cd_cliente,
+			  cn.cd_canal,
+			  cn.cd_producto	
+		</if>
+		<if test="tipoReporte == 3">
+			ORDER BY cn.cd_producto,
+			  cn.cd_canal,
+			  cn.cd_cliente			  	
+		</if>
+	</select>	
 	<select id="obtenerEdosArchivoVO" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.MonitoreoProcesosVO"
 		resultType="mx.com.bbva.bancomer.bussinnes.model.vo.EdoArchivoVO">
 		SELECT 
