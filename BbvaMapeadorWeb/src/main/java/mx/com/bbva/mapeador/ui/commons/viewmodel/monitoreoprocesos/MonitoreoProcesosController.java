@@ -254,7 +254,7 @@ public class MonitoreoProcesosController extends ControllerSupport implements  I
 	private MonitoreoProcesosVO monitoreoProcesosVO;
 	
 	/** The monitoreo procesos v os. */
-	private List<MonitoreoProcesosVO> monitoreoProcesosVOs = monitoreoProcesosDTO.getMonitoreoProcesosVOs();
+	private List<MonitoreoProcesosVO> monitoreoProcesosVOs1;
 	
 	/** The procesos grid. */
 	@Wire
@@ -812,18 +812,20 @@ public class MonitoreoProcesosController extends ControllerSupport implements  I
 	 * @return the array list
 	 */
 	private ArrayList<BeanGenerico> generaLista() {
+		logger.debug("------------------------");
+		logger.debug(monitoreoProcesosVOs1.toString());
 		ArrayList<BeanGenerico> beanGenericos = new ArrayList<BeanGenerico>();
 		BeanGenerico beanGenerico = null;
-		DateFormat dateFormatFecha = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+		DateFormat dateFormatFecha = new SimpleDateFormat("dd-MM-yyyy");
 		DateFormat dateFormatHora = new SimpleDateFormat("hh:mm:ss");
-		for(MonitoreoProcesosVO monitoreoProcesosVO: monitoreoProcesosVOs) {
+		for(MonitoreoProcesosVO monitoreoProcesosVO: monitoreoProcesosVOs1) {
 			beanGenerico = new BeanGenerico();
 			beanGenerico.setValor1(monitoreoProcesosVO.getNombreCanal());
 			beanGenerico.setValor2(monitoreoProcesosVO.getIdIdentificador()); 
 			beanGenerico.setValor3(monitoreoProcesosVO.getNombreProducto());
 			beanGenerico.setValor4(monitoreoProcesosVO.getNombreEstatusMapeador());
 			try{
-				beanGenerico.setValor5(dateFormatFecha.format(monitoreoProcesosVO.getFechaLote()));
+				beanGenerico.setValor5(dateFormatFecha.format(monitoreoProcesosVO.getFechaStatusProceso()));
 			}catch(Exception ex){
 				beanGenerico.setValor5("");
 			}
@@ -1052,7 +1054,7 @@ public class MonitoreoProcesosController extends ControllerSupport implements  I
 	 * @return the monitoreoProcesosVOs
 	 */
 	public List<MonitoreoProcesosVO> getMonitoreoProcesosVOs() {
-		return monitoreoProcesosVOs;
+		return monitoreoProcesosVOs1;
 	}
 	
 	/**
@@ -1424,10 +1426,13 @@ public class MonitoreoProcesosController extends ControllerSupport implements  I
 			armarListaGrid(monitoreoProcesosDTO);
 			controller.registrarEvento(monitoreoProcesosVO, monitoreoProcesosVO, CommandConstants.CONSULTAR,"Monitoreo de Procesos");
 //			//LLamada a BO  MonitoreoProcesosBO para consulta por criterio
-//			MonitoreoProcesosBO monitoreoProcesosBO = new MonitoreoProcesosBO();
+			MonitoreoProcesosBO monitoreoProcesosBO = new MonitoreoProcesosBO();
 //			
 //			//Asignacion resultado de consulta al mismo DTO de MonitoreoProcesos
-//			monitoreoProcesosDTO = monitoreoProcesosBO.readCommand(monitoreoProcesosDTO);
+			MonitoreoProcesosDTO monitoreoProcesosDTO1 = new MonitoreoProcesosDTO();
+			monitoreoProcesosDTO1.setTipoReporte(Integer.parseInt(criterios.getSelectedItem().getValue().toString()));
+			monitoreoProcesosDTO1.setMonitoreoProcesosVO(monitoreoProcesosVO);
+			monitoreoProcesosDTO1 = monitoreoProcesosBO.readCommand(monitoreoProcesosDTO1);
 //			
 //			//Tamaño de la lista de acuerdo al criterio de busqueda y objeto MonitoreoProcesos
 //			if(monitoreoProcesosDTO.getMonitoreoProcesosVOs() != null) { 
@@ -1449,7 +1454,7 @@ public class MonitoreoProcesosController extends ControllerSupport implements  I
 //				logger.debug(":::::::::::Lista Vacia::::::::::");
 //			}
 //			//Asignacion de la lista a la variable global de la clase
-//			monitoreoProcesosVOs = monitoreoProcesosDTO.getMonitoreoProcesosVOs();
+			monitoreoProcesosVOs1 = monitoreoProcesosDTO1.getMonitoreoProcesosVOs();
 //			armarListaGrid(monitoreoProcesosDTO.getMonitoreoProcesosVOs());
 //			controller.registrarEvento(monitoreoProcesosVO, monitoreoProcesosVO, CommandConstants.CONSULTAR,"Monitoreo de Procesos");
 		}
@@ -1733,7 +1738,7 @@ public class MonitoreoProcesosController extends ControllerSupport implements  I
 	 */
 	public void setMonitoreoProcesosVOs(
 			List<MonitoreoProcesosVO> monitoreoProcesosVOs) {
-		this.monitoreoProcesosVOs = monitoreoProcesosVOs;
+		this.monitoreoProcesosVOs1 = monitoreoProcesosVOs;
 	}
 
 	/**
