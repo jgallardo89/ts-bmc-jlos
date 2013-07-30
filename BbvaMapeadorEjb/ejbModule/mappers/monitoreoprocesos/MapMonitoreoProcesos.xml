@@ -196,19 +196,9 @@
 		<if test="numeroLote != null and numeroLote != 0">
 			AND stp.NU_LOTE = #{numeroLote}
 		</if>		
-		<!-->if test="fechaInicio != null and fechaFin != null">    
-			AND stp.FH_ST_PROCESO BETWEEN to_date(#{fechaInicio},'dd-MM-rrrr HH24:MI:SS') AND to_date(#{fechaFin},'dd-MM-rrrr HH24:MI:SS')
-		</if -->
-		<if test="fechaInicio != null"> 
-			<![CDATA[
-				and stp.tm_st_proceso_ini >= to_date(#{fechaInicio},'dd-MM-rrrr HH24:MI:SS')
-			]]>
-		</if>
-		<if test="fechaFin != null"> 
-			<![CDATA[
-				and stp.tm_st_proceso_fin <= to_date(#{fechaFin},'dd-MM-rrrr HH24:MI:SS')
-			]]>
-		</if>
+		<if test="fechaInicio != null and fechaFin != null">    
+			AND to_date(stp.FH_ST_PROCESO,'dd-MM-rrrr') BETWEEN to_date(#{fechaInicio},'dd-MM-rrrr') AND to_date(#{fechaFin},'dd-MM-rrrr')
+		</if>		
 		<if test="tipoReporte == 1">
 			ORDER BY cn.cd_canal,
 			  cn.cd_cliente,
@@ -263,17 +253,7 @@
 	             open="(" separator="," close=")">
 	        		#{item}
 	   		</foreach>
-	   	</if>
-	   	<if test="fechaInicio != null"> 
-			<![CDATA[
-				and stp.tm_st_proceso_ini >= to_date(#{fechaInicio},'dd-MM-rrrr HH24:MI:SS')
-			]]>
-		</if>
-		<if test="fechaFin != null"> 
-			<![CDATA[
-				and stp.tm_st_proceso_fin <= to_date(#{fechaFin},'dd-MM-rrrr HH24:MI:SS')
-			]]>
-		</if>
+	   	</if>	   	
 		ORDER BY cn.cd_canal,
 		  cn.cd_cliente,
 		  cn.cd_producto,
