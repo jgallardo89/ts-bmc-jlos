@@ -9,7 +9,7 @@
 		id="contratacionTabWindows">
 		<include src="../../pages/styles.zul" />
 		<div height="100%" sclass="BODY">
-			<panel width="100%" height="98%" sclass="sectionPanelTitle" id="datosContratacion"
+			<panel width="99%" height="98%" sclass="sectionPanelTitle" id="datosContratacion"
 					title="@load(vm.titulo)" collapsible="false" style="margin-bottom:10px; overflow:auto;"
 					border="normal">
 				<panelchildren>
@@ -42,10 +42,10 @@
 							</rows>								
 						</grid>
 						
-				 <groupbox mold="3d" height="95%" width="98%" closable="false" sclass="divTabla">
+				 <groupbox mold="3d" height="80%" width="98%" closable="false" sclass="divTabla">
                     <caption image="/img/list.png" label="Notificaciones" />
 						
-						<grid width="98%" height="98%" style="border:0" oddRowSclass="row2">
+						<grid width="98%" height="93%" style="border:0" oddRowSclass="row2">
 							<columns>
 								<column width="30%" />
 								<column width="20%" />
@@ -95,7 +95,7 @@
 								</row>
 								<row>
 									<cell align="left" colspan="3">
-										<textbox disabled="true" sclass="textboxUpperCase" id="descripcionMensajeSalida" value="@load(vm.strDescripcionMensajeSalida)" rows="6" width="370px;" tabindex="11" />
+										<textbox disabled="true" sclass="textboxUpperCase" id="descripcionMensajeSalida" value="@load(vm.strDescripcionMensajeSalida)" rows="6" width="95%" tabindex="11" />
 									</cell>
 									<cell align="right">
 									</cell>
