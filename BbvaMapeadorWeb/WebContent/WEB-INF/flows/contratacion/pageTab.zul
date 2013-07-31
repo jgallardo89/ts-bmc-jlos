@@ -8,12 +8,12 @@
 		viewModel="@id('vm') @init('mx.com.bbva.mapeador.ui.commons.viewmodel.contratacion.FlujoContratacionController')"
 		id="contratacionTabWindows">
 		<include src="../../pages/styles.zul" />
-		<div sclass="BODY" height="100%">
-			<panel width="100%" height="100%" sclass="sectionPanelTitle" id="datosContratacion"
-					title="@load(vm.titulo)" collapsible="false" style="margin-bottom:10px"
+		<div height="100%" sclass="BODY">
+			<panel width="100%" height="98%" sclass="sectionPanelTitle" id="datosContratacion"
+					title="@load(vm.titulo)" collapsible="false" style="margin-bottom:10px; overflow:auto;"
 					border="normal">
 				<panelchildren>
-					<div align="center" height="98%">
+					<div align="center" height="99%" sclass="divTabla">
 						<grid width="100%" style="border:0" oddRowSclass="row2">
 							<columns>
 								<column width="20%" />
@@ -42,7 +42,7 @@
 							</rows>								
 						</grid>
 						
-				 <groupbox mold="3d" height="95%" width="98%" closable="false">
+				 <groupbox mold="3d" height="95%" width="98%" closable="false" sclass="divTabla">
                     <caption image="/img/list.png" label="Notificaciones" />
 						
 						<grid width="98%" height="98%" style="border:0" oddRowSclass="row2">
