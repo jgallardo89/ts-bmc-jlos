@@ -108,7 +108,7 @@
 												<div align="right">
 													<label id="lblLote" width="100%" sclass="labelFill" value="Lote: "></label>												
 												</div>
-												<textbox sclass="textboxUpperCase" maxlength="5" constraint="/^[0-9]*$/: Por favor ingresa números"
+												<textbox sclass="textboxUpperCase" maxlength="8" constraint="/^[0-9]*$/: Por favor ingresa números"
 													id="lote" value="@load(vm.strLote)" width="100%"></textbox>
 											</row>																							
 										</rows>								
