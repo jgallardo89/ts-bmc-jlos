@@ -123,6 +123,13 @@
 		and canal.cd_canal  = cn.cd_canal
 		and cliente.cd_cliente  = cn.cd_cliente
 		and producto.cd_producto  = cn.cd_producto
+		<!--if test="estados != null">
+				AND stp.CD_ST_MAPEADOR IN
+			<foreach item="item" index="index" collection="estados"
+	             open="(" separator="," close=")">
+	        		#{item}
+	   		</foreach>
+	   	</if-->
 		<if test="idCanal != null and idCanal != 0">
 			AND cn.CD_CANAL = #{idCanal}
 		</if>		
@@ -162,7 +169,7 @@
 		  cn.cd_producto idProducto,
 		  stp.cd_etapa idEtapa,
 		  stp.cd_flujo idFlujo,
-		  stp.fh_st_proceso fechaStatusProceso,
+		  stp.tm_st_proceso_ini fechaStatusProceso,
 		  stp.nu_lote numeroLote,
 		  eta.nb_etapa nombreEtapa,
 		  stp.cd_Reg_Arch_Entra idRegArchEntra,
@@ -186,13 +193,13 @@
 		and cn.cd_producto = #{idProducto}
 		and stp.nu_lote = #{numeroLote}
 		and to_char(stp.fh_st_proceso,'dd/MM/yyyy') = to_char(#{fechaStatusProceso},'dd/MM/yyyy')		
-		<if test="estados != null">
+		<!--if test="estados != null">
 				AND stp.CD_ST_MAPEADOR IN
 			<foreach item="item" index="index" collection="estados"
 	             open="(" separator="," close=")">
 	        		#{item}
 	   		</foreach>
-	   	</if>	   	
+	   	</if-->	   	
 		ORDER BY cn.cd_canal,
 		  cn.cd_cliente,
 		  cn.cd_producto,
