@@ -105,6 +105,8 @@ public class MonitoreoProcesosController extends ControllerSupport implements  I
 	private MonitoreoProcesosDTO monitoreoProcesosDTOUpdate;
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
+
+	int []arregloEstados;
 	
 	/** The btn guardar. */
 	private boolean btnGuardar;
@@ -388,20 +390,42 @@ public class MonitoreoProcesosController extends ControllerSupport implements  I
 			monitoreoProcesosVOsEstatus = ((MonitoreoProcesosDTO)monitoreoProcesosBO.readCommand(monitoreoProcesosDTOEstatusProceso)).getMonitoreoProcesosVOs();
 			estatusProceso = obtieneEstatusProceso(monitoreoProcesosVOsEstatus);
 			monitoreoProcesosVO.setIdEstatusMapeador(estatusProceso);
-			armaRegistroNivel1(monitoreoProcesosVO,monitoreoProcesosDTO.getTipoReporte());
-			armaEncabezadoNivel1();
-			monitoreoProcesosDTOProductos.setCommandId(CommandConstants.PROCESOS_ARCHIVOS);
-			monitoreoProcesosVOProductos = new MonitoreoProcesosVO();
-			monitoreoProcesosVOProductos.setIdCanal(monitoreoProcesosVO.getIdCanal());
-			monitoreoProcesosVOProductos.setIdCliente(monitoreoProcesosVO.getIdCliente());
-			monitoreoProcesosVOProductos.setIdProducto(monitoreoProcesosVO.getIdProducto());
-			monitoreoProcesosVOProductos.setNumeroLote(monitoreoProcesosVO.getNumeroLote());
-			monitoreoProcesosVOProductos.setFechaStatusProceso(monitoreoProcesosVO.getFechaStatusProceso());			
-			monitoreoProcesosDTOProductos.setMonitoreoProcesosVO(monitoreoProcesosVOProductos);
-			monitoreoProcesosDTOProductos.getMonitoreoProcesosVO().setEstados(monitoreoProcesosDTO.getMonitoreoProcesosVO().getEstados());
-			monitoreoProcesosVOsProductos = ((MonitoreoProcesosDTO)monitoreoProcesosBO.readCommand(monitoreoProcesosDTOProductos)).getMonitoreoProcesosVOs();
-			logger.debug("monitoreoProcesosVOsProductos:"+monitoreoProcesosVOsProductos.size());
-			armaHijos(monitoreoProcesosVOsProductos);
+			if(arregloEstados!=null){
+				for (int arregloEstado : arregloEstados) {
+					if(arregloEstado == estatusProceso){
+						armaRegistroNivel1(monitoreoProcesosVO,monitoreoProcesosDTO.getTipoReporte());
+						armaEncabezadoNivel1();
+						monitoreoProcesosDTOProductos.setCommandId(CommandConstants.PROCESOS_ARCHIVOS);
+						monitoreoProcesosVOProductos = new MonitoreoProcesosVO();
+						monitoreoProcesosVOProductos.setIdCanal(monitoreoProcesosVO.getIdCanal());
+						monitoreoProcesosVOProductos.setIdCliente(monitoreoProcesosVO.getIdCliente());
+						monitoreoProcesosVOProductos.setIdProducto(monitoreoProcesosVO.getIdProducto());
+						monitoreoProcesosVOProductos.setNumeroLote(monitoreoProcesosVO.getNumeroLote());
+						monitoreoProcesosVOProductos.setFechaStatusProceso(monitoreoProcesosVO.getFechaStatusProceso());			
+						monitoreoProcesosDTOProductos.setMonitoreoProcesosVO(monitoreoProcesosVOProductos);
+						monitoreoProcesosDTOProductos.getMonitoreoProcesosVO().setEstados(monitoreoProcesosDTO.getMonitoreoProcesosVO().getEstados());
+						monitoreoProcesosVOsProductos = ((MonitoreoProcesosDTO)monitoreoProcesosBO.readCommand(monitoreoProcesosDTOProductos)).getMonitoreoProcesosVOs();
+						logger.debug("monitoreoProcesosVOsProductos:"+monitoreoProcesosVOsProductos.size());
+						armaHijos(monitoreoProcesosVOsProductos);
+						break;
+					}
+				}
+			}else{
+				armaRegistroNivel1(monitoreoProcesosVO,monitoreoProcesosDTO.getTipoReporte());
+				armaEncabezadoNivel1();
+				monitoreoProcesosDTOProductos.setCommandId(CommandConstants.PROCESOS_ARCHIVOS);
+				monitoreoProcesosVOProductos = new MonitoreoProcesosVO();
+				monitoreoProcesosVOProductos.setIdCanal(monitoreoProcesosVO.getIdCanal());
+				monitoreoProcesosVOProductos.setIdCliente(monitoreoProcesosVO.getIdCliente());
+				monitoreoProcesosVOProductos.setIdProducto(monitoreoProcesosVO.getIdProducto());
+				monitoreoProcesosVOProductos.setNumeroLote(monitoreoProcesosVO.getNumeroLote());
+				monitoreoProcesosVOProductos.setFechaStatusProceso(monitoreoProcesosVO.getFechaStatusProceso());			
+				monitoreoProcesosDTOProductos.setMonitoreoProcesosVO(monitoreoProcesosVOProductos);
+				monitoreoProcesosDTOProductos.getMonitoreoProcesosVO().setEstados(monitoreoProcesosDTO.getMonitoreoProcesosVO().getEstados());
+				monitoreoProcesosVOsProductos = ((MonitoreoProcesosDTO)monitoreoProcesosBO.readCommand(monitoreoProcesosDTOProductos)).getMonitoreoProcesosVOs();
+				logger.debug("monitoreoProcesosVOsProductos:"+monitoreoProcesosVOsProductos.size());
+				armaHijos(monitoreoProcesosVOsProductos);
+			}
 		}			
 	}
 	public int obtieneEstatusProceso(List<MonitoreoProcesosVO> monitoreoProcesosVOsEstatus){
@@ -1388,7 +1412,7 @@ public class MonitoreoProcesosController extends ControllerSupport implements  I
 			monitoreoProcesosVO.setFechaInicio(dateFormat.format(fechaInicio.getValue()));
 			monitoreoProcesosVO.setFechaFin(dateFormat.format(fechaFin.getValue()));
 			ArrayList<Integer> estados = new ArrayList<Integer>();
-			int []arregloEstados;
+			
 			if(!todos.isChecked()) {
 				if(exito.isChecked()) {
 					estados.add(CommandConstants.PROCESO_EXITO_VERDE);
@@ -1416,6 +1440,8 @@ public class MonitoreoProcesosController extends ControllerSupport implements  I
 					logger.info(arregloEstados.toString());
 					monitoreoProcesosVO.setEstados(arregloEstados);
 				}
+			}else{
+				
 			}
 			
 			monitoreoProcesosDTO.setMonitoreoProcesosVO(monitoreoProcesosVO);
