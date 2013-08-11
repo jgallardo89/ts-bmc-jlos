@@ -841,7 +841,7 @@ public class MonitoreoProcesosController extends ControllerSupport implements  I
 		ArrayList<BeanGenerico> beanGenericos = new ArrayList<BeanGenerico>();
 		BeanGenerico beanGenerico = null;
 		DateFormat dateFormatFecha = new SimpleDateFormat("dd-MM-yyyy");
-		DateFormat dateFormatHora = new SimpleDateFormat("hh:mm:ss");
+		DateFormat dateFormatHora = new SimpleDateFormat("HH:mm:ss");
 		for(MonitoreoProcesosVO monitoreoProcesosVO: monitoreoProcesosVOs1) {
 			beanGenerico = new BeanGenerico();
 			beanGenerico.setValor1(monitoreoProcesosVO.getNombreCanal());
