@@ -48,7 +48,8 @@
 		  pantalla.NB_PANTALLA nombrePantalla,
 		  Componente.Cd_Componente idComponente,
 		  Componente.Nb_Componente nombreComponente,
-		  componente.cd_default iddefault
+		  componente.cd_default iddefault,
+		  concat(pantalla.nb_pantalla, concat('--',componente.Nb_Componente)) nombrePantallaComponente
 		FROM tgm502_componente componente,
 		  tgm501_pantalla pantalla
 		WHERE Componente.Cd_Default = 'F'
@@ -61,11 +62,14 @@
 		  Componente.Cd_Componente idComponente,
 		  Componente.Nb_Componente nombreComponente,
 		  Pantalla.nb_Pantalla nombrePantalla,
-		  Componente.Cd_Default idDefault
+		  Componente.Cd_Default idDefault,
+		  concat(substr(pd.nb_pantalla,0,3),concat('--',pantalla.nb_pantalla)) nombrePantallaCompuesto
 		FROM tgm502_componente componente,
 		  tgm505_ctrlpermiso control,
-		  tgm501_pantalla Pantalla
+		  tgm501_pantalla Pantalla,
+		  TGM501_PANTALLA PD
 		WHERE componente.cd_default = 'F'
+		AND PD.CD_PANTALLA = Pantalla.CD_PANTALLA_PADRE
 		AND pantalla.cd_pantalla    = Componente.Cd_Pantalla
 		AND Control.Cd_Componente   = componente.cd_componente    	    	
     	And Control.Cd_Perfil = #{idPerfil}
@@ -77,13 +81,16 @@
 		SELECT Componente.Cd_Pantalla idPantalla,
 		  Componente.Cd_Componente Idcomponente,
 		  Pantalla.nb_Pantalla,
-		  Concat(Pantalla.nb_Pantalla,Concat('--', Componente.Nb_Componente)) nombreComponente,
+		  concat(substr(pd.nb_pantalla,0,3),concat('--',Concat(Pantalla.nb_Pantalla,Concat('--', Componente.Nb_Componente)))) nombreComponente,
 		  Componente.Cd_Default Iddefault,
-		  Pantalla.Nb_Pantalla pantalla
+		  Pantalla.Nb_Pantalla pantalla,
+		  concat(substr(pd.nb_pantalla,0,3),concat('--',pantalla.nb_pantalla)) nombrePantallaCompuesto
 		FROM Tgm502_Componente Componente,
 		  Tgm505_Ctrlpermiso Control,
-		  Tgm501_Pantalla pantalla
+		  Tgm501_Pantalla pantalla,
+		  TGM501_PANTALLA PD
 		WHERE Componente.Cd_Default = 'F'
+		AND PD.CD_PANTALLA = Pantalla.CD_PANTALLA_PADRE
 		AND Control.Cd_Componente   = Componente.Cd_Componente
 		AND Pantalla.Cd_Pantalla    = Componente.Cd_Pantalla    	    
     	And Control.Cd_Perfil = #{idPerfil}
@@ -121,12 +128,16 @@
 			  Componente.Cd_Componente idComponente,
 			  Componente.Nb_Componente nombreComponente,
 			  Componente.Cd_Default idDefault,
-			  Pantalla.Nb_Pantalla nombrePantalla
+			  Pantalla.Nb_Pantalla nombrePantalla,
+			  concat(pantalla.nb_pantalla, concat('--',componente.Nb_Componente)) nombrePantallaComponente,
+			  concat(substr(pd.nb_pantalla,0,3),concat('--',pantalla.nb_pantalla)) nombrePantallaCompuesto
 			FROM Tgm502_Componente Componente,
 			  Tgm505_Ctrlpermiso Control,
 			  Tgm501_Pantalla Pantalla,
+			  TGM501_PANTALLA PD,
 	      Tgm504_Perfil Perfil
 			WHERE Componente.Cd_Default = 'F'
+			AND PD.CD_PANTALLA = Pantalla.CD_PANTALLA_PADRE
 			And Control.Cd_Componente   = Componente.Cd_Componente
 	    AND Perfil.Cd_Perfil = Control.Cd_Perfil
 			AND Pantalla.Cd_Pantalla    = Componente.Cd_Pantalla    	    
