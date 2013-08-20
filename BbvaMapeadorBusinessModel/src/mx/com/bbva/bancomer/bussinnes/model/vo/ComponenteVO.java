@@ -49,6 +49,38 @@ public class ComponenteVO extends BbvaAbstractValueObject {
 	/** The id default. */
 	public String idDefault;
 	
+	public String nombrePantallaComponente;
+	
+	public String nombrePantallaCompuesto;
+	
+	/**
+	 * @return the nombrePantallaCompuesto
+	 */
+	public final String getNombrePantallaCompuesto() {
+		return nombrePantallaCompuesto;
+	}
+
+	/**
+	 * @param nombrePantallaCompuesto the nombrePantallaCompuesto to set
+	 */
+	public final void setNombrePantallaCompuesto(String nombrePantallaCompuesto) {
+		this.nombrePantallaCompuesto = nombrePantallaCompuesto;
+	}
+
+	/**
+	 * @return the nombrePantallaComponente
+	 */
+	public final String getNombrePantallaComponente() {
+		return nombrePantallaComponente;
+	}
+
+	/**
+	 * @param nombrePantallaComponente the nombrePantallaComponente to set
+	 */
+	public final void setNombrePantallaComponente(String nombrePantallaComponente) {
+		this.nombrePantallaComponente = nombrePantallaComponente;
+	}
+
 	/** The id pantalla. */
 	public long idPantalla;	
 	
