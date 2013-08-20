@@ -2,7 +2,7 @@
 <?page image="/img/bancomer2.jpg" title="Mapeador" contentType="text/html;charset=UTF-8"?>
 <?meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7"?>
 <?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
-<zk>	
+<zk xmlns:n="native">	
 	<include src="../../pages/styles.zul" />
     <style>   
          .breeze .complex-layout, .breeze .complex-layout .z-south,
@@ -17,12 +17,10 @@
         font-size: 14px;
         color: #0047B6;         
         } 
-        .complex-layout-header-ax { 
-        position:relative; 
-        top: -22px; 
-        padding-left: 800px; 
+        .complex-layout-header-mapeador {         
         font-size: 14px;
         color: #0047B6;         
+        vertical-align: middle;        
         } 
         .inner-border, .inner-border
         .z-north, .inner-border .z-west, .inner-border .z-south,
@@ -32,17 +30,30 @@
     
     <div apply="org.zkoss.bind.BindComposer"
 			viewModel="@id('vm') @init('mx.com.bbva.mapeador.ui.viewmodel.menu.MenuController')"
-			sclass="BODY">
-        <borderlayout sclass="complex-layout" height="810px">
-            <north size="70px" border="0">
-                <div>                   
-                    <image  width="15%" src="/img/logo_comun.png" />                    
-              		<label sclass="complex-layout-header-label" value="@load(vm.name)" width="60%" />              		             		    	
-              		<div sclass="barraHorizontal" align="right">              			
+			sclass="BODY" width="100%">			
+        <borderlayout sclass="complex-layout" height="810px" width="100%">
+        	<north>
+        		<anchorlayout width="100%">
+           		<anchorchildren width="100%">
+					<n:table border="0" cellspacing="0" cellpadding="0">
+			            <n:tr>
+			                <n:td>
+			                	<image src="/img/logo_comun.png" />
+			                </n:td>
+			                <n:td width="90%">
+			                	<div align="right">
+			                		<label value="@load(vm.name)" sclass="complex-layout-header-mapeador"/>
+			                	</div>	
+			                </n:td>				            
+			            </n:tr>				            
+		        	</n:table>            			      
+          			    <div sclass="barraHorizontal" align="right" width="100%">              			
               			<a label="Cerrar Sesión" href="https://localhost/pkmslogout.form" ></a>               			
-              		</div>              		              	
-                </div>                 
-            </north>
+              		</div>
+              		
+           		</anchorchildren>
+           	</anchorlayout>
+        	</north>            
             <!-- Sidebar -->                       
             <west width="15%" border="0"  splittable="true" 
                 margins="0,5,0,0" style="background: #FFFFFF">                

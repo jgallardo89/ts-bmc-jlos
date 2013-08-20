@@ -71,12 +71,10 @@
 															<div align="center">																		
 																<listbox id="componentesPantalla" height="150px" model="@load(vm.componentePantallaDTO.componentePantallaVOs)">														
 																	<listhead>
-																		<listheader>																
-																			<label value="Componentes Pantalla:"></label>																
-																		</listheader>																										
+																		<listheader label="Componentes Pantalla:"/>																																																																																		
 																	</listhead>
 																	<template name="model">
-															            <listitem value="@load(each.idComponente)" label="@load(each.nombreComponente)"/>												            													            													                												              												            
+															            <listitem value="@load(each.idComponente)" label="@load(each.nombrePantallaComponente)"/>												            													            													                												              												            
 															        </template>		
 																</listbox>
 															</div>
@@ -101,7 +99,7 @@
 																	<template name="model">																
 															            <listitem value="@load(each.idComponente)">
 															            	<listcell>
-															            		<label value="@load(each.nombrePantalla)"/>
+															            		<label value="@load(each.nombrePantallaCompuesto)"/>
 															            	</listcell>
 															            	<listcell>
 															            		<label value="@load(each.nombreComponente)"/>

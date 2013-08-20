@@ -599,7 +599,7 @@ public class PerfilController extends ControllerSupport implements  IController{
 					componenteVOs.add(componenteVO2);
 				}
 			}
-			componentePantallaDTO.setComponentePantallaVOs(componenteVOs);
+			componentePantallaDTO.setComponentePantallaVOs(componenteVOs);			
 		}
 	}
 	

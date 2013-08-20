@@ -55,7 +55,7 @@
 				</columns>				
         		<template name="model">
 					<row>																
-						<label hflex="1" value="@load(each.nombrePantalla)"></label>																		
+						<label hflex="1" value="@load(each.nombrePantallaCompuesto)"></label>																		
 						<label hflex="1" value="@load(each.nombreComponente)"></label>																																		
 					</row>				
 				</template>									
