@@ -38,8 +38,41 @@
 			</if>	
 			<if test="desdePerfiles != 0">
 				AND (select count(*) from tgm502_componente com where com.cd_pantalla = p.cd_pantalla) > 0
+			</if>				
+			<if test="rol!=1">
+				minus( 
+				SELECT P.CD_PANTALLA idPantalla,
+				  P.CD_PANTALLA_PADRE idPantallaPadre,
+				  P.NB_PANTALLA nombrePantalla,
+				  P.TX_URL_PANTALLA descripcionUrlPantalla,
+				  P.TX_URL_ICON descripcionUrlIcon,
+				  P.NU_ORD_PANTALLA numeroOrdenPantalla,
+				  P.ST_PANTALLA estatusPantalla,
+				  PD.NB_PANTALLA nombrePantallaPadre,
+				  O.NB_ST_OBJETO AS nombreEstatusObjeto
+				FROM TGM501_PANTALLA P,
+				  TGM501_PANTALLA PD,
+				  TGM534_ST_OBJETO O
+				WHERE PD.CD_PANTALLA = P.CD_PANTALLA_PADRE
+				AND p.st_pantalla    = o.cd_st_objeto  
+				and p.cd_pantalla = 26
+				union
+				SELECT P.CD_PANTALLA idPantalla,
+				  P.CD_PANTALLA_PADRE idPantallaPadre,
+				  P.NB_PANTALLA nombrePantalla,
+				  P.TX_URL_PANTALLA descripcionUrlPantalla,
+				  P.TX_URL_ICON descripcionUrlIcon,
+				  P.NU_ORD_PANTALLA numeroOrdenPantalla,
+				  P.ST_PANTALLA estatusPantalla,
+				  PD.NB_PANTALLA nombrePantallaPadre,
+				  O.NB_ST_OBJETO AS nombreEstatusObjeto
+				FROM TGM501_PANTALLA P,
+				  TGM501_PANTALLA PD,
+				  TGM534_ST_OBJETO O
+				WHERE PD.CD_PANTALLA    = P.CD_PANTALLA_PADRE
+				AND p.st_pantalla       = o.cd_st_objeto
+				AND p.cd_pantalla_padre = 26) 
 			</if>
-				ORDER BY P.CD_PANTALLA
 	</select>
 	<insert id="crearPantalla" keyProperty="idPantalla" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.PantallaVO">
 		<selectKey keyProperty="idPantalla" resultType="int" order="BEFORE"> 
