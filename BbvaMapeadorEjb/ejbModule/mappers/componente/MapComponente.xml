@@ -49,10 +49,13 @@
 		  Componente.Cd_Componente idComponente,
 		  Componente.Nb_Componente nombreComponente,
 		  componente.cd_default iddefault,
-		  concat(pantalla.nb_pantalla, concat('--',componente.Nb_Componente)) nombrePantallaComponente
+		  concat(pantalla.nb_pantalla, concat('--',componente.Nb_Componente)) nombrePantallaComponente,
+		  concat(substr(pd.nb_pantalla,0,3),concat('--',pantalla.nb_pantalla)) nombrePantallaCompuesto
 		FROM tgm502_componente componente,
-		  tgm501_pantalla pantalla
+		  tgm501_pantalla pantalla,
+		  TGM501_PANTALLA PD
 		WHERE Componente.Cd_Default = 'F'
+		AND pd.cd_pantalla = pantalla.cd_pantalla_padre
 		AND componente.cd_pantalla  = #{idPantalla}
 		AND pantalla.cd_pantalla    = #{idPantalla}		    
 	</select>
