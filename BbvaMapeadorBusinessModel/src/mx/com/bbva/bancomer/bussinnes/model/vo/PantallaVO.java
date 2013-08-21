@@ -40,6 +40,22 @@ public class PantallaVO extends BbvaAbstractValueObject {
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 5820561995974556157L;
 	
+	private long rol;
+	
+	/**
+	 * @return the rol
+	 */
+	public final long getRol() {
+		return rol;
+	}
+
+	/**
+	 * @param rol the rol to set
+	 */
+	public final void setRol(long rol) {
+		this.rol = rol;
+	}
+
 	/** The descripcion url icon. */
 	private String descripcionUrlIcon;	
 	
