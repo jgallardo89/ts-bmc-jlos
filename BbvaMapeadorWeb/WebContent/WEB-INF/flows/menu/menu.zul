@@ -32,7 +32,7 @@
 			viewModel="@id('vm') @init('mx.com.bbva.mapeador.ui.viewmodel.menu.MenuController')"
 			sclass="BODY" width="100%">			
         <borderlayout sclass="complex-layout" height="810px" width="100%">
-        	<north>
+        	<north size="75px">
         		<anchorlayout width="100%">
            		<anchorchildren width="100%">
 					<n:table border="0" cellspacing="0" cellpadding="0">
