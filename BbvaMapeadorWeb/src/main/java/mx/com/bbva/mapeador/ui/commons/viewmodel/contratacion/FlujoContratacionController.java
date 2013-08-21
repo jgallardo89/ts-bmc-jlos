@@ -305,7 +305,8 @@ public class FlujoContratacionController extends Div implements IController, IdS
         	flagDisabled = false;
         	ArrayList<ContratacionMapVO> contratacionMapVOs = (ArrayList<ContratacionMapVO>) Sessions.getCurrent().getAttribute("contratacionMapVOs");
      		ContratacionMapVO contratacionMapVO = (ContratacionMapVO) contratacionMapVOs.get(Integer.parseInt(idStrTab)-1);
-     		contratacionMapVO.setEstatusNotificacion(Executions.getCurrent().getParameter("estatusNotificacion").charAt(0));
+     		System.out.println("******************** +++++ " + contratacionMapVO.getEstatusNotificacion());
+     		contratacionMapVO.setEstatusNotificacion(contratacionMapVO.getEstatusNotificacion());
      		contratacionMapVO.setValNotificacion(false);
      		contratacionMapVOs.set(Integer.parseInt(idStrTab)-1, contratacionMapVO);
      		Sessions.getCurrent().setAttribute("contratacionMapVOs", contratacionMapVOs);
@@ -661,6 +662,7 @@ public class FlujoContratacionController extends Div implements IController, IdS
 					if (i>0) {
 						descripcionIdUsuarios +="-";
 					}
+					descripcionIdUsuarios = descripcionIdUsuarios==null?"":descripcionIdUsuarios;
 					descripcionIdUsuarios +=  listaUsuarios.get(i).getIdUsuarioNotificado();
 				}
 			}
@@ -806,6 +808,7 @@ public class FlujoContratacionController extends Div implements IController, IdS
 									if (i>0) {
 										descripcionIdUsuarios +="-";
 									}
+									descripcionIdUsuarios = descripcionIdUsuarios.equals("null")?"":descripcionIdUsuarios;
 									descripcionIdUsuarios +=  listaUsuarios.get(i).getIdUsuarioNotificado();
 								}
 							}

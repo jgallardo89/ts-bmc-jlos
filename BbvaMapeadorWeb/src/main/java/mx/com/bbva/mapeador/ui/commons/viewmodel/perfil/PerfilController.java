@@ -538,6 +538,7 @@ public class PerfilController extends ControllerSupport implements  IController{
 		logger.debug("*pantallaVO*");
 		PantallaVO pantallaVO = new PantallaVO();
 		pantallaVO.setDesdePerfiles(CommandConstants.CONSULTA_PANTLLAS_CON_COMPOENTES);
+		pantallaVO.setRol(super.getSessionUser().getIdPerfil());
 		PantallaBO pantallaBO = new PantallaBO();
 		PantallaDTO pantallaDTO = new PantallaDTO();
 		pantallaDTO.setPantallaVO(pantallaVO);
