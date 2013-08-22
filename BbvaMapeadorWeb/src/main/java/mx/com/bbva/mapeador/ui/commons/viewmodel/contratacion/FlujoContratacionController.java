@@ -76,6 +76,8 @@ import org.zkoss.zul.Radiogroup;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
 
+import com.ibm.disthub2.impl.client.Logger;
+
 // TODO: Auto-generated Javadoc
 /**
  * The Class FlujoContratacionController.
@@ -84,7 +86,9 @@ public class FlujoContratacionController extends Div implements IController, IdS
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -7046754339941749911L;
-
+	
+	private boolean remove = false;
+	
 	/** The boton editar. */
 	private boolean botonEditar;
 	
@@ -656,14 +660,21 @@ public class FlujoContratacionController extends Div implements IController, IdS
 	
 	public String generaIdsUsuarios() {
 		List<UsuarioNotificacionVO> listaUsuarios = contratacionUsuariosDTO.getUsuarioNotificacionContrataMapVOs();
+		System.out.println("Cantidad de usuarios:"+contratacionUsuariosDTO.getUsuarioNotificacionContrataMapVOs());
+		
 		if(!listaUsuarios.isEmpty()) {
 			if(listaUsuarios!=null) {
 				for(int i = 0;i<listaUsuarios.size();i++) {
-					if (i>0) {
+					descripcionIdUsuarios = descripcionIdUsuarios==null?"":descripcionIdUsuarios;
+					if(descripcionIdUsuarios.contains("-"+listaUsuarios.get(i).getIdUsuarioNotificado()+"-")||
+							descripcionIdUsuarios.startsWith(listaUsuarios.get(i).getIdUsuarioNotificado()+"-")
+							){
+						//do nothing
+					}else{
+						System.out.println("descripcionIdUsuarios::::"+descripcionIdUsuarios);						
+						descripcionIdUsuarios +=  listaUsuarios.get(i).getIdUsuarioNotificado();
 						descripcionIdUsuarios +="-";
 					}
-					descripcionIdUsuarios = descripcionIdUsuarios==null?"":descripcionIdUsuarios;
-					descripcionIdUsuarios +=  listaUsuarios.get(i).getIdUsuarioNotificado();
 				}
 			}
 		} else {
@@ -731,6 +742,7 @@ public class FlujoContratacionController extends Div implements IController, IdS
 			contratacionUsuariosDTO.getUsuarioNotificacionContrataMapVOs().clear();
 			Sessions.getCurrent().setAttribute("flgCambio",true);
 			size = 0;
+			remove = true;
 			validaTamanio();
 			agregarUsuarios();
 		}
@@ -744,10 +756,18 @@ public class FlujoContratacionController extends Div implements IController, IdS
 	public void removeOne(){
 		if(!flagDisabled) {
 			if(usuariosNotificacionActivo.getSelectedIndex() != -1){
+				UsuarioNotificacionVO usuario = contratacionUsuariosDTO.getUsuarioNotificacionContrataMapVOs().get(usuariosNotificacionActivo.getSelectedIndex());
 				contratacionDTO.getUsuarioNotificacionVOs().add(contratacionUsuariosDTO.getUsuarioNotificacionContrataMapVOs().get(usuariosNotificacionActivo.getSelectedIndex()));
 				contratacionUsuariosDTO.getUsuarioNotificacionContrataMapVOs().remove(usuariosNotificacionActivo.getSelectedIndex());
-				size = contratacionUsuariosDTO.getUsuarioNotificacionContrataMapVOs().size();
-				Sessions.getCurrent().setAttribute("flgCambio",true);
+				size = contratacionUsuariosDTO.getUsuarioNotificacionContrataMapVOs().size();				
+				Sessions.getCurrent().setAttribute("flgCambio",true);				
+				if(descripcionIdUsuarios.contains("-"+usuario.getIdUsuarioNotificado()+"-")){
+					System.out.println("descripcionIdUsuarios::::"+descripcionIdUsuarios);
+					descripcionIdUsuarios = descripcionIdUsuarios.replace("-"+usuario.getIdUsuarioNotificado()+"-", "-");						
+				}else if(descripcionIdUsuarios.startsWith(usuario.getIdUsuarioNotificado()+"-")){
+					System.out.println("descripcionIdUsuarios::::"+descripcionIdUsuarios);
+					descripcionIdUsuarios = descripcionIdUsuarios.replace(usuario.getIdUsuarioNotificado()+"-", "");						
+				}											
 				validaTamanio();
 				agregarUsuarios();
 			}
