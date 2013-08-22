@@ -309,7 +309,7 @@ public class FlujoContratacionController extends Div implements IController, IdS
         	flagDisabled = false;
         	ArrayList<ContratacionMapVO> contratacionMapVOs = (ArrayList<ContratacionMapVO>) Sessions.getCurrent().getAttribute("contratacionMapVOs");
      		ContratacionMapVO contratacionMapVO = (ContratacionMapVO) contratacionMapVOs.get(Integer.parseInt(idStrTab)-1);
-     		System.out.println("******************** +++++ " + contratacionMapVO.getEstatusNotificacion());
+     		//System.out.println("******************** +++++ " + contratacionMapVO.getEstatusNotificacion());
      		contratacionMapVO.setEstatusNotificacion(contratacionMapVO.getEstatusNotificacion());
      		contratacionMapVO.setValNotificacion(false);
      		contratacionMapVOs.set(Integer.parseInt(idStrTab)-1, contratacionMapVO);
@@ -660,7 +660,7 @@ public class FlujoContratacionController extends Div implements IController, IdS
 	
 	public String generaIdsUsuarios() {
 		List<UsuarioNotificacionVO> listaUsuarios = contratacionUsuariosDTO.getUsuarioNotificacionContrataMapVOs();
-		System.out.println("Cantidad de usuarios:"+contratacionUsuariosDTO.getUsuarioNotificacionContrataMapVOs());
+		//System.out.println("Cantidad de usuarios:"+contratacionUsuariosDTO.getUsuarioNotificacionContrataMapVOs());
 		
 		if(!listaUsuarios.isEmpty()) {
 			if(listaUsuarios!=null) {
@@ -671,7 +671,7 @@ public class FlujoContratacionController extends Div implements IController, IdS
 							){
 						//do nothing
 					}else{
-						System.out.println("descripcionIdUsuarios::::"+descripcionIdUsuarios);						
+						//System.out.println("descripcionIdUsuarios::::"+descripcionIdUsuarios);						
 						descripcionIdUsuarios +=  listaUsuarios.get(i).getIdUsuarioNotificado();
 						descripcionIdUsuarios +="-";
 					}
@@ -762,11 +762,13 @@ public class FlujoContratacionController extends Div implements IController, IdS
 				size = contratacionUsuariosDTO.getUsuarioNotificacionContrataMapVOs().size();				
 				Sessions.getCurrent().setAttribute("flgCambio",true);				
 				if(descripcionIdUsuarios.contains("-"+usuario.getIdUsuarioNotificado()+"-")){
-					System.out.println("descripcionIdUsuarios::::"+descripcionIdUsuarios);
-					descripcionIdUsuarios = descripcionIdUsuarios.replace("-"+usuario.getIdUsuarioNotificado()+"-", "-");						
+					//System.out.println("descripcionIdUsuarios::::"+descripcionIdUsuarios);
+					descripcionIdUsuarios = descripcionIdUsuarios.replace("-"+usuario.getIdUsuarioNotificado()+"-", "-");
+					//System.out.println("descripcionIdUsuarios::::"+descripcionIdUsuarios);
 				}else if(descripcionIdUsuarios.startsWith(usuario.getIdUsuarioNotificado()+"-")){
-					System.out.println("descripcionIdUsuarios::::"+descripcionIdUsuarios);
-					descripcionIdUsuarios = descripcionIdUsuarios.replace(usuario.getIdUsuarioNotificado()+"-", "");						
+					//System.out.println("descripcionIdUsuarios::::"+descripcionIdUsuarios);
+					descripcionIdUsuarios = descripcionIdUsuarios.replace(usuario.getIdUsuarioNotificado()+"-", "");
+					//System.out.println("descripcionIdUsuarios::::"+descripcionIdUsuarios);
 				}											
 				validaTamanio();
 				agregarUsuarios();
