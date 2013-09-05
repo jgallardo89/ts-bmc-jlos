@@ -52,7 +52,8 @@
 				<if test="fechaModificacion != null">
 					AND to_char(CONTRATACION.TM_MODIFICACION,'dd-MM-yyyy') = to_char(#{fechaModificacion},'dd-MM-yyyy')
 				</if>
-				ORDER BY CONTRATACION.CD_CONTRATACION
+				ORDER BY CONTRATACION.TM_ALTA,
+					OBJETO.NB_ST_OBJETO
 	</select>
 	<select id="obtenerContratacionEtapas" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.ContratacionVO"
 		resultType="mx.com.bbva.bancomer.bussinnes.model.vo.ContratacionVO">

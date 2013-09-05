@@ -30,7 +30,9 @@
 				<if test="fechaInicio != null and fechaFin != null">    
 					AND to_date(CANAL.TM_ALTA ,'dd/MM/rrrr') BETWEEN to_date(#{fechaInicio},'dd/MM/rrrr') AND to_date(#{fechaFin},'dd/MM/rrrr')					
 				</if>
-				ORDER BY CD_CANAL
+				ORDER BY CANAL.NB_CANAL,
+						 CANAL.TM_ALTA,
+						 OBJETO.NB_ST_OBJETO
 	</select>
 	<insert id="crearCanal" keyProperty="idCanal" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.CanalVO">
 		<selectKey keyProperty="idCanal" resultType="int" order="BEFORE"> 

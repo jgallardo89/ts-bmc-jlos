@@ -41,7 +41,9 @@
 				<if test="fechaModificacion != null">
 					AND to_char(FLUJO.TM_MODIFICACION,'dd-MM-yyyy') = to_char(#{fechaModificacion},'dd-MM-yyyy')
 				</if>
-				ORDER BY FLUJO.CD_FLUJO
+				ORDER BY FLUJO.NB_FLUJO,
+				  FLUJO.TM_ALTA,
+				  OBJETO.NB_ST_OBJETO
 	</select>
 	<update id="actualizarFlujo" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.FlujoVO">
 	    UPDATE TGM513_FLUJO 

@@ -40,7 +40,9 @@
 		<if test="fechaModificacion != null">
 			AND to_char(PRODUCTO.TM_MODIFICACION,'dd-MM-yyyy') = to_char(#{fechaModificacion},'dd-MM-yyyy')
 		</if>
-		ORDER BY PRODUCTO.CD_PRODUCTO
+		ORDER BY PRODUCTO.NB_PRODUCTO,
+			PRODUCTO.TM_ALTA,
+			OBJETO.NB_ST_OBJETO
 	</select>
 	<insert id="crearProducto" keyProperty="idProducto" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.ProductoVO">
 		<selectKey keyProperty="idProducto" resultType="int" order="BEFORE"> 
