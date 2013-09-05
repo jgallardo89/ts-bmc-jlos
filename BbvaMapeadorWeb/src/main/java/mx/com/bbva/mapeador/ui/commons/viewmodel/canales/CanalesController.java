@@ -245,6 +245,10 @@ public class CanalesController extends ControllerSupport implements IController 
 		idEstatusObjeto.setValue(null);
 		btnGuardar = true;
 		flagClave = false;
+		
+		fechaFin.setButtonVisible(true);
+		fechaInicio.setButtonVisible(true);
+		
 	}
 	
 	/* (non-Javadoc)
@@ -418,6 +422,8 @@ public class CanalesController extends ControllerSupport implements IController 
 		fechaInicio.setValue(canalVO.getFechaAlta());
 		btnGuardar = false;
 		flagClave = true;
+		fechaFin.setButtonVisible(false);
+		fechaInicio.setButtonVisible(false);
 	}
 	
 	/**

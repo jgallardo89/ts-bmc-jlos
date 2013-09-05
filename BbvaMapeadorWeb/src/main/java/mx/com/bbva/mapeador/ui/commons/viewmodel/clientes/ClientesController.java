@@ -258,6 +258,9 @@ public class ClientesController extends ControllerSupport implements IController
 		nombreCortoCliente.setValue(null);
 		idCliente.setValue(null);
 		defaultValues();
+		
+		fechaAlta.setButtonVisible(true);
+		fechaModificacion.setButtonVisible(true);
 	}
 
 	/**
@@ -422,6 +425,9 @@ public class ClientesController extends ControllerSupport implements IController
 		
 		fechaAlta.setValue(clienteVO.getFechaAlta());
 		fechaModificacion.setValue(clienteVO.getFechaModificacion());
+		
+		fechaAlta.setButtonVisible(false);
+		fechaModificacion.setButtonVisible(false);
 	}
 
 	/**

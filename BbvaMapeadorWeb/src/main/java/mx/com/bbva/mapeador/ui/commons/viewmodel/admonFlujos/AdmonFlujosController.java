@@ -254,6 +254,8 @@ public class AdmonFlujosController extends ControllerSupport implements IControl
 		setFlagBtnGuardar(true);
 		fechaAlta.setValue(null);
 		fechaModificacion.setValue(null);
+		fechaAlta.setButtonVisible(true);
+		fechaModificacion.setButtonVisible(true);
 	}
 
 	/* (non-Javadoc)
@@ -436,6 +438,8 @@ public class AdmonFlujosController extends ControllerSupport implements IControl
 		fechaAlta.setValue(flujoVO.getFechaAlta());
 		fechaModificacion.setValue(flujoVO.getFechaModificacion());
 		setFlagBtnGuardar(false);
+		fechaAlta.setButtonVisible(false);
+		fechaModificacion.setButtonVisible(false);
 	}
 
 	/**

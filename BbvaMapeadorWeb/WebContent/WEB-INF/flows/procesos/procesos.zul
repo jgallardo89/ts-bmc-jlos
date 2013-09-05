@@ -77,19 +77,19 @@
 	   												 </columns>
 	    											<rows>
 												    	<row>
-	           										 		<checkbox onChange="selectedValueEstatusChechk()" id="todos" src="/img/u276_normal.png" onClick="@command('seleccionEstatus')"  value="1" disabled="false" label="TODOS"></checkbox>
+	           										 		<checkbox onCheck="selectedValueEstatusChechk()" id="todos" src="/img/u276_normal.png" onClick="@command('seleccionEstatus')"  value="1" disabled="false" label="TODOS"></checkbox>
 	       												</row>
 	       												<row>
-	           										 		<checkbox id="exito" src="/img/verde-exito.png" value="2" disabled="false" label="EXITO"></checkbox>
+	           										 		<checkbox onCheck="selectedValueCheck()"  id="exito" src="/img/verde-exito.png" value="2" disabled="false" label="EXITO"></checkbox>
 	       												</row>
 	       												<row>
-	           										 		<checkbox id="error" src="/img/error-rojo.png" value="3" disabled="false" label="ERROR"></checkbox>
+	           										 		<checkbox onCheck="selectedValueCheck()" id="error" src="/img/error-rojo.png" value="3" disabled="false" label="ERROR"></checkbox>
 	       												</row>
 	       												<row>
-	           										 		<checkbox id="finaliza" src="/img/azul-finalizausuario.png" value="4" disabled="false" label="FINALIZA USUARIO" ></checkbox>
+	           										 		<checkbox onCheck="selectedValueCheck()" id="finaliza" src="/img/azul-finalizausuario.png" value="4" disabled="false" label="FINALIZA USUARIO" ></checkbox>
 	       												</row>
 	       												<row>
-	           										 		<checkbox id="espera" src="/img/amarillo-espera.png" value="5" disabled="false" label="ESPERA"></checkbox>
+	           										 		<checkbox onCheck="selectedValueCheck()" id="espera" src="/img/amarillo-espera.png" value="5" disabled="false" label="ESPERA"></checkbox>
 	       												</row>
 		   											</rows>
 											    </grid>																	
@@ -188,6 +188,10 @@
 					idEstatus.setValue(null);
 				}
 			}
+			
+			public void selectedValueCheck(){
+				todos.setChecked(false);
+			} 
 		</zscript>		
 	</window>
 </zk>

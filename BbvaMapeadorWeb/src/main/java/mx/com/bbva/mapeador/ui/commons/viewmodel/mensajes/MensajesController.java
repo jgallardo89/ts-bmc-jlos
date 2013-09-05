@@ -262,6 +262,8 @@ public class MensajesController extends ControllerSupport implements IController
 		fechaModificacion.setValue(null);
 		idMensajeSalida.setValue(null);
 		descripcionAsuntoSalida.setValue(null);
+		fechaAlta.setButtonVisible(true);
+		fechaModificacion.setButtonVisible(true);
 	}
 
 	/* (non-Javadoc)
@@ -444,6 +446,8 @@ public class MensajesController extends ControllerSupport implements IController
 		fechaModificacion.setValue(mensajeSalidaVO.getFechaModificacion());
 		descripcionAsuntoSalida.setValue(mensajeSalidaVO.getDescripcionAsuntoSalida());
 		flagMensaje = true;
+		fechaAlta.setButtonVisible(false);
+		fechaModificacion.setButtonVisible(false);
 	}
 	
 	/**

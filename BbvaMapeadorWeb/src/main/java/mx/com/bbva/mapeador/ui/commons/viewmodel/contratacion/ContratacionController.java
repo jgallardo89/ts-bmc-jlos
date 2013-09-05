@@ -79,7 +79,6 @@ import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
-import org.zkoss.zk.ui.event.Events;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.Wire;
@@ -514,6 +513,8 @@ public class ContratacionController extends ControllerSupport implements IContro
 		botonGuardar = true;
 		botonEditar = true;
 		enabledComponents();
+		fechaAlta.setButtonVisible(true);
+		fechaModificacion.setButtonVisible(true);
 	}
 
 	/**
@@ -908,6 +909,8 @@ public class ContratacionController extends ControllerSupport implements IContro
 		this.contratacionVO = contratacionVO;
 		setBotonEditar(false);
 		botonGuardar = true;
+		fechaAlta.setButtonVisible(false);
+		fechaModificacion.setButtonVisible(false);
 	}
 
 	/**

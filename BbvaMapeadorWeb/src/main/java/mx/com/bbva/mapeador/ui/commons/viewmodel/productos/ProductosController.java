@@ -265,6 +265,9 @@ public class ProductosController extends ControllerSupport implements IControlle
 		
 		estatusObjeto.setValue(CommandConstants.NB_PRODUCTO_ACTIVO);
         idEstatusObjeto.setValue(String.valueOf(CommandConstants.ID_PRODUCTO_ACTIVO));
+        
+        fechaAlta.setButtonVisible(true);
+		fechaModificacion.setButtonVisible(true);
 	}
 	
 	
@@ -439,6 +442,8 @@ public class ProductosController extends ControllerSupport implements IControlle
 		fechaAlta.setValue(this.productoVO.getFechaAlta());
 		fechaModificacion.setValue(this.productoVO.getFechaModificacion());
 		flagEstatus = false;
+		fechaAlta.setButtonVisible(false);
+		fechaModificacion.setButtonVisible(false);
 	}
 
 	/**

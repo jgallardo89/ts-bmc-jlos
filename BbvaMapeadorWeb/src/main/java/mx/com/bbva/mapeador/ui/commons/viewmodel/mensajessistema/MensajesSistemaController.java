@@ -262,6 +262,8 @@ public class MensajesSistemaController extends ControllerSupport implements ICon
 		fechaModificacion.setValue(null);
 		idMensajeSalida.setValue(null);
 		descripcionAsuntoSalida.setValue(null);
+		fechaAlta.setButtonVisible(true);
+		fechaModificacion.setButtonVisible(true);
 	}
 
 	/* (non-Javadoc)
@@ -444,6 +446,8 @@ public class MensajesSistemaController extends ControllerSupport implements ICon
 		fechaModificacion.setValue(mensajeSalidaVO.getFechaModificacion());
 		descripcionAsuntoSalida.setValue(mensajeSalidaVO.getDescripcionAsuntoSalida());
 		flagMensaje = true;
+		fechaAlta.setButtonVisible(true);
+		fechaModificacion.setButtonVisible(true);
 	}
 	
 	/**

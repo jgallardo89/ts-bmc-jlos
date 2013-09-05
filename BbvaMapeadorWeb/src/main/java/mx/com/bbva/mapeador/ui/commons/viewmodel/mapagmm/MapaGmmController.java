@@ -269,6 +269,9 @@ public class MapaGmmController extends ControllerSupport implements IController 
 
 		fechaAlta.setValue(null);
 		fechaModificacion.setValue(null);
+		
+		fechaAlta.setButtonVisible(true);
+		fechaModificacion.setButtonVisible(true);
 	}
 
 	/*
@@ -580,6 +583,8 @@ public class MapaGmmController extends ControllerSupport implements IController 
 		fechaModificacion.setValue(mapaGmmVO.getFechaModificacion());
 		identificadorMapa.setDisabled(true);
 		btnGuardar = false;
+		fechaAlta.setButtonVisible(false);
+		fechaModificacion.setButtonVisible(false);
 	}
 
 	// Cambiar al objeto que pertenezca el componente en este caso mapaGmmVOs
