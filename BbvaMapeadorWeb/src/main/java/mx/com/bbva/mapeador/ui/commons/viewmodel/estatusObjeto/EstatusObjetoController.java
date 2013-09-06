@@ -240,8 +240,9 @@ public class EstatusObjetoController extends ControllerSupport implements IContr
 		pantallas.setValue(null);
 		nombreEstatusObjeto.setValue(null);
 		descripcionEstatusObjeto.setValue(null);
-		statusClave.setValue(CommandConstants.NB_ESTATUS_ACTIVO);
-		idEstatusClave.setValue("0");
+//		statusClave.setValue(CommandConstants.NB_ESTATUS_ACTIVO);
+		statusClave.setValue(null);
+//		idEstatusClave.setValue("0");
 		idPantalla.setValue(null);
 		idEstatusObjeto.setValue(null);
 		estatusObjetoVO = null;

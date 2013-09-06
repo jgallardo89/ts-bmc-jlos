@@ -256,8 +256,9 @@ public class MensajesController extends ControllerSupport implements IController
 		nombreMensajeSalida.setReadonly(false);
 		nombreMensajeSalida.setDisabled(false);
 		descripcionMensajeSalida.setValue(null);
-		statusObjeto.setValue(CommandConstants.NB_MENSAJE_ACTIVO);
-        idStrEstatusObjeto = String.valueOf(CommandConstants.ID_MENSAJE_ACTIVO);
+//		statusObjeto.setValue(CommandConstants.NB_MENSAJE_ACTIVO);
+		statusObjeto.setValue(null);
+//        idStrEstatusObjeto = String.valueOf(CommandConstants.ID_MENSAJE_ACTIVO);
         fechaAlta.setValue(null);
 		fechaModificacion.setValue(null);
 		idMensajeSalida.setValue(null);
