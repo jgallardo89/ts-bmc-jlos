@@ -295,7 +295,8 @@ public class PerfilController extends ControllerSupport implements  IController{
 		
 		nombrePerfil.setValue(null);
 		descripcionPerfil.setValue(null);
-		status.setValue(CommandConstants.NB_PERFIL_ACTIVO);
+//		status.setValue(CommandConstants.NB_PERFIL_ACTIVO);
+		status.setValue(null);
 		pantallas.setSelectedItem(null);		
 		idPerfil.setValue("0");
 		

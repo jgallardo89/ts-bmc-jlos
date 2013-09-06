@@ -221,9 +221,10 @@ public class UsuarioMapeadorController extends ControllerSupport implements ICon
 		nombreUsuario.clearErrorMessage();
 		
 		perfilesDisponibles.setValue(null);
-		status.setValue(CommandConstants.NB_USUARIO_ACTIVO);
+//		status.setValue(CommandConstants.NB_USUARIO_ACTIVO);
+		status.setValue(null);
 		idPerfil.setValue(null);
-		idEstatusObjeto.setValue(null);
+//		idEstatusObjeto.setValue(null);
 		identificadorUsuario.setValue(null);
 		nombreUsuario.setValue(null);
 		idUsuario.setValue(null);

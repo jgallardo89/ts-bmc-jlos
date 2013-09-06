@@ -216,7 +216,8 @@ public class UsuarioNotificacionController  extends ControllerSupport implements
 		email.clearErrorMessage();
 		
 		//Mensajes Setear a Null
-		status.setValue(CommandConstants.NB_USUARIO_NOTIFICACION_ACTIVO);
+//		status.setValue(CommandConstants.NB_USUARIO_NOTIFICACION_ACTIVO);
+		status.setValue(null);
 		nombreUsuario.setValue(null);
 		email.setValue(null); 
 		 

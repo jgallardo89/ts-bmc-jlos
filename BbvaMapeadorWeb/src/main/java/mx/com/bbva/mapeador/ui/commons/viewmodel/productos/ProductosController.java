@@ -260,11 +260,12 @@ public class ProductosController extends ControllerSupport implements IControlle
 		nombreProducto.setValue(null);
 		descripcionProducto.setValue(null);
 		estatusObjeto.setValue(null);
+		estatusObjeto.setValue(null);
 		flujo.setValue(null);
 		flagEstatus = true;
 		
-		estatusObjeto.setValue(CommandConstants.NB_PRODUCTO_ACTIVO);
-        idEstatusObjeto.setValue(String.valueOf(CommandConstants.ID_PRODUCTO_ACTIVO));
+//		estatusObjeto.setValue(CommandConstants.NB_PRODUCTO_ACTIVO);
+//        idEstatusObjeto.setValue(String.valueOf(CommandConstants.ID_PRODUCTO_ACTIVO));
         
         fechaAlta.setButtonVisible(true);
 		fechaModificacion.setButtonVisible(true);

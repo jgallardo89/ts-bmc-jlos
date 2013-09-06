@@ -211,7 +211,8 @@ public class UsuarioSistemaController  extends ControllerSupport implements ICon
 		status.clearErrorMessage();
 		nombreUsuario.clearErrorMessage();
 		email.clearErrorMessage();
-		status.setValue(CommandConstants.NB_USUARIO_NOTIFICACION_ACTIVO);
+//		status.setValue(CommandConstants.NB_USUARIO_NOTIFICACION_ACTIVO);
+		status.setValue(null);
 		//Mensajes Setear a Null		
 		nombreUsuario.setValue(null);
 		email.setValue(null); 

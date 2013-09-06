@@ -274,7 +274,8 @@ public class PantallaController extends ControllerSupport implements  IControlle
 		//Mensajes Setear a Null
 		pantallaPadre.setValue(null);
 		nombrePantalla.setValue(null);
-		status.setValue(CommandConstants.NB_PANTALLA_ACTIVO);
+		status.setValue(null);
+//		status.setValue(CommandConstants.NB_PANTALLA_ACTIVO);
 		url.setValue(null);
 		icono.setValue(null);
 		orden.setValue(null);
