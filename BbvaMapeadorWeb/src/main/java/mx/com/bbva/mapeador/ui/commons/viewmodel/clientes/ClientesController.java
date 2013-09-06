@@ -257,8 +257,8 @@ public class ClientesController extends ControllerSupport implements IController
 		nombreCliente.setValue(null);
 		nombreCortoCliente.setValue(null);
 		idCliente.setValue(null);
-		defaultValues();
-		
+		//defaultValues();
+		statusObjeto.setValue(null);
 		fechaAlta.setButtonVisible(true);
 		fechaModificacion.setButtonVisible(true);
 	}
