@@ -212,8 +212,8 @@ public class PerfilController extends ControllerSupport implements  IController{
     public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
         Selectors.wireComponents(view, this, false);        
         executePermissionSet = this.applyPermision();
-        status.setValue(CommandConstants.NB_PERFIL_ACTIVO);
-        strStatus = String.valueOf(CommandConstants.ESTATUS_PERFIL);
+//        status.setValue(CommandConstants.NB_PERFIL_ACTIVO);
+//        strStatus = String.valueOf(CommandConstants.ESTATUS_PERFIL);
     }
 	
 	/* (non-Javadoc)
@@ -525,7 +525,7 @@ public class PerfilController extends ControllerSupport implements  IController{
 		perfilDTO = new PerfilDTO();
 		perfilDTO.setCommandId(CommandConstants.ESTATUS_OBJETO);
 		PerfilVO perfilVO = new PerfilVO();
-		perfilVO.setEstatusPerfil(CommandConstants.ESTATUS_PERFIL);			
+//		perfilVO.setEstatusPerfil(CommandConstants.ESTATUS_PERFIL);			
 		logger.debug("*estatusObjetoVO*");
 		EstatusObjetoDTO estatusObjetoDTO = new EstatusObjetoDTO();
 		estatusObjetoDTO.setCommandId(CommandConstants.ESTATUS_OBJETO);

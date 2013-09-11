@@ -207,8 +207,8 @@ public class ProductosController extends ControllerSupport implements IControlle
     public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
         Selectors.wireComponents(view, this, false);        
         executePermissionSet = this.applyPermision();
-        estatusObjeto.setValue(CommandConstants.NB_PRODUCTO_ACTIVO);
-        idEstatusObjeto.setValue(String.valueOf(CommandConstants.ID_PRODUCTO_ACTIVO));
+//        estatusObjeto.setValue(CommandConstants.NB_PRODUCTO_ACTIVO);
+//        idEstatusObjeto.setValue(String.valueOf(CommandConstants.ID_PRODUCTO_ACTIVO));
     }
 	
 	/* (non-Javadoc)

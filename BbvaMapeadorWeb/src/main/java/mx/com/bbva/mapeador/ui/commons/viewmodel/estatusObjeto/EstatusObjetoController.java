@@ -199,7 +199,7 @@ public class EstatusObjetoController extends ControllerSupport implements IContr
 	@AfterCompose
     public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
         Selectors.wireComponents(view, this, false);
-        defaultValues();
+//        defaultValues();
     }
 
 	/* (non-Javadoc)

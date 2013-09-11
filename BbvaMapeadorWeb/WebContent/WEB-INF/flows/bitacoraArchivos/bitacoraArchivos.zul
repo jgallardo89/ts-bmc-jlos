@@ -57,7 +57,8 @@
 									</grid>
 									<div align="center">										
 										<image id="reporteExcelBtn" src="/img/xls.png" onClick="@command('onShowReport',type='xls')" sclass="buttonStyle"/>
-										<image id="reporteCsvBtn" src="/img/csv.png" onClick="@command('onShowReport',type='bbva.txt')" sclass="buttonStyle"/>											
+										<image id="reporteCsvBtn" src="/img/csv.png" onClick="@command('onShowReport',type='bbva.txt')" sclass="buttonStyle"/>		
+										<button sclass="button" image="/img/clear.png" label="Limpiar" id="limpiarBtn" onClick="@command('clean')" />									
 										<button sclass="button" image="/img/search.png" label="Consultar" id="consultarBtn" onClick="@command('readWithFilters')"/>										
 									</div>
 								</div>

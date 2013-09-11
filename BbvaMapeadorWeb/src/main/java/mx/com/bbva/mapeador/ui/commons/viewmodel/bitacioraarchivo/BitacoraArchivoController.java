@@ -201,9 +201,11 @@ public class BitacoraArchivoController extends ControllerSupport implements  ICo
 	@Override
 	@Command
 	public void clean() {
-		idBitacora.setValue(null);
 		idEventoMapeador.setValue(null);
-		nombreArchivo.setValue(null);
+		eventoMapeador.setValue(null);
+		nombreArchivo.setValue(null);		
+		fechaFin.setValue(null);
+		fechaInicio.setValue(null);
 	}
 	
 	/* (non-Javadoc)

@@ -224,8 +224,12 @@ public class BitacoraWebController extends ControllerSupport implements IControl
 	@Override
 	@Command
 	public void clean() {
-		idUsuario.setValue(null);
 		idEventoMapeador.setValue(null);
+		idUsuario.setValue(null);
+		tipoEvento.setValue(null);
+		usuario.setValue(null);
+		fechaFin.setValue(null);
+		fechaInicio.setValue(null);
 	}
 	
 	/* (non-Javadoc)
@@ -523,5 +527,6 @@ public class BitacoraWebController extends ControllerSupport implements IControl
     public void showModal() {
 		detalleBitacoraWindow.detach();
     }
+	
 	
 }

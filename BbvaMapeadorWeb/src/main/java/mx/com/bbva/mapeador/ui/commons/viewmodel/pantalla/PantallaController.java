@@ -227,8 +227,8 @@ public class PantallaController extends ControllerSupport implements  IControlle
     public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
         Selectors.wireComponents(view, this, false);   
         executePermissionSet = this.applyPermision();
-        status.setValue(CommandConstants.NB_PANTALLA_ACTIVO);
-        strIdEstatusObjeto = String.valueOf(CommandConstants.ESTATUS_OBJETO_COMBO_PANTALLAS);
+//        status.setValue(CommandConstants.NB_PANTALLA_ACTIVO);
+//        strIdEstatusObjeto = String.valueOf(CommandConstants.ESTATUS_OBJETO_COMBO_PANTALLAS);
     }
 	
 	/* (non-Javadoc)

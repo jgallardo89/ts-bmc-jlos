@@ -203,8 +203,8 @@ public class MensajesController extends ControllerSupport implements IController
     public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
         Selectors.wireComponents(view, this, false);   
         executePermissionSet = this.applyPermision();
-        statusObjeto.setValue(CommandConstants.NB_MENSAJE_ACTIVO);
-        idStrEstatusObjeto = String.valueOf(CommandConstants.ID_MENSAJE_ACTIVO);
+//        statusObjeto.setValue(CommandConstants.NB_MENSAJE_ACTIVO);
+//        idStrEstatusObjeto = String.valueOf(CommandConstants.ID_MENSAJE_ACTIVO);
         
     }
 	

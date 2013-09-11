@@ -207,7 +207,7 @@ public class ClientesController extends ControllerSupport implements IController
     public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
         Selectors.wireComponents(view, this, false);   
         executePermissionSet = this.applyPermision();
-        defaultValues();
+        //defaultValues();
     }
 	
 	/* (non-Javadoc)
@@ -443,7 +443,7 @@ public class ClientesController extends ControllerSupport implements IController
 		clienteVO.setIdIdentificador(StringUtil.validaLike(idIdentificador.getValue()));
 		clienteVO.setNombreCliente(StringUtil.validaLike(nombreCliente.getValue()));
 		clienteVO.setNombreCortoCliente(StringUtil.validaLike(nombreCortoCliente.getValue()));
-		clienteVO.setIdEstatusObjeto(Integer.parseInt(idEstatusObjeto.getValue().isEmpty()?"0":idEstatusObjeto.getValue()));
+		clienteVO.setIdEstatusObjeto(Integer.parseInt(statusObjeto.getSelectedItem()==null?"0":statusObjeto.getSelectedItem().getValue().toString()));
 				
 		clienteVO.setFechaAlta(fechaAlta.getValue());
 		clienteVO.setFechaModificacion(fechaModificacion.getValue());
