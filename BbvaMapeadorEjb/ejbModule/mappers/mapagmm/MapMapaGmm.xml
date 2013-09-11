@@ -32,8 +32,8 @@
 				AND M.CD_ST_OBJETO = #{idEstatusObjeto}
 			</if>	
 		ORDER BY M.NB_MAPA_GMM, 
-			M.TM_ALTA, 
-			O.NB_ST_OBJETO
+			O.NB_ST_OBJETO, 
+			M.TM_ALTA
 		
 	</select>
 	<insert id="crearMapaGmm" keyProperty="idMapaGmm" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.MapaGmmVO">

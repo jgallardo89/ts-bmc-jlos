@@ -37,8 +37,8 @@
 					AND to_char(CLIENTE.TM_MODIFICACION,'dd-MM-yyyy') = to_char(#{fechaModificacion},'dd-MM-yyyy')
 				</if>
 				ORDER BY CLIENTE.CD_IDENTIFICADOR,
-					CLIENTE.TM_ALTA,
-					OBJETO.NB_ST_OBJETO
+					OBJETO.NB_ST_OBJETO,
+					CLIENTE.TM_ALTA
 	</select>
 	<insert id="crearCliente" keyProperty="idCliente" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.ClienteVO">
 		<selectKey keyProperty="idCliente" resultType="int" order="BEFORE"> 

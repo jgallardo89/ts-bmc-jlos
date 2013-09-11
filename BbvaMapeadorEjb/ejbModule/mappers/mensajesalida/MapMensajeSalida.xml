@@ -40,8 +40,8 @@
 					AND to_char(MENSAJE.TM_MODIFICACION,'dd-MM-yyyy') = to_char(#{fechaModificacion},'dd-MM-yyyy')
 				</if>		
 				ORDER BY MENSAJE.NB_MENSAJE_SALIDA,
-					MENSAJE.TM_ALTA,
-					OBJETO.NB_ST_OBJETO
+					OBJETO.NB_ST_OBJETO,
+					MENSAJE.TM_ALTA
 	</select>
 	<insert id="crearMensajeSalida" keyProperty="idMensajeSalida" parameterType="mx.com.bbva.bancomer.bussinnes.model.vo.MensajeSalidaVO">
 		<selectKey keyProperty="idMensajeSalida" resultType="int" order="BEFORE"> 
