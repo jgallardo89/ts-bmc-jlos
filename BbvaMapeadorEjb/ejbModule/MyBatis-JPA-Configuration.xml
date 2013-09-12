@@ -14,7 +14,7 @@
         <environment id="local">
         	<transactionManager type = "JDBC"/>
         	<dataSource type="JNDI">                	
-                	<property  name="data_source" value="jdbc/MAPER"/>            	
+                	<property  name="data_source" value="jdbc/MAPEADOR"/>            	
                 </dataSource>
         </environment>
     </environments>    
