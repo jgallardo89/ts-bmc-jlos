@@ -106,6 +106,15 @@ public class UsuarioNotificacionVO extends mx.com.bbva.bancomer.commons.model.vo
 	}
 	
 	/**
+	 * Gets the descripcion email Upper.
+	 *
+	 * @return the descripcionEmail Upper
+	 */
+	public String getDescripcionEmailUpper() {
+		return descripcionEmail.toUpperCase();
+	}
+	
+	/**
 	 * Gets the descripcion id usuarios.
 	 *
 	 * @return the descripcionIdUsuarios
