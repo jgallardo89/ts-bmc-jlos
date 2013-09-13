@@ -234,7 +234,7 @@ public class MensajesController extends ControllerSupport implements IController
 		componentes.put(lblAsuntoMensaje.getId(), lblAsuntoMensaje);
 		componentes.put(descripcionAsuntoSalida.getId(), descripcionAsuntoSalida);
 		
-		super.applyPermission(MapeadorConstants.MENSAJES_SISTEMA, componentes);
+		super.applyPermission(MapeadorConstants.MENSAJES_NEGOCIO, componentes);
 		return isApplied;
 	}
 	
