@@ -19,7 +19,7 @@
 			AND UN.NB_USUA_NOTIFICADO LIKE  #{nombreUsuarioNotificado}
 		</if>
 		<if test="descripcionEmail != null">
-			AND UN.TX_EMAIL LIKE #{descripcionEmail}
+			AND UPPER(UN.TX_EMAIL) LIKE #{descripcionEmailUpper}
 		</if>
 		<if test="idEstatusObjeto != null and idEstatusObjeto != 0">
 			AND UN.CD_ST_OBJETO = #{idEstatusObjeto}
