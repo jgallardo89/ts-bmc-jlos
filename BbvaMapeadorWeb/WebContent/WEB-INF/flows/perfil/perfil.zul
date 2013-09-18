@@ -69,7 +69,7 @@
 													<cell  colspan="6" align="center">
 														<hbox>		
 															<div align="center">																		
-																<listbox id="componentesPantalla" height="150px" model="@load(vm.componentePantallaDTO.componentePantallaVOs)">														
+																<listbox width="340px" id="componentesPantalla" height="150px" model="@load(vm.componentePantallaDTO.componentePantallaVOs)">														
 																	<listhead>
 																		<listheader label="Componentes Pantalla:"/>																																																																																		
 																	</listhead>
@@ -87,7 +87,7 @@
 			   													</vbox>		
 			   												</div>
 			   												<div>
-			   													<listbox id="componentesPerfil" height="150px" model="@load(vm.componentePantallaPerfilDTO.componentePantallaPerfilVOs)">														
+			   													<listbox width="340px" id="componentesPerfil" height="150px" model="@load(vm.componentePantallaPerfilDTO.componentePantallaPerfilVOs)">														
 																	<listhead>
 																		<listheader>																																
 																			<label value="Pantalla:"/>
@@ -109,7 +109,7 @@
 																</listbox>																									
 															</div>	
 															<div>
-			   													<listbox id="componentesPerfilAll" height="150px" model="@load(vm.componentePantallaPerfilAllDTO.componentePantallaPerfilAllVOs)">														
+			   													<listbox width="340px" id="componentesPerfilAll" height="150px" model="@load(vm.componentePantallaPerfilAllDTO.componentePantallaPerfilAllVOs)">														
 																	<listhead>
 																		<listheader>																
 																			<label value="Componentes Pantalla - Perfil:"></label>																
